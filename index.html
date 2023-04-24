@@ -7,23 +7,23 @@
     <link href="css/main.css" rel="stylesheet" />
     <title>BulSu Alumni</title>
   </head>
-  <body>
-    <header class="bg-accent flex justify-between items-center px-2">
+  <body class="">
+    <header class="bg-white flex justify-between items-center px-12 py-8">
       <img
         class="w-16 h-full"
         src="./assets/bulsu-logo.png"
         alt="Bulcan State University Logo"
       />
       <div class="dropdown">
-        <ul class="flex gap-4 text-white">
-          <li><a href="">Home</a></li>
+        <ul class="flex gap-4 text-slate-500 font-bold">
+          <li><a class="text-accent" href="">Home</a></li>
           <li><a href="">Donation</a></li>
           <li><a href="">Alumni of the year</a></li>
         </ul>
       </div>
     </header>
     <div
-      class="text-white bg-black heading-container flex items-center justify-end bg-left-top bg-no-repeat bg-contain h-96"
+      class="text-white bg-black heading-container flex items-center justify-end bg-left-top bg-no-repeat bg-cover h-[35rem]"
     >
       <div class="heading-text">
         <h2 class="text-4xl italic">"Let's be connected"</h2>
@@ -32,24 +32,144 @@
       </div>
     </div>
 
-    <section>
-      <h2 class="text-xl font-neutral-800">Programs and Events</h2>
-
-      <div class="card w-64">
-        <div class="what">
-          <img src="./assets/event-images/01.png" alt="" />
-        </div>
-
-        <div class="">
-          <div class="container flex flex-col sm:flex-row space-x-6">
-            <p>Homecoming</p>
-            <span class="text-slate-500 text-sm">November 22, 2021</span>
+    <section class="container mx-auto">
+      <h2 class="text-3xl font-neutral-800 font-bold">Programs and Events</h2>
+      <!-- configure for mobile design -->
+      <div class="px-4 flex gap-x-4 p-8">
+        <div class="card w-64 mb-6 space-y-4">
+          <div class="">
+            <img
+              class="object-cover"
+              src="./assets/event-images/01.png"
+              alt=""
+            />
           </div>
+          <div class="">
+            <div class="flex flex-col sm:flex-row space-x-2">
+              <p class="text-slate-800">Homecoming</p>
+              <span class="text-slate-500">November 22, 2021</span>
+            </div>
+          </div>
+          <p class="text-slate-700">
+            Let's now gather for the homecoming event for the alumni
+          </p>
         </div>
-        <p mt-2 text-slate-500>
-          Let's now gather for the homecoming event for the alumni
-        </p>
+        <!-- card 2 -->
+        <div class="card w-64 mb-6 space-y-4">
+          <div class="">
+            <img
+              class="object-cover"
+              src="./assets/event-images/02.png"
+              alt=""
+            />
+          </div>
+          <div class="">
+            <div class="flex flex-col sm:flex-row space-x-2">
+              <p class="text-slate-800">Alumni Night Out</p>
+              <span class="text-slate-500">November 22, 2021</span>
+            </div>
+          </div>
+          <p class="text-slate-700">
+            Let's now gather for the homecoming event for the alumni
+          </p>
+        </div>
+        <!-- card 3 -->
+
+        <div class="card w-64 mb-6 space-y-4">
+          <div class="">
+            <img
+              class="object-cover"
+              src="./assets/event-images/03.png"
+              alt=""
+            />
+          </div>
+          <div class="">
+            <div class="flex flex-col sm:flex-row space-x-2">
+              <p class="text-slate-800">FireFox</p>
+              <span class="text-slate-500">January 05, 2023</span>
+            </div>
+          </div>
+          <p class="text-slate-700">
+            Let's now gather for the homecoming event for the alumni
+          </p>
+        </div>
       </div>
     </section>
+
+    <section class="container mx-auto">
+      <div class="flex flex-row justify-center">
+        <img class="w-[600px]" src="./assets/community.png" alt="" />
+        <div class="space-x-20 space-y-8 text-right">
+          <h2 class="font-bold text-3xl">BulSuan Community</h2>
+          <p class="max-w-prose text-justify">
+            No storm will make the Bulacan State University (BulSU) community
+            falter, especially in this time where our brothers and sisters need
+            help and care as different organizations of BulSU work hand-in-hand
+            to extend their love to those in need.
+          </p>
+          <button
+            class="btn-primary bg-accent px-8 py-3 rounded-lg text-white font-bold"
+          >
+            View Community
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container mx-auto">
+      <div class="flex flex-row">
+        <div>
+          <img src="./assets/donation.png" alt="" />
+        </div>
+        <div>
+          <h2>Donation</h2>
+          <p>
+            Help us to reach more people not only our university student but
+            also the one who's looking for help. Give a helping hand to provide
+            better community, and better nation.You can give donation for your
+            college to help them provide a better feature event for there
+            student and also for other alumni. You can also donate for the
+            university .
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container mx-auto">
+      <h2>Bulacan State University Alumni Calendar</h2>
+
+      <div>
+        <p>May 26</p>
+        <p>Alumni Homecoming</p>
+      </div>
+      <div>
+        <p>March 3</p>
+        <p>Fun Run</p>
+      </div>
+      <div>
+        <p>June 5</p>
+        <p>CICT Week</p>
+      </div>
+
+      <button>View Calendar</button>
+    </section>
+
+    <footer class="bg-accent text-white">
+      <div>
+        <h4>Contact Us</h4>
+        <ul>
+          <li>CICTBulsu@gmail.com</li>
+          <li>+63 942 315 9782</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Social Media</h4>
+        <ul>
+          <li>CICT BulSu</li>
+          <li>CICT BulSu</li>
+          <li>Thought CICT</li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>
