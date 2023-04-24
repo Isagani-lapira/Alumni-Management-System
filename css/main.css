@@ -818,6 +818,10 @@ video {
   width: 3rem;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .max-w-prose {
   max-width: 65ch;
 }
@@ -2131,6 +2135,11 @@ video {
   line-height: 1;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -2637,6 +2646,12 @@ video {
 
   .sm\:underline {
     text-decoration-line: underline;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:flex-row {
+    flex-direction: row;
   }
 }
 
