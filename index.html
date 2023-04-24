@@ -141,28 +141,50 @@
       </section>
     </div>
 
-    <section class="container mx-auto">
-      <div class="text">
-        <h2 class="text-3xl font-light text-slate-500">
+    <section class="container mx-auto text-center space-y-8 py-8">
+      <div class="text my-12">
+        <h2 class="text-3xl font-light text-slate-500 text-center">
           Bulacan State University Alumni
           <span class="text-accent text-3xl">Calendar</span>
         </h2>
       </div>
 
-      <div>
-        <p>May 26</p>
-        <p>Alumni Homecoming</p>
-      </div>
-      <div>
-        <p>March 3</p>
-        <p>Fun Run</p>
-      </div>
-      <div>
-        <p>June 5</p>
-        <p>CICT Week</p>
+      <div class="flex flex-row justify-around">
+        <div class="flex flex-col items-center">
+          <div
+            class="border-accent border-4 w-32 h-32 rounded-full flex items-center justify-center flex-col"
+          >
+            <div class="font-bold text-5xl text-slate-700">26</div>
+            <div>May</div>
+          </div>
+          <p class="font-bold">Alumni Homecoming</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div
+            class="border-accent border-4 w-32 h-32 rounded-full flex items-center justify-center flex-col"
+          >
+            <div class="font-bold text-5xl text-slate-700">3</div>
+            <div>March</div>
+          </div>
+          <p class="font-bold">Fun Run</p>
+        </div>
+        <div class="flex flex-col items-center">
+          <div
+            class="border-accent border-4 w-32 h-32 rounded-full flex items-center justify-center flex-col"
+          >
+            <div class="font-bold text-5xl text-slate-700">5</div>
+            <div>June</div>
+          </div>
+          <p class="font-bold">CICT Week</p>
+        </div>
       </div>
 
-      <button>View Calendar</button>
+      <button
+        class="btn-secondary bg-secondary px-8 py-3 rounded-lg text-white font-bold"
+      >
+        View Calendar
+      </button>
     </section>
 
     <footer class="bg-accent text-white px-32">
