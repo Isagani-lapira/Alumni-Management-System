@@ -5,10 +5,170 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/main.css" rel="stylesheet" />
+    <link href="/style/style.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Corinthia&family=Dancing+Script:wght@500&family=Exo+2:wght@700&family=Fasthand&family=Freehand&family=Montserrat:ital,wght@0,400;0,700;1,400;1,600;1,700;1,800&family=Poppins:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&family=Source+Sans+Pro:ital@1&display=swap"
+      rel="stylesheet"
+    />
+
     <title>University Admin</title>
   </head>
-  <!-- test -->
-  <body class="bg-accent">
-    <h1 class="text-3xl font-bold text-secondary">Hello wolrd</h1>
+
+  <body>
+    <div class="flex font-Montserrat">
+      <!-- side bar -->
+      <aside class="w-3/12 top-0 h-screen p-5">
+        <h1 class="font-extrabold text-18sm">
+          Alumni <span class="font-normal">System</span>
+        </h1>
+
+        <div class="content mt-20 w-4/5 text-xs">
+          <!-- dashboard -->
+          <div class="dashboard rounded-lg bg-accent p-2 cursor-pointer">
+            <img src="/images/dashboard-icon.svg" class="inline" />
+            <span class="font-bold text-white ml-3">DASHBOARD</span>
+          </div>
+
+          <!-- announcement -->
+          <div class="announcement rounded-lg p-2 my-2 cursor-pointer">
+            <img src="/images/announcement-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor">ANNOUNCEMENT</span>
+          </div>
+
+          <!-- analytics -->
+          <div class="analytics rounded-lg p-2 my-2 cursor-pointer">
+            <img src="/images/analytics-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor">REPORT</span>
+          </div>
+
+          <!-- accounts -->
+          <div class="account rounded-lg p-2 my-2 cursor-pointer">
+            <img src="/images/accounts-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor">ACCOUNTS</span>
+          </div>
+
+          <!-- forms -->
+          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
+            <img src="/images/forms-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor">FORMS</span>
+          </div>
+
+          <!--profile -->
+          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
+            <img src="/images/profile-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor">PROFILE</span>
+          </div>
+
+          <span class="block font-bold text-textColor mt-10">ALUMNI</span>
+          <!--alumni of the year -->
+          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
+            <img src="/images/profile-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor"
+              >ALUMNI OF THE YEAR</span
+            >
+          </div>
+
+          <!--alumni LIST -->
+          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
+            <img src="/images/alumni-list-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor">LIST OF ALUMNI</span>
+          </div>
+
+          <!--COMMUNITY HUB -->
+          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
+            <img src="/images/community-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor">COMMUNITY</span>
+          </div>
+
+          <!--work-->
+          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
+            <img src="/images/work-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor"
+              >JOB OPPORTUNITIES</span
+            >
+          </div>
+
+          <!-- log out -->
+          <div class="absolute inset-x-0 bottom-0 h-16 ml-3 text-xs p-2">
+            <img src="/images/log-out-icon.svg" class="inline" />
+            <span class="font-medium ml-3 text-textColor">SIGN OUT</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="mt-10 flex-1 p-3">
+        <!-- dashboard content -->
+        <div class="dashboard-content">
+          <h1 class="text-4xl font-extrabold">DASHBOARD</h1>
+
+          <button
+            style="margin-left: auto; margin-right: 10px"
+            class="block rounded-lg font-bold text-white bg-accent p-2 hover:bg-darkAccent"
+          >
+            Create Announcement
+          </button>
+
+          <!-- <hr class="mt-2" /> -->
+
+          <div class="flex m-10">
+            <div class="flex-1">
+              <!-- welcome part -->
+              <div
+                class="relative rounded-lg h-max p-10 bg-gradient-to-r from-accent to-darkAccent"
+              >
+                <img
+                  class="absolute -left-2 -top-20"
+                  src="/images/standing-2.png"
+                  alt=""
+                  srcset=""
+                />
+                <span class="block text-lg text-white text-right">
+                  Welcome Back <br />
+                  <span class="font-semibold text-lg">
+                    Mr. Juan Dela Cruz
+                  </span>
+                </span>
+              </div>
+
+              <div class="flex mt-2 gap-2">
+                <!-- total user -->
+                <div class="dash-content flex-1 rounded-lg p-2">
+                  <span class="text-textColor text-xs font-bold"
+                    ><img class="inline" src="/images/check-icon.svg" alt="" />
+                    TOTAL USERS
+                    <br />
+                    REGISTERED</span
+                  >
+                </div>
+
+                <!-- Job Posting -->
+                <div class="dash-content flex-1 rounded-lg p-2">
+                  <span class="text-textColor text-xs font-bold"
+                    ><img class="inline mr-1" src="/images/work-icon.svg" />JOB
+                    POSTING</span
+                  >
+                </div>
+
+                <!-- colleges -->
+                <div class="dash-content flex-1 rounded-lg p-2">
+                  <span class="text-textColor text-xs font-bold">
+                    <img class="inline mr-1" src="/images/graduate-cap.svg" />
+                    COLLEGES
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-1">
+              <!-- tracer status part -->
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
   </body>
 </html>
