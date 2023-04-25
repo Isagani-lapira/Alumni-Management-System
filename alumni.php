@@ -73,8 +73,36 @@ require('./partials/head.php');
         </div>
     </div>
 </section>
-<section>
-    <h2>Achievements</h2>
+
+<!-- Achievements -->
+<section class="container mx-auto py-12 space-y-8">
+    <h2 class="text-center text-3xl font-bold">Achievements</h2>
+
+    <div class="container  mx-auto md:max-w-5xl grid md:auto-cols-fr md:grid-flow-col">
+
+        <!-- card -->
+        <div class="bg-green-700 text-white p-6">
+            <div class="text-3xl font-bold text-center">Employee of the Year 4X</div>
+            <p class="max-w-prose">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+        </div>
+
+        <!-- card -->
+        <div class="bg-yellow-500 text-white p-6">
+            <div class="text-3xl font-bold text-center">Establish 10 Businesses</div>
+            <p class="max-w-prose">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+        </div>
+
+        <!-- card -->
+        <div class="bg-purple-500 text-white p-6">
+            <div class="text-3xl font-bold text-center">Promoted Senior after 2 years of Working</div>
+            <p class="max-w-prose">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+        </div>
+
+    </div>
+
 </section>
 
 <section>
