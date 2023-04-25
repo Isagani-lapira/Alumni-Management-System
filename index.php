@@ -1,4 +1,5 @@
   <?php
+  $title = 'Home';
   require("./partials/head.php") ?>
 
   <!-- Heading  -->
