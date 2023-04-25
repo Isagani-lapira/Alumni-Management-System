@@ -105,15 +105,53 @@ require('./partials/head.php');
 
 </section>
 
-<section>
-    <h2>Skills</h2>
+<section class="container mx-auto py-12 ">
+
+    <div class="grid w-full grid-flow-row md:grid-flow-col justify-between">
+
+        <div class="space-y-7">
+
+            <h2 class="font-bold text-4xl ">Skills</h2>
+            <div class="flex items-center space-x-2">
+                <div class="text-white bg-secondary rounded-full w-14 h-14 flex items-center justify-center">
+                    <span>✔</span>
+                </div>
+                <p>We connect our customers with the best.</p>
+            </div>
+            <div class="flex items-center space-x-2">
+                <div class="text-white bg-secondary rounded-full w-14 h-14 flex items-center justify-center">
+                    <span>✔</span>
+                </div>
+                <p>Advisor success customer launch party.</p>
+            </div>
+            <div class="flex items-center space-x-2">
+                <div class="text-white bg-secondary rounded-full w-14 h-14 flex items-center justify-center">
+                    <span>✔</span>
+                </div>
+                <p>Business-to-consumer long tail.</p>
+            </div>
+        </div>
+
+        <div class="
+        rounded-full
+        border-r-[20px] border-accent
+        "> <img class="max-w-lg object-contain " src="./assets/alumni-pic2.png" alt=""></div>
+    </div>
 </section>
 <section>
     <h2>Education</h2>
+    <p>College</p>
+    <p>Bulacan State University</p>
+    <p>Highschool</p>
+    <p>Marcelo H. Del Pilar National Highschool</p>
+    <p>Elementary </p>
+    <p>Caniogan Elementary School</p>
 </section>
 
 <section>
     <h2>For more details you may visit me at: </h2>
+
+
 </section>
 <?php
 require('./partials/footer.php');
