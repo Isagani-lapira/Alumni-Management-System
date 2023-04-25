@@ -105,6 +105,7 @@ require('./partials/head.php');
 
 </section>
 
+<!-- Skills  -->
 <section class="container mx-auto py-12 ">
 
     <div class="grid w-full grid-flow-row md:grid-flow-col justify-between">
@@ -112,6 +113,7 @@ require('./partials/head.php');
         <div class="space-y-7">
 
             <h2 class="font-bold text-4xl ">Skills</h2>
+            <!-- check -->
             <div class="flex items-center space-x-2">
                 <div class="text-white bg-secondary rounded-full w-14 h-14 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -121,6 +123,8 @@ require('./partials/head.php');
                 </div>
                 <p>We connect our customers with the best.</p>
             </div>
+
+            <!-- check -->
             <div class="flex items-center space-x-2">
                 <div class="text-white bg-secondary rounded-full w-14 h-14 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -130,6 +134,8 @@ require('./partials/head.php');
                 </div>
                 <p>Advisor success customer launch party.</p>
             </div>
+
+            <!-- check -->
             <div class="flex items-center space-x-2">
                 <div class="text-white bg-secondary rounded-full w-14 h-14 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -147,6 +153,8 @@ require('./partials/head.php');
         "> <img class="max-w-lg object-contain " src="./assets/alumni-pic2.png" alt=""></div>
     </div>
 </section>
+
+<!-- Education  -->
 <section class="container mx-auto py-12 space-y-12">
     <h2 class="font-bold text-4xl">Education</h2>
     <p><span class="font-bold">College:</span> Bulacan State University</p>
@@ -160,6 +168,7 @@ require('./partials/head.php');
 
 </section>
 
+<!-- More details section -->
 <section class="bg-grayish py-12">
 
     <div class="container items-center justify-around grid grid-flow-col text-white">
