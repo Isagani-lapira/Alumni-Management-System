@@ -114,19 +114,28 @@ require('./partials/head.php');
             <h2 class="font-bold text-4xl ">Skills</h2>
             <div class="flex items-center space-x-2">
                 <div class="text-white bg-secondary rounded-full w-14 h-14 flex items-center justify-center">
-                    <span>✔</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l5 5l10 -10" />
+                    </svg>
                 </div>
                 <p>We connect our customers with the best.</p>
             </div>
             <div class="flex items-center space-x-2">
                 <div class="text-white bg-secondary rounded-full w-14 h-14 flex items-center justify-center">
-                    <span>✔</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l5 5l10 -10" />
+                    </svg>
                 </div>
                 <p>Advisor success customer launch party.</p>
             </div>
             <div class="flex items-center space-x-2">
                 <div class="text-white bg-secondary rounded-full w-14 h-14 flex items-center justify-center">
-                    <span>✔</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l5 5l10 -10" />
+                    </svg>
                 </div>
                 <p>Business-to-consumer long tail.</p>
             </div>
@@ -138,20 +147,67 @@ require('./partials/head.php');
         "> <img class="max-w-lg object-contain " src="./assets/alumni-pic2.png" alt=""></div>
     </div>
 </section>
-<section>
-    <h2>Education</h2>
-    <p>College</p>
-    <p>Bulacan State University</p>
-    <p>Highschool</p>
-    <p>Marcelo H. Del Pilar National Highschool</p>
-    <p>Elementary </p>
-    <p>Caniogan Elementary School</p>
+<section class="container mx-auto py-12 space-y-12">
+    <h2 class="font-bold text-4xl">Education</h2>
+    <p><span class="font-bold">College:</span> Bulacan State University</p>
+    <p><span class="font-bold">Highschool:</span> Marcelo H. Del Pilar National Highschool</p>
+    <p><span class="font-bold">Elementary:</span> Caniogan Elementary School</p>
 </section>
 
-<section>
-    <h2>For more details you may visit me at: </h2>
-
+<!-- more details -->
+<section class="container mx-auto py-12 space-y-12">
+    <h2 class="font-bold text-3xl text-grayish text-center">For more details you may visit me at: </h>
 
 </section>
-<?php
-require('./partials/footer.php');
+
+<section class="bg-grayish py-12">
+
+    <div class="container items-center justify-around grid grid-flow-col text-white">
+        <img src="./assets/footer-img.png" alt="">
+        <div class="space-y-4">
+            <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <polyline points="3 7 12 13 21 7" />
+                </svg>
+                <p>orlandopimentel12@gmail.com</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                    <line x1="8" y1="11" x2="8" y2="16" />
+                    <line x1="8" y1="8" x2="8" y2="8.01" />
+                    <line x1="12" y1="16" x2="12" y2="11" />
+                    <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+                </svg>
+
+
+                <p>Orlando Pimentel</p>
+            </div>
+            <div class="flex items-center gap-2">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+                </svg>
+                <p>Orlando_Pimentel</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <rect x="4" y="4" width="16" height="16" rx="4" />
+                    <circle cx="12" cy="12" r="3" />
+                    <line x1="16.5" y1="7.5" x2="16.5" y2="7.501" />
+                </svg>
+                <p>OrlandoPimen</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+
+</html>
