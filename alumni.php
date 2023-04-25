@@ -34,10 +34,10 @@ require('./partials/head.php');
         <h2 class="text-4xl text-white font-bold ">Testimonials</h2>
         <div class="grid gap-3 justify-center md:grid-flow-col md:auto-cols-fr">
             <!-- testimonial card -->
-            <div class="bg-white text-black p-8 rounded-lg max-w-sm">
+            <div class="bg-white text-black p-8 rounded-lg max-w-sm space-y-4">
                 <q class="max-w-prose text-2xl">Very responsible person especially on work. A type of person who's eager to learn</q>
-                <div class="flex items-center">
-                    <img src="" alt="">
+                <div class="flex items-center gap-2 ">
+                    <img src="./assets/avatar-prof.png" alt="" class="w-12">
                     <div>
                         <div class="text-lg font-bold text-black">Wilhelm Miranda</div>
                         <p class="text-slate-500">Full Stack Developer</p>
@@ -46,10 +46,10 @@ require('./partials/head.php');
                 </div>
             </div>
             <!-- testimonial card -->
-            <div class="bg-white text-black p-8 rounded-lg max-w-sm">
+            <div class="bg-white text-black p-8 rounded-lg max-w-sm space-y-4">
                 <q class="max-w-prose text-2xl">Very responsible person especially on work. A type of person who's eager to learn</q>
-                <div class="flex items-center">
-                    <img src="" alt="">
+                <div class="flex items-center gap-2 ">
+                    <img src="./assets/avatar-prof.png" alt="" class="w-12">
                     <div>
                         <div class="text-lg font-bold text-black">Wilhelm Miranda</div>
                         <p class="text-slate-500">Full Stack Developer</p>
@@ -58,10 +58,10 @@ require('./partials/head.php');
                 </div>
             </div>
             <!-- testimonial card -->
-            <div class="bg-white text-black p-8 rounded-lg max-w-sm">
+            <div class="bg-white text-black p-8 rounded-lg max-w-sm space-y-4">
                 <q class="max-w-prose text-2xl">Very responsible person especially on work. A type of person who's eager to learn</q>
-                <div class="flex items-center">
-                    <img src="" alt="">
+                <div class="flex items-center gap-2 ">
+                    <img src="./assets/avatar-prof.png" alt="" class="w-12">
                     <div>
                         <div class="text-lg font-bold text-black">Wilhelm Miranda</div>
                         <p class="text-slate-500">Full Stack Developer</p>
@@ -69,6 +69,7 @@ require('./partials/head.php');
 
                 </div>
             </div>
+
         </div>
     </div>
 </section>
