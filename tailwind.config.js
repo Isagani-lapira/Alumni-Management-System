@@ -13,6 +13,7 @@ module.exports = {
         accent: "#991B1B",
         secondary: "#1746A2",
         grayish: "#666666",
+        darkAccent: "#601010",
       },
     },
   },
