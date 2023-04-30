@@ -29,66 +29,67 @@
 
         <div class="content mt-20 w-4/5 text-xs sidebar">
           <!-- dashboard -->
-          <div class="dashboard rounded-lg bg-accent p-2 cursor-pointer ">
-            <img src="/images/dashboard-icon.svg" class="inline" />
-            <span class="font-bold text-white ml-3">DASHBOARD</span>
+          <div class="dashboard rounded-lg p-2 cursor-pointer menu">
+            <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#f6f6f6" d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z"/></svg>
+            <!-- <img id="dashIcon" src="/images/dashboard-icon.svg" class="inline" /> -->
+            <span class=" ml-3">DASHBOARD</span>
           </div>
 
           <!-- announcement -->
-          <div class="announcement rounded-lg p-2 my-2 cursor-pointer">
-            <img src="/images/announcement-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor">ANNOUNCEMENT</span>
+          <div id="announcementTab" class="announcement rounded-lg p-2 my-2 cursor-pointer menu">
+            <svg id="announcementIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z"/></svg>
+            <span class="ml-3">ANNOUNCEMENT</span>
           </div>
 
           <!-- analytics -->
-          <div class="analytics rounded-lg p-2 my-2 cursor-pointer">
-            <img src="/images/analytics-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor">REPORT</span>
+          <div class="analytics rounded-lg p-2 my-2 cursor-pointer menu">
+            <svg id="analyticsIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path  d="M4 2H2v26a2 2 0 0 0 2 2h26v-2H4Z"/><path  d="M30 9h-7v2h3.59L19 18.59l-4.29-4.3a1 1 0 0 0-1.42 0L6 21.59L7.41 23L14 16.41l4.29 4.3a1 1 0 0 0 1.42 0l8.29-8.3V16h2Z"/></svg>
+            <span class="ml-3">REPORT</span>
           </div>
 
           <!-- accounts -->
-          <div class="account rounded-lg p-2 my-2 cursor-pointer">
-            <img src="/images/accounts-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor">ACCOUNTS</span>
+          <div class="account rounded-lg p-2 my-2 cursor-pointer menu">
+            <svg id="accountIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path  d="M14 11q1.25 0 2.125-.875T17 8q0-1.25-.875-2.125T14 5q-1.25 0-2.125.875T11 8q0 1.25.875 2.125T14 11Zm-6 7q-.825 0-1.413-.588T6 16V4q0-.825.588-1.413T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.588 1.413T20 18H8Zm-4 4q-.825 0-1.413-.588T2 20V7q0-.425.288-.713T3 6q.425 0 .713.288T4 7v13h13q.425 0 .713.288T18 21q0 .425-.288.713T17 22H4Zm4-6h12q-1.1-1.475-2.65-2.238T14 13q-1.8 0-3.35.763T8 16Z"/></svg>
+            <span class="ml-3">ACCOUNTS</span>
           </div>
 
           <!-- forms -->
-          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
-            <img src="/images/forms-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor">FORMS</span>
+          <div class="forms rounded-lg p-2 my-2 cursor-pointer menu">
+            <svg id="formIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1536 1536"><path d="M515 783v128H263V783h252zm0-255v127H263V528h252zm758 511v128H932v-128h341zm0-256v128H601V783h672zm0-255v127H601V528h672zm135 860V148q0-8-6-14t-14-6h-32L978 384L768 213L558 384L180 128h-32q-8 0-14 6t-6 14v1240q0 8 6 14t14 6h1240q8 0 14-6t6-14zM553 278l185-150H332zm430 0l221-150H798zm553-130v1240q0 62-43 105t-105 43H148q-62 0-105-43T0 1388V148Q0 86 43 43T148 0h1240q62 0 105 43t43 105z"/></svg>
+            <span class="ml-3">FORMS</span>
           </div>
 
           <!--profile -->
-          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
-            <img src="/images/profile-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor">PROFILE</span>
+          <div class="profile rounded-lg p-2 my-2 cursor-pointer menu">
+            <svg id="profileIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g  fill-rule="evenodd" clip-rule="evenodd"><path d="M16 9a4 4 0 1 1-8 0a4 4 0 0 1 8 0Zm-2 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z"/><path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1ZM3 12c0 2.09.713 4.014 1.908 5.542A8.986 8.986 0 0 1 12.065 14a8.984 8.984 0 0 1 7.092 3.458A9 9 0 1 0 3 12Zm9 9a8.963 8.963 0 0 1-5.672-2.012A6.992 6.992 0 0 1 12.065 16a6.991 6.991 0 0 1 5.689 2.92A8.964 8.964 0 0 1 12 21Z"/></g></svg>
+            <span class="ml-3">PROFILE</span>
           </div>
 
-          <span class="block font-bold text-textColor mt-10">ALUMNI</span>
+          <span class="block font-bold mt-10">ALUMNI</span>
           <!--alumni of the year -->
-          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
-            <img src="/images/profile-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor"
+          <div class="alumniOfTheYear rounded-lg p-2 my-2 cursor-pointer menu">
+            <svg id="alumniOfTheYearIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path  d="M256 89.61L22.486 177.18L256 293.937l111.22-55.61l-104.337-31.9A16 16 0 0 1 256 208a16 16 0 0 1-16-16a16 16 0 0 1 16-16l-2.646 8.602l18.537 5.703a16 16 0 0 1 .008.056l27.354 8.365L455 246.645v12.146a16 16 0 0 0-7 13.21a16 16 0 0 0 7.293 13.406C448.01 312.932 448 375.383 448 400c16 10.395 16 10.775 32 0c0-24.614-.008-87.053-7.29-114.584A16 16 0 0 0 480 272a16 16 0 0 0-7-13.227v-25.42L413.676 215.1l75.838-37.92L256 89.61zM119.623 249L106.5 327.74c26.175 3.423 57.486 18.637 86.27 36.627c16.37 10.232 31.703 21.463 44.156 32.36c7.612 6.66 13.977 13.05 19.074 19.337c5.097-6.288 11.462-12.677 19.074-19.337c12.453-10.897 27.785-22.128 44.156-32.36c28.784-17.99 60.095-33.204 86.27-36.627L392.375 249h-6.25L256 314.063L125.873 249h-6.25z"/></svg>
+            <span class="ml-3"
               >ALUMNI OF THE YEAR</span
             >
           </div>
 
           <!--alumni LIST -->
-          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
-            <img src="/images/alumni-list-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor">LIST OF ALUMNI</span>
+          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer menu">
+            <svg id="alumniListIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 448 512"><path  d="M219.3.5c3.1-.6 6.3-.6 9.4 0l200 40C439.9 42.7 448 52.6 448 64s-8.1 21.3-19.3 23.5L352 102.9V160c0 70.7-57.3 128-128 128S96 230.7 96 160v-57.1l-48-9.6v65.1l15.7 78.4c.9 4.7-.3 9.6-3.3 13.3S52.8 256 48 256H16c-4.8 0-9.3-2.1-12.4-5.9s-4.3-8.6-3.3-13.3L16 158.4V86.6C6.5 83.3 0 74.3 0 64c0-11.4 8.1-21.3 19.3-23.5l200-40zM111.9 327.7c10.5-3.4 21.8.4 29.4 8.5l71 75.5c6.3 6.7 17 6.7 23.3 0l71-75.5c7.6-8.1 18.9-11.9 29.4-8.5c65 20.9 112 81.7 112 153.6c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-71.9 47-132.7 111.9-153.6z"/></svg>
+            <span class="ml-3">LIST OF ALUMNI</span>
           </div>
 
           <!--COMMUNITY HUB -->
-          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
-            <img src="/images/community-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor">COMMUNITY</span>
+          <div class="communityHub rounded-lg p-2 my-2 cursor-pointer menu">
+            <svg id="communityIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><path  d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z"/></svg>
+            <span class="ml-3">COMMUNITY</span>
           </div>
 
           <!--work-->
-          <div class="alumni-list rounded-lg p-2 my-2 cursor-pointer">
-            <img src="/images/work-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor"
+          <div class="workIcon rounded-lg p-2 my-2 cursor-pointer menu">
+            <svg id="workIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4 21q-.825 0-1.413-.588T2 19V8q0-.825.588-1.413T4 6h4V4q0-.825.588-1.413T10 2h4q.825 0 1.413.588T16 4v2h4q.825 0 1.413.588T22 8v11q0 .825-.588 1.413T20 21H4Zm6-15h4V4h-4v2Z"/></svg>
+            <span class="ml-3"
               >JOB OPPORTUNITIES</span
             >
           </div>
@@ -96,15 +97,15 @@
           <!-- log out -->
           <div class="absolute inset-x-0 bottom-0 h-16 ml-3 text-xs p-2">
             <img src="/images/log-out-icon.svg" class="inline" />
-            <span class="ml-3 text-textColor">SIGN OUT</span>
+            <span class="ml-3">SIGN OUT</span>
           </div>
         </div>
       </aside>
 
       <main class="mt-10 flex-1 p-3">
         <!-- dashboard content -->
-        <div class="dashboard-content">
-          <h1 class="text-4xl font-extrabold">DASHBOARD</h1>
+        <div  class="dashboard-content">
+          <h1 class="text-xl font-extrabold">DASHBOARD</h1>
 
           <button
             style="margin-left: auto; margin-right: 10px"
@@ -185,6 +186,63 @@
               <!-- view more -->
               <p class="text-accent absolute bottom-0 block right-0 mx-4 cursor-pointer ">View more</p>
           </div>
+        </div>
+
+        <!-- Announcement content -->
+        <div class="announcement-content hidden">
+          <h1 class="text-xl font-extrabold">ANNOUNCEMENT</h1>
+          <p class="text-grayish">Here you can check all shared messages with whole University</p>
+
+          <div class="ANNOUNCEMENT-CONTENT">
+            <div class="flex mt-5 items-center">
+              <span class="text-xs font-semibold text-grayish mr-5">RECIPIENTS: </span>
+              <button><img src="/images/add-icon.png" alt="add"></button>
+            </div>
+
+            <!-- send ANNOUNCEMENT -->
+            <div class="mt-5 items-top w-2/3 text-right">
+
+              <div class="flex">
+
+                <span class="text-xs font-semibold text-grayish mr-5">MESSAGE: </span>
+                <div class="message-area border border-solid border-grayish h-40 w-full">
+                  <textarea class="w-full h-full resize-none p-3 focus:outline-none text-grayish" name="" id=""></textarea>
+                </div>
+
+              </div>
+              <button class="bg-accent  text-white p-3 text-xs rounded-md font-semibold mt-2">SEND ANNOUNCEMENT</button>
+              
+            </div>
+            
+            <!-- send email -->
+            <h1 class="text-xl font-extrabold mt-10">SEND EMAIL</h1>
+            <p class="text-grayish">Send message via email service</p>
+
+            <div class="flex mt-5 items-center">
+              <span class="text-xs font-semibold text-grayish mr-5">RECIPIENTS: </span>
+              <button><img src="/images/add-icon.png" alt="add"></button>
+            </div>
+            
+            <div class="mt-5 items-top w-2/3 text-right">
+              
+              <div class="flex">
+
+                <span class="text-xs font-semibold text-grayish mr-5">MESSAGE: </span>
+                <div class="message-area border border-solid border-grayish h-40 w-full">
+                  <textarea class="w-full h-full resize-none p-3 focus:outline-none text-grayish" name="" id=""></textarea>
+                </div>
+
+              </div>
+              <button class="bg-accent  text-white p-3 text-xs rounded-md font-semibold mt-2 ">SEND EMAIL</button>
+              
+            </div>
+
+
+            <!-- past announcement -->
+            <h1 class="text-xl font-extrabold mt-10">PAST ANNOUNCEMENT</h1>
+            
+          </div>
+          
         </div>
       </main>
     </div>
