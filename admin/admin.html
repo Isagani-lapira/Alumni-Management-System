@@ -27,16 +27,16 @@
           Alumni <span class="font-normal">System</span>
         </h1>
 
-        <div class="content mt-20 w-4/5 text-xs sidebar">
+        <div class=" mt-20 w-4/5 text-xs sidebar">
           <!-- dashboard -->
-          <div class="dashboard rounded-lg p-2 cursor-pointer menu">
-            <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#f6f6f6" d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z"/></svg>
+          <div  class="dashboard rounded-lg p-2 cursor-pointer menu">
+            <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path  d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z"/></svg>
             <!-- <img id="dashIcon" src="/images/dashboard-icon.svg" class="inline" /> -->
             <span class=" ml-3">DASHBOARD</span>
           </div>
 
           <!-- announcement -->
-          <div id="announcementTab" class="announcement rounded-lg p-2 my-2 cursor-pointer menu">
+          <div class="announcement rounded-lg p-2 my-2 cursor-pointer menu">
             <svg id="announcementIcon" class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z"/></svg>
             <span class="ml-3">ANNOUNCEMENT</span>
           </div>
@@ -102,9 +102,9 @@
         </div>
       </aside>
 
-      <main class="mt-10 flex-1 p-3">
+      <main id="mainDiv"class="mt-10 flex-1 p-3">
         <!-- dashboard content -->
-        <div  class="dashboard-content">
+        <div class="content" id="dashboard-content">
           <h1 class="text-xl font-extrabold">DASHBOARD</h1>
 
           <button
@@ -189,7 +189,7 @@
         </div>
 
         <!-- Announcement content -->
-        <div class="announcement-content hidden">
+        <div id="announcement-content" class="hidden content">
           <h1 class="text-xl font-extrabold">ANNOUNCEMENT</h1>
           <p class="text-grayish">Here you can check all shared messages with whole University</p>
 
