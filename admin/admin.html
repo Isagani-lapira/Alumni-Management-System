@@ -20,7 +20,7 @@
   </head>
 
   <body>
-    <div class="flex font-Montserrat">
+    <div class="flex font-Montserrat text-greyish_black">
       <!-- side bar -->
       <aside class="w-3/12 top-0 h-screen p-5">
         <h1 class="font-extrabold text-18sm">
@@ -104,7 +104,7 @@
 
       <main id="mainDiv"class="mt-10 flex-1 p-3">
         <!-- dashboard content -->
-        <div class="content" id="dashboard-content">
+        <div class="content hidden" id="dashboard-content">
           <h1 class="text-xl font-extrabold">DASHBOARD</h1>
 
           <button
@@ -114,7 +114,7 @@
             Create Announcement
           </button>
 
-          <!-- <hr class="mt-2" /> -->
+          
 
           <div class="flex m-10">
             <div class="flex-1">
@@ -244,6 +244,42 @@
           </div>
           
         </div>
+
+        <!-- report content -->
+        <div id="report-content" class="content">
+          <h1 class="text-xl font-extrabold">REPORTS</h1>
+
+          <div class="flex justify-end text-sm text-greyish_black">
+            <button class="p-2 m-2 border border-greyish_black rounded-md font-semibold">
+              Download history logs 
+              <img class="inline" src="/images/download.png" alt=""></button>
+            <button class="p-2 px-4 m-2 border border-accent rounded-md bg-accent text-white 
+            hover:bg-darkAccent font-semibold">Export as PDF</button>
+          </div>
+
+          <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700"/>
+
+          <div class="flex justify-evenly">
+
+            <div class="flex border border-greyish_black rounded-md p-1">
+              <img class="inline " src="/images/search-icon.png" alt="">
+              <input class="focus:outline-none" type="text" name="" id="" placeholder="Typing!">
+            </div>
+
+            <!-- batch selection -->
+            <select name="" id="batch">
+              <option value="" selected disabled hidden>Batch</option>
+            </select>
+
+            <!-- college selection -->
+            <select name="" id="college">
+              <option value="" selected disabled hidden>Course</option>
+            </select>
+            
+          </div>
+        </div>
+
+        
       </main>
     </div>
 

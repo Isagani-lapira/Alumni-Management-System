@@ -38,6 +38,7 @@ $(document).ready(()=>{
   })
 })
 
+
 const visibleContent = (item)=>{
   
   const mainDiv = document.querySelectorAll(".content");
@@ -46,17 +47,33 @@ const visibleContent = (item)=>{
     child.style.display = "none";
   })
 
+
   let sideBarID;
-  switch(item){
-    case 'DASHBOARD':
-      console.log("somethings wrong");
-      break;
-    case 'ANNOUNCEMENT':
-      sideBarID = 'announcement-content';
-      break;
-  }
+
+  //check which tab is selected
+  if(item==='DASHBOARD')
+    console.log('pumasok na')
+  else if(item==='ANNOUNCEMENT')
+    sideBarID = 'announcement-content'
+  else if(item==='REPORT')
+    sideBarID = 'report-content'
+
 
   //display the tab content
   document.getElementById(sideBarID).classList.toggle("hidden");
   document.getElementById(sideBarID).style.display = "block";
+}
+
+
+
+//get year from 2000 to current year
+let batchOption = document.getElementById('batch');
+
+let currentYr = new Date().getFullYear();
+for(i = currentYr; i>=2000; i--){
+  let newOption = document.createElement('option');
+  newOption.value = i;
+  newOption.text = i;
+  console.log("pumasok")
+  batchOption.appendChild(newOption);
 }

@@ -14,7 +14,7 @@ module.exports = {
         secondary: "#1746A2",
         grayish: "#666666",
         darkAccent: "#601010",
-        greyish_black: "#959595",
+        greyish_black: "#333030",
       },
     },
   },
