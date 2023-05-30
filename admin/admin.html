@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
 
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
     <title>University Admin</title>
@@ -120,7 +120,7 @@
                 Create Announcement
               </button>
 
-              <div class="flex m-10">
+              <div class="flex m-10 h-2/3 p-2">
                 <div class="flex-1">
                   <!-- welcome part -->
                   <div
@@ -173,22 +173,67 @@
                   </div>
                 </div>
 
-
-                <div class="flex-1">
+                <!-- chart -->
+                <div class="flex-1 dash-content">
                   <!-- tracer status part -->
-                  <div></div>
+                  <div class=" w-80 mx-auto">
+                    <canvas id="myChart"></canvas>
+                  </div>
                 </div>
 
               </div>
 
               <!-- recent announcement -->
-              <div class="recent-announcement m-10 max-lg: relative pb-3 font-semibold">
+              <div class="m-10 max-lg: relative pb-3 font-semibold">
                 <p class=" mb-2">RECENT ANNOUNCEMENT 
-                  <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset=""></p>
-                  
+                  <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
+                </p>
+
+                <div class="dash-content p-3">
+                  <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-gray-400 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                      <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
+                        <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">POST</span>
+                      </p>
+                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                  </div>
+
+                  <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-red-400 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                      <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
+                        <span class="bg-green-600 text-white font-semibold p-2 rounded-md">ANNOUNCEMENT</span>
+                      </p>
+                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                  </div>
+
+                  <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-yellow-200 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                      <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
+                        <span class="bg-violet-400 text-white font-semibold p-2 rounded-md">UPDATE</span>
+                      </p>
+                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                  </div>
 
                   <!-- view more -->
-                  <p class="text-accent absolute bottom-0 block right-0 mx-4 cursor-pointer ">View more</p>
+                  <p class="text-accent bottom-0 block text-end cursor-pointer ">View more</p>
+                </div>
+                  
+              </div>
+
+
+              <!-- Response by year -->
+              <div class="m-10 max-lg: relative pb-3 font-semibold">
+                <p class=" mb-2">RESPONSE BY YEAR </p>
+                <div class="response_by_year">
+                  <canvas class="block mx-auto" style="height:40vh; width:40vw" id="responseByYear"></canvas>
+                </div>
+                
               </div>
             </div>
           </div>
@@ -303,6 +348,7 @@
         
     </div>
 
+    
     <script src="/js/admin.js"></script>
   </body>
 </html>
