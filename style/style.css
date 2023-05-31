@@ -23,3 +23,12 @@ svg{
   height: 50px;
   width: 50px;
 }
+
+.modal{
+  background-color: #1e1c1c98;
+  
+}
+
+.modal-body{
+  height: 70%;
+}
