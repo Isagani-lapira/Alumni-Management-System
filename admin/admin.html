@@ -140,7 +140,7 @@
                     </span>
                   </div>
 
-                  <div class="flex flex-wrap mt-2 gap-2">
+                  <div class="flex flex-wrap columns-3 mt-2 gap-2">
                     <!-- total user -->
                     <div class="dash-content flex-1 rounded-lg p-2 relative">
                       <img class="inline" src="/images/check-icon.svg" alt="" />
@@ -174,9 +174,9 @@
                 </div>
 
                 <!-- chart -->
-                <div class="flex-1 dash-content">
+                <div class="flex-1">
                   <!-- tracer status part -->
-                  <div class=" w-80 mx-auto">
+                  <div class="w-80 mx-auto">
                     <canvas id="myChart"></canvas>
                   </div>
                 </div>
@@ -184,7 +184,7 @@
               </div>
 
               <!-- recent announcement -->
-              <div class="m-10 max-lg: relative pb-3 font-semibold">
+              <div class="m-10 max-lg: relative font-semibold p-3">
                 <p class=" mb-2">RECENT ANNOUNCEMENT 
                   <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
                 </p>
@@ -221,7 +221,7 @@
                   </div>
 
                   <!-- view more -->
-                  <p class="text-accent bottom-0 block text-end cursor-pointer ">View more</p>
+                  <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
                 </div>
                   
               </div>
@@ -291,10 +291,6 @@
               </div>
             </div>
 
-            <!-- past announcement -->
-            <div id="announcement-content">
-              <h1 class="text-xl font-extrabold">PAST ANNOUNCEMENT</h1>
-            </div>
           </div>
           
           <!-- report content -->
@@ -303,7 +299,7 @@
 
             <div class="flex justify-end text-sm text-greyish_black">
               <!-- HISTORY LOGS -->
-              <button class="p-2 m-2 border border-greyish_black rounded-md font-semibold">
+              <button class="p-2 m-2 border border-grayish text-grayish rounded-md font-semibold">
                 Download history logs 
                 <img class="inline" src="/images/download.png" alt="">
               </button>
@@ -330,17 +326,191 @@
               </select>
 
               <!-- college selection -->
-              <select name="" id="college" class="w-full p-1">
+              <select name="college" id="college" class="w-full p-1">
                 <option value="" selected disabled hidden>Course</option>
               </select>
 
               <!-- employment status selection -->
-              <select name="" id="college" class="w-full p-1">
+              <select name="employment" id="employment" class="w-full p-1">
                 <option value="" selected disabled hidden>Employment Status</option>
+                <option value="">Employed</option>
+                <option value="">Unemployed</option>
+                <option value="">Self-employed</option>
+                <option value="">Student</option>
+                <option value="">Retired</option>
               </select>
               
             </div>
 
+
+            <!-- record of name-->
+            <table class="table-auto w-full mt-10 text-xs font-thin text-grayish">
+              <thead>
+                <tr>
+                  <th class="text-start">NAME</th>
+                  <th>CONTACT NUMBER</th>
+                  <th>DATE SUBMITTED</th>
+                  <th>STATUS</th>
+                  <th>DETAILS</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Wade Warren</span>
+                    </div>
+                  </td>
+                  <td class="text-center">09104905440</td>
+                  <td class="text-center">4/4/18</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Leslie Alexander</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(704) 555-0127</td>
+                  <td class="text-center">7/11/19</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Floyd Miles</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(208) 555-0112</td>
+                  <td class="text-center">5/19/12 </td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Cameron Williamson</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(239) 555-0108</td>
+                  <td class="text-center">7/27/13</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Wade Warren</span>
+                    </div>
+                  </td>
+                  <td class="text-center">09104905440</td>
+                  <td class="text-center">4/4/18</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Leslie Alexander</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(704) 555-0127</td>
+                  <td class="text-center">7/11/19</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Floyd Miles</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(208) 555-0112</td>
+                  <td class="text-center">5/19/12 </td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Cameron Williamson</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(239) 555-0108</td>
+                  <td class="text-center">7/27/13</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Floyd Miles</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(208) 555-0112</td>
+                  <td class="text-center">5/19/12 </td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+
+                <tr class="h-14">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <div class="w-10 h-10 rounded-full border border-accent"></div>
+                      <span class="ml-2">Cameron Williamson</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(239) 555-0108</td>
+                  <td class="text-center">7/27/13</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+                </tr>
+
+              </tbody>
+            </table>
           </div>
 
         </main>

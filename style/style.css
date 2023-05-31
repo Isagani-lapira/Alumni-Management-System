@@ -4,9 +4,10 @@ svg{
 }
 .dash-content,
 .response_by_year{
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(0, 0, 0, 0.19) 5px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 6px;
   color: rgb(34, 32, 32);
 }
+
 
 .ui-tabs-active{
   background-color: #991B1B; 
@@ -16,4 +17,9 @@ svg{
 
 .ui-tabs-active svg{
   fill: white;
+}
+
+.profile{
+  height: 50px;
+  width: 50px;
 }
