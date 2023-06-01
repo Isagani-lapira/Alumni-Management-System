@@ -12,7 +12,19 @@ $(document).ready(function () {
     $(this).addClass("ui-tabs-active")
 
   })
+
+  //open modal
+  $('#btnAnnouncement').click(function () {
+    $("#modal").removeClass('hidden')
+  })
+
+  //close modal
+  $('.cancel').click(function () {
+    $("#modal").addClass('hidden')
+  })
+
 });
+
 
 //chart function
 const tracerStatus = document.getElementById('myChart');
