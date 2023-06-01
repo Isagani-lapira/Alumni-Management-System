@@ -32,3 +32,8 @@ svg{
 .modal-body{
   height: 70%;
 }
+
+#galleryLogo:hover >svg path{
+  fill: #1746A2;
+  cursor: pointer;
+}
