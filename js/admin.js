@@ -23,7 +23,21 @@ $(document).ready(function () {
     $("#modal").addClass('hidden')
   })
 
+
+  $('#btnNewCol').click(function () {
+    $('#createAccModal').removeClass('hidden')
+  })
+
+  //check if the it clicked outside the modal container for closing
+  $('#createAccModal').on('click', function (event) {
+    if (!$(event.target).closest('#modalan').length) {
+      // Click occurred outside the div
+      $('#createAccModal').addClass('hidden')
+    }
+  });
 });
+
+
 
 
 //chart function
