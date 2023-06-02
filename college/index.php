@@ -37,13 +37,14 @@
     <div class="flex flex-row min-h-screen ">
 
         <aside class="
-        border flex-initial relative w-48  
+        border flex-initial relative w-80 px-2 
         ">
             <!-- TODO make this sticky fixed left-0 top-8 z-0 -->
-            <!-- TODO add icons -->
+            <!-- TODO Adjust icons to fill up when changed -->
             <nav class="">
-                <ul>
-                    <li><a href="#dashboard" class="flex rounded-lg p-2  ">
+                <!-- Main Navigation -->
+                <ul class="space-y-2 mb-6">
+                    <li><a href="#dashboard" class="flex rounded-lg p-2  font-bold bg-darkAccent text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-pie-filled" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M9.883 2.207a1.9 1.9 0 0 1 2.087 1.522l.025 .167l.005 .104v7a1 1 0 0 0 .883 .993l.117 .007h6.8a2 2 0 0 1 2 2a1 1 0 0 1 -.026 .226a10 10 0 1 1 -12.27 -11.933l.27 -.067l.11 -.02z" stroke-width="0" fill="currentColor" />
@@ -78,14 +79,14 @@
                                 <path d="M3 11h16" />
                             </svg>
                             Event</a></li>
-                    <li><a href="#forms" class="flex rounded p2">
+                    <li><a href="#forms" class="flex rounded p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                 <path d="M13.5 6.5l4 4" />
                             </svg>
                             Forms</a></li>
-                    <li><a href="#profile" class="flex rounded p2">
+                    <li><a href="#profile" class="flex rounded p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
@@ -94,10 +95,12 @@
                             </svg>
                             Profile</a></li>
                 </ul>
-                <div>Alumni</div>
-                <ul>
+
+                <!-- Alumni Navigation -->
+                <div class="my-2 uppercase font-normal text-sm tracking-wider">Alumni</div>
+                <ul class="space-y-2">
                     <li><a href="#alumni-of-the-month" class="
-                    flex rounded p2">
+                    flex rounded p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-medal-2" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M9 3h6l3 7l-6 2l-6 -2z" />
@@ -106,7 +109,7 @@
                                 <path d="M12 19.5l-3 1.5l.5 -3.5l-2 -2l3 -.5l1.5 -3l1.5 3l3 .5l-2 2l.5 3.5z" />
                             </svg>
                             Alumni of the Month</a></li>
-                    <li><a href="#community" class="flex rounded p2">
+                    <li><a href="#community" class="flex rounded p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users-group" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
@@ -117,7 +120,7 @@
                                 <path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
                             </svg>
                             Communitity</a></li>
-                    <li><a href="#jobs" class="flex rounded p2">
+                    <li><a href="#jobs" class="flex rounded p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-briefcase" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
