@@ -21,16 +21,19 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
+    <!-- Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body class="">
     <header>
         <p>Alumni CICT System</p>
     </header>
-    <div class="flex flex-row min-h-screen h-screen">
+    <div class="flex flex-row min-h-screen ">
 
         <aside class="
-        border flex-initial relative w-48  h-full
+        border flex-initial relative w-48  
         ">
             <!-- TODO make this sticky fixed left-0 top-8 z-0 -->
             <!-- TODO add icons -->
@@ -132,6 +135,10 @@
     </div>
 
     <script>
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
         $(document).ready(function() {
 
             // manages the click of links
@@ -140,6 +147,9 @@
                 // gets the name of the link
                 const section = fullPageName.split('#')[1];
                 $('#main-root').load(`pages/${section}.php`);
+
+                // changes the title of the document
+                document.title = capitalizeFirstLetter(section);
             })
         })
     </script>
