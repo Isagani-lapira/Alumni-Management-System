@@ -1,14 +1,14 @@
 <!-- dashboard content -->
 <div id="dashboard-tab" class="container mx-auto">
-    <h1 class="text-xl font-extrabold">DASHBOARD</h1>
+    <h1 class="text-xl font-extrabold">Dashboard</h1>
 
     <button id="btnAnnouncement" style="margin-left: auto; margin-right: 10px" class="block rounded-lg font-bold text-white bg-accent p-2 hover:bg-darkAccent">
-        Create Announcement
+        Create CICT POST
     </button>
 
     <div class="flex m-10 h-2/3 p-2">
         <div class="flex-1">
-            <!-- welcome part -->
+            <!-- Welcome Card -->
             <div class="relative rounded-lg h-max p-10 bg-gradient-to-r from-accent to-darkAccent">
                 <img class="absolute -left-2 -top-20" src="/images/standing-2.png" alt="" srcset="" />
                 <span class="block text-lg text-white text-right">
@@ -18,37 +18,37 @@
                     </span>
                 </span>
             </div>
-
+            <!-- quick stat cards -->
             <div class="flex flex-wrap columns-3 mt-2 gap-2">
                 <!-- total user -->
-                <div class="dash-content flex-1 rounded-lg p-2 relative border">
+                <div class="dash-content flex-1 rounded-lg p-4 relative border uppercase shadow-xl">
                     <i class="bi bi-check-circle-fill"></i>
-                    <span class="text-textColor text-xs font-bold text relative">
-                        TOTAL USERS
-                        <br />
-                        REGISTERED</span>
-
-                    <p class="text-accent font-bold text-4xl mt-2 relative bottom-0">55000</p>
-                </div>
-
-                <!-- Job Posting -->
-                <div class="dash-content flex-1 rounded-lg p-2 relative border">
-                    <span class="text-textColor text-xs font-bold"><img class="inline mr-1" src="/images/work-icon.svg" />JOB
-                        POSTING</span>
-                    <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">1000</p>
-                </div>
-
-                <!-- colleges -->
-                <div class="dash-content flex-1 rounded-lg p-2 relative border">
-                    <span class="text-textColor text-xs font-bold">
-                        <img class="inline mr-1" src="/images/graduate-cap.svg" />
-                        COLLEGES
+                    <span class="text-textColor text-xs font-bold text relative ">
+                        total users registered
                     </span>
-                    <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">12</p>
+
+                    <div class="text-2xl text-gray-400 font-bold">
+                        <div>
+                            <span class="text-accent font-bold text-4xl mt-2 relative bottom-0">55000</span>
+                            <span>/10,000</span>
+                        </div>
+                        <div class=""><span class="font-extrabold">300</span> <span class="font-normal capitalize text-lg">students</span></div>
+                        <div class="font-normal capitalize"><span class="font-extrabold">900</span> <span class="font-normal capitalize text-lg">alumni</span> </div>
+                    </div>
+                </div>
+                <!-- new users -->
+                <div class="dash-content flex-1 rounded-lg p-4 relative border uppercase shadow-xl">
+                    <span class="text-textColor text-xs font-bold">
+                        <i class="bi bi-people-fill"></i>
+                        new users this month
+                    </span>
+                    <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">50</p>
                 </div>
 
             </div>
         </div>
+
+        <!-- end quick stats -->
 
         <!-- chart -->
         <div class="flex-1">
@@ -66,7 +66,7 @@
             <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
         </p>
 
-        <div class="dash-content p-3">
+        <div class="dash-content p-3 border shadow-lg rounded-md">
             <div class="recent-announcement flex justify-stretch my-5">
                 <div class="circle rounded-full bg-gray-400 p-5"></div>
                 <div class="text-sm ms-2 font-extralight">
