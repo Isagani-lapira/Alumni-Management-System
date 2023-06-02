@@ -157,11 +157,50 @@
                 const fullPageName = e.target.href;
                 // gets the name of the link
                 const section = fullPageName.split('#')[1];
-                $('#main-root').load(`pages/${section}.php`);
+                // $('#main-root').load(`pages/${section}.php`);
+                loadURL(section, $('#main-root'), section);
 
                 // changes the title of the document
-                document.title = capitalizeFirstLetter(section);
+                // document.title = capitalizeFirstLetter(section);
             })
+
+            function loadURL(url, container, title = '') {
+
+                const base_url = 'pages/'
+                last_module = url;
+                document.title = title;
+                $.ajax({
+                    type: "GET",
+                    url: base_url + url + '.php',
+                    dataType: 'html',
+                    cache: true,
+                    beforeSend: function() {
+                        container.html('<h1><i class="fa fa-cog fa-spin"></i> Loading...</h1>');
+
+                        if (container[0] == $(".main-root")[0]) {
+                            $("html").animate({
+                                scrollTop: 0
+                            }, "fast");
+                        }
+                    },
+                    complete: function(res) {
+                        if (title != '') document.title = title;
+                    },
+                    success: function(data) {
+                        container.css({
+                            opacity: '0.0'
+                        }).html(data).delay(50).animate({
+                            opacity: '1.0'
+                        }, 300);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        // No Page Found
+                        container.load("pages/missing-page.php");
+                    },
+                    async: false
+                });
+            }
+
         })
     </script>
 
