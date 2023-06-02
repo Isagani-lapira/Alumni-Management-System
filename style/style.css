@@ -8,6 +8,10 @@ svg{
   color: rgb(34, 32, 32);
 }
 
+.center-shadow{
+  box-shadow: rgba(87, 87, 87, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  cursor: pointer;
+}
 
 .ui-tabs-active{
   background-color: #991B1B; 
