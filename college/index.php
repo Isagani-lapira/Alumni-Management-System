@@ -31,8 +31,8 @@
 </head>
 
 <body class="">
-    <header>
-        <p>Alumni CICT System</p>
+    <header class="py-6 px-4">
+        <h1 class="text-lg tracking-wide"><span class="font-bold ">Alumni CICT</span> System</h1>
     </header>
     <div class="flex flex-row min-h-screen ">
 
@@ -160,15 +160,14 @@
                 // $('#main-root').load(`pages/${section}.php`);
                 loadURL(section, $('#main-root'), section);
 
-                // changes the title of the document
-                // document.title = capitalizeFirstLetter(section);
+                // document.title = ;
             })
 
             function loadURL(url, container, title = '') {
 
                 const base_url = 'pages/'
                 last_module = url;
-                document.title = title;
+                document.title = capitalizeFirstLetter(title);
                 $.ajax({
                     type: "GET",
                     url: base_url + url + '.php',
@@ -184,7 +183,7 @@
                         }
                     },
                     complete: function(res) {
-                        if (title != '') document.title = title;
+                        if (title != '') document.title = capitalizeFirstLetter(title);
                     },
                     success: function(data) {
                         container.css({
