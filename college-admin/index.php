@@ -27,7 +27,7 @@
     <header>
         <p>Alumni CICT System</p>
     </header>
-    <div class="flex flex-row min-h-screen">
+    <div class="flex flex-row min-h-screen h-screen">
 
         <aside class="
         border flex-initial relative w-48  h-full
@@ -126,8 +126,21 @@
         <main id="main-root" class="flex-1">
             <i class="fa-solid fa-chart-column"></i>
             <h1>I am main</h1>
+
         </main>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // manages the click of links
+            $('nav li a').click(function(e) {
+                const fullPageName = e.target.href;
+                // gets the name of the link
+                const section = fullPageName.split('#')[1];
+                $('#main-root').load(`pages/${section}.php`);
+            })
+        })
+    </script>
 
 </body>
 
