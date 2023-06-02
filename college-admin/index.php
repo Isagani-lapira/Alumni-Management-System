@@ -123,15 +123,17 @@
             </nav>
         </aside>
 
-        <main id="main-root" class="flex-1">
-            <i class="fa-solid fa-chart-column"></i>
-            <h1>I am main</h1>
+        <main class="flex-1">
+            <div id="main-root">
+                <?php require 'pages/dashboard.php'; ?>
+            </div>
 
         </main>
     </div>
 
     <script>
         $(document).ready(function() {
+
             // manages the click of links
             $('nav li a').click(function(e) {
                 const fullPageName = e.target.href;
