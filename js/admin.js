@@ -25,16 +25,9 @@ $(document).ready(function () {
 
 
   $('#btnNewCol').click(function () {
-    $('#createAccModal').removeClass('hidden')
+    window.location.href = "/admin/NewCollege.html"
   })
 
-  //check if the it clicked outside the modal container for closing
-  $('#createAccModal').on('click', function (event) {
-    if (!$(event.target).closest('#modalan').length) {
-      // Click occurred outside the div
-      $('#createAccModal').addClass('hidden')
-    }
-  });
 });
 
 

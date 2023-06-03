@@ -18,8 +18,8 @@ module.exports = {
         accentBlue: "#1746A2"
       },
       fontWeight: {
-        medium: '510'
-      }
+        medium: '510',
+      },
     },
   },
   plugins: [],
