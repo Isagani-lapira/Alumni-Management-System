@@ -174,9 +174,9 @@
                     dataType: 'html',
                     cache: true,
                     beforeSend: function() {
-                        container.html('<h1><i class="fa fa-cog fa-spin"></i> Loading...</h1>');
+                        container.html('<h1>Loading...</h1>');
 
-                        if (container[0] == $(".main-root")[0]) {
+                        if (container[0] === $(".main-root")[0]) {
                             $("html").animate({
                                 scrollTop: 0
                             }, "fast");
