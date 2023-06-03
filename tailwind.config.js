@@ -17,6 +17,9 @@ module.exports = {
         greyish_black: "#333030",
         accentBlue: "#1746A2"
       },
+      fontWeight: {
+        medium: '510'
+      }
     },
   },
   plugins: [],

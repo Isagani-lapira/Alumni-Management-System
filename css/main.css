@@ -1997,6 +1997,10 @@ video {
   border-width: 0px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .border-4 {
   border-width: 4px;
 }
@@ -2573,7 +2577,7 @@ video {
 }
 
 .font-medium {
-  font-weight: 500;
+  font-weight: 510;
 }
 
 .font-normal {
@@ -3116,11 +3120,7 @@ video {
 }
 
 .hover\:font-medium:hover {
-  font-weight: 500;
-}
-
-.hover\:font-semibold:hover {
-  font-weight: 600;
+  font-weight: 510;
 }
 
 .hover\:text-accent:hover {
