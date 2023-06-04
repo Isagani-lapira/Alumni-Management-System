@@ -3,7 +3,8 @@ svg{
   fill: #474645;
 }
 .dash-content,
-.response_by_year{
+.response_by_year,
+.with-shadow{
   box-shadow: rgba(0, 0, 0, 0.19) 5px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 6px;
   color: rgb(34, 32, 32);
 }

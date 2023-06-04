@@ -51,7 +51,7 @@ const tracerData = [12, 1]
 const color = [blueAccent, redAccent]
 
 chartConfig(tracerStatus, tracerType, tracerLabels,
-  tracerData, true, color)
+  tracerData, true, color, true)
 
 
 //chart for response by year
@@ -60,10 +60,131 @@ const responseByYear_labels = ["2021", "2020", "2019", "2018", "2017", "2016", "
 const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860]
 const responseByYear_type = 'bar'
 chartConfig(responseByYear, responseByYear_type, responseByYear_labels,
-  responseByYear_data, false, redAccent)
+  responseByYear_data, false, redAccent, false)
 
 
-function chartConfig(chartID, type, labels, data, responsive, colors) {
+const empStatus = document.getElementById('empStatus')
+const empStatus_labels = ['Employed', 'Unemployed', 'Not yet answering']
+const empStatus_data = [6000, 3500, 1500]
+const empStatus_type = 'pie'
+const empStatus_color = [blueAccent, redAccent, '#FFFFFF']
+
+chartConfig(empStatus, empStatus_type, empStatus_labels, empStatus_data,
+  false, empStatus_color, true)
+
+const Gender = document.getElementById('Gender')
+const Gender_labels = ["2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"]
+const Gender_data = [1000, 500, 247, 635, 323, 393, 290, 860]
+const Gender_type = 'bar'
+const Gender_color = [redAccent, blueAccent]
+chartConfig(Gender, Gender_type, Gender_labels, Gender_data,
+  false, Gender_color, false)
+
+const salaryChart = document.getElementById('salaryChart')
+const salaryChart_labels = ["₱10k-20k", "₱21k-30k", "₱31k-40k", "₱51k-60k", "₱60k-70k", "₱71k-80k"]
+const salaryChart_data = [1000, 500, 247, 635, 323, 393]
+const salaryChart_type = 'bar'
+const lightBlue = '#ACCEE9'
+const lightGreen = '#BAC3B0'
+const lightRed = '#F2AA84'
+const lightYellow = '#E7E7A1'
+const lightPink = '#F0B3C3'
+const lightPurple = '#CBB5CA'
+const salaryChart_color = [lightBlue, lightGreen, lightRed, lightYellow, lightPink, lightPurple]
+chartConfig(salaryChart, salaryChart_type, salaryChart_labels, salaryChart_data,
+  false, salaryChart_color, false)
+
+
+
+const comSkill = document.getElementById('comSkill')
+const comSkill_data = [1000, 500, 247, 635]
+const comSkill_type = 'doughnut'
+const comSkilllightBlue = '#ACCEE9'
+const comSkilllightGreen = '#BAC3B0'
+const comSkilllightRed = '#F2AA84'
+const comSkilllightYellow = '#E7E7A1'
+const comSkilllightPink = '#F0B3C3'
+const comSkilllightPurple = '#CBB5CA'
+const comSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
+
+chartConfig(comSkill, comSkill_type, null, comSkill_data,
+  false, comSkill_color, false)
+
+
+const humanRelSkill = document.getElementById('humanRelSkill')
+const humanRelSkill_data = [35, 500, 247, 1000]
+const humanRelSkill_type = 'doughnut'
+const humanRelSkilllightBlue = '#ACCEE9'
+const humanRelSkilllightGreen = '#BAC3B0'
+const humanRelSkilllightRed = '#F2AA84'
+const humanRelSkilllightYellow = '#E7E7A1'
+const humanRelSkilllightPink = '#F0B3C3'
+const humanRelSkilllightPurple = '#CBB5CA'
+const humanRelSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
+
+chartConfig(humanRelSkill, humanRelSkill_type, null, humanRelSkill_data,
+  false, humanRelSkill_color, false)
+
+const entrepSkill = document.getElementById('entrepSkill')
+const entrepSkill_data = [100, 200, 1000, 333]
+const entrepSkill_type = 'doughnut'
+const entrepSkilllightBlue = '#ACCEE9'
+const entrepSkilllightGreen = '#BAC3B0'
+const entrepSkilllightRed = '#F2AA84'
+const entrepSkilllightYellow = '#E7E7A1'
+const entrepSkilllightPink = '#F0B3C3'
+const entrepSkilllightPurple = '#CBB5CA'
+const entrepSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
+
+chartConfig(entrepSkill, entrepSkill_type, null, entrepSkill_data,
+  false, entrepSkill_color, false)
+
+
+
+const ITSkill = document.getElementById('ITSkill')
+const ITSkill_data = [100, 200, 1000, 333]
+const ITSkill_type = 'doughnut'
+const ITSkilllightBlue = '#ACCEE9'
+const ITSkilllightGreen = '#BAC3B0'
+const ITSkilllightRed = '#F2AA84'
+const ITSkilllightYellow = '#E7E7A1'
+const ITSkilllightPink = '#F0B3C3'
+const ITSkilllightPurple = '#CBB5CA'
+const ITSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
+
+chartConfig(ITSkill, ITSkill_type, null, ITSkill_data,
+  false, ITSkill_color, false)
+
+const probSolvSkill = document.getElementById('probSolvSkill')
+const probSolvSkill_data = [100, 200, 1000, 333]
+const probSolvSkill_type = 'doughnut'
+const probSolvSkilllightBlue = '#ACCEE9'
+const probSolvSkilllightGreen = '#BAC3B0'
+const probSolvSkilllightRed = '#F2AA84'
+const probSolvSkilllightYellow = '#E7E7A1'
+const probSolvSkilllightPink = '#F0B3C3'
+const probSolvSkilllightPurple = '#CBB5CA'
+const probSolvSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
+
+chartConfig(probSolvSkill, probSolvSkill_type, null, probSolvSkill_data,
+  false, probSolvSkill_color, false)
+
+const critThinkSkill = document.getElementById('critThinkSkill')
+const critThinkSkill_data = [100, 200, 1000, 333]
+const critThinkSkill_type = 'doughnut'
+const critThinkSkilllightBlue = '#ACCEE9'
+const critThinkSkilllightGreen = '#BAC3B0'
+const critThinkSkilllightRed = '#F2AA84'
+const critThinkSkilllightYellow = '#E7E7A1'
+const critThinkSkilllightPink = '#F0B3C3'
+const critThinkSkilllightPurple = '#CBB5CA'
+const critThinkSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
+
+chartConfig(critThinkSkill, critThinkSkill_type, null, critThinkSkill_data,
+  false, critThinkSkill_color, false)
+
+
+function chartConfig(chartID, type, labels, data, responsive, colors, displayLegend) {
   //the chart
   new Chart(chartID, {
     type: type,
@@ -78,14 +199,10 @@ function chartConfig(chartID, type, labels, data, responsive, colors) {
     options: {
       responsive: responsive, // Disable responsiveness
       maintainAspectRatio: false, // Disable aspect ratio
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      },
+
       plugins: {
         legend: {
-          display: true,
+          display: displayLegend,
           position: 'bottom',
           labels: {
             font: {
