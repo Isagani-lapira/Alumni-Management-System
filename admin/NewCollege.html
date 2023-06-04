@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/css/main.css" rel="stylesheet" />
+    <link href="/style/style.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <title>Create New College</title>
+</head>
+<body>
+    <div class="p-10 text-greyish_black w-screen">
+        <div>
+            <h1 class="text-4xl font-bold">CREATE NEW COLLEGE</h1>
+            <p class="text-grayish">Here you can add a new College that will be available in the University</p>
+            <img class="-top-32 -right-32 h-1/2 opacity-50 clip-right fixed logo-bulsu" src="/assets/bulsu-logo.png" alt="">
+        </div>
+        
+        <div>
+            <form action="" class="flex w-4/5 mt-5">
+                <div class="flex-initial w-3/4 h-max">
+
+                    <!-- College Name -->
+                    <label class="font-bold text-greyish_black" for="">College Name</label>
+                    <input class="block p-2 border border-grayish w-3/4 outline-none rounded-lg mb-3" type="text" 
+                    placeholder="e.g College of Information in Communication Technology">
+
+                    <!-- College Email -->
+                    <label class="font-bold text-greyish_black" for="">College Email Address</label>
+                    <input class="block p-2 border border-grayish w-3/4 outline-none rounded-lg" type="text" 
+                    placeholder="e.g College of Information in Communication Technology">
+
+                    <div class="grid grid-cols-2 w-3/4 gap-2 mt-3">
+                        <div>
+                            <label class="font-bold text-greyish_black" for="">Contact No.</label>
+                            <input class="block p-2 border border-grayish w-full outline-none rounded-lg" type="text" 
+                            placeholder="e.g 09104905330">
+                        </div>
+
+                        <div>
+                            <label class="font-bold text-greyish_black" for="">Webiste link</label>
+                            <input class="block p-2 border border-grayish w-full outline-none rounded-lg" type="text" 
+                            placeholder="e.g https://www.bulsu-cict.com/ ">
+                        </div>
+                    </div>
+
+                    <!-- Coordinator info -->
+                    <p class="mt-5 border border-b-greyish_black w-3/4 font-bold text-greyish_black py-3">College Alumni Coordinator Information</p>
+
+                    <div class="grid grid-cols-2 w-3/4 gap-2 my-3">
+                        <div>
+                            <label class="font-bold text-greyish_black" for="">First Name</label>
+                            <input class="block p-2 border border-grayish w-full outline-none rounded-lg" type="text" 
+                            placeholder="e.g Jayson">
+                        </div>
+
+                        <div>
+                            <label class="font-bold text-greyish_black" for="">Last Name</label>
+                            <input class="block p-2 border border-grayish w-full outline-none rounded-lg" type="text" 
+                            placeholder="e.g Batoon ">
+                        </div>
+                    </div>
+
+                     <label class="font-bold text-greyish_black" for="">Email Address (BulSU)</label>
+                     <input class="block p-2 border border-grayish w-3/4 outline-none rounded-lg" type="text" 
+                     placeholder="e.g jaysonbatoon@bulsu.edu.ph">
+
+                    <div class="grid grid-cols-2 w-3/4 gap-2 mt-3">
+                        <div>
+                            <label class="font-bold text-greyish_black" for="">Birthday</label>
+                            <input class="block p-2 border border-grayish w-full outline-none rounded-lg" type="date" 
+                            placeholder="e.g mm/dd/yyyy">
+                        </div>
+
+                        <div>
+                            <label class="font-bold text-greyish_black" for="">Age</label>
+                            <input class="block p-2 border border-grayish w-full outline-none rounded-lg" type="" 
+                            placeholder="e.g 23 ">
+                        </div>
+                    </div>
+
+                    <button
+                        class="block rounded-lg mt-3 w-3/4 font-bold text-white bg-accent py-3 hover:bg-darkAccent"
+                        >Create Announcement
+                    </button>
+                    
+                    <button type="button" id="btnCancelToCollege" class="w-3/4 text-grayish text-lg hover:font-semibold">Cancel</button>
+                </div>
+    
+                <div class="flex-none w-1/5">
+                    <div class="flex justify-center items-center rounded h-1/3 p-3 bulsu-logo hover:cursor-pointer">
+                        <label class="block text-center text-lg font-semibold text-grayish" for="collegeLogo">ADD LOGO</label>
+                        <input class="hidden" id="collegeLogo" type="file">
+                    </div>
+                    <p class="text-center py-3 font-bold text-grayish">Choose Logo</p>
+                </div>
+            </form>
+            
+        </div>
+        
+    </div>
+
+    <script src="/js/newCollege.js"></script>
+</body>
+</html>

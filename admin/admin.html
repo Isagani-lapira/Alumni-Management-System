@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
 
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
     <title>University Admin</title>
@@ -28,7 +28,7 @@
           <h1 class="font-extrabold text-18sm my-5">
             Alumni <span class="font-normal">System</span>
           </h1>
-          <ul class="w-3/4">
+          <ul class="w-3/4 text-sm">
 
             <!-- DASHBOARD -->
             <li class="rounded-lg p-2"><a href="#dashboard-tab">
@@ -74,7 +74,7 @@
           </ul>
 
 
-          <ul class="my-10">
+          <ul class="my-10 text-sm">
             <span class="mt-4">ALUMNI</span>
 
             <!-- Alumni of the year -->
@@ -114,13 +114,14 @@
               <h1 class="text-xl font-extrabold">DASHBOARD</h1>
 
               <button
+                id="btnAnnouncement"
                 style="margin-left: auto; margin-right: 10px"
                 class="block rounded-lg font-bold text-white bg-accent p-2 hover:bg-darkAccent"
               >
                 Create Announcement
               </button>
 
-              <div class="flex m-10">
+              <div class="flex m-10 h-2/3 p-2">
                 <div class="flex-1">
                   <!-- welcome part -->
                   <div
@@ -140,21 +141,21 @@
                     </span>
                   </div>
 
-                  <div class="flex flex-wrap mt-2 gap-2">
+                  <div class="flex flex-wrap columns-3 mt-2 gap-2 text-xs font-medium">
                     <!-- total user -->
                     <div class="dash-content flex-1 rounded-lg p-2 relative">
                       <img class="inline" src="/images/check-icon.svg" alt="" />
-                      <span class="text-textColor text-xs font-bold text relative" >
+                      <span class="text-textColor text relative" >
                         TOTAL USERS
                         <br />
                         REGISTERED</span>
 
-                        <p class="text-accent font-bold text-4xl mt-2 relative bottom-0">55000</p>
+                        <p class="text-accent text-4xl mt-2 font-bold relative bottom-0">55000</p>
                     </div>
 
                     <!-- Job Posting -->
                     <div class="dash-content flex-1 rounded-lg p-2 relative">
-                      <span class="text-textColor text-xs font-bold"
+                      <span class="text-textColor"
                         ><img class="inline mr-1" src="/images/work-icon.svg" />JOB
                         POSTING</span
                       >
@@ -163,7 +164,7 @@
 
                     <!-- colleges -->
                     <div class="dash-content flex-1 rounded-lg p-2 relative">
-                      <span class="text-textColor text-xs font-bold">
+                      <span class="text-textColor">
                         <img class="inline mr-1" src="/images/graduate-cap.svg" />
                         COLLEGES
                       </span>
@@ -173,22 +174,67 @@
                   </div>
                 </div>
 
-
+                <!-- chart -->
                 <div class="flex-1">
                   <!-- tracer status part -->
-                  <div></div>
+                  <div class="w-80 mx-auto">
+                    <canvas id="myChart"></canvas>
+                  </div>
                 </div>
 
               </div>
 
               <!-- recent announcement -->
-              <div class="recent-announcement m-10 max-lg: relative pb-3 font-semibold">
+              <div class="m-10 max-lg: relative font-semibold p-3">
                 <p class=" mb-2">RECENT ANNOUNCEMENT 
-                  <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset=""></p>
-                  
+                  <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
+                </p>
+
+                <div class="dash-content p-3">
+                  <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-gray-400 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                      <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
+                        <span class="bg-yellow-300 text-white font-semibold p-1 text-sm rounded-md">Post</span>
+                      </p>
+                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                  </div>
+
+                  <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-red-400 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                      <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
+                        <span class="bg-green-600 text-white font-semibold p-1 text-sm rounded-md">Announcement</span>
+                      </p>
+                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                  </div>
+
+                  <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-yellow-200 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                      <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
+                        <span class="bg-violet-400 text-white font-semibold p-1 text-sm rounded-md">Update</span>
+                      </p>
+                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                  </div>
 
                   <!-- view more -->
-                  <p class="text-accent absolute bottom-0 block right-0 mx-4 cursor-pointer ">View more</p>
+                  <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
+                </div>
+                  
+              </div>
+
+
+              <!-- Response by year -->
+              <div class="m-10 max-lg: relative pb-3 font-semibold">
+                <p class=" mb-2">RESPONSE BY YEAR </p>
+                <div class="response_by_year">
+                  <canvas class="block mx-auto" style="height:40vh; width:40vw" id="responseByYear"></canvas>
+                </div>
+                
               </div>
             </div>
           </div>
@@ -246,26 +292,22 @@
               </div>
             </div>
 
-            <!-- past announcement -->
-            <div id="announcement-content">
-              <h1 class="text-xl font-extrabold">PAST ANNOUNCEMENT</h1>
-            </div>
           </div>
           
           <!-- report content -->
           <div id="report-tab">
             <h1 class="text-xl font-extrabold">REPORTS</h1>
 
-            <div class="flex justify-end text-sm text-greyish_black">
+            <div class="flex justify-end text-xs text-greyish_black">
               <!-- HISTORY LOGS -->
-              <button class="p-2 m-2 border border-greyish_black rounded-md font-semibold">
+              <button class="p-2 m-2 border border-grayish text-grayish rounded-md">
                 Download history logs 
                 <img class="inline" src="/images/download.png" alt="">
               </button>
 
               <!-- EXPORT PDF -->
               <button class="p-2 px-4 m-2 border border-accent rounded-md 
-                  bg-accent text-white hover:bg-darkAccent font-semibold">Export as PDF
+                  bg-accent text-white hover:bg-darkAccent">Export as PDF
               </button>
 
             </div>
@@ -285,24 +327,334 @@
               </select>
 
               <!-- college selection -->
-              <select name="" id="college" class="w-full p-1">
+              <select name="college" id="college" class="w-full p-1">
                 <option value="" selected disabled hidden>Course</option>
               </select>
 
               <!-- employment status selection -->
-              <select name="" id="college" class="w-full p-1">
+              <select name="employment" id="employment" class="w-full p-1">
                 <option value="" selected disabled hidden>Employment Status</option>
+                <option value="">Employed</option>
+                <option value="">Unemployed</option>
+                <option value="">Self-employed</option>
+                <option value="">Student</option>
+                <option value="">Retired</option>
               </select>
               
             </div>
 
+
+            <!-- record of name-->
+            <table class="table-auto w-full mt-10 text-xs font-thin text-grayish">
+              <thead>
+                <tr>
+                  <th class="text-start">NAME</th>
+                  <th>CONTACT NUMBER</th>
+                  <th>DATE SUBMITTED</th>
+                  <th>STATUS</th>
+                  <th>DETAILS</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="h-14 text-xs">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/alumni-pic2.png"></img>
+                      <span class="ml-2">Wade Warren</span>
+                    </div>
+                  </td>
+                  <td class="text-center">09104905440</td>
+                  <td class="text-center">4/4/18</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg text-xs font-medium bg-green-300 text-green-700">STUDENT</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE</td>
+                </tr>
+
+                <tr class="h-14 text-xs">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/avatar-prof.png"></img>
+                      <span class="ml-2">Leslie Alexander</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(704) 555-0127</td>
+                  <td class="text-center">7/11/19</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg text-xs font-medium bg-yellow-300 text-yellow-500">Alumni</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE</td>
+                </tr>
+
+                <tr class="h-14 text-xs">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/footer-img.png"></img>
+                      <span class="ml-2">Floyd Miles</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(208) 555-0112</td>
+                  <td class="text-center">5/19/12 </td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg text-xs font-medium bg-green-300 text-green-700">STUDENT</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE</td>
+                </tr>
+
+
+                <tr class="h-14 text-xs">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+                      <span class="ml-2">Cameron Williamson</span>
+                    </div>
+                  </td>
+                  <td class="text-center">(239) 555-0108</td>
+                  <td class="text-center">7/27/13</td>
+                  <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg text-xs font-medium bg-yellow-300 text-yellow-500">Alumni</span>
+                  </td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE</td>
+                </tr>
+
+
+              </tbody>
+            </table>
           </div>
 
+          <!-- college content -->
+          <div id="colleges-tab" class="h-full">
+            <div class="college-content">
+              <h1 class="text-xl font-extrabold">ACCOUNT</h1>
+              <p class="text-grayish">Here you can check all colleges available in the University</p>
+  
+              <div class="flex justify-between mt-4">
+  
+                <div>
+                  <p class="font-medium">Total Colleges</p>
+                  <p class="font-bold text-5xl">6</p>
+                </div>
+  
+                <div>
+                  <button
+                    id="btnNewCol"
+                    style="margin-left: auto; margin-right: 10px"
+                    class="block rounded-lg  text-white bg-accent p-2 hover:bg-darkAccent"
+                    >Create new college
+                  </button>
+                
+                  <button
+                    id="btnRemoveCol"
+                    style="margin-left: auto; margin-right: 10px"
+                    class="block my-2 text-sm text-grayish px-2 py-1 hover:text-accent hover:font-medium"
+                    >Remove a college
+                  </button>
+                </div>
+  
+              </div>
+              
+  
+              <hr class="border-1 border-greyish_black"/>
+  
+              <div class="grid grid-cols-4 gap-4 p-7">
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CICT.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF INFORMATION AND COMMUNICATION TECHNOLOGY</p>
+                </div>
+                
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COED.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF EDUCATION</p>
+                </div>
+  
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CAFA.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF ARCHITECTURE AND FINE ARTS</p>
+                </div>
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CHTM.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF HOSPITALITY AND TOURISM MANAGEMENT</p>
+                </div>
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CN.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF NURSING</p>
+                </div>
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COE.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF ENGINEERING</p>
+                </div>
+  
+              </div>
+            </div>
+            
+            <div class="individual-col h-full hidden">
+              <h1 class="text-xl font-extrabold">
+                <span>
+                  <img class="inline hover:cursor-pointer back-icon" src="/images/back.png" alt="">
+                </span> PROFILE
+              </h1>
+              <div class="px-10">
+                <div class="grid grid-cols-2 h-max p-5">
+                  <img class="w-1/2 block mx-auto" src="https://www.bulsu.edu.ph/resources/colleges-logo/CICT.png" alt="">
+  
+                  <div class="college-info w-8/12 text-xs">
+                    <h1 class="text-2xl font-extrabold">College Of Infomation and Communication Techonology (CICT)</h1>
+                    <p class="text-grayish mt-3 font-semibold">Number</p>
+                    <p class="text-greyish_black text-sm font-semibold">091234567890</p>
+  
+                    <p class="text-grayish mt-2 font-semibold">Email Address</p>
+                    <p class="text-greyish_black text-sm font-semibold">email@example.com</p>
+  
+                    <p class="text-grayish mt-2 font-semibold">Website</p>
+                    <a href="https://www.bulsu-cict.com/" target="_blank" class="text-sm text-blue-300 font-semibold">https://www.bulsu-cict.com/</a>
+                  </div>
+                  
+                </div>
+  
+                <div class="description mt-3 w-9/12">
+                  <h1 class="text-xl font-extrabold ">DESCRIPTION</h1>
+                  <P class="py-3">Bulacan State University's College of Information and Communications 
+                    Technology is the premier institution in Bulacan when it comes to effective and efficient 
+                    ICT education and a leader in pioneering research and extension services.
+                  </P>
+                </div>
+                
+                <div class="flex justify-between my-16">
+                  <div class="dean">
+                    <div class="text-center">
+                      <img class="w-full" src="/images/Mr.Keno.png" alt="">
+                      <p class="text-lg">Mr. Keno Piad</p>
+                      <p class="font-medium text-lg">DEAN, CICT</p>
+                    </div>
+                  </div>
+  
+                  <div class="coordinator">
+                    <div class="text-center">
+                      <img class="w-full" src="/images/Mr.Jayson.png" alt="">
+                      <p class="text-lg">Mr. Jayson Batoon</p>
+                      <p class="font-medium text-lg">Alumni Coordinator, CICT</p>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="courses-offered my-10 w-8/12">
+                  <h1 class="text-xl font-extrabold mb-5">Courses Offered</h1>
+                  <P>Bachelor of Science in Information Technology</P>
+                  <P>Bachelor of Library and Information Science</P>
+                  <P>Bachelor of Science in Information System</P>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+          <div id="forms-tab">
+            <h1 class="text-xl font-extrabold">Alumni Tracer Form</h1>
+            <p class="text-grayish">See the relevant information that are gathered</p>
+
+            <div class="mt-16 border border-t-grayish">
+              <div class="grid grid-cols-2 p-2 ">
+                <canvas class="w-1/2" id="empStatus"></canvas>
+                <div>
+                  <h1 class="text-xl font-extrabold">Employment Status</h1>
+                  <canvas class="w-full" id="Gender"></canvas>
+                </div>
+              </div>
+
+              <h1 class="text-xl font-extrabold px-5 mb-10">Annual Salary</h1>
+              <canvas class="block mx-auto" style="height:40vh; width:40vw" id="salaryChart"></canvas>
+
+              <h1 class="text-xl font-extrabold m-16">Relevant Skills Developed</h1>
+              <div class="flex justify-center w-full">
+                <div class="grid grid-cols-3 gap-3 text-center">
+                  <div>
+                    <canvas class="w-1/2 mx-auto mb-3" id="comSkill"></canvas>
+                    <p>Communication Skills</p>
+                  </div>
+                
+                  <div>
+                    <canvas class="w-1/2 mx-auto mb-3" id="humanRelSkill"></canvas>
+                    <p>Human Relations Skills</p>
+                  </div>
+  
+                  <div>
+                    <canvas class="w-1/2 mx-auto mb-3" id="entrepSkill"></canvas>
+                    <p>Entrepreneurial Skills</p>
+                  </div>
+  
+  
+  
+                  <div>
+                    <canvas class="w-1/2 mx-auto mb-3" id="ITSkill"></canvas>
+                    <p>Information Technology Skills</p>
+                  </div>
+                
+                  <div>
+                    <canvas class="w-1/2 mx-auto mb-3" id="probSolvSkill"></canvas>
+                    <p>Problem-Solving Skills</p>
+                  </div>
+  
+                  <div>
+                    <canvas class="w-1/2 mx-auto mb-3" id="critThinkSkill"></canvas>
+                    <p>Critical-Thinking Skills</p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
         </main>
       </div>
         
+
+      <!-- modal -->
+      <div id="modal" class="modal fixed inset-0 h-full w-full flex items-center justify-center 
+      text-grayish  top-0 left-0 hidden">
+        <div class="modal-container w-1/3 h-2/3 bg-white rounded-lg p-3">
+          <div class="modal-header py-5">
+            <h1 class="text-accent text-2xl text-center font-bold">Create Announcement</h1>
+          </div>
+          <div class="modal-body px-3">
+
+            <!-- header part -->
+            <label class="font-semibold text-sm">Header</label>
+            <div class="w-full border border-gray-400 rounded flex p-3">
+              <input id="inputHeader" class="inputHeader outline-none flex-auto w-full pe-3" type="text" placeholder="ex: Scholarship">
+            </div>
+
+            <!-- body part -->
+            <label class="font-semibold text-sm mt-2">Description</label>
+            <div class="modal-descript relative w-full h-2/3 border border-gray-400 rounded p-3">
+              <textarea class="rar outline-none w-full h-full p-1" type="text" placeholder="Say something here..."></textarea>
+              <label for="fileGallery">
+                <span id="galleryLogo" class="absolute bottom-1 left-1">
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="blue" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 7C17 7.53043 16.7893 8.03914 16.4142 8.41421C16.0391 8.78929 15.5304 9 15 9C14.4696 9 13.9609 8.78929 13.5858 8.41421C13.2107 8.03914 13 7.53043 13 7C13 6.46957 13.2107 5.96086 13.5858 5.58579C13.9609 5.21071 14.4696 5 15 5C15.5304 5 16.0391 5.21071 16.4142 5.58579C16.7893 5.96086 17 6.46957 17 7Z" fill="#BCBCBC"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.943 0.25H11.057C13.366 0.25 15.175 0.25 
+                    16.587 0.44C18.031 0.634 19.171 1.04 20.066 1.934C20.961 2.829 21.366 3.969 21.56 5.414C21.75 6.825 21.75 8.634 21.75 10.943V11.031C21.75 12.94 21.75 14.502 21.646 15.774C21.542 17.054 21.329 18.121 20.851 19.009C20.641 19.4 20.381 19.751 20.066 20.066C19.171 20.961 18.031 21.366 16.586 21.56C15.175 21.75 13.366 21.75 11.057 
+                    21.75H10.943C8.634 21.75 6.825 21.75 5.413 21.56C3.969 21.366 2.829 20.96 1.934 20.066C1.141 19.273 0.731 18.286 0.514 17.06C0.299 15.857 0.26 14.36 0.252 12.502C0.25 12.029 0.25 11.529 0.25 11.001V10.943C0.25 8.634 0.25 6.825 0.44 5.413C0.634 3.969 1.04 2.829 1.934 1.934C2.829 1.039 3.969 0.634 5.414 0.44C6.825 0.25 8.634 0.25 10.943 0.25ZM5.613 1.926C4.335 2.098 3.564 2.426 2.995 2.995C2.425 3.565 2.098 4.335 1.926 5.614C1.752 6.914 1.75 8.622 1.75 11V11.844L2.751 10.967C3.1902 10.5828 3.75902 10.3799 4.34223 10.3994C4.92544 10.4189 5.47944 10.6593 5.892 11.072L10.182 15.362C10.5149 15.6948 10.9546 15.8996 11.4235 15.9402C11.8925 15.9808 12.3608 15.8547 12.746 15.584L13.044 15.374C13.5997 14.9835 14.2714 14.7932 14.9493 14.834C15.6273 14.8749 16.2713 15.1446 16.776 15.599L19.606 18.146C19.892 17.548 20.061 16.762 20.151 15.653C20.249 14.448 20.25 12.946 20.25 11C20.25 8.622 20.248 6.914 20.074 5.614C19.902 4.335 19.574 3.564 19.005 2.994C18.435 2.425 17.665 2.098 16.386 1.926C15.086 1.752 13.378 1.75 11 1.75C8.622 1.75 6.913 1.752 5.613 1.926Z" fill="#BCBCBC"/>
+                  </svg>
+                </span>
+              </label>
+              <input id="fileGallery" type="file" class="hidden"/>
+            </div>
+          
+          
+          </div>
+
+          <!-- Footer -->
+          <div class="modal-footer flex items-end flex-row-reverse px-3">
+            <button class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+            <button class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+
     </div>
 
+
+    
     <script src="/js/admin.js"></script>
   </body>
 </html>
