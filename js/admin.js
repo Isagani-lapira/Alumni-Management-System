@@ -28,6 +28,16 @@ $(document).ready(function () {
     window.location.href = "/admin/NewCollege.html"
   })
 
+
+  $('.college').click(() => {
+    $('.individual-col').removeClass('hidden')
+    $('.college-content').addClass('hidden')
+  })
+
+  $('.back-icon').click(() => {
+    $('.individual-col').addClass('hidden')
+    $('.college-content').removeClass('hidden')
+  })
 });
 
 

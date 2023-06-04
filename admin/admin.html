@@ -423,66 +423,128 @@
           </div>
 
           <!-- college content -->
-          <div id="colleges-tab">
-            <h1 class="text-xl font-extrabold">ACCOUNT</h1>
-            <p class="text-grayish">Here you can check all colleges available in the University</p>
-
-            <div class="flex justify-between mt-4">
-
-              <div>
-                <p class="font-medium">Total Colleges</p>
-                <p class="font-bold text-5xl">6</p>
+          <div id="colleges-tab" class="h-full">
+            <div class="college-content">
+              <h1 class="text-xl font-extrabold">ACCOUNT</h1>
+              <p class="text-grayish">Here you can check all colleges available in the University</p>
+  
+              <div class="flex justify-between mt-4">
+  
+                <div>
+                  <p class="font-medium">Total Colleges</p>
+                  <p class="font-bold text-5xl">6</p>
+                </div>
+  
+                <div>
+                  <button
+                    id="btnNewCol"
+                    style="margin-left: auto; margin-right: 10px"
+                    class="block rounded-lg  text-white bg-accent p-2 hover:bg-darkAccent"
+                    >Create new college
+                  </button>
+                
+                  <button
+                    id="btnRemoveCol"
+                    style="margin-left: auto; margin-right: 10px"
+                    class="block my-2 text-sm text-grayish px-2 py-1 hover:text-accent hover:font-medium"
+                    >Remove a college
+                  </button>
+                </div>
+  
               </div>
-
-              <div>
-                <button
-                  id="btnNewCol"
-                  style="margin-left: auto; margin-right: 10px"
-                  class="block rounded-lg  text-white bg-accent p-2 hover:bg-darkAccent"
-                  >Create new college
-                </button>
               
-                <button
-                  id="btnRemoveCol"
-                  style="margin-left: auto; margin-right: 10px"
-                  class="block my-2 text-sm text-grayish px-2 py-1 hover:text-accent hover:font-medium"
-                  >Remove a college
-                </button>
+  
+              <hr class="border-1 border-greyish_black"/>
+  
+              <div class="grid grid-cols-4 gap-4 p-7">
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CICT.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF INFORMATION AND COMMUNICATION TECHNOLOGY</p>
+                </div>
+                
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COED.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF EDUCATION</p>
+                </div>
+  
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CAFA.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF ARCHITECTURE AND FINE ARTS</p>
+                </div>
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CHTM.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF HOSPITALITY AND TOURISM MANAGEMENT</p>
+                </div>
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CN.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF NURSING</p>
+                </div>
+                <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                  <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COE.png" alt="">
+                  <p class="text-xs text-center text-grayish font-medium">COLLEGE OF ENGINEERING</p>
+                </div>
+  
               </div>
-
             </div>
             
-
-            <hr class="border-1 border-greyish_black"/>
-
-            <div class="grid grid-cols-4 gap-4 p-7">
-              <div class="center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CICT.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF INFORMATION AND COMMUNICATION TECHNOLOGY</p>
+            <div class="individual-col h-full hidden">
+              <h1 class="text-xl font-extrabold">
+                <span>
+                  <img class="inline hover:cursor-pointer back-icon" src="/images/back.png" alt="">
+                </span> PROFILE
+              </h1>
+              <div class="px-10">
+                <div class="grid grid-cols-2 h-max p-5">
+                  <img class="w-1/2 block mx-auto" src="https://www.bulsu.edu.ph/resources/colleges-logo/CICT.png" alt="">
+  
+                  <div class="college-info w-8/12 text-xs">
+                    <h1 class="text-2xl font-extrabold">College Of Infomation and Communication Techonology (CICT)</h1>
+                    <p class="text-grayish mt-3 font-semibold">Number</p>
+                    <p class="text-greyish_black text-sm font-semibold">091234567890</p>
+  
+                    <p class="text-grayish mt-2 font-semibold">Email Address</p>
+                    <p class="text-greyish_black text-sm font-semibold">email@example.com</p>
+  
+                    <p class="text-grayish mt-2 font-semibold">Website</p>
+                    <a href="https://www.bulsu-cict.com/" target="_blank" class="text-sm text-blue-300 font-semibold">https://www.bulsu-cict.com/</a>
+                  </div>
+                  
+                </div>
+  
+                <div class="description mt-3 w-9/12">
+                  <h1 class="text-xl font-extrabold ">DESCRIPTION</h1>
+                  <P class="py-3">Bulacan State University's College of Information and Communications 
+                    Technology is the premier institution in Bulacan when it comes to effective and efficient 
+                    ICT education and a leader in pioneering research and extension services.
+                  </P>
+                </div>
+                
+                <div class="flex justify-between my-16">
+                  <div class="dean">
+                    <div class="text-center">
+                      <img class="w-full" src="/images/Mr.Keno.png" alt="">
+                      <p class="text-lg">Mr. Keno Piad</p>
+                      <p class="font-medium text-lg">DEAN, CICT</p>
+                    </div>
+                  </div>
+  
+                  <div class="coordinator">
+                    <div class="text-center">
+                      <img class="w-full" src="/images/Mr.Jayson.png" alt="">
+                      <p class="text-lg">Mr. Jayson Batoon</p>
+                      <p class="font-medium text-lg">Alumni Coordinator, CICT</p>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="courses-offered my-10 w-8/12">
+                  <h1 class="text-xl font-extrabold mb-5">Courses Offered</h1>
+                  <P>Bachelor of Science in Information Technology</P>
+                  <P>Bachelor of Library and Information Science</P>
+                  <P>Bachelor of Science in Information System</P>
+                </div>
               </div>
               
-              <div class="center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COED.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF EDUCATION</p>
-              </div>
-
-              <div class="center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CAFA.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF ARCHITECTURE AND FINE ARTS</p>
-              </div>
-              <div class="center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CHTM.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF HOSPITALITY AND TOURISM MANAGEMENT</p>
-              </div>
-              <div class="center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CN.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF NURSING</p>
-              </div>
-              <div class="center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COE.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF ENGINEERING</p>
-              </div>
-
             </div>
           </div>
           
