@@ -1054,6 +1054,26 @@ input:focus,
   width: 100%;
 }
 
+.w-4\/5 {
+  width: 80%;
+}
+
+.w-\[70\%\] {
+  width: 70%;
+}
+
+.w-\[60\%\] {
+  width: 60%;
+}
+
+.w-\[50\%\] {
+  width: 50%;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
 .max-w-full {
   max-width: 100%;
 }
@@ -2504,6 +2524,16 @@ input:focus,
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .pb-3 {

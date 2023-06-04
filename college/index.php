@@ -43,7 +43,7 @@
             <!-- TODO Adjust icons to fill up when changed -->
             <nav class="">
                 <!-- Main Navigation -->
-                <ul class="space-y-2 mb-6">
+                <ul class="space-y-2 mb-6 py-5 w-4/5">
                     <li><a data-link="dashboard" href="#dashboard" class="flex rounded-lg p-2  font-bold bg-darkAccent text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-pie-filled" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -98,8 +98,8 @@
 
                 <!-- Alumni Navigation -->
                 <div class="my-2 uppercase font-normal text-sm tracking-wider">Alumni</div>
-                <ul class="space-y-2">
-                    <li><a data-link="alumni-of-the-monthj" href="#alumni-of-the-month" class="
+                <ul class="space-y-2 w-4/5">
+                    <li><a data-link="alumni-of-the-month" href="#alumni-of-the-month" class="
                     flex rounded p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-medal-2" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />

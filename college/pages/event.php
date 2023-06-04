@@ -1,3 +1,3 @@
-<h1>Events</h1>
-<h2>Does it support hot reloading?</h2>
-<h3>weh?</h3>
+<div class="container mx-auto">
+    <h1 class="text-2xl font-bold">Events</h1>
+</div>
