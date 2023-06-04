@@ -157,22 +157,26 @@
                 // change the url
                 loadURL(linkName, $('#main-root'));
             }
-
-            function handleLinkFocusChange(pageName) {
-                const elem = $(`nav li a[data-link="${pageName}"`);
-                $('nav li a').removeClass("font-bold bg-darkAccent text-white");
-                elem.addClass("font-bold bg-darkAccent text-white");
-
-            }
-
-            // manages the click of links
+            // manages link clicks
             $('nav li a').click(function(e) {
                 const link = e.target.getAttribute('data-link')
                 handleLinkFocusChange(link)
                 loadURL(link, $('#main-root'))
             })
 
-            function loadURL(url, container, title = '') {
+
+
+
+            function handleLinkFocusChange(pageName) { // changes the state of nav links to highlight focus
+                const elem = $(`nav li a[data-link="${pageName}"`);
+                $('nav li a').removeClass("font-bold bg-darkAccent text-white");
+                elem.addClass("font-bold bg-darkAccent text-white");
+
+            }
+
+
+
+            function loadURL(url, container, title = '') { // change the root elem to page
 
                 const base_url = 'pages/'
                 title = title.length === 0 ? url : title;
