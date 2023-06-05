@@ -9,7 +9,17 @@
 
 <h3>Employee Status</h3>
 <!-- TODO add chart here -->
+
+<!-- Chart.js  -->
 <h3>Annual Salary</h3>
 <!-- TODO add chart here -->
 <h3>Relevant Skills Developed</h3>
 <!-- TODO add chart here -->
+
+
+<script>
+    $(document).ready(function() {
+
+        // configure chart js functions here.
+    })
+</script>
