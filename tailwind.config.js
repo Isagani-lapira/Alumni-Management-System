@@ -20,6 +20,7 @@ module.exports = {
       fontWeight: {
         medium: '510',
       },
+      outline: ['none'],
     },
   },
   plugins: [],

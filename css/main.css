@@ -907,11 +907,6 @@ th,
   margin-top: 1.25rem;
 }
 
-.ms-auto {
-  -webkit-margin-start: auto;
-          margin-inline-start: auto;
-}
-
 .box-border {
   box-sizing: border-box;
 }
@@ -3273,10 +3268,6 @@ th,
 
 .outline-double {
   outline-style: double;
-}
-
-.outline-0 {
-  outline-width: 0px;
 }
 
 .ring {

@@ -742,6 +742,110 @@
 
             <button class="rounded-md py-2 px-3 bg-accent text-white mt-2 block cursor-pointer hover:bg-darkAccent ml-auto">Make a post</button>
           </div>
+          
+          <div id="alumnMonth-tab" class="p-5">
+            <h1 class="text-xl font-extrabold">Alumni of the Month</h1>
+            <button class="block bg-accent py-1 px-3 text-white ml-auto rounded-md">
+              Export List
+            </button>
+
+            <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700"/>
+
+            <div class="flex justify-evenly text-sm">
+
+              <div class="flex border border-greyish_black w-full rounded-md p-1">
+                <img class="inline " src="/images/search-icon.png" alt="">
+                <input class="outline-none" type="text" name="" id="" placeholder="Typing!">
+              </div>
+              <!-- batch selection -->
+              <select name="" id="batch" class="w-full p-1">
+                <option value="" selected disabled hidden>Month</option>
+                <!-- php function on batch -->
+              </select>
+
+              <!-- college selection -->
+              <select name="college" id="college" class="w-full p-1">
+                <option value="" selected disabled hidden>Year</option>
+              </select>
+
+              <!-- employment status selection -->
+              <select name="employment" id="employment" class="w-full p-1">
+                <option value="" selected disabled hidden>College</option>
+              </select>
+              
+            </div>
+
+            <!-- record of name-->
+            <table class="table-auto w-full mt-10 text-xs font-thin text-grayish">
+              <thead>
+                <tr>
+                  <th class="text-start">NAME</th>
+                  <th>EMAIL</th>
+                  <th>STUDENT NUMBER</th>
+                  <th>COLLEGE</th>
+                  <th>DETAILS</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="h-14 text-xs">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/alumni-pic2.png"></img>
+                      <span class="ml-2">Wade Warren</span>
+                    </div>
+                  </td>
+                  <td class="text-center">wadeWarren@gmail.com</td>
+                  <td class="text-center">2020183209</td>
+                  <td class="text-center">CICT</td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE</td>
+                </tr>
+
+                <tr class="h-14 text-xs">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/avatar-prof.png"></img>
+                      <span class="ml-2">Leslie Alexander</span>
+                    </div>
+                  </td>
+                  <td class="text-center">lesliealexander12@gmail.com</td>
+                  <td class="text-center">2020183233</td>
+                  <td>COED</td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE</td>
+                </tr>
+
+                <tr class="h-14 text-xs">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/footer-img.png"></img>
+                      <span class="ml-2">Floyd Miles</span>
+                    </div>
+                  </td>
+                  <td class="text-center">mile_floyd@gmail.com</td>
+                  <td class="text-center">2020183211</td>
+                  <td class="text-center">CIT</td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE</td>
+                </tr>
+
+
+                <tr class="h-14 text-xs">
+                  <td>
+                    <div class="flex items-center justify-start">
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+                      <span class="ml-2">Cameron Williamson</span>
+                    </div>
+                  </td>
+                  <td class="text-center">cameron_williamson@gmail.com</td>
+                  <td class="text-center">2020183236</td>
+                  <td class="text-center">CHTM</td>
+                  <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE</td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+
+          
         </main>
       </div>
         
