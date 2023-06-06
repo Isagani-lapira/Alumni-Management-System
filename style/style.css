@@ -53,3 +53,7 @@ svg{
 .messageIcon{
   height: 22px !important;
 }
+
+input{
+  outline: none !important;
+}
