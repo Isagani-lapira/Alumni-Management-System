@@ -24,6 +24,7 @@ $(document).ready(function () {
   })
 
 
+  //go to creating college page
   $('#btnNewCol').click(function () {
     window.location.href = "/admin/NewCollege.html"
   })
@@ -39,19 +40,34 @@ $(document).ready(function () {
     $('.college-content').removeClass('hidden')
   })
 
+  //add image to the modal
   $('#fileGallery').change(() => {
+
+    $('#errorMsg').addClass('hidden') //always set the error message as hidden when changing the file
+
+    //file input
     var fileInput = $('#fileGallery')
-    var file = fileInput[0].files[0]
+    var file = fileInput[0].files[0] //get the first file that being select
 
-    console.log(file.name)
-    var reader = new FileReader()
+    let validExtension = ['jpeg', 'jpg', 'png'] //only allowed extension
+    let fileExtension = file.name.split('.').pop().toLowerCase() //getting the extension of the selected file
 
-    reader.onload = function (e) {
-      $('#reservedPicture').attr('src', e.target.result)
-      $('#reservedPicture').removeClass('hidden')
+    //checking if the file is based on the extension we looking for
+    if (validExtension.includes(fileExtension)) {
+      var reader = new FileReader()
+
+      //assign the image path to the img element
+      reader.onload = function (e) {
+        $('#reservedPicture').attr('src', e.target.result)
+        $('#reservedPicture').removeClass('hidden')
+      }
+
+      reader.readAsDataURL(file)
+    }
+    else {
+      $('#errorMsg').removeClass('hidden') //if the file is not based on the img extension we looking for
     }
 
-    reader.readAsDataURL(file)
   })
 });
 
@@ -78,6 +94,7 @@ chartConfig(responseByYear, responseByYear_type, responseByYear_labels,
   responseByYear_data, false, redAccent, false)
 
 
+//chart for employee status
 const empStatus = document.getElementById('empStatus')
 const empStatus_labels = ['Employed', 'Unemployed', 'Not yet answering']
 const empStatus_data = [6000, 3500, 1500]
@@ -87,6 +104,8 @@ const empStatus_color = [blueAccent, redAccent, '#FFFFFF']
 chartConfig(empStatus, empStatus_type, empStatus_labels, empStatus_data,
   false, empStatus_color, true)
 
+
+//chart for gender
 const Gender = document.getElementById('Gender')
 const Gender_labels = ["2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"]
 const Gender_data = [1000, 500, 247, 635, 323, 393, 290, 860]
@@ -95,6 +114,8 @@ const Gender_color = [redAccent, blueAccent]
 chartConfig(Gender, Gender_type, Gender_labels, Gender_data,
   false, Gender_color, false)
 
+
+//chart for salary
 const salaryChart = document.getElementById('salaryChart')
 const salaryChart_labels = ["₱10k-20k", "₱21k-30k", "₱31k-40k", "₱51k-60k", "₱60k-70k", "₱71k-80k"]
 const salaryChart_data = [1000, 500, 247, 635, 323, 393]
@@ -110,7 +131,7 @@ chartConfig(salaryChart, salaryChart_type, salaryChart_labels, salaryChart_data,
   false, salaryChart_color, false)
 
 
-
+//chart for communication skill
 const comSkill = document.getElementById('comSkill')
 const comSkill_data = [1000, 500, 247, 635]
 const comSkill_type = 'doughnut'
@@ -125,7 +146,7 @@ const comSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
 chartConfig(comSkill, comSkill_type, null, comSkill_data,
   false, comSkill_color, false)
 
-
+//chart for human relation skill
 const humanRelSkill = document.getElementById('humanRelSkill')
 const humanRelSkill_data = [35, 500, 247, 1000]
 const humanRelSkill_type = 'doughnut'
@@ -140,6 +161,7 @@ const humanRelSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
 chartConfig(humanRelSkill, humanRelSkill_type, null, humanRelSkill_data,
   false, humanRelSkill_color, false)
 
+//chart for entrepreneur skill
 const entrepSkill = document.getElementById('entrepSkill')
 const entrepSkill_data = [100, 200, 1000, 333]
 const entrepSkill_type = 'doughnut'
@@ -155,7 +177,7 @@ chartConfig(entrepSkill, entrepSkill_type, null, entrepSkill_data,
   false, entrepSkill_color, false)
 
 
-
+//chart for information skill
 const ITSkill = document.getElementById('ITSkill')
 const ITSkill_data = [100, 200, 1000, 333]
 const ITSkill_type = 'doughnut'
@@ -166,10 +188,10 @@ const ITSkilllightYellow = '#E7E7A1'
 const ITSkilllightPink = '#F0B3C3'
 const ITSkilllightPurple = '#CBB5CA'
 const ITSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
-
 chartConfig(ITSkill, ITSkill_type, null, ITSkill_data,
   false, ITSkill_color, false)
 
+//chart for problem solving skill
 const probSolvSkill = document.getElementById('probSolvSkill')
 const probSolvSkill_data = [100, 200, 1000, 333]
 const probSolvSkill_type = 'doughnut'
@@ -184,6 +206,7 @@ const probSolvSkill_color = [lightBlue, lightGreen, lightRed, lightYellow]
 chartConfig(probSolvSkill, probSolvSkill_type, null, probSolvSkill_data,
   false, probSolvSkill_color, false)
 
+//chart for critical thinking skill
 const critThinkSkill = document.getElementById('critThinkSkill')
 const critThinkSkill_data = [100, 200, 1000, 333]
 const critThinkSkill_type = 'doughnut'
@@ -199,6 +222,7 @@ chartConfig(critThinkSkill, critThinkSkill_type, null, critThinkSkill_data,
   false, critThinkSkill_color, false)
 
 
+//for creation of chart
 function chartConfig(chartID, type, labels, data, responsive, colors, displayLegend) {
   //the chart
   new Chart(chartID, {
