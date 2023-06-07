@@ -38,6 +38,21 @@ $(document).ready(function () {
     $('.individual-col').addClass('hidden')
     $('.college-content').removeClass('hidden')
   })
+
+  $('#fileGallery').change(() => {
+    var fileInput = $('#fileGallery')
+    var file = fileInput[0].files[0]
+
+    console.log(file.name)
+    var reader = new FileReader()
+
+    reader.onload = function (e) {
+      $('#reservedPicture').attr('src', e.target.result)
+      $('#reservedPicture').removeClass('hidden')
+    }
+
+    reader.readAsDataURL(file)
+  })
 });
 
 
