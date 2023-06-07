@@ -906,8 +906,114 @@
           </div>
 
           <div id="jobOpportunities-tab" class="p-5">
-            <h1 class="text-xl font-extrabold">Job Opportunities1>
-            <p class="text-grayish">Check all the pending job post to be posted</p>
+            <h1 class="text-xl font-extrabold">Job Opportunities</h1>
+            <p class="text-grayish  ">Check all the pending job post to be posted</p>
+            <div class="flex mt-5 items-center justify-between w-full">
+              <button class="px-3 py-1 text-white bg-accent rounded-md">Add New</button>
+              <div class=" items-center flex">
+
+                <input type="radio" name="post" id="rbAll">
+                <label class="mx-3" for="rbAll">All</label>
+
+                <input type="radio" name="post" id="rbAdmin">
+                <label class="mx-3" for="rbAdmin">Admin</label>
+
+                <input type="radio" name="post" id="rbAlumni">
+                <label class="mx-3" for="rbAlumni">Alumni</label>
+
+                <div class="border border-accent rounded-md">
+                  <img class="inline" src="/images/search-icon.png" alt="">
+                  <input type="text" placeholder="Search title">
+                </div>
+              </div>
+
+            </div>
+            
+            <table class="w-full mt-5">
+              <thead class="bg-accent text-sm text-white p-3">
+                <tr>
+                  <th>Company Logo</th>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>College</th>
+                  <th>Date Posted</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td>
+                    <img class="w-28" src="/assets/company-logo/meralco.png" alt="">
+                  </td>
+                  <td>Backend Developer</td>
+                  <td>Admin</td>
+                  <td>CICT</td>
+                  <td>04/10/25</td>
+                  <td>
+                    <button class="bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
+                  </td>
+                </tr>
+                
+
+                <tr>
+                  <td>
+                    <img class="w-28" src="/assets/company-logo/PNA.png" alt="">
+                  </td>
+                  <td>Health play specialist</td>
+                  <td>Ma. Cristine Legerin</td>
+                  <td>CON</td>
+                  <td>04/10/25</td>
+                  <td>
+                    <button class="bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
+                  </td>
+                </tr>
+                
+
+                <tr>
+                  <td>
+                    <img class="w-28" src="/assets/company-logo/vircon.png" alt="">
+                  </td>
+                  <td>Accountant</td>
+                  <td>Admin</td>
+                  <td>CBA</td>
+                  <td>04/10/25</td>
+                  <td>
+                    <button class="bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
+                  </td>
+                </tr>
+                
+
+                <tr>
+                  <td>
+                    <img class="w-28" src="/assets/company-logo/IA.png" alt="">
+                  </td>
+                  <td>Interior and spatial designer</td>
+                  <td>James Matsugi</td>
+                  <td>CAFA</td>
+                  <td>04/10/25</td>
+                  <td>
+                    <button class="bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
+                  </td>
+                </tr>
+                
+
+                <tr>
+                  <td>
+                    <img class="w-28" src="/assets/company-logo/privateChef.png" alt="">
+                  </td>
+                  <td>Private Chef</td>
+                  <td>Dennice Malengco</td>
+                  <td>CHTM</td>
+                  <td>04/10/25</td>
+                  <td>
+                    <button class="bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
+                  </td>
+                </tr>
+                
+
+              </tbody>
+            </table>
           </div>
         </main>
       </div>
