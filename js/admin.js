@@ -40,11 +40,12 @@ $(document).ready(function () {
     $('.college-content').removeClass('hidden')
   })
 
+  let imageSequence = 1;
   //add image to the modal
   $('#fileGallery').change(() => {
 
     $('#errorMsg').addClass('hidden') //always set the error message as hidden when changing the file
-
+    $('#TxtAreaAnnouncement').addClass('h-5/6').removeClass('h-3/6')
     //file input
     var fileInput = $('#fileGallery')
     var file = fileInput[0].files[0] //get the first file that being select
@@ -56,12 +57,20 @@ $(document).ready(function () {
     if (validExtension.includes(fileExtension)) {
       var reader = new FileReader()
 
+      //new image element to be place on the  image container div
+      const imageElement = document.createElement('img')
+      imageElement.className = 'flex-shrink-0 h-20 w-20 rounded-md'
+      imageElement.setAttribute('id', 'reservedPicture' + imageSequence) //to make sure every id is unique
+      const imgContPost = document.getElementById('imgContPost')
+      imgContPost.appendChild(imageElement)
+
       //assign the image path to the img element
       reader.onload = function (e) {
-        $('#reservedPicture').attr('src', e.target.result)
-        $('#reservedPicture').removeClass('hidden')
+        $('#reservedPicture' + imageSequence).attr('src', e.target.result)
+        $('#imgContPost').removeClass('hidden')
+        $('#TxtAreaAnnouncement').addClass('h-3/6').removeClass('h-5/6')
+        imageSequence++
       }
-
       reader.readAsDataURL(file)
     }
     else {
