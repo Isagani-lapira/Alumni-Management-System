@@ -69,9 +69,21 @@ $(document).ready(function () {
     }
 
   })
+
 });
 
 
+
+let batchAOM = document.getElementById('batchAOM')
+let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+month.forEach(addingMonth)
+
+function addingMonth(e) {
+  const option = document.createElement('option')
+  option.value = e
+  option.text = e
+  batchAOM.appendChild(option)
+}
 
 
 //chart function
