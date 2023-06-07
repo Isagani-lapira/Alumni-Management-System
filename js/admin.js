@@ -59,18 +59,33 @@ $(document).ready(function () {
 
       //new image element to be place on the  image container div
       const imageElement = document.createElement('img')
-      imageElement.className = 'flex-shrink-0 h-20 w-20 rounded-md'
+
+      const imgPlaceHolder = document.createElement('div')
+      imgPlaceHolder.className = "relative"
+
+      //for button x
+      const xBtn = document.createElement('button')
+      xBtn.innerHTML = 'X'
+      xBtn.className = 'xBtn absolute h-5 w-5 top-0 text-center right-0 cursor-pointer rounded-full hover:bg-accent hover:text-white hover:font-bold'
+
+      // img element
+      imageElement.className = 'flex-shrink-0 h-20 w-20 rounded-md m-2'
       imageElement.setAttribute('id', 'reservedPicture' + imageSequence) //to make sure every id is unique
+
+      //add to its corresponding container
       const imgContPost = document.getElementById('imgContPost')
-      imgContPost.appendChild(imageElement)
+      imgPlaceHolder.appendChild(imageElement)
+      imgPlaceHolder.appendChild(xBtn)
+      imgContPost.appendChild(imgPlaceHolder)
 
       //assign the image path to the img element
       reader.onload = function (e) {
         $('#reservedPicture' + imageSequence).attr('src', e.target.result)
         $('#imgContPost').removeClass('hidden')
-        $('#TxtAreaAnnouncement').addClass('h-3/6').removeClass('h-5/6')
+        $('#TxtAreaAnnouncement').addClass('h-3/6').removeClass('h-5/6') //make the text area smaller in height
         imageSequence++
       }
+
       reader.readAsDataURL(file)
     }
     else {
