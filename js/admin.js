@@ -67,6 +67,10 @@ $(document).ready(function () {
       const xBtn = document.createElement('button')
       xBtn.innerHTML = 'X'
       xBtn.className = 'xBtn absolute h-5 w-5 top-0 text-center right-0 cursor-pointer rounded-full hover:bg-accent hover:text-white hover:font-bold'
+      xBtn.addEventListener('click', function (e) {
+        var parent = e.target.parentNode
+        parent.parentNode.removeChild(parent)
+      })
 
       // img element
       imageElement.className = 'flex-shrink-0 h-20 w-20 rounded-md m-2'
@@ -93,6 +97,7 @@ $(document).ready(function () {
     }
 
   })
+
 
 });
 
