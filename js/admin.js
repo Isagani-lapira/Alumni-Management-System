@@ -1,6 +1,7 @@
 
 const redAccent = '#991B1B'
 const blueAccent = '#2E59C6'
+const imgContPost = document.getElementById('imgContPost')
 
 $(document).ready(function () {
   $("#tabs").tabs();
@@ -21,6 +22,11 @@ $(document).ready(function () {
   //close modal
   $('.cancel').click(function () {
     $("#modal").addClass('hidden')
+
+    //remove the images
+    while (imgContPost.firstChild) {
+      imgContPost.removeChild(imgContPost.firstChild)
+    }
   })
 
 
@@ -67,13 +73,16 @@ $(document).ready(function () {
       const xBtn = document.createElement('button')
       xBtn.innerHTML = 'X'
       xBtn.className = 'xBtn absolute h-5 w-5 top-0 text-center right-0 cursor-pointer rounded-full hover:bg-accent hover:text-white hover:font-bold'
+      xBtn.addEventListener('click', function (e) {
+        var parent = e.target.parentNode
+        parent.parentNode.removeChild(parent)
+      })
 
       // img element
       imageElement.className = 'flex-shrink-0 h-20 w-20 rounded-md m-2'
       imageElement.setAttribute('id', 'reservedPicture' + imageSequence) //to make sure every id is unique
 
       //add to its corresponding container
-      const imgContPost = document.getElementById('imgContPost')
       imgPlaceHolder.appendChild(imageElement)
       imgPlaceHolder.appendChild(xBtn)
       imgContPost.appendChild(imgPlaceHolder)
@@ -93,6 +102,7 @@ $(document).ready(function () {
     }
 
   })
+
 
 });
 
