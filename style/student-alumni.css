@@ -207,12 +207,6 @@ margin-top: 40px;
   border-radius: 8px;
 }
 
-.search-con {
-  display: flex;
-  align-items: center;
-  outline: none;
-}
-
 .search-icon {
   margin-right: 5px;
   width: 42.4px;
@@ -226,4 +220,8 @@ margin-top: 40px;
   outline: none;
   padding: 5px;
   width: 100%;
+}
+
+.search-container:focus {
+  outline: none;
 }
