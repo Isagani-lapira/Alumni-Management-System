@@ -1,6 +1,7 @@
 
 const redAccent = '#991B1B'
 const blueAccent = '#2E59C6'
+const imgContPost = document.getElementById('imgContPost')
 
 $(document).ready(function () {
   $("#tabs").tabs();
@@ -21,6 +22,11 @@ $(document).ready(function () {
   //close modal
   $('.cancel').click(function () {
     $("#modal").addClass('hidden')
+
+    //remove the images
+    while (imgContPost.firstChild) {
+      imgContPost.removeChild(imgContPost.firstChild)
+    }
   })
 
 
@@ -77,7 +83,6 @@ $(document).ready(function () {
       imageElement.setAttribute('id', 'reservedPicture' + imageSequence) //to make sure every id is unique
 
       //add to its corresponding container
-      const imgContPost = document.getElementById('imgContPost')
       imgPlaceHolder.appendChild(imageElement)
       imgPlaceHolder.appendChild(xBtn)
       imgContPost.appendChild(imgPlaceHolder)
