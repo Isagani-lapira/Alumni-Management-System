@@ -387,3 +387,8 @@ margin-top: 40px;
 .fa-heart {
   color: #999;
 }
+
+.content {
+  /* Existing styles */
+  margin: 30px 127px;
+}
