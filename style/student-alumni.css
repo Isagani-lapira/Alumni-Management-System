@@ -28,6 +28,7 @@ main {
 .content {
   margin-top: 120px;
   /* Other styling for the content */
+  background-color: #FBFBFC;
 }
 
 .navbar-left {
