@@ -213,7 +213,7 @@ h1 {
   width: 75%;
   height: 70px;
   align-items: center;
-  border: 2px solid #999999;
+  border: 1px solid #999999;
   border-radius: 4px;
   padding: 10px;
   margin-left: 125px;
@@ -308,7 +308,7 @@ h1 {
   overflow: auto; /* Add a scrollbar when the content overflows the div */
   /* Rest of the CSS rules */
   align-items: center;
-  border: 2px solid #999999;
+  border: 2px solid #FBFBFC;
   padding: 10px;
   margin-left: 125px;
   margin-right: 0;
