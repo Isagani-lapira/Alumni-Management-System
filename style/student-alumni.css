@@ -205,6 +205,7 @@ h1 {
   line-height: 36px;
   color: #474645;
   margin-bottom: 20px;
+  margin-left: 70px; /* Add a left margin of 20 pixels */
 }
 
 .search-container {
