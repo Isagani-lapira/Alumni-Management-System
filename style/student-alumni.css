@@ -126,7 +126,7 @@
   left: 20%; /* Adjust the left value to center the sub-navbar */
   width: 60%; /* Set the width to 50% */
   background-color: #991B1B;
-  height: 100px;
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -196,7 +196,7 @@ margin-top: 40px;
 .search-container {
   display: flex;
   width: 75%;
-  height: 75px;
+  height: 70px;
   align-items: center;
   border: 2px solid #999999;
   border-radius: 4px;
@@ -284,4 +284,106 @@ margin-top: 40px;
 .button-university {
   background-color: #991B1B;
   color: #FFFFFF;
+}
+
+.content {
+  position: relative; /* Add relative positioning to the content container */
+  width: 75%;
+  height: 470px; /* Set the desired height for the div */
+  overflow: auto; /* Add a scrollbar when the content overflows the div */
+  /* Rest of the CSS rules */
+  align-items: center;
+  border: 2px solid #999999;
+  padding: 10px;
+  margin-left: 125px;
+  margin-right: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  border-radius: 8px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover; /* Add object-fit: cover; to prevent the image from overlapping */
+}
+
+
+.user-details h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.user-details p {
+  margin: 0;
+  color: #999;
+}
+
+.user-post p {
+  margin-bottom: 10px;
+}
+.image-container {
+  text-align: center; /* Center align the images horizontally */
+  margin-bottom: 10px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: 300px;
+  display: inline-block; /* Make the images inline */
+  margin: 0 10px; /* Adjust the margin between the images */
+  border-radius: 6px;
+  object-fit: contain; /* Scale the images to fit within the given dimensions */
+}
+
+.post-actions {
+  position: absolute; /* Position the post actions div absolutely */
+  bottom: 0; /* Align the div to the bottom */
+  left: 0; /* Align the div to the left */
+  width: 100%; /* Set the width to 100% */
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  background: #F1F3F5;
+  justify-content: space-between;
+}
+
+.post-actions-left {
+  flex: 1;
+  /* Existing styles */
+  white-space: nowrap; /* Add this line to prevent line wrapping */
+  overflow: hidden; /* Add this line to hide any overflowing content */
+  text-overflow: ellipsis; /* Add this line to display an ellipsis (...) for truncated text */
+}
+
+.post-actions-left a {
+  color: #0000ff;
+  text-decoration: underline;
+  /* Existing styles */
+  max-width: 100%; /* Add this line to ensure the link does not exceed the available width */
+  margin-left: 20px;
+}
+
+.post-actions-right {
+  display: flex;
+  align-items: center;
+}
+
+.share-icon,
+.like-icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.fa-share,
+.fa-heart {
+  color: #999;
 }
