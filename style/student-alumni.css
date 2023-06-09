@@ -181,8 +181,8 @@ main {
   height: 100%; /* Set the height to 100% to fill the main container */
   width: 60%;
   margin: 20px auto; /* Add margin to the top and bottom */
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-left: 1px solid rgb(92, 92, 92);
+  border-right: 1px solid rgb(92, 92, 92);
   margin-top: 300px; /* Adjust this value as needed */ 
   max-height: 700px; /* Set the maximum height to 100% of the parent */
   overflow-y: auto; /* Enable vertical scrolling */
