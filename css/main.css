@@ -747,6 +747,22 @@ th,
   top: 2rem;
 }
 
+.top-\[-20px\] {
+  top: -20px;
+}
+
+.top-\[-5px\] {
+  top: -5px;
+}
+
+.bottom-\[-10px\] {
+  bottom: -10px;
+}
+
+.top-\[-10px\] {
+  top: -10px;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -757,6 +773,10 @@ th,
 
 .z-0 {
   z-index: 0;
+}
+
+.z-50 {
+  z-index: 50;
 }
 
 .col-span-1 {
@@ -960,6 +980,10 @@ th,
 
 .mt-5 {
   margin-top: 1.25rem;
+}
+
+.mt-20 {
+  margin-top: 5rem;
 }
 
 .box-border {
