@@ -42,21 +42,8 @@ body {
   background-color: white;
 }
 
-.sub-navbar-link {
-  margin-right: 60px; /* Adjust the margin as needed */
-  margin-left: 60px;
-}
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-}
-
 .grid-container {
-  margin-top: 250px;
+  margin-top: 200px;
 }
 
 
