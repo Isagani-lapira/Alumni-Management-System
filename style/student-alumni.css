@@ -24,14 +24,12 @@ body {
   margin: 0 10px; /* Adjust the margin as needed */
 }
 
-.sub-navbar-wrapper {
-  overflow: hidden;
+/* Adjust the value based on the height of your navbar */ 
+ .sub-navbar-wrapper {
   position: fixed;
-  top: 110px; /* Adjust the value based on the height of your navbar */
   left: 0;
   right: 0;
-  z-index: 998;
-}
+} 
 
 .sub-navbar {
   border-bottom-left-radius: 24px;
