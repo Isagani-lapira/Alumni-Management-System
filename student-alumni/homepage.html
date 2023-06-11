@@ -62,7 +62,7 @@
       </nav>
     </div>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto mt-10">
       <div class="grid grid-cols-5 gap-4">
         <div class="col-span-1 md:col-span-1">
 
@@ -84,6 +84,18 @@
 
         <div class="col-span-3 md:col-span-3 border-l border-r border-gray-400">
           <!-- Content for the center side (60% width) -->
+          
+          <!-- Header -->
+          <div class="header p-3 pl-8 text-justify">
+            <h1 class="text-3xl font-bold">Welcome BulSUans</h1>
+          </div>
+
+          <!-- Input Field -->
+          <div class="mt-4 w-4/5 mx-auto">
+            <input type="text" placeholder="Write something..." class="w-full px-3 py-2 border border-gray-400 rounded-md">
+            <!-- <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Post</button> -->
+          </div>
+
           <!-- Post -->
           <div class="post p-3 w-4/5 mx-auto">
             <div class="center-shadow p-3 rounded-md">
@@ -96,22 +108,32 @@
                     <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
                   </div>
                 </a>
-                <!-- Notif Bar -->
-                <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                <a href="/notifications" class="ml-auto">
+                  <!-- Notif Bar -->
+                  <img src="/assets/more_horiz.png" alt="">
+                </a>
               </div>
               <!-- Post Description -->
               <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
               <!-- Invisible Break -->
               <img class="my-2 rounded-md" src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9" alt="">
               <div class="flex py-2 items-center">
-                <!-- Heart Icon  -->
-                <img class="h-5" src="/assets/icons/heart.png" alt="">
-                <!-- Like Count -->
-                <span class="ms-2 text-sm">1,498</span>
-                <!-- Comment Icon -->
-                <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
-                <!-- Comment Count -->
-                <span class="ms-2 text-sm">3,000</span>
+                <a href="/like">
+                  <!-- Heart Icon -->
+                  <img class="h-5" src="/assets/icons/heart.png" alt="">
+                </a>
+                <a href="/like-count" class="ms-2">
+                  <!-- Like Count -->
+                  <span class="text-sm">1,498</span>
+                </a>
+                <a href="/comment">
+                  <!-- Comment Icon -->
+                  <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                </a>
+                <a href="/comment-count" class="ms-2">
+                  <!-- Comment Count -->
+                  <span class="text-sm">3,000</span>
+                </a>
               </div>
             </div>
           </div>
