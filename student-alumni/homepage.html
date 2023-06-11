@@ -63,23 +63,67 @@
     </div>
 
     <div class="container mx-auto">
-      <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-3">
-          <a href="#" class="flex items-center space-x-2">
-            <i class="fas fa-bell"></i>
-            <span class="font-bold">Notification</span>
-          </a>
-          <a href="#" class="flex items-center space-x-2">
-            <i class="fas fa-check-circle"></i>
-            <span class="font-bold">Verified</span>
-          </a>
+      <div class="grid grid-cols-5 gap-4">
+        <div class="col-span-1 md:col-span-1">
+
+          <!-- Content for the left side (20% width) -->
+          <div class="notif mb-6">
+            <a href="#" class="flex items-center space-x-4">
+              <i class="fas fa-bell"></i>
+              <span class="font-bold notification-text">Notifications</span>
+            </a>
+          </div>
+          <div class="verify mb-4">
+            <a href="#" class="flex items-center space-x-4">
+              <i class="fas fa-check-circle"></i>
+              <span class="font-bold verified-text">Verified Job Post</span>
+            </a>
+            <button class="rounded-md bg-blue-500 text-white px-6 py-2 mt-16 w-72">Make a Post</button>
+          </div>
         </div>
-        <div class="col-span-6">
-          <!-- Content for the center side (50% width) -->
+
+        <div class="col-span-3 md:col-span-3 border-l border-r border-gray-400">
+          <!-- Content for the center side (60% width) -->
+          
         </div>
-        <div class="col-span-3">
-          <!-- Content for the right side (25% width) -->
+
+        <div class="col-span-1 md:col-span-1">
+          <!-- Content for the right side (20% width) -->
+          <div class="announcements">
+            <div class="header mb-4">
+              <h3 class="text-lg font-bold">ANNOUNCEMENTS</h3>
+            </div>
+            <hr class="border-gray-400 mb-4">
+            <div class="button-container">
+              <button class="rounded-md bg-blue-500 text-white px-4 py-2 mb-2 w-full">College Update</button>
+              <button class="rounded-md bg-accent text-white px-4 py-2 w-full">University Update</button>
+            </div>
+          </div>
+
+          <div class="donate">
+            <div class="header mb-4">
+              <h3 class="text-lg font-bold">DONATE</h3>
+            </div>
+            <hr class="border-gray-400 mb-4">
+            <div class="button-container">
+              <button class="rounded-md bg-blue-500 text-white px-4 py-2 mb-2 w-full">Give for College</button>
+              <button class="rounded-md bg-accent text-white px-4 py-2 w-full">Give for University</button>
+            </div>
+          </div>
+
+          <div class="recogition">
+            <div class="header mb-4">
+              <h3 class="text-lg font-bold">RECOGNITION</h3>
+            </div>
+            <hr class="border-gray-400 mb-4">
+            <div class="button-container">
+              <button class="rounded-md bg-blue-500 text-white px-4 py-2 mb-2 w-full">Yearbook</button>
+            </div>
+            
+          </div>
+          
         </div>
+
       </div>
     </div>
     <script src="/student-alumni/js/hompage.js"></script>
