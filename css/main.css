@@ -807,6 +807,10 @@ th,
   margin: 0.5rem;
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
 .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
@@ -1300,6 +1304,10 @@ th,
 
 .w-screen {
   width: 100vw;
+}
+
+.w-40 {
+  width: 10rem;
 }
 
 .max-w-6xl {
