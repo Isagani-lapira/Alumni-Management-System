@@ -26,6 +26,11 @@ body {
 
 .sub-navbar-wrapper {
   overflow: hidden;
+  position: fixed;
+  top: 110px; /* Adjust the value based on the height of your navbar */
+  left: 0;
+  right: 0;
+  z-index: 998;
 }
 
 .sub-navbar {
@@ -42,4 +47,20 @@ body {
 .sub-navbar-link {
   margin-right: 60px; /* Adjust the margin as needed */
   margin-left: 60px;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.container {
+  display: flex;
+}
+
+.grid-container {
+  margin-top: 250px;
 }
