@@ -16,12 +16,12 @@ $(document).ready(function () {
 
   //open modal
   $('#btnAnnouncement').click(function () {
-    $("#modal").removeClass('hidden')
+    prompt("#modal", true)
   })
 
   //close modal
   $('.cancel').click(function () {
-    $("#modal").addClass('hidden')
+    prompt("#modal", false)
 
     //remove the images
     while (imgContPost.firstChild) {
@@ -52,6 +52,7 @@ $(document).ready(function () {
 
     $('#errorMsg').addClass('hidden') //always set the error message as hidden when changing the file
     $('#TxtAreaAnnouncement').addClass('h-5/6').removeClass('h-3/6')
+
     //file input
     var fileInput = $('#fileGallery')
     var file = fileInput[0].files[0] //get the first file that being select
@@ -103,9 +104,18 @@ $(document).ready(function () {
 
   })
 
+  $('#btnDelPost').click(function () {
+    prompt("#modalDelete", true)
+  })
+  $('.cancelDel').click(function () {
+    prompt("#modalDelete", false)
+  })
+
+  function prompt(id, openIt) {
+    openIt == true ? $(id).removeClass('hidden') : $(id).addClass('hidden')
+  }
 
 });
-
 
 
 let batchAOM = document.getElementById('batchAOM')
