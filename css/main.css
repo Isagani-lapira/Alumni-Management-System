@@ -747,6 +747,26 @@ th,
   top: 2rem;
 }
 
+.left-8 {
+  left: 2rem;
+}
+
+.left-10 {
+  left: 2.5rem;
+}
+
+.left-60 {
+  left: 15rem;
+}
+
+.left-80 {
+  left: 20rem;
+}
+
+.right-60 {
+  right: 15rem;
+}
+
 .isolate {
   isolation: isolate;
 }

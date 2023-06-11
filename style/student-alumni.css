@@ -55,10 +55,13 @@ body {
   z-index: 999;
 }
 
-.container {
-  display: flex;
-}
-
 .grid-container {
   margin-top: 250px;
 }
+
+
+
+
+
+
+
