@@ -13,42 +13,54 @@
     />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style/student-alumni.css">
+    <link href="/css/main.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>BulSU Connect</title>
   </head>
 
   <body>
-    <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
-      <div class="col-span-1 flex items-center">
-        <img src="/images/BSU-logo.png" alt="Logo" class="w-16 h-16" />
-        <span class="ml-2 text-3xl font-bold">BulSU Connect</span>
-      </div>
-
-      <div class="col-span-1 flex items-center justify-center">
-        <div class="relative w-full">
-          <input
-            type="text"
-            placeholder="Search"
-            class="pl-10 pr-4 py-3 w-full text-black text-sm border border-red-600 rounded-lg"
-          />
-          <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-red-600 text-base"></i>
+    <div class="navbar">
+      <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
+        <div class="col-span-1 flex items-center">
+          <img src="/images/BSU-logo.png" alt="Logo" class="w-16 h-16" />
+          <span class="ml-2 text-3xl font-bold">BulSU Connect</span>
         </div>
-      </div>
+  
+        <div class="col-span-1 flex items-center justify-center">
+          <div class="relative w-full">
+            <input
+              type="text"
+              placeholder="Search"
+              class="pl-10 pr-4 py-3 w-full text-black text-sm border border-accent rounded-lg"
+            />
+            <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
+          </div>
+        </div>
+  
+        <div class="col-span-1 flex items-center justify-end">
+          <a href="profile.html" class="mr-4">
+            <img src="/images/ye.jpg" alt="Profile Icon" class="w-10 h-10 profile-icon">
+          </a>
+          <a href="profile.html" class="mr-4 text-lg font-medium">
+            Patrick Joseph Pronuevo 
+          </a>
+          <button class="bg-transparent border-none outline-none">
+            <i class="fas fa-chevron-down text-lg"></i>
+          </button>
+        </div>
+        </div>
+      </nav>  
+    </div>
 
-      <div class="col-span-1 flex items-center justify-end">
-        <a href="profile.html" class="mr-4">
-          <img src="/images/ye.jpg" alt="Profile Icon" class="w-10 h-10 profile-icon">
-        </a>
-        <a href="profile.html" class="mr-4 text-lg font-medium">
-          Patrick Joseph Pronuevo 
-        </a>
-        <button class="bg-transparent border-none outline-none">
-          <i class="fas fa-chevron-down text-lg"></i>
-        </button>
-      </div>
-      </div>
-    </nav>
-
+    <div class="sub-navbar-wrapper flex justify-center h-24">
+      <nav class="sub-navbar bg-accent text-white flex items-center justify-center h-auto w-2/5">
+        <a href="#" class="sub-navbar-link">Feed</a>
+        <span class="sub-navbar-line"></span>
+        <a href="#" class="sub-navbar-link">Events</a>
+        <span class="sub-navbar-line"></span>
+        <a href="#" class="sub-navbar-link">Job Hunt</a>
+      </nav>
+    </div>
     <script src="/student-alumni/js/hompage.js"></script>
   </body>
 </html>
