@@ -670,6 +670,11 @@ th,
   inset: 0px;
 }
 
+.inset-y-0 {
+  top: 0px;
+  bottom: 0px;
+}
+
 .-left-2 {
   left: -0.5rem;
 }
@@ -2450,6 +2455,16 @@ th,
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
+.border-accentBlue {
+  --tw-border-opacity: 1;
+  border-color: rgb(23 70 162 / var(--tw-border-opacity));
+}
+
 .border-b-\[\#ababab\] {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(171 171 171 / var(--tw-border-opacity));
@@ -2896,6 +2911,10 @@ th,
 
 .pl-8 {
   padding-left: 2rem;
+}
+
+.pl-3 {
+  padding-left: 0.75rem;
 }
 
 .text-left {
