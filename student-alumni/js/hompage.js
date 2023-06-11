@@ -1,14 +1,9 @@
 $(document).ready(function() {
-  var navbar = $('.navbar');
-  var content = $('.content');
+  $("#search-input").focus(function() {
+    $("#search-icon").addClass("text-black");
+  });
 
-  $(window).scroll(function() {
-    if ($(this).scrollTop() > navbar.height()) {
-      navbar.addClass('navbar-fixed');
-      content.css('margin-top', navbar.height());
-    } else {
-      navbar.removeClass('navbar-fixed');
-      content.css('margin-top', 0);
-    }
+  $("#search-input").blur(function() {
+    $("#search-icon").removeClass("text-black");
   });
 });
