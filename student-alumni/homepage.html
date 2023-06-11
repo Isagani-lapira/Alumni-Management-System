@@ -53,13 +53,34 @@
     </div>
 
     <div class="sub-navbar-wrapper flex justify-center h-24">
-      <nav class="sub-navbar bg-accent text-white flex items-center justify-center h-auto w-2/5">
-        <a href="#" class="sub-navbar-link">Feed</a>
-        <span class="sub-navbar-line"></span>
-        <a href="#" class="sub-navbar-link">Events</a>
-        <span class="sub-navbar-line"></span>
-        <a href="#" class="sub-navbar-link">Job Hunt</a>
+      <nav class="sub-navbar bg-accent text-white flex flex-wrap items-center justify-center h-auto sm:w-2/5">
+        <a href="#" class="sub-navbar-link"><i class="fas fa-home mr-2"></i>Feed</a>
+        <div class="sub-navbar-line"></div>
+        <a href="#" class="sub-navbar-link"><i class="fas fa-calendar-alt mr-2"></i>Events</a>
+        <div class="sub-navbar-line"></div>
+        <a href="#" class="sub-navbar-link"><i class="fas fa-briefcase mr-2"></i>Job Hunt</a>
       </nav>
+    </div>
+
+    <div class="container mx-auto">
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-3">
+          <a href="#" class="flex items-center space-x-2">
+            <i class="fas fa-bell"></i>
+            <span class="font-bold">Notification</span>
+          </a>
+          <a href="#" class="flex items-center space-x-2">
+            <i class="fas fa-check-circle"></i>
+            <span class="font-bold">Verified</span>
+          </a>
+        </div>
+        <div class="col-span-6">
+          <!-- Content for the center side (50% width) -->
+        </div>
+        <div class="col-span-3">
+          <!-- Content for the right side (25% width) -->
+        </div>
+      </div>
     </div>
     <script src="/student-alumni/js/hompage.js"></script>
   </body>

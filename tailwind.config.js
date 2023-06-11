@@ -16,7 +16,7 @@ module.exports = {
         darkAccent: "#601010",
         greyish_black: "#333030",
         accentBlue: "#1746A2",
-        navbarColor: "#991B1B"
+        navbarColor: "F4F1EF"
       },
       fontWeight: {
         medium: '510',
