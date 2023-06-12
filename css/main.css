@@ -763,6 +763,10 @@ th,
   z-index: 50;
 }
 
+.z-10 {
+  z-index: 10;
+}
+
 .col-span-1 {
   grid-column: span 1 / span 1;
 }
@@ -984,6 +988,10 @@ th,
 
 .ml-8 {
   margin-left: 2rem;
+}
+
+.mt-64 {
+  margin-top: 16rem;
 }
 
 .box-border {

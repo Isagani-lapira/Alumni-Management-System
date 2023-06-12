@@ -17,10 +17,10 @@
 <body>
   <!--CONTENT PAGE -->
   <div class="fixed top-0 w-full z-50">
-    <div id="tabs">
+    <div id="tabs" class="h-screen overflow-y-scroll">
       <!-- Navbar -->
-      <div>
-        <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
+      <div class="Navbar fixed top-0 left-0 right-0 z-10">
+        <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg ">
           <div class="col-span-1 flex items-center">
             <img src="/images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
             <span class="ml-2 text-xl font-bold">BulSU Connect</span>
@@ -49,7 +49,7 @@
       </div>
 
       <!--SUB NAVBAR-->
-      <div class="sub-navbar-wrapper fixed flex justify-center h-24">
+      <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-0 left-0 right-0 z-10">
         <ul class="sub-navbar bg-accent text-white flex flex-wrap items-center justify-evenly h-max w-2/5 p-4 text-sm">
           <!--FEED TAB-->
           <li>
@@ -119,23 +119,21 @@
               <!-- Content for the center side (60% width) -->
 
               <!-- Header -->
-              <div class="header p-3 pl-8 text-justify relative" style="top: -25px">
+              <div class="header p-3 pl-8 text-justify">
                 <h1 class="text-3xl font-bold text-greyish_black">
                   Welcome BulSUans
                 </h1>
               </div>
 
               <!-- Input Field -->
-              <div class="mt-5 w-4/5 mx-auto relative z-0">
+              <div class="mt-10 w-4/5 mx-auto relative z-0">
                 <div class="relative">
                   <a href="/profile">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                      <img class="h-5 rounded-full border-2 border-accentBlue" src="/images/ye.jpg"
-                        alt="Profile Icon" />
+                      <img class="h-5 rounded-full border-2 border-accentBlue" src="/images/ye.jpg" alt="Profile Icon" />
                     </span>
                   </a>
-                  <input type="text" placeholder="Write something..."
-                    class="pl-10 w-full px-3 py-2 border border-gray-400 rounded-md" />
+                  <input type="text" placeholder="Write something..." class="pl-10 w-full px-3 py-2 border border-gray-400 rounded-md" />
                 </div>
                 <!-- <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Post</button> -->
               </div>
@@ -149,9 +147,7 @@
                         <!-- Profile Picture -->
                         <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="" />
                         <!-- User Name -->
-                        <p class="text-start px-3 text-sm font-semibold">
-                          Jayson Batoon
-                        </p>
+                        <p class="text-start px-3 text-sm font-semibold"> Jayson Batoon </p>
                       </div>
                     </a>
                     <a href="/notifications" class="ml-auto">
@@ -160,14 +156,9 @@
                     </a>
                   </div>
                   <!-- Post Description -->
-                  <p class="text-sm mt-2">
-                    BulSU Laboratory High School Moving Up Ceremony | June 1,
-                    2023
-                  </p>
-                  <!-- Invisible Break -->
-                  <img class="my-2 rounded-md"
-                    src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9"
-                    alt="" />
+                  <p class="text-sm mt-2"> BulSU Laboratory High School Moving Up Ceremony | June 1, 2023 </p>
+                  <!-- IMAGE -->
+                  <img class="my-2 rounded-md mx-auto" src="/images/bsu-header.jpg" alt="" />
                   <div class="flex py-2 items-center">
                     <a href="/like">
                       <!-- Heart Icon -->
@@ -184,6 +175,47 @@
                     <a href="/comment-count" class="ms-2">
                       <!-- Comment Count -->
                       <span class="text-sm">3,000</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Post -->
+              <div class="post p-3 w-4/5 mx-auto mt-10">
+                <div class="center-shadow p-3 rounded-md shadow">
+                  <div class="flex justify-start items-center">
+                    <a href="/profile">
+                      <div class="flex items-center">
+                        <!-- Profile Picture -->
+                        <img class="h-12 border-2 border-accentBlue rounded-full" src="/images/isagani.png" alt="" />
+                        <!-- User Name -->
+                        <p class="text-start px-3 text-sm font-semibold"> Isagani Lapira jr. </p>
+                      </div>
+                    </a>
+                    <a href="/notifications" class="ml-auto">
+                      <!-- Notif Bar -->
+                      <img src="/assets/more_horiz.png" alt="" />
+                    </a>
+                  </div>
+                  <!-- Post Description -->
+                  <p class="text-sm mt-2">bday mode | June 9, 2023 </p>
+                  <!-- POST -->
+                  <img class="my-2 rounded-md mx-auto" src="/images/happy.png" alt="" />
+                  <div class="flex py-2 items-center">
+                    <a href="/like">
+                      <!-- Heart Icon -->
+                      <img class="h-5" src="/assets/icons/heart.png" alt="" />
+                    </a>
+                    <a href="/like-count" class="ms-2">
+                      <!-- Like Count -->
+                      <span class="text-sm">13,408</span>
+                    </a>
+                    <a href="/comment">
+                      <!-- Comment Icon -->
+                      <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="" />
+                    </a>
+                    <a href="/comment-count" class="ms-2">
+                      <!-- Comment Count -->
+                      <span class="text-sm">800</span>
                     </a>
                   </div>
                 </div>
