@@ -962,6 +962,10 @@ th,
   margin-top: 1.25rem;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -1158,6 +1162,10 @@ th,
   height: 100vh;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1284,6 +1292,10 @@ th,
 
 .w-screen {
   width: 100vw;
+}
+
+.w-auto {
+  width: auto;
 }
 
 .max-w-6xl {
@@ -2583,6 +2595,10 @@ th,
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
 
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
+}
+
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -2624,6 +2640,10 @@ th,
   background-size: cover;
 }
 
+.bg-contain {
+  background-size: contain;
+}
+
 .bg-fixed {
   background-attachment: fixed;
 }
@@ -2655,6 +2675,10 @@ th,
 
 .bg-left-top {
   background-position: left top;
+}
+
+.bg-center {
+  background-position: center;
 }
 
 .bg-repeat {

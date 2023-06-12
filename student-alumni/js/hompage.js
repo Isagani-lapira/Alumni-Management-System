@@ -32,5 +32,6 @@ $(document).ready(function () {
     $(this).find('img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA5ElEQVR4nO3SMUoDURDG8aewaQSbgNYW2tnoDaz0CrmEYGObK3iHnMFKWy30AhamUrAVbSz0J4sT8lgSdjeriJgPpnnzzX/ezHsp/SvhpIyfAK9gaKozrH4XvIdRgN8ixFmvK3wN5wF8wSEO8Bxnl1hfFN7HdYCesJfldvEQuVtstoVv4S4A99iu8Yyx0xRe3u4xCm+wUTPlVTblfh083+9Fk/1W3ukVR/OMg+yHlCoajfxVW2R1JWNQNRzjPTNpCp8or8UHTtMsdW2QFjGao7/XILXwLBt0X9EspRae32uwVKroE2OChkKsj2YoAAAAAElFTkSuQmCC');
     $(this).find('#feedText').css('color', 'white');
   });
+
 });
 

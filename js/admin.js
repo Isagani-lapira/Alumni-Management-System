@@ -104,6 +104,7 @@ $(document).ready(function () {
 
   })
 
+
   $('#btnDelPost').click(function () {
     prompt("#modalDelete", true)
   })
@@ -119,17 +120,57 @@ $(document).ready(function () {
     prompt("#viewProfile", false)
   })
 
+  //show the prompt modal
   function prompt(id, openIt) {
     openIt == true ? $(id).removeClass('hidden') : $(id).addClass('hidden')
   }
 
-
+  //show new posting of job 
   $('#addNewbtn').click(function () {
     $('#jobPosting').show()
     $('#jobList').hide()
+    $('.jobPostingBack').show()
   })
+
+  //show the default job posting content
+  $('.jobPostingBack').click(function () {
+    $('#jobPosting').hide()
+    $('#jobList').show()
+    $('.jobPostingBack').hide()
+  })
+
+  $('.inputSkill').on('input', addNewSkill)
+
 });
 
+let typingTimeout = null;
+
+//
+function addNewSkill() {
+  clearTimeout(typingTimeout)
+
+  typingTimeout = setTimeout(function () {
+    const containerSkill = document.getElementById('skillDiv')
+
+    //image element
+    const imageSkill = document.createElement('img')
+    const srcAddIcon = '/assets/icons/add-circle.png'
+    imageSkill.className = 'h-12 w-12 inline cursor-pointer'
+    imageSkill.setAttribute('src', srcAddIcon)
+
+    //input element
+    const inputSkill = document.createElement('input')
+    inputSkill.setAttribute('placeholder', "Add skill/s that needed")
+    inputSkill.setAttribute('type', "text")
+    inputSkill.setAttribute('oninput', "addNewSkill()")
+
+    const fieldContainer = document.createElement('div')
+    fieldContainer.appendChild(imageSkill)
+    fieldContainer.appendChild(inputSkill)
+    containerSkill.appendChild(fieldContainer)
+
+  }, 1000)
+}
 
 let batchAOM = document.getElementById('batchAOM')
 let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
