@@ -811,10 +811,6 @@ th,
   margin: 0.5rem;
 }
 
-.m-4 {
-  margin: 1rem;
-}
-
 .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
@@ -1244,10 +1240,6 @@ th,
 
 .w-4\/6 {
   width: 66.666667%;
-}
-
-.w-40 {
-  width: 10rem;
 }
 
 .w-48 {
@@ -2542,6 +2534,11 @@ th,
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
 
+.bg-postButton {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
+
 .bg-purple-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(168 85 247 / var(--tw-bg-opacity));
@@ -2584,11 +2581,6 @@ th,
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
-}
-
-.bg-postButton {
-  --tw-bg-opacity: 1;
-  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-r {
@@ -3621,6 +3613,11 @@ body {
   background-color: rgb(96 16 16 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-postHoverButton:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-secondary:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(23 70 162 / var(--tw-bg-opacity));
@@ -3629,11 +3626,6 @@ body {
 .hover\:bg-slate-400:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(148 163 184 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-postHoverButton:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .hover\:font-bold:hover {
