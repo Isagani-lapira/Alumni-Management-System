@@ -52,10 +52,12 @@ body {
   margin-top: 250px;
 }
 
-
-
-
-
-
-
+.bg-cover {
+  margin-top: 95px; 
+  width: auto;
+  height: auto;
+}
+.header-center-div {
+  margin-top: -20px;
+}
 
