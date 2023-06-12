@@ -938,6 +938,10 @@ th,
           margin-inline-start: 1.5rem;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .mt-10 {
   margin-top: 2.5rem;
 }
@@ -962,12 +966,24 @@ th,
   margin-top: 1.25rem;
 }
 
-.mt-8 {
-  margin-top: 2rem;
+.mt-20 {
+  margin-top: 5rem;
 }
 
-.mt-1 {
-  margin-top: 0.25rem;
+.mt-32 {
+  margin-top: 8rem;
+}
+
+.mt-96 {
+  margin-top: 24rem;
+}
+
+.mt-24 {
+  margin-top: 6rem;
+}
+
+.ml-8 {
+  margin-left: 2rem;
 }
 
 .box-border {
@@ -1137,6 +1153,10 @@ th,
   height: 83.333333%;
 }
 
+.h-64 {
+  height: 16rem;
+}
+
 .h-96 {
   height: 24rem;
 }
@@ -1166,12 +1186,12 @@ th,
   height: 100vh;
 }
 
-.h-64 {
-  height: 16rem;
-}
-
 .h-auto {
   height: auto;
+}
+
+.h-6 {
+  height: 1.5rem;
 }
 
 .min-h-screen {
@@ -1294,6 +1314,10 @@ th,
   width: 40rem;
 }
 
+.w-auto {
+  width: auto;
+}
+
 .w-full {
   width: 100%;
 }
@@ -1302,8 +1326,8 @@ th,
   width: 100vw;
 }
 
-.w-auto {
-  width: auto;
+.w-9 {
+  width: 2.25rem;
 }
 
 .max-w-6xl {
@@ -2266,6 +2290,10 @@ th,
   border-radius: 0.375rem;
 }
 
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
 .rounded-b {
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
@@ -2569,6 +2597,11 @@ th,
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .bg-secondary {
   --tw-bg-opacity: 1;
   background-color: rgb(23 70 162 / var(--tw-bg-opacity));
@@ -2648,10 +2681,6 @@ th,
   background-size: cover;
 }
 
-.bg-contain {
-  background-size: contain;
-}
-
 .bg-fixed {
   background-attachment: fixed;
 }
@@ -2681,12 +2710,12 @@ th,
           background-clip: text;
 }
 
-.bg-left-top {
-  background-position: left top;
-}
-
 .bg-center {
   background-position: center;
+}
+
+.bg-left-top {
+  background-position: left top;
 }
 
 .bg-repeat {
@@ -2748,11 +2777,6 @@ th,
 .object-scale-down {
   -o-object-fit: scale-down;
      object-fit: scale-down;
-}
-
-.object-center {
-  -o-object-position: center;
-     object-position: center;
 }
 
 .p-1 {
