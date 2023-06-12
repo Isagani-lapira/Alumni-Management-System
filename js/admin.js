@@ -111,9 +111,18 @@ $(document).ready(function () {
     prompt("#modalDelete", false)
   })
 
+  $('.viewProfile').click(function () {
+    prompt("#viewProfile", true)
+  })
+
+  $('.closeProfile').click(function () {
+    prompt("#viewProfile", false)
+  })
+
   function prompt(id, openIt) {
     openIt == true ? $(id).removeClass('hidden') : $(id).addClass('hidden')
   }
+
 
 });
 
