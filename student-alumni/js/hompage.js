@@ -1,22 +1,18 @@
 $(document).ready(function() {
-  $("#search-input").focus(function() {
-    $("#search-icon").addClass("text-black");
-  });
-
-  $("#search-input").blur(function() {
-    $("#search-icon").removeClass("text-black");
-  });
-
   $(document).ready(function() {
-    $('#jobHuntLink').hover(function() {
-      $('#jobHuntLink img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAXElEQVR4nGNgoBFoY2Bg+MnAwPAfikHsFlIM+MnAwCCExAexf5Bi438CGMNFP9FsJAQwXPSfBM1Y9fynpgH/cRiILo5hwH8y8CANA2LBf6qmgxYyUmIzCRbSEAAAQmtC/bx4InAAAAAASUVORK5CYII=');
-      $(this).find('span').css('color', 'black');
-    }, function() {
-      $('#jobHuntLink img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAX0lEQVR4nO2UQQqAMAwE93kWny1+xPqPKT0KtiqJFDRz3bADe4gUeECDpyUzsGMnA+lMUAMvtuYMpi3V6QnBDycCVmC5UXi4uxR4oWECGeHTgvz2s0s18CgHJusSgdwoBMOg0T9wg1YAAAAASUVORK5CYII=');
-    });
-
+    $('#jobHuntLink').hover(
+      function() {
+        $(this).find('img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAXElEQVR4nGNgoBFoY2Bg+MnAwPAfikHsFlIM+MnAwCCExAexf5Bi438CGMNFP9FsJAQwXPSfBM1Y9fynpgH/cRiILo5hwH8y8CANA2LBf6qmgxYyUmIzCRbSEAAAQmtC/bx4InAAAAAASUVORK5CYII=');
+        $(this).find('span').css('color', 'black');
+      },
+      function() {
+        $(this).find('img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAX0lEQVR4nO2UQQqAMAwE93kWny1+xPqPKT0KtiqJFDRz3bADe4gUeECDpyUzsGMnA+lMUAMvtuYMpi3V6QnBDycCVmC5UXi4uxR4oWECGeHTgvz2s0s18CgHJusSgdwoBMOg0T9wg1YAAAAASUVORK5CYII=');
+        $(this).find('span').css('color', 'white');
+      }
+    );
+  
     $('#jobHuntLink').click(function() {
-      $('#jobHuntLink img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAXElEQVR4nGNgoBFoY2Bg+MnAwPAfikHsFlIM+MnAwCCExAexf5Bi438CGMNFP9FsJAQwXPSfBM1Y9fynpgH/cRiILo5hwH8y8CANA2LBf6qmgxYyUmIzCRbSEAAAQmtC/bx4InAAAAAASUVORK5CYII=');
+      $(this).find('img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAXElEQVR4nGNgoBFoY2Bg+MnAwPAfikHsFlIM+MnAwCCExAexf5Bi438CGMNFP9FsJAQwXPSfBM1Y9fynpgH/cRiILo5hwH8y8CANA2LBf6qmgxYyUmIzCRbSEAAAQmtC/bx4InAAAAAASUVORK5CYII=');
     });
   });
 
@@ -28,15 +24,7 @@ $(document).ready(function() {
       $(this).find('img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAqUlEQVR4nN3UQQrCMBCF4aw9hLj1JuodXCkU9FzeSlzYa2g/kaZQxGpp2kp9EEiYyfyZR5IQ/laiQk954wCwQa67cqw/AVKKV7r2026X/aMBUhV+DghDWxTaFdti0QsAs5d1hgKXeqwTAHOccYzrPe4RcEjuQGlFEcepNs/aOvA1Abt4au9OngyoWXOrrBrkFmHZuLmMF9N5B10Bg3/X62dCSnGsGgGT1ANaBPWW0/Q4dwAAAABJRU5ErkJggg==');
       $(this).find('#eventsText').css('color', 'white');
     });
-  });
-
-  $(document).ready(function() {
-    $('#jobHuntLink').on('mouseenter', function() {
-      $(this).find('span').css('color', 'black');
-    }).on('mouseleave', function() {
-      $(this).find('span').css('color', 'white');
-    });
-  });
+  })
 
   $(document).ready(function() {
     $('#feedLink').on('mouseenter', function() {
