@@ -2,7 +2,13 @@
 const redAccent = '#991B1B'
 const blueAccent = '#2E59C6'
 const imgContPost = document.getElementById('imgContPost')
+const skillDiv = 'skillDiv'
+const holderSkill = "Add skill/s that needed"
 
+const reqDiv = 'reqDiv'
+const holderReq = "Add skill/s that needed"
+
+'reqDiv', "Add things that an applicants needed"
 $(document).ready(function () {
   $("#tabs").tabs();
 
@@ -139,18 +145,26 @@ $(document).ready(function () {
     $('.jobPostingBack').hide()
   })
 
-  $('.inputSkill').on('input', addNewSkill)
+  $('.inputSkill').on('input', function () {
+    addNewField(skillDiv, holderSkill, true)
+  })
+  $('.inputReq').on('input', function () {
+    addNewField(reqDiv, holderReq, false)
+  })
+
 
 });
 
 let typingTimeout = null;
 
 //
-function addNewSkill() {
+function addNewField(container, holder, isSkill) {
   clearTimeout(typingTimeout)
 
+  var field = isSkill == true ? true : false
+
   typingTimeout = setTimeout(function () {
-    const containerSkill = document.getElementById('skillDiv')
+    const containerSkill = document.getElementById(container)
 
     //image element
     const imageSkill = document.createElement('img')
@@ -159,17 +173,27 @@ function addNewSkill() {
     imageSkill.setAttribute('src', srcAddIcon)
 
     //input element
-    const inputSkill = document.createElement('input')
-    inputSkill.setAttribute('placeholder', "Add skill/s that needed")
-    inputSkill.setAttribute('type', "text")
-    inputSkill.setAttribute('oninput', "addNewSkill()")
-
+    const inputField = document.createElement('input')
+    inputField.setAttribute('placeholder', holder)
+    inputField.setAttribute('type', "text")
+    inputField.setAttribute('oninput', 'rar(' + field + ')')
+    console.log(field)
+    //adding the fields
     const fieldContainer = document.createElement('div')
     fieldContainer.appendChild(imageSkill)
-    fieldContainer.appendChild(inputSkill)
+    fieldContainer.appendChild(inputField)
     containerSkill.appendChild(fieldContainer)
 
   }, 1000)
+}
+
+function rar(checker) {
+  var containerDiv = checker == true ? skillDiv : reqDiv
+  var placeHolder = checker == true ? holderSkill : holderReq
+  var field = checker == true ? true : false
+
+  console.log(containerDiv)
+  addNewField(containerDiv, placeHolder, field)
 }
 
 let batchAOM = document.getElementById('batchAOM')
