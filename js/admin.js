@@ -119,14 +119,23 @@ $(document).ready(function () {
     prompt("#viewProfile", false)
   })
 
+  //show the prompt modal
   function prompt(id, openIt) {
     openIt == true ? $(id).removeClass('hidden') : $(id).addClass('hidden')
   }
 
-
+  //show new posting of job 
   $('#addNewbtn').click(function () {
     $('#jobPosting').show()
     $('#jobList').hide()
+    $('.jobPostingBack').show()
+  })
+
+  //show the default job posting content
+  $('.jobPostingBack').click(function () {
+    $('#jobPosting').hide()
+    $('#jobList').show()
+    $('.jobPostingBack').hide()
   })
 });
 
