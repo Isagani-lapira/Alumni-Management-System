@@ -937,10 +937,10 @@
           <div id="jobOpportunities-tab" class="p-5">
             <h1 class="text-xl font-extrabold">Job Opportunities</h1>
             <p class="text-grayish  ">Check all the pending job post to be posted</p>
-
-            <div class="hidden">
+            <span>GO back</span>
+            <div id="jobList">
               <div class="flex mt-5 items-center justify-between w-full">
-                <button class="px-3 py-1 text-white bg-accent rounded-md hover:bg-darkAccent">Add New</button>
+                <button id="addNewbtn" class="px-3 py-1 text-white bg-accent rounded-md hover:bg-darkAccent">Add New</button>
                 <div class=" items-center flex">
   
                   <input type="radio" name="post" id="rbAll" checked>
@@ -1048,7 +1048,7 @@
 
             </div>
             
-            <div class="mt-10">
+            <div id="jobPosting" class="mt-10 hidden">
               <label class="font-bold text-grayish" for="">Job</label>
               <input class="block p-2 border border-gray-400 w-2/5 outline-none rounded-lg mb-3" type="text" 
               placeholder="e.g Software Engineer">

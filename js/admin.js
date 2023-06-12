@@ -124,6 +124,10 @@ $(document).ready(function () {
   }
 
 
+  $('#addNewbtn').click(function () {
+    $('#jobPosting').show()
+    $('#jobList').hide()
+  })
 });
 
 
