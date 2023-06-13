@@ -2,10 +2,18 @@
 const redAccent = '#991B1B'
 const blueAccent = '#2E59C6'
 const imgContPost = document.getElementById('imgContPost')
+const skillDiv = 'skillDiv'
+const holderSkill = "Add skill/s that needed"
+
+const reqDiv = 'reqDiv'
+const holderReq = "Add skill/s that needed"
 
 $(document).ready(function () {
   $("#tabs").tabs();
 
+
+  let validExtension = ['jpeg', 'jpg', 'png'] //only allowed extension
+  let fileExtension
 
   //change the tab appearance when active and not
   $(".tabs li").click(function () {
@@ -57,9 +65,7 @@ $(document).ready(function () {
     var fileInput = $('#fileGallery')
     var file = fileInput[0].files[0] //get the first file that being select
 
-    let validExtension = ['jpeg', 'jpg', 'png'] //only allowed extension
-    let fileExtension = file.name.split('.').pop().toLowerCase() //getting the extension of the selected file
-
+    fileExtension = file.name.split('.').pop().toLowerCase() //getting the extension of the selected file
     //checking if the file is based on the extension we looking for
     if (validExtension.includes(fileExtension)) {
       var reader = new FileReader()
@@ -139,18 +145,42 @@ $(document).ready(function () {
     $('.jobPostingBack').hide()
   })
 
-  $('.inputSkill').on('input', addNewSkill)
+  $('.inputSkill').on('input', function () {
+    addNewField(skillDiv, holderSkill, true)
+  })
+  $('.inputReq').on('input', function () {
+    addNewField(reqDiv, holderReq, false)
+  })
+
+
+  //error handling for logo
+  $('#jobLogoInput').change(function () {
+    console.log('rara')
+    const fileInput = $(this)
+    const file = fileInput[0].files[0]
+
+    fileExtension = file.name.split('.').pop().toLowerCase() //getting the extension of the selected file
+    let fileName = ""
+    if (validExtension.includes(fileExtension)) {
+      fileName = file.name
+    } else fileName = "Wrong file"
+
+    //set the text as the name of the selected file
+    $('#jobFileName').html(fileName)
+  })
 
 });
 
 let typingTimeout = null;
 
 //
-function addNewSkill() {
+function addNewField(container, holder, isSkill) {
   clearTimeout(typingTimeout)
 
+  var field = isSkill == true ? true : false
+
   typingTimeout = setTimeout(function () {
-    const containerSkill = document.getElementById('skillDiv')
+    const containerSkill = document.getElementById(container)
 
     //image element
     const imageSkill = document.createElement('img')
@@ -159,17 +189,27 @@ function addNewSkill() {
     imageSkill.setAttribute('src', srcAddIcon)
 
     //input element
-    const inputSkill = document.createElement('input')
-    inputSkill.setAttribute('placeholder', "Add skill/s that needed")
-    inputSkill.setAttribute('type', "text")
-    inputSkill.setAttribute('oninput', "addNewSkill()")
+    const inputField = document.createElement('input')
+    inputField.setAttribute('placeholder', holder)
+    inputField.setAttribute('type', "text")
+    inputField.setAttribute('oninput', 'rar(' + field + ')')
+    console.log(field)
 
     const fieldContainer = document.createElement('div')
     fieldContainer.appendChild(imageSkill)
-    fieldContainer.appendChild(inputSkill)
+    fieldContainer.appendChild(inputField)
     containerSkill.appendChild(fieldContainer)
 
   }, 1000)
+}
+
+function rar(checker) {
+  var containerDiv = checker == true ? skillDiv : reqDiv
+  var placeHolder = checker == true ? holderSkill : holderReq
+  var field = checker == true ? true : false
+
+  console.log(containerDiv)
+  addNewField(containerDiv, placeHolder, field)
 }
 
 let batchAOM = document.getElementById('batchAOM')
