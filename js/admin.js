@@ -212,7 +212,7 @@ function addNewField(container, holder, isSkill) {
     fieldContainer.appendChild(inputField)
     containerSkill.appendChild(fieldContainer)
 
-  }, 1000)
+  }, 500)
 }
 
 //checker which value should be pass
