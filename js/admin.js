@@ -166,6 +166,7 @@ $(document).ready(function () {
     } else fileName = "Wrong file"
 
     //set the text as the name of the selected file
+    fileName == 'Wrong file' ? $('#jobFileName').addClass('text-accent') : $('#jobFileName').removeClass('text-accent')
     $('#jobFileName').html(fileName)
   })
 
