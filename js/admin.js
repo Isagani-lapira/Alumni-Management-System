@@ -170,7 +170,18 @@ $(document).ready(function () {
     $('#jobFileName').html(fileName)
   })
 
+
+  //open and close the view job modal
+  $('.viewJobModal').on('click', function () {
+    $('#viewJob').removeClass('hidden')
+  })
+
+  $(document).on('click', function (e) {
+    if (!(e.target).closest('#viewJob').length)
+      $('#viewJob').addClass('hidden')
+  })
 });
+
 
 let typingTimeout = null;
 
