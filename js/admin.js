@@ -204,8 +204,7 @@ function addNewField(container, holder, isSkill) {
     const inputField = document.createElement('input')
     inputField.setAttribute('placeholder', holder)
     inputField.setAttribute('type', "text")
-    inputField.setAttribute('oninput', 'rar(' + field + ')')
-    console.log(field)
+    inputField.setAttribute('oninput', 'checkField(' + field + ')')
 
     const fieldContainer = document.createElement('div')
     fieldContainer.appendChild(imageSkill)
@@ -215,12 +214,12 @@ function addNewField(container, holder, isSkill) {
   }, 1000)
 }
 
-function rar(checker) {
+//checker which value should be pass
+function checkField(checker) {
   var containerDiv = checker == true ? skillDiv : reqDiv
   var placeHolder = checker == true ? holderSkill : holderReq
   var field = checker == true ? true : false
 
-  console.log(containerDiv)
   addNewField(containerDiv, placeHolder, field)
 }
 
