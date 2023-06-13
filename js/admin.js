@@ -176,7 +176,7 @@ $(document).ready(function () {
     $('#viewJob').removeClass('hidden')
   })
 
-  $(document).on('click', function (e) {
+  $('#viewJob').on('click', function (e) {
     if (!(e.target).closest('#viewJob').length)
       $('#viewJob').addClass('hidden')
   })
