@@ -49,7 +49,7 @@
             <nav class="">
                 <!-- Main Navigation -->
                 <ul class="space-y-2 mb-6 py-5 w-4/5">
-                    <li><a data-link="dashboard" href="#dashboard" class="flex rounded-lg p-2  font-bold bg-darkAccent text-white">
+                    <li><a data-link="dashboard" href="#dashboard" class="flex rounded-lg p-2  font-bold bg-accent text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-pie-filled" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M9.883 2.207a1.9 1.9 0 0 1 2.087 1.522l.025 .167l.005 .104v7a1 1 0 0 0 .883 .993l.117 .007h6.8a2 2 0 0 1 2 2a1 1 0 0 1 -.026 .226a10 10 0 1 1 -12.27 -11.933l.27 -.067l.11 -.02z" stroke-width="0" fill="currentColor" />

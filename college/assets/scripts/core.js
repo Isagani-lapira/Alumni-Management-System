@@ -22,8 +22,8 @@ $(document).ready(function () {
   function handleLinkFocusChange(pageName) {
     // changes the state of nav links to highlight focus
     const elem = $(`nav li a[data-link="${pageName}"`);
-    $("nav li a").removeClass("font-bold bg-darkAccent text-white");
-    elem.addClass("font-bold bg-darkAccent text-white");
+    $("nav li a").removeClass("font-bold bg-accent text-white");
+    elem.addClass("font-bold bg-accent text-white");
   }
 
   function loadURL(url, container, title = "") {
