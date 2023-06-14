@@ -139,13 +139,6 @@
         <!-- dashboard content -->
         <div id="dashboard-tab">
           <div class="content" id="dashboard-content">
-            <h1 class="text-xl font-extrabold">DASHBOARD</h1>
-
-            <button id="btnAnnouncement" style="margin-left: auto; margin-right: 10px"
-              class="block rounded-lg font-bold text-white bg-accent p-2 hover:bg-darkAccent">
-              Create Announcement
-            </button>
-
             <div class="flex m-10 h-2/3 p-2">
               <div class="flex-1">
                 <!-- welcome part -->
@@ -161,7 +154,7 @@
 
                 <div class="flex flex-wrap columns-3 mt-2 gap-2 text-xs font-medium">
                   <!-- total user -->
-                  <div class="dash-content flex-1 rounded-lg p-2 relative">
+                  <div class="center-shadow flex-1 rounded-lg p-2 relative">
                     <img class="inline" src="/images/check-icon.svg" alt="" />
                     <span class="text-textColor text relative">
                       TOTAL USERS
@@ -172,14 +165,14 @@
                   </div>
 
                   <!-- Job Posting -->
-                  <div class="dash-content flex-1 rounded-lg p-2 relative">
+                  <div class="center-shadow flex-1 rounded-lg p-2 relative">
                     <span class="text-textColor"><img class="inline mr-1" src="/images/work-icon.svg" />JOB
                       POSTING</span>
                     <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">1000</p>
                   </div>
 
                   <!-- colleges -->
-                  <div class="dash-content flex-1 rounded-lg p-2 relative">
+                  <div class="center-shadow flex-1 rounded-lg p-2 relative">
                     <span class="text-textColor">
                       <img class="inline mr-1" src="/images/graduate-cap.svg" />
                       COLLEGES
@@ -190,68 +183,94 @@
                 </div>
               </div>
 
-              <!-- chart -->
+              <!-- Recent announcement -->
               <div class="flex-1">
                 <!-- tracer status part -->
-                <div class="w-80 mx-auto">
-                  <canvas id="myChart"></canvas>
-                </div>
-              </div>
+                <div class="w-4/5 mx-auto center-shadow p-5 rounded-lg">
+                  <p class="mb-2 font-boldc text-accent font-semibold">RECENT ANNOUNCEMENT
+                    <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
+                  </p>
 
+                  <div class="flex justify-stretch">
+                    <div class="circle rounded-full bg-gray-400  h-10 w-10"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                      <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
+                        <span class="bg-yellow-300 text-white font-semibold p-1 text-sm rounded-md">Post</span>
+                      </p>
+                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-stretch mt-5">
+                    <div class="circle rounded-full bg-red-400  h-10 w-10"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                      <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new
+                        <span class="bg-green-600 text-white  p-1 text-xs rounded-md">Announcement</span>
+                      </p>
+                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-stretch mt-5">
+                    <div class="circle rounded-full bg-yellow-200  h-10 w-10"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                      <p class="text-grayish"><span class="font-extrabold text-black">COED</span> added a new
+                        <span class="bg-violet-400 text-white  p-1 text-xs rounded-md">Update</span>
+                      </p>
+                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                  </div>
+
+                  <p class="text-sm text-accent font-semibold mt-3 text-end cursor-pointer">View more</p>
+                </div>
+
+              </div>
             </div>
 
-            <!-- recent announcement -->
-            <div class="m-10 max-lg: relative font-semibold p-3">
-              <p class=" mb-2">RECENT ANNOUNCEMENT
-                <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
-              </p>
+            <div class="flex ps-10 font-semibold">
+              <!-- Response by year -->
+              <div class="flex-1">
+                <p class="ps-10 text-accent font-semibold">RESPONSE BY YEAR </p>
+                <canvas class="h-full w-full" id="responseByYear"></canvas>
+              </div>
 
-              <div class="dash-content p-3">
-                <div class="recent-announcement flex justify-stretch my-5">
-                  <div class="circle rounded-full bg-gray-400 p-5"></div>
-                  <div class="text-sm ms-2 font-extralight">
-                    <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
-                      <span class="bg-yellow-300 text-white font-semibold p-1 text-sm rounded-md">Post</span>
-                    </p>
-                    <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+              <!-- summary -->
+              <div class="flex-1">
+                <div>
+                  <div class="w-4/5 p-5 rounded-lg ms-3">
+                    <p class="text-accent font-semibold">TRACER STATUS </p>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                      <p class="font-normal text-greyish_black">Already Answered</p>
+                      <span class="text-accent">73%</span>
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                      <p class="font-normal text-greyish_black">Haven't answer yet</p>
+                      <span class="text-accent">27%</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="recent-announcement flex justify-stretch my-5">
-                  <div class="circle rounded-full bg-red-400 p-5"></div>
-                  <div class="text-sm ms-2 font-extralight">
-                    <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                      <span class="bg-green-600 text-white font-semibold p-1 text-sm rounded-md">Announcement</span>
-                    </p>
-                    <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                <div>
+                  <div class="w-4/5 p-5 rounded-lg ms-3">
+                    <p class="text-accent font-semibold">Personal Logs</p>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                      <p class="font-normal text-greyish_black">Total no. of posted announcement</p>
+                      <span class="text-accent">10</span>
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                      <p class="font-normal text-greyish_black">Total no. of deleted post</p>
+                      <span class="text-accent">0</span>
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                      <p class="font-normal text-greyish_black">Total no. of posted job</p>
+                      <span class="text-accent">23</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="recent-announcement flex justify-stretch my-5">
-                  <div class="circle rounded-full bg-yellow-200 p-5"></div>
-                  <div class="text-sm ms-2 font-extralight">
-                    <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                      <span class="bg-violet-400 text-white font-semibold p-1 text-sm rounded-md">Update</span>
-                    </p>
-                    <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                  </div>
-                </div>
-
-                <!-- view more -->
-                <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
               </div>
-
             </div>
 
-
-            <!-- Response by year -->
-            <div class="m-10 max-lg: relative pb-3 font-semibold">
-              <p class=" mb-2">RESPONSE BY YEAR </p>
-              <div class="response_by_year">
-                <canvas class="block mx-auto" style="height:40vh; width:40vw" id="responseByYear"></canvas>
-              </div>
-
-            </div>
           </div>
         </div>
 

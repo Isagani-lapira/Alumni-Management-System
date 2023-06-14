@@ -22,10 +22,10 @@ $(document).ready(function () {
 
   })
 
-  //open modal
-  $('#btnAnnouncement').click(function () {
-    prompt("#modal", true)
-  })
+  // //open modal
+  // $('#btnAnnouncement').click(function () {
+  //   prompt("#modal", true)
+  // })
 
   //close modal
   $('.cancel').click(function () {
@@ -236,24 +236,25 @@ function addingMonth(e) {
 }
 
 
-//chart function
-const tracerStatus = document.getElementById('myChart');
-const tracerType = 'pie'
-const tracerLabels = ["Already answered", "Haven't answer yet"]
-const tracerData = [12, 1]
-const color = [blueAccent, redAccent]
-
-chartConfig(tracerStatus, tracerType, tracerLabels,
-  tracerData, true, color, true)
-
 
 //chart for response by year
 const responseByYear = document.getElementById('responseByYear')
 const responseByYear_labels = ["2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"]
 const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860]
-const responseByYear_type = 'bar'
+const responseByYear_type = 'line'
 chartConfig(responseByYear, responseByYear_type, responseByYear_labels,
   responseByYear_data, false, redAccent, false)
+
+
+//tracer status
+const tracerStatus = document.getElementById('myChart');
+const tracerType = 'bar'
+const tracerLabels = ["Already answered", "Haven't answer yet"]
+const tracerData = [12, 5]
+const color = [blueAccent, redAccent]
+
+chartConfig(tracerStatus, tracerType, tracerLabels,
+  tracerData, false, color, false)
 
 
 //chart for employee status
@@ -394,7 +395,9 @@ function chartConfig(chartID, type, labels, data, responsive, colors, displayLeg
       datasets: [{
         backgroundColor: colors,
         data: data,
-        borderWidth: 1
+        borderColor: redAccent, // Set the line color
+        borderWidth: 1,
+        tension: 0.1
       }]
     },
     options: {
