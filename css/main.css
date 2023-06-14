@@ -990,6 +990,16 @@ th,
   margin-top: 1.25rem;
 }
 
+.ms-5 {
+  -webkit-margin-start: 1.25rem;
+          margin-inline-start: 1.25rem;
+}
+
+.ms-10 {
+  -webkit-margin-start: 2.5rem;
+          margin-inline-start: 2.5rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
