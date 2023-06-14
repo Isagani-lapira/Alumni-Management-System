@@ -256,7 +256,6 @@ const color = [blueAccent, redAccent]
 chartConfig(tracerStatus, tracerType, tracerLabels,
   tracerData, false, color, true)
 
-chartConfig(chartID, type, labels, data, responsive, colors, displayLegend)
 
 //chart for employee status
 const empStatus = document.getElementById('empStatus')
