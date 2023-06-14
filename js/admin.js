@@ -248,13 +248,13 @@ chartConfig(responseByYear, responseByYear_type, responseByYear_labels,
 
 //tracer status
 const tracerStatus = document.getElementById('myChart');
-const tracerType = 'pie'
+const tracerType = 'bar'
 const tracerLabels = ["Already answered", "Haven't answer yet"]
-const tracerData = [12, 1]
+const tracerData = [12, 5]
 const color = [blueAccent, redAccent]
 
 chartConfig(tracerStatus, tracerType, tracerLabels,
-  tracerData, false, color, true)
+  tracerData, false, color, false)
 
 
 //chart for employee status
