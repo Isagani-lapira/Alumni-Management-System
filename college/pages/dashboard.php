@@ -1,5 +1,5 @@
 <!-- dashboard content -->
-<div id="dashboard-tab" class="container mx-auto">
+<section id="dashboard-tab" class="container mx-auto">
     <h1 class="text-xl font-extrabold">Dashboard</h1>
 
     <button id="btnAnnouncement" style="margin-left: auto; margin-right: 10px" class="block rounded-lg font-bold text-white bg-accent p-2 hover:bg-darkAccent">
@@ -112,7 +112,7 @@
         </div>
 
     </div>
-</div>
+</section>
 
 <script>
     $(document).ready(() => {

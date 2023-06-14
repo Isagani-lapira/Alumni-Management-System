@@ -1,5 +1,5 @@
  <!-- ANNOUNCEMENT CONTENT -->
- <div id="announcement-tab" class="container mx-auto">
+ <section id="announcement-tab" class="container mx-auto">
      <!-- Announcement content -->
      <div id="announcement-content">
          <h1 class="text-xl font-extrabold">ANNOUNCEMENT</h1>
@@ -51,4 +51,4 @@
          </div>
      </div>
 
- </div>
+ </section>

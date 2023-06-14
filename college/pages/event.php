@@ -1,4 +1,4 @@
-<div class="container mx-auto">
+<section class="container mx-auto">
     <h1 class="text-2xl font-bold">Events</h1>
 
     <button class="btn-primary ">Add New</button>
@@ -48,4 +48,4 @@
         </div>
     </div>
 
-</div>
+</section>

@@ -16,6 +16,8 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/main.css">
+    <!-- Font-awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- End Stylesheets -->
 
     <!-- Javascript Scripts -->
@@ -27,7 +29,10 @@
     <!-- Lodash Utility Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!-- App Script -->
+    <script src="./assets/scripts/core.js" defer></script>
     <!-- End JS Scripts -->
+
 </head>
 
 <body class="">
@@ -44,7 +49,7 @@
             <nav class="">
                 <!-- Main Navigation -->
                 <ul class="space-y-2 mb-6 py-5 w-4/5">
-                    <li><a data-link="dashboard" href="#dashboard" class="flex rounded-lg p-2  font-bold bg-darkAccent text-white">
+                    <li><a data-link="dashboard" href="#dashboard" class="flex rounded-lg p-2  font-bold bg-accent text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-pie-filled" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M9.883 2.207a1.9 1.9 0 0 1 2.087 1.522l.025 .167l.005 .104v7a1 1 0 0 0 .883 .993l.117 .007h6.8a2 2 0 0 1 2 2a1 1 0 0 1 -.026 .226a10 10 0 1 1 -12.27 -11.933l.27 -.067l.11 -.02z" stroke-width="0" fill="currentColor" />
@@ -141,87 +146,6 @@
         </main>
     </div>
 
-    <script>
-        // TODO Refactor later when doing backend
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
-        $(document).ready(function() {
-
-            // detect hashed id in the first load
-            if (window.location.hash) {
-                const linkName = window.location.hash.substr(1);
-                // change the color of the links
-                handleLinkFocusChange(linkName)
-                // change the url
-                loadURL(linkName, $('#main-root'));
-            }
-            // manages link clicks
-            $('nav li a').click(function(e) {
-                const link = e.target.getAttribute('data-link')
-                handleLinkFocusChange(link)
-                loadURL(link, $('#main-root'))
-            })
-
-
-
-
-            function handleLinkFocusChange(pageName) { // changes the state of nav links to highlight focus
-                const elem = $(`nav li a[data-link="${pageName}"`);
-                $('nav li a').removeClass("font-bold bg-darkAccent text-white");
-                elem.addClass("font-bold bg-darkAccent text-white");
-
-            }
-
-
-
-            function loadURL(url, container, title = '') { // change the root elem to page
-
-                const base_url = 'pages/'
-                title = title.length === 0 ? url : title;
-                // set the title of the page
-                document.title = capitalizeFirstLetter(title);
-                $.ajax({
-                    type: "GET",
-                    url: base_url + url + '.php',
-                    dataType: 'html',
-                    // TODO check later if cache is good in changing data 
-                    cache: true,
-                    beforeSend: function() {
-                        // add loader while waiting
-                        // TODO make better loading screen
-                        container.html('<h1>Loading...</h1>');
-
-                        // scroll to top
-                        if (container[0] === $(".main-root")[0]) {
-                            $("html").animate({
-                                scrollTop: 0
-                            }, "fast");
-                        }
-                    },
-                    complete: function(res) {
-                        // 
-                        if (title != '') document.title = capitalizeFirstLetter(title);
-                    },
-                    success: function(data) {
-                        // animate a bit
-                        container.css({
-                            opacity: '0.0'
-                        }).html(data).delay(50).animate({
-                            opacity: '1.0'
-                        }, 300);
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        // No Page Found
-                        container.load("pages/missing-page.php");
-                    },
-                    async: false
-                });
-            }
-
-        })
-    </script>
 
 </body>
 

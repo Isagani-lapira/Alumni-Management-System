@@ -1,5 +1,5 @@
 <!-- report content -->
-<div id="report-tab" class="container mx-auto">
+<section id="report-tab" class="container mx-auto">
     <h1 class="text-xl font-extrabold">REPORTS</h1>
 
     <div class="flex justify-end text-sm text-greyish_black">
@@ -216,7 +216,7 @@
 
         </tbody>
     </table>
-</div>
+</section>
 
 
 
