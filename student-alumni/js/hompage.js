@@ -33,16 +33,20 @@ $(document).ready(function () {
     $(this).find('#feedText').css('color', 'white');
   });
 
-   // Get the dropdown button element
+   // Drop down
    const dropdownBtn = document.getElementById('dropdown-btn');
-
-   // Get the dropdown content element
    const dropdownContent = document.getElementById('dropdown-content');
  
-   // Add event listener to toggle the hidden class when the dropdown button is clicked
    dropdownBtn.addEventListener('click', () => {
      dropdownContent.classList.toggle('hidden');
    });
-   
+
 });
+
+ // Notification
+function toggleNotifications() {
+  const notificationsTab = document.getElementById("notification-tab");
+  notificationsTab.classList.toggle("hidden");
+  notificationsTab.classList.toggle("translate-x-full");
+}
 
