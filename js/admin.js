@@ -23,9 +23,9 @@ $(document).ready(function () {
   })
 
   // //open modal
-  // $('#btnAnnouncement').click(function () {
-  //   prompt("#modal", true)
-  // })
+  $('#btnAnnouncement').click(function () {
+    prompt("#modal", true)
+  })
 
   //close modal
   $('.cancel').click(function () {
@@ -181,6 +181,15 @@ $(document).ready(function () {
     if (!(e.target).closest('#viewJob').length)
       $('#viewJob').addClass('hidden')
   })
+
+  $(function () {
+    $('input[name="daterange"]').daterangepicker({
+      opens: 'left'
+    }, function (start, end, label) {
+      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+  });
+
 });
 
 
