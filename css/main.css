@@ -744,10 +744,6 @@ th,
   right: 3rem;
 }
 
-.start-1 {
-  inset-inline-start: 0.25rem;
-}
-
 .top-0 {
   top: 0px;
 }
@@ -764,30 +760,15 @@ th,
   top: 2rem;
 }
 
-.right-4 {
-  right: 1rem;
-}
-
-.right-9 {
-  right: 2.25rem;
-}
-
 .right-8 {
   right: 2rem;
-}
-
-.top-10 {
-  top: 2.5rem;
-}
-
-.top-20 {
-  top: 5rem;
 }
 
 .top-24 {
   top: 6rem;
 }
 
+<<<<<<< Updated upstream
 .top-28 {
   top: 7rem;
 }
@@ -808,6 +789,8 @@ th,
   left: 1.25rem;
 }
 
+=======
+>>>>>>> Stashed changes
 .isolate {
   isolation: isolate;
 }
@@ -858,10 +841,6 @@ th,
 
 .clear-none {
   clear: none;
-}
-
-.m-1 {
-  margin: 0.25rem;
 }
 
 .m-10 {
@@ -1057,18 +1036,6 @@ th,
   margin-top: 1.25rem;
 }
 
-.mt-24 {
-  margin-top: 6rem;
-}
-
-.mt-28 {
-  margin-top: 7rem;
-}
-
-.mt-32 {
-  margin-top: 8rem;
-}
-
 .mt-40 {
   margin-top: 10rem;
 }
@@ -1170,10 +1137,6 @@ th,
 
 .hidden {
   display: none;
-}
-
-.h-1 {
-  height: 0.25rem;
 }
 
 .h-1\/2 {
@@ -1283,10 +1246,6 @@ th,
 
 .h-screen {
   height: 100vh;
-}
-
-.h-28 {
-  height: 7rem;
 }
 
 .min-h-screen {
@@ -1446,6 +1405,7 @@ th,
   width: 100vw;
 }
 
+<<<<<<< Updated upstream
 .w-52 {
   width: 13rem;
 }
@@ -1466,6 +1426,8 @@ th,
   width: 0.125rem;
 }
 
+=======
+>>>>>>> Stashed changes
 .max-w-6xl {
   max-width: 72rem;
 }
@@ -3098,14 +3060,6 @@ th,
   padding-top: 2rem;
 }
 
-.pl-2 {
-  padding-left: 0.5rem;
-}
-
-.pr-2 {
-  padding-right: 0.5rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -3772,10 +3726,6 @@ th,
 .content-\[\'this-is-also-valid\]-weirdly-enough\'\] {
   --tw-content: 'this-is-also-valid]-weirdly-enough';
   content: var(--tw-content);
-}
-
-.\[a-zA-Z-\:\#\] {
-  a-z-a--z-: #;
 }
 
 .heading-container {
