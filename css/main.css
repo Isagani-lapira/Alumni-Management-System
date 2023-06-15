@@ -792,6 +792,22 @@ th,
   top: 7rem;
 }
 
+.right-10 {
+  right: 2.5rem;
+}
+
+.right-5 {
+  right: 1.25rem;
+}
+
+.right-6 {
+  right: 1.5rem;
+}
+
+.left-5 {
+  left: 1.25rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -1440,6 +1456,14 @@ th,
 
 .w-60 {
   width: 15rem;
+}
+
+.w-0 {
+  width: 0px;
+}
+
+.w-0\.5 {
+  width: 0.125rem;
 }
 
 .max-w-6xl {
@@ -3960,6 +3984,26 @@ body {
 }
 
 @media (min-width: 640px) {
+  .sm\:h-0 {
+    height: 0px;
+  }
+
+  .sm\:h-0\.5 {
+    height: 0.125rem;
+  }
+
+  .sm\:w-auto {
+    width: auto;
+  }
+
+  .sm\:w-0 {
+    width: 0px;
+  }
+
+  .sm\:w-0\.5 {
+    width: 0.125rem;
+  }
+
   .sm\:flex-row {
     flex-direction: row;
   }
