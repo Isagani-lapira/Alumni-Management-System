@@ -816,6 +816,11 @@ th,
   margin: 0.5rem;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
@@ -1348,17 +1353,13 @@ th,
   width: 100%;
 }
 
-.w-screen {
-  width: 100vw;
-}
-
-.w-5\/12 {
-  width: 41.666667%;
-}
-
 .w-max {
   width: -moz-max-content;
   width: max-content;
+}
+
+.w-screen {
+  width: 100vw;
 }
 
 .max-w-6xl {
@@ -2390,6 +2391,14 @@ th,
 
 .rounded-tr {
   border-top-right-radius: 0.25rem;
+}
+
+.rounded-tl-lg {
+  border-top-left-radius: 0.5rem;
+}
+
+.rounded-tr-lg {
+  border-top-right-radius: 0.5rem;
 }
 
 .border {

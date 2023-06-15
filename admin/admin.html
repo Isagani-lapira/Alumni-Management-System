@@ -53,13 +53,13 @@
           </li>
 
           <!-- REPORTS -->
-          <li class="rounded-lg p-2"><a href="#report-tab">
+          <li class="rounded-lg p-2"><a href="#student-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
                 <path d="M4 2H2v26a2 2 0 0 0 2 2h26v-2H4Z" />
                 <path
                   d="M30 9h-7v2h3.59L19 18.59l-4.29-4.3a1 1 0 0 0-1.42 0L6 21.59L7.41 23L14 16.41l4.29 4.3a1 1 0 0 0 1.42 0l8.29-8.3V16h2Z" />
               </svg>
-              REPORTS</a>
+              STUDENT RECORD</a>
           </li>
 
           <!-- COLLEGES -->
@@ -375,8 +375,8 @@
         </div>
 
         <!-- report content -->
-        <div id="report-tab">
-          <h1 class="text-xl font-extrabold">REPORTS</h1>
+        <div id="student-tab" class="p-5">
+          <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
 
           <div class="flex justify-end text-xs text-greyish_black">
             <!-- HISTORY LOGS -->
@@ -398,7 +398,15 @@
 
             <div class="flex border border-greyish_black w-full rounded-md p-1">
               <img class="inline " src="/images/search-icon.png" alt="">
-              <input class="focus:outline-none" type="text" name="" id="searchPerson" placeholder="Typing!">
+              <input class="focus:outline-none w-full" type="text" name="" id="searchPerson" placeholder="Typing!">
+            </div>
+
+            <!-- range -->
+            <div class="w-full flex border p-2 mx-2">
+              <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" />
+              <label class="" for="daterange">
+                <img class="h-5 w-5" src="/assets/icons/calendar.svg" alt="">
+              </label>
             </div>
             <!-- batch selection -->
             <select name="" id="batch" class="w-full p-1">
@@ -425,26 +433,26 @@
 
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin text-grayish">
+          <table class="table-auto w-full mt-10 text-xs font-thin">
             <thead>
-              <tr>
-                <th class="text-start">NAME</th>
+              <tr class="bg-accent text-white">
+                <th class="text-start rounded-tl-lg">Student Number</th>
+                <th>NAME</th>
                 <th>CONTACT NUMBER</th>
-                <th>DATE SUBMITTED</th>
-                <th>STATUS</th>
-                <th>DETAILS</th>
+                <th>USER TYPE</th>
+                <th class="rounded-tr-lg">DETAILS</th>
               </tr>
             </thead>
             <tbody class="text-sm">
               <tr class="h-14 text-xs">
+                <td class="text-start font-bold">2020101933</td>
                 <td>
                   <div class="flex items-center justify-start">
                     <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/alumni-pic2.png"></img>
                     <span class="ml-2">Wade Warren</span>
                   </div>
                 </td>
-                <td class="text-center">09104905440</td>
-                <td class="text-center">4/4/18</td>
+                <td class="text-center">(704) 555-0127</td>
                 <td class="text-center">
                   <span class="py-1 px-2 rounded-lg text-xs font-medium bg-green-300 text-green-700">STUDENT</span>
                 </td>
@@ -453,6 +461,7 @@
               </tr>
 
               <tr class="h-14 text-xs">
+                <td class="text-start font-bold">2020101933</td>
                 <td>
                   <div class="flex items-center justify-start">
                     <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/avatar-prof.png"></img>
@@ -460,7 +469,6 @@
                   </div>
                 </td>
                 <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">7/11/19</td>
                 <td class="text-center">
                   <span class="py-1 px-2 rounded-lg text-xs font-medium bg-yellow-300 text-yellow-500">Alumni</span>
                 </td>
@@ -469,6 +477,7 @@
               </tr>
 
               <tr class="h-14 text-xs">
+                <td class="text-start font-bold">2020101933</td>
                 <td>
                   <div class="flex items-center justify-start">
                     <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/footer-img.png"></img>
@@ -476,7 +485,6 @@
                   </div>
                 </td>
                 <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">5/19/12 </td>
                 <td class="text-center">
                   <span class="py-1 px-2 rounded-lg text-xs font-medium bg-green-300 text-green-700">STUDENT</span>
                 </td>
@@ -486,6 +494,7 @@
 
 
               <tr class="h-14 text-xs">
+                <td class="text-start font-bold">2020101933</td>
                 <td>
                   <div class="flex items-center justify-start">
                     <img class="w-10 h-10 rounded-full border-2 border-accent"
@@ -494,7 +503,6 @@
                   </div>
                 </td>
                 <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">7/27/13</td>
                 <td class="text-center">
                   <span class="py-1 px-2 rounded-lg text-xs font-medium bg-yellow-300 text-yellow-500">Alumni</span>
                 </td>
