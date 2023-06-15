@@ -716,6 +716,14 @@ th,
   inset-inline-end: 0.25rem;
 }
 
+.end-2 {
+  inset-inline-end: 0.5rem;
+}
+
+.end-7 {
+  inset-inline-end: 1.75rem;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -734,6 +742,10 @@ th,
 
 .right-12 {
   right: 3rem;
+}
+
+.start-1 {
+  inset-inline-start: 0.25rem;
 }
 
 .top-0 {
@@ -802,6 +814,10 @@ th,
 
 .clear-none {
   clear: none;
+}
+
+.m-1 {
+  margin: 0.25rem;
 }
 
 .m-10 {
@@ -1094,6 +1110,10 @@ th,
 
 .hidden {
   display: none;
+}
+
+.h-1 {
+  height: 0.25rem;
 }
 
 .h-1\/2 {
@@ -2389,12 +2409,12 @@ th,
   border-top-left-radius: 0.25rem;
 }
 
-.rounded-tr {
-  border-top-right-radius: 0.25rem;
-}
-
 .rounded-tl-lg {
   border-top-left-radius: 0.5rem;
+}
+
+.rounded-tr {
+  border-top-right-radius: 0.25rem;
 }
 
 .rounded-tr-lg {
@@ -3662,6 +3682,10 @@ th,
   content: var(--tw-content);
 }
 
+.\[a-zA-Z-\:\#\] {
+  a-z-a--z-: #;
+}
+
 .heading-container {
   background-image: url("../assets/heading.png");
 }
@@ -3760,6 +3784,11 @@ body {
 .hover\:bg-darkAccent:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(96 16 16 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-postHoverButton:hover {
