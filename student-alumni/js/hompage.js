@@ -34,12 +34,10 @@ $(document).ready(function () {
   });
 
    // Drop down
-   const dropdownBtn = document.getElementById('dropdown-btn');
-   const dropdownContent = document.getElementById('dropdown-content');
- 
-   dropdownBtn.addEventListener('click', () => {
-     dropdownContent.classList.toggle('hidden');
-   });
+   $('#dropdown-btn').click(function() {
+    $('#dropdown-content').toggle();
+    $(this).toggleClass('active');
+  });
 
 });
 
