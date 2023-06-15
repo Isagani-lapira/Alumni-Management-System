@@ -61,3 +61,20 @@ body {
   margin-top: -20px;
 }
 
+.container {
+  width: 75%;
+  max-width: 1200px;
+}
+
+.input-post-width {
+  width: 81%;
+ max-width: 1200px;
+}
+
+.post-width {
+  width: 75%;
+  max-width: 1200px;
+} 
+
+
+
