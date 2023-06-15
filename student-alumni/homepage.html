@@ -25,11 +25,11 @@
             <img src="/images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
             <span class="ml-2 text-xl font-bold">BulSU Connect</span>
           </div>
-
+<!--  -->
           <div class="col-span-1 flex items-center justify-center">
             <div class="relative w-full">
               <input type="text" placeholder="Search"
-                class="pl-10 pr-4 py-3 w-full text-black text-sm border outline-none border-accent rounded-lg" />
+                class="pl-10 pr-4 py-3 w-full text-black text-sm border outline-none border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none" />
               <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
             </div>
           </div>
@@ -91,190 +91,173 @@
       </div>
 
       <div id="tabs-1">
-        <!--FEED TAB-->
-        <div class="container mx-auto mt-10">
-          <div class="grid grid-cols-5 gap-4 grid-container">
-            <!--LEFT DIV-->
-            <div class="col-span-1 md:col-span-1 left-div">
-              <!-- Content for the left side (20% width) -->
-              <div class="notif mb-4">
-                <a href="#" class="flex items-center space-x-4">
-                  <i class="fas fa-bell"></i>
-                  <span class="font-bold notification-text text-greyish_black">Notifications</span>
-                </a>
-              </div>
-              <div class="verify mb-4">
-                <a href="#" class="flex items-center space-x-4">
-                  <i class="fas fa-check-circle"></i>
-                  <span class="font-bold verified-text text-greyish_black">Verified Job Post</span>
-                </a>
-                <button class="rounded-md bg-blue-500 text-white px-4 py-2 mb-2 w-full mt-16">
-                  Make Post
-                </button>
-              </div>
-            </div>
-
-            <!--CENTER DIV-->
-            <div class="col-span-3 md:col-span-3 border-l border-r border-gray-400 center-div">
-              <!-- Content for the center side (60% width) -->
-
-              <!-- Header -->
-              <div class="header-center-div header-center-div p-3 pl-8 text-justify">
-                <h1 class="text-3xl font-bold text-greyish_black">
-                  Welcome BulSUans
-                </h1>
-              </div>
-
-              <!-- Input Field -->
-              <div class="mt-10 p-3 w-4/5 mx-auto">
-                <div class="relative ">
-                  <a href="/profile">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                      <img class="h-5 rounded-full border-2 border-accentBlue" src="/images/ye.jpg"
-                        alt="Profile Icon" />
-                    </span>
-                  </a>
-                  <input type="text" placeholder="Write something..."
-                    class="pl-10 w-full h-12 py-2 center-shadow p-3 rounded-md shadow text-sm border outline-none" />
+        <div class="flex tab-content w-full">
+          <div id="tabs-1" class="w-full h-full">
+            <!--FEED TAB-->
+            <!-- left side -->
+            <div class="container mx-auto">
+              <div class="flex w-full"> 
+                <!-- left side -->
+                <div class="w-1/4 ps-5 h-full fixed left-0">
+                  <div class="flex items-center">
+                    <span class="h-4 w-4 fa fa-bell"></span>
+                    <span class="ps-3 text-sm text-greyish_black font-medium">Notification</span>
+                  </div>
+                  <div class="flex items-center mt-3">
+                    <span class="h-4 w-4 fas fa-check-circle"></span>
+                    <span class="ps-3 text-sm text-greyish_black font-medium">Verification Job Post</span>
+                  </div>
+  
+                  <button class="bg-blue-400 hover:bg-blue-500 rounded-md w-3/4 py-2 text-white mt-3">Make a post</button>
                 </div>
-              </div>
-
-              <!-- Post -->
-              <div class="post p-3 w-4/5 mx-auto mt-10">
-                <div class="center-shadow p-3 rounded-md shadow">
-                  <div class="flex justify-start items-center">
-                    <a href="/profile">
-                      <div class="flex items-center">
-                        <!-- Profile Picture -->
-                        <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="" />
-                        <!-- User Name -->
-                        <p class="text-start px-3 text-sm font-semibold"> Jayson Batoon </p>
+  
+                <div class="w-1/4 p-2 h-full "></div>
+                <!-- center -->
+                <div class="w-full p-5">
+                  
+                  <div >
+                    <div class="post center-shadow p-3 rounded-md  p-3 w-5/6 mt-5 mx-auto">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <input type="text" id="post" placeholder="Write something...">
+                    </div>
+                    
+                    <!-- Post -->
+                    <div class="post p-3 w-5/6 mt-5 mx-auto">
+                      <div class="center-shadow p-3 rounded-md">
+                        <div class="flex justify-start items-center">
+                          <div class="flex items-center">
+                            <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                            <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
+                          </div>
+                          <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                        </div>
+  
+                        <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
+                        <img class="my-2 rounded-md"
+                          src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C"
+                          alt="">
+                        <div class="flex py-2 items-center">
+                          <img class="h-5" src="/assets/icons/heart.png" alt="">
+                          <span class="ms-2 text-sm">1,498</span>
+                          <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                          <span class="ms-2 text-sm">3,000</span>
+                        </div>
                       </div>
-                    </a>
-                    <a href="/notifications" class="ml-auto">
-                      <!-- Notif Bar -->
-                      <img src="/assets/more_horiz.png" alt="" />
-                    </a>
-                  </div>
-                  <!-- Post Description -->
-                  <p class="text-sm mt-2"> BulSU Laboratory High School Moving Up Ceremony | June 1, 2023 </p>
-                  <!-- IMAGE -->
-                  <img class="my-2 rounded-md mx-auto" src="/images/bsu-header.jpg" alt="" />
-                  <div class="flex py-2 items-center">
-                    <a href="/like">
-                      <!-- Heart Icon -->
-                      <img class="h-5" src="/assets/icons/heart.png" alt="" />
-                    </a>
-                    <a href="/like-count" class="ms-2">
-                      <!-- Like Count -->
-                      <span class="text-sm">1,498</span>
-                    </a>
-                    <a href="/comment">
-                      <!-- Comment Icon -->
-                      <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="" />
-                    </a>
-                    <a href="/comment-count" class="ms-2">
-                      <!-- Comment Count -->
-                      <span class="text-sm">3,000</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Post -->
-              <div class="post p-3 w-4/5 mx-auto mt-10">
-                <div class="center-shadow p-3 rounded-md shadow">
-                  <div class="flex justify-start items-center">
-                    <a href="/profile">
-                      <div class="flex items-center">
-                        <!-- Profile Picture -->
-                        <img class="h-12 border-2 border-accentBlue rounded-full" src="/images/isagani.png" alt="" />
-                        <!-- User Name -->
-                        <p class="text-start px-3 text-sm font-semibold"> Isagani Lapira jr. </p>
+                    </div>
+  
+                    <div class="post p-3 w-5/6 mt-5 mx-auto">
+                      <div class="center-shadow p-3 rounded-md">
+                        <div class="flex justify-start items-center">
+                          <div class="flex items-center">
+                            <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                            <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
+                          </div>
+                          <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                        </div>
+  
+                        <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
+                        <img class="my-2 rounded-md"
+                          src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C"
+                          alt="">
+                        <div class="flex py-2 items-center">
+                          <img class="h-5" src="/assets/icons/heart.png" alt="">
+                          <span class="ms-2 text-sm">1,498</span>
+                          <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                          <span class="ms-2 text-sm">3,000</span>
+                        </div>
                       </div>
-                    </a>
-                    <a href="/notifications" class="ml-auto">
-                      <!-- Notif Bar -->
-                      <img src="/assets/more_horiz.png" alt="" />
-                    </a>
+                    </div>
+  
+                    <div class="post p-3 w-5/6 mt-5 mx-auto">
+                      <div class="center-shadow p-3 rounded-md">
+                        <div class="flex justify-start items-center">
+                          <div class="flex items-center">
+                            <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                            <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
+                          </div>
+                          <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                        </div>
+  
+                        <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
+                        <img class="my-2 rounded-md"
+                          src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C"
+                          alt="">
+                        <div class="flex py-2 items-center">
+                          <img class="h-5" src="/assets/icons/heart.png" alt="">
+                          <span class="ms-2 text-sm">1,498</span>
+                          <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                          <span class="ms-2 text-sm">3,000</span>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="post p-3 w-5/6 mt-5 mx-auto">
+                      <div class="center-shadow p-3 rounded-md">
+                        <div class="flex justify-start items-center">
+                          <div class="flex items-center">
+                            <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                            <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
+                          </div>
+                          <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                        </div>
+  
+                        <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
+                        <img class="my-2 rounded-md"
+                          src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C"
+                          alt="">
+                        <div class="flex py-2 items-center">
+                          <img class="h-5" src="/assets/icons/heart.png" alt="">
+                          <span class="ms-2 text-sm">1,498</span>
+                          <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                          <span class="ms-2 text-sm">3,000</span>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="post p-3 w-5/6 mt-5 mx-auto">
+                      <div class="center-shadow p-3 rounded-md">
+                        <div class="flex justify-start items-center">
+                          <div class="flex items-center">
+                            <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                            <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
+                          </div>
+                          <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                        </div>
+  
+                        <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
+                        <img class="my-2 rounded-md"
+                          src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C"
+                          alt="">
+                        <div class="flex py-2 items-center">
+                          <img class="h-5" src="/assets/icons/heart.png" alt="">
+                          <span class="ms-2 text-sm">1,498</span>
+                          <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                          <span class="ms-2 text-sm">3,000</span>
+                        </div>
+                      </div>
+                    </div>
+  
                   </div>
-                  <!-- Post Description -->
-                  <p class="text-sm mt-2">bday mode | June 9, 2023 </p>
-                  <!-- IMAGE -->
-                  <img class="my-2 rounded-md mx-auto" src="/images/happy.png" alt="" />
-                  <div class="flex py-2 items-center">
-                    <a href="/like">
-                      <!-- Heart Icon -->
-                      <img class="h-5" src="/assets/icons/heart.png" alt="" />
-                    </a>
-                    <a href="/like-count" class="ms-2">
-                      <!-- Like Count -->
-                      <span class="text-sm">13,408</span>
-                    </a>
-                    <a href="/comment">
-                      <!-- Comment Icon -->
-                      <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="" />
-                    </a>
-                    <a href="/comment-count" class="ms-2">
-                      <!-- Comment Count -->
-                      <span class="text-sm">800</span>
-                    </a>
+  
+                </div>
+  
+                <div class="w-1/4 p-2 h-full"></div>
+                <!-- right side -->
+                <div class="w-1/4 fixed right-0 flex justify-end pr-4">
+  
+                  <div class="w-3/4">
+                    <p class="font-medium border-b-2 border-grayish ml-auto block text-sm">ANNOUNCEMENT</p>
+                    <button class="bg-blue-400 hover:bg-blue-500 rounded-md w-full py-2 text-white mt-3 text-sm">College Update</button>
+                    <button class="bg-accent hover:bg-darkAccent rounded-md w-full py-2 text-white mt-3 text-sm">University Update</button>
+    
+                    <p class="font-medium border-b-2 border-grayish mt-5 ">RECOGNITION</p>
+                    <button class="bg-blue-400 hover:bg-blue-500 rounded-md w-full py-2 text-white mt-3">Yearbook</button>
                   </div>
-                </div>
-              </div>
-
-
-            </div>
-
-            <!--RIGHT DIV-->
-            <div class="col-span-1 md:col-span-1 right-div">
-              <!-- Content for the right side (20% width) -->
-              <div class="announcements mb-8">
-                <div class="header mb-2">
-                  <h3 class="text-lg font-bold text-greyish_black">
-                    ANNOUNCEMENTS
-                  </h3>
-                </div>
-                <hr class="border-gray-400 mb-4" />
-                <div class="button-container">
-                  <button class="rounded-md bg-blue-500 text-white px-4 py-2 mb-2 w-full">
-                    College Update
-                  </button>
-                  <button class="rounded-md bg-accent text-white px-4 py-2 w-full">
-                    University Update
-                  </button>
-                </div>
-              </div>
-
-              <div class="donate mb-8">
-                <div class="header mb-2">
-                  <h3 class="text-lg font-bold text-greyish_black">DONATE</h3>
-                </div>
-                <hr class="border-gray-400 mb-4" />
-                <div class="button-container">
-                  <button class="rounded-md bg-blue-500 text-white px-4 py-2 mb-2 w-full">
-                    Give for College
-                  </button>
-                  <button class="rounded-md bg-accent text-white px-4 py-2 w-full">
-                    Give for University
-                  </button>
-                </div>
-              </div>
-
-              <div class="recogition mb-8">
-                <div class="header mb-2">
-                  <h3 class="text-lg font-bold text-greyish_black">
-                    RECOGNITION
-                  </h3>
-                </div>
-                <hr class="border-gray-400 mb-4" />
-                <div class="button-container">
-                  <button class="rounded-md bg-blue-500 text-white px-4 py-2 mb-2 w-full">
-                    Yearbook
-                  </button>
+                  
                 </div>
               </div>
             </div>
+  
           </div>
         </div>
       </div>
