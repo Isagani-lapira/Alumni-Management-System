@@ -1466,6 +1466,26 @@ th,
   width: 0.125rem;
 }
 
+.w-3\/6 {
+  width: 50%;
+}
+
+.w-2\/6 {
+  width: 33.333333%;
+}
+
+.w-40 {
+  width: 10rem;
+}
+
+.w-5\/12 {
+  width: 41.666667%;
+}
+
+.w-6\/12 {
+  width: 50%;
+}
+
 .max-w-6xl {
   max-width: 72rem;
 }
