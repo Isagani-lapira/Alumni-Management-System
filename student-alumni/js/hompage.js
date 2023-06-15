@@ -39,12 +39,20 @@ $(document).ready(function () {
     $(this).toggleClass('active');
   });
 
+  // // Notification
+  // $('#notification-content').hide(); // Hide the notification tab initially
+
+  // $('#notif-btn').click(function() {
+  //   $('#notification-content').toggle('fast'); // Show or hide the notification tab with a fast animation
+  // });
+
+
 });
 
- // Notification
+ 
 function toggleNotifications() {
   const notificationsTab = document.getElementById("notification-tab");
   notificationsTab.classList.toggle("hidden");
-  notificationsTab.classList.toggle("translate-x-full");
+  
 }
 
