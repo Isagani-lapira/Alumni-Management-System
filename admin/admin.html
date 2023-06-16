@@ -14,6 +14,8 @@
     href="https://fonts.googleapis.com/css2?family=Corinthia&family=Dancing+Script:wght@500&family=Exo+2:wght@700&family=Fasthand&family=Freehand&family=Montserrat:ital,wght@0,400;0,700;1,400;1,600;1,700;1,800&family=Poppins:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&family=Source+Sans+Pro:ital@1&display=swap"
     rel="stylesheet" />
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
     crossorigin="anonymous"></script>
@@ -1352,58 +1354,83 @@
 
           </div>
 
-          <div id="jobPosting" class="mt-10 hidden">
-            <label class="font-bold text-grayish" for="">Job</label>
-            <input class="block p-2 border border-gray-400 w-2/5 outline-none rounded-lg mb-3" type="text"
-              placeholder="e.g Software Engineer">
+          <div id="jobPosting" class="mt-10 w-full hidden">
 
-            <label class="font-bold text-grayish mt-5" for="">Company Name</label>
-            <input class="block p-2 border border-gray-400 w-2/5 outline-none rounded-lg mb-3" type="text"
-              placeholder="e.g Accenture">
+            <!-- left side -->
+            <div class="flex">
+              <div class="w-1/2">
+                <label class="font-bold text-greyish_black text-sm" for="">Job Title</label>
+                <input class="block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text"
+                  placeholder="e.g Software Engineer">
 
-            <label class="font-bold text-grayish mt-5" for="">Project Overview</label>
-            <div class="message-area border border-solid border-gray-400 h-40 w-2/5 rounded-lg mb-5">
-              <textarea class="w-full h-full resize-none  rounded-lg p-3 focus:outline-none text-grayish" name=""
-                id="projOverviewTxt"></textarea>
-            </div>
+                <label class="font-bold text-greyish_black text-sm mt-5" for="">Company Name</label>
+                <input class="block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text"
+                  placeholder="e.g Accenture">
 
-            <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
-              Choose logo
-              <input id="jobLogoInput" class="hidden" type="file">
-            </label>
-            <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
+                <label class="font-bold text-greyish_black text-sm mt-5" for="">Project Description</label>
+                <div class="message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5">
+                  <textarea
+                    class="w-full h-full resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
+                    name="" id="projOverviewTxt"></textarea>
+                </div>
 
+                <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
+                  Choose logo
+                  <input id="jobLogoInput" class="hidden" type="file">
+                </label>
+                <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
 
-            <label class="font-bold text-grayish mt-5 block" for="">Skills</label>
-            <div id="skillDiv" class="flex flex-col">
-              <div>
-                <img class="h-12 w-12 inline cursor-pointer" src="/assets/icons/add-circle.png">
-                <input class="inputSkill" type="text" placeholder="Add skill/s that needed">
+                <!-- salary -->
+                <label class="font-bold text-greyish_black text-sm mt-5 block" for="">Salary Range</label>
+                <div class="flex gap-2 mt-2 items-center">
+                  <div class="w-1/4 p-2 border border-greyish_black rounded-md flex items-center gap-2">
+                    <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
+                    <input class="w-full" type="number" name="" id="" value="0">
+                  </div>
+                  -
+                  <div class="w-1/4 p-2 border border-greyish_black rounded-md flex items-center gap-2">
+                    <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
+                    <input class="w-full" type="number" name="" id="" value="0">
+                  </div>
+                </div>
+
               </div>
-            </div>
 
-            <label class="font-bold text-grayish mt-5" for="">Qualification</label>
-            <div class="message-area border border-solid border-gray-400 h-40 w-2/5 rounded-lg mb-5">
-              <textarea class="w-full h-full resize-none  rounded-lg p-3 focus:outline-none text-grayish" name=""
-                id="qualificationTxt" placeholder="Describe the person or provide other information you want to
-                  share to other people....">
-                </textarea>
-            </div>
+              <!-- right side -->
+              <div class="w-1/2">
+                <label class="font-bold text-greyish_black text-sm mt-5 block" for="">Skills</label>
+                <div id="skillDiv" class="flex flex-col">
+                  <div>
+                    <img class="h-12 w-12 inline cursor-pointer" src="/assets/icons/add-circle.png">
+                    <input class="inputSkill" type="text" placeholder="Add skill/s that needed">
+                  </div>
+                </div>
 
-            <label class="font-bold text-grayish mt-5 block" for="">Requirements</label>
-            <div id="reqDiv" class="flex flex-col">
-              <div>
-                <img class="h-12 w-12 inline cursor-pointer" src="/assets/icons/add-circle.png" alt="">
-                <input class="inputReq" type="text" placeholder="Add things that an applicants needed">
+                <label class="font-bold text-greyish_black text-sm mt-5" for="">Qualification</label>
+                <div class="message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5">
+                  <textarea
+                    class="w-full h-full resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
+                    name="" id="qualificationTxt">
+                  </textarea>
+                </div>
+
+                <label class="font-bold text-greyish_black text-sm mt-5 block" for="">Requirements</label>
+                <div id="reqDiv" class="flex flex-col">
+                  <div>
+                    <img class="h-12 w-12 inline cursor-pointer" src="/assets/icons/add-circle.png" alt="">
+                    <input class="inputReq" type="text" placeholder="Add things that an applicants needed">
+                  </div>
+                </div>
+
+                <div>
+                  <button
+                    class="bg-postButton w-4/5 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
+                    a post</button>
+                </div>
               </div>
+
             </div>
 
-
-            <div>
-              <button
-                class="bg-postButton px-5 py-3 block ml-auto hover:bg-postHoverButton text-white rounded-md text-sm">Make
-                a post</button>
-            </div>
           </div>
 
         </div>
