@@ -22,9 +22,17 @@ $(document).ready(function () {
 
   })
 
-  // //open modal
+  // //open modal post
   $('#btnAnnouncement').click(function () {
     prompt("#modal", true)
+  })
+  // //open modal email
+  $('#btnEmail').click(function () {
+    prompt("#modalEmail", true)
+  })
+  // //close modal email
+  $('.cancelEmail').click(function () {
+    prompt("#modalEmail", false)
   })
 
   //close modal

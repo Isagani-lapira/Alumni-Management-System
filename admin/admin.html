@@ -52,6 +52,15 @@
               ANNOUNCEMENT</a>
           </li>
 
+          <!-- EMAIL -->
+          <li class="rounded-lg p-2"><a href="#email-tab">
+              <svg class="inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16" width="24" height="24">
+                <path
+                  d="M 18 0 H 2 C 0.9 0 0.00999999 0.9 0.00999999 2 L 0 14 C 0 15.1 0.9 16 2 16 H 18 C 19.1 16 20 15.1 20 14 V 2 C 20 0.9 19.1 0 18 0 Z M 18 4 L 10 9 L 2 4 V 2 L 10 7 L 18 2 V 4 Z" />
+              </svg>
+              EMAIL</a>
+          </li>
+
           <!-- REPORTS -->
           <li class="rounded-lg p-2"><a href="#student-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
@@ -190,7 +199,7 @@
               <div class="flex-1">
                 <!-- tracer status part -->
                 <div class="w-4/5 mx-auto center-shadow p-5 rounded-lg">
-                  <p class="mb-2 font-boldc text-accent font-semibold">RECENT ANNOUNCEMENT
+                  <p class="mb-2 font-boldc text-accent font-semibold">RECENT ACTIVITIES
                     <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
                   </p>
 
@@ -374,6 +383,78 @@
 
         </div>
 
+        <div id="email-tab" class="p-5">
+          <h1 class="text-xl font-extrabold">EMAIL</h1>
+          <p class="text-grayish">Here you can check all the post you have and can create new post</p>
+          <div class="mt-5 text-end">
+            <button id="btnEmail"
+              class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
+              NEW
+              MESSAGE
+            </button>
+            <span class="text-sm text-greyish_black hover:font-medium py-3 cursor-pointer">DELETE POST</span>
+          </div>
+          <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
+
+          <div class="flex items-center">
+
+            <div class="m-2 p-1">
+              <span class="font-semibold">Total Message</span>
+              <p class="text-5xl font-bold">12</p>
+            </div>
+
+            <div class="m-2 p-1">
+              <p class="text-sm font-thin">Course</p>
+              <!-- college selection -->
+              <select name="college" id="emCol" class="w-full border border-grayish p-2 rounded-lg">
+                <option value="" selected disabled hidden>BS Computer Science</option>
+              </select>
+            </div>
+
+
+            <div class="m-2 p-1">
+              <p>Show post (from - to)</p>
+              <div class="w-full flex border border-grayish p-2 rounded-lg">
+                <input type="text" name="daterange" id="emDateRange" value="01/01/2018 - 01/15/2018" />
+                <label class="" for="emDateRange">
+                  <img class="h-5 w-5" src="/assets/icons/calendar.svg" alt="">
+                </label>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- recent email -->
+          <p class="mt-10 font-semibold">Recent Email</p>
+          <table class="table-auto w-8/12 text-xs font-thin text-greyish_black">
+            <thead>
+              <tr>
+                <th class="text-start">EMAIL ADDRESS</th>
+                <th class="text-start">COLLEGE</th>
+                <th class="text-start">DATE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-start">To All</td>
+                <td class="text-start">CICT</td>
+                <td class="text-start">03/02/2020</td>
+              </tr>
+              <tr>
+                <td class="text-start">lapiraisagani@gmail.com</td>
+                <td class="text-start">CICT</td>
+                <td class="text-start">03/02/2020</td>
+              </tr>
+              <tr>
+                <td class="text-start">patrickpronuevo@gmail.com</td>
+                <td class="text-start">COED</td>
+                <td class="text-start">03/02/2020</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <!-- report content -->
         <div id="student-tab" class="p-5">
           <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
@@ -1279,6 +1360,44 @@
           <button class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
           <button
             class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- modal add email message -->
+    <div id="modalEmail" class="modal fixed inset-0 h-full w-full flex items-center justify-center 
+      text-grayish  top-0 left-0 hidden">
+      <div class="modal-container w-1/3 h-2/3 bg-white rounded-lg p-3">
+        <div class="modal-header py-5">
+          <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
+        </div>
+        <div class="modal-body px-3">
+
+          <!-- header part -->
+          <p class="font-semibold text-sm">Recipient</p>
+          <div class="w-max border border-gray-400 rounded flex px-5 py-2">
+            <select name="" id="" class="w-full outline-none">
+              <option value="all" selected>All colleges</option>
+            </select>
+          </div>
+
+          <!-- body part -->
+          <p class="font-semibold text-sm mt-2">Description</p>
+          <div class="modal-descript relative w-full h-2/3 border border-gray-400 rounded p-3">
+            <div class="flex flex-col h-full">
+              <textarea id="TxtAreaEmail" class="rar outline-none w-full h-5/6 p-1" type="text"
+                placeholder="Say something here..."></textarea>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer flex items-end flex-row-reverse px-3">
+          <button class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+          <button
+            class="cancelEmail py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
         </div>
       </div>
     </div>
