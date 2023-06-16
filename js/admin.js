@@ -198,6 +198,10 @@ $(document).ready(function () {
     });
   });
 
+  $('#aoyNew').on('click', () => {
+    $('#aoyRecord').hide()
+    $('#aoyRegister').show()
+  })
 });
 
 
@@ -239,17 +243,6 @@ function checkField(checker) {
   var field = checker == true ? true : false
 
   addNewField(containerDiv, placeHolder, field)
-}
-
-let batchAOM = document.getElementById('batchAOM')
-let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-month.forEach(addingMonth)
-
-function addingMonth(e) {
-  const option = document.createElement('option')
-  option.value = e
-  option.text = e
-  batchAOM.appendChild(option)
 }
 
 
