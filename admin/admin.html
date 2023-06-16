@@ -86,7 +86,7 @@
                 <path
                   d="M515 783v128H263V783h252zm0-255v127H263V528h252zm758 511v128H932v-128h341zm0-256v128H601V783h672zm0-255v127H601V528h672zm135 860V148q0-8-6-14t-14-6h-32L978 384L768 213L558 384L180 128h-32q-8 0-14 6t-6 14v1240q0 8 6 14t14 6h1240q8 0 14-6t6-14zM553 278l185-150H332zm430 0l221-150H798zm553-130v1240q0 62-43 105t-105 43H148q-62 0-105-43T0 1388V148Q0 86 43 43T148 0h1240q62 0 105 43t43 105z" />
               </svg>
-              FORMS </a>
+              TRACER FORM </a>
           </li>
 
           <!-- PROFILE -->
@@ -720,57 +720,19 @@
         </div>
 
         <!-- forms content -->
-        <div id="forms-tab">
+        <div id="forms-tab" class="p-5 h-full">
           <h1 class="text-xl font-extrabold">Alumni Tracer Form</h1>
           <p class="text-grayish">See the relevant information that are gathered</p>
 
-          <div class="mt-16 border border-t-grayish">
-            <div class="grid grid-cols-2 p-2 ">
-              <canvas class="w-1/2" id="empStatus"></canvas>
-              <div>
-                <h1 class="text-xl font-extrabold">Employment Status</h1>
-                <canvas class="w-full" id="Gender"></canvas>
-              </div>
+          <div class="border border-t-grayish h-5/6">
+            <div class="h-1/2 p-5">
+              <h1 class="text-xl font-extrabold">Employment Status</h1>
+              <canvas class="w-full h-5/6" id="empStatus"></canvas>
             </div>
 
-            <h1 class="text-xl font-extrabold px-5 mb-10">Annual Salary</h1>
-            <canvas class="block mx-auto" style="height:40vh; width:40vw" id="salaryChart"></canvas>
-
-            <h1 class="text-xl font-extrabold m-16">Relevant Skills Developed</h1>
-            <div class="flex justify-center w-full">
-              <div class="grid grid-cols-3 gap-3 text-center">
-                <div>
-                  <canvas class="w-1/2 mx-auto mb-3" id="comSkill"></canvas>
-                  <p>Communication Skills</p>
-                </div>
-
-                <div>
-                  <canvas class="w-1/2 mx-auto mb-3" id="humanRelSkill"></canvas>
-                  <p>Human Relations Skills</p>
-                </div>
-
-                <div>
-                  <canvas class="w-1/2 mx-auto mb-3" id="entrepSkill"></canvas>
-                  <p>Entrepreneurial Skills</p>
-                </div>
-
-
-
-                <div>
-                  <canvas class="w-1/2 mx-auto mb-3" id="ITSkill"></canvas>
-                  <p>Information Technology Skills</p>
-                </div>
-
-                <div>
-                  <canvas class="w-1/2 mx-auto mb-3" id="probSolvSkill"></canvas>
-                  <p>Problem-Solving Skills</p>
-                </div>
-
-                <div>
-                  <canvas class="w-1/2 mx-auto mb-3" id="critThinkSkill"></canvas>
-                  <p>Critical-Thinking Skills</p>
-                </div>
-              </div>
+            <div class="h-1/2 p-5">
+              <h1 class="text-xl font-extrabold px-5">Annual Salary</h1>
+              <canvas class="block mx-auto w-full h-full" id="salaryChart"></canvas>
             </div>
 
           </div>
