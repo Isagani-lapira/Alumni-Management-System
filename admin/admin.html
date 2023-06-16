@@ -1240,8 +1240,12 @@
           <p class="text-grayish  ">Check all the pending job post to be posted</p>
           <div id="jobList">
             <div class="flex mt-5 items-center justify-between w-full">
-              <button id="addNewbtn" class="px-3 py-1 text-white bg-accent rounded-md hover:bg-darkAccent">Add
-                New</button>
+              <div>
+                <button id="addNewbtn" class="px-3 py-1 text-white bg-accent rounded-md hover:bg-darkAccent">Add
+                  New</button>
+                <p class="inline cursor-pointer text-sm hover:underline hover:text-accent">My post</p>
+              </div>
+
               <div class=" items-center flex">
 
                 <input type="radio" name="post" id="rbAll" checked>
@@ -1261,15 +1265,15 @@
 
             </div>
 
-            <table class="w-full mt-5">
+            <table class="w-full mt-10">
               <thead class="bg-accent text-sm text-white p-3">
                 <tr>
-                  <th>Company Logo</th>
+                  <th class="rounded-tl-lg">Company Logo</th>
                   <th>Title</th>
                   <th>Author</th>
                   <th>College</th>
                   <th>Date Posted</th>
-                  <th>Action</th>
+                  <th class="rounded-tr-lg">Action</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
@@ -1354,6 +1358,7 @@
 
           </div>
 
+          <!-- job posting -->
           <div id="jobPosting" class="mt-10 w-full hidden">
 
             <!-- left side -->
@@ -1433,6 +1438,50 @@
 
           </div>
 
+          <!-- admin job post -->
+          <div class="mt-10 w-full hidden">
+            <div class="grid grid-cols-4 gap-4 p-7">
+              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg border">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/accenture.png" alt="">
+                <p class="text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium">
+                  Quality
+                  Assurance</p>
+              </div>
+
+              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/IA.png" alt="">
+                <p class="text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium">
+                  Software
+                  Engineer</p>
+              </div>
+
+              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/meralco.png" alt="">
+                <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">
+                  Backend
+                  Developer</p>
+              </div>
+              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/PNA.png" alt="">
+                <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">
+                  Gradeschool
+                  Teacher</p>
+              </div>
+              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/privateChef.png" alt="">
+                <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">
+                  Expert Chef
+                </p>
+              </div>
+              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/vircon.png" alt="">
+                <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">Crew
+                  Member
+                </p>
+              </div>
+
+            </div>
+          </div>
         </div>
       </main>
     </div>
