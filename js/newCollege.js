@@ -18,17 +18,30 @@ $(document).ready(function () {
     function changeLogo() {
         const fileInput = $('#collegeLogo')
         const file = fileInput[0].files[0]
+        const validExtension = ['jpg', 'jpeg', 'png']
+        const fileExtension = file.name.split('.').pop().toLowerCase()
 
-        //read the file name then get the url of it
-        const read = new FileReader()
+        //check if the file extension is valid
+        if (validExtension.includes(fileExtension)) {
+            //read the file name then get the url of it
+            const read = new FileReader()
 
-        read.onload = function (e) {
-            $('#imgAddLogo').removeClass('hidden')
-            $('.lblLogo').addClass('hidden')
-            $('#imgAddLogo').attr('src', e.target.result)
+            read.onload = function (e) {
+                $('#errorExtMsg').hide() // hide the error message for the extension
+                $('#imgAddLogo').removeClass('hidden')
+                $('.lblLogo').addClass('hidden')
+                $('#imgAddLogo').attr('src', e.target.result)
+            }
+
+            read.readAsDataURL(file)
+        }
+        else {
+            $('#errorExtMsg').show()
         }
 
-        read.readAsDataURL(file)
     }
 
+    $('#btnBrowse').click(function () {
+        $('.lblLogo').click()
+    })
 })
