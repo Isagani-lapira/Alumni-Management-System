@@ -202,6 +202,12 @@ $(document).ready(function () {
     $('#aoyRecord').hide()
     $('#aoyRegister').show()
   })
+
+  $('#jobMyPost').on('click', () => {
+    $('#jobList').hide()
+    $('#jobPosting').hide()
+    $('#adminJobPost').show()
+  })
 });
 
 
