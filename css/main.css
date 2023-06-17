@@ -3057,6 +3057,10 @@ th,
   padding-top: 2rem;
 }
 
+.pl-16 {
+  padding-left: 4rem;
+}
+
 .text-left {
   text-align: left;
 }
