@@ -4143,6 +4143,10 @@ body {
     width: 41.666667%;
   }
 
+  .md\:w-7\/12 {
+    width: 58.333333%;
+  }
+
   .md\:max-w-5xl {
     max-width: 64rem;
   }
