@@ -86,7 +86,6 @@
           </div>
         </nav>
       </div>
-      
 
       <!--SUB NAVBAR-->
       <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-1 left-0 right-0 sm:top-24 sm:mt-1 sm:justify-center">
@@ -128,7 +127,6 @@
         
       </div>
       
-
       <div id="tabs-1">
         <div class="flex tab-content w-full">
           <div id="tabs-1" class="w-full h-full">
@@ -487,77 +485,91 @@
         </div>
       </div>
       </div>
+      
       <div id="tabs-2">
         <!--IMAGE HEADER-->
-        <header class="bg-cover bg-center h-96 w-auto mt-1" style="background-image: url('/images/bsu-header3.jpg');">
-          <div class="bg-cover bg-black bg-opacity-50 h-full flex flex-col justify-center items-center">
-            <h1 class="text-4xl text-white font-bold mb-4">EXPLORE THE BULSU EVENTS</h1>
-            <p class="text-xl text-white">Discover the BSU latest events!</p>
-          </div>
-        </header>
-
-        <!-- CONTENT -->
-        <div class="grid grid-cols-2 mt-16 h-full w-full">
-          <div class="h-full ml-24">
-            <!-- Content for the left side div -->
-            <h1 class="text-4xl font-bold text-greyish_black mb-8 pl-10">Schedule of the Year</h1>
-            <div class="flex pl-10">
-              <img src="/images/bsu-header.jpg" alt="Square Image" class="w-70 h-96 rounded-2xl shadow-lg">
-            </div>
-          </div>
-          <div class="h-full mr-24">
-            <!-- Content for the right side div -->
-            <div class="flex flex-col justify-center items-center h-100">
-              <div class="text-right mt-4" style="margin-left: 400px;">
-                <a href="#" class="text-accentBlue underline font-semibold">show all</a>
-              </div>
-              <a href="#link-here1" class="flex items-center bg-accent mt-4 px-2 md:px-8 rounded-lg"
-                style="width: 60%; max-width: 1200px; height: 100px;">
-                <div class="w-1 bg-white h-16 mr-4"></div>
-                <div class="ml-4 ml-auto">
-                  <p class="text-white font-bold text-center text-lg">03</p>
-                  <p class="text-white font-bold text-center text-lg">Feb</p>
-                </div>
-                <div>
-                  <p class="text-white ml-36 font-bold text-center text-lg tracking-wide">CICT Fun Run for a Cause</p>
-                </div>
-              </a>
-
-              <a href="#link-here2" class="flex items-center bg-darkAccent mt-4 px-2 md:px-8 rounded-lg"
-                style="width: 60%; max-width: 1200px; height: 100px;">
-                <div class="w-1 bg-white h-16 mr-4"></div>
-                <div class="ml-4 ml-auto">
-                  <p class="text-white font-bold text-center text-lg">15</p>
-                  <p class="text-white font-bold text-center text-lg">Dec</p>
-                </div>
-                <div>
-                  <p class="text-white ml-36 font-bold text-center text-lg tracking-wide">Alumni Homecoming Event</p>
-                </div>
-              </a>
-
-              <a href="#link-here3" class="flex items-center bg-accent mt-4 px-2 md:px-8 rounded-lg"
-                style="width: 60%; max-width: 1200px; height: 100px;">
-                <div class="w-1 bg-white h-16 mr-4"></div>
-                <div class="ml-4 ml-auto">
-                  <p class="text-white font-bold text-center text-lg">27</p>
-                  <p class="text-white font-bold text-center text-lg">Feb</p>
-                </div>
-                <div>
-                  <p class="text-white ml-36 font-bold text-center text-lg tracking-wide">Alumni-CICT Friendly
-                    Tournament</p>
-                </div>
-              </a>
-
-            </div>
+        <div id="image-header-con" class="relative top-24 mt-1 z-[-1]">
+          <img src="/images/bsu-header3.jpg" alt="Image Header" class="w-full h-auto">
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <h1 class="text-white text-5xl lg:text-7xl font-bold">Welcome to BulSU Events</h1>
+            <p class="text-white text-lg font-bold">See the newest events here</p>
           </div>
         </div>
+        
+        <div class="separator h-10"></div>
+        
+        <!-- CONTENT -->
+        <div class="grid grid-cols-2 mt-16 h-full w-full">
+          
+            <!-- Content for the left side div -->
+            <div class="h-full pl-16 pt-16">
+              <h1 class="text-4xl font-bold text-greyish_black mb-8">Schedule of the Year</h1>
+              <div class="flex">
+                <img src="/images/bsu-header.jpg" alt="Square Image" class="w-5/5 h-auto rounded-2xl shadow-lg">
+              </div>
+            </div>
+            
+            <!-- Content for the right side div -->
+            <div class="flex flex-col justify-center items-center pr-16 pt-16">
+
+              <div class="text-right pl-96">
+                <a href="#" class="text-accentBlue underline font-semibold">show all</a>
+              </div>
+              <!-- CONTENT EVENT -->
+              <div class="w-4/5 p-2">
+                <a href="#link-here1" class="flex items-center bg-accent px-2 md:px-8 rounded-lg p-4 md:p-8 h-24">
+                  <div class="w-1 bg-white h-16"></div>
+                  <div class="p-8">
+                    <p class="text-white font-bold text-center text-lg">03</p>
+                    <p class="text-white font-bold text-center text-lg">Feb</p>
+                  </div>
+                  <div>
+                    <p class="text-white pl-4 md:pl-8 font-bold text-center text-lg tracking-wide">CICT Fun Run for a Cause</p>
+                  </div>
+                </a>
+              </div>
+              
+              <!-- CONTENT EVENT -->
+              <div class="w-4/5 p-2">
+                <a href="#link-here1" class="flex items-center bg-accent px-2 md:px-8 rounded-lg p-4 md:p-8 h-24">
+                  <div class="w-1 bg-white h-16"></div>
+                  <div class="p-8">
+                    <p class="text-white font-bold text-center text-lg">27</p>
+                    <p class="text-white font-bold text-center text-lg">Dec</p>
+                  </div>
+                  <div>
+                    <p class="text-white pl-4 md:pl-8 font-bold text-center text-lg tracking-wide">Alumni-CICT Friendly Tournament</p>
+                  </div>
+                </a>
+              </div>
+              
+              <!-- CONTENT EVENT -->
+              <div class="w-4/5 p-2">
+                <a href="#link-here1" class="flex items-center bg-accent px-2 md:px-8 rounded-lg p-4 md:p-8 h-24">
+                  <div class="w-1 bg-white h-16"></div>
+                  <div class="pl-8">
+                    <p class="text-white font-bold text-center text-lg">07</p>
+                    <p class="text-white font-bold text-center text-lg">Dec</p>
+                  </div>
+                  <div>
+                    <p class="text-white pl-4 md:pl-8 font-bold text-center text-lg tracking-wide">Alumni Homecoming Event</p>
+                  </div>
+                </a>
+              </div>
+            
+            </div>
+            
+          </div>
+        </div>
+        
       </div>
+
       <div id="tabs-3">
+      </div>  
     </div>
-    
-
+      
   </div>
-
+      
   </div>
 
   <script src="/student-alumni/js/hompage.js"></script>
