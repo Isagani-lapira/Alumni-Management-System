@@ -65,10 +65,7 @@ $(document).ready(function () {
     e.stopPropagation();
   });
 
-  // //open modal post
-  $('#btnAnnouncement').click(function () {
-    prompt("#modal", true)
-  })
+  
 });
 
  
