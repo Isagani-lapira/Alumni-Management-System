@@ -137,56 +137,125 @@
       
                 <!-- DIV FOR CENTER -->
                 <div class="w-1/4 p-2 h-full"></div>
-      
-                <!-- CENTER -->
-                <div class="w-full p-5">
-                  <div class="container mx-auto">
-                    <!-- INPUT POST -->
-                    <div class="post p-3 input-post-width mt-5 mx-auto rounded-md border-2 center-shadow w-4/6">
-                      <div class="flex items-center">
-                        <img class="h-12 border-2 border-accentBlue rounded-full inline" src="/images/ye.jpg" alt="">
-                        <input type="text" id="post" placeholder="Write something..." class="outline-none p-2 flex-grow">
-                      </div>
+
+                <div id="tabs-feed-btns">
+                  <!-- RIGHT DIV -->
+                  <div class="w-1/4 fixed right-5 flex justify-end pr-4">
+                    <div class="w-3/4">
+                      <ul>
+                        <p class="font-medium border-b-2 border-grayish ml-auto block text-sm">ANNOUNCEMENT</p>
+                        <li>
+                          <a href="#tabs-college">
+                            <button class="bg-blue-400 hover:bg-blue-500 rounded-md w-full py-2 text-white mt-3 text-sm">College Update</button>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#tabs-university">
+                            <button class="bg-red-700 hover:bg-accent rounded-md w-full py-2 text-white mt-3 text-sm">University Update</button>
+                          </a>
+                        </li>
+                        <p class="font-medium border-b-2 border-grayish mt-5">RECOGNITION</p>
+                        <li>
+                          <a href="#tabs-yrbook">
+                            <button class="bg-blue-400 hover:bg-blue-500 rounded-md w-full py-2 text-white mt-3">Yearbook</button>
+                          </a>
+                        </li>
+                      </ul>
                     </div>
-      
-                    <!-- Post -->
-                    <div class="post w-4/6 mt-5 mx-auto post-width">
-                      <div class="center-shadow p-3 border-2 rounded-md">
-                        <div class="flex justify-start items-center">
+                  </div>
+                  <!-- COLLEGE TAB -->
+                  <div id="tabs-college">
+                    <!-- Content for College Update tab -->
+                    <p>College Update Tab Content</p>
+                    <!-- CENTER -->
+                    <div class="w-full p-5">
+                      <div class="container mx-auto">
+                        <h1>TAB 1</h1>
+                        <!-- INPUT POST -->
+                        <div class="post p-3 input-post-width mt-5 mx-auto rounded-md border-2 center-shadow w-4/6">
                           <div class="flex items-center">
-                            <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
-                            <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
+                            <img class="h-12 border-2 border-accentBlue rounded-full inline" src="/images/ye.jpg" alt="">
+                            <input type="text" id="post" placeholder="Write something..." class="outline-none p-2 flex-grow">
                           </div>
-                          <img class="ml-auto" src="/assets/more_horiz.png" alt="">
                         </div>
-      
-                        <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
-                        <img class="my-2 rounded-md" src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C" alt="">
-                        <div class="flex py-2 items-center">
-                          <img class="h-5" src="/assets/icons/heart.png" alt="">
-                          <span class="ms-2 text-sm">1,498</span>
-                          <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
-                          <span class="ms-2 text-sm">3,000</span>
+          
+                        <!-- Post -->
+                        <div class="post w-4/6 mt-5 mx-auto post-width">
+                          <div class="center-shadow p-3 border-2 rounded-md">
+                            <div class="flex justify-start items-center">
+                              <div class="flex items-center">
+                                <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                                <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
+                              </div>
+                              <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                            </div>
+          
+                            <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
+                            <img class="my-2 rounded-md" src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C" alt="">
+                            <div class="flex py-2 items-center">
+                              <img class="h-5" src="/assets/icons/heart.png" alt="">
+                              <span class="ms-2 text-sm">1,498</span>
+                              <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                              <span class="ms-2 text-sm">3,000</span>
+                            </div>
+                          </div>
                         </div>
+          
                       </div>
                     </div>
-      
+                  </div>
+                  <!-- UNIV TAB -->
+                  <div id="tabs-university">
+                    <!-- Content for University Update tab -->
+                    <p>University Update Tab Content</p>
+                    <!-- CENTER -->
+                    <div class="w-full p-5">
+                      <div class="container mx-auto">
+                        <h1>TAB 2</h1>
+                        <!-- INPUT POST -->
+                        <div class="post p-3 input-post-width mt-5 mx-auto rounded-md border-2 center-shadow w-4/6">
+                          <div class="flex items-center">
+                            <img class="h-12 border-2 border-accentBlue rounded-full inline" src="/images/ye.jpg" alt="">
+                            <input type="text" id="post" placeholder="Write something..." class="outline-none p-2 flex-grow">
+                          </div>
+                        </div>
+          
+                        <!-- Post -->
+                        <div class="post w-4/6 mt-5 mx-auto post-width">
+                          <div class="center-shadow p-3 border-2 rounded-md">
+                            <div class="flex justify-start items-center">
+                              <div class="flex items-center">
+                                <img class="h-12 border-2 border-accent rounded-full" src="/images/univ-prof.jpg" alt="">
+                                <p class="text-start px-3 text-sm font-semibold">Bulacan State University</p>
+                              </div>
+                              <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                            </div>
+          
+                            <p class="text-sm mt-2">"Our future growth relies on competitiveness and innovation, skills and productivity... and these in turn rely on the education of our people." ~ Julia Gilla
+                              Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU!  😊🙌
+                              #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars</p>
+                            <img class="my-2 rounded-md" src="/images/univ-post.jpg" alt="">
+                            <div class="flex py-2 items-center">
+                              <img class="h-5" src="/assets/icons/heart.png" alt="">
+                              <span class="ms-2 text-sm">1,498</span>
+                              <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                              <span class="ms-2 text-sm">3,000</span>
+                            </div>
+                          </div>
+                        </div>
+          
+                      </div>
+                    </div>
+                  </div>
+                  <!-- YEARBOOK TAB -->
+                  <div id="tabs-yrbook">
+                    <!-- Content for Yearbook tab -->
+                    <p>Yearbook Tab Content</p>
                   </div>
                 </div>
-      
+                
+
                 <div class="w-1/4 p-2 h-full"></div>
-                <!-- RIGHT DIV -->
-                <div class="w-1/4 fixed right-5 flex justify-end pr-4">
-      
-                  <div class="w-3/4">
-                    <p class="font-medium border-b-2 border-grayish ml-auto block text-sm">ANNOUNCEMENT</p>
-                    <button class="bg-blue-400 hover:bg-blue-500 rounded-md w-full py-2 text-white mt-3 text-sm">College Update</button>
-                    <button class="bg-red-700 hover:bg-accent rounded-md w-full py-2 text-white mt-3 text-sm">University Update</button>
-      
-                    <p class="font-medium border-b-2 border-grayish mt-5">RECOGNITION</p>
-                    <button class="bg-blue-400 hover:bg-blue-500 rounded-md w-full py-2 text-white mt-3">Yearbook</button>
-                  </div>
-                </div>
 
                 <!-- Notifications Tab -->
                 <div id="notification-tab" class="notification-tab hidden absolute top-24 right-0 h-full bg-black bg-opacity-50 w-3/4">

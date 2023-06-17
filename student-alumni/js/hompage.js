@@ -2,6 +2,9 @@
 $(document).ready(function () {
   $('#tabs').tabs();
 
+  // Initialize the tabs - FEED BTN
+  $("#tabs-feed-btns").tabs();
+  
   $('#jobHuntLink').hover(
     function () {
       $(this).find('img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAXElEQVR4nGNgoBFoY2Bg+MnAwPAfikHsFlIM+MnAwCCExAexf5Bi438CGMNFP9FsJAQwXPSfBM1Y9fynpgH/cRiILo5hwH8y8CANA2LBf6qmgxYyUmIzCRbSEAAAQmtC/bx4InAAAAAASUVORK5CYII=');
