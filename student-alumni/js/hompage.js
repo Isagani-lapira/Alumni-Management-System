@@ -50,16 +50,16 @@ $(document).ready(function () {
   // });
 
   //MODAL
-  // When the button is clicked, show the modal
-  $('#writeBtn').click(function() {
+  // When either of the buttons is clicked, show the modal
+  $('#writeBtn, #postButton').click(function() {
     $('#modal').removeClass('hidden');
   });
-  
-  // When the cancel button is clicked or when clicking outside the modal, hide the modal
+
+  // When the cancel button or the modal overlay is clicked, hide the modal
   $('.cancel, #modal').click(function() {
     $('#modal').addClass('hidden');
   });
-  
+
   // Prevent closing the modal when clicking inside it
   $('.modal-container').click(function(e) {
     e.stopPropagation();
@@ -72,6 +72,24 @@ $(document).ready(function () {
 function toggleNotifications() {
   const notificationsTab = document.getElementById("notification-tab");
   notificationsTab.classList.toggle("hidden");
-  
 }
+
+function buttonColor() {
+  var targetDiv = document.getElementById("target-div");
+  targetDiv.classList.toggle("red-color");
+
+  var icon = document.querySelector("#notif-btn .fa");
+  var text = document.querySelector("#notif-btn .text-greyish_black");
+
+  if (targetDiv.classList.contains("red-color")) {
+    icon.style.color = "white";
+    text.style.color = "white";
+    targetDiv.classList.add("hover:bg-red-900");
+  } else {
+    icon.style.color = "";
+    text.style.color = "";
+    targetDiv.classList.remove("hover:bg-red-900");
+  }
+}
+
 

@@ -81,3 +81,10 @@ body {
   cursor: pointer;
 }
 
+.original-color {
+  background-color: white;
+}
+
+.red-color {
+  background-color: #991B1B;
+}

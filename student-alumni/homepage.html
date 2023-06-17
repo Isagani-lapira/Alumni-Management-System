@@ -135,22 +135,22 @@
               <div class="flex w-full">
                 <!-- Left side -->
                 <div class="w-1/4 ps-5 h-full fixed left-5 p-8">
-                  <div class="flex items-center hover:bg-gray-300 rounded-md h-10 p-2">
+                  <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
                     <!-- Notifications -->
-                    <button id="notif-btn" class="notif " onclick="toggleNotifications()">
+                    <button id="notif-btn" class="notif " onclick="buttonColor(), toggleNotifications()">
                       <span class="h-4 w-4 fa fa-bell"></span>
                       <span class="ps-3 text-sm text-greyish_black font-medium">Notifications</span>
                     </button>
                   </div>
-                  <div class="flex items-center hover:bg-gray-300 rounded-md h-10 p-2">
+                  <div id="target-div-job" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
                     <!-- Verification Job Post -->
-                    <button id="verif-btn">
+                    <button id="verif-btn" onclick="toggleColorJob(); toggleVerification()">
                       <span class="h-4 w-4 fas fa-check-circle"></span>
                       <span class="ps-3 text-sm text-greyish_black font-medium">Verification Job Post</span>
                     </button>
                   </div>
                   <!-- Make Post Button -->
-                  <button class="bg-postButton hover:bg-postHoverButton rounded-md w-3/4 py-2 text-white mt-3">Make a post</button>
+                  <button id="postButton" class="bg-postButton hover:bg-postHoverButton rounded-md w-3/4 py-2 text-white mt-3">Make a post</button>
                 </div>
       
       
@@ -272,7 +272,7 @@
                 <div class="w-1/4 p-2 h-full"></div>
 
                 <!-- Notifications Tab -->
-                <div id="notification-tab" class="notification-tab hidden absolute top-24 right-0 h-full bg-black bg-opacity-50 w-3/4">
+                <div id="notification-tab" class="notification-tab hidden absolute top-24 mt-1 right-0 h-full bg-black bg-opacity-50 w-3/4">
                   <div class="notification-content bg-white center-shadow border-2 p-4 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
                     <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
                     
