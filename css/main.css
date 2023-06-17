@@ -780,6 +780,14 @@ th,
   top: 2rem;
 }
 
+.right-2 {
+  right: 0.5rem;
+}
+
+.right-3 {
+  right: 0.75rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -4057,6 +4065,18 @@ body {
     width: auto;
   }
 
+  .sm\:w-2\/6 {
+    width: 33.333333%;
+  }
+
+  .sm\:w-3\/6 {
+    width: 50%;
+  }
+
+  .sm\:w-1\/6 {
+    width: 16.666667%;
+  }
+
   .sm\:flex-row {
     flex-direction: row;
   }
@@ -4093,6 +4113,18 @@ body {
 
   .md\:w-7\/12 {
     width: 58.333333%;
+  }
+
+  .md\:w-4\/12 {
+    width: 33.333333%;
+  }
+
+  .md\:w-8\/12 {
+    width: 66.666667%;
+  }
+
+  .md\:w-3\/12 {
+    width: 25%;
   }
 
   .md\:max-w-5xl {
