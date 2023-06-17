@@ -4168,6 +4168,11 @@ body {
     padding-right: 2rem;
   }
 
+  .md\:px-16 {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
   .md\:pl-8 {
     padding-left: 2rem;
   }
@@ -4188,6 +4193,16 @@ body {
 
   .lg\:flex-col {
     flex-direction: column;
+  }
+
+  .lg\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .lg\:px-24 {
+    padding-left: 6rem;
+    padding-right: 6rem;
   }
 
   .lg\:text-7xl {
