@@ -49,7 +49,26 @@ $(document).ready(function () {
   //   $('#notification-content').toggle('fast'); // Show or hide the notification tab with a fast animation
   // });
 
+  //MODAL
+  // When the button is clicked, show the modal
+  $('#writeBtn').click(function() {
+    $('#modal').removeClass('hidden');
+  });
+  
+  // When the cancel button is clicked or when clicking outside the modal, hide the modal
+  $('.cancel, #modal').click(function() {
+    $('#modal').addClass('hidden');
+  });
+  
+  // Prevent closing the modal when clicking inside it
+  $('.modal-container').click(function(e) {
+    e.stopPropagation();
+  });
 
+  // //open modal post
+  $('#btnAnnouncement').click(function () {
+    prompt("#modal", true)
+  })
 });
 
  

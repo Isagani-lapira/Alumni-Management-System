@@ -67,3 +67,17 @@ body {
   background-color: transparent;
 }
 
+.modal{
+  background-color: #1e1c1c98;
+  
+}
+
+.modal-body{
+  height: 70%;
+}
+
+#galleryLogo:hover >svg path{
+  fill: #1746A2;
+  cursor: pointer;
+}
+
