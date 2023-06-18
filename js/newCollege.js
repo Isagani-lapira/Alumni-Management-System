@@ -1,4 +1,4 @@
-
+let inputVal = []
 $(document).ready(function () {
     $("#btnCancelToCollege").click(function () {
         window.location.href = "../admin/admin.php"
@@ -51,9 +51,39 @@ $(document).ready(function () {
         $('#reviewCol').dhide()
     })
 
-    // proceed to review section of college
+
     $('#btntoReview').on('click', () => {
-        $('#fillUpCol').hide()
-        $('#reviewCol').show()
+        console.log('rar')
+
+        var allFieldsCompleted = true;
+        //check if the field are completed
+        $('input').each(function () {
+            if (!$(this).val()) {
+                $(this).removeClass('border-grayish').addClass('border-accent')
+                allFieldsCompleted = false;
+            }
+            else {
+                $(this).addClass('border-grayish').removeClass('border-accent')
+                inputVal.push($(this).val())
+            }
+        });
+
+        if (allFieldsCompleted) {
+            //allows to proceed to the next level
+            $('#fillUpCol').hide()
+            $('#reviewCol').show()
+            reviewDetails(inputVal)
+        }
     })
+
 })
+
+function reviewDetails(value) {
+
+    let index = 1;
+    const fields = document.querySelectorAll('.answer')
+    fields.forEach((element) => {
+        element.innerHTML = value[index]
+        index++
+    })
+}

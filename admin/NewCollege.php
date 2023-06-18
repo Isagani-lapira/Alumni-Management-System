@@ -20,12 +20,12 @@
         <div>
             <h1 class="text-4xl font-bold">CREATE NEW COLLEGE</h1>
             <p class="text-grayish">Here you can add a new College that will be available in the University</p>
-            <img class="-top-32 -right-32 h-1/2 opacity-50 clip-right fixed logo-bulsu" src="/assets/bulsu-logo.png"
+            <img class="-top-32 -right-32 h-1/2 opacity-50 clip-right fixed logo-bulsu" src="../assets/bulsu-logo.png"
                 alt="">
         </div>
 
         <div>
-            <form>
+            <form id="collegeForm">
                 <!-- creation of college content -->
                 <div id="fillUpCol">
                     <div class="flex justify-center items-center rounded h-40 p-3 bulsu-logo hover:cursor-pointer w-40 mx-auto">
@@ -196,18 +196,18 @@
 
                             <div class="flex mt-2">
                                 <span class="font-medium">College Name:</span>
-                                <p class="ps-3">College of Information and Communication Technology</p>
+                                <p class="answer ps-3">College of Information and Communication Technology</p>
                             </div>
 
                             <div class="grid grid-cols-2 w-3/4 gap-2 mt-1">
                                 <div class="flex mt-2">
                                     <span class="font-medium">College Code:</span>
-                                    <p class="ps-3">CICT</p>
+                                    <p class=" answer ps-3">CICT</p>
                                 </div>
 
                                 <div class="flex mt-2">
                                     <span class="font-medium">College Email:</span>
-                                    <p class="ps-3">cictbulsu@gmail.com</p>
+                                    <p class="answer ps-3">cictbulsu@gmail.com</p>
                                 </div>
 
                             </div>
@@ -215,12 +215,12 @@
                             <div class="grid grid-cols-2 w-3/4 gap-2 mt-1">
                                 <div class="flex mt-2">
                                     <span class="font-medium">College No:</span>
-                                    <p class="ps-3">09104905440</p>
+                                    <p class="answer ps-3">09104905440</p>
                                 </div>
 
                                 <div class="flex mt-2">
                                     <span class="font-medium">Website link:</span>
-                                    <p class="ps-3">https://bulsucict.com/</p>
+                                    <p class="answer ps-3">https://bulsucict.com/</p>
                                 </div>
 
                             </div>
@@ -228,40 +228,40 @@
                             <p class="font-bold text-lg mt-2 text-accentBlue">College Alumni Coordinator</p>
                             <div class="flex mt-2">
                                 <span class="font-medium">Fullname:</span>
-                                <p class="ps-3">Jayson Batoon</p>
+                                <p class="answer ps-3">Jayson Batoon</p>
                             </div>
 
                             <div class="flex mt-2">
                                 <span class="font-medium">Personal email:</span>
-                                <p class="ps-3">jaysonbatoon@gmail.com</p>
+                                <p class="answer ps-3">jaysonbatoon@gmail.com</p>
                             </div>
 
                             <div class="flex mt-2">
                                 <span class="font-medium">Bulsu email:</span>
-                                <p class="ps-3">jaysonbatoon@bulsu.edu.ph</p>
+                                <p class="answer ps-3">jaysonbatoon@bulsu.edu.ph</p>
                             </div>
 
                             <div class="grid grid-cols-2 w-3/4 gap-2 mt-1">
                                 <div class="flex mt-2">
                                     <span class="font-medium">Contact No:</span>
-                                    <p class="ps-3">093341930012</p>
+                                    <p class="answer ps-3">093341930012</p>
                                 </div>
 
                                 <div class="flex mt-2">
                                     <span class="font-medium">Address:</span>
-                                    <p class="ps-3">Santa Rosa, Malolos Bulacan</p>
+                                    <p class="answer ps-3">Santa Rosa, Malolos Bulacan</p>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 w-3/4 gap-2 mt-1">
                                 <div class="flex mt-2">
                                     <span class="font-medium">Birthday:</span>
-                                    <p class="ps-3">01/22/1998</p>
+                                    <p class="answer ps-3">01/22/1998</p>
                                 </div>
 
                                 <div class="flex mt-2">
                                     <span class="font-medium">Gender:</span>
-                                    <p class="ps-3">Male</p>
+                                    <p class="answer ps-3">Male</p>
                                 </div>
                             </div>
 
