@@ -44,4 +44,16 @@ $(document).ready(function () {
     $('#btnBrowse').click(function () {
         $('.lblLogo').click()
     })
+
+    // back to filling up the college form
+    $('#btnBackFill').on('click', () => {
+        $('#fillUpCol').show()
+        $('#reviewCol').dhide()
+    })
+
+    // proceed to review section of college
+    $('#btntoReview').on('click', () => {
+        $('#fillUpCol').hide()
+        $('#reviewCol').show()
+    })
 })

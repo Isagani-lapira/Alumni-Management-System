@@ -716,14 +716,6 @@ th,
   inset-inline-end: 0.25rem;
 }
 
-.end-2 {
-  inset-inline-end: 0.5rem;
-}
-
-.end-7 {
-  inset-inline-end: 1.75rem;
-}
-
 .left-0 {
   left: 0px;
 }
@@ -748,16 +740,16 @@ th,
   right: 3rem;
 }
 
+.right-3 {
+  right: 0.75rem;
+}
+
 .right-5 {
   right: 1.25rem;
 }
 
 .right-8 {
   right: 2rem;
-}
-
-.start-1 {
-  inset-inline-start: 0.25rem;
 }
 
 .top-0 {
@@ -778,14 +770,6 @@ th,
 
 .top-8 {
   top: 2rem;
-}
-
-.right-2 {
-  right: 0.5rem;
-}
-
-.right-3 {
-  right: 0.75rem;
 }
 
 .isolate {
@@ -846,10 +830,6 @@ th,
 
 .clear-none {
   clear: none;
-}
-
-.m-1 {
-  margin: 0.25rem;
 }
 
 .m-10 {
@@ -950,24 +930,12 @@ th,
   margin-left: 0.5rem;
 }
 
-.ml-24 {
-  margin-left: 6rem;
-}
-
 .ml-28 {
   margin-left: 7rem;
 }
 
 .ml-3 {
   margin-left: 0.75rem;
-}
-
-.ml-36 {
-  margin-left: 9rem;
-}
-
-.ml-4 {
-  margin-left: 1rem;
 }
 
 .ml-5 {
@@ -984,10 +952,6 @@ th,
 
 .mr-2 {
   margin-right: 0.5rem;
-}
-
-.mr-24 {
-  margin-right: 6rem;
 }
 
 .mr-4 {
@@ -1029,6 +993,10 @@ th,
   margin-top: 0.5rem;
 }
 
+.mt-28 {
+  margin-top: 7rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
@@ -1043,10 +1011,6 @@ th,
 
 .mt-5 {
   margin-top: 1.25rem;
-}
-
-.mt-28 {
-  margin-top: 7rem;
 }
 
 .box-border {
@@ -1146,10 +1110,6 @@ th,
 
 .hidden {
   display: none;
-}
-
-.h-1 {
-  height: 0.25rem;
 }
 
 .h-1\/2 {
@@ -1259,10 +1219,6 @@ th,
 
 .h-screen {
   height: 100vh;
-}
-
-.h-28 {
-  height: 7rem;
 }
 
 .min-h-screen {
@@ -2633,6 +2589,11 @@ th,
   background-color: rgb(153 27 27 / var(--tw-bg-opacity));
 }
 
+.bg-amber-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 211 77 / var(--tw-bg-opacity));
+}
+
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
@@ -2917,10 +2878,6 @@ th,
   padding: 2rem;
 }
 
-.p-16 {
-  padding: 4rem;
-}
-
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -3033,8 +2990,24 @@ th,
   padding-left: 2.5rem;
 }
 
+.pl-16 {
+  padding-left: 4rem;
+}
+
 .pl-2 {
   padding-left: 0.5rem;
+}
+
+.pl-4 {
+  padding-left: 1rem;
+}
+
+.pl-8 {
+  padding-left: 2rem;
+}
+
+.pr-16 {
+  padding-right: 4rem;
 }
 
 .pr-2 {
@@ -3069,84 +3042,12 @@ th,
   padding-top: 3rem;
 }
 
-.pt-8 {
-  padding-top: 2rem;
-}
-
-.pl-4 {
-  padding-left: 1rem;
-}
-
-.pl-32 {
-  padding-left: 8rem;
-}
-
-.pl-64 {
-  padding-left: 16rem;
-}
-
-.pl-16 {
-  padding-left: 4rem;
-}
-
 .pt-16 {
   padding-top: 4rem;
 }
 
-.pr-16 {
-  padding-right: 4rem;
-}
-
-.pl-8 {
-  padding-left: 2rem;
-}
-
-.pr-8 {
-  padding-right: 2rem;
-}
-
-.pl-36 {
-  padding-left: 9rem;
-}
-
-.pl-28 {
-  padding-left: 7rem;
-}
-
-.pl-24 {
-  padding-left: 6rem;
-}
-
-.pt-28 {
-  padding-top: 7rem;
-}
-
-.pb-4 {
-  padding-bottom: 1rem;
-}
-
-.pl-72 {
-  padding-left: 18rem;
-}
-
-.pl-80 {
-  padding-left: 20rem;
-}
-
-.pt-24 {
-  padding-top: 6rem;
-}
-
-.pl-9 {
-  padding-left: 2.25rem;
-}
-
-.pl-96 {
-  padding-left: 24rem;
-}
-
-.pl-\[500\] {
-  padding-left: 500;
+.pt-8 {
+  padding-top: 2rem;
 }
 
 .text-left {
@@ -3817,10 +3718,6 @@ th,
   content: var(--tw-content);
 }
 
-.\[a-zA-Z-\:\#\] {
-  a-z-a--z-: #;
-}
-
 .heading-container {
   background-image: url("../assets/heading.png");
 }
@@ -4061,20 +3958,12 @@ body {
     margin-top: 0.25rem;
   }
 
-  .sm\:w-auto {
-    width: auto;
-  }
-
   .sm\:w-2\/6 {
     width: 33.333333%;
   }
 
-  .sm\:w-3\/6 {
-    width: 50%;
-  }
-
-  .sm\:w-1\/6 {
-    width: 16.666667%;
+  .sm\:w-auto {
+    width: auto;
   }
 
   .sm\:flex-row {
@@ -4107,26 +3996,6 @@ body {
     width: 41.666667%;
   }
 
-  .md\:w-6\/12 {
-    width: 50%;
-  }
-
-  .md\:w-7\/12 {
-    width: 58.333333%;
-  }
-
-  .md\:w-4\/12 {
-    width: 33.333333%;
-  }
-
-  .md\:w-8\/12 {
-    width: 66.666667%;
-  }
-
-  .md\:w-3\/12 {
-    width: 25%;
-  }
-
   .md\:max-w-5xl {
     max-width: 64rem;
   }
@@ -4147,14 +4016,14 @@ body {
     padding: 2rem;
   }
 
-  .md\:px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
   .md\:px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
+  }
+
+  .md\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .md\:pl-8 {
@@ -4177,11 +4046,6 @@ body {
 
   .lg\:flex-col {
     flex-direction: column;
-  }
-
-  .lg\:px-12 {
-    padding-left: 3rem;
-    padding-right: 3rem;
   }
 
   .lg\:px-24 {
