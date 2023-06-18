@@ -565,16 +565,40 @@
       </div>
         
       <div id="tabs-3">
-        <p class="mt-28 t-1">sdfksdflksdj</p>
-      </div>
-      </div>
-
+        <div class="flex flex-col md:flex-row pt-52 pl-24">
+          <div class="left-div w-4/12 md:w-4/12 p-10">
+            <div class="flex flex-col md:flex-row items-center">
+              <!-- Dropdown List -->
+              <div class="pr-4 pb-2 md:pb-0">
+                <select class="py-2 px-4 border outline-none border-black center-shadow p-3 rounded-md shadow text-sm">
+                  <option value="option1">All</option>
+                  <option value="option2">Unread</option>
+                  <option value="option3">Read</option>
+                </select>
+              </div>
+              <!-- Searchbar -->
+              <div class="relative w-full pr-4 pb-2 md:pb-0">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  class="pl-10 pr-4 py-2 w-full text-black text-sm border outline-none border-black center-shadow p-3 rounded-md shadow text-sm border outline-none"
+                />
+                <i class="absolute left-3 top-5 transform -translate-y-1/2 fas fa-search text-base"></i>
+              </div>
+            </div>
+          </div>
         
+          <div class="center-div w-4/6 md:w-4/6">
+            <p>CENTER DIV</p>
+          </div>
+        </div>
+        
+        
+      </div>
+    
     </div>
-      
   </div>
       
-  </div>
 
   <script src="/student-alumni/js/hompage.js"></script>
   <script src="/js/admin.js"></script>
