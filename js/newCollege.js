@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
     $("#btnCancelToCollege").click(function () {
-        window.location.href = "/admin/admin.html"
+        window.location.href = "../admin/admin.php"
     })
 
     //get logo that have been chosen
