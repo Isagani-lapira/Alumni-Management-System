@@ -312,7 +312,7 @@
             <div class="m-2 p-1">
               <p class="text-sm font-thin">Course</p>
               <!-- college selection -->
-              <select name="college" id="college" class="w-full border border-grayish p-2 rounded-lg">
+              <select name="college" id="announcementCol" class="w-full border border-grayish p-2 rounded-lg">
                 <option value="" selected disabled hidden>BS Computer Science</option>
               </select>
             </div>
@@ -1364,19 +1364,20 @@
             <!-- left side -->
             <div class="flex">
               <div class="w-1/2">
-                <label class="font-bold text-greyish_black text-sm" for="">Job Title</label>
-                <input class="block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text"
-                  placeholder="e.g Software Engineer">
+                <label class="font-bold text-greyish_black text-sm" for="jobTitle">Job Title</label>
+                <input id="jobTitle" class="block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3"
+                  type="text" placeholder="e.g Software Engineer">
 
-                <label class="font-bold text-greyish_black text-sm mt-5" for="">Company Name</label>
-                <input class="block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text"
-                  placeholder="e.g Accenture">
+                <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
+                <input id="jobCompany" class="block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3"
+                  type="text" placeholder="e.g Accenture">
 
-                <label class="font-bold text-greyish_black text-sm mt-5" for="">Project Description</label>
+                <label class="font-bold text-greyish_black text-sm mt-5" for="projOverviewTxt">Project
+                  Description</label>
                 <div class="message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5">
                   <textarea
                     class="w-full h-full resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
-                    name="" id="projOverviewTxt"></textarea>
+                    name="projOverviewTxt" id="projOverviewTxt"></textarea>
                 </div>
 
                 <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
@@ -1386,16 +1387,16 @@
                 <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
 
                 <!-- salary -->
-                <label class="font-bold text-greyish_black text-sm mt-5 block" for="">Salary Range</label>
+                <label class="font-bold text-greyish_black text-sm mt-5 block" for="minSalary">Salary Range</label>
                 <div class="flex gap-2 mt-2 items-center">
                   <div class="w-1/4 p-2 border border-greyish_black rounded-md flex items-center gap-2">
                     <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                    <input class="w-full" type="number" name="" id="" value="0">
+                    <input class="w-full" type="number" name="" id="minSalary" value="0">
                   </div>
                   -
                   <div class="w-1/4 p-2 border border-greyish_black rounded-md flex items-center gap-2">
                     <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                    <input class="w-full" type="number" name="" id="" value="0">
+                    <input class="w-full" type="number" name="" id="maxSalary" value="0">
                   </div>
                 </div>
 
@@ -1403,15 +1404,15 @@
 
               <!-- right side -->
               <div class="w-1/2">
-                <label class="font-bold text-greyish_black text-sm mt-5 block" for="">Skills</label>
+                <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Skills</label>
                 <div id="skillDiv" class="flex flex-col">
                   <div>
                     <img class="h-12 w-12 inline cursor-pointer" src="/assets/icons/add-circle.png">
-                    <input class="inputSkill" type="text" placeholder="Add skill/s that needed">
+                    <input id="inputSkill" class="inputSkill" type="text" placeholder="Add skill/s that needed">
                   </div>
                 </div>
 
-                <label class="font-bold text-greyish_black text-sm mt-5" for="">Qualification</label>
+                <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
                 <div class="message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5">
                   <textarea
                     class="w-full h-full resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
@@ -1419,11 +1420,12 @@
                   </textarea>
                 </div>
 
-                <label class="font-bold text-greyish_black text-sm mt-5 block" for="">Requirements</label>
+                <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputReq">Requirements</label>
                 <div id="reqDiv" class="flex flex-col">
                   <div>
                     <img class="h-12 w-12 inline cursor-pointer" src="/assets/icons/add-circle.png" alt="">
-                    <input class="inputReq" type="text" placeholder="Add things that an applicants needed">
+                    <input id="inputReq" class="inputReq" type="text"
+                      placeholder="Add things that an applicants needed">
                   </div>
                 </div>
 
