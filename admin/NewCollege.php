@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="/css/main.css" rel="stylesheet" />
-    <link href="/style/style.css" rel="stylesheet" />
+    <link href="../css/main.css" rel="stylesheet" />
+    <link href="../style/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <script src="https://code.jquery.com/jquery-2.2.4.js"
@@ -25,15 +25,14 @@
         </div>
 
         <div>
-            <form action="">
+            <form>
                 <!-- creation of college content -->
                 <div id="fillUpCol">
-                    <div
-                        class="flex justify-center items-center rounded h-40 p-3 bulsu-logo hover:cursor-pointer w-40 mx-auto">
+                    <div class="flex justify-center items-center rounded h-40 p-3 bulsu-logo hover:cursor-pointer w-40 mx-auto">
                         <label class="lblLogo block text-center text-lg font-semibold text-grayish"
                             for="collegeLogo">ADD
                             LOGO</label>
-                        <input class="hidden" id="collegeLogo" type="file">
+                        <input class="hidden" id="collegeLogo" name="collegeLogo" type="file">
                         <img id="imgAddLogo" class="h-full w-full hidden" src="" alt="">
                     </div>
                     <p id="errorExtMsg" class="text-sm text-center text-accent hidden">File extension not supported</p>
@@ -48,7 +47,7 @@
                             <!-- College Name -->
                             <label class="font-bold block w-3/4 text-start text-greyish_black" for="">College
                                 Name</label>
-                            <input class="block p-2 border border-grayish w-3/4 outline-none rounded-lg mb-3"
+                            <input id="colName" name="colName" class="block p-2 border border-grayish w-3/4 outline-none rounded-lg mb-3"
                                 type="text" placeholder="e.g College of Information in Communication Technology">
 
                             <!-- College Email -->
@@ -56,7 +55,7 @@
                                 <div>
                                     <label class="font-bold text-greyish_black block w-3/4 text-start" for="">College
                                         Code</label>
-                                    <input class="block p-2 border border-grayish w-full outline-none rounded-lg"
+                                    <input id="colCode" name="colCode" class="block p-2 border border-grayish w-full outline-none rounded-lg"
                                         type="text" placeholder="e.g CICT">
                                 </div>
 
@@ -64,7 +63,7 @@
                                     <label class="font-bold block w-3/4 text-start text-greyish_black" for="">College
                                         Email
                                         Address</label>
-                                    <input class="block p-2 border border-grayish w-full outline-none rounded-lg"
+                                    <input id="colEmail" name="colEmail" class="block p-2 border border-grayish w-full outline-none rounded-lg"
                                         type="text"
                                         placeholder="e.g College of Information in Communication Technology">
                                 </div>
@@ -76,14 +75,14 @@
                                 <div>
                                     <label class="font-bold text-greyish_black block w-3/4 text-start" for="">Contact
                                         No.</label>
-                                    <input class="block p-2 border border-grayish w-full outline-none rounded-lg"
+                                    <input id="colContact" name="colContact" class="block p-2 border border-grayish w-full outline-none rounded-lg"
                                         type="text" placeholder="e.g 09104905330">
                                 </div>
 
                                 <div>
                                     <label class="font-bold text-greyish_black block w-3/4 text-start" for="">Webiste
                                         link</label>
-                                    <input class="block p-2 border border-grayish w-full outline-none rounded-lg"
+                                    <input id="colLink" name="colLink" class="block p-2 border border-grayish w-full outline-none rounded-lg"
                                         type="text" placeholder="e.g https://www.bulsu-cict.com/ ">
                                 </div>
                             </div>
@@ -100,14 +99,14 @@
                                 <div>
                                     <label class="font-bold block w-3/4 text-start text-greyish_black" for="">First
                                         Name</label>
-                                    <input class="block p-2 border border-grayish w-full outline-none rounded-lg"
+                                    <input id="coorFN" name="coorFN" class="block p-2 border border-grayish w-full outline-none rounded-lg"
                                         type="text" placeholder="e.g Jayson">
                                 </div>
 
                                 <div>
                                     <label class="font-bold text-greyish_black block w-3/4 text-start" for="">Last
                                         Name</label>
-                                    <input class="block p-2 border border-grayish w-full outline-none rounded-lg"
+                                    <input id="coorLN" name="coordLN" class="block p-2 border border-grayish w-full outline-none rounded-lg"
                                         type="text" placeholder="e.g Batoon ">
                                 </div>
                             </div>
@@ -118,12 +117,12 @@
 
                             <label class="font-bold text-greyish_black block w-3/4 text-start" for="">Email Address
                                 (Personal)</label>
-                            <input class="block p-2 border border-grayish w-3/4 outline-none rounded-lg mb-3"
+                            <input id="coorEmPersonal" name="coorEmPersonal" class="block p-2 border border-grayish w-3/4 outline-none rounded-lg mb-3"
                                 type="text" placeholder="e.g jaysonbatoon@gmail.com">
 
                             <label class="font-bold text-greyish_black block w-3/4 text-start" for="">Email Address
                                 (BulSU)</label>
-                            <input class="block p-2 border border-grayish w-3/4 outline-none rounded-lg" type="text"
+                            <input id="coorEmBulsu" name="coorEmBulsu" class="block p-2 border border-grayish w-3/4 outline-none rounded-lg" type="text"
                                 placeholder="e.g jaysonbatoon@bulsu.edu.ph">
 
                             <!-- contact no and address -->
@@ -131,14 +130,14 @@
                                 <div>
                                     <label class="font-bold text-greyish_black block w-3/4 text-start" for="">Contact
                                         No.</label>
-                                    <input class="block p-2 border border-grayish w-full outline-none rounded-lg"
+                                    <input id="coorEmContact" name="coorEmContact" class="block p-2 border border-grayish w-full outline-none rounded-lg"
                                         type="text" placeholder="e.g 09104905330">
                                 </div>
 
                                 <div>
                                     <label class="font-bold text-greyish_black block w-3/4 text-start"
                                         for="">Address</label>
-                                    <input class="block p-2 border border-grayish w-full outline-none rounded-lg"
+                                    <input name="coorEmAddress" id="coorEmAddress" class="block p-2 border border-grayish w-full outline-none rounded-lg"
                                         type="text" placeholder="e.g https://www.bulsu-cict.com/ ">
                                 </div>
                             </div>
@@ -148,7 +147,7 @@
                                 <div>
                                     <label class="font-bold block w-3/4 text-start text-greyish_black"
                                         for="">Birthday</label>
-                                    <input class="block p-2 border border-grayish w-full outline-none rounded-lg"
+                                    <input id="coorEmBday" id="coorEmBday" class="block p-2 border border-grayish w-full outline-none rounded-lg"
                                         type="date" placeholder="e.g mm/dd/yyyy">
                                 </div>
 
@@ -156,9 +155,9 @@
                                     <label class="font-bold block w-3/4 text-start text-greyish_black"
                                         for="">Gender</label>
                                     <div class="flex gap-2 items-center p-2">
-                                        <input type="radio" value="male" checked />
+                                        <input name="gender" type="radio" value="male" checked />
                                         <label for="">Male</label>
-                                        <input type="radio" value="female">
+                                        <input name="gender" type="radio" value="female">
                                         <label for="">Female</label>
                                     </div>
 
@@ -304,7 +303,7 @@
 
     </div>
 
-    <script src="/js/newCollege.js"></script>
+    <script src="../js/newCollege.js"></script>
 </body>
 
 </html>

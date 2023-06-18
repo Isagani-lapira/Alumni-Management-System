@@ -48,7 +48,7 @@ $(document).ready(function () {
 
   //go to creating college page
   $('#btnNewCol').click(function () {
-    window.location.href = "/admin/NewCollege.html"
+    window.location.href = '../admin/NewCollege.php'
   })
 
 

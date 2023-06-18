@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="/css/main.css" rel="stylesheet" />
-  <link href="/style/style.css" rel="stylesheet" />
+  <link href="../css/main.css" rel="stylesheet" />
+  <link href="../style/style.css" rel="stylesheet" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -157,7 +157,7 @@
               <div class="flex-1">
                 <!-- welcome part -->
                 <div class="relative rounded-lg h-max p-10 bg-gradient-to-r from-accent to-darkAccent">
-                  <img class="absolute -left-2 -top-20" src="/images/standing-2.png" alt="" srcset="" />
+                  <img class="absolute -left-2 -top-20" src="../images/standing-2.png" alt="" srcset="" />
                   <span class="block text-lg text-white text-right">
                     Welcome Back <br />
                     <span class="font-semibold text-lg">
@@ -169,7 +169,7 @@
                 <div class="flex flex-wrap columns-3 mt-2 gap-2 text-xs font-medium">
                   <!-- total user -->
                   <div class="center-shadow flex-1 rounded-lg p-2 relative">
-                    <img class="inline" src="/images/check-icon.svg" alt="" />
+                    <img class="inline" src="../images/check-icon.svg" alt="" />
                     <span class="text-textColor text relative">
                       TOTAL USERS
                       <br />
@@ -180,7 +180,7 @@
 
                   <!-- Job Posting -->
                   <div class="center-shadow flex-1 rounded-lg p-2 relative">
-                    <span class="text-textColor"><img class="inline mr-1" src="/images/work-icon.svg" />JOB
+                    <span class="text-textColor"><img class="inline mr-1" src="../images/work-icon.svg" />JOB
                       POSTING</span>
                     <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">1000</p>
                   </div>
@@ -188,7 +188,7 @@
                   <!-- colleges -->
                   <div class="center-shadow flex-1 rounded-lg p-2 relative">
                     <span class="text-textColor">
-                      <img class="inline mr-1" src="/images/graduate-cap.svg" />
+                      <img class="inline mr-1" src="../images/graduate-cap.svg" />
                       COLLEGES
                     </span>
                     <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">12</p>
@@ -202,7 +202,7 @@
                 <!-- tracer status part -->
                 <div class="w-4/5 mx-auto center-shadow p-5 rounded-lg">
                   <p class="mb-2 font-boldc text-accent font-semibold">RECENT ACTIVITIES
-                    <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
+                    <img class="inline" src="../images/pencil-box-outline.png" alt="" srcset="">
                   </p>
 
                   <div class="flex justify-stretch">
@@ -323,7 +323,7 @@
               <div class="w-full flex border border-grayish p-2 rounded-lg">
                 <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" />
                 <label class="" for="daterange">
-                  <img class="h-5 w-5" src="/assets/icons/calendar.svg" alt="">
+                  <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
                 </label>
               </div>
 
@@ -338,10 +338,10 @@
               <div class="center-shadow p-3 rounded-md">
                 <div class="flex justify-start items-center">
                   <div class="flex items-center">
-                    <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                    <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
                     <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
                   </div>
-                  <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                  <img class="ml-auto" src="../assets/more_horiz.png" alt="">
                 </div>
 
                 <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
@@ -349,9 +349,9 @@
                   src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9"
                   alt="">
                 <div class="flex py-2 items-center">
-                  <img class="h-5" src="/assets/icons/heart.png" alt="">
+                  <img class="h-5" src="../assets/icons/heart.png" alt="">
                   <span class="ms-2 text-sm">1,498</span>
-                  <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                  <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
                   <span class="ms-2 text-sm">3,000</span>
                 </div>
               </div>
@@ -362,10 +362,10 @@
               <div class="center-shadow p-3 rounded-md">
                 <div class="flex justify-start items-center">
                   <div class="flex items-center">
-                    <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                    <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
                     <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
                   </div>
-                  <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                  <img class="ml-auto" src="../assets/more_horiz.png" alt="">
                 </div>
 
                 <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
@@ -373,9 +373,9 @@
                   src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9"
                   alt="">
                 <div class="flex py-2 items-center">
-                  <img class="h-5" src="/assets/icons/heart.png" alt="">
+                  <img class="h-5" src="../assets/icons/heart.png" alt="">
                   <span class="ms-2 text-sm">1,498</span>
-                  <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                  <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
                   <span class="ms-2 text-sm">3,000</span>
                 </div>
               </div>
@@ -420,7 +420,7 @@
               <div class="w-full flex border border-grayish p-2 rounded-lg">
                 <input type="text" name="emDateRange" id="emDateRange" value="01/01/2018 - 01/15/2018" />
                 <label class="" for="emDateRange">
-                  <img class="h-5 w-5" src="/assets/icons/calendar.svg" alt="">
+                  <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
                 </label>
               </div>
 
@@ -467,7 +467,7 @@
             <!-- HISTORY LOGS -->
             <button class="p-2 m-2 border border-grayish text-grayish rounded-md">
               Download history logs
-              <img class="inline" src="/images/download.png" alt="">
+              <img class="inline" src="../images/download.png" alt="">
             </button>
 
             <!-- EXPORT PDF -->
@@ -482,7 +482,7 @@
           <div class="flex justify-evenly text-xs">
 
             <div class="flex border border-greyish_black w-full rounded-md p-1">
-              <img class="inline " src="/images/search-icon.png" alt="">
+              <img class="inline " src="../images/search-icon.png" alt="">
               <input class="focus:outline-none w-full" type="text" name="" id="searchPerson" placeholder="Typing!">
             </div>
 
@@ -490,7 +490,7 @@
             <div class="w-full flex border p-2 mx-2">
               <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018" />
               <label class="" for="reportdaterange">
-                <img class="h-5 w-5" src="/assets/icons/calendar.svg" alt="">
+                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
               </label>
             </div>
 
@@ -534,7 +534,7 @@
                 <td class="text-start font-bold">2020101933</td>
                 <td>
                   <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/alumni-pic2.png"></img>
+                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/alumni-pic2.png"></img>
                     <span class="ml-2">Wade Warren</span>
                   </div>
                 </td>
@@ -550,7 +550,7 @@
                 <td class="text-start font-bold">2020101933</td>
                 <td>
                   <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/avatar-prof.png"></img>
+                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/avatar-prof.png"></img>
                     <span class="ml-2">Leslie Alexander</span>
                   </div>
                 </td>
@@ -566,7 +566,7 @@
                 <td class="text-start font-bold">2020101933</td>
                 <td>
                   <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/footer-img.png"></img>
+                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/footer-img.png"></img>
                     <span class="ml-2">Floyd Miles</span>
                   </div>
                 </td>
@@ -665,7 +665,7 @@
           <div class="individual-col h-full hidden">
             <h1 class="text-xl font-extrabold">
               <span>
-                <img class="inline hover:cursor-pointer back-icon" src="/images/back.png" alt="">
+                <img class="inline hover:cursor-pointer back-icon" src="../images/back.png" alt="">
               </span> PROFILE
             </h1>
             <div class="px-10">
@@ -698,7 +698,7 @@
               <div class="flex justify-between my-16">
                 <div class="dean">
                   <div class="text-center">
-                    <img class="w-48 h-44 mx-auto rounded-md" src="/images/Mr.Keno.png" alt="">
+                    <img class="w-48 h-44 mx-auto rounded-md" src="../images/Mr.Keno.png" alt="">
                     <p class="text-lg">Mr. Keno Piad</p>
                     <p class="font-medium text-lg">DEAN, CICT</p>
                   </div>
@@ -706,7 +706,7 @@
 
                 <div class="coordinator">
                   <div class="text-center">
-                    <img class="w-48 h-44 mx-auto rounded-md" src="/images/Mr.Jayson.png" alt="">
+                    <img class="w-48 h-44 mx-auto rounded-md" src="../images/Mr.Jayson.png" alt="">
                     <p class="text-lg">Mr. Jayson Batoon</p>
                     <p class="font-medium text-lg">Alumni Coordinator, CICT</p>
                   </div>
@@ -746,7 +746,7 @@
         <!-- profile content -->
         <div id="profile-tab" class="p-5">
           <div class="p-3 rounded-md bg-accent flex items-center my-3">
-            <img class="h-36 w-36 rounded-full border-2 border-white" src="/images/Mr.Jayson.png" alt="">
+            <img class="h-36 w-36 rounded-full border-2 border-white" src="../images/Mr.Jayson.png" alt="">
             <div class="ms-6">
               <p class="text-lg text-white font-bold">Jayson Batoon</p>
               <p class="text-blue-300 hover:cursor-pointer hover:text-blue-500">Edit Profile</p>
@@ -757,27 +757,27 @@
             <div class="w-1/4 text-sm p-2 mr-5">
               <p class="font-bold text-accent">About</p>
               <div class="flex mt-3 justify-start">
-                <img src="/assets/icons/person.png" alt="">
+                <img src="../assets/icons/person.png" alt="">
                 <span class="px-2">Male</span>
               </div>
 
               <div class="flex mt-3">
-                <img src="/assets/icons/cake.png" alt="">
+                <img src="../assets/icons/cake.png" alt="">
                 <span class="px-2">Born June 26, 1980</span>
               </div>
 
               <div class="flex mt-3">
-                <img class="ps-1 messageIcon" src="/assets/icons/Location.png" alt="">
+                <img class="ps-1 messageIcon" src="../assets/icons/Location.png" alt="">
                 <span class="px-3">32 Sta. Monica Bulakan Bulacan</span>
               </div>
 
               <div class="flex mt-3">
-                <img class="ps-1 " src="/assets/icons/Message.png" alt="">
+                <img class="ps-1 " src="../assets/icons/Message.png" alt="">
                 <span class="px-4">jaysonbatoon@gmail.com</span>
               </div>
 
               <div class="flex mt-3">
-                <img class="ps-1" src="/assets/icons/Call.png" alt="">
+                <img class="ps-1" src="../assets/icons/Call.png" alt="">
                 <span class="px-4">09323887301</span>
               </div>
             </div>
@@ -790,10 +790,10 @@
                 <div class="center-shadow p-3 rounded-md">
                   <div class="flex justify-start items-center">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
                       <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
                     </div>
-                    <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                    <img class="ml-auto" src="../assets/more_horiz.png" alt="">
                   </div>
 
                   <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
@@ -801,9 +801,9 @@
                     src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9"
                     alt="">
                   <div class="flex py-2 items-center">
-                    <img class="h-5" src="/assets/icons/heart.png" alt="">
+                    <img class="h-5" src="../assets/icons/heart.png" alt="">
                     <span class="ms-2 text-sm">1,498</span>
-                    <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                    <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
                     <span class="ms-2 text-sm">3,000</span>
                   </div>
                 </div>
@@ -814,10 +814,10 @@
                 <div class="center-shadow p-3 rounded-md">
                   <div class="flex justify-start items-center">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
                       <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
                     </div>
-                    <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                    <img class="ml-auto" src="../assets/more_horiz.png" alt="">
                   </div>
 
                   <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
@@ -825,9 +825,9 @@
                     src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9"
                     alt="">
                   <div class="flex py-2 items-center">
-                    <img class="h-5" src="/assets/icons/heart.png" alt="">
+                    <img class="h-5" src="../assets/icons/heart.png" alt="">
                     <span class="ms-2 text-sm">1,498</span>
-                    <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                    <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
                     <span class="ms-2 text-sm">3,000</span>
                   </div>
                 </div>
@@ -865,17 +865,17 @@
 
             <p class="font-bold block">Social media links</p>
             <div class="flex">
-              <img class="m-2" src="/assets/socmed-icons/facebook.png" alt="">
+              <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
               <input id="socmedFb" class="focus:outline-none px-3" type="text" placeholder="Add Facebook link">
             </div>
 
             <div class="flex mt-2">
-              <img class="m-2" src="/assets/socmed-icons/instagram.png" alt="">
+              <img class="m-2" src="../assets/socmed-icons/instagram.png" alt="">
               <input id="socmedIG" class="focus:outline-none px-3" type="text" placeholder="Add Instagram link">
             </div>
 
             <div class="flex mt-2">
-              <img class="m-2" src="/assets/socmed-icons/twitter.png" alt="">
+              <img class="m-2" src="../assets/socmed-icons/twitter.png" alt="">
               <input id="socmedTwitter" class="focus:outline-none px-3" type="text" placeholder="Add Twitter link">
             </div>
 
@@ -908,7 +908,7 @@
             <div class="flex justify-evenly text-xs">
 
               <div class="flex border border-grayish w-1/2 rounded-md p-1">
-                <img class="inline " src="/images/search-icon.png" alt="">
+                <img class="inline " src="../images/search-icon.png" alt="">
                 <input class="outline-none w-full" type="text" name="" id="aoySearch" placeholder="Typing!">
               </div>
 
@@ -956,7 +956,7 @@
                   <td class="text-start font-bold">2020101933</td>
                   <td>
                     <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/alumni-pic2.png"></img>
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/alumni-pic2.png"></img>
                       <span class="ml-2">Wade Warren</span>
                     </div>
                   </td>
@@ -969,7 +969,7 @@
                   <td class="text-start font-bold">2020101933</td>
                   <td>
                     <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/avatar-prof.png"></img>
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/avatar-prof.png"></img>
                       <span class="ml-2">Leslie Alexander</span>
                     </div>
                   </td>
@@ -982,7 +982,7 @@
                   <td class="text-start font-bold">2020101933</td>
                   <td>
                     <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/footer-img.png"></img>
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/footer-img.png"></img>
                       <span class="ml-2">Floyd Miles</span>
                     </div>
                   </td>
@@ -1025,7 +1025,7 @@
           <div class="flex justify-evenly text-xs">
 
             <div class="flex border border-grayish w-full rounded-md p-1">
-              <img class="inline " src="/images/search-icon.png" alt="">
+              <img class="inline " src="../images/search-icon.png" alt="">
               <input class="outline-none" type="text" name="" id="aomSearch" placeholder="Typing!">
             </div>
 
@@ -1043,7 +1043,7 @@
             <div class="w-full flex justify-evenly border p-2 mx-2">
               <input type="text" name="aoydaterange" id="aoydaterange" value="01/01/2018 - 01/15/2018" />
               <label class="" for="aoydaterange">
-                <img class="h-5 w-5" src="/assets/icons/calendar.svg" alt="">
+                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
               </label>
             </div>
 
@@ -1074,7 +1074,7 @@
               <tr class="h-14 text-xs">
                 <td>
                   <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/alumni-pic2.png"></img>
+                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/alumni-pic2.png"></img>
                     <span class="ml-2">Wade Warren</span>
                   </div>
                 </td>
@@ -1088,7 +1088,7 @@
               <tr class="h-14 text-xs">
                 <td>
                   <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/avatar-prof.png"></img>
+                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/avatar-prof.png"></img>
                     <span class="ml-2">Leslie Alexander</span>
                   </div>
                 </td>
@@ -1102,7 +1102,7 @@
               <tr class="h-14 text-xs">
                 <td>
                   <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="/assets/footer-img.png"></img>
+                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/footer-img.png"></img>
                     <span class="ml-2">Floyd Miles</span>
                   </div>
                 </td>
@@ -1137,7 +1137,7 @@
         <!--community content -->
         <div id="community-tab" class="p-5">
           <div class="flex p-1 ms-3 rounded-md border border-accent w-1/2">
-            <img src="/images/search-icon.png" alt="">
+            <img src="../images/search-icon.png" alt="">
             <input class="w-full focus:outline-none" type="text" id="communitySearch" placeholder="Search something...">
           </div>
 
@@ -1146,10 +1146,10 @@
             <div class="center-shadow p-3 rounded-md">
               <div class="flex justify-start items-center">
                 <div class="flex items-center">
-                  <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                  <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
                   <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
                 </div>
-                <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                <img class="ml-auto" src="../assets/more_horiz.png" alt="">
               </div>
 
               <p class="text-sm mt-2">Newly elected CICT Local Student Council</p>
@@ -1157,9 +1157,9 @@
                 src="https://scontent.fcrk1-3.fna.fbcdn.net/v/t39.30808-6/345457129_1322900864958504_5749164351969018307_n.png?_nc_cat=106&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeHl8d1C7ce0J_gLP5GEsXAjaqizNOxv-yFqqLM07G_7IXgm37EUmycCxvvdjKG_OugGdSxspA_SfckyTEg2tamR&_nc_ohc=EId_8ElAoPoAX-V3gPk&_nc_ht=scontent.fcrk1-3.fna&oh=00_AfBnyuC-0ABvf3MFR6qquC1jeRrxqqjZoifYu7_1Kx8G6A&oe=6484CAA0"
                 alt="">
               <div class="flex py-2 items-center">
-                <img class="h-5" src="/assets/icons/heart.png" alt="">
+                <img class="h-5" src="../assets/icons/heart.png" alt="">
                 <span class="ms-2 text-sm">1,498</span>
-                <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
                 <span class="ms-2 text-sm">3,000</span>
               </div>
             </div>
@@ -1178,7 +1178,7 @@
                     alt="">
                   <p class="text-start px-3 text-sm font-semibold">Samuel Loremonso</p>
                 </div>
-                <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                <img class="ml-auto" src="../assets/more_horiz.png" alt="">
               </div>
 
               <p class="text-sm mt-2">COVID-19 IS NOT YET OVER, LET'S RECOVER TOGETHER ❤️‍🩹
@@ -1193,9 +1193,9 @@
                 src="https://scontent.fcrk1-5.fna.fbcdn.net/v/t39.30808-6/344752985_769609177884860_8636565205679941281_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFRGVSr3QwheJN9qG8gtgfO1432UbccPWLXjfZRtxw9YiVsmQfUGcVNlgLaVpC6bdJEtxKcfPdFYWem2x0lJcjF&_nc_ohc=wMYLufpUWzQAX-Yz9J1&_nc_ht=scontent.fcrk1-5.fna&oh=00_AfBPl5vI8U4-prDTiOSyEeGYmHmuRYJdg6FgaTTmco-_RA&oe=648502D0"
                 alt="">
               <div class="flex py-2 items-center">
-                <img class="h-5" src="/assets/icons/heart.png" alt="">
+                <img class="h-5" src="../assets/icons/heart.png" alt="">
                 <span class="ms-2 text-sm">1,498</span>
-                <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
                 <span class="ms-2 text-sm">3,000</span>
               </div>
             </div>
@@ -1209,10 +1209,10 @@
             <div class="center-shadow p-3 rounded-md">
               <div class="flex justify-start items-center">
                 <div class="flex items-center">
-                  <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
+                  <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
                   <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
                 </div>
-                <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                <img class="ml-auto" src="../assets/more_horiz.png" alt="">
               </div>
 
               <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
@@ -1220,9 +1220,9 @@
                 src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C"
                 alt="">
               <div class="flex py-2 items-center">
-                <img class="h-5" src="/assets/icons/heart.png" alt="">
+                <img class="h-5" src="../assets/icons/heart.png" alt="">
                 <span class="ms-2 text-sm">1,498</span>
-                <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
                 <span class="ms-2 text-sm">3,000</span>
               </div>
             </div>
@@ -1235,7 +1235,7 @@
 
         <!-- job opportunities content -->
         <div id="jobOpportunities-tab" class="p-5">
-          <img class="jobPostingBack inline cursor-pointer hidden" src="/images/back.png" alt="">
+          <img class="jobPostingBack inline cursor-pointer hidden" src="../images/back.png" alt="">
           <h1 class="text-xl font-extrabold">Job Opportunities </h1>
           <p class="text-grayish  ">Check all the pending job post to be posted</p>
           <div id="jobList">
@@ -1258,7 +1258,7 @@
                 <label class="mx-3" for="rbAlumni">Alumni</label>
 
                 <div class="border border-accent rounded-md">
-                  <img class="inline" src="/images/search-icon.png" alt="">
+                  <img class="inline" src="../images/search-icon.png" alt="">
                   <input id="jobSearchTitle" type="text" placeholder="Search title">
                 </div>
               </div>
@@ -1280,7 +1280,7 @@
 
                 <tr>
                   <td>
-                    <img class="w-28" src="/assets/company-logo/meralco.png" alt="">
+                    <img class="w-28" src="../assets/company-logo/meralco.png" alt="">
                   </td>
                   <td>Backend Developer</td>
                   <td>Admin</td>
@@ -1295,7 +1295,7 @@
 
                 <tr>
                   <td>
-                    <img class="w-28" src="/assets/company-logo/PNA.png" alt="">
+                    <img class="w-28" src="../assets/company-logo/PNA.png" alt="">
                   </td>
                   <td>Health play specialist</td>
                   <td>Ma. Cristine Legerin</td>
@@ -1310,7 +1310,7 @@
 
                 <tr>
                   <td>
-                    <img class="w-28" src="/assets/company-logo/vircon.png" alt="">
+                    <img class="w-28" src="../assets/company-logo/vircon.png" alt="">
                   </td>
                   <td>Accountant</td>
                   <td>Admin</td>
@@ -1325,7 +1325,7 @@
 
                 <tr>
                   <td>
-                    <img class="w-28" src="/assets/company-logo/IA.png" alt="">
+                    <img class="w-28" src="../assets/company-logo/IA.png" alt="">
                   </td>
                   <td>Interior and spatial designer</td>
                   <td>James Matsugi</td>
@@ -1340,7 +1340,7 @@
 
                 <tr>
                   <td>
-                    <img class="w-28" src="/assets/company-logo/privateChef.png" alt="">
+                    <img class="w-28" src="../assets/company-logo/privateChef.png" alt="">
                   </td>
                   <td>Private Chef</td>
                   <td>Dennice Malengco</td>
@@ -1407,7 +1407,7 @@
                 <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Skills</label>
                 <div id="skillDiv" class="flex flex-col">
                   <div>
-                    <img class="h-12 w-12 inline cursor-pointer" src="/assets/icons/add-circle.png">
+                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
                     <input id="inputSkill" class="inputSkill" type="text" placeholder="Add skill/s that needed">
                   </div>
                 </div>
@@ -1423,7 +1423,7 @@
                 <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputReq">Requirements</label>
                 <div id="reqDiv" class="flex flex-col">
                   <div>
-                    <img class="h-12 w-12 inline cursor-pointer" src="/assets/icons/add-circle.png" alt="">
+                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png" alt="">
                     <input id="inputReq" class="inputReq" type="text"
                       placeholder="Add things that an applicants needed">
                   </div>
@@ -1444,39 +1444,39 @@
           <div id="adminJobPost" class="mt-10 w-full hidden">
             <div class="grid grid-cols-4 gap-4 p-7">
               <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg border">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/accenture.png" alt="">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/accenture.png" alt="">
                 <p class="text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium">
                   Quality
                   Assurance</p>
               </div>
 
               <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/IA.png" alt="">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/IA.png" alt="">
                 <p class="text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium">
                   Software
                   Engineer</p>
               </div>
 
               <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/meralco.png" alt="">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/meralco.png" alt="">
                 <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">
                   Backend
                   Developer</p>
               </div>
               <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/PNA.png" alt="">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/PNA.png" alt="">
                 <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">
                   Gradeschool
                   Teacher</p>
               </div>
               <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/privateChef.png" alt="">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/privateChef.png" alt="">
                 <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">
                   Expert Chef
                 </p>
               </div>
               <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="/assets/company-logo/vircon.png" alt="">
+                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/vircon.png" alt="">
                 <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">Crew
                   Member
                 </p>
@@ -1622,7 +1622,7 @@
           <div class="relative">
             <div class="flex">
               <img class="rounded-full ml-5 border-2 border-accent h-24 w-24 absolute -top-10"
-                src="/images/Mr.Jayson.png" alt="">
+                src="../images/Mr.Jayson.png" alt="">
               <div class="flex justify-start items-center w-full">
 
                 <div class="ml-28">
@@ -1636,12 +1636,12 @@
 
             <div class="details p-5">
               <div class="flex">
-                <img class="w-4 ml-1" src="/assets/icons/Location.png" alt="">
+                <img class="w-4 ml-1" src="../assets/icons/Location.png" alt="">
                 <p class="text-sm ml-3">Lives in <span class="text-grayish font-semibold">Malolos, Bulacan</span></p>
               </div>
 
               <div class="flex mt-2">
-                <img src="/images/graduate-cap.svg" alt="">
+                <img src="../images/graduate-cap.svg" alt="">
                 <p class="text-sm ml-3">Student of <span class="text-grayish font-semibold">CICT</span></p>
               </div>
             </div>
@@ -1663,7 +1663,7 @@
       <div class="w-2/5 bg-white rounded-lg h-full p-5 overflow-x-auto">
         <!-- content -->
         <div class="headerJob flex">
-          <img class="h-16 w-16 rounded-full inline" src="/assets/bulsu-logo.png" alt="">
+          <img class="h-16 w-16 rounded-full inline" src="../assets/bulsu-logo.png" alt="">
           <div class="w-3/5 ps-3">
             <span id="viewJobColText" class="text-sm font-semibold">College of Information and Communication
               Technology
@@ -1674,7 +1674,7 @@
         <hr class="border border-gray-400 mt-10">
 
         <div class="flex mt-5 items-center">
-          <img class="h-8 w-8 rounded-full inline" src="/assets/company-logo/accenture.png" alt="">
+          <img class="h-8 w-8 rounded-full inline" src="../assets/company-logo/accenture.png" alt="">
           <div class="w-3/5 ps-3">
             <span id="viewJobColText" class="font-semibold text-greyish_black">Accenture</span>
           </div>
@@ -1723,7 +1723,7 @@
 
 
 
-  <script src="/js/admin.js"></script>
+  <script src="../js/admin.js"></script>
 </body>
 
 </html>
