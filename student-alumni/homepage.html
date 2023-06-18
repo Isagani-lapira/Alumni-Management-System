@@ -565,19 +565,21 @@
       </div>
         
       <div id="tabs-3">
-        <div class="flex flex-col md:flex-row pt-52 pl-24">
-          <div class="left-div w-4/12 md:w-4/12 p-10">
+        <div class="flex flex-col md:flex-row pt-52 pl-16">
+
+          <div class="left-div w-4/12 md:w-2/5 p-10">
+            <!-- Upper Part -->
             <div class="flex flex-col md:flex-row items-center">
               <!-- Dropdown List -->
               <div class="pr-4 pb-2 md:pb-0">
                 <select class="py-2 px-4 border outline-none border-black center-shadow p-3 rounded-md shadow text-sm">
                   <option value="option1">All</option>
-                  <option value="option2">Unread</option>
-                  <option value="option3">Read</option>
+                  <option value="option2">Tags</option>
+                  <option value="option3">Com. Name</option>
                 </select>
               </div>
               <!-- Searchbar -->
-              <div class="relative w-full pr-4 pb-2 md:pb-0">
+              <div class="relative w-full pb-2 md:pb-0">
                 <input
                   type="text"
                   placeholder="Search"
@@ -586,9 +588,49 @@
                 <i class="absolute left-3 top-5 transform -translate-y-1/2 fas fa-search text-base"></i>
               </div>
             </div>
+
+            <!-- Job Offers -->
+            <div class="flex flex-col md:flex-row border-black center-shadow rounded-md shadow text-sm mt-4">
+              <div class="left-div w-full md:w-full p-4">
+                <div class="flex flex-col md:flex-row items-center">
+                  <div>
+                    <img src="/images/BSU-logo.png" alt="Company Image" class="h-24 w-24 rounded-full">
+                  </div>
+                  <div class="ml-4">
+                    <h2 class="text-lg font-bold">Bulacan State University</h2>
+                    <p class="text-sm">Web Designer</p>
+                  </div>
+                  <div class="flex-grow"></div>
+                  <div class="pl-4 pb-6">
+                    <i class="fas fa-bookmark text-gray-500 text-xl"></i>
+                  </div>
+                </div>
+                
+            
+                <div class="p-2">
+                  <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            
+                <div class="center-div w-full md:w-7/12">
+                  <div class="flex items-center justify-between">
+                    <div class="flex flex-wrap space-x-2">
+                      <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
+                      <span class="text-xs bg-gray-200 px-2 py-1 rounded">Figma</span>
+                      <span class="text-xs bg-gray-200 px-2 py-1 rounded">Web Designer</span>
+                    </div>
+                    <div>
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Apply</button>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            
+            </div>
+            
           </div>
         
-          <div class="center-div w-4/6 md:w-4/6">
+          <div class="center-div w-3/5 md:w-3/5">
             <p>CENTER DIV</p>
           </div>
         </div>
