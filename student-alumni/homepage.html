@@ -38,7 +38,7 @@
   <div class="fixed top-0 w-full z-50">
     <div id="tabs" class="h-screen overflow-y-scroll hide-scrollbar">
       <!-- Navbar -->
-      <div class="Navbar fixed top-0 left-0 right-0">
+      <div class="Navbar fixed top-0 left-0 right-0 z-30">
         <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
           <div class="col-span-1 flex items-center">
             <img src="/images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
@@ -88,7 +88,7 @@
       </div>
 
       <!--SUB NAVBAR-->
-      <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-1 left-0 right-3 sm:top-24 sm:mt-1 sm:justify-center">
+      <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-1 left-0 right-3 sm:top-24 sm:mt-1 sm:justify-center z-20">
 
         <ul class="sub-navbar bg-accent text-white flex flex-wrap items-center justify-evenly h-max sm:w-2/6 md:w-5/12 p-4 text-sm" style="width: 45%;">
           <!--FEED TAB-->
@@ -128,7 +128,7 @@
       </div>
       
       <div id="tabs-1">
-        <div class="flex tab-content w-full">
+        <div class="flex tab-content w-full z-10">
           <div id="tabs-1" class="w-full h-full">
             <!-- FEED TAB -->
             <div class="container mx-auto">
@@ -160,6 +160,7 @@
                 <!-- DIV FOR CENTER -->
                 <div class="w-1/4 p-2 h-full"></div>
 
+                <!-- CENTER & RIGHT -->
                 <div id="tabs-feed-btns">
                   <!-- RIGHT DIV -->
                   <div class="w-1/4 fixed right-5 flex justify-end pr-4">
@@ -188,7 +189,6 @@
                   <!-- COLLEGE TAB -->
                   <div id="tabs-college">
                     <!-- Content for College Update tab -->
-                    <p>College Update Tab Content</p>
                     <!-- CENTER -->
                     <div class="w-full p-5">
                       <div class="container mx-auto">
@@ -233,7 +233,6 @@
                   <!-- UNIV TAB -->
                   <div id="tabs-university">
                     <!-- Content for University Update tab -->
-                    <p>University Update Tab Content</p>
                     <!-- CENTER -->
                     <div class="w-full p-5">
                       <div class="container mx-auto">
@@ -275,7 +274,7 @@
                 <div class="w-1/4 p-2 h-full"></div>
 
                 <!-- Notifications Tab -->
-                <div id="notification-tab" class="notification-tab hidden absolute top-24 mt-1 right-0 h-full bg-black bg-opacity-50 w-3/4">
+                <div id="notification-tab" class="notification-tab hidden absolute top-24 mt-1 right-0 h-full bg-black bg-opacity-50 w-3/4 z-50">
                   <div class="notification-content bg-white center-shadow border-2 p-4 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
                     <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
                     
@@ -443,7 +442,7 @@
               </div>
 
               <!-- MODAL -->
-              <div id="modal" class="modal fixed inset-0 h-full w-full flex items-center justify-center text-grayish top-0 left-0 hidden">
+              <div id="modal" class="modal fixed inset-0 h-full w-full flex items-center justify-center text-grayish top-0 left-0 hidden z-50">
                 <div class="modal-container w-1/3 h-2/3 bg-white rounded-lg p-3">
                   <div class="modal-header py-5">
                     <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
@@ -488,7 +487,7 @@
       
       <div id="tabs-2">
         <!--IMAGE HEADER-->
-        <div id="image-header-con" class="relative top-24 mt-1 z-[-1]">
+        <div id="image-header-con" class="relative top-24 mt-1 z-10">
           <img src="/images/bsu-header3.jpg" alt="Image Header" class="w-full h-auto">
           <div class="absolute inset-0 flex flex-col items-center justify-center">
             <h1 class="text-white text-5xl lg:text-7xl font-bold">Welcome to BulSU Events</h1>
@@ -565,8 +564,9 @@
       </div>
         
       <div id="tabs-3">
-        <div class="flex flex-col md:flex-row pt-52 pl-16">
+        <div class="flex flex-col md:flex-row pt-52 pl-16 z-10">
 
+          <!-- LEFT DIV -->
           <div class="left-div w-4/12 md:w-2/5 p-10">
             <!-- Upper Part -->
             <div class="flex flex-col md:flex-row items-center">
@@ -594,7 +594,7 @@
               <div class="left-div w-full md:w-full p-4">
                 <div class="flex flex-col md:flex-row items-center">
                   <div>
-                    <img src="/images/BSU-logo.png" alt="Company Image" class="h-24 w-24 rounded-full">
+                    <img src="/images/BSU-logo.png" alt="Company Image" class="h-20 w-20 rounded-full">
                   </div>
                   <div class="ml-4">
                     <h2 class="text-lg font-bold">Bulacan State University</h2>
@@ -627,11 +627,133 @@
               </div>
             
             </div>
+
+            <!-- Job Offers -->
+            <div class="flex flex-col md:flex-row border-black center-shadow rounded-md shadow text-sm mt-4">
+              <div class="left-div w-full md:w-full p-4">
+                <div class="flex flex-col md:flex-row items-center">
+                  <div>
+                    <img src="/images/job-logo.jpg" alt="Company Image" class="h-20 w-20 rounded-full">
+                  </div>
+                  <div class="ml-4">
+                    <h2 class="text-lg font-bold">Sta. Monica Studio</h2>
+                    <p class="text-sm">Game Level Design</p>
+                  </div>
+                  <div class="flex-grow"></div>
+                  <div class="pl-4 pb-6">
+                    <i class="fas fa-bookmark text-gray-500 text-xl"></i>
+                  </div>
+                </div>
+                
+            
+                <div class="p-2">
+                  <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            
+                <div class="center-div w-full md:w-7/12">
+                  <div class="flex items-center justify-between">
+                    <div class="flex flex-wrap space-x-2">
+                      <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
+                      <span class="text-xs bg-gray-200 px-2 py-1 rounded">Unreal Engine</span>
+                      <span class="text-xs bg-gray-200 px-2 py-1 rounded">Game Developer</span>
+                    </div>
+                    <div>
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Apply</button>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            
+            </div>
+
+            
             
           </div>
         
-          <div class="center-div w-3/5 md:w-3/5">
-            <p>CENTER DIV</p>
+          <!-- CENTER DIV -->
+          <div class="center-div w-3/5 md:w-3/5  p-10">
+            <div class="flex justify-end p-2 w-full">
+              <button class="py-2 px-4 bg-postButton hover:bg-postHoverButton text-white rounded w-24">Post</button>
+            </div>
+            <div class="content-div center-shadow rounded-md shadow text-sm h-auto">
+              
+              <div class="flex items-center p-6">
+                <img src="/images/BSU-logo.png" alt="Image" class="w-16 h-16 object-cover rounded-full">
+                <div class="pl-4 w-6/12">
+                  <h2 class="text-lg font-bold">College of Information and Communications Technology</h2>
+                  <p class="text-sm">College Admin</p>
+                </div>
+              </div>
+
+              <div class="flex justify-center p-4">
+                <hr class="w-full h-2 border-black">
+              </div>
+
+              <!-- JOB DESC. -->
+
+              <!-- Company Name and Image -->
+              <div class="flex justify-center items-center p-4">
+                <img src="/images/job-logo.jpg" alt="Company Logo" class="w-16 h-16 object-cover rounded-full border border-black">
+                <div class="ml-4">
+                  <h2 class="text-lg font-bold">Sta. Monica Studios</h2>
+                  <p class="text-sm">Game Level Design</p>
+                </div>
+                <!-- Apply Button -->
+                <div class="ml-auto">
+                  <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Apply Now</button>
+                </div>
+              </div>
+              
+              <!-- Project Overview -->
+              <div class="p-4">
+                <h3 class="text-xl font-bold">Project Overview</h3>
+                <p>As a game level designer, you will have the exciting opportunity to craft captivating and memorable levels that will challenge and entertain players. 
+                  Your creative vision and attention to detail will drive the design and construction of game worlds that seamlessly blend artistry, 
+                  gameplay mechanics, and storytelling.</p>
+              </div>
+              
+              <!-- Skills -->
+              <div class="p-4">
+                <h3 class="text-xl font-bold">Skills</h3>
+                <div class="flex flex-wrap space-x-2">
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded">Designing Level Layouts</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded">Creating Environmental Assets</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded">Implementing Gameplay Mechanics</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded">Iterating and Playtesting</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded">Collaborating with the Team</span>
+                </div>
+              </div>
+              
+              <!-- Qualifications -->
+              <div class="p-4">
+                <h3 class="font-bold">Qualifications:</h3>
+                <ul class="list-disc pl-8">
+                  <li>Experience in game level design or related field</li>
+                  <li>Strong understanding of game design principles and mechanics</li>
+                  <li>Proficiency in level design tools and software</li>
+                  <li>Excellent problem-solving and analytical skills</li>
+                  <li>Ability to work collaboratively in a team environment</li>
+                </ul>
+              </div>
+              
+
+              <!-- Requirements -->
+              <div class="p-4">
+                <h3 class="font-bold ">Requirements:</h3>
+                <ul class="list-disc pl-8">
+                  <li>Bachelor's degree in game design, computer science, or a related field</li>
+                  <li>Previous experience in designing levels for successful games</li>
+                  <li>Proficiency in scripting or programming languages</li>
+                  <li>Strong attention to detail and ability to meet deadlines</li>
+                  <li>Passion for gaming and staying up-to-date with industry trends</li>
+                </ul>
+              </div>
+              
+              
+              
+            </div>
+            
           </div>
         </div>
         
