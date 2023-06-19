@@ -112,6 +112,25 @@ $(document).ready(function () {
         $('#chosenLogo').removeClass('hidden')
     }
 
+    $('#btnCreate').click(function () {
+
+        var arrayData = JSON.stringify(inputVal)
+
+        $.ajax({
+            url: '../PHP_process/createCol.php',
+            method: 'POST',
+            data: { arrayData: arrayData },
+            success: function (response) {
+                console.log(response)
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+
+
+    })
+
 })
 
 

@@ -288,7 +288,7 @@
 
                     </div>
 
-                    <button class="py-3 w-2/5 block mx-auto bg-accent rounded-lg text-white mt-10 font-semibold">Create
+                    <button id="btnCreate" type="button" class="py-3 w-2/5 block mx-auto bg-accent rounded-lg text-white mt-10 font-semibold">Create
                         College</button>
                     <button type="button" id="btnBackFill"
                         class=" text-lg hover:font-semibold py-3 w-2/5 block mx-auto">
