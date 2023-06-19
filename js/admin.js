@@ -43,6 +43,7 @@ $(document).ready(function () {
     while (imgContPost.firstChild) {
       imgContPost.removeChild(imgContPost.firstChild)
     }
+    $('#TxtAreaAnnouncement').val('')
   })
 
 
