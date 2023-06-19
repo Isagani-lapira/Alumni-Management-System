@@ -1,4 +1,5 @@
 let inputVal = []
+let file;
 $(document).ready(function () {
     $("#btnCancelToCollege").click(function () {
         window.location.href = "../admin/admin.php"
@@ -17,7 +18,7 @@ $(document).ready(function () {
     //add the chosen logo
     function changeLogo(id) {
         const fileInput = $('#collegeLogo')
-        const file = fileInput[0].files[0]
+        file = fileInput[0].files[0]
         const validExtension = ['jpg', 'jpeg', 'png']
         const fileExtension = file.name.split('.').pop().toLowerCase()
 
@@ -113,13 +114,13 @@ $(document).ready(function () {
     }
 
     $('#btnCreate').click(function () {
-
+        inputVal[0] = file
         var arrayData = JSON.stringify(inputVal)
 
         $.ajax({
             url: '../PHP_process/createCol.php',
             method: 'POST',
-            data: { arrayData: arrayData },
+            data: { arrayData: arrayData, },
             success: function (response) {
                 console.log(response)
             },

@@ -5,6 +5,8 @@
     $arraData = $_POST['arrayData'];
     $myArray = json_decode($arraData, true);
 
+    $file = $myArray[0];
+
     //values
     $colName = $myArray[1];
     $colCode = $myArray[2];
@@ -23,7 +25,7 @@
     $query = "INSERT INTO `college`(`colCode`, `colname`, 
     `colEmailAdd`, `colContactNo`, `colWebLink`, `colLogo`,
     `colDean`, `colDeanImg`) VALUES ('$colCode','$colName','$colEmailAdd',
-    '$colContactNo','$colWebLink',NULL,NULL,NULL)";
+    '$colContactNo','$colWebLink','$file',NULL,NULL)";
 
     $result = mysqli_query($mysql_con,$query);
 
