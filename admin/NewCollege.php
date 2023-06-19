@@ -155,10 +155,10 @@
                                     <label class="font-bold block w-3/4 text-start text-greyish_black"
                                         for="">Gender</label>
                                     <div class="flex gap-2 items-center p-2">
-                                        <input name="gender" type="radio" value="male" checked />
-                                        <label for="">Male</label>
-                                        <input name="gender" type="radio" value="female">
-                                        <label for="">Female</label>
+                                        <input name="gender" id="male" type="radio" value="male" checked />
+                                        <label for="gender">Male</label>
+                                        <input name="gender" type="radio" id="female" value="female">
+                                        <label for="female">Female</label>
                                     </div>
 
                                 </div>
@@ -184,9 +184,7 @@
                 <!-- review content -->
                 <div id="reviewCol" class="hidden">
                     <!-- logo -->
-                    <div
-                        class="flex justify-center items-center rounded h-40 p-3 bulsu-logo hover:cursor-pointer w-40 mx-auto">
-                        <label class="chosenLogo block text-center text-lg font-semibold text-grayish"></label>
+                    <div class="flex justify-center items-center rounded h-40 p-3 bulsu-logo hover:cursor-pointer w-40 mx-auto">
                         <img id="chosenLogo" class="h-full w-full hidden" src="" alt="">
                     </div>
                     <div class="flex h-max mt-5">
@@ -196,18 +194,18 @@
 
                             <div class="flex mt-2">
                                 <span class="font-medium">College Name:</span>
-                                <p class="answer ps-3">College of Information and Communication Technology</p>
+                                <p class="answer ps-3"></p>
                             </div>
 
                             <div class="grid grid-cols-2 w-3/4 gap-2 mt-1">
                                 <div class="flex mt-2">
                                     <span class="font-medium">College Code:</span>
-                                    <p class=" answer ps-3">CICT</p>
+                                    <p class="answer ps-3"></p>
                                 </div>
 
                                 <div class="flex mt-2">
                                     <span class="font-medium">College Email:</span>
-                                    <p class="answer ps-3">cictbulsu@gmail.com</p>
+                                    <p class="answer ps-3"></p>
                                 </div>
 
                             </div>
@@ -215,12 +213,12 @@
                             <div class="grid grid-cols-2 w-3/4 gap-2 mt-1">
                                 <div class="flex mt-2">
                                     <span class="font-medium">College No:</span>
-                                    <p class="answer ps-3">09104905440</p>
+                                    <p class="answer ps-3"></p>
                                 </div>
 
                                 <div class="flex mt-2">
                                     <span class="font-medium">Website link:</span>
-                                    <p class="answer ps-3">https://bulsucict.com/</p>
+                                    <p class="answer ps-3"></p>
                                 </div>
 
                             </div>
@@ -228,40 +226,40 @@
                             <p class="font-bold text-lg mt-2 text-accentBlue">College Alumni Coordinator</p>
                             <div class="flex mt-2">
                                 <span class="font-medium">Fullname:</span>
-                                <p class="answer ps-3">Jayson Batoon</p>
+                                <p class="answer ps-3"></p>
                             </div>
 
                             <div class="flex mt-2">
                                 <span class="font-medium">Personal email:</span>
-                                <p class="answer ps-3">jaysonbatoon@gmail.com</p>
+                                <p class="answer ps-3"></p>
                             </div>
 
                             <div class="flex mt-2">
                                 <span class="font-medium">Bulsu email:</span>
-                                <p class="answer ps-3">jaysonbatoon@bulsu.edu.ph</p>
+                                <p class="answer ps-3"></p>
                             </div>
 
                             <div class="grid grid-cols-2 w-3/4 gap-2 mt-1">
                                 <div class="flex mt-2">
                                     <span class="font-medium">Contact No:</span>
-                                    <p class="answer ps-3">093341930012</p>
+                                    <p class="answer ps-3"></p>
                                 </div>
 
                                 <div class="flex mt-2">
                                     <span class="font-medium">Address:</span>
-                                    <p class="answer ps-3">Santa Rosa, Malolos Bulacan</p>
+                                    <p class="answer ps-3"></p>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 w-3/4 gap-2 mt-1">
                                 <div class="flex mt-2">
                                     <span class="font-medium">Birthday:</span>
-                                    <p class="answer ps-3">01/22/1998</p>
+                                    <p class="answer ps-3"></p>
                                 </div>
 
                                 <div class="flex mt-2">
                                     <span class="font-medium">Gender:</span>
-                                    <p class="answer ps-3">Male</p>
+                                    <p class="answer ps-3"></p>
                                 </div>
                             </div>
 
@@ -273,7 +271,7 @@
                             <!-- username -->
                             <div class="flex mt-2 items-center">
                                 <span class="font-medium">Username:</span>
-                                <p class="px-3">jaysonbatoonBULSU-CICT</p>
+                                <p id="usernameVal" class=" px-3"></p>
                                 <span class="fa-solid fa-circle-question" style="color: #6f7071;"
                                     title="Autogenerated by the system"></span>
                             </div>
@@ -281,7 +279,7 @@
                             <!-- password -->
                             <div class="flex mt-2 items-center">
                                 <span class="font-medium">Password:</span>
-                                <p class="px-3">jaysonbatoonBULSU-CICT</p>
+                                <p id="passwordVal" class="px-3"></p>
                                 <span class="fa-solid fa-circle-question" style="color: #6f7071;"
                                     title="Autogenerated by the system"></span>
                             </div>

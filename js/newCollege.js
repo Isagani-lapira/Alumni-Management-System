@@ -6,16 +6,16 @@ $(document).ready(function () {
 
     //get logo that have been chosen
     $('#collegeLogo').change(function () {
-        changeLogo()
+        changeLogo('#imgAddLogo')
     })
 
     $('#imgAddLogo').click(function () {
-        changeLogo()
+        changeLogo('#imgAddLogo')
         $('.lblLogo').click()
     })
 
     //add the chosen logo
-    function changeLogo() {
+    function changeLogo(id) {
         const fileInput = $('#collegeLogo')
         const file = fileInput[0].files[0]
         const validExtension = ['jpg', 'jpeg', 'png']
@@ -30,7 +30,7 @@ $(document).ready(function () {
                 $('#errorExtMsg').hide() // hide the error message for the extension
                 $('#imgAddLogo').removeClass('hidden')
                 $('.lblLogo').addClass('hidden')
-                $('#imgAddLogo').attr('src', e.target.result)
+                $(id).attr('src', e.target.result)
             }
 
             read.readAsDataURL(file)
@@ -76,14 +76,31 @@ $(document).ready(function () {
         }
     })
 
+
+    function reviewDetails(value) {
+        let username, pass = ""
+        let index = 1;
+        const fields = document.querySelectorAll('.answer')
+        fields.forEach((element) => {
+            if (index == 6) {
+                element.innerHTML = value[index] + ' ' + value[index + 1]
+                username = document.getElementById('usernameVal').innerHTML = value[index] + value[index + 1] + 'BulSU-' + value[2]
+                pass = document.getElementById('passwordVal').innerHTML = value[index] + value[index + 1] + 'BulSU-' + value[2]
+
+                changeLogo("#chosenLogo")
+                $('#chosenLogo').removeClass('hidden')
+                index += 2
+            }
+            else {
+                if (index == 13) element.innerHTML = $('input[name="gender"]:checked').val()
+                else element.innerHTML = value[index]
+                index++
+            }
+
+            console.log(index)
+        })
+    }
+
 })
 
-function reviewDetails(value) {
 
-    let index = 1;
-    const fields = document.querySelectorAll('.answer')
-    fields.forEach((element) => {
-        element.innerHTML = value[index]
-        index++
-    })
-}
