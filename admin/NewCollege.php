@@ -292,7 +292,7 @@
                         College</button>
                     <button type="button" id="btnBackFill"
                         class=" text-lg hover:font-semibold py-3 w-2/5 block mx-auto">
-                        Cancel
+                        go back
                     </button>
                 </div>
             </form>
