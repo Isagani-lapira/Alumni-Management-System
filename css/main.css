@@ -3119,6 +3119,10 @@ th,
   padding-top: 2rem;
 }
 
+.pt-48 {
+  padding-top: 12rem;
+}
+
 .text-left {
   text-align: left;
 }
