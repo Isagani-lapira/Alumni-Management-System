@@ -92,4 +92,20 @@ function buttonColor() {
   }
 }
 
+const jobOffers = document.querySelectorAll('.job-offer');
 
+  jobOffers.forEach(offer => {
+    offer.addEventListener('click', () => {
+      // Remove the selected class from all job offers
+      jobOffers.forEach(offer => offer.classList.remove('selected'));
+      // Add the selected class to the clicked job offer
+      offer.classList.add('selected');
+    });
+  });
+
+  jobOffers.forEach((offer) => {
+    const bookmarkIcon = offer.querySelector('.bookmark-icon');
+    bookmarkIcon.addEventListener('click', function() {
+      bookmarkIcon.classList.toggle('fas');
+    });
+  });
