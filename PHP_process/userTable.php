@@ -8,8 +8,8 @@
             VALUES ('$username','$password','$accounType')";
 
             if(mysqli_query($connection,$query))
-                echo 'successfully added user';
-            else echo 'unsuccessful adding';
+                return true;
+            else return false;
         }
     }
 

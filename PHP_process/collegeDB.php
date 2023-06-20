@@ -2,6 +2,7 @@
     require_once 'connection.php';
     require_once 'personDB.php';
     require_once 'userTable.php';
+    require_once 'colAdmin.php';
     
     $arraData = $_POST['arrayData'];
     $myArray = json_decode($arraData, true);
@@ -46,8 +47,14 @@
         //add data to user table
         if($resultPersonQuery){
             $userTable = new User_Table();
-            $userTable->addUser($username,$password,'Admin',$mysql_con);
+            $userInsertion = $userTable->addUser($username,$password,'Admin',$mysql_con);
 
+            $currentYr = date('Y');
+            $adminID = 'ADM'.'-'.$currentYr.'-'.$randomNo;
+            if($userInsertion){
+                $colAdmin = new College_Admin();
+                $colAdmin->insertColAdmin($adminID,$colCode,$personID,$username,$mysql_con);
+            }
         }
     }
     else
