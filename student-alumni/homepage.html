@@ -14,6 +14,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
     crossorigin="anonymous"></script>
@@ -563,216 +564,303 @@
       </div>
         
       <div id="tabs-3">
-        <div class="flex flex-col md:flex-row pt-52 z-10">
+        <!-- Job Offer Tabs -->
+        <div id="job-offer-tabs" class="flex flex-col md:flex-row pt-52 z-10">
 
-          <!-- LEFT DIV -->
-          <div class="left-div w-4/12 md:w-4/12 p-10">
-            <!-- Upper Part -->
-            <div class="flex flex-col md:flex-row items-center">
-              <!-- Dropdown List -->
-              <div class="pr-4 pb-2 md:pb-0 relative">
-                <select class="py-2 pr-4 p-3 outline-none border-black center-shadow rounded-md shadow text-sm appearance-none">
-                  <option value="option1">All</option>
-                  <option value="option2">Tags</option>
-                  <option value="option3">Com. Name</option>
-                </select>
-                <i class="absolute top-1 right-5 pr-2 py-2 fas fa-chevron-down text-grayish"></i>
-              </div>
-              
-              <!-- Searchbar -->
-              <div class="relative w-full pb-2 md:pb-0">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  class="pl-10 pr-4 py-2 w-full text-black text-sm border outline-none border-black center-shadow p-3 rounded-md shadow text-sm border outline-none"
-                />
-                <i class="absolute left-3 top-5 transform -translate-y-1/2 fas fa-search text-grayish"></i>
-              </div>
-            </div>
-
-            <!-- Job Offer 1 -->
-            <div class="job-offer center-shadow flex-col md:flex-row rounded-md text-sm mt-4">
-              <div class="left-div w-full md:w-full p-4">
-                <div class="flex flex-col md:flex-row items-center">
-                  <div>
-                    <img src="/images/BSU-logo.png" alt="Company Image" class="h-16 w-16 rounded-full">
-                  </div>
-                  <div class="ml-4">
-                    <h2 class="text-lg font-bold">Bulacan State University</h2>
-                    <p class="text-sm">Web Designer</p>
-                  </div>
-                  <div class="flex-grow"></div>
-                  <div class="pl-4 pb-6">
-                    <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
-                  </div>
+            <!-- LEFT DIV -->
+            <div class="left-div w-4/12 md:w-4/12 p-10">
+              <!-- Upper Part -->
+              <div class="flex flex-col md:flex-row items-center">
+                <!-- Dropdown List -->
+                <div class="pr-4 pb-2 md:pb-0 relative">
+                  <select class="py-2 pr-4 p-3 outline-none border-black center-shadow rounded-md shadow text-sm appearance-none">
+                    <option value="option1">All</option>
+                    <option value="option2">Tags</option>
+                    <option value="option3">Com. Name</option>
+                  </select>
+                  <i class="absolute top-1 right-5 pr-2 py-2 fas fa-chevron-down text-grayish"></i>
                 </div>
                 
-            
-                <div class="p-2">
-                  <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <!-- Searchbar -->
+                <div class="relative w-full pb-2 md:pb-0">
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    class="pl-10 pr-4 py-2 w-full text-black text-sm border outline-none border-black center-shadow p-3 rounded-md shadow text-sm border outline-none"
+                  />
+                  <i class="absolute left-3 top-5 transform -translate-y-1/2 fas fa-search text-grayish"></i>
                 </div>
-            
-                <div class="center-div w-full md:w-full">
-                  <div class="flex items-center justify-between">
-                    <div class="flex flex-wrap space-x-2">
-                      <div class="tags-con">
-                        <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
+              </div>
+
+              <ul class="tab-links">
+                <li><a href="#job-offer1">
+                  <!-- Job Offer 1 -->
+                  <div class="job-offer center-shadow flex-col md:flex-row rounded-md text-sm mt-4 selected">
+                    <div class="left-div w-full md:w-full p-4">
+                      <div class="flex flex-col md:flex-row items-center">
+                        <div>
+                          <img src="/images/BSU-logo.png" alt="Company Image" class="h-16 w-16 rounded-full">
+                        </div>
+                        <div class="ml-4">
+                          <h2 class="text-lg font-bold">Bulacan State University</h2>
+                          <p class="text-sm">Web Designer</p>
+                        </div>
+                        <div class="flex-grow"></div>
+                        <div class="pl-4 pb-6">
+                          <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
+                        </div>
                       </div>
-                      <div class="tags-con">
-                        <span class="text-xs bg-gray-200 px-2 py-1 rounded">Figma</span>
+                      
+
+                      <div class="p-2">
+                        <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                       </div>
-                      <div class="tags-con">
-                        <span class="text-xs bg-gray-200 px-2 py-1 rounded">Web Designer</span>
+
+                      <div class="center-div w-full md:w-full">
+                        <div class="flex items-center justify-between">
+                          <div class="flex flex-wrap space-x-2">
+                            <div class="tags-con">
+                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
+                            </div>
+                            <div class="tags-con">
+                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Figma</span>
+                            </div>
+                            <div class="tags-con">
+                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Web Designer</span>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                      
+                    </div>
+
+                  </div>
+                </a></li>
+                <li><a href="#job-offer2" >
+                  <!-- Job Offers 2 -->
+                  <div class="job-offer center-shadow flex flex-col md:flex-row center-shadow rounded-md text-sm mt-4">
+                    <div class="left-div w-full md:w-full p-4">
+                      <div class="flex flex-col md:flex-row items-center">
+                        <div>
+                          <img src="/images/job-logo.jpg" alt="Company Image" class="h-16 w-16 rounded-full">
+                        </div>
+                        <div class="ml-4">
+                          <h2 class="text-lg font-bold">Sta. Monica Studio</h2>
+                          <p class="text-sm">Game Level Design</p>
+                        </div>
+                        <div class="flex-grow"></div>
+                        <div class="pl-4 pb-6">
+                          <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
+                        </div>
+                      </div>
+                      
+                  
+                      <div class="p-2">
+                        <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      </div>
+                  
+                      <div class="center-div w-full md:w-full">
+                        <div class="flex items-center justify-between">
+                          <div class="flex flex-wrap space-x-2">
+                            <div class="tags-con">
+                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
+                            </div>
+                            <div class="tags-con">
+                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Unreal Engine</span>
+                            </div>
+                            <div class="tags-con">
+                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Game Developer</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </a></li>
+              </ul>
+ 
+            </div>
+
+            <!-- CENTER DIV -->
+            <div class="center-div w-3/5 md:w-8/12  p-10">
+              <div class="flex justify-end p-2 w-full">
+                <button class="py-2 px-4 bg-postButton hover:bg-postHoverButton text-white rounded w-28">Post</button>
+              </div>
+              <div class="content-div center-shadow rounded-md text-sm h-auto">
+                
+                <div class="flex items-center p-6">
+                  <img src="/images/BSU-logo.png" alt="Image" class="w-16 h-16 object-cover rounded-full">
+                  <div class="pl-4 w-6/12">
+                    <h2 class="text-sm font-bold">College of Information and Communications Technology</h2>
+                    <p class="text-sm">College Admin</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-center p-4">
+                  <hr class="w-full h-2 border-black">
+                </div>
+
+                <div class="tab-content">
+                  <!-- Job Offer 1 -->
+                  <div id="job-offer1" >
+                    <!-- Job Offer 1 content goes here -->
+                    <!-- JOB DESC. -->
+                    <div class="job-des" id="job-description" class="job-offer-content" >
+                      <!-- Company Name and Image -->
+                    <div class="flex justify-center items-center p-6">
+                      <img src="/images/BSU-logo.png" alt="Company Logo" class="w-16 h-16 object-cover rounded-full">
+                      <div class="ml-4">
+                        <h2 class="text-lg font-bold">Bulacan State University</h2>
+                        <p class="text-sm">Web Designer</p>
+                      </div>
+
+                      <!-- Apply Button -->
+                      <div class="ml-auto">
+                        <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Apply Now</button>
                       </div>
                     </div>
                     
+                    <!-- Project Overview -->
+                    <div class="p-6">
+                      <h3 class="text-xl font-bold">Project Overview</h3>
+                      <p>As a game level designer, you will have the exciting opportunity to craft captivating and memorable levels that will challenge and entertain players. 
+                        Your creative vision and attention to detail will drive the design and construction of game worlds that seamlessly blend artistry, 
+                        gameplay mechanics, and storytelling.</p>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div class="p-6">
+                      <h3 class="text-xl font-bold">Skills</h3>
+                      <div class="flex flex-wrap space-x-2">
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Designing Level Layouts</span>
+                        </div>
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Creating Environmental Assets</span>
+                        </div>
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Implementing Gameplay Mechanics</span>
+                        </div>
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Iterating and Playtesting</span>
+                        </div>
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Collaborating with the Team</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Qualifications -->
+                    <div class="p-6">
+                      <h3 class="font-bold">Qualifications:</h3>
+                      <ul class="list-disc pl-8">
+                        <li>Experience in game level design or related field</li>
+                        <li>Strong understanding of game design principles and mechanics</li>
+                        <li>Proficiency in level design tools and software</li>
+                        <li>Excellent problem-solving and analytical skills</li>
+                        <li>Ability to work collaboratively in a team environment</li>
+                      </ul>
+                    </div>
+                    
+                    <!-- Requirements -->
+                    <div class="p-6">
+                      <h3 class="font-bold ">Requirements:</h3>
+                      <ul class="list-disc pl-8">
+                        <li>Bachelor's degree in game design, computer science, or a related field</li>
+                        <li>Previous experience in designing levels for successful games</li>
+                        <li>Proficiency in scripting or programming languages</li>
+                        <li>Strong attention to detail and ability to meet deadlines</li>
+                        <li>Passion for gaming and staying up-to-date with industry trends</li>
+                      </ul>
+                    </div>
+                    </div>
                   </div>
-                </div>
-                
-              </div>
-            
-            </div>
 
-            <!-- Job Offers 2 -->
-            <div class="job-offer center-shadow flex flex-col md:flex-row center-shadow rounded-md text-sm mt-4">
-              <div class="left-div w-full md:w-full p-4">
-                <div class="flex flex-col md:flex-row items-center">
-                  <div>
-                    <img src="/images/job-logo.jpg" alt="Company Image" class="h-16 w-16 rounded-full">
-                  </div>
-                  <div class="ml-4">
-                    <h2 class="text-lg font-bold">Sta. Monica Studio</h2>
-                    <p class="text-sm">Game Level Design</p>
-                  </div>
-                  <div class="flex-grow"></div>
-                  <div class="pl-4 pb-6">
-                    <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
-                  </div>
-                </div>
-                
-            
-                <div class="p-2">
-                  <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-            
-                <div class="center-div w-full md:w-full">
-                  <div class="flex items-center justify-between">
-                    <div class="flex flex-wrap space-x-2">
-                      <div class="tags-con">
-                        <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
+                  <!-- Job Offer 2 -->
+                  <div id="job-offer2" class="job-offer-content" >
+                    <!-- Job Offer 2 content goes here -->
+                    <!-- JOB DESC. -->
+                    <div class="job-des" id="job-description">
+                      <!-- Company Name and Image -->
+                    <div class="flex justify-center items-center p-6">
+                      <img src="/images/job-logo.jpg" alt="Company Logo" class="w-16 h-16 object-cover rounded-full">
+                      <div class="ml-4">
+                        <h2 class="text-lg font-bold">Sta. Monica Studios</h2>
+                        <p class="text-sm">Game Level Design</p>
                       </div>
-                      <div class="tags-con">
-                        <span class="text-xs bg-gray-200 px-2 py-1 rounded">Unreal Engine</span>
+
+                      <!-- Apply Button -->
+                      <div class="ml-auto">
+                        <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Apply Now</button>
                       </div>
-                      <div class="tags-con">
-                        <span class="text-xs bg-gray-200 px-2 py-1 rounded">Game Developer</span>
+                    </div>
+                    
+                    <!-- Project Overview -->
+                    <div class="p-6">
+                      <h3 class="text-xl font-bold">Project Overview</h3>
+                      <p>As a game level designer, you will have the exciting opportunity to craft captivating and memorable levels that will challenge and entertain players. 
+                        Your creative vision and attention to detail will drive the design and construction of game worlds that seamlessly blend artistry, 
+                        gameplay mechanics, and storytelling.</p>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div class="p-6">
+                      <h3 class="text-xl font-bold">Skills</h3>
+                      <div class="flex flex-wrap space-x-2">
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Designing Level Layouts</span>
+                        </div>
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Creating Environmental Assets</span>
+                        </div>
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Implementing Gameplay Mechanics</span>
+                        </div>
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Iterating and Playtesting</span>
+                        </div>
+                        <div class="tags-con">
+                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Collaborating with the Team</span>
+                        </div>
                       </div>
+                    </div>
+                    
+                    <!-- Qualifications -->
+                    <div class="p-6">
+                      <h3 class="font-bold">Qualifications:</h3>
+                      <ul class="list-disc pl-8">
+                        <li>Experience in game level design or related field</li>
+                        <li>Strong understanding of game design principles and mechanics</li>
+                        <li>Proficiency in level design tools and software</li>
+                        <li>Excellent problem-solving and analytical skills</li>
+                        <li>Ability to work collaboratively in a team environment</li>
+                      </ul>
+                    </div>
+                    
+                    <!-- Requirements -->
+                    <div class="p-6">
+                      <h3 class="font-bold ">Requirements:</h3>
+                      <ul class="list-disc pl-8">
+                        <li>Bachelor's degree in game design, computer science, or a related field</li>
+                        <li>Previous experience in designing levels for successful games</li>
+                        <li>Proficiency in scripting or programming languages</li>
+                        <li>Strong attention to detail and ability to meet deadlines</li>
+                        <li>Passion for gaming and staying up-to-date with industry trends</li>
+                      </ul>
+                    </div>
                     </div>
                   </div>
                 </div>
+
                 
+
               </div>
+              
             </div>
-          </div>
-        
-          <!-- CENTER DIV -->
-          <div class="center-div w-3/5 md:w-8/12  p-10">
-            <div class="flex justify-end p-2 w-full">
-              <button class="py-2 px-4 bg-postButton hover:bg-postHoverButton text-white rounded w-24">Post</button>
-            </div>
-            <div class="content-div center-shadow rounded-md text-sm h-auto">
-              
-              <div class="flex items-center p-6">
-                <img src="/images/BSU-logo.png" alt="Image" class="w-16 h-16 object-cover rounded-full">
-                <div class="pl-4 w-6/12">
-                  <h2 class="text-sm font-bold">College of Information and Communications Technology</h2>
-                  <p class="text-sm">College Admin</p>
-                </div>
-              </div>
-
-              <i id="bookmark-icon" class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
-              <div class="flex justify-center p-4">
-                <hr class="w-full h-2 border-black">
-              </div>
-
-              <!-- JOB DESC. -->
-              <div class="job-des">
-                <!-- Company Name and Image -->
-              <div class="flex justify-center items-center p-4">
-                <img src="/images/job-logo.jpg" alt="Company Logo" class="w-16 h-16 object-cover rounded-full border border-black">
-                <div class="ml-4">
-                  <h2 class="text-lg font-bold">Sta. Monica Studios</h2>
-                  <p class="text-sm">Game Level Design</p>
-                </div>
-
-                <!-- Apply Button -->
-                <div class="ml-auto">
-                  <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Apply Now</button>
-                </div>
-              </div>
-              
-              <!-- Project Overview -->
-              <div class="p-4">
-                <h3 class="text-xl font-bold">Project Overview</h3>
-                <p>As a game level designer, you will have the exciting opportunity to craft captivating and memorable levels that will challenge and entertain players. 
-                  Your creative vision and attention to detail will drive the design and construction of game worlds that seamlessly blend artistry, 
-                  gameplay mechanics, and storytelling.</p>
-              </div>
-              
-              <!-- Skills -->
-              <div class="p-4">
-                <h3 class="text-xl font-bold">Skills</h3>
-                <div class="flex flex-wrap space-x-2">
-                  <div class="tags-con">
-                    <span class="text-xs bg-gray-200 px-2 py-1 rounded">Designing Level Layouts</span>
-                  </div>
-                  <div class="tags-con">
-                    <span class="text-xs bg-gray-200 px-2 py-1 rounded">Creating Environmental Assets</span>
-                  </div>
-                  <div class="tags-con">
-                    <span class="text-xs bg-gray-200 px-2 py-1 rounded">Implementing Gameplay Mechanics</span>
-                  </div>
-                  <div class="tags-con">
-                    <span class="text-xs bg-gray-200 px-2 py-1 rounded">Iterating and Playtesting</span>
-                  </div>
-                  <div class="tags-con">
-                    <span class="text-xs bg-gray-200 px-2 py-1 rounded">Collaborating with the Team</span>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Qualifications -->
-              <div class="p-4">
-                <h3 class="font-bold">Qualifications:</h3>
-                <ul class="list-disc pl-8">
-                  <li>Experience in game level design or related field</li>
-                  <li>Strong understanding of game design principles and mechanics</li>
-                  <li>Proficiency in level design tools and software</li>
-                  <li>Excellent problem-solving and analytical skills</li>
-                  <li>Ability to work collaboratively in a team environment</li>
-                </ul>
-              </div>
-              
-              <!-- Requirements -->
-              <div class="p-4">
-                <h3 class="font-bold ">Requirements:</h3>
-                <ul class="list-disc pl-8">
-                  <li>Bachelor's degree in game design, computer science, or a related field</li>
-                  <li>Previous experience in designing levels for successful games</li>
-                  <li>Proficiency in scripting or programming languages</li>
-                  <li>Strong attention to detail and ability to meet deadlines</li>
-                  <li>Passion for gaming and staying up-to-date with industry trends</li>
-                </ul>
-              </div>
-              </div>
-
-            </div>
-            
-          </div>
 
         </div>
-        
-        
       </div>
 
     </div>
