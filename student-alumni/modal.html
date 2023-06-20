@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/style/mstyle.css">
+</head>
+
+<body>
+ <!-- OPEN MODAL BUTTON -->
+<button class="text-blue-700 font-bold py-2 px-4 rounded-md mt-4 ml-4 bg-transparent border" id="modal-openBtn">Open Modal</button>
+
+<!-- MODAL OVERLAY-->
+<div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden" id="overlay">
+
+  <div id="con" class="flex items-center justify-center">
+<!-- MODAL CONTENT -->
+    <div id="modal" class="bg-white p-6 rounded shadow-lg h-96 overflow-x-auto mx-auto rounded-lg  max-w-md">
+
+<!-- PROFILE PICTURE -->
+      <div id="line" class="flex mb-2 w-md">
+        <div class="w-1/2">
+          <h2 id="title" class="text-lg font-bold">Profile Picture</h2>
+        </div>
+        <div class="w-3/4">
+          <img src="/images/edit.png" class="editpic ml-auto" data-target="dp">
+        </div>
+      </div>
+      
+      <img id="dp" src="" alt="Image" class="images ml-auto mr-auto rounded-full border-2 border-red-700">
+      <div id="profilePicAlert" class="text-red-500 text-center hidden">The file format is invalid.</div>
+      
+
+
+<!-- COVER PHOTO -->
+      <div class="flex mt-5 mb-2">
+        <div class="w-1/2">
+          <h2 id="title" class="text-lg font-bold">Cover Picture</h2>
+        </div>
+        <div class="w-3/4">
+          <img src="/images/edit.png" class="editpic ml-auto" data-target="cp">
+          
+        </div>
+      </div>
+      
+      <img id="cp" src="/images/cp.png" alt="Image" class="mb-2 images ml-auto mr-auto rounded-2xl border-2 border-red-700">
+      <div id="coverPicAlert" class="text-red-500 text-center hidden">The file format is invalid.</div>
+      
+
+
+<!-- MODAL FOR IMAGE VIEWING-->
+      <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+      </div>
+
+
+
+<!--FOR CUSTOMIZING TEXT INFORMATION-->
+      <h2 id="title" class="mt-4 text-lg font-bold">Customize your information</h2>
+
+
+<!-- LOCATION -->
+      <div class="flex mt-1">
+        <div class="flex w-3/4">
+          <img id="icon" src="/images/loc.png">
+          <div class="text-sm ml-1">Lives in</div>
+          <div  class="editText text-sm ml-1 font-bold whitespace-nowrap overflow-hidden">Malolos, Bulacan</div>
+        </div>
+
+        <div class="flex ml-auto">
+          <img  class="editBtn" src="/images/edit.png">
+          <img  class="saveBtn" style="display: none;" src="/images/check.png">
+        </div>
+      </div>
+
+
+<!-- BIRTHDAY -->
+        <div class="flex mt-1">
+          <div class="flex w-3/4">
+            <img id="icon" src="/images/bday.png">
+            <div id="birthdate" class="editTextBday ml-1 text-sm">Date of Birth</div>
+          </div>
+
+          <div class="flex ml-auto">
+            <img class="editBtnBday" src="/images/edit.png">
+            <img class="saveBtnBday" style="display: none;" src="/images/check.png">
+          </div>
+        </div>
+
+
+<!-- CONTACT NO. -->
+      <div class="flex mt-1">
+        <div class="flex w-3/4">
+          <img id="icon" src="/images/tp.png">
+          <div  class="editTextCN ml-1 text-sm">Contact No.</div>
+        </div>
+
+        <div class="flex ml-auto">
+          <img  class="editBtnCN" src="/images/edit.png">
+          <img  class="saveBtnCN" style="display: none;" src="/images/check.png">
+        </div>
+      </div>
+
+
+      
+<!-- SOCIAL MEDIA ACCOUNTS -->
+      <h2 id="title" class="mt-2 text-lg font-bold">Social Media Accounts</h2>
+
+
+<!-- FACEBOOK ACCOUNT -->
+      <div>
+        <div class="flex mt-1 items-center">
+          <img id="sm-icon" src="/images/fb.png">
+          <div class="ml-1 flex w-3/4 rounded-md border border-gray-500">
+          <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">facebook.com/</div>
+          <div class="editText ml-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
+        </div>
+
+        <div class="flex ml-auto">
+          <img  class="editBtn" src="/images/edit.png">
+          <img  class="saveBtn" style="display: none;" src="/images/check.png">
+        </div>
+      </div>
+      
+
+
+<!-- INSTAGRAM ACCOUNT -->
+      <div>
+        <div class="flex mt-2 items-center">
+          <img id="sm-icon" src="/images/ig.png">
+          <div class="ml-1 flex w-3/4 rounded-md border border-gray-500">
+          <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">instagram.com/</div>
+          <div class="editText ml-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
+        </div>
+
+        <div class="flex ml-auto">
+          <img  class="editBtn" src="/images/edit.png">
+          <img  class="saveBtn" style="display: none;" src="/images/check.png">
+        </div>
+      </div>
+
+
+<!-- TWITTER ACCOUNT -->
+      <div>
+        <div class="flex mt-2 items-center">
+          <img id="sm-icon" src="/images/twitter.png">
+          <div class="ml-1 flex w-3/4 rounded-md border border-gray-500">
+          <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">twitter.com/</div>
+          <div class="editText ml-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
+        </div>
+
+        <div class="flex ml-auto">
+          <img  class="editBtn" src="/images/edit.png">
+          <img  class="saveBtn" style="display: none;" src="/images/check.png">
+        </div>
+      </div>
+
+      <div class="flex justify-center mt-2">
+        <div class="text-sm text-gray-600">Want to edit your Resume?</div>
+        <a href="/student-alumni/EditResume.html" class="text-sm text-blue-700 ml-1 underline">Click here.</a>
+      </div>
+
+        
+<!-- BUTTONS -->
+      <div class="flex mt-6">
+        <button id="close" class="ml-auto rounded-md bg-transparent text-sm font-bold py-2 px-5">
+          Cancel
+        </button>
+
+        <button id="done" class="ml-3 rounded-md bg-transparent text-sm font-bold py-2 px-5 border">
+          Save
+        </button>
+      </div>      
+    </div>
+  </div>
+</div>
+
+
+
+<script src="js/mscript.js"></script>
+</body>
+</html>
