@@ -346,7 +346,7 @@
 
                 <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
                 <img class="my-2 rounded-md"
-                  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9"
+                  src=""
                   alt="">
                 <div class="flex py-2 items-center">
                   <img class="h-5" src="../assets/icons/heart.png" alt="">
@@ -370,7 +370,7 @@
 
                 <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
                 <img class="my-2 rounded-md"
-                  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9"
+                  src=""
                   alt="">
                 <div class="flex py-2 items-center">
                   <img class="h-5" src="../assets/icons/heart.png" alt="">
@@ -630,34 +630,29 @@
             <hr class="border-1 border-greyish_black" />
 
             <div class="grid grid-cols-4 gap-4 p-7">
-              <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CICT.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF INFORMATION AND COMMUNICATION
-                  TECHNOLOGY</p>
-              </div>
+              <?php
+                require_once '../PHP_process/connection.php';
+                $query = "SELECT * FROM `college`";
+                $result = mysqli_query($mysql_con,$query);
+                $rows = mysqli_num_rows($result);
 
-              <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COED.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF EDUCATION</p>
-              </div>
+                if($rows>0){
+                  while($data = mysqli_fetch_assoc($result)){
+                    $colName = $data['colname'];
+                    $colLogo = $data['colLogo'];
+                    
+                    $logo = base64_encode($colLogo);
 
-              <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CAFA.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF ARCHITECTURE AND FINE ARTS</p>
-              </div>
-              <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CHTM.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF HOSPITALITY AND TOURISM MANAGEMENT
-                </p>
-              </div>
-              <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/CN.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF NURSING</p>
-              </div>
-              <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
-                <img class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COE.png" alt="">
-                <p class="text-xs text-center text-grayish font-medium">COLLEGE OF ENGINEERING</p>
-              </div>
+                    echo '
+                    <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                      <img src="data:image/jpeg;base64,'.$logo.'"class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COED.png" alt="">
+                      <p class="text-xs text-center text-grayish font-medium">COLLEGE OF EDUCATION</p>
+                    </div>';
+                  }
+                
+                }
+                else echo '<p>No college available</p>';
+              ?>
 
             </div>
           </div>
@@ -798,7 +793,7 @@
 
                   <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
                   <img class="my-2 rounded-md"
-                    src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9"
+                    src=""
                     alt="">
                   <div class="flex py-2 items-center">
                     <img class="h-5" src="../assets/icons/heart.png" alt="">
@@ -1154,7 +1149,7 @@
 
               <p class="text-sm mt-2">Newly elected CICT Local Student Council</p>
               <img class="my-2 rounded-md"
-                src="https://scontent.fcrk1-3.fna.fbcdn.net/v/t39.30808-6/345457129_1322900864958504_5749164351969018307_n.png?_nc_cat=106&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeHl8d1C7ce0J_gLP5GEsXAjaqizNOxv-yFqqLM07G_7IXgm37EUmycCxvvdjKG_OugGdSxspA_SfckyTEg2tamR&_nc_ohc=EId_8ElAoPoAX-V3gPk&_nc_ht=scontent.fcrk1-3.fna&oh=00_AfBnyuC-0ABvf3MFR6qquC1jeRrxqqjZoifYu7_1Kx8G6A&oe=6484CAA0"
+                src=""
                 alt="">
               <div class="flex py-2 items-center">
                 <img class="h-5" src="../assets/icons/heart.png" alt="">
@@ -1174,7 +1169,7 @@
               <div class="flex justify-start items-center">
                 <div class="flex items-center">
                   <img class="h-12 border-2 border-accent rounded-full"
-                    src="https://scontent.fcrk1-5.fna.fbcdn.net/v/t39.30808-6/351103362_1066817541202762_7061615456230539997_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeHAxXMuXs3LZsB_UGHcCogWfrR9BgoGWtd-tH0GCgZa1_UaSpiyIxJI4al04F5AaOCjSprnd8AF06dRAx_MNy9F&_nc_ohc=sggZNHbUQSgAX-Wn9yK&_nc_ht=scontent.fcrk1-5.fna&oh=00_AfCMflGREHDCT9Syi76IebnP1rUKUc8NDrntnYpq30r1ug&oe=64851D4C"
+                    src=""
                     alt="">
                   <p class="text-start px-3 text-sm font-semibold">Samuel Loremonso</p>
                 </div>
@@ -1190,7 +1185,7 @@
                 Matatandaang kabilang ang Bulacan sa mga lalawigang idineklara ng pamahalaan sa ilalim ng Alert Level 1,
                 ayon sa IATF Resolution No. 6-C. Ito ay dah…</p>
               <img class="my-2 rounded-md"
-                src="https://scontent.fcrk1-5.fna.fbcdn.net/v/t39.30808-6/344752985_769609177884860_8636565205679941281_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFRGVSr3QwheJN9qG8gtgfO1432UbccPWLXjfZRtxw9YiVsmQfUGcVNlgLaVpC6bdJEtxKcfPdFYWem2x0lJcjF&_nc_ohc=wMYLufpUWzQAX-Yz9J1&_nc_ht=scontent.fcrk1-5.fna&oh=00_AfBPl5vI8U4-prDTiOSyEeGYmHmuRYJdg6FgaTTmco-_RA&oe=648502D0"
+                src=""
                 alt="">
               <div class="flex py-2 items-center">
                 <img class="h-5" src="../assets/icons/heart.png" alt="">

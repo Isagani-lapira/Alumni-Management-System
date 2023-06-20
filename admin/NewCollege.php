@@ -25,7 +25,7 @@
         </div>
 
         <div>
-            <form id="collegeForm">
+            <form id="collegeForm" enctype="multipart/form-data" method="POST">
                 <!-- creation of college content -->
                 <div id="fillUpCol">
                     <div class="flex justify-center items-center rounded h-40 p-3 bulsu-logo hover:cursor-pointer w-40 mx-auto">
@@ -288,7 +288,7 @@
 
                     </div>
 
-                    <button id="btnCreate" type="button" class="py-3 w-2/5 block mx-auto bg-accent rounded-lg text-white mt-10 font-semibold">Create
+                    <button id="btnCreate" type="submit" class="py-3 w-2/5 block mx-auto bg-accent rounded-lg text-white mt-10 font-semibold">Create
                         College</button>
                     <button type="button" id="btnBackFill"
                         class=" text-lg hover:font-semibold py-3 w-2/5 block mx-auto">

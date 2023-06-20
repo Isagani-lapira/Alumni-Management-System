@@ -7,8 +7,8 @@
             $query = "INSERT INTO `coladmin`(`adminID`, `colCode`, `personID`,
              `username`) VALUES ('$adminID','$colCode','$personID','$username')";
 
-            if(mysqli_query($con,$query)) return true;
-            else return false;
+            if(mysqli_query($con,$query)) echo 'Successfully added!';
+            else echo 'Unexpected issue, try again later!';
             
         }
     }

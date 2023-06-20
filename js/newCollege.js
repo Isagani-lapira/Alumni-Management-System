@@ -116,27 +116,34 @@ $(document).ready(function () {
 
     $('#goBack').on('click', () => window.location.href = "../admin/admin.php")
 
-    $('#btnCreate').click(function () {
-        inputVal[0] = file
-        inputVal.push(username)
-        inputVal.push(pass)
+    $('#collegeForm').submit(function (e) {
 
-        var arrayData = JSON.stringify(inputVal)
+        // Push the username and pass variables into the inputVal array
+        inputVal.push(username);
+        inputVal.push(pass);
+
+        // // Convert the inputVal array to JSON
+        var arrayData = JSON.stringify(inputVal);
+
+        e.preventDefault();
+        var formData = new FormData(this);
+        formData.append('arrayData', arrayData);
 
         $.ajax({
             url: '../PHP_process/collegeDB.php',
             method: 'POST',
-            data: { arrayData: arrayData, },
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function (response) {
-                $('#promptMessage').removeClass('hidden');
-                $('#insertionMsg').html('College successfully added');
+                console.log(response)
+                // $('#promptMessage').removeClass('hidden');
+                // $('#insertionMsg').html('College successfully added');
             },
             error: function (error) {
                 console.log(error)
             }
         })
-
-
     })
 
 })
