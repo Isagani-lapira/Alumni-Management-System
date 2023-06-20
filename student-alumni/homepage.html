@@ -193,7 +193,7 @@
                     <div class="w-full p-5">
                       <div class="container mx-auto">
                         <!-- INPUT POST -->
-                        <div class="post p-3 input-post-width mt-5 mx-auto rounded-md border-2 center-shadow w-4/6">
+                        <div class="post p-3 input-post-width mt-5 mx-auto rounded-md center-shadow w-4/6">
                           <div class="flex items-center">
                             <img class="h-12 border-2 border-accentBlue rounded-full inline" src="/images/ye.jpg" alt="">
                             <div class="write pl-2 w-full">
@@ -208,7 +208,7 @@
 
                         <!-- Post -->
                           <div class="post w-4/6 mt-5 mx-auto post-width">
-                            <div class="center-shadow p-3 border-2 rounded-md">
+                            <div class="center-shadow p-3 rounded-md">
                               <div class="flex justify-start items-center">
                                 <div class="flex items-center">
                                   <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
@@ -238,7 +238,7 @@
                       <div class="container mx-auto">
                         <!-- Post -->
                         <div class="post w-4/6 mt-5 mx-auto post-width">
-                          <div class="center-shadow p-3 border-2 rounded-md">
+                          <div class="center-shadow p-3 rounded-md">
                             <div class="flex justify-start items-center">
                               <div class="flex items-center">
                                 <img class="h-12 border-2 border-accent rounded-full" src="/images/univ-prof.jpg" alt="">
@@ -571,13 +571,15 @@
             <!-- Upper Part -->
             <div class="flex flex-col md:flex-row items-center">
               <!-- Dropdown List -->
-              <div class="pr-4 pb-2 md:pb-0">
-                <select class="py-2 border outline-none border-black center-shadow rounded-md shadow text-sm">
+              <div class="pr-4 pb-2 md:pb-0 relative">
+                <select class="py-2 pl-2 pr-8 border outline-none border-black center-shadow rounded-md shadow text-sm">
                   <option value="option1">All</option>
                   <option value="option2">Tags</option>
                   <option value="option3">Com. Name</option>
                 </select>
+                <i class="absolute top-0 right-0 pr-2 py-2 fas fa-chevron-down"></i>
               </div>
+              
               <!-- Searchbar -->
               <div class="relative w-full pb-2 md:pb-0">
                 <input
@@ -585,7 +587,7 @@
                   placeholder="Search"
                   class="pl-10 pr-4 py-2 w-full text-black text-sm border outline-none border-black center-shadow p-3 rounded-md shadow text-sm border outline-none"
                 />
-                <i class="absolute left-3 top-5 transform -translate-y-1/2 fas fa-search text-base"></i>
+                <i class="absolute left-3 top-5 transform -translate-y-1/2 fas fa-search text-grayish"></i>
               </div>
             </div>
 
