@@ -136,9 +136,8 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                console.log(response)
-                // $('#promptMessage').removeClass('hidden');
-                // $('#insertionMsg').html('College successfully added');
+                $('#promptMessage').removeClass('hidden');
+                $('#insertionMsg').html('College successfully added');
             },
             error: function (error) {
                 console.log(error)
