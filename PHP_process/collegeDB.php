@@ -1,6 +1,7 @@
 <?php
     require_once 'connection.php';
     require_once 'personDB.php';
+    require_once 'userTable.php';
     
     $arraData = $_POST['arrayData'];
     $myArray = json_decode($arraData, true);
@@ -21,6 +22,9 @@
     $address = $myArray[11];
     $birthday = $myArray[12];
     $gender = $myArray[13];
+    $username = $myArray[15];
+    $password = $myArray[16];
+    
 
     $query = "INSERT INTO `college`(`colCode`, `colname`, 
     `colEmailAdd`, `colContactNo`, `colWebLink`, `colLogo`,
@@ -29,33 +33,39 @@
 
     $result = mysqli_query($mysql_con,$query);
 
-    // $personID,$FName,$LName,$age,$bday,
-    //$contactNo,$address,$personalEmail,$bulsuEmail,$gender,$profilePic 
     if($result){
-        $currentDate = date('y/m/d');
-        $personID = 'admin'.$currentDate;
+        $randomNo = rand(1,2000);
+        $currentDateTime = date('y/m/d h:i:s');
+        $personID = 'admin'.$currentDateTime.'-'.$randomNo;
         $person = new personDB();
-        $person->insertPerson($personID,$fname,$lname,getAge($birthday),$birthday,
+        
+        //add data to the person database
+        $resultPersonQuery = $person->insertPerson($personID,$fname,$lname,getAge($birthday),$birthday,
                                 $contactNo,$address,$personalEm,$bulsuEm,$gender,null,$mysql_con);
+
+        //add data to user table
+        if($resultPersonQuery){
+            $userTable = new User_Table();
+            $userTable->addUser($username,$password,'Admin',$mysql_con);
+
+        }
     }
     else
-        echo 'problem insertions';
+        echo 'Unsuccessful insertions. Try again';
 
+    //get current age
     function getAge($bday){
         // Current date
         $currentDate = date('Y-m-d');
 
         // Create DateTime objects for the birthdate and current date
-        $birthdateObj = new DateTime($bday);
-        $currentDateObj = new DateTime($currentDate);
+        $birthdateObj = (int)substr($bday,0,4);
+        $currentDateObj = (int)substr($currentDate,0,4);
 
         // Calculate the difference between the two dates
-        $ageInterval = $birthdateObj->diff($currentDateObj);
+        $ageInterval = $birthdateObj-$currentDateObj;
 
-        // Retrieve the age from the difference
-        $age = $ageInterval->y;
-
-        return $age; 
+        return $ageInterval; 
     }
     mysqli_close($mysql_con);
 ?>

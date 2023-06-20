@@ -7,13 +7,13 @@
             $query = "INSERT INTO `person`(`personID`, `fname`, `lname`, 
             `age`, `bday`, `gender`, `contactNo`, `address`, `personal_email`, 
             `bulsu_email`, `profilepicture`) VALUES ('$personID','$FName',
-            '$LName','$age','$bday','$contactNo','$address','$personalEmail',
-            '$bulsuEmail','$gender','$profilePic')";
+            '$LName','$age','$bday','$gender','$contactNo','$address','$personalEmail',
+            '$bulsuEmail','$profilePic')";
 
             $result = mysqli_query($con,$query);
             
-            if($result) echo 'completed!';
-            else echo 'Cannot be inserted!';
+            if($result) return true;
+            else return false;
         }
     }
 ?>

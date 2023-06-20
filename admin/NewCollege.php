@@ -299,6 +299,24 @@
 
         </div>
 
+        <!-- modal promp -->
+        <div id="promptMessage" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
+        text-grayish  top-0 left-0 hidden ">
+            <div class="modal-container w-1/3 bg-white rounded-lg p-3 mt-2">
+                <div class="modal-header py-5">
+                    <p id="insertionMsg" class="text-greyish_black font-bold text-lg text-center w-1/2 mx-auto"></p>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer flex items-end flex-row-reverse px-3 mt-3">
+                    <button id="goBack" class="bg-accent py-2 rounded px-5 text-white ms-3 hover:bg-darkAccent 
+                        hover:font-semibold">
+                        Go back
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="../js/newCollege.js"></script>

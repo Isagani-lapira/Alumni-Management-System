@@ -1,5 +1,6 @@
 let inputVal = []
 let file;
+let username, pass = ""
 $(document).ready(function () {
     $("#btnCancelToCollege").click(function () {
         window.location.href = "../admin/admin.php"
@@ -84,7 +85,6 @@ $(document).ready(function () {
 
 
     function reviewDetails(value) {
-        let username, pass = ""
         let index = 1; //start the index the index 0 indicates the image value
         const fields = document.querySelectorAll('.answer')
 
@@ -113,16 +113,23 @@ $(document).ready(function () {
         $('#chosenLogo').removeClass('hidden')
     }
 
+
+    $('#goBack').on('click', () => window.location.href = "../admin/admin.php")
+
     $('#btnCreate').click(function () {
         inputVal[0] = file
+        inputVal.push(username)
+        inputVal.push(pass)
+
         var arrayData = JSON.stringify(inputVal)
 
         $.ajax({
-            url: '../PHP_process/createCol.php',
+            url: '../PHP_process/collegeDB.php',
             method: 'POST',
             data: { arrayData: arrayData, },
             success: function (response) {
-                console.log(response)
+                $('#promptMessage').removeClass('hidden');
+                $('#insertionMsg').html('College successfully added');
             },
             error: function (error) {
                 console.log(error)
