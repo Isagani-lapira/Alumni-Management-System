@@ -4095,6 +4095,14 @@ body {
     width: 100%;
   }
 
+  .md\:w-2\/5 {
+    width: 40%;
+  }
+
+  .md\:w-4\/5 {
+    width: 80%;
+  }
+
   .md\:max-w-5xl {
     max-width: 64rem;
   }
