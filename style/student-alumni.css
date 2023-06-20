@@ -101,3 +101,7 @@ body {
 .bookmark-icon {
   cursor: pointer;
 }
+
+.indented {
+  text-indent: 1em;
+}
