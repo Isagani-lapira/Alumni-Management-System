@@ -67,8 +67,6 @@ $(document).ready(function () {
   $('.modal-container').click(function(e) {
     e.stopPropagation();
   });
-
-  
   
 });
 
