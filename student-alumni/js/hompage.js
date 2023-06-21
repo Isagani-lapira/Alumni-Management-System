@@ -66,7 +66,7 @@ $(document).ready(function () {
   // Prevent closing the modal when clicking inside it
   $('.modal-container').click(function(e) {
     e.stopPropagation();
-  });
+  }); 
   
 });
 
