@@ -105,3 +105,12 @@ body {
 .indented {
   text-indent: 1em;
 }
+
+/* For Webkit-based browsers */
+.scrollable-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+}

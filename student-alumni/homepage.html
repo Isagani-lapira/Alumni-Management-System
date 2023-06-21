@@ -271,10 +271,10 @@
                 </div>
                 
 
-                <div class="w-1/4 p-2 h-full"></div>
+              <div class="w-1/4 p-2 h-full"></div>
 
-                <!-- Notifications Tab -->
-                <div id="notification-tab" class="notification-tab hidden absolute top-24 mt-1 right-0 h-full bg-black bg-opacity-50 w-3/4 z-50">
+              <!-- Notifications Tab -->
+              <div id="notification-tab" class="notification-tab hidden fixed top-24 mt-1 right-0 h-full bg-black bg-opacity-50 w-3/4 z-50">
                   <div class="notification-content bg-white center-shadow border-2 p-4 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
                     <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
                     
@@ -571,7 +571,8 @@
         <div id="job-offer-tabs" class="flex flex-col md:flex-row pt-48 z-10">
 
             <!-- LEFT DIV -->
-            <div class="left-div w-4/12 md:w-4/12 p-10">
+            <div class="fixed left-div w-4/12 md:w-4/12 p-10">
+
               <!-- Upper Part -->
               <div class="flex flex-col md:flex-row items-center">
                 <!-- Dropdown List -->
@@ -589,147 +590,152 @@
                   <input
                     type="text"
                     placeholder="Search"
-                    class="pl-10 pr-4 py-2 w-full text-black text-sm border outline-none border-black center-shadow p-3 rounded-md shadow text-sm border outline-none"
+                    class="pl-10 pr-4 py-2 w-full text-black text-sm border outline-none border-grayish center-shadow p-3 rounded-md shadow text-sm border outline-none"
                   />
                   <i class="absolute left-3 top-5 transform -translate-y-1/2 fas fa-search text-grayish"></i>
                 </div>
               </div>
 
-              <ul class="tab-links">
-                <li><a href="#job-offer1">
-                  <!-- Job Offer 1 -->
-                  <div class="job-offer center-shadow flex-col md:flex-row rounded-md text-sm mt-4 selected">
-                    <div class="left-div w-full md:w-full p-4">
-                      <div class="flex flex-col md:flex-row items-center">
-                        <div>
-                          <img src="/images/BSU-logo.png" alt="Company Image" class="h-16 w-16 rounded-full">
-                        </div>
-                        <div class="ml-4">
-                          <h2 class="text-lg font-bold">Bulacan State University</h2>
-                          <p class="text-sm">Web Designer</p>
-                        </div>
-                        <div class="flex-grow"></div>
-                        <div class="pl-4 pb-6">
-                          <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
-                        </div>
-                      </div>
-                      
-
-                      <div class="p-2">
-                        <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      </div>
-
-                      <div class="center-div w-full md:w-full">
-                        <div class="flex items-center justify-between">
-                          <div class="flex flex-wrap space-x-2">
-                            <div class="tags-con">
-                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
-                            </div>
-                            <div class="tags-con">
-                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Figma</span>
-                            </div>
-                            <div class="tags-con">
-                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Web Designer</span>
-                            </div>
+              <div class="scrollable-container overflow-y-scroll" style="max-height: 470px;">
+                <ul class="tab-links">
+                  <li><a href="#job-offer1">
+                    <!-- Job Offer 1 -->
+                    <div class="job-offer center-shadow flex-col md:flex-row rounded-md text-sm mt-4 selected">
+                      <div class="left-div w-full md:w-full p-4">
+                        <div class="flex flex-col md:flex-row items-center">
+                          <div>
+                            <img src="/images/BSU-logo.png" alt="Company Image" class="h-12 w-12 rounded-full">
                           </div>
-                          
-                        </div>
-                      </div>
-                      
-                    </div>
-
-                  </div>
-                </a></li>
-
-                <li><a href="#job-offer2" >
-                  <!-- Job Offers 2 -->
-                  <div class="job-offer center-shadow flex flex-col md:flex-row center-shadow rounded-md text-sm mt-4">
-                    <div class="left-div w-full md:w-full p-4">
-                      <div class="flex flex-col md:flex-row items-center">
-                        <div>
-                          <img src="/images/job-logo.jpg" alt="Company Image" class="h-16 w-16 rounded-full">
-                        </div>
-                        <div class="ml-4">
-                          <h2 class="text-lg font-bold">Sta. Monica Studio</h2>
-                          <p class="text-sm">Game Level Design</p>
-                        </div>
-                        <div class="flex-grow"></div>
-                        <div class="pl-4 pb-6">
-                          <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
-                        </div>
-                      </div>
-                      
-                  
-                      <div class="p-2">
-                        <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      </div>
-                  
-                      <div class="center-div w-full md:w-full">
-                        <div class="flex items-center justify-between">
-                          <div class="flex flex-wrap space-x-2">
-                            <div class="tags-con">
-                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
-                            </div>
-                            <div class="tags-con">
-                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Unreal Engine</span>
-                            </div>
-                            <div class="tags-con">
-                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Game Developer</span>
-                            </div>
+                          <div class="ml-4">
+                            <h2 class="text-md font-bold">Bulacan State University</h2>
+                            <p class="text-sm">Web Designer</p>
+                          </div>
+                          <div class="flex-grow"></div>
+                          <div class="pl-4 pb-6">
+                            <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
                           </div>
                         </div>
+                        
+  
+                        <div class="p-2">
+                          <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+  
+                        <div class="center-div w-full md:w-full">
+                          <div class="flex items-center justify-between">
+                            <div class="flex flex-wrap space-x-2">
+                              <div class="tags-con">
+                                <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
+                              </div>
+                              <div class="tags-con">
+                                <span class="text-xs bg-gray-200 px-2 py-1 rounded">Figma</span>
+                              </div>
+                              <div class="tags-con">
+                                <span class="text-xs bg-gray-200 px-2 py-1 rounded">Web Designer</span>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        </div>
+                        
                       </div>
-                      
+  
                     </div>
-                  </div>
-                </a></li>
-                
-                <li><a href="#job-offer3" >
-                  <!-- Job Offers 3 -->
-                  <div class="job-offer center-shadow flex flex-col md:flex-row center-shadow rounded-md text-sm mt-4">
-                    <div class="left-div w-full md:w-full p-4">
-                      <div class="flex flex-col md:flex-row items-center">
-                        <div>
-                          <img src="/images/ms-logo.webp" alt="Company Image" class="h-16 w-16 rounded-full">
+                  </a></li>
+  
+                  <li><a href="#job-offer2" >
+                    <!-- Job Offers 2 -->
+                    <div class="job-offer center-shadow flex flex-col md:flex-row center-shadow rounded-md text-sm mt-4">
+                      <div class="left-div w-full md:w-full p-4">
+                        <div class="flex flex-col md:flex-row items-center">
+                          <div>
+                            <img src="/images/job-logo.jpg" alt="Company Image" class="h-12 w-12 rounded-full">
+                          </div>
+                          <div class="ml-4">
+                            <h2 class="text-md font-bold">Sta. Monica Studio</h2>
+                            <p class="text-sm">Game Level Design</p>
+                          </div>
+                          <div class="flex-grow"></div>
+                          <div class="pl-4 pb-6">
+                            <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
+                          </div>
                         </div>
-                        <div class="ml-4">
-                          <h2 class="text-lg font-bold">Microsoft</h2>
-                          <p class="text-sm">Data Scientist</p>
+                        
+                    
+                        <div class="p-2">
+                          <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         </div>
-                        <div class="flex-grow"></div>
-                        <div class="pl-4 pb-6">
-                          <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
-                        </div>
-                      </div>
-                      
-                  
-                      <div class="p-2">
-                        <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      </div>
-                  
-                      <div class="center-div w-full md:w-full">
-                        <div class="flex items-center justify-between">
-                          <div class="flex flex-wrap space-x-2">
-                            <div class="tags-con">
-                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Problem Solving</span>
-                            </div>
-                            <div class="tags-con">
-                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Data Analysis</span>
-                            </div>
-                            <div class="tags-con">
-                              <span class="text-xs bg-gray-200 px-2 py-1 rounded">Mathematicsr</span>
+                    
+                        <div class="center-div w-full md:w-full">
+                          <div class="flex items-center justify-between">
+                            <div class="flex flex-wrap space-x-2">
+                              <div class="tags-con">
+                                <span class="text-xs bg-gray-200 px-2 py-1 rounded">UI Designer</span>
+                              </div>
+                              <div class="tags-con">
+                                <span class="text-xs bg-gray-200 px-2 py-1 rounded">Unreal Engine</span>
+                              </div>
+                              <div class="tags-con">
+                                <span class="text-xs bg-gray-200 px-2 py-1 rounded">Game Developer</span>
+                              </div>
                             </div>
                           </div>
                         </div>
+                        
                       </div>
-                      
                     </div>
-                  </div>
-                </a></li>
-              </ul>
+                  </a></li>
+                  
+                  <li><a href="#job-offer3" >
+                    <!-- Job Offers 3 -->
+                    <div class="job-offer center-shadow flex flex-col md:flex-row center-shadow rounded-md text-sm mt-4">
+                      <div class="left-div w-full md:w-full p-4">
+                        <div class="flex flex-col md:flex-row items-center">
+                          <div>
+                            <img src="/images/ms-logo.webp" alt="Company Image" class="h-12 w-12 rounded-full">
+                          </div>
+                          <div class="ml-4">
+                            <h2 class="text-md font-bold">Microsoft</h2>
+                            <p class="text-sm">Data Scientist</p>
+                          </div>
+                          <div class="flex-grow"></div>
+                          <div class="pl-4 pb-6">
+                            <i class="far fa-bookmark text-gray-500 text-xl bookmark-icon"></i>
+                          </div>
+                        </div>
+                        
+                    
+                        <div class="p-2">
+                          <p class="text-sm">Job Description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    
+                        <div class="center-div w-full md:w-full">
+                          <div class="flex items-center justify-between">
+                            <div class="flex flex-wrap space-x-2">
+                              <div class="tags-con">
+                                <span class="text-xs bg-gray-200 px-2 py-1 rounded">Problem Solving</span>
+                              </div>
+                              <div class="tags-con">
+                                <span class="text-xs bg-gray-200 px-2 py-1 rounded">Data Analysis</span>
+                              </div>
+                              <div class="tags-con">
+                                <span class="text-xs bg-gray-200 px-2 py-1 rounded">Mathematics</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </a></li>
+                </ul>
+              </div>
+              
  
             </div>
 
+            <div class="w-4/12 md:w-4/12 p-10"></div>
+            
             <!-- CENTER DIV -->
             <div class="center-div w-3/5 md:w-8/12 p-10">
               <div class="flex justify-end p-2 w-full">
@@ -738,7 +744,7 @@
               <div class="content-div center-shadow rounded-md text-sm h-auto">
                 
                 <div class="flex items-center p-6 ">
-                  <img src="/images/BSU-logo.png" alt="Image" class="w-16 h-16 object-cover rounded-full">
+                  <img src="/images/BSU-logo.png" alt="Image" class="w-12 h-12 object-cover rounded-full">
                   <div class="pl-4 w-6/12">
                     <h2 class="text-sm font-bold">College of Information and Communications Technology</h2>
                     <p class="text-sm">College Admin</p>
@@ -757,7 +763,7 @@
                   <div id="job-offer1" class="job-offer-content">
                     <!-- Job Offer 1 content goes here -->
                     <!-- JOB DESC. -->
-                    <div class="job-des" id="job-description" class="job-offer-content" >
+                    <div class="job-des" id="job-description">
                       <!-- Company Name and Image -->
                     <div class="flex justify-center items-center p-6">
                       <img src="/images/BSU-logo.png" alt="Company Logo" class="w-16 h-16 object-cover rounded-full">
