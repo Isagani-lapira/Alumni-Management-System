@@ -38,7 +38,6 @@ function dlPDF() {
     element.style.margin = '0'; 
     element.querySelector('#btns').style.display = 'none';
 
-    const originalHeight = element.offsetHeight; // Get the original height of the element
     element.style.height = 'auto'; // Set the height to auto to capture the entire content
     const options = {
       filename: 'Resume.pdf',
