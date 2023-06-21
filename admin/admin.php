@@ -611,7 +611,7 @@
 
               <div>
                 <p class="font-medium">Total Colleges</p>
-                <p class="font-bold text-5xl">6</p>
+                <p id="totalCol" class="font-bold text-5xl"></p>
               </div>
 
               <div>
@@ -646,7 +646,7 @@
                     echo '
                     <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
                       <img src="data:image/jpeg;base64,'.$logo.'"class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COED.png" alt="">
-                      <p class="text-xs text-center text-grayish font-medium">COLLEGE OF EDUCATION</p>
+                      <p class="text-xs text-center text-greyish_black font-medium">'.$colName.'</p>
                     </div>';
                   }
                 

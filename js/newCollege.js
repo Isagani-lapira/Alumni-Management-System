@@ -127,7 +127,12 @@ $(document).ready(function () {
 
         e.preventDefault();
         var formData = new FormData(this);
+
         formData.append('arrayData', arrayData);
+        var data = {
+            action: 'create',
+        };
+        formData.append('data', JSON.stringify(data));
 
         $.ajax({
             url: '../PHP_process/collegeDB.php',
@@ -137,7 +142,7 @@ $(document).ready(function () {
             contentType: false,
             success: function (response) {
                 $('#promptMessage').removeClass('hidden');
-                $('#insertionMsg').html('College successfully added');
+                $('#insertionMsg').html(response);
             },
             error: function (error) {
                 console.log(error)
