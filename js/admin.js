@@ -11,7 +11,6 @@ const holderReq = "Add skill/s that needed"
 $(document).ready(function () {
   $("#tabs").tabs();
 
-
   let validExtension = ['jpeg', 'jpg', 'png'] //only allowed extension
   let fileExtension
 
@@ -234,7 +233,27 @@ $(document).ready(function () {
     $('#adminJobPost').show()
   })
 
+  var data = {
+    action: 'read',
+  };
 
+  var formData = new FormData();
+  formData.append('data', JSON.stringify(data))
+
+  $.ajax({
+    url: '../PHP_process/collegeDB.php',
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      console.log(response)
+      $('#totalCol').html(response)
+    },
+    error: function (error) {
+      $('#totalCol').html(error)
+    }
+  })
 });
 
 
