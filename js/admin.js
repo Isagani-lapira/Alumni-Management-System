@@ -231,6 +231,7 @@ $(document).ready(function () {
     $('#jobList').hide()
     $('#jobPosting').hide()
     $('#adminJobPost').show()
+    $('.jobPostingBack').show()
   })
 
   var data = {
