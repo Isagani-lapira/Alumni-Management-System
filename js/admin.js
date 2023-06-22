@@ -163,7 +163,7 @@ $(document).ready(function () {
 
   //error handling for logo
   $('#jobLogoInput').change(function () {
-    console.log('rara')
+
     const fileInput = $(this)
     const file = fileInput[0].files[0]
 
@@ -258,6 +258,8 @@ $(document).ready(function () {
   $('#jobForm').on('submit', function (e) {
     e.preventDefault()
 
+    var skills = skillArray()
+
     if (jobField()) {
       var data = new FormData(this)
       var action = {
@@ -266,6 +268,7 @@ $(document).ready(function () {
 
       data.append('action', JSON.stringify(action))
       data.append('author', 'University Admin');
+      data.append('skills', JSON.stringify(skills));
 
       $.ajax({
         url: '../PHP_process/jobTable.php',
@@ -282,6 +285,15 @@ $(document).ready(function () {
       })
     }
   })
+
+  function skillArray() {
+    var skills = [];
+    $('.skillInput').each(function () {
+      skills.push($(this).val());
+    })
+
+    return skills
+  }
 
   function jobField() {
     var allFieldCompleted = true;
@@ -324,6 +336,11 @@ function addNewField(container, holder, isSkill) {
     inputField.setAttribute('type', "text")
     inputField.setAttribute('oninput', 'checkField(' + field + ')')
 
+    //add className for getting the value later
+    if (isSkill) inputField.setAttribute('class', 'skillInput');
+    else inputField.setAttribute('class', 'reqInput');
+
+    //add to the parent div to be display
     const fieldContainer = document.createElement('div')
     fieldContainer.appendChild(imageSkill)
     fieldContainer.appendChild(inputField)

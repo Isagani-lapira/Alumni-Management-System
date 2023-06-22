@@ -1400,7 +1400,7 @@
                   <div id="skillDiv" class="flex flex-col">
                     <div>
                       <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                      <input id="inputSkill" class="inputSkill" type="text" placeholder="Add skill/s that needed">
+                      <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
                     </div>
                   </div>
 
@@ -1414,7 +1414,7 @@
                   <div id="reqDiv" class="flex flex-col">
                     <div>
                       <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png" alt="">
-                      <input id="inputReq" class="inputReq" type="text"
+                      <input id="inputReq" class="inputReq reqInput" type="text"
                         placeholder="Add things that an applicants needed">
                     </div>
                   </div>

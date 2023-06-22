@@ -9,6 +9,12 @@
             $arrayData = json_decode($data,true);
             $action = $arrayData['action'];
             $admin = $_POST['author'];
+
+            //skills
+            $skillData = $_POST['skills'];
+            $skillArray = json_decode($skillData,true);
+
+            //logo
             $image = addslashes(file_get_contents($_FILES['jobLogoInput']['tmp_name']));
 
             if($action=='create'){
@@ -27,7 +33,8 @@
                 //insert a data 
                 $career = new Career();
                 $career->insertionJob($careerID,$jobTitle,$companyName,$projectDescript,
-                                        $image,$minSalary,$maxSalary,'CICT',$admin,$mysql_con);
+                                        $image,$minSalary,$maxSalary,'CICT',$admin,
+                                        $skillArray,$mysql_con);
     
                 if($career) echo 'Job successfully added!';
                 else echo 'Unexpected issue: Try again later';
