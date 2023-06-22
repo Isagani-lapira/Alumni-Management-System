@@ -1355,84 +1355,79 @@
 
           <!-- job posting -->
           <div id="jobPosting" class="mt-10 w-full hidden">
+            <form id="jobForm" enctype="multipart/form-data">
+              <div class="flex">
+                <!-- left side -->
+                <div class="w-1/2">
+                  <label class="font-bold text-greyish_black text-sm" for="jobTitle">Job Title</label>
+                  <input id="jobTitle" name="jobTitle" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3"
+                    type="text" placeholder="e.g Software Engineer">
 
-            <!-- left side -->
-            <div class="flex">
-              <div class="w-1/2">
-                <label class="font-bold text-greyish_black text-sm" for="jobTitle">Job Title</label>
-                <input id="jobTitle" class="block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3"
-                  type="text" placeholder="e.g Software Engineer">
+                  <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
+                  <input id="jobCompany" name="companyName" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3"
+                    type="text" placeholder="e.g Accenture">
 
-                <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
-                <input id="jobCompany" class="block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3"
-                  type="text" placeholder="e.g Accenture">
+                  <label class="font-bold text-greyish_black text-sm mt-5" for="projOverviewTxt">Project
+                    Description</label>
+                  <textarea class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
+                    name="projDescriptTxt" id="projOverviewTxt"></textarea>
 
-                <label class="font-bold text-greyish_black text-sm mt-5" for="projOverviewTxt">Project
-                  Description</label>
-                <div class="message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5">
-                  <textarea
-                    class="w-full h-full resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
-                    name="projOverviewTxt" id="projOverviewTxt"></textarea>
+                  <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
+                    Choose logo
+                    <input id="jobLogoInput" name="jobLogoInput" class="jobField hidden" type="file">
+                  </label>
+                  <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
+
+                  <!-- salary -->
+                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="minSalary">Salary Range</label>
+                  <div class="flex gap-2 mt-2 items-center">
+                    <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
+                      <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
+                      <input class="jobField w-full" type="number" name="minSalary" id="minSalary" value="0">
+                    </div>
+                    -
+                    <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
+                      <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
+                      <input class="jobField w-full" type="number" name="maxSalary" id="maxSalary" value="0">
+                    </div>
+                  </div>
+
                 </div>
 
-                <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
-                  Choose logo
-                  <input id="jobLogoInput" class="hidden" type="file">
-                </label>
-                <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
-
-                <!-- salary -->
-                <label class="font-bold text-greyish_black text-sm mt-5 block" for="minSalary">Salary Range</label>
-                <div class="flex gap-2 mt-2 items-center">
-                  <div class="w-1/4 p-2 border border-greyish_black rounded-md flex items-center gap-2">
-                    <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                    <input class="w-full" type="number" name="" id="minSalary" value="0">
+                <!-- right side -->
+                <div class="w-1/2">
+                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Skills</label>
+                  <div id="skillDiv" class="flex flex-col">
+                    <div>
+                      <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
+                      <input id="inputSkill" class="inputSkill" type="text" placeholder="Add skill/s that needed">
+                    </div>
                   </div>
-                  -
-                  <div class="w-1/4 p-2 border border-greyish_black rounded-md flex items-center gap-2">
-                    <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                    <input class="w-full" type="number" name="" id="maxSalary" value="0">
+
+                  <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
+                  <textarea
+                      class="jobField block message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5
+                      resize-none p-3 focus:outline-none text-greyish_black text-sm"
+                      name="qualificationTxt" id="qualificationTxt"></textarea>
+
+                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputReq">Requirements</label>
+                  <div id="reqDiv" class="flex flex-col">
+                    <div>
+                      <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png" alt="">
+                      <input id="inputReq" class="inputReq" type="text"
+                        placeholder="Add things that an applicants needed">
+                    </div>
+                  </div>
+
+                  <div>
+                    <button type="submit"
+                      class="bg-postButton w-4/5 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
+                      a post</button>
                   </div>
                 </div>
 
               </div>
-
-              <!-- right side -->
-              <div class="w-1/2">
-                <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Skills</label>
-                <div id="skillDiv" class="flex flex-col">
-                  <div>
-                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                    <input id="inputSkill" class="inputSkill" type="text" placeholder="Add skill/s that needed">
-                  </div>
-                </div>
-
-                <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
-                <div class="message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5">
-                  <textarea
-                    class="w-full h-full resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
-                    name="" id="qualificationTxt">
-                  </textarea>
-                </div>
-
-                <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputReq">Requirements</label>
-                <div id="reqDiv" class="flex flex-col">
-                  <div>
-                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png" alt="">
-                    <input id="inputReq" class="inputReq" type="text"
-                      placeholder="Add things that an applicants needed">
-                  </div>
-                </div>
-
-                <div>
-                  <button
-                    class="bg-postButton w-4/5 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
-                    a post</button>
-                </div>
-              </div>
-
-            </div>
-
+            </form>
           </div>
 
           <!-- admin job post -->

@@ -247,13 +247,56 @@ $(document).ready(function () {
     processData: false,
     contentType: false,
     success: function (response) {
-      console.log(response)
       $('#totalCol').html(response)
     },
     error: function (error) {
       $('#totalCol').html(error)
     }
   })
+
+  //job form
+  $('#jobForm').on('submit', function (e) {
+    e.preventDefault()
+
+    if (jobField()) {
+      var data = new FormData(this)
+      var action = {
+        action: 'create',
+      }
+
+      data.append('action', JSON.stringify(action))
+
+      $.ajax({
+        url: '../PHP_process/jobTable.php',
+        type: 'Post',
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function (success) {
+          console.log(success)
+        },
+        error: function (error) {
+
+        }
+      })
+    }
+  })
+
+  function jobField() {
+    var allFieldCompleted = true;
+    $('.jobField').each(function () {
+      if (!$(this).val()) {
+        $(this).removeClass('border-gray-400').addClass('border-accent')
+        console.log('nyek')
+        allFieldCompleted = false;
+      }
+      else {
+        $(this).addClass('border-grayish').removeClass('border-accent')
+      }
+    })
+    return allFieldCompleted;
+  }
+
 });
 
 
@@ -270,7 +313,7 @@ function addNewField(container, holder, isSkill) {
 
     //image element
     const imageSkill = document.createElement('img')
-    const srcAddIcon = '/assets/icons/add-circle.png'
+    const srcAddIcon = '../assets/icons/add-circle.png'
     imageSkill.className = 'h-12 w-12 inline cursor-pointer'
     imageSkill.setAttribute('src', srcAddIcon)
 
