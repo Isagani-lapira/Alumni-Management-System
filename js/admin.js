@@ -265,6 +265,7 @@ $(document).ready(function () {
       }
 
       data.append('action', JSON.stringify(action))
+      data.append('author', 'University Admin');
 
       $.ajax({
         url: '../PHP_process/jobTable.php',
