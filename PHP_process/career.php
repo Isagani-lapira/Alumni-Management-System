@@ -2,7 +2,7 @@
     class Career{
         //job insertion
         public function insertionJob($careerID,$jobTitle,$companyName,$descript,
-                        $logo,$minSalary,$maxSalary,$colCode,$author,$skill,$con){
+                        $logo,$minSalary,$maxSalary,$colCode,$author,$skill,$requirement,$con){
             
             $date_posted  = date('y-m-d');
             $query = "INSERT INTO `career`(`careerID`, `jobTitle`, `companyName`, `jobDescript`, 
@@ -15,7 +15,6 @@
             //check if the result if success
             if($result){
                 $skillLength = count($skill)-1; //there's always a one extra due to automatic creation of input field
-                echo $skill[0];
                 $index = 0;
                 while($index<$skillLength){
                     $random = rand(0,5000);
@@ -24,6 +23,18 @@
                     $this->insertSkill($skillID,$careerID,$skill[$index],$con);
                     $index++;
                 }
+
+                $reqLength = count($requirement)-1; //there's always a one extra due to automatic creation of input field
+                $indexReq = 0;
+                while($indexReq<$reqLength){
+                    $random = rand(0,5000);
+                    $uniqueId = substr(md5(uniqid()), 0, 7); //unique id with length of 7
+                    $reqID = $uniqueId.'-'. $random;
+
+                    $this->insertRequirement($reqID,$careerID,$requirement[$indexReq],$con);
+                    $indexReq++;
+                }
+                return true;
             }
             else return false;
         }
@@ -33,6 +44,15 @@
             VALUES ('$skillID','$careerID','$skill')";
 
             if(mysqli_query($con,$query)) return true;
+            else echo 'Unexpected error, try again later!' ;
+
+        }
+
+        function insertRequirement($reqID,$careerID,$requirement,$con){
+            $query = "INSERT INTO `requirement`(`reqID`, `careerID`, `requirement`) 
+            VALUES ('$reqID','$careerID','$requirement')";
+
+            if(mysqli_query($con,$query)) echo '';
             else echo 'Unexpected error, try again later!' ;
         }
 

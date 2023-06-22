@@ -254,12 +254,20 @@ $(document).ready(function () {
     }
   })
 
+  $('#goBack').click(function () {
+    $('#promptMessage').addClass('hidden');
+    $('#jobPosting').hide()
+    $('#jobList').show()
+    $('.jobPostingBack').hide()
+  })
   //job form
   $('#jobForm').on('submit', function (e) {
     e.preventDefault()
 
     var skills = skillArray()
+    var requirements = reqArray();
 
+    //check first if all input field are complete
     if (jobField()) {
       var data = new FormData(this)
       var action = {
@@ -269,6 +277,7 @@ $(document).ready(function () {
       data.append('action', JSON.stringify(action))
       data.append('author', 'University Admin');
       data.append('skills', JSON.stringify(skills));
+      data.append('requirements', JSON.stringify(requirements));
 
       $.ajax({
         url: '../PHP_process/jobTable.php',
@@ -277,10 +286,12 @@ $(document).ready(function () {
         processData: false,
         contentType: false,
         success: function (success) {
-          console.log(success)
+          $('#promptMessage').removeClass('hidden');
+          $('#insertionMsg').html(success);
         },
         error: function (error) {
-
+          $('#promptMessage').removeClass('hidden');
+          $('#insertionMsg').html(error);
         }
       })
     }
@@ -293,6 +304,16 @@ $(document).ready(function () {
     })
 
     return skills
+
+  }
+  function reqArray() {
+    var requirement = [];
+    $('.reqInput').each(function () {
+      requirement.push($(this).val());
+    })
+
+    return requirement;
+
   }
 
   function jobField() {
@@ -300,7 +321,6 @@ $(document).ready(function () {
     $('.jobField').each(function () {
       if (!$(this).val()) {
         $(this).removeClass('border-gray-400').addClass('border-accent')
-        console.log('nyek')
         allFieldCompleted = false;
       }
       else {
@@ -346,7 +366,7 @@ function addNewField(container, holder, isSkill) {
     fieldContainer.appendChild(inputField)
     containerSkill.appendChild(fieldContainer)
 
-  }, 500)
+  }, 3000)
 }
 
 //checker which value should be pass

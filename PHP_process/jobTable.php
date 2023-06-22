@@ -14,6 +14,9 @@
             $skillData = $_POST['skills'];
             $skillArray = json_decode($skillData,true);
 
+            $reqData = $_POST['requirements'];
+            $reqArray = json_decode($reqData,true);
+
             //logo
             $image = addslashes(file_get_contents($_FILES['jobLogoInput']['tmp_name']));
 
@@ -34,9 +37,9 @@
                 $career = new Career();
                 $career->insertionJob($careerID,$jobTitle,$companyName,$projectDescript,
                                         $image,$minSalary,$maxSalary,'CICT',$admin,
-                                        $skillArray,$mysql_con);
+                                        $skillArray,$reqArray,$mysql_con);
     
-                if($career) echo 'Job successfully added!';
+                if($career) echo 'Job successfully added on the hunt';
                 else echo 'Unexpected issue: Try again later';
 
             }
