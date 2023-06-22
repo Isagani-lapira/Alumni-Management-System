@@ -21,7 +21,6 @@
                     $random = rand(0,5000);
                     $skillID = $careerID.'-'. $random;
                     
-                    echo $skillID;
                     $this->insertSkill($skillID,$careerID,$skill[$index],$con);
                     $index++;
                 }
@@ -29,14 +28,11 @@
             else return false;
         }
 
-
         function insertSkill($skillID,$careerID,$skill,$con){
             $query = "INSERT INTO `skill`(`skillID`, `careerID`, `skill`) 
             VALUES ('$skillID','$careerID','$skill')";
 
-            if(mysqli_query($con,$query)){
-                return true;
-            }
+            if(mysqli_query($con,$query)) return true;
             else echo 'Unexpected error, try again later!' ;
         }
 
