@@ -90,8 +90,9 @@ body {
   padding: 4px;
 }
 
-.job-offer.selected {
-  background-color: #cbcccc;
+.job-offer.selected{
+  background-color: rgba(153, 27, 27, 0.25);
+  color: #000000;
 }
 
 .job-offer {
@@ -126,8 +127,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888;
+  background-color: #991B1B;
   border-radius: 10px;
+}
+
+:root {
+  scrollbar-color: #991B1B; /* Set the color of the thumb */
 }
 
 /* For Firefox */
