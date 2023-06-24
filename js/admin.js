@@ -334,8 +334,10 @@ $(document).ready(function () {
         let tdCollege = $('<td>').text(college);
         let tdDatePosted = $('<td>').text(datePosted);
         let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
+        let btnView = $('<td>').append($('<button>').text('View').addClass('py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton'));
 
-        row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted);
+
+        row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted, btnView);
         $('#jobTBContent').append(row);
       }
     },
@@ -345,8 +347,7 @@ $(document).ready(function () {
 
   })
 
-  function addJobToList() {
-  }
+
   function skillArray() {
     var skills = [];
     $('.skillInput').each(function () {
