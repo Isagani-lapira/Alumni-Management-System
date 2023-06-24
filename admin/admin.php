@@ -1272,54 +1272,7 @@
                 </tr>
               </thead>
 
-              <tbody class="text-sm">
-
-                <?php
-                  require_once '../PHP_process/connection.php';
-                  
-                  $query = "SELECT `jobTitle`, 
-                  `companyLogo`, `colCode`, `author`, `date_posted` 
-                  FROM `career`";
-
-                  $result = mysqli_query($mysql_con,$query);
-                  $row = mysqli_fetch_row($result);
-
-                  if($row>0){
-                    //fetch the data
-                    while($data = mysqli_fetch_assoc($result)){
-                      $jobTitle = $data['jobTitle'];
-                      $companyLogo = $data['companyLogo'];
-                      $colCode = $data['colCode'];
-                      $author = $data['author'];
-                      $date_posted = $data['date_posted'];
-
-                      $logo = base64_encode($companyLogo);
-                    
-                      //display the data
-                      echo '
-                      <tr class="text-xs">
-                        <td>
-                          <img class="w-20 mx-auto" src="data:image/jpeg;base64,'.$logo.'" alt="">
-                        </td>
-                        <td>'.$jobTitle.'</td>
-                        <td>'.$author.'</td>
-                        <td>'.$colCode.'</td>
-                        <td>'.$date_posted.'</td>
-                        <td>
-                          <button
-                            class="viewJobModal bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
-                        </td>
-                      </tr>';
-                    }
-                  } else echo ' 
-                  <tr class="text-xs">
-                    <td>
-                      <p>No available data</p>
-                    </td>
-                  </tr>
-                  ';
-                ?>
-              </tbody>
+              <tbody class="text-sm" id="jobTBContent"></tbody>
             </table>
 
           </div>

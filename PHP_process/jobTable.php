@@ -1,26 +1,26 @@
 <?php
     require_once 'career.php';
     require_once 'connection.php';
-
+    
     if(isset($_POST['action'])){
-
         try{
             $data = $_POST['action'];
             $arrayData = json_decode($data,true);
             $action = $arrayData['action'];
-            $admin = $_POST['author'];
 
-            //skills
-            $skillData = $_POST['skills'];
-            $skillArray = json_decode($skillData,true);
-
-            $reqData = $_POST['requirements'];
-            $reqArray = json_decode($reqData,true);
-
-            //logo
-            $image = addslashes(file_get_contents($_FILES['jobLogoInput']['tmp_name']));
 
             if($action=='create'){
+                $admin = $_POST['author'];
+
+                //skills
+                $skillData = $_POST['skills'];
+                $skillArray = json_decode($skillData,true);
+
+                $reqData = $_POST['requirements'];
+                $reqArray = json_decode($reqData,true);
+                //logo
+                $image = addslashes(file_get_contents($_FILES['jobLogoInput']['tmp_name']));
+
                 //retrieve the value 
                 $jobTitle = $_POST['jobTitle'];
                 $companyName = $_POST['companyName'];
@@ -42,6 +42,11 @@
                 if($career) echo 'Job successfully added on the hunt';
                 else echo 'Unexpected issue: Try again later';
 
+            }
+            else if($action=='read'){
+
+                $readCareer = new Career();
+                $readCareer->selectData($mysql_con);
             }
         }
         catch(Exception $e){

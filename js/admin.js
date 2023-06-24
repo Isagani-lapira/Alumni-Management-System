@@ -298,6 +298,55 @@ $(document).ready(function () {
     }
   })
 
+
+  var jobData = new FormData();
+  var jobAction = {
+    action: 'read',
+  }
+  jobData.append('action', JSON.stringify(jobAction));
+
+  //job table listing
+  $.ajax({
+    url: '../PHP_process/jobTable.php',
+    type: 'POST',
+    data: jobData,
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    success: function (response) {
+
+      let data = response;
+      let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
+
+      for (let i = 0; i < jobTitles.length; i++) {
+        //fetch all the data
+        let jobTitle = jobTitles[i];
+        let author = data.author[i];
+        let college = data.colCode[i];
+        let datePosted = data.date_posted[i];
+        let companyLogo = data.companyLogo[i];
+
+        let logo = "data:image/jpeg;base64," + companyLogo;
+        //display every data to be part of the list in the table
+        let row = $('<tr>').addClass('text-xs');
+        let tdTitle = $('<td>').text(jobTitle);
+        let tdAuthor = $('<td>').text(author);
+        let tdCollege = $('<td>').text(college);
+        let tdDatePosted = $('<td>').text(datePosted);
+        let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
+
+        row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted);
+        $('#jobTBContent').append(row);
+      }
+    },
+    error: function (xhr, status, error) {
+      console.log('AJAX request error:', error)
+    }
+
+  })
+
+  function addJobToList() {
+  }
   function skillArray() {
     var skills = [];
     $('.skillInput').each(function () {
