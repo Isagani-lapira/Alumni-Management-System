@@ -279,6 +279,7 @@ $(document).ready(function () {
       data.append('author', 'University Admin');
       data.append('skills', JSON.stringify(skills));
       data.append('requirements', JSON.stringify(requirements));
+      data.append('personID', 'admin23/06/22 10:42:15-890');
 
       $.ajax({
         url: '../PHP_process/jobTable.php',
@@ -303,8 +304,9 @@ $(document).ready(function () {
   var jobAction = {
     action: 'read',
   }
+  let jobQuery = "NONE"
   jobData.append('action', JSON.stringify(jobAction));
-
+  jobData.append('query', jobQuery);
   //job table listing
   $.ajax({
     url: '../PHP_process/jobTable.php',
@@ -315,31 +317,40 @@ $(document).ready(function () {
     dataType: 'json',
     success: function (response) {
 
-      let data = response;
-      let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
+      //check if there's a value
+      if (response.result === 'Success') {
 
-      for (let i = 0; i < jobTitles.length; i++) {
-        //fetch all the data
-        let jobTitle = jobTitles[i];
-        let author = data.author[i];
-        let college = data.colCode[i];
-        let datePosted = data.date_posted[i];
-        let companyLogo = data.companyLogo[i];
+        $('.jobErrorMsg').addClass('hidden'); //hide the message
+        let data = response;
+        let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
 
-        let logo = "data:image/jpeg;base64," + companyLogo;
-        //display every data to be part of the list in the table
-        let row = $('<tr>').addClass('text-xs');
-        let tdTitle = $('<td>').text(jobTitle);
-        let tdAuthor = $('<td>').text(author);
-        let tdCollege = $('<td>').text(college);
-        let tdDatePosted = $('<td>').text(datePosted);
-        let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
-        let btnView = $('<td>').append($('<button>').text('View').addClass('py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton'));
+        for (let i = 0; i < jobTitles.length; i++) {
+          //fetch all the data
+          let jobTitle = jobTitles[i];
+          let author = data.author[i];
+          let college = data.colCode[i];
+          let datePosted = data.date_posted[i];
+          let companyLogo = data.companyLogo[i];
+
+          let logo = "data:image/jpeg;base64," + companyLogo;
+          //add data to a table data
+          let row = $('<tr>').addClass('text-xs');
+          let tdTitle = $('<td>').text(jobTitle);
+          let tdAuthor = $('<td>').text(author);
+          let tdCollege = $('<td>').text(college);
+          let tdDatePosted = $('<td>').text(datePosted);
+          let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
+          let btnView = $('<td>').append($('<button>').text('View').addClass('py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton'));
 
 
-        row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted, btnView);
-        $('#jobTBContent').append(row);
+          //display every data inside the table
+          row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted, btnView);
+          $('#jobTBContent').append(row);
+        }
+      } else {
+        $('.jobErrorMsg').removeClass('hidden'); //add message to the user
       }
+
     },
     error: function (xhr, status, error) {
       console.log('AJAX request error:', error)
@@ -347,6 +358,31 @@ $(document).ready(function () {
 
   })
 
+
+  //retrieve all admin post
+  let adminPost = new FormData();
+  let adminAction = {
+    action: 'read'
+  }
+  let query = "WHERE `personID` = " + '"admin23/06/22 10:42:15-890"';
+  //WHERE `personID` = "admin23/06/22 10:42:15-890"
+  adminPost.append('action', JSON.stringify(adminAction));
+  adminPost.append('query', query);
+
+  $.ajax({
+    url: '../PHP_process/jobTable.php',
+    data: adminPost,
+    type: 'POST',
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.log(error)
+    }
+  })
 
   function skillArray() {
     var skills = [];

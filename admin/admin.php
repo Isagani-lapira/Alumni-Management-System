@@ -1274,7 +1274,7 @@
 
               <tbody class="text-sm" id="jobTBContent"></tbody>
             </table>
-
+            <p class="hidden jobErrorMsg text-center mt-5 text-accent">No available data yet</p>
           </div>
 
           <!-- job posting -->

@@ -2,13 +2,13 @@
     class Career{
         //job insertion
         public function insertionJob($careerID,$jobTitle,$companyName,$descript,
-                        $logo,$minSalary,$maxSalary,$colCode,$author,$skill,$requirement,$con){
+                        $logo,$minSalary,$maxSalary,$colCode,$author,$skill,$requirement,$personID,$con){
             
             $date_posted  = date('y-m-d');
             $query = "INSERT INTO `career`(`careerID`, `jobTitle`, `companyName`, `jobDescript`, 
-            `companyLogo`, `minSalary`, `maxSalary`, `colCode`, `author`, `date_posted`) 
+            `companyLogo`, `minSalary`, `maxSalary`, `colCode`, `author`, `date_posted`, `personID`) 
             VALUES ('$careerID','$jobTitle','$companyName','$descript','$logo','$minSalary',
-            '$maxSalary','$colCode','$author','$date_posted')";
+            '$maxSalary','$colCode','$author','$date_posted','$personID')";
 
             $result = mysqli_query($con, $query);
             
@@ -57,58 +57,67 @@
         }
 
 
-        public function selectData($con){ 
+        public function selectData($condition,$con){ 
 
-            $query = "SELECT `careerID`, `jobTitle`, `companyName`, `jobDescript`, `companyLogo`, 
-            `minSalary`, `maxSalary`, `colCode`, `author`, `date_posted` FROM `career`";
+            $query = "SELECT * FROM `career`"; //as defult
 
-            $result = mysqli_query($con,$query);
-            $row = mysqli_fetch_row($result);
-
-            $response = "";
-            $careerID = array();
-            $jobTitle = array();
-            $companyName = array();
-            $jobDescript = array();
-            $companyLogo = array();
-            $minSalary = array();
-            $maxSalary = array();
-            $colCode = array();
-            $author = array();
-            $date_posted = array();
-
-            if($row>0){
-                $response = "Success";
-                while($row_data = mysqli_fetch_assoc($result)){
-                    $careerID[] = $row_data['careerID'];
-                    $jobTitle[] = $row_data['jobTitle'];
-                    $companyName[] = $row_data['companyName'];
-                    $jobDescript[] = $row_data['jobDescript'];
-                    $companyLogo[] = base64_encode($row_data['companyLogo']);
-                    $minSalary[] = $row_data['minSalary'];
-                    $maxSalary[] = $row_data['colCode'];
-                    $colCode[] = $row_data['colCode'];
-                    $author[] = $row_data['author'];
-                    $date_posted[] = $row_data['date_posted'];
-                }
-            } else $response = "Error";
-
-
-            $data =  array(
-                'result' =>$response,
-                'careerID' =>$careerID,
-                'jobTitle' =>$jobTitle,
-                'companyName' =>$companyName,
-                'companyLogo' =>$companyLogo,
-                'jobDescript' =>$jobDescript,
-                'minSalary' =>$minSalary,
-                'maxSalary' =>$maxSalary,
-                'colCode' =>$colCode,
-                'author' =>$author,
-                'date_posted' =>$date_posted,
-            );
+            //if there's a condition assigned
+            if($condition!=NULL){
+                $query ="SELECT * FROM `career` $condition";
+            }
             
-            echo json_encode($data);
+            $result = mysqli_query($con,$query);
+
+            if($result){
+                $row = mysqli_fetch_row($result);
+
+                $response = "";
+                $careerID = array();
+                $jobTitle = array();
+                $companyName = array();
+                $jobDescript = array();
+                $companyLogo = array();
+                $minSalary = array();
+                $maxSalary = array();
+                $colCode = array();
+                $author = array();
+                $date_posted = array();
+    
+                if($row>0){
+                    $response = "Success";
+                    while($row_data = mysqli_fetch_assoc($result)){
+                        $careerID[] = $row_data['careerID'];
+                        $jobTitle[] = $row_data['jobTitle'];
+                        $companyName[] = $row_data['companyName'];
+                        $jobDescript[] = $row_data['jobDescript'];
+                        $companyLogo[] = base64_encode($row_data['companyLogo']);
+                        $minSalary[] = $row_data['minSalary'];
+                        $maxSalary[] = $row_data['colCode'];
+                        $colCode[] = $row_data['colCode'];
+                        $author[] = $row_data['author'];
+                        $date_posted[] = $row_data['date_posted'];
+                    }
+                } else $response = "Error";
+    
+    
+                $data =  array(
+                    'result' =>$response,
+                    'careerID' =>$careerID,
+                    'jobTitle' =>$jobTitle,
+                    'companyName' =>$companyName,
+                    'companyLogo' =>$companyLogo,
+                    'jobDescript' =>$jobDescript,
+                    'minSalary' =>$minSalary,
+                    'maxSalary' =>$maxSalary,
+                    'colCode' =>$colCode,
+                    'author' =>$author,
+                    'date_posted' =>$date_posted,
+                );
+                
+                echo json_encode($data);
+            }
+            else echo $query;
+            
         }
     }
     

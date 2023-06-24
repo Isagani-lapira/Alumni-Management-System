@@ -8,7 +8,6 @@
             $arrayData = json_decode($data,true);
             $action = $arrayData['action'];
 
-
             if($action=='create'){
                 $admin = $_POST['author'];
 
@@ -28,7 +27,7 @@
                 $minSalary = $_POST['minSalary'];
                 $maxSalary = $_POST['maxSalary'];
                 $qualification = $_POST['qualificationTxt'];
-    
+                $personID = $_POST['personID'];
                 //for career ID
                 $uniqueId = substr(md5(uniqid()), 0, 7); //unique id with length of 7
                 $careerID = 'career'.$uniqueId;
@@ -37,7 +36,7 @@
                 $career = new Career();
                 $career->insertionJob($careerID,$jobTitle,$companyName,$projectDescript,
                                         $image,$minSalary,$maxSalary,'CICT',$admin,
-                                        $skillArray,$reqArray,$mysql_con);
+                                        $skillArray,$reqArray,$personID,$mysql_con);
     
                 if($career) echo 'Job successfully added on the hunt';
                 else echo 'Unexpected issue: Try again later';
@@ -46,7 +45,9 @@
             else if($action=='read'){
 
                 $readCareer = new Career();
-                $readCareer->selectData($mysql_con);
+                //check if there's a condition or non
+                $condition = ($_POST['query']=="NONE")? NULL:$_POST['query'];
+                $readCareer->selectData($condition,$mysql_con);
             }
         }
         catch(Exception $e){
