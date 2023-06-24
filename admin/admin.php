@@ -645,7 +645,7 @@
 
                     echo '
                     <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
-                      <img src="data:image/jpeg;base64,'.$logo.'"class="flex-auto h-1/5" src="https://www.bulsu.edu.ph/resources/colleges-logo/COED.png" alt="">
+                      <img src="data:image/jpeg;base64,'.$logo.'"class="flex-auto h-1/5" alt="">
                       <p class="text-xs text-center text-greyish_black font-medium">'.$colName.'</p>
                     </div>';
                   }
@@ -1259,11 +1259,11 @@
               </div>
 
             </div>
-
+            
             <table class="w-full mt-10">
               <thead class="bg-accent text-sm text-white p-3">
                 <tr>
-                  <th class="rounded-tl-lg">Company Logo</th>
+                  <th class="rounded-tl-lg">Company</th>
                   <th>Title</th>
                   <th>Author</th>
                   <th>College</th>
@@ -1271,83 +1271,54 @@
                   <th class="rounded-tr-lg">Action</th>
                 </tr>
               </thead>
+
               <tbody class="text-sm">
 
-                <tr>
-                  <td>
-                    <img class="w-28" src="../assets/company-logo/meralco.png" alt="">
-                  </td>
-                  <td>Backend Developer</td>
-                  <td>Admin</td>
-                  <td>CICT</td>
-                  <td>04/10/25</td>
-                  <td>
-                    <button
-                      class="viewJobModal bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
-                  </td>
-                </tr>
+                <?php
+                  require_once '../PHP_process/connection.php';
+                  
+                  $query = "SELECT `jobTitle`, 
+                  `companyLogo`, `colCode`, `author`, `date_posted` 
+                  FROM `career`";
 
+                  $result = mysqli_query($mysql_con,$query);
+                  $row = mysqli_fetch_row($result);
 
-                <tr>
-                  <td>
-                    <img class="w-28" src="../assets/company-logo/PNA.png" alt="">
-                  </td>
-                  <td>Health play specialist</td>
-                  <td>Ma. Cristine Legerin</td>
-                  <td>CON</td>
-                  <td>04/10/25</td>
-                  <td>
-                    <button
-                      class="viewJobModal bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
-                  </td>
-                </tr>
+                  if($row>0){
+                    //fetch the data
+                    while($data = mysqli_fetch_assoc($result)){
+                      $jobTitle = $data['jobTitle'];
+                      $companyLogo = $data['companyLogo'];
+                      $colCode = $data['colCode'];
+                      $author = $data['author'];
+                      $date_posted = $data['date_posted'];
 
-
-                <tr>
-                  <td>
-                    <img class="w-28" src="../assets/company-logo/vircon.png" alt="">
-                  </td>
-                  <td>Accountant</td>
-                  <td>Admin</td>
-                  <td>CBA</td>
-                  <td>04/10/25</td>
-                  <td>
-                    <button
-                      class="viewJobModal bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
-                  </td>
-                </tr>
-
-
-                <tr>
-                  <td>
-                    <img class="w-28" src="../assets/company-logo/IA.png" alt="">
-                  </td>
-                  <td>Interior and spatial designer</td>
-                  <td>James Matsugi</td>
-                  <td>CAFA</td>
-                  <td>04/10/25</td>
-                  <td>
-                    <button
-                      class="viewJobModal bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
-                  </td>
-                </tr>
-
-
-                <tr>
-                  <td>
-                    <img class="w-28" src="../assets/company-logo/privateChef.png" alt="">
-                  </td>
-                  <td>Private Chef</td>
-                  <td>Dennice Malengco</td>
-                  <td>CHTM</td>
-                  <td>04/10/25</td>
-                  <td>
-                    <button
-                      class="viewJobModal bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
-                  </td>
-                </tr>
-
-
+                      $logo = base64_encode($companyLogo);
+                    
+                      //display the data
+                      echo '
+                      <tr class="text-xs">
+                        <td>
+                          <img class="w-20 mx-auto" src="data:image/jpeg;base64,'.$logo.'" alt="">
+                        </td>
+                        <td>'.$jobTitle.'</td>
+                        <td>'.$author.'</td>
+                        <td>'.$colCode.'</td>
+                        <td>'.$date_posted.'</td>
+                        <td>
+                          <button
+                            class="viewJobModal bg-blue-400 hover:bg-blue-500 text-white py-1 px-3 rounded-md">View</button>
+                        </td>
+                      </tr>';
+                    }
+                  } else echo ' 
+                  <tr class="text-xs">
+                    <td>
+                      <p>No available data</p>
+                    </td>
+                  </tr>
+                  ';
+                ?>
               </tbody>
             </table>
 
