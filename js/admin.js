@@ -151,6 +151,7 @@ $(document).ready(function () {
     $('#jobPosting').hide()
     $('#jobList').show()
     $('.jobPostingBack').hide()
+    $('#adminJobPost').hide();
   })
 
   $('.inputSkill').on('input', function () {
@@ -290,6 +291,8 @@ $(document).ready(function () {
         success: function (success) {
           $('#promptMessage').removeClass('hidden');
           $('#insertionMsg').html(success);
+          $('#jobTBContent').empty();
+          jobList()
         },
         error: function (error) {
           $('#promptMessage').removeClass('hidden');
@@ -307,56 +310,59 @@ $(document).ready(function () {
   let jobQuery = "NONE"
   jobData.append('action', JSON.stringify(jobAction));
   jobData.append('query', jobQuery);
+
   //job table listing
-  $.ajax({
-    url: '../PHP_process/jobTable.php',
-    type: 'POST',
-    data: jobData,
-    processData: false,
-    contentType: false,
-    dataType: 'json',
-    success: function (response) {
+  jobList()
+  function jobList() {
+    $.ajax({
+      url: '../PHP_process/jobTable.php',
+      type: 'POST',
+      data: jobData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      success: function (response) {
+        //check if there's a value
+        if (response.result === 'Success') {
+          console.log(response.data)
+          $('.jobErrorMsg').addClass('hidden'); //hide the message
+          let data = response;
+          let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
 
-      //check if there's a value
-      if (response.result === 'Success') {
+          for (let i = 0; i < jobTitles.length; i++) {
+            //fetch all the data
+            let jobTitle = jobTitles[i];
+            let author = data.author[i];
+            let college = data.colCode[i];
+            let datePosted = data.date_posted[i];
+            let companyLogo = data.companyLogo[i];
 
-        $('.jobErrorMsg').addClass('hidden'); //hide the message
-        let data = response;
-        let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
-
-        for (let i = 0; i < jobTitles.length; i++) {
-          //fetch all the data
-          let jobTitle = jobTitles[i];
-          let author = data.author[i];
-          let college = data.colCode[i];
-          let datePosted = data.date_posted[i];
-          let companyLogo = data.companyLogo[i];
-
-          let logo = "data:image/jpeg;base64," + companyLogo;
-          //add data to a table data
-          let row = $('<tr>').addClass('text-xs');
-          let tdTitle = $('<td>').text(jobTitle);
-          let tdAuthor = $('<td>').text(author);
-          let tdCollege = $('<td>').text(college);
-          let tdDatePosted = $('<td>').text(datePosted);
-          let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
-          let btnView = $('<td>').append($('<button>').text('View').addClass('py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton'));
+            let logo = "data:image/jpeg;base64," + companyLogo;
+            //add data to a table data
+            let row = $('<tr>').addClass('text-xs');
+            let tdTitle = $('<td>').text(jobTitle);
+            let tdAuthor = $('<td>').text(author);
+            let tdCollege = $('<td>').text(college);
+            let tdDatePosted = $('<td>').text(datePosted);
+            let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
+            let btnView = $('<td>').append($('<button>').text('View').addClass('py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton'));
 
 
-          //display every data inside the table
-          row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted, btnView);
-          $('#jobTBContent').append(row);
+            //display every data inside the table
+            row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted, btnView);
+            $('#jobTBContent').append(row);
+          }
+        } else {
+          $('.jobErrorMsg').removeClass('hidden'); //add message to the user
         }
-      } else {
-        $('.jobErrorMsg').removeClass('hidden'); //add message to the user
+
+      },
+      error: function (xhr, status, error) {
+        console.log('AJAX request error:', error)
       }
 
-    },
-    error: function (xhr, status, error) {
-      console.log('AJAX request error:', error)
-    }
-
-  })
+    })
+  }
 
 
   //retrieve all admin post
@@ -377,7 +383,27 @@ $(document).ready(function () {
     contentType: false,
     dataType: 'json',
     success: function (response) {
-      console.log(response);
+      if (response.result == "Success") {
+        let data = response;
+
+        let jobTitle = data.jobTitle;
+
+        for (i = 0; i < jobTitle.length; i++) {
+          let careerTitle = data.jobTitle[i];
+          let companyLogo = data.companyLogo[i];
+
+          let logo = "data:image/jpeg;base64," + companyLogo;
+          let container = $('<div>').addClass("college center-shadow col-span-1 flex flex-col justify-center rounded-lg border");
+          let imgLogo = $('<img>').addClass("flex-auto h-20 w-20 block mx-auto")
+          imgLogo.attr('src', logo)
+
+          let titlePart = $('<p>').addClass("text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium");
+          titlePart.text(careerTitle);
+          container.append(imgLogo, titlePart);
+          $('#adminJobPostCont').append(container);
+        }
+
+      }
     },
     error: function (error) {
       console.log(error)

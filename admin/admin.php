@@ -1356,47 +1356,7 @@
 
           <!-- admin job post -->
           <div id="adminJobPost" class="mt-10 w-full hidden">
-            <div class="grid grid-cols-4 gap-4 p-7">
-              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg border">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/accenture.png" alt="">
-                <p class="text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium">
-                  Quality
-                  Assurance</p>
-              </div>
-
-              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/IA.png" alt="">
-                <p class="text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium">
-                  Software
-                  Engineer</p>
-              </div>
-
-              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/meralco.png" alt="">
-                <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">
-                  Backend
-                  Developer</p>
-              </div>
-              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/PNA.png" alt="">
-                <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">
-                  Gradeschool
-                  Teacher</p>
-              </div>
-              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/privateChef.png" alt="">
-                <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">
-                  Expert Chef
-                </p>
-              </div>
-              <div class="college center-shadow col-span-1 flex flex-col justify-center rounded-lg">
-                <img class="flex-auto h-20 w-20 block mx-auto" src="../assets/company-logo/vircon.png" alt="">
-                <p class="text-xs text-center mt-5  w-full bg-accent rounded-b-lg p-2 text-white font-medium">Crew
-                  Member
-                </p>
-              </div>
-
-            </div>
+            <div id="adminJobPostCont" class="grid grid-cols-4 gap-4 p-7"></div>
           </div>
         </div>
       </main>
