@@ -69,8 +69,7 @@
             $result = mysqli_query($con,$query);
 
             if($result){
-                $row = mysqli_fetch_row($result);
-
+                
                 $response = "";
                 $careerID = array();
                 $jobTitle = array();
@@ -84,7 +83,7 @@
                 $author = array();
                 $date_posted = array();
     
-                if($row>0){
+                if(mysqli_num_rows($result) > 0){
                     $response = "Success";
                     while($row_data = mysqli_fetch_assoc($result)){
                         $careerID[] = $row_data['careerID'];
