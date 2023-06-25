@@ -364,7 +364,7 @@ $(document).ready(function () {
     })
   }
 
-
+  let noPostedJob = ""
   //retrieve all admin post
   let adminPost = new FormData();
   let adminAction = {
@@ -386,9 +386,10 @@ $(document).ready(function () {
       if (response.result == "Success") {
         let data = response;
 
-        let jobTitle = data.jobTitle;
+        let noPostedJob = data.jobTitle.length;
+        $('#noPostedJob').html(noPostedJob)
 
-        for (i = 0; i < jobTitle.length; i++) {
+        for (i = 0; i < noPostedJob.length; i++) {
           let careerTitle = data.jobTitle[i];
           let companyLogo = data.companyLogo[i];
 
@@ -401,6 +402,7 @@ $(document).ready(function () {
           titlePart.text(careerTitle);
           container.append(imgLogo, titlePart);
           $('#adminJobPostCont').append(container);
+
         }
 
       }
@@ -442,22 +444,9 @@ $(document).ready(function () {
   }
 
 
-  let totalCol = new FormData();
-  let dataAction = {
-    action: 'read',
-  }
-  totalCol.append('data', JSON.stringify(dataAction))
 
-  $.ajax({
-    url: '../PHP_process/collegeDB.php',
-    type: 'POST',
-    data: totalCol,
-    processData: false,
-    contentType: false,
-    success: (response) => $("#totalCol").text(response),
-    error: (error) => $("#totalCol").text("Error occured: " + error)
-  })
 });
+
 
 
 let typingTimeout = null;

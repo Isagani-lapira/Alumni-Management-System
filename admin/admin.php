@@ -277,7 +277,7 @@
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of posted job</p>
-                      <span class="text-accent">23</span>
+                      <span id="noPostedJob" class="text-accent"></span>
                     </div>
                   </div>
                 </div>
