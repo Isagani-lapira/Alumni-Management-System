@@ -436,13 +436,27 @@ $(document).ready(function () {
         $(this).removeClass('border-gray-400').addClass('border-accent')
         allFieldCompleted = false;
       }
-      else {
-        $(this).addClass('border-grayish').removeClass('border-accent')
-      }
+      else $(this).addClass('border-grayish').removeClass('border-accent')
     })
     return allFieldCompleted;
   }
 
+
+  let totalCol = new FormData();
+  let dataAction = {
+    action: 'read',
+  }
+  totalCol.append('data', JSON.stringify(dataAction))
+
+  $.ajax({
+    url: '../PHP_process/collegeDB.php',
+    type: 'POST',
+    data: totalCol,
+    processData: false,
+    contentType: false,
+    success: (response) => $("#totalCol").text(response),
+    error: (error) => $("#totalCol").text("Error occured: " + error)
+  })
 });
 
 

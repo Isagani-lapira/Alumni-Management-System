@@ -191,7 +191,7 @@
                       <img class="inline mr-1" src="../images/graduate-cap.svg" />
                       COLLEGES
                     </span>
-                    <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">12</p>
+                    <p id="totalCol" class="text-accent font-bold text-4xl mt-2 absolute bottom-2">12</p>
                   </div>
 
                 </div>

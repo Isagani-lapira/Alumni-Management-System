@@ -26,9 +26,8 @@
             echo 'An error occured: '.$e->getMessage();
         }       
     }
-    else {
-        echo 'Data has not been yet set. Try again later';
-    }
+    else echo 'Data has not been yet set. Try again later';
+
     function insertionCollege($con){
         if(isset($_FILES['collegeLogo']) && isset($_POST['arrayData'])){
             $image = addslashes(file_get_contents($_FILES['collegeLogo']['tmp_name']));
