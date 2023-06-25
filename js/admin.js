@@ -406,7 +406,7 @@ $(document).ready(function () {
         let noPostedJob = data.jobTitle.length;
         $('#noPostedJob').html(noPostedJob)
 
-        for (i = 0; i < noPostedJob.length; i++) {
+        for (i = 0; i < noPostedJob; i++) {
           let careerTitle = data.jobTitle[i];
           let companyLogo = data.companyLogo[i];
 

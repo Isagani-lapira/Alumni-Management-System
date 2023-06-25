@@ -1571,7 +1571,7 @@
         <p id="jobQualification" class="text-sm h-max"></p>
         
 
-        <p class="text-black font-bold text-sm my-3">REQUIREMENTS</p>
+        <p class="text-black font-bold my-3">REQUIREMENTS</p>
         <div class="text-greyish_black text-sm">
           <p><span class="font-bold text-lg">&#x2022</span> Resume</p>
           <p><span class="font-bold text-lg">&#x2022</span> Endorsement Letter from school addressed to Alvin Miranda,
