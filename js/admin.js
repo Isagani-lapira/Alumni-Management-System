@@ -368,6 +368,9 @@ $(document).ready(function () {
             //display every data inside the table
             row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted, btnView);
             $('#jobTBContent').append(row);
+
+            $('#adminJobPostCont').empty();
+            myJobPostList()
           }
         } else {
           $('.jobErrorMsg').removeClass('hidden'); //add message to the user
@@ -381,53 +384,57 @@ $(document).ready(function () {
     })
   }
 
-  let noPostedJob = ""
-  //retrieve all admin post
-  let adminPost = new FormData();
-  let adminAction = {
-    action: 'read'
-  }
-  let query = "WHERE `personID` = " + '"admin23/06/22 10:42:15-890"';
-  //WHERE `personID` = "admin23/06/22 10:42:15-890"
-  adminPost.append('action', JSON.stringify(adminAction));
-  adminPost.append('query', query);
 
-  $.ajax({
-    url: '../PHP_process/jobTable.php',
-    data: adminPost,
-    type: 'POST',
-    processData: false,
-    contentType: false,
-    dataType: 'json',
-    success: function (response) {
-      if (response.result == "Success") {
-        let data = response;
+  myJobPostList()
+  function myJobPostList() {
+    //retrieve all admin post
+    let adminPost = new FormData();
+    let adminAction = {
+      action: 'read'
+    }
+    let query = "WHERE `personID` = " + '"admin23/06/22 10:42:15-890"';
+    adminPost.append('action', JSON.stringify(adminAction));
+    adminPost.append('query', query);
 
-        let noPostedJob = data.jobTitle.length;
-        $('#noPostedJob').html(noPostedJob)
+    $.ajax({
+      url: '../PHP_process/jobTable.php',
+      data: adminPost,
+      method: 'POST',
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      success: function (response) {
+        if (response.result == "Success") {
+          let data = response;
 
-        for (i = 0; i < noPostedJob; i++) {
-          let careerTitle = data.jobTitle[i];
-          let companyLogo = data.companyLogo[i];
+          console.log(data);
+          let noPostedJob = data.jobTitle.length;
+          $('#noPostedJob').html(noPostedJob)
 
-          let logo = "data:image/jpeg;base64," + companyLogo;
-          let container = $('<div>').addClass("college center-shadow col-span-1 flex flex-col justify-center rounded-lg border");
-          let imgLogo = $('<img>').addClass("flex-auto h-20 w-20 block mx-auto")
-          imgLogo.attr('src', logo)
+          for (i = 0; i < noPostedJob; i++) {
+            let careerTitle = data.jobTitle[i];
+            let companyLogo = data.companyLogo[i];
 
-          let titlePart = $('<p>').addClass("text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium");
-          titlePart.text(careerTitle);
-          container.append(imgLogo, titlePart);
-          $('#adminJobPostCont').append(container);
+            let logo = "data:image/jpeg;base64," + companyLogo;
+            let container = $('<div>').addClass("college center-shadow col-span-1 flex flex-col justify-center rounded-lg border");
+            let imgLogo = $('<img>').addClass("flex-auto h-20 w-20 block mx-auto")
+            imgLogo.attr('src', logo)
+
+            let titlePart = $('<p>').addClass("text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium");
+            titlePart.text(careerTitle);
+            container.append(imgLogo, titlePart);
+            $('#adminJobPostCont').append(container);
+
+          }
 
         }
-
+      },
+      error: function (error) {
+        console.log(error)
       }
-    },
-    error: function (error) {
-      console.log(error)
-    }
-  })
+    })
+  }
+
 
   function skillArray() {
     var skills = [];

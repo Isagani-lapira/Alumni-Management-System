@@ -584,7 +584,7 @@
                 <td>
                   <div class="flex items-center justify-start">
                     <img class="w-10 h-10 rounded-full border-2 border-accent"
-                      src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+                      src=""></img>
                     <span class="ml-2">Cameron Williamson</span>
                   </div>
                 </td>
@@ -992,7 +992,7 @@
                   <td>
                     <div class="flex items-center justify-start">
                       <img class="w-10 h-10 rounded-full border-2 border-accent"
-                        src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+                        src=""></img>
                       <span class="ml-2">Cameron Williamson</span>
                     </div>
                   </td>
@@ -1113,7 +1113,7 @@
                 <td>
                   <div class="flex items-center justify-start">
                     <img class="w-10 h-10 rounded-full border-2 border-accent"
-                      src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+                      src=""></img>
                     <span class="ml-2">Cameron Williamson</span>
                   </div>
                 </td>
@@ -1541,8 +1541,8 @@
           <div class="w-3/5 ps-3">
             <span id="viewJobColText" class="text-lg font-semibold"></span>
             <div class="flex items-center">
-              <p class="text-sm text-gray-400 pr-1">Poted: </p>
-              <p id="viewJobAuthor" class="text-sm text-green-500"></p>
+              <p class="text-sm text-gray-400 pr-1">Podted by: </p>
+              <p id="viewJobAuthor" class="text-sm text-gray-400"></p>
             </div>
 
             <div class="flex items-center">

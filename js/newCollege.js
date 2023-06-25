@@ -116,6 +116,7 @@ $(document).ready(function () {
 
     $('#goBack').on('click', () => window.location.href = "../admin/admin.php")
 
+
     $('#collegeForm').submit(function (e) {
 
         // Push the username and pass variables into the inputVal array
