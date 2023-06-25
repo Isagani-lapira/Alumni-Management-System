@@ -1,13 +1,13 @@
 <?php
     class Career{
         //job insertion
-        public function insertionJob($careerID,$jobTitle,$companyName,$descript,
+        public function insertionJob($careerID,$jobTitle,$companyName,$descript,$qualification,
                         $logo,$minSalary,$maxSalary,$colCode,$author,$skill,$requirement,$personID,$con){
             
             $date_posted  = date('y-m-d');
-            $query = "INSERT INTO `career`(`careerID`, `jobTitle`, `companyName`, `jobDescript`, 
+            $query = "INSERT INTO `career`(`careerID`, `jobTitle`, `companyName`, `jobDescript`,`jobqualification`,
             `companyLogo`, `minSalary`, `maxSalary`, `colCode`, `author`, `date_posted`, `personID`) 
-            VALUES ('$careerID','$jobTitle','$companyName','$descript','$logo','$minSalary',
+            VALUES ('$careerID','$jobTitle','$companyName','$descript','$qualification','$logo','$minSalary',
             '$maxSalary','$colCode','$author','$date_posted','$personID')";
 
             $result = mysqli_query($con, $query);
@@ -76,6 +76,7 @@
                 $jobTitle = array();
                 $companyName = array();
                 $jobDescript = array();
+                $jobQuali = array();
                 $companyLogo = array();
                 $minSalary = array();
                 $maxSalary = array();
@@ -90,6 +91,7 @@
                         $jobTitle[] = $row_data['jobTitle'];
                         $companyName[] = $row_data['companyName'];
                         $jobDescript[] = $row_data['jobDescript'];
+                        $jobQuali[] = $row_data['jobqualification'];
                         $companyLogo[] = base64_encode($row_data['companyLogo']);
                         $minSalary[] = $row_data['minSalary'];
                         $maxSalary[] = $row_data['colCode'];
@@ -107,6 +109,7 @@
                     'companyName' =>$companyName,
                     'companyLogo' =>$companyLogo,
                     'jobDescript' =>$jobDescript,
+                    'jobQuali' => $jobQuali,
                     'minSalary' =>$minSalary,
                     'maxSalary' =>$maxSalary,
                     'colCode' =>$colCode,

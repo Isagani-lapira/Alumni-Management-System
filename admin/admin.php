@@ -817,7 +817,7 @@
 
                   <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
                   <img class="my-2 rounded-md"
-                    src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9"
+                    src=""
                     alt="">
                   <div class="flex py-2 items-center">
                     <img class="h-5" src="../assets/icons/heart.png" alt="">
@@ -1532,36 +1532,33 @@
 
     <!-- View job post modal -->
     <div id="viewJob" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
-        text-grayish  top-0 left-0 p-5 hidden">
+        top-0 left-0 p-5 hidden overflow-y-auto">
       <!-- modal body -->
-      <div class="w-2/5 bg-white rounded-lg h-full p-5 overflow-x-auto">
+      <div class="w-2/5 bg-white rounded-lg h-max p-5">
         <!-- content -->
         <div class="headerJob flex">
-          <img class="h-16 w-16 rounded-full inline" src="../assets/bulsu-logo.png" alt="">
+          <img id="jobCompanyLogo" class="h-20 w-20 inline" src="" alt="">
           <div class="w-3/5 ps-3">
-            <span id="viewJobColText" class="text-sm font-semibold">College of Information and Communication
-              Technology
-            </span>
-            <p class="text-xs">College Admin</p>
+            <span id="viewJobColText" class="text-lg font-semibold"></span>
+            <div class="flex items-center">
+              <p class="text-sm text-gray-400 pr-1">Poted: </p>
+              <p id="viewJobAuthor" class="text-sm text-green-500"></p>
+            </div>
+
+            <div class="flex items-center">
+              <p class="text-sm text-gray-400 pr-1">Company Name: </p>
+              <p id="viewJobColCompany" class="text-sm text-green-500">Admin</p>
+            </div>
+
+            <p id="viewPostedDate" class="text-sm text-gray-400 pr-1"></p>
           </div>
+          
         </div>
         <hr class="border border-gray-400 mt-10">
+        
 
-        <div class="flex mt-5 items-center">
-          <img class="h-8 w-8 rounded-full inline" src="../assets/company-logo/accenture.png" alt="">
-          <div class="w-3/5 ps-3">
-            <span id="viewJobColText" class="font-semibold text-greyish_black">Accenture</span>
-          </div>
-        </div>
-
-        <p class="text-black font-bold text-sm my-3">Project Overview</p>
-        <p class="text-sm">HIRING Appointment SETTER! We are a creative agency and we offer short form content services
-          via tiktok,
-          reels and shorts.BASE SALARY and bonus commissions!You will be sending messages to qualified leads.-
-          You will be given proven scripts that work- You will be given accounts to log-in intoYou will have to
-          find and message qualified leads, we have training for this.You will get base salary and of any clients
-          we close + $ on per booked call, We will do a training and trial period and see if you are efficient
-          and know how to outreach</p>
+        <p class="text-black font-bold my-3">Project Overview</p>
+        <p id="jobOverview" class="text-sm h-max w-full"></p>
 
         <p class="text-black font-bold text-sm my-3">Skills</p>
         <div class="flex gap-2 text-greyish_black text-sm">
@@ -1570,15 +1567,9 @@
           <span>&#x2022 Landing Page</span>
         </div>
 
-        <p class="text-black font-bold text-sm my-3">Qualification</p>
-        <div class="text-greyish_black text-sm">
-          <p><span class="font-bold text-lg">&#x2022</span> College Student in any finance-related course such as
-            FinancialManagement or Accounting; currently enrolled in a School/University</p>
-          <p><span class="font-bold text-lg">&#x2022</span> Proficient in Microsoft Office especially Excel and
-            PowerPoint</p>
-          <p><span class="font-bold text-lg">&#x2022</span> Preferably those required to do at least 100 practicum hours
-            and can start immediately</p>
-        </div>
+        <p class="text-black font-bold my-3">Qualification</p>
+        <p id="jobQualification" class="text-sm h-max"></p>
+        
 
         <p class="text-black font-bold text-sm my-3">REQUIREMENTS</p>
         <div class="text-greyish_black text-sm">

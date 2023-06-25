@@ -35,8 +35,9 @@
                 //insert a data 
                 $career = new Career();
                 $career->insertionJob($careerID,$jobTitle,$companyName,$projectDescript,
-                                        $image,$minSalary,$maxSalary,'CICT',$admin,
-                                        $skillArray,$reqArray,$personID,$mysql_con);
+                                        $qualification,$image,$minSalary,$maxSalary,
+                                        'CICT',$admin,$skillArray,$reqArray,$personID,
+                                        $mysql_con);
     
                 if($career) echo 'Job successfully added on the hunt';
                 else echo 'Unexpected issue: Try again later';

@@ -263,6 +263,7 @@ $(document).ready(function () {
     $('#jobList').show()
     $('.jobPostingBack').hide()
   })
+
   //job form
   $('#jobForm').on('submit', function (e) {
     e.preventDefault()
@@ -333,6 +334,10 @@ $(document).ready(function () {
             //fetch all the data
             let jobTitle = jobTitles[i];
             let author = data.author[i];
+            let careerID = data.careerID[i]
+            let companyName = data.companyName[i]
+            let jobDescript = data.jobDescript[i]
+            let jobQuali = data.jobQuali[i]
             let college = data.colCode[i];
             let datePosted = data.date_posted[i];
             let companyLogo = data.companyLogo[i];
@@ -345,7 +350,19 @@ $(document).ready(function () {
             let tdCollege = $('<td>').text(college);
             let tdDatePosted = $('<td>').text(datePosted);
             let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
-            let btnView = $('<td>').append($('<button>').text('View').addClass('py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton'));
+            let btnView = $('<td>').append($('<button>').text('View')
+              .addClass('py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton')
+              .attr('value', careerID)
+              .on('click', function () {
+                $('#viewJob').removeClass('hidden');
+                $('#jobCompanyLogo').attr('src', logo)
+                $('#viewJobColText').text(jobTitle);
+                $('#viewJobAuthor').text(author);
+                $('#viewJobColCompany').text(companyName)
+                $('#viewPostedDate').text(datePosted)
+                $('#jobOverview').text(jobDescript)
+                $('#jobQualification').text(jobQuali)
+              }));
 
 
             //display every data inside the table
