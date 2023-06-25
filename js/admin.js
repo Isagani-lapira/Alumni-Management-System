@@ -250,6 +250,7 @@ $(document).ready(function () {
     contentType: false,
     success: function (response) {
       $('#totalCol').html(response)
+      $('#totalColNo').html(response)
     },
     error: function (error) {
       $('#totalCol').html(error)
@@ -324,7 +325,6 @@ $(document).ready(function () {
       success: function (response) {
         //check if there's a value
         if (response.result === 'Success') {
-          console.log(response.data)
           $('.jobErrorMsg').addClass('hidden'); //hide the message
           let data = response;
           let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
