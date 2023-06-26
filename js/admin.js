@@ -242,6 +242,7 @@ $(document).ready(function () {
   var formData = new FormData();
   formData.append('data', JSON.stringify(data))
 
+  //get total number of colleges available in the database
   $.ajax({
     url: '../PHP_process/collegeDB.php',
     type: 'POST',
@@ -257,6 +258,7 @@ $(document).ready(function () {
     }
   })
 
+  //go back button in job tab
   $('#goBack').click(function () {
     $('#promptMessage').addClass('hidden');
     $('#jobPosting').hide()
@@ -278,6 +280,7 @@ $(document).ready(function () {
         action: 'create',
       }
 
+      //data to be sent in the php
       data.append('action', JSON.stringify(action))
       data.append('author', 'University Admin');
       data.append('skills', JSON.stringify(skills));
@@ -293,8 +296,12 @@ $(document).ready(function () {
         success: function (success) {
           $('#promptMessage').removeClass('hidden');
           $('#insertionMsg').html(success);
+
+          //remove the current data that has been adden
           $('#adminJobPostCont').empty()
           $('#jobTBContent').empty();
+
+          //retrieve the data to be display all
           jobList()
           myJobPostList()
         },
@@ -309,7 +316,7 @@ $(document).ready(function () {
 
   var jobData = new FormData();
   var jobAction = {
-    action: 'read',
+    action: 'read', //read the data
   }
   let jobQuery = "NONE"
   jobData.append('action', JSON.stringify(jobAction));
@@ -336,7 +343,6 @@ $(document).ready(function () {
             //fetch all the data
             let jobTitle = jobTitles[i];
             let author = data.author[i];
-            let careerID = data.careerID[i]
             let companyName = data.companyName[i]
             let jobDescript = data.jobDescript[i]
             let jobQuali = data.jobQuali[i]
@@ -463,7 +469,7 @@ $(document).ready(function () {
     })
   }
 
-
+  //retrieve all the skills have been written
   function skillArray() {
     var skills = [];
     $('.skillInput').each(function () {
@@ -473,6 +479,8 @@ $(document).ready(function () {
     return skills
 
   }
+
+  //retrieve all the requirements have been written
   function reqArray() {
     var requirement = [];
     $('.reqInput').each(function () {
@@ -483,6 +491,7 @@ $(document).ready(function () {
 
   }
 
+  //check if the forms in the job field is all answered
   function jobField() {
     var allFieldCompleted = true;
     $('.jobField').each(function () {
