@@ -332,7 +332,6 @@ $(document).ready(function () {
           let data = response;
           let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
 
-          console.log(response)
           for (let i = 0; i < jobTitles.length; i++) {
             //fetch all the data
             let jobTitle = jobTitles[i];
@@ -344,8 +343,11 @@ $(document).ready(function () {
             let college = data.colCode[i];
             let datePosted = data.date_posted[i];
             let companyLogo = data.companyLogo[i];
-
+            let skills = data.skills[i];
+            let requirements = data.requirements[i];
             let logo = "data:image/jpeg;base64," + companyLogo;
+
+
             //add data to a table data
             let row = $('<tr>').addClass('text-xs');
             let tdTitle = $('<td>').text(jobTitle);
@@ -353,10 +355,17 @@ $(document).ready(function () {
             let tdCollege = $('<td>').text(college);
             let tdDatePosted = $('<td>').text(datePosted);
             let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
+
+
+            //set up the value if th button view was clicked to view the details of the job
             let btnView = $('<td>').append($('<button>').text('View')
               .addClass('py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton')
-              .attr('value', careerID)
               .on('click', function () {
+                //remove the recent added skill and requirements
+                $('#skillSets').empty()
+                $('#reqCont').empty()
+
+                //set value to the view modal
                 $('#viewJob').removeClass('hidden');
                 $('#jobCompanyLogo').attr('src', logo)
                 $('#viewJobColText').text(jobTitle);
@@ -365,13 +374,32 @@ $(document).ready(function () {
                 $('#viewPostedDate').text(datePosted)
                 $('#jobOverview').text(jobDescript)
                 $('#jobQualification').text(jobQuali)
-              }));
 
+                //retrieve the skills
+                skills.forEach(skill => {
+
+                  //create a span and append it in the div
+                  spSkill = $('<span>').html('&#x2022; ' + skill);
+                  $('#skillSets').append(spSkill)
+                })
+
+                //retrieve the requirements
+                requirements.forEach(requirement => {
+                  // <p><span class="font-bold text-lg">&#x2022</span> Resume</p>
+                  pTag = $('<p>')
+                  spanTag = $('<span>').addClass('font-bold text-lg mx-2')
+                    .html('&#x2022');
+
+                  pTag.text(requirement)
+                  pTag.prepend(spanTag)
+                  $('#reqCont').append(pTag);
+                })
+
+              }));
 
             //display every data inside the table
             row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted, btnView);
             $('#jobTBContent').append(row);
-
           }
         } else {
           $('.jobErrorMsg').removeClass('hidden'); //add message to the user

@@ -1541,44 +1541,34 @@
           <div class="w-3/5 ps-3">
             <span id="viewJobColText" class="text-lg font-semibold"></span>
             <div class="flex items-center">
-              <p class="text-sm text-gray-400 pr-1">Podted by: </p>
-              <p id="viewJobAuthor" class="text-sm text-gray-400"></p>
+              <p class="text-sm text-gray-600 pr-1">Posted by: </p>
+              <p id="viewJobAuthor" class="text-sm font-semibold text-green-500"></p>
             </div>
 
             <div class="flex items-center">
-              <p class="text-sm text-gray-400 pr-1">Company Name: </p>
-              <p id="viewJobColCompany" class="text-sm text-green-500">Admin</p>
+              <p class="text-sm text-gray-600 pr-1">Company Name: </p>
+              <p id="viewJobColCompany" class="text-sm text-green-500 font-semibold">Admin</p>
             </div>
 
-            <p id="viewPostedDate" class="text-sm text-gray-400 pr-1"></p>
+            <p id="viewPostedDate" class="text-sm text-gray-600 pr-1"></p>
           </div>
           
         </div>
-        <hr class="border border-gray-400 mt-10">
+        <hr class="p-1 border-gray-400 mt-5">
         
 
         <p class="text-black font-bold my-3">Project Overview</p>
-        <p id="jobOverview" class="text-sm h-max w-full"></p>
+        <p id="jobOverview" class="text-sm h-max w-full text-gray-600"></p>
 
         <p class="text-black font-bold text-sm my-3">Skills</p>
-        <div class="flex gap-2 text-greyish_black text-sm">
-          <span>&#x2022 UI Designer</span>
-          <span>&#x2022 Figma </span>
-          <span>&#x2022 Landing Page</span>
-        </div>
+        <div id="skillSets" class="flex flex-wrap gap-2 text-gray-600 text-sm"></div>
 
         <p class="text-black font-bold my-3">Qualification</p>
-        <p id="jobQualification" class="text-sm h-max"></p>
+        <p id="jobQualification" class="text-sm h-max text-gray-600"></p>
         
 
         <p class="text-black font-bold my-3">REQUIREMENTS</p>
-        <div class="text-greyish_black text-sm">
-          <p><span class="font-bold text-lg">&#x2022</span> Resume</p>
-          <p><span class="font-bold text-lg">&#x2022</span> Endorsement Letter from school addressed to Alvin Miranda,
-            HR Director</p>
-          <p><span class="font-bold text-lg">&#x2022</span> Copy of Student ID</p>
-          <p><span class="font-bold text-lg">&#x2022</span> Evaluation Form from school once Internship is completed</p>
-        </div>
+        <div id="reqCont" class="text-gray-600 text-sm"></div>
 
         <button class="bg-green-400 text-white px-8 py-3 mt-5 rounded-md block ml-auto">Apply Now</button>
       </div>

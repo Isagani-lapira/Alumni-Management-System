@@ -82,6 +82,8 @@
                 $colCode = array();
                 $author = array();
                 $date_posted = array();
+                $skills = array();
+                $requirements = array();
     
                 if(mysqli_num_rows($result) > 0){
                     $response = "Success";
@@ -97,6 +99,31 @@
                         $colCode[] = $row_data['colCode'];
                         $author[] = $row_data['author'];
                         $date_posted[] = $row_data['date_posted'];
+
+                        //retrieve skills from the database
+                        $skillQuery = 'SELECT * FROM `skill` WHERE careerID = "' . $row_data['careerID'] . '"';
+                        $skillResult = mysqli_query($con,$skillQuery);      
+                        $skillNames = array();
+
+                        if($skillResult && mysqli_num_rows($skillResult)>0){
+                            while($skill_data = mysqli_fetch_assoc($skillResult)){
+                                $skillNames[] = $skill_data['skill'];
+                            }
+                        }
+                        
+                        $skills[] = $skillNames;
+
+                        //retrieve requirements
+                        $reqQuery = 'SELECT * FROM `requirement` WHERE careerID = "'.$row_data['careerID'].'"';
+                        $reqResult = mysqli_query($con,$reqQuery);
+                        $requirement = array();
+
+                        if($reqResult && mysqli_num_rows($reqResult)>0){
+                            while($req_data = mysqli_fetch_assoc($reqResult)){
+                                $requirement[] = $req_data['requirement'];
+                            }
+                        }
+                        $requirements[] = $requirement;
                     }
                 } else $response = "Error";
     
@@ -111,6 +138,8 @@
                     'jobQuali' => $jobQuali,
                     'minSalary' =>$minSalary,
                     'maxSalary' =>$maxSalary,
+                    'skills' =>$skills,
+                    'requirements' =>$requirements,
                     'colCode' =>$colCode,
                     'author' =>$author,
                     'date_posted' =>$date_posted,
