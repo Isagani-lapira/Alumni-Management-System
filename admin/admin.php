@@ -388,6 +388,7 @@
         <!-- Email content -->
         <div id="email-tab" class="p-5">
           <h1 class="text-xl font-extrabold">EMAIL</h1>
+          <button id="sendEmail" class="bg-accent py-2 text-white px-5">Send mo to</button>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
             <button id="btnEmail"
