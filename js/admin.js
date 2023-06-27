@@ -431,6 +431,7 @@ $(document).ready(function () {
     adminPost.append('action', JSON.stringify(adminAction));
     adminPost.append('query', query);
 
+
     $.ajax({
       url: '../PHP_process/jobTable.php',
       data: adminPost,
@@ -516,6 +517,12 @@ $(document).ready(function () {
     })
   })
 
+  $('#emailForm').on('submit', e => {
+    e.preventDefault(); //prevent from redirecting the form
+
+    let formData = new FormData($('#emailForm')[0]);
+    console.log(formData)
+  });
 
 });
 

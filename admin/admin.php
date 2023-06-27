@@ -388,7 +388,6 @@
         <!-- Email content -->
         <div id="email-tab" class="p-5">
           <h1 class="text-xl font-extrabold">EMAIL</h1>
-          <button id="sendEmail" class="bg-accent py-2 text-white px-5">Send mo to</button>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
             <button id="btnEmail"
@@ -1425,38 +1424,57 @@
     <!-- modal add email message -->
     <div id="modalEmail" class="modal fixed inset-0 h-full w-full flex items-center justify-center 
       text-grayish  top-0 left-0 hidden">
-      <div class="modal-container w-1/3 h-2/3 bg-white rounded-lg p-3">
-        <div class="modal-header py-5">
-          <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
-        </div>
-        <div class="modal-body px-3">
-
-          <!-- header part -->
-          <p class="font-semibold text-sm">Recipient</p>
-          <div class="w-max border border-gray-400 rounded flex px-5 py-2">
-            <select name="" id="" class="w-full outline-none">
-              <option value="all" selected>All colleges</option>
-            </select>
+      <form id="emailForm" class="modal-container w-1/3 h-2/3 bg-white rounded-lg p-3">
+        <div class="w-full h-full">
+          <div class="modal-header py-5">
+            <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
           </div>
+          <div class="modal-body px-3">
 
-          <!-- body part -->
-          <p class="font-semibold text-sm mt-2">Description</p>
-          <div class="modal-descript relative w-full h-2/3 border border-gray-400 rounded p-3">
-            <div class="flex flex-col h-full">
-              <textarea id="TxtAreaEmail" class="rar outline-none w-full h-5/6 p-1" type="text"
-                placeholder="Say something here..."></textarea>
+            <!-- header part -->
+            <p class="font-semibold text-sm">Recipient</p>
+            <div class=" border border-gray-400 rounded flex px-2 py-2">
+              <select name="selectColToEmail" id="" class="w-full outline-none">
+                <option value="all" selected>All colleges</option>
+                <?php
+                  require_once '../PHP_process/connection.php';
+                  $query = "SELECT * FROM `college`";
+                  $result = mysqli_query($mysql_con,$query);
+                  $rows = mysqli_num_rows($result);
+
+                  if($rows>0){
+                    while($data = mysqli_fetch_assoc($result)){
+                      $colCode = $data['colCode'];
+                      $colName = $data['colname'];
+
+                      echo '<option value="'.$colCode.'">'.$colName.'</option>';
+                    }
+                  
+                  }
+                  else echo '<option>No college available</option>';
+                ?>
+              </select>
             </div>
+
+            <!-- body part -->
+            <p class="font-semibold text-sm mt-2">Description</p>
+            <div class="modal-descript relative w-full h-2/3 border border-gray-400 rounded p-3">
+              <div class="flex flex-col h-full">
+                <textarea id="TxtAreaEmail" class="rar outline-none w-full h-full p-1" type="text"
+                  placeholder="Say something here..."></textarea>
+              </div>
+            </div>
+
           </div>
 
+          <!-- Footer -->
+          <div class="modal-footer flex items-end flex-row-reverse px-3">
+            <button class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+            <button id="sendEmail"
+              class="cancelEmail py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+          </div>
         </div>
-
-        <!-- Footer -->
-        <div class="modal-footer flex items-end flex-row-reverse px-3">
-          <button class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
-          <button
-            class="cancelEmail py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
-        </div>
-      </div>
+      </form>
     </div>
 
     <!-- Delete modal -->
