@@ -29,9 +29,9 @@ $(document).ready(function () {
             //action will be using
             let action = {
                 action: 'read',
+                query: true,
             }
             data.append('action', JSON.stringify(action))
-
             //perform ajax operation
             $.ajax({
                 type: "POST",
@@ -40,7 +40,11 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: (response) => {
-                    console.log(response);
+                    if (response == 'successful') {
+                        $('#errorMsg').hide();
+                        console.log("yehey");
+                    }
+                    else $('#errorMsg').show();
                 },
                 error: (error) => console.log(error)
             });

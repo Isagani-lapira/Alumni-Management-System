@@ -26,7 +26,7 @@
                 </h1>
                 <div>
                     <form id="loginForm" class="mt-2 p-3 flex flex-col gap-1">
-                        <p class="text-sm text-accent hidden"><span class="font-bold">login Failed:</span> Incorrect
+                        <p id="errorMsg" class="text-sm text-accent hidden"><span class="font-bold">login Failed:</span> Incorrect
                             username/password</p>
                         <label>Username</label>
                         <input name="username" class=" border border-gray-400 rounded-md p-2 outline-none"
@@ -34,7 +34,7 @@
                         <label>Password</label>
                         <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
                             <input name="password" class="flex-1 outline-none" placeholder="e.g patrickPron625"
-                                type="text">
+                                type="password">
                             <span class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
                         </div>
                         <p class="italic text-accent text-sm text-end">Forgot password?</p>
