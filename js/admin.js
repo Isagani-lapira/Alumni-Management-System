@@ -508,7 +508,7 @@ $(document).ready(function () {
 
   //send email
   $('#sendEmail').on('click', () => {
-    console.log('rar');
+
     $.ajax({
       url: '../PHP_process/sendEmail.php',
       type: 'GET',
