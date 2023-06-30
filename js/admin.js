@@ -1,4 +1,5 @@
 
+
 const redAccent = '#991B1B'
 const blueAccent = '#2E59C6'
 const imgContPost = document.getElementById('imgContPost')
@@ -282,7 +283,7 @@ $(document).ready(function () {
 
       //data to be sent in the php
       data.append('action', JSON.stringify(action))
-      data.append('author', 'University Admin');
+      data.append('author', 'Admin');
       data.append('skills', JSON.stringify(skills));
       data.append('requirements', JSON.stringify(requirements));
       data.append('personID', 'admin23/06/27 11:23:12-904');
@@ -318,9 +319,7 @@ $(document).ready(function () {
   var jobAction = {
     action: 'read', //read the data
   }
-  let jobQuery = "NONE"
   jobData.append('action', JSON.stringify(jobAction));
-  jobData.append('query', jobQuery);
 
   //job table listing
   jobList()
@@ -351,8 +350,16 @@ $(document).ready(function () {
             let companyLogo = data.companyLogo[i];
             let skills = data.skills[i];
             let requirements = data.requirements[i];
+            let personID = data.personID[i];
             let logo = "data:image/jpeg;base64," + companyLogo;
 
+            //encrypt the personID to be compare on the personID return that is also encrypted
+            let desiredValue = 'admin23/06/27 11:34:36-1440'
+            let desiredValueEncrypted = md5(desiredValue);
+
+            //check if there's a similar person ID and produce a my joblist
+            if (personID === desiredValueEncrypted)
+              myJobPostList(jobTitle, logo)
 
             //add data to a table data
             let row = $('<tr>').addClass('text-xs');
@@ -419,54 +426,17 @@ $(document).ready(function () {
     })
   }
 
-  myJobPostList()
-  function myJobPostList() {
-    //retrieve all admin post
-    let adminPost = new FormData();
-    let adminAction = {
-      action: 'read'
-    }
-    let query = "WHERE `personID` = " + '"admin23/06/27 11:23:12-904"';
-    adminPost.append('action', JSON.stringify(adminAction));
-    adminPost.append('query', query);
+  function myJobPostList(careerTitle, companyLogo) {
 
+    let container = $('<div>').addClass("college center-shadow col-span-1 flex flex-col justify-center rounded-lg border");
+    let imgLogo = $('<img>').addClass("flex-auto h-20 w-20 block mx-auto")
+    imgLogo.attr('src', companyLogo)
 
-    $.ajax({
-      url: '../PHP_process/jobTable.php',
-      data: adminPost,
-      method: 'POST',
-      processData: false,
-      contentType: false,
-      dataType: 'json',
-      success: function (response) {
-        if (response.result == "Success") {
-          let data = response;
+    let titlePart = $('<p>').addClass("text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium");
+    titlePart.text(careerTitle);
+    container.append(imgLogo, titlePart);
+    $('#adminJobPostCont').append(container);
 
-          let noPostedJob = data.jobTitle.length;
-          $('#noPostedJob').html(noPostedJob)
-
-          for (i = 0; i < noPostedJob; i++) {
-            let careerTitle = data.jobTitle[i];
-            let companyLogo = data.companyLogo[i];
-
-            let logo = "data:image/jpeg;base64," + companyLogo;
-            let container = $('<div>').addClass("college center-shadow col-span-1 flex flex-col justify-center rounded-lg border");
-            let imgLogo = $('<img>').addClass("flex-auto h-20 w-20 block mx-auto")
-            imgLogo.attr('src', logo)
-
-            let titlePart = $('<p>').addClass("text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium");
-            titlePart.text(careerTitle);
-            container.append(imgLogo, titlePart);
-            $('#adminJobPostCont').append(container);
-
-          }
-
-        }
-      },
-      error: function (error) {
-        console.log(error)
-      }
-    })
   }
 
   //retrieve all the skills have been written

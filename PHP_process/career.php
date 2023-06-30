@@ -57,15 +57,9 @@
         }
 
 
-        public function selectData($condition,$con){ 
+        public function selectData($con){ 
 
             $query = "SELECT * FROM `career`"; //as defult
-
-            //if there's a condition assigned
-            if($condition!=NULL){
-                $query ="SELECT * FROM `career` $condition";
-            }
-            
             $result = mysqli_query($con,$query);
 
             if($result){
@@ -84,7 +78,8 @@
                 $date_posted = array();
                 $skills = array();
                 $requirements = array();
-    
+                $personIDEncrypted = array();
+                
                 if(mysqli_num_rows($result) > 0){
                     $response = "Success";
                     while($row_data = mysqli_fetch_assoc($result)){
@@ -99,6 +94,9 @@
                         $colCode[] = $row_data['colCode'];
                         $author[] = $row_data['author'];
                         $date_posted[] = $row_data['date_posted'];
+                        // $personID[] = $row_data['personID'];
+                        // Pseudonymize the personID
+                        $personIDEncrypted[] = $this->generatePseudonym($row_data['personID']);
 
                         //retrieve skills from the database
                         $skillQuery = 'SELECT * FROM `skill` WHERE careerID = "' . $row_data['careerID'] . '"';
@@ -127,7 +125,7 @@
                     }
                 } else $response = "Error";
     
-    
+                //data to be sent
                 $data =  array(
                     'result' =>$response,
                     'careerID' =>$careerID,
@@ -143,12 +141,19 @@
                     'colCode' =>$colCode,
                     'author' =>$author,
                     'date_posted' =>$date_posted,
+                    'personID' =>$personIDEncrypted,
                 );
                 
-                echo json_encode($data);
+                echo json_encode($data); //return data as json
             }
             else echo $query;
             
+        }
+
+        function generatePseudonym($personID){
+            $pseudonym = md5($personID);
+
+            return $pseudonym;
         }
     }
     

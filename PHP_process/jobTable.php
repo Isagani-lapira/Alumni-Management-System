@@ -9,7 +9,7 @@
             $action = $arrayData['action'];
 
             if($action=='create'){
-                $admin = $_POST['author'];
+                $author = $_POST['author'];
 
                 //skills
                 $skillData = $_POST['skills'];
@@ -36,7 +36,7 @@
                 $career = new Career();
                 $career->insertionJob($careerID,$jobTitle,$companyName,$projectDescript,
                                         $qualification,$image,$minSalary,$maxSalary,
-                                        'CICT',$admin,$skillArray,$reqArray,$personID,
+                                        'CICT',$author,$skillArray,$reqArray,$personID,
                                         $mysql_con);
     
                 if($career) echo 'Job successfully added on the hunt';
@@ -46,9 +46,7 @@
             else if($action=='read'){
 
                 $readCareer = new Career();
-                //check if there's a condition or non
-                $condition = ($_POST['query']=="NONE")? NULL:$_POST['query'];
-                $readCareer->selectData($condition,$mysql_con);
+                $readCareer->selectData($mysql_con);
             }
         }
         catch(Exception $e){
