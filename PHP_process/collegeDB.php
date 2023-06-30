@@ -12,8 +12,15 @@
             $action = $actionArray['action'];
             switch($action){
                 case 'read':
-                    $totalCol = collegeCount($mysql_con);
-                    echo $totalCol;
+                    if(isset($actionArray['query'])){
+                        $college = $_POST['college'];
+                        $colData = querySelect($college, $mysql_con);
+                    }
+                    else{
+                        $totalCol = collegeCount($mysql_con);
+                        echo $totalCol;
+                    }
+
                     break;
                 case 'create':
                     insertionCollege($mysql_con);
@@ -118,6 +125,53 @@
         $count = $row[0]; //get the value that correspond to the total count
 
         return $count;
+    }
+
+    function querySelect($college, $con){
+        $query = 'SELECT * FROM `college` WHERE `colname` = "'.$college.'"';
+        $result = mysqli_query($con,$query);
+
+        $resultResponse = "";
+        $colCode = "";
+        $colName = "";
+        $colEmailAdd = "";
+        $colContactNo = "";
+        $colWebLink = "";
+        $colLogo = "";
+        $colDean = "";
+        $colDeanImg = "";
+
+        if($result){
+            $row = mysqli_num_rows($result);
+            if($row>0){
+                $resultResponse = "Success";
+                while($row_data = mysqli_fetch_assoc($result)){
+                    $colCode = $row_data['colCode'];
+                    $colName = $row_data['colname'];
+                    $colLogo = base64_encode($row_data['colLogo']);
+                    $colEmailAdd = $row_data['colEmailAdd'];
+                    $colContactNo = $row_data['colContactNo'];
+                    $colWebLink = $row_data['colWebLink'];
+                    $colDean = $row_data['colDean'];
+                    $colWebLink = $row_data['colWebLink'];
+                }
+
+            }
+            else{ $resultResponse = "Unsuccessful";}
+            
+            $colData = array(
+                'result'=>$resultResponse,
+                'colCode'=>$colCode,
+                'colName'=>$colName,
+                'colLogo'=>$colLogo,
+                'colEmailAdd'=>$colEmailAdd,
+                'colContactNo'=>$colContactNo,
+                'colWebLink'=>$colWebLink,
+                'colDean'=>$colDean,
+            );
+
+            echo json_encode($colData);
+        }
     }
 
     mysqli_close($mysql_con);

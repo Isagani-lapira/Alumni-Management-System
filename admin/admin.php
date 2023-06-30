@@ -644,7 +644,7 @@
                     $logo = base64_encode($colLogo);
 
                     echo '
-                    <div class="college center-shadow col-span-1 flex flex-col justify-center p-3">
+                    <div class="college center-shadow col-span-1 flex flex-col justify-center p-3" data-colname="'.$colName.'">
                       <img src="data:image/jpeg;base64,'.$logo.'"class="flex-auto h-1/5" alt="">
                       <p class="text-xs text-center text-greyish_black font-medium">'.$colName.'</p>
                     </div>';
@@ -665,19 +665,19 @@
             </h1>
             <div class="px-10">
               <div class="grid grid-cols-2 h-max p-5">
-                <img class="w-1/2 block mx-auto" src="https://www.bulsu.edu.ph/resources/colleges-logo/CICT.png" alt="">
+                <img id="colLogo" class="w-1/2 block mx-auto" src="" alt="">
 
                 <div class="college-info w-8/12 text-xs">
-                  <h1 class="text-2xl font-extrabold">College Of Infomation and Communication Techonology (CICT)</h1>
-                  <p class="text-grayish mt-3 font-semibold">Number</p>
-                  <p class="text-greyish_black text-sm font-semibold">091234567890</p>
+                  <h1 id="colName" class="text-2xl font-extrabold"></h1>
+                  <p  class="text-grayish mt-3 font-semibold">Number</p>
+                  <p id="colContact" class="text-greyish_black text-sm font-semibold"></p>
 
                   <p class="text-grayish mt-2 font-semibold">Email Address</p>
-                  <p class="text-greyish_black text-sm font-semibold">email@example.com</p>
+                  <p id="colEmail" class="text-greyish_black text-sm font-semibold"></p>
 
                   <p class="text-grayish mt-2 font-semibold">Website</p>
-                  <a href="https://www.bulsu-cict.com/" target="_blank"
-                    class="text-sm text-blue-300 font-semibold">https://www.bulsu-cict.com/</a>
+                  <a id="colWebLink" target="_blank"
+                    class="text-sm text-blue-300 font-semibold"></a>
                 </div>
 
               </div>
@@ -694,7 +694,7 @@
                 <div class="dean">
                   <div class="text-center">
                     <img class="w-48 h-44 mx-auto rounded-md" src="../images/Mr.Keno.png" alt="">
-                    <p class="text-lg">Mr. Keno Piad</p>
+                    <p id="colDean" class="text-lg"></p>
                     <p class="font-medium text-lg">DEAN, CICT</p>
                   </div>
                 </div>

@@ -52,10 +52,10 @@ $(document).ready(function () {
   })
 
 
-  $('.college').click(() => {
-    $('.individual-col').removeClass('hidden')
-    $('.college-content').addClass('hidden')
-  })
+  // $('.college').click(() => {
+  //   $('.individual-col').removeClass('hidden')
+  //   $('.college-content').addClass('hidden')
+  // })
 
   $('.back-icon').click(() => {
     $('.individual-col').addClass('hidden')
@@ -524,8 +524,59 @@ $(document).ready(function () {
     console.log(formData)
   });
 
-});
+  function rar(data) {
+    console.log(data)
+  }
 
+  $('.college').on('click', function () {
+    var colName = $(this).data('colname');
+    var data = {
+      action: 'read',
+      query: true,
+    };
+
+    var formData = new FormData();
+    formData.append('data', JSON.stringify(data))
+    formData.append('college', colName);
+
+    $.ajax({
+      url: '../PHP_process/collegeDB.php',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      success: (response) => {
+        if (response.result == 'Success') {
+
+          $('.individual-col').removeClass('hidden')
+          $('.college-content').addClass('hidden')
+
+          //fetch the data that has been retrieve
+          let colData = response;
+          let colCode = colData['colCode'];
+          let colName = colData['colName'];
+          let colEmailAdd = colData['colEmailAdd'];
+          let colContactNo = colData['colContactNo'];
+          let colWebLink = colData['colWebLink'];
+          let colLogo = colData['colLogo'];
+          let colDean = colData['colDean'];
+          let logo = "data:image/jpeg;base64," + colLogo;
+
+          //display the data
+          $('#colLogo').attr('src', logo)
+          $('#colName').text(colName + '(' + colCode + ')')
+          $('#colContact').text(colContactNo)
+          $('#colEmail').text(colEmailAdd)
+          $('#colWebLink').attr('href', colWebLink).text(colWebLink);
+          $('#colDean').text(colDean);
+        }
+        else console.log('ayaw na')
+      },
+      error: (error) => { console.log(error) }
+    });
+  })
+});
 
 
 let typingTimeout = null;
