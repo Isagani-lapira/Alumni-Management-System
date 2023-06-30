@@ -286,7 +286,7 @@ $(document).ready(function () {
       data.append('author', 'Admin');
       data.append('skills', JSON.stringify(skills));
       data.append('requirements', JSON.stringify(requirements));
-      data.append('personID', 'admin23/06/27 11:23:12-904');
+      data.append('personID', 'admin23/06/27 11:34:36-1440');
 
       $.ajax({
         url: '../PHP_process/jobTable.php',
@@ -304,7 +304,6 @@ $(document).ready(function () {
 
           //retrieve the data to be display all
           jobList()
-          myJobPostList()
         },
         error: function (error) {
           $('#promptMessage').removeClass('hidden');
@@ -354,12 +353,13 @@ $(document).ready(function () {
             let logo = "data:image/jpeg;base64," + companyLogo;
 
             //encrypt the personID to be compare on the personID return that is also encrypted
-            let desiredValue = 'admin23/06/27 11:34:36-1440'
+            let desiredValue = 'admin23/06/27 11:23:12-904'
             let desiredValueEncrypted = md5(desiredValue);
 
             //check if there's a similar person ID and produce a my joblist
-            if (personID === desiredValueEncrypted)
+            if (personID === desiredValueEncrypted) {
               myJobPostList(jobTitle, logo)
+            }
 
             //add data to a table data
             let row = $('<tr>').addClass('text-xs');

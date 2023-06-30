@@ -1377,7 +1377,7 @@
           <!-- header part -->
           <p class="font-semibold text-sm">College</p>
           <div class="w-max border border-gray-400 rounded flex px-5 py-2">
-            <select name="" id="" class="w-full outline-none">
+            <select name="ss" id="ss" class="w-full outline-none">
               <option value="all" selected>All colleges</option>
             </select>
           </div>
