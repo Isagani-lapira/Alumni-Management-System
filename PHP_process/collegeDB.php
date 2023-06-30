@@ -140,7 +140,7 @@
         $colLogo = "";
         $colDean = "";
         $colDeanImg = "";
-
+        $colAdmin = "";
         if($result){
             $row = mysqli_num_rows($result);
             if($row>0){
@@ -154,6 +154,26 @@
                     $colWebLink = $row_data['colWebLink'];
                     $colDean = $row_data['colDean'];
                     $colWebLink = $row_data['colWebLink'];
+                    $colDeanImg = base64_encode($row_data['colDeanImg']);
+
+                    //get the admin name
+                    $queryPerson = 'SELECT * FROM `coladmin` WHERE `colCode` = "'.$colCode.'"';
+                    $resultPerson = mysqli_query($con,$queryPerson);
+
+                    if($resultPerson){
+                        $personID = "";
+                        while($row_data = mysqli_fetch_assoc($resultPerson)){
+                            $personID = $row_data['personID'];
+                        }
+
+                        $person = new personDB();
+                        $personJSON = $person->readPerson($personID,$con);
+                        
+                        if($personJSON !==null){
+                            $personData = json_decode($personJSON, true);
+                            $colAdmin = $personData['fname'].' '.$personData['lname'];
+                        }
+                    }
                 }
 
             }
@@ -168,6 +188,8 @@
                 'colContactNo'=>$colContactNo,
                 'colWebLink'=>$colWebLink,
                 'colDean'=>$colDean,
+                'colDeanImg'=>$colDeanImg,
+                'colAdminName'=>$colAdmin
             );
 
             echo json_encode($colData);

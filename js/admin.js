@@ -8,7 +8,8 @@ const holderSkill = "Add skill/s that needed"
 
 const reqDiv = 'reqDiv'
 const holderReq = "Add skill/s that needed"
-
+const imgFormat = "data:image/jpeg;base64,"
+const defaultProfileSrc = "../assets/default_profile.png";
 $(document).ready(function () {
   $("#tabs").tabs();
 
@@ -351,7 +352,7 @@ $(document).ready(function () {
             let skills = data.skills[i];
             let requirements = data.requirements[i];
             let personID = data.personID[i];
-            let logo = "data:image/jpeg;base64," + companyLogo;
+            let logo = imgFormat + companyLogo;
 
             //encrypt the personID to be compare on the personID return that is also encrypted
             let desiredValue = 'admin23/06/27 11:23:12-904'
@@ -533,15 +534,24 @@ $(document).ready(function () {
           let colWebLink = colData['colWebLink'];
           let colLogo = colData['colLogo'];
           let colDean = colData['colDean'];
-          let logo = "data:image/jpeg;base64," + colLogo;
+          let colDeanImg = colData['colDeanImg'];
+          let colAdmin = colData['colAdminName'];
+
+          //add the images
+          let logo = imgFormat + colLogo;
+          let deanImgFormat = imgFormat + colDeanImg
+          let deanImg = (colDeanImg == "") ? defaultProfileSrc : deanImgFormat; //check if still no value
+          colDean = (colDean == null) ? "No inserted dean yet" : 'MR. ' + colDean
 
           //display the data
           $('#colLogo').attr('src', logo)
+          $('#deanImg').attr('src', deanImg)
           $('#colName').text(colName + '(' + colCode + ')')
           $('#colContact').text(colContactNo)
           $('#colEmail').text(colEmailAdd)
           $('#colWebLink').attr('href', colWebLink).text(colWebLink);
           $('#colDean').text(colDean);
+          $('#colAdminName').text('MR. ' + colAdmin);
         }
         else console.log('ayaw na')
       },

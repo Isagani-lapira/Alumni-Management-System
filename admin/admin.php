@@ -695,7 +695,7 @@
               <div class="flex justify-between my-16">
                 <div class="dean">
                   <div class="text-center">
-                    <img class="w-48 h-44 mx-auto rounded-md" src="../images/Mr.Keno.png" alt="">
+                    <img id="deanImg" class="w-48 h-44 mx-auto rounded-md"  alt="">
                     <p id="colDean" class="text-lg"></p>
                     <p class="font-medium text-lg">DEAN, CICT</p>
                   </div>
@@ -704,7 +704,7 @@
                 <div class="coordinator">
                   <div class="text-center">
                     <img class="w-48 h-44 mx-auto rounded-md" src="../images/Mr.Jayson.png" alt="">
-                    <p class="text-lg">Mr. Jayson Batoon</p>
+                    <p id="colAdminName" class="text-lg"></p>
                     <p class="font-medium text-lg">Alumni Coordinator, CICT</p>
                   </div>
                 </div>
