@@ -337,6 +337,7 @@ $(document).ready(function () {
           let data = response;
           let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
 
+          noPostedJob = 0;
           for (let i = 0; i < jobTitles.length; i++) {
             //fetch all the data
             let jobTitle = jobTitles[i];
@@ -359,8 +360,10 @@ $(document).ready(function () {
             //check if there's a similar person ID and produce a my joblist
             if (personID === desiredValueEncrypted) {
               myJobPostList(jobTitle, logo)
+              noPostedJob++
             }
 
+            $('#noPostedJob').text(noPostedJob);
             //add data to a table data
             let row = $('<tr>').addClass('text-xs');
             let tdTitle = $('<td>').text(jobTitle);
