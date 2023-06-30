@@ -24,7 +24,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-md5@0.7.3/build/md5.min.js"></script>
-  
+
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <title>University Admin</title>
 </head>
@@ -347,9 +347,7 @@
                 </div>
 
                 <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                <img class="my-2 rounded-md"
-                  src=""
-                  alt="">
+                <img class="my-2 rounded-md" src="" alt="">
                 <div class="flex py-2 items-center">
                   <img class="h-5" src="../assets/icons/heart.png" alt="">
                   <span class="ms-2 text-sm">1,498</span>
@@ -371,9 +369,7 @@
                 </div>
 
                 <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                <img class="my-2 rounded-md"
-                  src=""
-                  alt="">
+                <img class="my-2 rounded-md" src="" alt="">
                 <div class="flex py-2 items-center">
                   <img class="h-5" src="../assets/icons/heart.png" alt="">
                   <span class="ms-2 text-sm">1,498</span>
@@ -585,8 +581,7 @@
                 <td class="text-start font-bold">2020101933</td>
                 <td>
                   <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent"
-                      src=""></img>
+                    <img class="w-10 h-10 rounded-full border-2 border-accent" src=""></img>
                     <span class="ml-2">Cameron Williamson</span>
                   </div>
                 </td>
@@ -669,47 +664,48 @@
               <div class="grid grid-cols-2 h-max p-5">
                 <img id="colLogo" class="w-1/2 block mx-auto" src="" alt="">
 
-                <div class="college-info w-8/12 text-xs">
+                <div class="college-info text-xs">
                   <h1 id="colName" class="text-2xl font-extrabold"></h1>
-                  <p  class="text-grayish mt-3 font-semibold">Number</p>
+                  <p class="text-gray-600 mt-3 font-medium">Number</p>
                   <p id="colContact" class="text-greyish_black text-sm font-semibold"></p>
 
-                  <p class="text-grayish mt-2 font-semibold">Email Address</p>
+                  <p class="text-gray-600 mt-2 font-medium">Email Address</p>
                   <p id="colEmail" class="text-greyish_black text-sm font-semibold"></p>
 
-                  <p class="text-grayish mt-2 font-semibold">Website</p>
-                  <a id="colWebLink" target="_blank"
-                    class="text-sm text-blue-300 font-semibold"></a>
+                  <p class="text-gray-600 mt-2 font-medium">Website</p>
+                  <a id="colWebLink" target="_blank" class="text-sm text-blue-600 font-semibold"></a>
                 </div>
 
               </div>
 
+              <div class="flex justify-center gap-5 my-7">
+                <div class="dean">
+                  <div class="text-center">
+                    <img id="deanImg" class="w-32 h-32 mx-auto rounded-md" alt="">
+                    <p id="colDean" class="text-accent font-medium"></p>
+                    <p class="text-gray-500 text-sm">DEAN, CICT</p>
+                  </div>
+                </div>
+
+                <div class="coordinator">
+                  <div class="text-center">
+                    <img id="adminImg" class="w-32 h-32  mx-auto rounded-md" alt="">
+                    <p id="colAdminName" class="text-accent font-medium"></p>
+                    <p class="text-gray-500 text-sm">Alumni Coordinator, CICT</p>
+                  </div>
+                </div>
+
+              </div>
+              
               <div class="description mt-3 w-9/12">
-                <h1 class="text-xl font-extrabold ">DESCRIPTION</h1>
+                <h1 class="text-xl font-extrabold ">ABOUT US <span id="collegeCode"></span></h1>
                 <P class="py-3">Bulacan State University's College of Information and Communications
                   Technology is the premier institution in Bulacan when it comes to effective and efficient
                   ICT education and a leader in pioneering research and extension services.
                 </P>
               </div>
 
-              <div class="flex justify-between my-16">
-                <div class="dean">
-                  <div class="text-center">
-                    <img id="deanImg" class="w-48 h-44 mx-auto rounded-md"  alt="">
-                    <p id="colDean" class="text-lg"></p>
-                    <p class="font-medium text-lg">DEAN, CICT</p>
-                  </div>
-                </div>
 
-                <div class="coordinator">
-                  <div class="text-center">
-                    <img id="adminImg" class="w-48 h-44 mx-auto rounded-md" alt="">
-                    <p id="colAdminName" class="text-lg"></p>
-                    <p class="font-medium text-lg">Alumni Coordinator, CICT</p>
-                  </div>
-                </div>
-
-              </div>
               <div class="courses-offered my-10 w-8/12">
                 <h1 class="text-xl font-extrabold mb-5">Courses Offered</h1>
                 <P>Bachelor of Science in Information Technology</P>
@@ -794,9 +790,7 @@
                   </div>
 
                   <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                  <img class="my-2 rounded-md"
-                    src=""
-                    alt="">
+                  <img class="my-2 rounded-md" src="" alt="">
                   <div class="flex py-2 items-center">
                     <img class="h-5" src="../assets/icons/heart.png" alt="">
                     <span class="ms-2 text-sm">1,498</span>
@@ -818,9 +812,7 @@
                   </div>
 
                   <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                  <img class="my-2 rounded-md"
-                    src=""
-                    alt="">
+                  <img class="my-2 rounded-md" src="" alt="">
                   <div class="flex py-2 items-center">
                     <img class="h-5" src="../assets/icons/heart.png" alt="">
                     <span class="ms-2 text-sm">1,498</span>
@@ -993,8 +985,7 @@
                   <td class="text-start font-bold">2020101933</td>
                   <td>
                     <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent"
-                        src=""></img>
+                      <img class="w-10 h-10 rounded-full border-2 border-accent" src=""></img>
                       <span class="ml-2">Cameron Williamson</span>
                     </div>
                   </td>
@@ -1114,8 +1105,7 @@
               <tr class="h-14 text-xs">
                 <td>
                   <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent"
-                      src=""></img>
+                    <img class="w-10 h-10 rounded-full border-2 border-accent" src=""></img>
                     <span class="ml-2">Cameron Williamson</span>
                   </div>
                 </td>
@@ -1150,9 +1140,7 @@
               </div>
 
               <p class="text-sm mt-2">Newly elected CICT Local Student Council</p>
-              <img class="my-2 rounded-md"
-                src=""
-                alt="">
+              <img class="my-2 rounded-md" src="" alt="">
               <div class="flex py-2 items-center">
                 <img class="h-5" src="../assets/icons/heart.png" alt="">
                 <span class="ms-2 text-sm">1,498</span>
@@ -1170,9 +1158,7 @@
             <div class="center-shadow p-3 rounded-md">
               <div class="flex justify-start items-center">
                 <div class="flex items-center">
-                  <img class="h-12 border-2 border-accent rounded-full"
-                    src=""
-                    alt="">
+                  <img class="h-12 border-2 border-accent rounded-full" src="" alt="">
                   <p class="text-start px-3 text-sm font-semibold">Samuel Loremonso</p>
                 </div>
                 <img class="ml-auto" src="../assets/more_horiz.png" alt="">
@@ -1186,9 +1172,7 @@
 
                 Matatandaang kabilang ang Bulacan sa mga lalawigang idineklara ng pamahalaan sa ilalim ng Alert Level 1,
                 ayon sa IATF Resolution No. 6-C. Ito ay dah…</p>
-              <img class="my-2 rounded-md"
-                src=""
-                alt="">
+              <img class="my-2 rounded-md" src="" alt="">
               <div class="flex py-2 items-center">
                 <img class="h-5" src="../assets/icons/heart.png" alt="">
                 <span class="ms-2 text-sm">1,498</span>
@@ -1261,7 +1245,7 @@
               </div>
 
             </div>
-            
+
             <table class="w-full mt-10">
               <thead class="bg-accent text-sm text-white p-3">
                 <tr>
@@ -1286,16 +1270,19 @@
                 <!-- left side -->
                 <div class="w-1/2">
                   <label class="font-bold text-greyish_black text-sm" for="jobTitle">Job Title</label>
-                  <input id="jobTitle" name="jobTitle" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3"
-                    type="text" placeholder="e.g Software Engineer">
+                  <input id="jobTitle" name="jobTitle"
+                    class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text"
+                    placeholder="e.g Software Engineer">
 
                   <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
-                  <input id="jobCompany" name="companyName" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3"
-                    type="text" placeholder="e.g Accenture">
+                  <input id="jobCompany" name="companyName"
+                    class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text"
+                    placeholder="e.g Accenture">
 
                   <label class="font-bold text-greyish_black text-sm mt-5" for="projOverviewTxt">Project
                     Description</label>
-                  <textarea class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
+                  <textarea
+                    class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
                     name="projDescriptTxt" id="projOverviewTxt"></textarea>
 
                   <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
@@ -1326,15 +1313,15 @@
                   <div id="skillDiv" class="flex flex-col">
                     <div>
                       <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                      <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
+                      <input id="inputSkill" class="inputSkill skillInput" type="text"
+                        placeholder="Add skill/s that needed">
                     </div>
                   </div>
 
                   <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
-                  <textarea
-                      class="jobField block message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5
-                      resize-none p-3 focus:outline-none text-greyish_black text-sm"
-                      name="qualificationTxt" id="qualificationTxt"></textarea>
+                  <textarea class="jobField block message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5
+                      resize-none p-3 focus:outline-none text-greyish_black text-sm" name="qualificationTxt"
+                    id="qualificationTxt"></textarea>
 
                   <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputReq">Requirements</label>
                   <div id="reqDiv" class="flex flex-col">
@@ -1363,7 +1350,7 @@
         </div>
       </main>
     </div>
-    
+
 
     <!-- modal -->
     <div id="modal" class="modal fixed inset-0 h-full w-full flex items-center justify-center 
@@ -1573,10 +1560,10 @@
 
             <p id="viewPostedDate" class="text-sm text-gray-600 pr-1"></p>
           </div>
-          
+
         </div>
         <hr class="p-1 border-gray-400 mt-5">
-        
+
 
         <p class="text-black font-bold my-3">Project Overview</p>
         <p id="jobOverview" class="text-sm h-max w-full text-gray-600"></p>
@@ -1586,7 +1573,7 @@
 
         <p class="text-black font-bold my-3">Qualification</p>
         <p id="jobQualification" class="text-sm h-max text-gray-600"></p>
-        
+
 
         <p class="text-black font-bold my-3">REQUIREMENTS</p>
         <div id="reqCont" class="text-gray-600 text-sm"></div>
@@ -1594,24 +1581,24 @@
         <button class="bg-green-400 text-white px-8 py-3 mt-5 rounded-md block ml-auto">Apply Now</button>
       </div>
     </div>
-    
-     <!-- modal promp -->
-     <div id="promptMessage" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
-        text-grayish  top-0 left-0 hidden ">
-            <div class="modal-container w-1/3 bg-white rounded-lg p-3 mt-2">
-                <div class="modal-header py-5">
-                    <p id="insertionMsg" class="text-greyish_black font-bold text-lg text-center w-1/2 mx-auto"></p>
-                </div>
 
-                <!-- Footer -->
-                <div class="modal-footer flex items-end flex-row-reverse px-3 mt-3">
-                    <button id="goBack" class="bg-accent py-2 rounded px-5 text-white ms-3 hover:bg-darkAccent 
-                        hover:font-semibold">
-                        Go back
-                    </button>
-                </div>
-            </div>
+    <!-- modal promp -->
+    <div id="promptMessage" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
+        text-grayish  top-0 left-0 hidden ">
+      <div class="modal-container w-1/3 bg-white rounded-lg p-3 mt-2">
+        <div class="modal-header py-5">
+          <p id="insertionMsg" class="text-greyish_black font-bold text-lg text-center w-1/2 mx-auto"></p>
         </div>
+
+        <!-- Footer -->
+        <div class="modal-footer flex items-end flex-row-reverse px-3 mt-3">
+          <button id="goBack" class="bg-accent py-2 rounded px-5 text-white ms-3 hover:bg-darkAccent 
+                        hover:font-semibold">
+            Go back
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
 

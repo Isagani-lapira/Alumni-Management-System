@@ -656,12 +656,20 @@ th,
   position: static;
 }
 
+.\!fixed {
+  position: fixed !important;
+}
+
 .fixed {
   position: fixed;
 }
 
 .absolute {
   position: absolute;
+}
+
+.\!relative {
+  position: relative !important;
 }
 
 .relative {
@@ -932,6 +940,11 @@ th,
   margin-bottom: 1.5rem;
 }
 
+.my-7 {
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -1102,6 +1115,10 @@ th,
   -webkit-line-clamp: none;
 }
 
+.\!block {
+  display: block !important;
+}
+
 .block {
   display: block;
 }
@@ -1172,6 +1189,10 @@ th,
 
 .inline-grid {
   display: inline-grid;
+}
+
+.\!contents {
+  display: contents !important;
 }
 
 .contents {
@@ -1305,6 +1326,10 @@ th,
 
 .h-screen {
   height: 100vh;
+}
+
+.h-28 {
+  height: 7rem;
 }
 
 .max-h-20 {
@@ -2058,6 +2083,10 @@ th,
   justify-items: stretch;
 }
 
+.gap-1 {
+  gap: 0.25rem;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }
@@ -2070,8 +2099,8 @@ th,
   gap: 1rem;
 }
 
-.gap-1 {
-  gap: 0.25rem;
+.gap-5 {
+  gap: 1.25rem;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
@@ -2507,11 +2536,6 @@ th,
 .rounded-t-md {
   border-top-left-radius: 0.375rem;
   border-top-right-radius: 0.375rem;
-}
-
-.rounded-l-2xl {
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
 }
 
 .rounded-bl {
@@ -4283,10 +4307,6 @@ body {
     justify-content: center;
   }
 
-  .sm\:rounded-2xl {
-    border-radius: 1rem;
-  }
-
   .sm\:underline {
     text-decoration-line: underline;
   }
@@ -4362,10 +4382,6 @@ body {
     align-items: center;
   }
 
-  .md\:rounded-2xl {
-    border-radius: 1rem;
-  }
-
   .md\:rounded-l-2xl {
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
@@ -4413,11 +4429,6 @@ body {
 
   .lg\:flex-col {
     flex-direction: column;
-  }
-
-  .lg\:rounded-l-2xl {
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 1rem;
   }
 
   .lg\:px-24 {

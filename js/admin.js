@@ -552,6 +552,7 @@ $(document).ready(function () {
           $('#adminImg').attr('src', adminImg)
 
           $('#colName').text(colName + '(' + colCode + ')')
+          $('#collegeCode').text(colCode);
           $('#colContact').text(colContactNo)
           $('#colEmail').text(colEmailAdd)
           $('#colWebLink').attr('href', colWebLink).text(colWebLink);
