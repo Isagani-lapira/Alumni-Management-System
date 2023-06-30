@@ -285,7 +285,7 @@ $(document).ready(function () {
       data.append('author', 'University Admin');
       data.append('skills', JSON.stringify(skills));
       data.append('requirements', JSON.stringify(requirements));
-      data.append('personID', 'admin23/06/22 10:42:15-890');
+      data.append('personID', 'admin23/06/27 11:23:12-904');
 
       $.ajax({
         url: '../PHP_process/jobTable.php',
@@ -419,7 +419,6 @@ $(document).ready(function () {
     })
   }
 
-
   myJobPostList()
   function myJobPostList() {
     //retrieve all admin post
@@ -427,7 +426,7 @@ $(document).ready(function () {
     let adminAction = {
       action: 'read'
     }
-    let query = "WHERE `personID` = " + '"admin23/06/22 10:42:15-890"';
+    let query = "WHERE `personID` = " + '"admin23/06/27 11:23:12-904"';
     adminPost.append('action', JSON.stringify(adminAction));
     adminPost.append('query', query);
 
