@@ -703,7 +703,7 @@
 
                 <div class="coordinator">
                   <div class="text-center">
-                    <img class="w-48 h-44 mx-auto rounded-md" src="../images/Mr.Jayson.png" alt="">
+                    <img id="adminImg" class="w-48 h-44 mx-auto rounded-md" alt="">
                     <p id="colAdminName" class="text-lg"></p>
                     <p class="font-medium text-lg">Alumni Coordinator, CICT</p>
                   </div>

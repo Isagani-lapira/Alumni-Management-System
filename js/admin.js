@@ -536,20 +536,26 @@ $(document).ready(function () {
           let colDean = colData['colDean'];
           let colDeanImg = colData['colDeanImg'];
           let colAdmin = colData['colAdminName'];
+          let colAdminImg = colData['colAdminImg'];
 
           //add the images
           let logo = imgFormat + colLogo;
           let deanImgFormat = imgFormat + colDeanImg
+          let adminImgFormat = imgFormat + colAdminImg
           let deanImg = (colDeanImg == "") ? defaultProfileSrc : deanImgFormat; //check if still no value
-          colDean = (colDean == null) ? "No inserted dean yet" : 'MR. ' + colDean
+          let adminImg = (colAdminImg == "") ? defaultProfileSrc : adminImgFormat;
+
 
           //display the data
           $('#colLogo').attr('src', logo)
           $('#deanImg').attr('src', deanImg)
+          $('#adminImg').attr('src', adminImg)
+
           $('#colName').text(colName + '(' + colCode + ')')
           $('#colContact').text(colContactNo)
           $('#colEmail').text(colEmailAdd)
           $('#colWebLink').attr('href', colWebLink).text(colWebLink);
+          colDean = (colDean == null) ? "No inserted dean yet" : 'MR. ' + colDean
           $('#colDean').text(colDean);
           $('#colAdminName').text('MR. ' + colAdmin);
         }

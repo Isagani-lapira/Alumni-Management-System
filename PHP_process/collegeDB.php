@@ -141,6 +141,8 @@
         $colDean = "";
         $colDeanImg = "";
         $colAdmin = "";
+        $colAdminImg = "";
+
         if($result){
             $row = mysqli_num_rows($result);
             if($row>0){
@@ -172,6 +174,7 @@
                         if($personJSON !==null){
                             $personData = json_decode($personJSON, true);
                             $colAdmin = $personData['fname'].' '.$personData['lname'];
+                            $colAdminImg = $personData['profilepicture'];
                         }
                     }
                 }
@@ -189,7 +192,8 @@
                 'colWebLink'=>$colWebLink,
                 'colDean'=>$colDean,
                 'colDeanImg'=>$colDeanImg,
-                'colAdminName'=>$colAdmin
+                'colAdminName'=>$colAdmin,
+                'colAdminImg'=>$colAdminImg
             );
 
             echo json_encode($colData);
