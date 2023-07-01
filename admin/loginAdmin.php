@@ -10,23 +10,36 @@
     <script src="https://code.jquery.com/jquery-2.2.4.js"
         integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <title>University Admin Login</title>
+
+    <style>
+        body {
+            background-image: url('../assets/bg.jpg');
+            background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value between 0 and 1 for desired opacity */
+            background-blend-mode: multiply;
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body>
     <div class="w-full h-screen flex justify-center items-center">
-        <div class="md:h-max sm:h-14 w-1/2 rounded-xl shadow-lg md:grid grid-cols-2 sm:block">
-            <div class="bg-accent md:rounded-l-2xl text-white pt-10">
-                <h2 class="text-xl text-center">We Still Connected</h2>
-                <img src="../assets/graduate_logo.png" alt="">
+        <div class="md:h-max sm:h-14 w-1/2 rounded-xl shadow-md md:grid grid-cols-2 sm:block text-gray-600">
+            <div class="bg-accent md:rounded-l-2xl text-white pt-10 h-full relative">
+                <h2 class="Lobster text-xl text-center">"We Still Connected"</h2>
+                <img class="absolute bottom-0" src="../assets/graduate_logo.png" alt="">
             </div>
 
-            <div class="p-3">
+            <div class="p-3 rounded-r-2xl relative hidden">
                 <h1 class="text-2xl font-bold text-greyish_black text-center w-2/3 block mx-auto">Welcome back Admin!
                 </h1>
                 <div>
                     <form id="loginForm" class="mt-2 p-3 flex flex-col gap-1">
-                        <p id="errorMsg" class="text-sm text-accent hidden"><span class="font-bold">login Failed:</span> Incorrect
+                        <p id="errorMsg" class="text-sm text-accent hidden"><span class="font-bold">login Failed:</span>
+                            Incorrect
                             username/password</p>
                         <label>Username</label>
                         <input name="username" class=" border border-gray-400 rounded-md p-2 outline-none"
@@ -42,8 +55,82 @@
                             Sign in
                         </button>
                     </form>
+
+                    <p class="text-center absolute bottom-1 w-full cursor-pointer">Don't have an account? <span
+                            class="text-accent font-semibold">Register here</span></p>
                 </div>
             </div>
+
+            <div class=" w-full p-2 bg-white rounded-r-2xl">
+                <h1 class="text-2xl font-bold text-greyish_black text-center w-2/3 block mx-auto">Registration</h1>
+                <form class="mt-2 p-2 ">
+                    <div class="grid grid-cols-2 gap-1">
+                        <div>
+                            <label class="font-semibold">First Name</label>
+                            <input name="fname" class="border border-gray-400 rounded-md w-full p-2 outline-none"
+                                placeholder="e.g Jayson" type="text">
+                        </div>
+                        <div>
+                            <label class="font-semibold">Last Name</label>
+                            <input name="lname" class="border border-gray-400 rounded-md p-2 outline-none w-full"
+                                placeholder="e.g Batoon" type="text">
+                        </div>
+                    </div>
+
+                    <!-- bday and age -->
+                    <div class="grid grid-cols-2 gap-1">
+                        <div>
+                            <label class="font-semibold">Birthday</label>
+                            <input name="bday" class=" border border-gray-400 rounded-md p-2 outline-none w-full"
+                                type="date">
+                        </div>
+                        <div>
+                            <label class="font-semibold">Age</label>
+                            <input name="age" class=" border border-gray-400 rounded-md p-2 outline-none w-full"
+                                value="0" type="number">
+                        </div>
+                    </div>
+
+                    <!-- gender and contact number -->
+                    <div class="grid grid-cols-2 gap-1">
+                        <div>
+                            <label class="font-semibold">Gender</label>
+                            <div class="flex justify-evenly items-center mt-2 w-full">
+                                <input type="radio" checked>Male
+                                <input type="radio">Female
+                            </div>
+                        </div>
+                        <div>
+                            <label class="font-semibold">Contact Number</label>
+                            <input name="contactNo"
+                                class="border border-gray-400 rounded-md p-2 outline-none block w-full"
+                                placeholder="e.g 09104905440" type="text">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="font-semibold">Address</label>
+                        <input class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                    </div>
+
+                    <div>
+                        <label class="font-semibold">Email Address (Personal)</label>
+                        <input class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                    </div>
+
+                    <div>
+                        <label class="font-semibold">Email Address (BulSU)</label>
+                        <input class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                    </div>
+
+                    <div class="flex justify-end mt-2 gap-2">
+                        <button>Go back</button>
+                        <button class="p-2 rounded-md bg-accent hover:bg-darkAccent text-white">Register</button>
+                    </div>
+                </form>
+            </div>
+
+
         </div>
     </div>
 

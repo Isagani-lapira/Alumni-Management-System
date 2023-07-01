@@ -592,6 +592,10 @@ video {
   background-color: rgb(96 16 16 / var(--tw-bg-opacity));
 }
 
+.Lobster {
+  font-family: "Lobster", cursive;
+}
+
 input[type="radio"],
   input[type="checkbox"] {
   /* Makes the color of input accent color */
@@ -908,11 +912,6 @@ th,
 .my-12 {
   margin-top: 3rem;
   margin-bottom: 3rem;
-}
-
-.my-16 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
 }
 
 .my-2 {
@@ -1275,10 +1274,6 @@ th,
   height: 10rem;
 }
 
-.h-44 {
-  height: 11rem;
-}
-
 .h-5 {
   height: 1.25rem;
 }
@@ -1326,10 +1321,6 @@ th,
 
 .h-screen {
   height: 100vh;
-}
-
-.h-28 {
-  height: 7rem;
 }
 
 .max-h-20 {
@@ -1442,10 +1433,6 @@ th,
 
 .w-40 {
   width: 10rem;
-}
-
-.w-48 {
-  width: 12rem;
 }
 
 .w-5 {
@@ -2516,6 +2503,11 @@ th,
 .rounded-r {
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
+}
+
+.rounded-r-2xl {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
 }
 
 .rounded-s {
