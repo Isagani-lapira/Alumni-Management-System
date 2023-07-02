@@ -112,3 +112,18 @@ jobOffers.forEach((offer) => {
   });
 });
 
+const yearbookBtn = document.getElementById("yearbookButton");
+const tab1Btn = document.getElementById("feedLink");
+const yearbookTab = document.getElementById("tabs-yrbook");
+const tab1 = document.getElementById("tabs-1");
+
+yearbookBtn.addEventListener("click", function() {
+  yearbookTab.style.display = "block";
+  tab1.style.display = "none";
+});
+
+tab1Btn.addEventListener("click", function() {
+  yearbookTab.style.display = "none";
+  tab1.style.display = "block";
+});
+
