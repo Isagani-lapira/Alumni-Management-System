@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
 
+    //login 
     $('#loginForm').on('submit', (e) => {
         e.preventDefault();
 
@@ -73,9 +74,31 @@ $(document).ready(function () {
 
     //go next panel
     $('#registerBtnNext').on('click', function () {
-        $('#personalInfoPanel').hide();
         $('#loginPanel').hide();
-        $('#userAccountPanel').show();
-        $('#graduateLogo').addClass('relative').removeClass('absolute bottom-0')
+        if (checkFields('.personalInput')) {
+            $('#personalInfoPanel').hide();
+            $('#userAccountPanel').show();
+            $('#graduateLogo').addClass('relative').removeClass('absolute bottom-0')
+        }
     })
+
+    function checkFields(element) {
+        let allComplete = true;
+
+        //check if all fields are complete
+        $(element).each(function () {
+            let input = $(element);
+            let inputVal = input.val();
+
+            //check if the particular field is empty or not
+            if (inputVal == "") {
+                input.addClass('border border-accent').removeClass('border-gray-400')
+                allComplete = false
+            }
+            else input.removeClass('border border-accent').addClass('border border-gray-400')
+
+        });
+
+        return allComplete;
+    }
 });

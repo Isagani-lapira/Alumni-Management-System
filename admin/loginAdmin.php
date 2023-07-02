@@ -69,11 +69,11 @@
                         <div class="grid grid-cols-2 gap-1">
                             <div>
                                 <label class="font-medium">First Name</label>
-                                <input name="fname" class="border border-gray-400 rounded-md w-full p-2 outline-none" placeholder="e.g Jayson" type="text">
+                                <input name="fname" class="personalInput border border-gray-400 rounded-md w-full p-2 outline-none" placeholder="e.g Jayson" type="text">
                             </div>
                             <div>
                                 <label class="font-semibold">Last Name</label>
-                                <input name="lname" class="border border-gray-400 rounded-md p-2 outline-none w-full" placeholder="e.g Batoon" type="text">
+                                <input name="lname" class="personalInput border border-gray-400 rounded-md p-2 outline-none w-full" placeholder="e.g Batoon" type="text">
                             </div>
                         </div>
 
@@ -81,11 +81,11 @@
                         <div class="grid grid-cols-2 gap-1">
                             <div>
                                 <label class="font-semibold">Birthday</label>
-                                <input name="bday" class=" border border-gray-400 rounded-md p-2 outline-none w-full" type="date">
+                                <input name="bday" class="personalInput border border-gray-400 rounded-md p-2 outline-none w-full" type="date">
                             </div>
                             <div>
                                 <label class="font-semibold">Age</label>
-                                <input name="age" class=" border border-gray-400 rounded-md p-2 outline-none w-full" value="0" type="number">
+                                <input name="age" class="personalInput border border-gray-400 rounded-md p-2 outline-none w-full" value="0" type="number">
                             </div>
                         </div>
 
@@ -100,23 +100,23 @@
                             </div>
                             <div>
                                 <label class="font-semibold">Contact Number</label>
-                                <input name="contactNo" class="border border-gray-400 rounded-md p-2 outline-none block w-full" placeholder="e.g 09104905440" type="text">
+                                <input name="contactNo" class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" placeholder="e.g 09104905440" type="text">
                             </div>
                         </div>
 
                         <div>
                             <label class="font-semibold">Address</label>
-                            <input class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                            <input class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
                         </div>
 
                         <div>
                             <label class="font-semibold">Email Address (Personal)</label>
-                            <input class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                            <input class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
                         </div>
 
                         <div>
                             <label class="font-semibold">Email Address (BulSU)</label>
-                            <input class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                            <input class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
                         </div>
 
 
