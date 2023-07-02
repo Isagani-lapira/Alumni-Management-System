@@ -82,21 +82,69 @@ $(document).ready(function () {
         }
     })
 
+    $('#registerForm').on('submit', (e) => {
+        //prevent from submitting
+        e.preventDefault();
+
+        //check if all field are complete before sending
+        let inputFields = '#registerForm input';
+
+        if (checkFields(inputFields)) {
+
+            //check if both password and confirm pass is the same
+            let password = $('#password').val();
+            let confirmPass = $('#confirmpassword').val();
+
+            if (password === confirmPass) {
+                console.log(' magkamukha password')
+            } else console.log('hindi magkamukha');
+        }
+
+    })
+
+    $('#usernameField').on('change', function () {
+        let username = $(this).val();
+
+        let form = new FormData();
+        var data = {
+            action: 'read',
+            query: false,
+        };
+        form.append('username', username);
+        form.append('action', JSON.stringify(data))
+        $.ajax({
+            url: '../PHP_process/userData.php',
+            type: 'POST',
+            data: form,
+            processData: false,
+            contentType: false,
+            success: (response) => {
+                if (response == 'exist') {
+                    $('#usernameField').addClass('border-accent').removeClass('border-gray-400');
+                    $('#usernameWarning').show();
+                }
+                console.log(response)
+            },
+            error: (error) => {
+                console.log(error)
+            }
+        })
+    });
+
+    //checking field
     function checkFields(element) {
         let allComplete = true;
 
         //check if all fields are complete
         $(element).each(function () {
-            let input = $(element);
-            let inputVal = input.val();
+            let inputVal = $(this).val();
 
             //check if the particular field is empty or not
             if (inputVal == "") {
-                input.addClass('border border-accent').removeClass('border-gray-400')
+                $(this).addClass('border border-accent').removeClass('border-gray-400')
                 allComplete = false
             }
-            else input.removeClass('border border-accent').addClass('border border-gray-400')
-
+            else $(this).removeClass('border border-accent').addClass('border border-gray-400')
         });
 
         return allComplete;

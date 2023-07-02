@@ -62,7 +62,7 @@
             <!-- registration -->
             <div id="registrationPanel" class="w-full p-2 bg-white rounded-r-2xl hidden">
                 <h1 class="text-2xl font-bold text-greyish_black text-center w-2/3 block mx-auto">Registration</h1>
-                <form class="mt-2 p-2 ">
+                <form id="registerForm" class="mt-2 p-2 ">
 
                     <div id="personalInfoPanel" class="">
                         <!-- first name and last name -->
@@ -129,23 +129,24 @@
                     <div id="userAccountPanel" class="hidden">
                         <div>
                             <label class="font-semibold">Username</label>
-                            <input class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                            <input id="usernameField" class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                            <p id="usernameWarning" class="text-xs text-red-400 italic hidden">Username is already existing. Try another username</p>
                         </div>
 
                         <div>
                             <label class="font-semibold">Password</label>
-                            <input class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="password">
+                            <input id="password" class="password border border-gray-400 rounded-md p-2 outline-none block w-full" type="password">
                         </div>
 
                         <div>
                             <label class="font-semibold">Confirm Password</label>
-                            <input class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="password">
+                            <input id="confirmpassword" class="password border border-gray-400 rounded-md p-2 outline-none block w-full" type="password">
                         </div>
 
 
                         <div class="flex justify-end mt-2 gap-2">
                             <button type="button" id="backToPersonInfo">Go back</button>
-                            <button class="p-2 rounded-md bg-accent hover:bg-darkAccent text-white">Register</button>
+                            <button type="submit" class="p-2 rounded-md bg-accent hover:bg-darkAccent text-white">Register</button>
                         </div>
                     </div>
                 </form>
