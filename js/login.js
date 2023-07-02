@@ -7,7 +7,7 @@ $(document).ready(function () {
         let allHaveVal = true;
 
         //traverse all the input available
-        $('input').each(function () {
+        $('.logInput').each(function () {
 
             let val = $(this).val()
             let field;
@@ -42,7 +42,7 @@ $(document).ready(function () {
                 success: (response) => {
                     if (response == 'successful') {
                         $('#errorMsg').hide();
-                        console.log("yehey");
+                        window.location.href = "../admin/admin.php";
                     }
                     else $('#errorMsg').show();
                 },
@@ -51,4 +51,31 @@ $(document).ready(function () {
         }
     })
 
+    //go registration button
+    $('#registerBtn').on('click', function () {
+        $('#registrationPanel').show();
+        $('#loginPanel').hide();
+        $('#graduateLogo').removeClass('relative').addClass('absolute bottom-0')
+    })
+    //go back to user login
+    $('#registerBtnBack').on('click', function () {
+        $('#registrationPanel').hide();
+        $('#loginPanel').show();
+        $('#graduateLogo').addClass('relative').removeClass('absolute bottom-0')
+    })
+
+    //go back to personal info
+    $('#backToPersonInfo').on('click', function () {
+        $('#userAccountPanel').hide();
+        $('#personalInfoPanel').show();
+        $('#graduateLogo').removeClass('relative').addClass('absolute bottom-0')
+    })
+
+    //go next panel
+    $('#registerBtnNext').on('click', function () {
+        $('#personalInfoPanel').hide();
+        $('#loginPanel').hide();
+        $('#userAccountPanel').show();
+        $('#graduateLogo').addClass('relative').removeClass('absolute bottom-0')
+    })
 });
