@@ -13,8 +13,8 @@ $(document).ready(function () {
     loadURL(linkName, $("#main-root"));
   }
   // manages link clicks
-  $("nav li a").click(function (e) {
-    const link = e.target.getAttribute("data-link");
+  $("nav li a").click(function () {
+    const link = $(this).attr("data-link");
     handleLinkFocusChange(link);
     loadURL(link, $("#main-root"));
   });
