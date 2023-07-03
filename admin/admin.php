@@ -407,7 +407,22 @@
               <p class="text-sm font-thin">Course</p>
               <!-- college selection -->
               <select name="college" id="emCol" class="w-full border border-grayish p-2 rounded-lg">
-                <option value="" selected disabled hidden>BS Computer Science</option>
+                <option value="" selected disabled hidden>All</option>
+                <?php
+                require_once '../PHP_process/connection.php';
+                $query = "SELECT * FROM `college`";
+                $result = mysqli_query($mysql_con, $query);
+                $rows = mysqli_num_rows($result);
+
+                if ($rows > 0) {
+                  while ($data = mysqli_fetch_assoc($result)) {
+                    $colCode = $data['colCode'];
+                    $colName = $data['colname'];
+
+                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                  }
+                } else echo '<option>No college available</option>';
+                ?>
               </select>
             </div>
 
