@@ -36,14 +36,15 @@
 </head>
 
 <body class="">
-    <header class="py-6 px-4">
-        <h1 class="text-lg tracking-wide"><span class="font-bold ">Alumni CICT</span> System</h1>
-    </header>
+
     <div class="flex flex-row min-h-screen ">
 
         <aside class="
-        border flex-initial relative w-80 px-2 
+        border flex-initial relative w-80 px-5 py-5
         ">
+            <header class="">
+                <h1 class="text-lg tracking-wide"><span class="font-bold ">Alumni </span> System</h1>
+            </header>
             <!-- TODO make this sticky fixed left-0 top-8 z-0 -->
             <!-- TODO Adjust icons to fill up when changed -->
             <nav class="">
@@ -138,7 +139,7 @@
             </nav>
         </aside>
 
-        <main class="flex-1">
+        <main class="flex-1 mx-auto mt-10">
             <div id="main-root">
                 <?php require 'pages/dashboard.php'; ?>
             </div>

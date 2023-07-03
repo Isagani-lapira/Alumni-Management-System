@@ -1,10 +1,7 @@
 <!-- dashboard content -->
-<section id="dashboard-tab" class="container mx-auto">
-    <h1 class="text-xl font-extrabold">Dashboard</h1>
+<section id="dashboard-tab" class="container">
 
-    <button id="btnAnnouncement" style="margin-left: auto; margin-right: 10px" class="block rounded-lg font-bold text-white bg-accent p-2 hover:bg-darkAccent">
-        Create CICT POST
-    </button>
+
 
     <div class="flex m-10 h-2/3 p-2">
         <div class="flex-1">

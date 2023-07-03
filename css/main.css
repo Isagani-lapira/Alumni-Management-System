@@ -660,20 +660,12 @@ th,
   position: static;
 }
 
-.\!fixed {
-  position: fixed !important;
-}
-
 .fixed {
   position: fixed;
 }
 
 .absolute {
   position: absolute;
-}
-
-.\!relative {
-  position: relative !important;
 }
 
 .relative {
@@ -802,10 +794,6 @@ th,
 
 .top-8 {
   top: 2rem;
-}
-
-.-bottom-0 {
-  bottom: -0px;
 }
 
 .isolate {
@@ -1118,10 +1106,6 @@ th,
   -webkit-line-clamp: none;
 }
 
-.\!block {
-  display: block !important;
-}
-
 .block {
   display: block;
 }
@@ -1192,10 +1176,6 @@ th,
 
 .inline-grid {
   display: inline-grid;
-}
-
-.\!contents {
-  display: contents !important;
 }
 
 .contents {
@@ -3863,11 +3843,6 @@ th,
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.shadow-white {
-  --tw-shadow-color: #fff;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -4276,10 +4251,6 @@ body {
 }
 
 @media (min-width: 640px) {
-  .sm\:relative {
-    position: relative;
-  }
-
   .sm\:top-24 {
     top: 6rem;
   }
@@ -4292,16 +4263,8 @@ body {
     display: block;
   }
 
-  .sm\:hidden {
-    display: none;
-  }
-
   .sm\:h-14 {
     height: 3.5rem;
-  }
-
-  .sm\:h-full {
-    height: 100%;
   }
 
   .sm\:w-2\/6 {
@@ -4325,29 +4288,12 @@ body {
     line-height: 1rem;
   }
 
-  .sm\:text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-
   .sm\:underline {
     text-decoration-line: underline;
   }
 }
 
 @media (min-width: 768px) {
-  .md\:absolute {
-    position: absolute;
-  }
-
-  .md\:relative {
-    position: relative;
-  }
-
-  .md\:bottom-0 {
-    bottom: 0px;
-  }
-
   .md\:col-span-1 {
     grid-column: span 1 / span 1;
   }
@@ -4366,10 +4312,6 @@ body {
 
   .md\:grid {
     display: grid;
-  }
-
-  .md\:hidden {
-    display: none;
   }
 
   .md\:h-2\/5 {
@@ -4450,11 +4392,6 @@ body {
 
   .md\:pl-8 {
     padding-left: 2rem;
-  }
-
-  .md\:text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
   }
 
   .md\:text-base {
