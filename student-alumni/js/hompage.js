@@ -67,6 +67,18 @@ $(document).ready(function () {
   $('.modal-container').click(function(e) {
     e.stopPropagation();
   }); 
+
+  $("#yearbookButton").click(function() {
+    $("#tabs-yrbook").show();
+    $("#tabs-1").hide();
+  });
+
+  $("#feedLink").click(function() {
+    $("#tabs-yrbook").hide();
+    $("#tabs-1").show();
+    $("#tabs-college").show();
+
+  });
   
 });
 
@@ -110,20 +122,5 @@ jobOffers.forEach((offer) => {
   bookmarkIcon.addEventListener('click', function() {
     bookmarkIcon.classList.toggle('fas');
   });
-});
-
-const yearbookBtn = document.getElementById("yearbookButton");
-const tab1Btn = document.getElementById("feedLink");
-const yearbookTab = document.getElementById("tabs-yrbook");
-const tab1 = document.getElementById("tabs-1");
-
-yearbookBtn.addEventListener("click", function() {
-  yearbookTab.style.display = "block";
-  tab1.style.display = "none";
-});
-
-tab1Btn.addEventListener("click", function() {
-  yearbookTab.style.display = "none";
-  tab1.style.display = "block";
 });
 
