@@ -115,7 +115,15 @@ $(document).ready(function () {
                         processData: false,
                         contentType: false,
                         success: (response) => {
-                            console.log(response)
+                            if (response == 'Success') {
+                                $('#promptMessage').removeClass('hidden');
+                                $('#insertionMsg').html('Success! 🎉 Registration complete');
+                            }
+                            else {
+                                $('#promptMessage').removeClass('hidden');
+                                $('#insertionMsg').html("We're sorry to inform you that the registration was not successful. ")
+                                    .addClass('text-xs');
+                            }
                         },
                         error: (error) => {
                             console.log(error)

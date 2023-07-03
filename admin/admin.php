@@ -10,17 +10,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Corinthia&family=Dancing+Script:wght@500&family=Exo+2:wght@700&family=Fasthand&family=Freehand&family=Montserrat:ital,wght@0,400;0,700;1,400;1,600;1,700;1,800&family=Poppins:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&family=Source+Sans+Pro:ital@1&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Corinthia&family=Dancing+Script:wght@500&family=Exo+2:wght@700&family=Fasthand&family=Freehand&family=Montserrat:ital,wght@0,400;0,700;1,400;1,600;1,700;1,800&family=Poppins:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&family=Source+Sans+Pro:ital@1&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"
-    integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-md5@0.7.3/build/md5.min.js"></script>
@@ -50,8 +46,7 @@
           <!-- ANNOUNCEMENT -->
           <li class="rounded-lg p-2"><a href="#announcement-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z" />
+                <path d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z" />
               </svg>
               ANNOUNCEMENT</a>
           </li>
@@ -59,8 +54,7 @@
           <!-- EMAIL -->
           <li class="rounded-lg p-2"><a href="#email-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16" width="24" height="24">
-                <path
-                  d="M 18 0 H 2 C 0.9 0 0.00999999 0.9 0.00999999 2 L 0 14 C 0 15.1 0.9 16 2 16 H 18 C 19.1 16 20 15.1 20 14 V 2 C 20 0.9 19.1 0 18 0 Z M 18 4 L 10 9 L 2 4 V 2 L 10 7 L 18 2 V 4 Z" />
+                <path d="M 18 0 H 2 C 0.9 0 0.00999999 0.9 0.00999999 2 L 0 14 C 0 15.1 0.9 16 2 16 H 18 C 19.1 16 20 15.1 20 14 V 2 C 20 0.9 19.1 0 18 0 Z M 18 4 L 10 9 L 2 4 V 2 L 10 7 L 18 2 V 4 Z" />
               </svg>
               EMAIL</a>
           </li>
@@ -69,8 +63,7 @@
           <li class="rounded-lg p-2"><a href="#student-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
                 <path d="M4 2H2v26a2 2 0 0 0 2 2h26v-2H4Z" />
-                <path
-                  d="M30 9h-7v2h3.59L19 18.59l-4.29-4.3a1 1 0 0 0-1.42 0L6 21.59L7.41 23L14 16.41l4.29 4.3a1 1 0 0 0 1.42 0l8.29-8.3V16h2Z" />
+                <path d="M30 9h-7v2h3.59L19 18.59l-4.29-4.3a1 1 0 0 0-1.42 0L6 21.59L7.41 23L14 16.41l4.29 4.3a1 1 0 0 0 1.42 0l8.29-8.3V16h2Z" />
               </svg>
               STUDENT RECORD</a>
           </li>
@@ -78,8 +71,7 @@
           <!-- COLLEGES -->
           <li class="rounded-lg p-2"><a href="#colleges-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  d="M14 11q1.25 0 2.125-.875T17 8q0-1.25-.875-2.125T14 5q-1.25 0-2.125.875T11 8q0 1.25.875 2.125T14 11Zm-6 7q-.825 0-1.413-.588T6 16V4q0-.825.588-1.413T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.588 1.413T20 18H8Zm-4 4q-.825 0-1.413-.588T2 20V7q0-.425.288-.713T3 6q.425 0 .713.288T4 7v13h13q.425 0 .713.288T18 21q0 .425-.288.713T17 22H4Zm4-6h12q-1.1-1.475-2.65-2.238T14 13q-1.8 0-3.35.763T8 16Z" />
+                <path d="M14 11q1.25 0 2.125-.875T17 8q0-1.25-.875-2.125T14 5q-1.25 0-2.125.875T11 8q0 1.25.875 2.125T14 11Zm-6 7q-.825 0-1.413-.588T6 16V4q0-.825.588-1.413T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.588 1.413T20 18H8Zm-4 4q-.825 0-1.413-.588T2 20V7q0-.425.288-.713T3 6q.425 0 .713.288T4 7v13h13q.425 0 .713.288T18 21q0 .425-.288.713T17 22H4Zm4-6h12q-1.1-1.475-2.65-2.238T14 13q-1.8 0-3.35.763T8 16Z" />
               </svg>
               COLLEGES </a>
           </li>
@@ -87,8 +79,7 @@
           <!-- FORMS -->
           <li class="rounded-lg p-2 "><a href="#forms-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1536 1536">
-                <path
-                  d="M515 783v128H263V783h252zm0-255v127H263V528h252zm758 511v128H932v-128h341zm0-256v128H601V783h672zm0-255v127H601V528h672zm135 860V148q0-8-6-14t-14-6h-32L978 384L768 213L558 384L180 128h-32q-8 0-14 6t-6 14v1240q0 8 6 14t14 6h1240q8 0 14-6t6-14zM553 278l185-150H332zm430 0l221-150H798zm553-130v1240q0 62-43 105t-105 43H148q-62 0-105-43T0 1388V148Q0 86 43 43T148 0h1240q62 0 105 43t43 105z" />
+                <path d="M515 783v128H263V783h252zm0-255v127H263V528h252zm758 511v128H932v-128h341zm0-256v128H601V783h672zm0-255v127H601V528h672zm135 860V148q0-8-6-14t-14-6h-32L978 384L768 213L558 384L180 128h-32q-8 0-14 6t-6 14v1240q0 8 6 14t14 6h1240q8 0 14-6t6-14zM553 278l185-150H332zm430 0l221-150H798zm553-130v1240q0 62-43 105t-105 43H148q-62 0-105-43T0 1388V148Q0 86 43 43T148 0h1240q62 0 105 43t43 105z" />
               </svg>
               TRACER FORM </a>
           </li>
@@ -98,8 +89,7 @@
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <g fill-rule="evenodd" clip-rule="evenodd">
                   <path d="M16 9a4 4 0 1 1-8 0a4 4 0 0 1 8 0Zm-2 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z" />
-                  <path
-                    d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1ZM3 12c0 2.09.713 4.014 1.908 5.542A8.986 8.986 0 0 1 12.065 14a8.984 8.984 0 0 1 7.092 3.458A9 9 0 1 0 3 12Zm9 9a8.963 8.963 0 0 1-5.672-2.012A6.992 6.992 0 0 1 12.065 16a6.991 6.991 0 0 1 5.689 2.92A8.964 8.964 0 0 1 12 21Z" />
+                  <path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1ZM3 12c0 2.09.713 4.014 1.908 5.542A8.986 8.986 0 0 1 12.065 14a8.984 8.984 0 0 1 7.092 3.458A9 9 0 1 0 3 12Zm9 9a8.963 8.963 0 0 1-5.672-2.012A6.992 6.992 0 0 1 12.065 16a6.991 6.991 0 0 1 5.689 2.92A8.964 8.964 0 0 1 12 21Z" />
                 </g>
               </svg>
               PROFILE</a>
@@ -111,8 +101,7 @@
           <!-- Alumni of the year -->
           <li class="rounded-lg p-2 "><a href="#alumnYear-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
-                <path
-                  d="M256 89.61L22.486 177.18L256 293.937l111.22-55.61l-104.337-31.9A16 16 0 0 1 256 208a16 16 0 0 1-16-16a16 16 0 0 1 16-16l-2.646 8.602l18.537 5.703a16 16 0 0 1 .008.056l27.354 8.365L455 246.645v12.146a16 16 0 0 0-7 13.21a16 16 0 0 0 7.293 13.406C448.01 312.932 448 375.383 448 400c16 10.395 16 10.775 32 0c0-24.614-.008-87.053-7.29-114.584A16 16 0 0 0 480 272a16 16 0 0 0-7-13.227v-25.42L413.676 215.1l75.838-37.92L256 89.61zM119.623 249L106.5 327.74c26.175 3.423 57.486 18.637 86.27 36.627c16.37 10.232 31.703 21.463 44.156 32.36c7.612 6.66 13.977 13.05 19.074 19.337c5.097-6.288 11.462-12.677 19.074-19.337c12.453-10.897 27.785-22.128 44.156-32.36c28.784-17.99 60.095-33.204 86.27-36.627L392.375 249h-6.25L256 314.063L125.873 249h-6.25z" />
+                <path d="M256 89.61L22.486 177.18L256 293.937l111.22-55.61l-104.337-31.9A16 16 0 0 1 256 208a16 16 0 0 1-16-16a16 16 0 0 1 16-16l-2.646 8.602l18.537 5.703a16 16 0 0 1 .008.056l27.354 8.365L455 246.645v12.146a16 16 0 0 0-7 13.21a16 16 0 0 0 7.293 13.406C448.01 312.932 448 375.383 448 400c16 10.395 16 10.775 32 0c0-24.614-.008-87.053-7.29-114.584A16 16 0 0 0 480 272a16 16 0 0 0-7-13.227v-25.42L413.676 215.1l75.838-37.92L256 89.61zM119.623 249L106.5 327.74c26.175 3.423 57.486 18.637 86.27 36.627c16.37 10.232 31.703 21.463 44.156 32.36c7.612 6.66 13.977 13.05 19.074 19.337c5.097-6.288 11.462-12.677 19.074-19.337c12.453-10.897 27.785-22.128 44.156-32.36c28.784-17.99 60.095-33.204 86.27-36.627L392.375 249h-6.25L256 314.063L125.873 249h-6.25z" />
               </svg>
               ALUMNI OF THE YEAR</a>
           </li>
@@ -120,8 +109,7 @@
           <!-- ALUMNI OF THE MONTH -->
           <li class="rounded-lg p-2"><a href="#alumnMonth-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 448 512">
-                <path
-                  d="M219.3.5c3.1-.6 6.3-.6 9.4 0l200 40C439.9 42.7 448 52.6 448 64s-8.1 21.3-19.3 23.5L352 102.9V160c0 70.7-57.3 128-128 128S96 230.7 96 160v-57.1l-48-9.6v65.1l15.7 78.4c.9 4.7-.3 9.6-3.3 13.3S52.8 256 48 256H16c-4.8 0-9.3-2.1-12.4-5.9s-4.3-8.6-3.3-13.3L16 158.4V86.6C6.5 83.3 0 74.3 0 64c0-11.4 8.1-21.3 19.3-23.5l200-40zM111.9 327.7c10.5-3.4 21.8.4 29.4 8.5l71 75.5c6.3 6.7 17 6.7 23.3 0l71-75.5c7.6-8.1 18.9-11.9 29.4-8.5c65 20.9 112 81.7 112 153.6c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-71.9 47-132.7 111.9-153.6z" />
+                <path d="M219.3.5c3.1-.6 6.3-.6 9.4 0l200 40C439.9 42.7 448 52.6 448 64s-8.1 21.3-19.3 23.5L352 102.9V160c0 70.7-57.3 128-128 128S96 230.7 96 160v-57.1l-48-9.6v65.1l15.7 78.4c.9 4.7-.3 9.6-3.3 13.3S52.8 256 48 256H16c-4.8 0-9.3-2.1-12.4-5.9s-4.3-8.6-3.3-13.3L16 158.4V86.6C6.5 83.3 0 74.3 0 64c0-11.4 8.1-21.3 19.3-23.5l200-40zM111.9 327.7c10.5-3.4 21.8.4 29.4 8.5l71 75.5c6.3 6.7 17 6.7 23.3 0l71-75.5c7.6-8.1 18.9-11.9 29.4-8.5c65 20.9 112 81.7 112 153.6c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-71.9 47-132.7 111.9-153.6z" />
               </svg>
               ALUMNI OF THE MONTH</a>
           </li>
@@ -129,8 +117,7 @@
           <!-- Community Hub -->
           <li class="rounded-lg p-2 "><a href="#community-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
-                <path
-                  d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
+                <path d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
               </svg>
               COMMUNITY HUB</a>
           </li>
@@ -138,8 +125,7 @@
           <!-- Job Opportunities -->
           <li class="rounded-lg p-2 "><a href="#jobOpportunities-tab">
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  d="M4 21q-.825 0-1.413-.588T2 19V8q0-.825.588-1.413T4 6h4V4q0-.825.588-1.413T10 2h4q.825 0 1.413.588T16 4v2h4q.825 0 1.413.588T22 8v11q0 .825-.588 1.413T20 21H4Zm6-15h4V4h-4v2Z" />
+                <path d="M4 21q-.825 0-1.413-.588T2 19V8q0-.825.588-1.413T4 6h4V4q0-.825.588-1.413T10 2h4q.825 0 1.413.588T16 4v2h4q.825 0 1.413.588T22 8v11q0 .825-.588 1.413T20 21H4Zm6-15h4V4h-4v2Z" />
               </svg>
               JOB OPPORTUNITIES</a>
           </li>
@@ -177,14 +163,29 @@
                       <br />
                       REGISTERED</span>
 
-                    <p class="text-accent text-4xl mt-2 font-bold relative bottom-0">55000</p>
+                    <?php
+                    require_once '../PHP_process/connection.php';
+                    $query = "SELECT * FROM user WHERE `accounType` = 'User'";
+                    $result = mysqli_query($mysql_con, $query);
+                    $rows = mysqli_num_rows($result);
+
+                    echo '<p class="text-accent text-4xl mt-2 font-bold relative bottom-0">' . $rows . '</p>';
+                    ?>
+
                   </div>
 
                   <!-- Job Posting -->
                   <div class="center-shadow flex-1 rounded-lg p-2 relative">
                     <span class="text-textColor"><img class="inline mr-1" src="../images/work-icon.svg" />JOB
                       POSTING</span>
-                    <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">1000</p>
+                    <?php
+                    require_once '../PHP_process/connection.php';
+                    $query = "SELECT * FROM `career`";
+                    $result = mysqli_query($mysql_con, $query);
+                    $rows = mysqli_num_rows($result);
+
+                    echo '<p class="text-accent text-4xl mt-2 font-bold absolute bottom-2">' . $rows . '</p>';
+                    ?>
                   </div>
 
                   <!-- colleges -->
@@ -295,8 +296,7 @@
           <h1 class="text-xl font-extrabold">ANNOUNCEMENT</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
-            <button id="btnAnnouncement"
-              class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
+            <button id="btnAnnouncement" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
               NEW
               POST
             </button>
@@ -388,8 +388,7 @@
           <h1 class="text-xl font-extrabold">EMAIL</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
-            <button id="btnEmail"
-              class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
+            <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
               NEW
               MESSAGE
             </button>
@@ -408,7 +407,22 @@
               <p class="text-sm font-thin">Course</p>
               <!-- college selection -->
               <select name="college" id="emCol" class="w-full border border-grayish p-2 rounded-lg">
-                <option value="" selected disabled hidden>BS Computer Science</option>
+                <option value="" selected disabled hidden>All</option>
+                <?php
+                require_once '../PHP_process/connection.php';
+                $query = "SELECT * FROM `college`";
+                $result = mysqli_query($mysql_con, $query);
+                $rows = mysqli_num_rows($result);
+
+                if ($rows > 0) {
+                  while ($data = mysqli_fetch_assoc($result)) {
+                    $colCode = $data['colCode'];
+                    $colName = $data['colname'];
+
+                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                  }
+                } else echo '<option>No college available</option>';
+                ?>
               </select>
             </div>
 
@@ -501,6 +515,21 @@
             <!-- college selection -->
             <select name="college" id="college" class="w-full p-1">
               <option value="" selected disabled hidden>Course</option>
+              <?php
+              require_once '../PHP_process/connection.php';
+              $query = "SELECT * FROM `college`";
+              $result = mysqli_query($mysql_con, $query);
+              $rows = mysqli_num_rows($result);
+
+              if ($rows > 0) {
+                while ($data = mysqli_fetch_assoc($result)) {
+                  $colCode = $data['colCode'];
+                  $colName = $data['colname'];
+
+                  echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                }
+              } else echo '<option>No college available</option>';
+              ?>
             </select>
 
             <!-- employment status selection -->
@@ -612,12 +641,10 @@
               </div>
 
               <div>
-                <button id="btnNewCol" style="margin-left: auto; margin-right: 10px"
-                  class="block rounded-lg  text-white bg-accent p-2 hover:bg-darkAccent">Create new college
+                <button id="btnNewCol" style="margin-left: auto; margin-right: 10px" class="block rounded-lg  text-white bg-accent p-2 hover:bg-darkAccent">Create new college
                 </button>
 
-                <button id="btnRemoveCol" style="margin-left: auto; margin-right: 10px"
-                  class="block my-2 text-sm text-grayish px-2 py-1 hover:text-accent hover:font-medium">Remove a college
+                <button id="btnRemoveCol" style="margin-left: auto; margin-right: 10px" class="block my-2 text-sm text-grayish px-2 py-1 hover:text-accent hover:font-medium">Remove a college
                 </button>
               </div>
 
@@ -628,27 +655,25 @@
 
             <div class="grid grid-cols-4 gap-4 p-7">
               <?php
-                require_once '../PHP_process/connection.php';
-                $query = "SELECT * FROM `college`";
-                $result = mysqli_query($mysql_con,$query);
-                $rows = mysqli_num_rows($result);
+              require_once '../PHP_process/connection.php';
+              $query = "SELECT * FROM `college`";
+              $result = mysqli_query($mysql_con, $query);
+              $rows = mysqli_num_rows($result);
 
-                if($rows>0){
-                  while($data = mysqli_fetch_assoc($result)){
-                    $colName = $data['colname'];
-                    $colLogo = $data['colLogo'];
-                    
-                    $logo = base64_encode($colLogo);
+              if ($rows > 0) {
+                while ($data = mysqli_fetch_assoc($result)) {
+                  $colName = $data['colname'];
+                  $colLogo = $data['colLogo'];
 
-                    echo '
-                    <div class="college center-shadow col-span-1 flex flex-col justify-center p-3" data-colname="'.$colName.'">
-                      <img src="data:image/jpeg;base64,'.$logo.'"class="flex-auto h-1/5" alt="">
-                      <p class="text-xs text-center text-greyish_black font-medium">'.$colName.'</p>
+                  $logo = base64_encode($colLogo);
+
+                  echo '
+                    <div class="college center-shadow col-span-1 flex flex-col justify-center p-3" data-colname="' . $colName . '">
+                      <img src="data:image/jpeg;base64,' . $logo . '"class="flex-auto h-1/5" alt="">
+                      <p class="text-xs text-center text-greyish_black font-medium">' . $colName . '</p>
                     </div>';
-                  }
-                
                 }
-                else echo '<p>No college available</p>';
+              } else echo '<p>No college available</p>';
               ?>
 
             </div>
@@ -696,7 +721,7 @@
                 </div>
 
               </div>
-              
+
               <div class="description mt-3 w-9/12">
                 <h1 class="text-xl font-extrabold ">ABOUT US <span id="collegeCode"></span></h1>
                 <P class="py-3">Bulacan State University's College of Information and Communications
@@ -833,12 +858,10 @@
           <!-- make alumni of the year post -->
           <div id="aoyRegister" class="hidden text-greyish_black">
             <label class="font-bold" for="aoyFN">Fullname</label>
-            <input id="aoyFN" class="block p-2 border border-grayish w-1/2 focus:outline-none rounded-lg mb-5"
-              type="text" placeholder="e.g Patrick Joseph Pronuevo">
+            <input id="aoyFN" class="block p-2 border border-grayish w-1/2 focus:outline-none rounded-lg mb-5" type="text" placeholder="e.g Patrick Joseph Pronuevo">
 
             <label class="font-bold" for="aoyQuotation">Quotation</label>
-            <input id="aoyQuotation" class="block p-2 border border-grayish w-1/2 focus:outline-none rounded-lg mb-5"
-              type="text" placeholder="">
+            <input id="aoyQuotation" class="block p-2 border border-grayish w-1/2 focus:outline-none rounded-lg mb-5" type="text" placeholder="">
 
             <label class="font-bold block" for="aoyBatch">Batch</label>
             <select id="aoyBatch" class="p-2 px-3 outline-none border border-grayish rounded-lg mb-5">
@@ -870,20 +893,17 @@
 
             <p class="font-bold block" for="">Description</p>
             <div class="message-area border rounded-md border-grayish h-40 w-1/2">
-              <textarea class="w-full h-full resize-none p-3 rounded-md focus:outline-none text-grayish" name=""
-                id="aoyDescript"></textarea>
+              <textarea class="w-full h-full resize-none p-3 rounded-md focus:outline-none text-grayish" name="" id="aoyDescript"></textarea>
             </div>
 
-            <button
-              class="rounded-md py-3 px-5 bg-postButton text-white mt-2 block cursor-pointer hover:bg-postHoverButton ml-auto">Make
+            <button class="rounded-md py-3 px-5 bg-postButton text-white mt-2 block cursor-pointer hover:bg-postHoverButton ml-auto">Make
               a post</button>
           </div>
 
           <!-- alumni of the year record -->
           <div id="aoyRecord">
             <div class="flex justify-end items-end">
-              <button
-                class=" border border-accent py-1 px-3  ml-auto rounded-md text-accent hover:bg-accent hover:text-white">
+              <button class=" border border-accent py-1 px-3  ml-auto rounded-md text-accent hover:bg-accent hover:text-white">
                 Export List
               </button>
               <button id="aoyNew" class="py-2 px-3 ml-3 rounded-md bg-postButton text-white hover:bg-postHoverButton">
@@ -926,6 +946,21 @@
               <!-- college -->
               <select name="aoyCol" id="aoyCol" class="w-1/2 p-1">
                 <option value="" selected disabled hidden>College</option>
+                <?php
+                require_once '../PHP_process/connection.php';
+                $query = "SELECT * FROM `college`";
+                $result = mysqli_query($mysql_con, $query);
+                $rows = mysqli_num_rows($result);
+
+                if ($rows > 0) {
+                  while ($data = mysqli_fetch_assoc($result)) {
+                    $colCode = $data['colCode'];
+                    $colName = $data['colname'];
+
+                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                  }
+                } else echo '<option>No college available</option>';
+                ?>
               </select>
 
             </div>
@@ -1043,6 +1078,21 @@
             <!-- college -->
             <select name="employment" id="aomCollege" class="w-full p-1">
               <option value="" selected disabled hidden>College</option>
+              <?php
+              require_once '../PHP_process/connection.php';
+              $query = "SELECT * FROM `college`";
+              $result = mysqli_query($mysql_con, $query);
+              $rows = mysqli_num_rows($result);
+
+              if ($rows > 0) {
+                while ($data = mysqli_fetch_assoc($result)) {
+                  $colCode = $data['colCode'];
+                  $colName = $data['colname'];
+
+                  echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                }
+              } else echo '<option>No college available</option>';
+              ?>
             </select>
 
           </div>
@@ -1149,8 +1199,7 @@
               </div>
             </div>
 
-            <button id="btnDelPost"
-              class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
+            <button id="btnDelPost" class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
           </div>
 
           <!-- Post -->
@@ -1181,8 +1230,7 @@
               </div>
             </div>
 
-            <button id="btnDelPost"
-              class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
+            <button id="btnDelPost" class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
           </div>
 
           <!-- Post -->
@@ -1197,9 +1245,7 @@
               </div>
 
               <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
-              <img class="my-2 rounded-md"
-                src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C"
-                alt="">
+              <img class="my-2 rounded-md" src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C" alt="">
               <div class="flex py-2 items-center">
                 <img class="h-5" src="../assets/icons/heart.png" alt="">
                 <span class="ms-2 text-sm">1,498</span>
@@ -1208,8 +1254,7 @@
               </div>
             </div>
 
-            <button id="btnDelPost"
-              class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
+            <button id="btnDelPost" class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
           </div>
 
         </div>
@@ -1270,20 +1315,14 @@
                 <!-- left side -->
                 <div class="w-1/2">
                   <label class="font-bold text-greyish_black text-sm" for="jobTitle">Job Title</label>
-                  <input id="jobTitle" name="jobTitle"
-                    class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text"
-                    placeholder="e.g Software Engineer">
+                  <input id="jobTitle" name="jobTitle" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Software Engineer">
 
                   <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
-                  <input id="jobCompany" name="companyName"
-                    class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text"
-                    placeholder="e.g Accenture">
+                  <input id="jobCompany" name="companyName" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Accenture">
 
                   <label class="font-bold text-greyish_black text-sm mt-5" for="projOverviewTxt">Project
                     Description</label>
-                  <textarea
-                    class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm"
-                    name="projDescriptTxt" id="projOverviewTxt"></textarea>
+                  <textarea class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm" name="projDescriptTxt" id="projOverviewTxt"></textarea>
 
                   <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
                     Choose logo
@@ -1313,28 +1352,24 @@
                   <div id="skillDiv" class="flex flex-col">
                     <div>
                       <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                      <input id="inputSkill" class="inputSkill skillInput" type="text"
-                        placeholder="Add skill/s that needed">
+                      <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
                     </div>
                   </div>
 
                   <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
                   <textarea class="jobField block message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5
-                      resize-none p-3 focus:outline-none text-greyish_black text-sm" name="qualificationTxt"
-                    id="qualificationTxt"></textarea>
+                      resize-none p-3 focus:outline-none text-greyish_black text-sm" name="qualificationTxt" id="qualificationTxt"></textarea>
 
                   <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputReq">Requirements</label>
                   <div id="reqDiv" class="flex flex-col">
                     <div>
                       <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png" alt="">
-                      <input id="inputReq" class="inputReq reqInput" type="text"
-                        placeholder="Add things that an applicants needed">
+                      <input id="inputReq" class="inputReq reqInput" type="text" placeholder="Add things that an applicants needed">
                     </div>
                   </div>
 
                   <div>
-                    <button type="submit"
-                      class="bg-postButton w-4/5 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
+                    <button type="submit" class="bg-postButton w-4/5 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
                       a post</button>
                   </div>
                 </div>
@@ -1373,8 +1408,7 @@
           <p class="font-semibold text-sm mt-2">Description</p>
           <div class="modal-descript relative w-full h-2/3 border border-gray-400 rounded p-3">
             <div class="flex flex-col h-full">
-              <textarea id="TxtAreaAnnouncement" class="rar outline-none w-full h-5/6 p-1" type="text"
-                placeholder="Say something here..."></textarea>
+              <textarea id="TxtAreaAnnouncement" class="rar outline-none w-full h-5/6 p-1" type="text" placeholder="Say something here..."></textarea>
               <div id="imgContPost" class=" hidden flex overflow-x-scroll w-full"></div>
               <p class="text-sm text-red-400 hidden" id="errorMsg">Sorry we only allow images that has file extension of
                 jpg,jpeg,png</p>
@@ -1383,14 +1417,10 @@
             <label for="fileGallery">
               <span id="galleryLogo" class="absolute bottom-1 left-1">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="blue" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M17 7C17 7.53043 16.7893 8.03914 16.4142 8.41421C16.0391 8.78929 15.5304 9 15 9C14.4696 9 13.9609 8.78929 13.5858 8.41421C13.2107 8.03914 13 7.53043 13 7C13 6.46957 13.2107 5.96086 13.5858 5.58579C13.9609 5.21071 14.4696 5 15 5C15.5304 5 16.0391 5.21071 16.4142 5.58579C16.7893 5.96086 17 6.46957 17 7Z"
-                    fill="#BCBCBC" />
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M10.943 0.25H11.057C13.366 0.25 15.175 0.25 
+                  <path d="M17 7C17 7.53043 16.7893 8.03914 16.4142 8.41421C16.0391 8.78929 15.5304 9 15 9C14.4696 9 13.9609 8.78929 13.5858 8.41421C13.2107 8.03914 13 7.53043 13 7C13 6.46957 13.2107 5.96086 13.5858 5.58579C13.9609 5.21071 14.4696 5 15 5C15.5304 5 16.0391 5.21071 16.4142 5.58579C16.7893 5.96086 17 6.46957 17 7Z" fill="#BCBCBC" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M10.943 0.25H11.057C13.366 0.25 15.175 0.25 
                     16.587 0.44C18.031 0.634 19.171 1.04 20.066 1.934C20.961 2.829 21.366 3.969 21.56 5.414C21.75 6.825 21.75 8.634 21.75 10.943V11.031C21.75 12.94 21.75 14.502 21.646 15.774C21.542 17.054 21.329 18.121 20.851 19.009C20.641 19.4 20.381 19.751 20.066 20.066C19.171 20.961 18.031 21.366 16.586 21.56C15.175 21.75 13.366 21.75 11.057 
-                    21.75H10.943C8.634 21.75 6.825 21.75 5.413 21.56C3.969 21.366 2.829 20.96 1.934 20.066C1.141 19.273 0.731 18.286 0.514 17.06C0.299 15.857 0.26 14.36 0.252 12.502C0.25 12.029 0.25 11.529 0.25 11.001V10.943C0.25 8.634 0.25 6.825 0.44 5.413C0.634 3.969 1.04 2.829 1.934 1.934C2.829 1.039 3.969 0.634 5.414 0.44C6.825 0.25 8.634 0.25 10.943 0.25ZM5.613 1.926C4.335 2.098 3.564 2.426 2.995 2.995C2.425 3.565 2.098 4.335 1.926 5.614C1.752 6.914 1.75 8.622 1.75 11V11.844L2.751 10.967C3.1902 10.5828 3.75902 10.3799 4.34223 10.3994C4.92544 10.4189 5.47944 10.6593 5.892 11.072L10.182 15.362C10.5149 15.6948 10.9546 15.8996 11.4235 15.9402C11.8925 15.9808 12.3608 15.8547 12.746 15.584L13.044 15.374C13.5997 14.9835 14.2714 14.7932 14.9493 14.834C15.6273 14.8749 16.2713 15.1446 16.776 15.599L19.606 18.146C19.892 17.548 20.061 16.762 20.151 15.653C20.249 14.448 20.25 12.946 20.25 11C20.25 8.622 20.248 6.914 20.074 5.614C19.902 4.335 19.574 3.564 19.005 2.994C18.435 2.425 17.665 2.098 16.386 1.926C15.086 1.752 13.378 1.75 11 1.75C8.622 1.75 6.913 1.752 5.613 1.926Z"
-                    fill="#BCBCBC" />
+                    21.75H10.943C8.634 21.75 6.825 21.75 5.413 21.56C3.969 21.366 2.829 20.96 1.934 20.066C1.141 19.273 0.731 18.286 0.514 17.06C0.299 15.857 0.26 14.36 0.252 12.502C0.25 12.029 0.25 11.529 0.25 11.001V10.943C0.25 8.634 0.25 6.825 0.44 5.413C0.634 3.969 1.04 2.829 1.934 1.934C2.829 1.039 3.969 0.634 5.414 0.44C6.825 0.25 8.634 0.25 10.943 0.25ZM5.613 1.926C4.335 2.098 3.564 2.426 2.995 2.995C2.425 3.565 2.098 4.335 1.926 5.614C1.752 6.914 1.75 8.622 1.75 11V11.844L2.751 10.967C3.1902 10.5828 3.75902 10.3799 4.34223 10.3994C4.92544 10.4189 5.47944 10.6593 5.892 11.072L10.182 15.362C10.5149 15.6948 10.9546 15.8996 11.4235 15.9402C11.8925 15.9808 12.3608 15.8547 12.746 15.584L13.044 15.374C13.5997 14.9835 14.2714 14.7932 14.9493 14.834C15.6273 14.8749 16.2713 15.1446 16.776 15.599L19.606 18.146C19.892 17.548 20.061 16.762 20.151 15.653C20.249 14.448 20.25 12.946 20.25 11C20.25 8.622 20.248 6.914 20.074 5.614C19.902 4.335 19.574 3.564 19.005 2.994C18.435 2.425 17.665 2.098 16.386 1.926C15.086 1.752 13.378 1.75 11 1.75C8.622 1.75 6.913 1.752 5.613 1.926Z" fill="#BCBCBC" />
                 </svg>
               </span>
             </label>
@@ -1403,8 +1433,7 @@
         <!-- Footer -->
         <div class="modal-footer flex items-end flex-row-reverse px-3">
           <button class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
-          <button
-            class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+          <button class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
         </div>
       </div>
     </div>
@@ -1421,36 +1450,66 @@
           <div class="modal-body px-3">
 
             <!-- header part -->
-            <p class="font-semibold text-sm">Recipient</p>
-            <div class=" border border-gray-400 rounded flex px-2 py-2">
-              <select name="selectColToEmail" id="" class="w-full outline-none">
-                <option value="all" selected>All colleges</option>
-                <?php
+            <div class="flex gap-2 justify-start mb-2">
+              <p class="font-semibold text-sm">Recipient</p>
+              <input type="radio" id="groupEM" name="recipient" checked value="groupEmail">
+              <label for="groupEM">Group</label>
+
+              <input type="radio" id="individEM" name="recipient" value="individualEmail">
+              <label for="individEM">individual</label>
+            </div>
+
+
+            <div id="groupEmail" class="flex gap-1">
+              <div class=" border border-gray-400 rounded flex px-2 py-2">
+                <select name="selectColToEmail" id="" class="w-full outline-none">
+                  <option value="all" selected>All colleges</option>
+                  <?php
                   require_once '../PHP_process/connection.php';
                   $query = "SELECT * FROM `college`";
-                  $result = mysqli_query($mysql_con,$query);
+                  $result = mysqli_query($mysql_con, $query);
                   $rows = mysqli_num_rows($result);
 
-                  if($rows>0){
-                    while($data = mysqli_fetch_assoc($result)){
+                  if ($rows > 0) {
+                    while ($data = mysqli_fetch_assoc($result)) {
                       $colCode = $data['colCode'];
                       $colName = $data['colname'];
 
-                      echo '<option value="'.$colCode.'">'.$colName.'</option>';
+                      echo '<option value="' . $colCode . '">' . $colName . '</option>';
                     }
-                  
-                  }
-                  else echo '<option>No college available</option>';
-                ?>
-              </select>
+                  } else echo '<option>No college available</option>';
+                  ?>
+                </select>
+              </div>
+
+
+              <div class="flex gap-1 items-center">
+                <!-- all -->
+                <input id="allEM" type="radio" checked>
+                <label for="allEM">All</label>
+
+                <!-- alumni -->
+                <input id="alumniEM" type="radio">
+                <label for="alumniEM">Alumni</label>
+
+                <!-- student -->
+                <input id="studentEM" type="radio">
+                <label for="studentEM">Student</label>
+              </div>
+
             </div>
+
+            <div id="individualEmail" class="flex border border-gray-400 w-full rounded-md p-1 hidden">
+              <img class="inline" src="../images/search-icon.png" alt="">
+              <input class="focus:outline-none w-full" type="text" name="" id="searchEmail" placeholder="Typing!">
+            </div>
+
 
             <!-- body part -->
             <p class="font-semibold text-sm mt-2">Description</p>
             <div class="modal-descript relative w-full h-2/3 border border-gray-400 rounded p-3">
               <div class="flex flex-col h-full">
-                <textarea id="TxtAreaEmail" class="rar outline-none w-full h-full p-1" type="text"
-                  placeholder="Say something here..."></textarea>
+                <textarea id="TxtAreaEmail" class="rar outline-none w-full h-full p-1" type="text" placeholder="Say something here..."></textarea>
               </div>
             </div>
 
@@ -1459,8 +1518,7 @@
           <!-- Footer -->
           <div class="modal-footer flex items-end flex-row-reverse px-3">
             <button class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
-            <button id="sendEmail"
-              class="cancelEmail py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+            <button id="sendEmail" class="cancelEmail py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
           </div>
         </div>
       </form>
@@ -1481,10 +1539,8 @@
 
         <!-- Footer -->
         <div class="modal-footer flex items-end flex-row-reverse px-3 mt-3">
-          <button
-            class="bg-accent py-2 rounded px-5 text-white ms-3 hover:bg-darkAccent hover:font-semibold">Delete</button>
-          <button
-            class="cancelDel py-2 rounded px-5 text-grayish border hover:bg-slate-400 hover:text-white">Cancel</button>
+          <button class="bg-accent py-2 rounded px-5 text-white ms-3 hover:bg-darkAccent hover:font-semibold">Delete</button>
+          <button class="cancelDel py-2 rounded px-5 text-grayish border hover:bg-slate-400 hover:text-white">Cancel</button>
         </div>
       </div>
     </div>
@@ -1497,14 +1553,12 @@
         <div class="w-full h-max rounded-lg">
 
           <div class="w-full rounded-lg">
-            <img class="h-36 w-full rounded-t-lg"
-              src="https://i.pinimg.com/564x/c6/b0/c8/c6b0c8a8a0113922e3847e4257c6612c.jpg" alt="">
+            <img class="h-36 w-full rounded-t-lg" src="https://i.pinimg.com/564x/c6/b0/c8/c6b0c8a8a0113922e3847e4257c6612c.jpg" alt="">
           </div>
 
           <div class="relative">
             <div class="flex">
-              <img class="rounded-full ml-5 border-2 border-accent h-24 w-24 absolute -top-10"
-                src="../images/Mr.Jayson.png" alt="">
+              <img class="rounded-full ml-5 border-2 border-accent h-24 w-24 absolute -top-10" src="../images/Mr.Jayson.png" alt="">
               <div class="flex justify-start items-center w-full">
 
                 <div class="ml-28">

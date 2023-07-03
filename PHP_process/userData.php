@@ -3,6 +3,8 @@
 require_once 'connection.php';
 require_once 'userTable.php';
 require_once 'personDB.php';
+require_once 'userTable.php';
+require_once 'univAdmin.php';
 
 if (isset($_POST['action'])) {
     $data = $_POST['action'];
@@ -12,7 +14,7 @@ if (isset($_POST['action'])) {
     //check what are to be perform
     switch ($action) {
         case 'create':
-            insertionCollege($mysql_con);
+            insertionPerson($mysql_con);
             break;
         case 'read':
             //check first if it has query
@@ -39,12 +41,10 @@ if (isset($_POST['action'])) {
     }
 } else echo 'not pumasok';
 
-function insertionCollege($con)
+function insertionPerson($con)
 {
 
-    // ($personID,$FName,$LName,$age,$bday,
-    //     $contactNo,$address,$personalEmail,$bulsuEmail,$gender,$profilePic ,$con)
-
+    //datas to be stored
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $age = $_POST['age'];
@@ -54,10 +54,43 @@ function insertionCollege($con)
     $personalEmail = $_POST['personalEmail'];
     $bulsuEmail = $_POST['bulsuEmail'];
     $gender = $_POST['gender'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
     $randomNo = rand(1, 2000);
     $currentDateTime = date('y/m/d h:i:s');
     $personID = 'admin' . $currentDateTime . '-' . $randomNo;
 
-    echo $fname . $lname . $age . $bday . $contactNo . $address . $personalEmail . $bulsuEmail . $gender;
+    $person = new personDB();
+    $insert_person = $person->insertPerson(
+        $personID,
+        $fname,
+        $lname,
+        $age,
+        $bday,
+        $contactNo,
+        $address,
+        $personalEmail,
+        $bulsuEmail,
+        $gender,
+        null,
+        $con
+    );
+
+    if ($insert_person) {
+        $accountType = 'UnivAdmin';
+        $userTable = new User_Table();
+        $userAcc = $userTable->addUser($username, $password, $accountType, $con);
+
+        if ($userAcc) {
+            $currentYr = date('Y');
+            $adminID = 'ADM' . '-' . $currentYr . '-' . $randomNo;
+
+            $univAdmin = new UniversityAdmin();
+            $insertUnivAdmin = $univAdmin->insertUnivAdmin($adminID, $personID, $username, $con);
+
+            if ($insertUnivAdmin) echo 'Success';
+            else echo 'Unsuccess';
+        }
+    }
 }

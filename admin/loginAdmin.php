@@ -22,6 +22,15 @@
             background-blend-mode: multiply;
             background-size: cover;
         }
+
+        .modal {
+            background-color: #1e1c1c98;
+
+        }
+
+        .modal-body {
+            height: 70%;
+        }
     </style>
 </head>
 
@@ -129,13 +138,13 @@
                     <div id="userAccountPanel" class="hidden">
                         <div>
                             <label class="font-semibold">Username</label>
-                            <input id="usernameField" class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                            <input id="usernameField" name="username" class="border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
                             <p id="usernameWarning" class="text-xs text-red-400 italic hidden">Username is already existing. Try another username</p>
                         </div>
 
                         <div>
                             <label class="font-semibold">Password</label>
-                            <input id="password" class="password border border-gray-400 rounded-md p-2 outline-none block w-full" type="password">
+                            <input id="password" name="password" class="password border border-gray-400 rounded-md p-2 outline-none block w-full" type="password">
                             <p>Password must contain the following: </p>
                             <div class="text-xs flex flex-col text-red-400">
                                 <span id="addLowerCase">A lower case letter</span>
@@ -161,7 +170,25 @@
             </div>
 
 
+            <!-- modal promp -->
+            <div id="promptMessage" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
+                 text-grayish  top-0 left-0 hidden">
+                <div class="modal-container w-1/3 bg-white rounded-lg p-3 mt-2">
+                    <div class="modal-header py-5">
+                        <p id="insertionMsg" class="text-greyish_black font-bold text-lg text-center w-1/2 mx-auto"></p>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer flex items-end flex-row-reverse px-3 mt-3">
+                        <button id="goBack" class="bg-accent py-2 rounded px-5 text-white ms-3 hover:bg-darkAccent 
+                        hover:font-semibold">
+                            Go back
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 
     <script src="../js/login.js"></script>

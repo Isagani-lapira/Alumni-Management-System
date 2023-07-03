@@ -565,6 +565,20 @@ $(document).ready(function () {
       error: (error) => { console.log(error) }
     });
   })
+
+
+  //checked the type of recipient
+  $('input[name="recipient"').on('change', function () {
+    let recipient = $('input[name="recipient"]:checked').val();
+
+    if (recipient == "individualEmail") {
+      $('#groupEmail').hide();
+      $('#individualEmail').removeClass('hidden');
+    } else {
+      $('#groupEmail').show();
+      $('#individualEmail').addClass('hidden');
+    }
+  })
 });
 
 
