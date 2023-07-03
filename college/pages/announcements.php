@@ -46,7 +46,7 @@
      <div class="w-full">
          <!-- Post -->
          <div class="post p-3 w-2/3">
-             <div class="center-shadow p-3 rounded-md">
+             <div class="border shadow-lg center-shadow p-3 rounded-md">
                  <div class="flex justify-start items-center">
                      <div class="flex items-center">
                          <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
@@ -68,7 +68,7 @@
 
          <!-- Post -->
          <div class="post p-3 w-2/3">
-             <div class="center-shadow p-3 rounded-md">
+             <div class="border shadow-lg  center-shadow p-3 rounded-md">
                  <div class="flex justify-start items-center">
                      <div class="flex items-center">
                          <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
