@@ -1390,27 +1390,60 @@
           <div class="modal-body px-3">
 
             <!-- header part -->
-            <p class="font-semibold text-sm">Recipient</p>
-            <div class=" border border-gray-400 rounded flex px-2 py-2">
-              <select name="selectColToEmail" id="" class="w-full outline-none">
-                <option value="all" selected>All colleges</option>
-                <?php
-                require_once '../PHP_process/connection.php';
-                $query = "SELECT * FROM `college`";
-                $result = mysqli_query($mysql_con, $query);
-                $rows = mysqli_num_rows($result);
+            <div class="flex gap-2 justify-start mb-2">
+              <p class="font-semibold text-sm">Recipient</p>
+              <input type="radio" id="groupEM" name="recipient" checked value="groupEmail">
+              <label for="groupEM">Group</label>
 
-                if ($rows > 0) {
-                  while ($data = mysqli_fetch_assoc($result)) {
-                    $colCode = $data['colCode'];
-                    $colName = $data['colname'];
-
-                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
-                  }
-                } else echo '<option>No college available</option>';
-                ?>
-              </select>
+              <input type="radio" id="individEM" name="recipient" value="individualEmail">
+              <label for="individEM">individual</label>
             </div>
+
+
+            <div id="groupEmail" class="flex gap-1">
+              <div class=" border border-gray-400 rounded flex px-2 py-2">
+                <select name="selectColToEmail" id="" class="w-full outline-none">
+                  <option value="all" selected>All colleges</option>
+                  <?php
+                  require_once '../PHP_process/connection.php';
+                  $query = "SELECT * FROM `college`";
+                  $result = mysqli_query($mysql_con, $query);
+                  $rows = mysqli_num_rows($result);
+
+                  if ($rows > 0) {
+                    while ($data = mysqli_fetch_assoc($result)) {
+                      $colCode = $data['colCode'];
+                      $colName = $data['colname'];
+
+                      echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                    }
+                  } else echo '<option>No college available</option>';
+                  ?>
+                </select>
+              </div>
+
+
+              <div class="flex gap-1 items-center">
+                <!-- all -->
+                <input id="allEM" type="radio" checked>
+                <label for="allEM">All</label>
+
+                <!-- alumni -->
+                <input id="alumniEM" type="radio">
+                <label for="alumniEM">Alumni</label>
+
+                <!-- student -->
+                <input id="studentEM" type="radio">
+                <label for="studentEM">Student</label>
+              </div>
+
+            </div>
+
+            <div id="individualEmail" class="flex border border-gray-400 w-full rounded-md p-1 hidden">
+              <img class="inline" src="../images/search-icon.png" alt="">
+              <input class="focus:outline-none w-full" type="text" name="" id="searchEmail" placeholder="Typing!">
+            </div>
+
 
             <!-- body part -->
             <p class="font-semibold text-sm mt-2">Description</p>
