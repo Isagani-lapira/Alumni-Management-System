@@ -613,6 +613,15 @@ th,
   text-align: center;
 }
 
+/* shortcut for sub-headings */
+
+.text-subheading {
+  font-weight: 700;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity));
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1423,6 +1432,10 @@ th,
   width: 1.25rem;
 }
 
+.w-56 {
+  width: 14rem;
+}
+
 .w-6 {
   width: 1.5rem;
 }
@@ -1470,6 +1483,10 @@ th,
 
 .w-screen {
   width: 100vw;
+}
+
+.w-\[14rem\] {
+  width: 14rem;
 }
 
 .max-w-6xl {
@@ -3248,6 +3265,10 @@ th,
 .ps-5 {
   -webkit-padding-start: 1.25rem;
           padding-inline-start: 1.25rem;
+}
+
+.pt-0 {
+  padding-top: 0px;
 }
 
 .pt-10 {

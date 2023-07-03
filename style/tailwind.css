@@ -38,4 +38,9 @@ body {
   td {
     @apply p-2 mx-auto text-center;
   }
+
+  /* shortcut for sub-headings */
+  .text-subheading {
+    @apply font-bold uppercase text-accent;
+  }
 }
