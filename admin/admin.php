@@ -515,6 +515,21 @@
             <!-- college selection -->
             <select name="college" id="college" class="w-full p-1">
               <option value="" selected disabled hidden>Course</option>
+              <?php
+              require_once '../PHP_process/connection.php';
+              $query = "SELECT * FROM `college`";
+              $result = mysqli_query($mysql_con, $query);
+              $rows = mysqli_num_rows($result);
+
+              if ($rows > 0) {
+                while ($data = mysqli_fetch_assoc($result)) {
+                  $colCode = $data['colCode'];
+                  $colName = $data['colname'];
+
+                  echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                }
+              } else echo '<option>No college available</option>';
+              ?>
             </select>
 
             <!-- employment status selection -->
