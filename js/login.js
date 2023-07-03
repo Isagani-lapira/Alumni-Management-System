@@ -100,8 +100,27 @@ $(document).ready(function () {
             if (password === confirmPass) {
                 $('#passwordWarning').hide()
                 if (usernameAvailable && passwordReqFulFill) {
+                    let formData = $('#registerForm')[0];
+                    let form = new FormData(formData)
+                    let action = {
+                        action: 'create'
+                    }
+                    form.append('action', JSON.stringify(action))
+
                     //perform the registration
-                    console.log('yehey')
+                    $.ajax({
+                        url: '../PHP_process/userData.php',
+                        type: 'POST',
+                        data: form,
+                        processData: false,
+                        contentType: false,
+                        success: (response) => {
+                            console.log(response)
+                        },
+                        error: (error) => {
+                            console.log(error)
+                        }
+                    })
                 }
             } else {
                 $('#passwordWarning').show()

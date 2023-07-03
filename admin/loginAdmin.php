@@ -94,8 +94,8 @@
                             <div>
                                 <label class="font-semibold">Gender</label>
                                 <div class="flex justify-evenly items-center mt-2 w-full">
-                                    <input type="radio" checked>Male
-                                    <input type="radio">Female
+                                    <input name="gender" type="radio" checked>Male
+                                    <input name="gender" type="radio">Female
                                 </div>
                             </div>
                             <div>
@@ -106,17 +106,17 @@
 
                         <div>
                             <label class="font-semibold">Address</label>
-                            <input class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                            <input name="address" class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
                         </div>
 
                         <div>
                             <label class="font-semibold">Email Address (Personal)</label>
-                            <input class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                            <input name="personalEmail" class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
                         </div>
 
                         <div>
                             <label class="font-semibold">Email Address (BulSU)</label>
-                            <input class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
+                            <input name="bulsuEmail" class="personalInput border border-gray-400 rounded-md p-2 outline-none block w-full" type="text">
                         </div>
 
 

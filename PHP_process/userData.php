@@ -2,6 +2,7 @@
 
 require_once 'connection.php';
 require_once 'userTable.php';
+require_once 'personDB.php';
 
 if (isset($_POST['action'])) {
     $data = $_POST['action'];
@@ -11,7 +12,7 @@ if (isset($_POST['action'])) {
     //check what are to be perform
     switch ($action) {
         case 'create':
-            echo 'rar';
+            insertionCollege($mysql_con);
             break;
         case 'read':
             //check first if it has query
@@ -37,3 +38,26 @@ if (isset($_POST['action'])) {
             break;
     }
 } else echo 'not pumasok';
+
+function insertionCollege($con)
+{
+
+    // ($personID,$FName,$LName,$age,$bday,
+    //     $contactNo,$address,$personalEmail,$bulsuEmail,$gender,$profilePic ,$con)
+
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $age = $_POST['age'];
+    $bday = $_POST['bday'];
+    $contactNo = $_POST['contactNo'];
+    $address = $_POST['address'];
+    $personalEmail = $_POST['personalEmail'];
+    $bulsuEmail = $_POST['bulsuEmail'];
+    $gender = $_POST['gender'];
+
+    $randomNo = rand(1, 2000);
+    $currentDateTime = date('y/m/d h:i:s');
+    $personID = 'admin' . $currentDateTime . '-' . $randomNo;
+
+    echo $fname . $lname . $age . $bday . $contactNo . $address . $personalEmail . $bulsuEmail . $gender;
+}
