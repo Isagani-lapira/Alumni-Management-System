@@ -42,7 +42,7 @@
         <aside class="
         border flex-initial relative w-80 px-5 py-5
         ">
-            <header class="">
+            <header class="my-2">
                 <h1 class="text-lg tracking-wide"><span class="font-bold ">Alumni </span> System</h1>
             </header>
             <!-- TODO make this sticky fixed left-0 top-8 z-0 -->
