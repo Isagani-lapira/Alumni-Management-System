@@ -2,15 +2,12 @@
     <h1 class="text-2xl font-bold ">Alumni Tracer Form</h1>
     <p class="text-gray-400 font-semibold">See the relevant information that are gathered</p>
 
-    <div class="flex w-full justify-end"><button class="btn-primary font-bold space-y-2"><span>Deploy Tracer</span>
-            <i class="fa-solid fa-circle-chevron-right"></i>
-        </button></div>
 
-    <hr>
+    <hr class="my-10">
 
     <!-- Pie Chart -->
 
-    <h3>Employee Status</h3>
+    <h3 class="text-subheading">Employee Status</h3>
 
 
     <!-- TODO add chart here -->
