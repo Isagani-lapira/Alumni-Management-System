@@ -104,46 +104,58 @@ for (var i = 0; i < editButtons.length; i++) {
 
 
 
-
 //FOR EDITING TEXTS/DETAILS
-  function setCursorToEnd(element) {
-    var range = document.createRange();
-    var selection = window.getSelection();
-    range.selectNodeContents(element);
-    range.collapse(false);
-    selection.removeAllRanges();
-    selection.addRange(range);
-  }
+function setCursorToEnd(element) {
+  var range = document.createRange();
+  var selection = window.getSelection();
+  range.selectNodeContents(element);
+  range.collapse(false);
+  selection.removeAllRanges();
+  selection.addRange(range);
+}
 
-  const editBtns = document.querySelectorAll('.editBtn');
-  const saveBtns = document.querySelectorAll('.saveBtn');
-  const displayTexts = document.querySelectorAll('.editText');
-  let originalTexts = [];
+const editBtns = document.querySelectorAll('.editBtn');
+const cancelBtns = document.querySelectorAll('.cancelBtn');
+const saveBtns = document.querySelectorAll('.saveBtn');
+const displayTexts = document.querySelectorAll('.editText');
+let originalTexts = [];
 
-  for (let i = 0; i < editBtns.length; i++) {
-    const edit = editBtns[i];
-    const save = saveBtns[i];
-    const displayText = displayTexts[i];
+for (let i = 0; i < editBtns.length; i++) {
+  const edit = editBtns[i];
+  const cancel = cancelBtns[i];
+  const save = saveBtns[i];
+  const displayText = displayTexts[i];
 
-    edit.addEventListener('click', () => {
-      originalTexts[i] = displayText.innerText;
-      displayText.contentEditable = true;
-      displayText.focus();
-      setCursorToEnd(displayText);
-      edit.style.display = 'none';
-      save.style.display = 'inline';
-    });
+  edit.addEventListener('click', () => {
+    originalTexts[i] = displayText.innerText;
+    displayText.contentEditable = true;
+    displayText.focus();
+    setCursorToEnd(displayText);
+    edit.style.display = 'none';
+    cancel.style.display = 'inline';
+    save.style.display = 'inline';
+  });
 
-    save.addEventListener('click', () => {
-      displayText.contentEditable = false;
-      edit.style.display = 'inline';
-      save.style.display = 'none';
+  save.addEventListener('click', () => {
+    displayText.contentEditable = false;
+    edit.style.display = 'inline';
+    cancel.style.display = 'none';
+    save.style.display = 'none';
 
-      const updatedText = displayText.innerText;
-      console.log('Original text:', originalTexts[i]);
-      console.log('Updated text:', updatedText);
-    });
-  }
+    const updatedText = displayText.innerText;
+    console.log('Original text:', originalTexts[i]);
+    console.log('Updated text:', updatedText);
+  });
+
+  cancel.addEventListener('click', () => {
+    displayText.contentEditable = false;
+    displayText.innerText = originalTexts[i];
+    edit.style.display = 'inline';
+    cancel.style.display = 'none';
+    save.style.display = 'none';
+  });
+}
+
 
 
 
@@ -156,6 +168,7 @@ for (var i = 0; i < editButtons.length; i++) {
 
 //FOR BIRTHDAY
   const editBday = document.querySelector('.editBtnBday');
+  const cancelBday = document.querySelector('.cancelBtnBday');
   const saveBday = document.querySelector('.saveBtnBday');
   const displayTextBday = document.querySelector('.editTextBday');
   let originalTextBday;
@@ -164,12 +177,14 @@ for (var i = 0; i < editButtons.length; i++) {
     originalTextBday = displayTextBday.innerText;
     displayTextBday.contentEditable = true;
     editBday.style.display = 'none';
+    cancelBday.style.display = 'inline';
     saveBday.style.display = 'inline';
   });
 
   saveBday.addEventListener('click', () => {
     displayTextBday.contentEditable = false;
     editBday.style.display = 'inline';
+    cancelBday.style.display = 'none';
     saveBday.style.display = 'none';
 
     const updatedText = displayText.innerText;
@@ -189,6 +204,14 @@ for (var i = 0; i < editButtons.length; i++) {
     birthdateField.innerHTML = '';
     birthdateField.appendChild(datePicker);
   });
+
+  cancelBday.addEventListener('click', () => {
+    displayTextBday.contentEditable = false;
+    displayTextBday.innerText = originalTextBday;
+    editBday.style.display = 'inline';
+    cancelBday.style.display = 'none';
+    saveBday.style.display = 'none';
+  });  
 
   saveBday.addEventListener('click', () => {
     if (datePicker) {
@@ -213,6 +236,7 @@ for (var i = 0; i < editButtons.length; i++) {
   
 //FOR CONTACT NO.
   const editBtnCN = document.querySelector('.editBtnCN');
+  const cancelBtnCN = document.querySelector('.cancelBtnCN');
   const saveBtnCN = document.querySelector('.saveBtnCN');
   const displayTextCN = document.querySelector('.editTextCN');
   let originalTextCN;
@@ -224,13 +248,24 @@ for (var i = 0; i < editButtons.length; i++) {
       }
       displayTextCN.contentEditable = true;
       displayTextCN.focus();
+      setCursorToEnd(displayTextCN);
       editBtnCN.style.display = 'none';
+      cancelBtnCN.style.display = 'inline';
       saveBtnCN.style.display = 'inline';
     });
+
+    cancelBtnCN.addEventListener('click', () => {
+      displayTextCN.contentEditable = false;
+      displayTextCN.innerText = originalTextCN;
+      editBtnCN.style.display = 'inline';
+      cancelBtnCN.style.display = 'none';
+      saveBtnCN.style.display = 'none';
+    });    
           
     saveBtnCN.addEventListener('click', () => {
       displayTextCN.contentEditable = false;
       editBtnCN.style.display = 'inline';
+      cancelBtnCN.style.display = 'none';
       saveBtnCN.style.display = 'none';
       
       const updatedTextCN = displayTextCN.innerText;

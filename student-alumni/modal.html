@@ -16,7 +16,7 @@
 
     <div id="con" class="flex items-center justify-center">
       <!-- MODAL CONTENT -->
-      <div id="modal" class="w-full bg-white p-6 rounded shadow-lg h-96 overflow-x-auto mx-auto rounded-lg  max-w-md">
+      <div id="modal" class="bg-white p-6 rounded shadow-lg h-96 overflow-x-auto rounded-lg  ">
 
         <!-- PROFILE PICTURE -->
         <div id="line" class="flex mb-2 w-md">
@@ -24,7 +24,7 @@
             <h2 id="title" class="text-lg font-bold">Profile Picture</h2>
           </div>
           <div class="ml-auto">
-            <button class="editpic px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50" data-target="dp">Edit</button>
+            <button class="editpic text-sm px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50" data-target="dp">Edit</button>
           </div>
         </div>
 
@@ -40,7 +40,7 @@
             <h2 id="title" class="text-lg font-bold">Cover Picture</h2>
           </div>
           <div class="ml-auto">
-            <button class="editpic px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50" data-target="cp">Edit</button>
+            <button class="editpic text-sm px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50" data-target="cp">Edit</button>
           </div>
         </div>
 
@@ -71,9 +71,11 @@
           </div>
 
           <div class="flex ml-auto">
-            <img class="editBtn" src="/images/edit.png">
-            <img class="saveBtn" style="display: none;" src="/images/check.png">
+            <button class="editBtn text-sm px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50">Edit</button>
+            <button style="display: none;" class="cancelBtn text-sm px-2 text-red-600 rounded-md hover:text-red-800 hover:underline">Cancel</button>
+            <button style="display: none;" class="saveBtn text-sm px-2 text-green-600 rounded-md hover:text-green-900 hover:underline">Save</button>
           </div>
+
         </div>
 
 
@@ -85,8 +87,9 @@
           </div>
 
           <div class="flex ml-auto">
-            <img class="editBtnBday" src="/images/edit.png">
-            <img class="saveBtnBday" style="display: none;" src="/images/check.png">
+            <button class="editBtnBday text-sm px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50">Edit</button>
+            <button style="display: none;" class="cancelBtnBday text-sm px-2 text-red-600 rounded-md hover:text-red-800 hover:underline">Cancel</button>
+            <button style="display: none;" class="saveBtnBday text-sm px-2 text-green-600 rounded-md hover:text-green-900 hover:underline">Save</button>
           </div>
         </div>
 
@@ -99,8 +102,9 @@
           </div>
 
           <div class="flex ml-auto">
-            <img class="editBtnCN" src="/images/edit.png">
-            <img class="saveBtnCN" style="display: none;" src="/images/check.png">
+            <button class="editBtnCN text-sm px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50">Edit</button>
+            <button style="display: none;" class="cancelBtnCN text-sm px-2 text-red-600 rounded-md hover:text-red-800 hover:underline">Cancel</button>
+            <button style="display: none;" class="saveBtnCN text-sm px-2 text-green-600 rounded-md hover:text-green-900 hover:underline">Save</button>
           </div>
         </div>
 
@@ -114,14 +118,15 @@
         <div>
           <div class="flex mt-1 items-center">
             <img id="sm-icon" src="/images/fb.png">
-            <div class="ml-1 flex w-3/4 rounded-md border border-gray-500">
+            <div class="ml-1 flex w-4/6 rounded-md border border-gray-500">
               <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">facebook.com/</div>
               <div class="editText pl-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
             </div>
 
             <div class="flex ml-auto">
-              <img class="editBtn" src="/images/edit.png">
-              <img class="saveBtn" style="display: none;" src="/images/check.png">
+              <button class="editBtn text-sm px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50">Edit</button>
+              <button style="display: none;" class="cancelBtn text-sm px-2 text-red-600 rounded-md hover:text-red-800 hover:underline">Cancel</button>
+              <button style="display: none;" class="saveBtn text-sm px-2 text-green-600 rounded-md hover:text-green-900 hover:underline">Save</button>
             </div>
           </div>
 
@@ -131,14 +136,15 @@
           <div>
             <div class="flex mt-2 items-center">
               <img id="sm-icon" src="/images/ig.png">
-              <div class="ml-1 flex w-3/4 rounded-md border border-gray-500">
+              <div class="ml-1 flex w-4/6 rounded-md border border-gray-500">
                 <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">instagram.com/</div>
                 <div class="editText pl-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
               </div>
 
               <div class="flex ml-auto">
-                <img class="editBtn" src="/images/edit.png">
-                <img class="saveBtn" style="display: none;" src="/images/check.png">
+                <button class="editBtn text-sm px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50">Edit</button>
+                <button style="display: none;" class="cancelBtn text-sm px-2 text-red-600 rounded-md hover:text-red-800 hover:underline">Cancel</button>
+                <button style="display: none;" class="saveBtn text-sm px-2 text-green-600 rounded-md hover:text-green-900 hover:underline">Save</button>
               </div>
             </div>
 
@@ -147,26 +153,27 @@
             <div>
               <div class="flex mt-2 items-center">
                 <img id="sm-icon" src="/images/twitter.png">
-                <div class="ml-1 flex w-3/4 rounded-md border border-gray-500">
+                <div class="ml-1 flex w-4/6 rounded-md border border-gray-500">
                   <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">twitter.com/</div>
                   <div class="editText pl-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
                 </div>
 
                 <div class="flex ml-auto">
-                  <img class="editBtn" src="/images/edit.png">
-                  <img class="saveBtn" style="display: none;" src="/images/check.png">
+                  <button class="editBtn text-sm px-2 text-blue-500 rounded-md hover:text-blue-700 hover:bg-gray-300 bg-opacity-50">Edit</button>
+                  <button style="display: none;" class="cancelBtn text-sm px-2 text-red-600 rounded-md hover:text-red-800 hover:underline">Cancel</button>
+                  <button style="display: none;" class="saveBtn text-sm px-2 text-green-600 rounded-md hover:text-green-900 hover:underline">Save</button>
                 </div>
               </div>
 
               <div class="flex justify-center mt-2">
                 <div class="text-sm text-gray-600">Want to edit your resume?</div>
-                <a href="/student-alumni/EditResume.html" class="text-sm text-blue-600 ml-1 underline hover:text-blue-800">Click here.</a>
+                <a href="/student-alumni/EditResume.html" class="text-sm text-blue-600 ml-1 hover:text-blue-800 hover:underline">Click here.</a>
               </div>
 
 
               <!-- BUTTONS -->
               <div class="flex mt-6">
-                <button id="close" class="ml-auto rounded-md bg-transparent text-sm font-bold py-2 px-5">
+                <button id="close" class="ml-auto rounded-md bg-transparent text-sm font-bold py-2 px-5 hover:underline">
                   Cancel
                 </button>
 

@@ -2,43 +2,16 @@
     border-color: rgb(21, 6, 243);
 }
 
+#con {
+  width: 100%;
+}
+
+#modal {
+  width: 40%;
+}
+
 #title {
     color: #0A2640;
-}
-
-.editpic {
-  width: .4in;
-  height: .3in;
-}
-
-.editBtn {
-    width: .4in;
-    height: .3in;
-}
-
-.saveBtn {
-    width: .2in;
-    height: .2in;
-}
-
-.editBtnBday {
-  width: .4in;
-  height: .3in;
-}
-
-.saveBtnBday {
-  width: .2in;
-  height: .2in;
-}
-
-.editBtnCN {
-  width: .4in;
-  height: .3in;
-}
-
-.saveBtnCN {
-  width: .2in;
-  height: .2in;
 }
 
 #icon {
@@ -105,6 +78,12 @@
   #done {
     border-color: rgb(3, 151, 10);
     color:  rgb(3, 151, 10);
+  }
+
+  #done:hover {
+    background-color: rgb(3, 151, 10);
+    color: white;
+
   }
   
 
