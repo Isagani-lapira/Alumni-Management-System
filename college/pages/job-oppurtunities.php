@@ -1,4 +1,4 @@
-<section class="p4 container mx-auto">
+<section class="p4  mx-auto lg:mx-8">
     <img class="jobPostingBack  cursor-pointer hidden" src="/images/back.png" alt="">
     <h1 class="text-xl font-extrabold">Job Opportunities </h1>
     <p class="text-grayish  ">Check all the pending job post to be posted</p>
