@@ -1,6 +1,6 @@
 <!-- report content -->
-<section id="report-tab" class="container mx-auto">
-    <h1 class="text-xl font-extrabold">REPORTS</h1>
+<section id="report-tab" class=" mx-auto lg:mx-8">
+    <h1 class="text-xl font-extrabold uppercase">Student Record</h1>
 
     <div class="flex justify-end text-sm text-greyish_black">
         <!-- HISTORY LOGS -->
@@ -18,25 +18,35 @@
 
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-    <div class="flex justify-evenly">
+    <div class="grid  grid-flow-row grid-cols-5 gap-4">
 
+        <!-- search-bar -->
         <div class="flex border border-greyish_black w-full rounded-md p-1">
             <img class="inline " src="/images/search-icon.png" alt="">
             <input class="focus:outline-none" type="text" name="" id="" placeholder="Typing!">
         </div>
+        <!-- end search-bar -->
+        <!-- daterangepicker input -->
+        <div class="w-full flex border p-2 mx-2">
+            <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018">
+            <label class="" for="reportdaterange">
+                <i class="fa-solid fa-calendar"></i>
+            </label>
+        </div>
+        <!-- end daterangepicker input -->
         <!-- batch selection -->
-        <select name="" id="batch" class="w-full p-1">
+        <select name="" id="batch" class="w-full p-1 border">
             <option value="" selected disabled hidden>Batch</option>
             <!-- php function on batch -->
         </select>
 
         <!-- college selection -->
-        <select name="college" id="college" class="w-full p-1">
+        <select name="college" id="college" class="w-full p-1 border">
             <option value="" selected disabled hidden>Course</option>
         </select>
 
         <!-- employment status selection -->
-        <select name="employment" id="employment" class="w-full p-1">
+        <select name="employment" id="employment" class="w-full p-1 border">
             <option value="" selected disabled hidden>Employment Status</option>
             <option value="">Employed</option>
             <option value="">Unemployed</option>
@@ -48,19 +58,20 @@
     </div>
 
 
-    <!-- record of name-->
-    <table class="table-auto w-full mt-10 text-xs font-thin text-grayish">
-        <thead>
-            <tr>
-                <th class="text-start">NAME</th>
+    <!-- Record Table-->
+    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
+        <thead class="bg-accent text-white rounded-t-lg">
+            <tr class=" rounded-t-lg">
+                <th class="text-start uppercase">Student Number</th>
+                <th>NAME</th>
                 <th>CONTACT NUMBER</th>
-                <th>DATE SUBMITTED</th>
-                <th>STATUS</th>
+                <th>USER TYPE</th>
                 <th>DETAILS</th>
             </tr>
         </thead>
         <tbody class="text-sm">
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -68,7 +79,6 @@
                     </div>
                 </td>
                 <td class="text-center">09104905440</td>
-                <td class="text-center">4/4/18</td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
                 </td>
@@ -76,6 +86,7 @@
             </tr>
 
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -83,7 +94,6 @@
                     </div>
                 </td>
                 <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">7/11/19</td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
                 </td>
@@ -91,6 +101,7 @@
             </tr>
 
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -98,7 +109,6 @@
                     </div>
                 </td>
                 <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">5/19/12 </td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
                 </td>
@@ -107,6 +117,7 @@
 
 
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -114,7 +125,6 @@
                     </div>
                 </td>
                 <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">7/27/13</td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
                 </td>
@@ -123,6 +133,7 @@
 
 
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -130,7 +141,6 @@
                     </div>
                 </td>
                 <td class="text-center">09104905440</td>
-                <td class="text-center">4/4/18</td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
                 </td>
@@ -138,6 +148,7 @@
             </tr>
 
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -145,7 +156,6 @@
                     </div>
                 </td>
                 <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">7/11/19</td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
                 </td>
@@ -153,6 +163,7 @@
             </tr>
 
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -160,7 +171,6 @@
                     </div>
                 </td>
                 <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">5/19/12 </td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
                 </td>
@@ -169,6 +179,7 @@
 
 
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -176,7 +187,6 @@
                     </div>
                 </td>
                 <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">7/27/13</td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
                 </td>
@@ -184,6 +194,7 @@
             </tr>
 
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -191,7 +202,6 @@
                     </div>
                 </td>
                 <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">5/19/12 </td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
                 </td>
@@ -200,6 +210,7 @@
 
 
             <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
                         <div class="w-10 h-10 rounded-full border border-accent"></div>
@@ -207,7 +218,6 @@
                     </div>
                 </td>
                 <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">7/27/13</td>
                 <td class="text-center">
                     <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
                 </td>
@@ -216,6 +226,7 @@
 
         </tbody>
     </table>
+    <!-- End Record Table -->
 </section>
 
 
@@ -262,3 +273,8 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Date picker
+    $('#reportdaterange').daterangepicker();
+</script>
