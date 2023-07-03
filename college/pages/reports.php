@@ -1,5 +1,5 @@
 <!-- report content -->
-<section id="report-tab" class="container mx-auto">
+<section id="report-tab" class=" mx-auto lg:mx-8">
     <h1 class="text-xl font-extrabold">REPORTS</h1>
 
     <div class="flex justify-end text-sm text-greyish_black">
@@ -18,25 +18,35 @@
 
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-    <div class="flex justify-evenly">
+    <div class="grid  grid-flow-row grid-cols-5 gap-4">
 
+        <!-- search-bar -->
         <div class="flex border border-greyish_black w-full rounded-md p-1">
             <img class="inline " src="/images/search-icon.png" alt="">
             <input class="focus:outline-none" type="text" name="" id="" placeholder="Typing!">
         </div>
+        <!-- end search-bar -->
+        <!-- daterangepicker input -->
+        <div class="w-full flex border p-2 mx-2">
+            <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018">
+            <label class="" for="reportdaterange">
+                <i class="fa-solid fa-calendar"></i>
+            </label>
+        </div>
+        <!-- end daterangepicker input -->
         <!-- batch selection -->
-        <select name="" id="batch" class="w-full p-1">
+        <select name="" id="batch" class="w-full p-1 border">
             <option value="" selected disabled hidden>Batch</option>
             <!-- php function on batch -->
         </select>
 
         <!-- college selection -->
-        <select name="college" id="college" class="w-full p-1">
+        <select name="college" id="college" class="w-full p-1 border">
             <option value="" selected disabled hidden>Course</option>
         </select>
 
         <!-- employment status selection -->
-        <select name="employment" id="employment" class="w-full p-1">
+        <select name="employment" id="employment" class="w-full p-1 border">
             <option value="" selected disabled hidden>Employment Status</option>
             <option value="">Employed</option>
             <option value="">Unemployed</option>
@@ -262,3 +272,8 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Date picker
+    $('#reportdaterange').daterangepicker();
+</script>
