@@ -22,6 +22,7 @@
     <!-- End Stylesheets -->
 
     <!-- Javascript Scripts -->
+    <!-- JS Plugins -->
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Chart JS -->
@@ -29,8 +30,10 @@
 
     <!-- Lodash Utility Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- App Script -->
+    <!-- Date Range Picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- End JS Plugins -->
+    <!-- System Script -->
     <script src="./assets/scripts/core.js" defer></script>
     <!-- End JS Scripts -->
 
