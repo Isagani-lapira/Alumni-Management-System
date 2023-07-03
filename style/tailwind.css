@@ -11,6 +11,11 @@ body {
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
     sans-serif;
 }
+/* For font-awesome plugin  */
+/* * makes the icon not float upwards */
+.fa-xl {
+  line-height: 1;
+}
 
 @layer components {
   .input-text {
@@ -37,5 +42,10 @@ body {
   th,
   td {
     @apply p-2 mx-auto text-center;
+  }
+
+  /* shortcut for sub-headings */
+  .text-subheading {
+    @apply font-bold uppercase text-accent;
   }
 }

@@ -1,12 +1,10 @@
 <!-- dashboard content -->
-<section id="dashboard-tab" class="container mx-auto">
-    <h1 class="text-xl font-extrabold">Dashboard</h1>
+<section id="dashboard-tab" class="container">
 
-    <button id="btnAnnouncement" style="margin-left: auto; margin-right: 10px" class="block rounded-lg font-bold text-white bg-accent p-2 hover:bg-darkAccent">
-        Create CICT POST
-    </button>
 
-    <div class="flex m-10 h-2/3 p-2">
+
+    <div class="flex m-10 h-2/3 p-2 flex-wrap gap-4">
+        <!-- Left Welcome Part -->
         <div class="flex-1">
             <!-- Welcome Card -->
             <div class="relative rounded-lg h-max p-10 bg-gradient-to-r from-accent to-darkAccent">
@@ -47,71 +45,108 @@
 
             </div>
         </div>
-
         <!-- end quick stats -->
+        <!-- End Left Welcome Part -->
 
-        <!-- chart -->
+        <!-- recent announcement -->
+        <div class=" max-lg: relative font-semibold  border  center-shadow p-5 rounded-lg">
+            <p class="  text-accent font-bold">RECENT ACTIVITIES
+                <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
+            </p>
+
+            <div class="dash-content p-3 pt-0   rounded-md">
+                <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-gray-400 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                        <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
+                            <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">POST</span>
+                        </p>
+                        <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                </div>
+
+                <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-red-400 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                        <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
+                            <span class="bg-green-600 text-white font-semibold p-2 rounded-md">ANNOUNCEMENT</span>
+                        </p>
+                        <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                </div>
+
+                <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-yellow-200 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                        <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
+                            <span class="bg-violet-400 text-white font-semibold p-2 rounded-md">UPDATE</span>
+                        </p>
+                        <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    </div>
+                </div>
+
+                <!-- view more -->
+                <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
+            </div>
+
+        </div>
+        <!-- End recent-announcement -->
+
+
+
+
+    </div>
+
+
+    <!-- Middle Part -->
+    <div class="flex flex-wrap m-10">
+        <!-- Response by year -->
+        <div class=" max-lg: relative pb-3 font-semibold">
+            <p class=" mb-2 text-subheading">RESPONSE BY YEAR </p>
+            <div class="w-[40rem] h-96">
+                <canvas class="" id="responseByYear"></canvas>
+            </div>
+
+        </div>
+        <!-- Start Non Chart Information -->
         <div class="flex-1">
-            <!-- tracer status part -->
-            <div class="w-80 mx-auto">
-                <canvas id="myChart"></canvas>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- recent announcement -->
-    <div class="m-10 max-lg: relative font-semibold p-3">
-        <p class=" mb-2">RECENT ANNOUNCEMENT
-            <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
-        </p>
-
-        <div class="dash-content p-3 border shadow-lg rounded-md">
-            <div class="recent-announcement flex justify-stretch my-5">
-                <div class="circle rounded-full bg-gray-400 p-5"></div>
-                <div class="text-sm ms-2 font-extralight">
-                    <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
-                        <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">POST</span>
-                    </p>
-                    <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+            <div>
+                <div class="w-4/5 p-5 rounded-lg ms-3">
+                    <p class="text-accent font-semibold">TRACER STATUS </p>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Already Answered</p>
+                        <span class="text-accent">73%</span>
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Haven't answer yet</p>
+                        <span class="text-accent">27%</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="recent-announcement flex justify-stretch my-5">
-                <div class="circle rounded-full bg-red-400 p-5"></div>
-                <div class="text-sm ms-2 font-extralight">
-                    <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                        <span class="bg-green-600 text-white font-semibold p-2 rounded-md">ANNOUNCEMENT</span>
-                    </p>
-                    <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+            <div>
+                <div class="w-4/5 p-5 rounded-lg ms-3">
+                    <p class="text-accent font-semibold">Personal Logs</p>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Total no. of posted announcement</p>
+                        <span class="text-accent">10</span>
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Total no. of deleted post</p>
+                        <span class="text-accent">0</span>
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Total no. of posted job</p>
+                        <span id="noPostedJob" class="text-accent"></span>
+                    </div>
                 </div>
             </div>
 
-            <div class="recent-announcement flex justify-stretch my-5">
-                <div class="circle rounded-full bg-yellow-200 p-5"></div>
-                <div class="text-sm ms-2 font-extralight">
-                    <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                        <span class="bg-violet-400 text-white font-semibold p-2 rounded-md">UPDATE</span>
-                    </p>
-                    <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                </div>
-            </div>
-
-            <!-- view more -->
-            <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
         </div>
-
+        <!-- End Non Chart Information -->
     </div>
+    <!-- End Middle Part -->
 
-
-    <!-- Response by year -->
-    <div class="m-10 max-lg: relative pb-3 font-semibold">
-        <p class=" mb-2">RESPONSE BY YEAR </p>
-        <div class="w-2/3 h-96 mx-auto">
-            <canvas class="" id="responseByYear"></canvas>
-        </div>
-
-    </div>
 </section>
 
 <script>
@@ -120,22 +155,14 @@
         const redAccent = '#991B1B'
         const blueAccent = '#2E59C6'
 
-        //chart function
-        const tracerStatus = document.getElementById('myChart');
-        const tracerType = 'pie'
-        const tracerLabels = ["Already answered", "Haven't answer yet"]
-        const tracerData = [12, 1]
-        const color = [blueAccent, redAccent]
 
-        chartConfig(tracerStatus, tracerType, tracerLabels,
-            tracerData, true, color)
 
 
         //chart for response by year
         const responseByYear = document.getElementById('responseByYear')
         const responseByYear_labels = ["2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"]
         const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860]
-        const responseByYear_type = 'bar'
+        const responseByYear_type = 'line'
         chartConfig(responseByYear, responseByYear_type, responseByYear_labels,
             responseByYear_data, true, redAccent)
 
@@ -149,7 +176,8 @@
                     datasets: [{
                         backgroundColor: colors,
                         data: data,
-                        borderWidth: 1
+                        borderWidth: 1,
+                        borderColor: redAccent
                     }]
                 },
                 options: {
@@ -162,7 +190,7 @@
                     },
                     plugins: {
                         legend: {
-                            display: true,
+                            display: false,
                             position: 'bottom',
                             labels: {
                                 font: {
@@ -176,4 +204,6 @@
             });
         }
     })
+
+    // TODO add function to be easier later
 </script>

@@ -2,57 +2,220 @@
     <h1 class="font-bold text-2xl">Alumni of the Month</h1>
     <p class="text-gray-400 font-bold text-sm">Make post for alumni of the month</p>
 
-    <!-- Post Form for AOTM  -->
-    <section class="relative my-6">
-        <form action="post/to/server">
-            <div class="form-control space-y-2 my-2">
-                <label for="fullname" class="font-bold block ">Fullname</label>
-                <input type="text" name="fullname" id="fullname" class="  input-text add-focus w-96 rounded-md">
-            </div>
-            <div class="form-control">
-                <label for="quote" class="font-bold block">Add Quote</label>
-                <input type="text" name="quote" id="quote" class="input-text add-focus w-96 rounded-md">
-            </div>
-            <div class="form-control">
-                <label for="batch" class="font-bold block">Batch</label>
-                <select type="text" name="batch" id="batch" class="input-text add-focus w-96 rounded-md">
-                    <option value="2023">2023</option>
-                    <option value="2023">2022</option>
-                    <option value="2023">2021</option>
-                    <option value="2023">2020</option>
-                    <option value="2023">To be continued in the server</option>
-                </select>
-            </div>
+    <button class="block bg-accent py-1 px-3 text-white ml-auto rounded-md">
+        Export List
+    </button>
+    <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
+    <!-- Filter  -->
+    <div class="flex justify-evenly text-xs">
 
-            <!-- File Input -->
-            <div class="form-control">
-                <label for="quote" class="font-bold block">Image to be showcased</label>
-                <input type="file" class="block w-full text-sm text-slate-500
-                      file:m-4 file:p-2 file:border-0
-      file:rounded-lg file:text-sm file:font-semibold file:bg-accent file:text-white  hover:file:bg-red-400
-                " />
-            </div>
+        <div class="flex border border-grayish w-full rounded-md p-1">
+            <img class="inline " src="../images/search-icon.png" alt="">
+            <input class="outline-none" type="text" name="" id="aomSearch" placeholder="Typing!">
+        </div>
 
-            <div class="form-control space-y-2">
-                <label for="social-link" class="font-bold block">Social Links</label>
-                <div>
+        <!-- gender -->
+        <div class="flex items-center gap-2 ms-2">
+            <input type="radio" name="aomGender" id="aomAll" checked="">
+            <label for="aomAll">All</label>
+            <input type="radio" name="aomGender" id="aomMale">
+            <label for="aomMale">Male</label>
+            <input type="radio" name="aomGender" id="aomFemale">
+            <label for="aomFemale">Female</label>
+        </div>
 
-                    <i class="fa-solid fa-plus p-1  border-2 rounded-full border-blue-950"></i>
-                    <span>Add Social Media Link</span>
-                </div>
-            </div>
-            <div class="form-control space-y-2">
-                <label for="description" class="font-bold block">Description</label>
-                <textarea class="input-text rounded-lg" name="description" id="description" cols="70" rows="5" placeholder="Describe the person or provide other information you want to share to other people..."></textarea>
-            </div>
+        <!-- range -->
+        <div class="w-full flex justify-evenly border p-2 mx-2">
+            <input type="text" name="aoydaterange" id="aoydaterange" value="01/01/2018 - 01/15/2018">
+            <label class="" for="aoydaterange">
+                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
+            </label>
+        </div>
+
+        <!-- batch -->
+        <select name="batch" id="aomBatch" class="w-full p-1">
+            <option value="" selected="" disabled="" hidden="">Batch</option>
+        </select>
+
+        <!-- college -->
+        <select name="employment" id="aomCollege" class="w-full p-1">
+            <option value="" selected="" disabled="" hidden="">College</option>
+        </select>
+
+    </div>
+    <!-- End Filter Section -->
+    <!-- Record Table-->
+    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
+        <thead class="bg-accent text-white rounded-t-lg">
+            <tr class=" rounded-t-lg">
+                <th class="text-start uppercase">Student Number</th>
+                <th>NAME</th>
+                <th>CONTACT NUMBER</th>
+                <th>USER TYPE</th>
+                <th>DETAILS</th>
+            </tr>
+        </thead>
+        <tbody class="text-sm">
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Wade Warren</span>
+                    </div>
+                </td>
+                <td class="text-center">09104905440</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
+
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Leslie Alexander</span>
+                    </div>
+                </td>
+                <td class="text-center">(704) 555-0127</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
+
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Floyd Miles</span>
+                    </div>
+                </td>
+                <td class="text-center">(208) 555-0112</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
 
 
-            <div class="flex justify-end w-full">
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Cameron Williamson</span>
+                    </div>
+                </td>
+                <td class="text-center">(239) 555-0108</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
 
-                <button class="btn-primary bg-secondary py-4">Make A Post</button>
-            </div>
+
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Wade Warren</span>
+                    </div>
+                </td>
+                <td class="text-center">09104905440</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
+
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Leslie Alexander</span>
+                    </div>
+                </td>
+                <td class="text-center">(704) 555-0127</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
+
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Floyd Miles</span>
+                    </div>
+                </td>
+                <td class="text-center">(208) 555-0112</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
 
 
-        </form>
-    </section>
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Cameron Williamson</span>
+                    </div>
+                </td>
+                <td class="text-center">(239) 555-0108</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
+
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Floyd Miles</span>
+                    </div>
+                </td>
+                <td class="text-center">(208) 555-0112</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
+
+
+            <tr class="h-14">
+                <td class="student-num__val text-start font-bold">2020101933</td>
+                <td>
+                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">Cameron Williamson</span>
+                    </div>
+                </td>
+                <td class="text-center">(239) 555-0108</td>
+                <td class="text-center">
+                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
+                </td>
+                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <!-- End Record Table -->
 </section>
+
+<script>
+    // Date picker
+    $('#aoydaterange').daterangepicker();
+</script>

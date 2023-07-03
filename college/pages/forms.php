@@ -1,16 +1,13 @@
-<section class=" mx-auto container border px-5">
+<section class=" mx-auto   p-5 lg:mx-8">
     <h1 class="text-2xl font-bold ">Alumni Tracer Form</h1>
-    <p class="text-gray-400 font-semibold">Here you can see the list of alumni that answers the form</p>
+    <p class="text-gray-400 font-semibold">See the relevant information that are gathered</p>
 
-    <div class="flex w-full justify-end"><button class="btn-primary font-bold space-y-2"><span>Deploy Tracer</span>
-            <i class="fa-solid fa-circle-chevron-right"></i>
-        </button></div>
 
-    <hr>
+    <hr class="my-10">
 
     <!-- Pie Chart -->
 
-    <h3>Employee Status</h3>
+    <h3 class="text-subheading">Employee Status</h3>
 
 
     <!-- TODO add chart here -->
@@ -23,28 +20,7 @@
     <div class="chart-box w-1/2 h-64 relative">
         <canvas id="annualSalCanvas"></canvas>
     </div>
-    <h3>Relevant Skills Developed</h3>
-    <!-- TODO add chart here -->
-    <div class="grid grid-cols-3 grid-flow-row gap-4">
-        <div class="chart-box w-64">
-            <canvas id="commSkillsCanvas"></canvas>
-        </div>
-        <div class="chart-box w-64">
-            <canvas id="hrSkillsCanvas"></canvas>
-        </div>
-        <div class="chart-box w-64">
-            <canvas id="entrepCanvas"></canvas>
-        </div>
-        <div class="chart-box w-64">
-            <canvas id="itCanvas"></canvas>
-        </div>
-        <div class="chart-box w-64">
-            <canvas id="problemSolvingCanvas"></canvas>
-        </div>
-        <div class="chart-box w-64">
-            <canvas id="criticalThinkingCanvas"></canvas>
-        </div>
-    </div>
+
 
 </section>
 
@@ -54,13 +30,6 @@
         // Chart Canvas Elements
         const empStatusCanvas = document.querySelector('#empStatusPieChart');
         const annualSalCanvas = document.querySelector('#annualSalCanvas');
-        // relevant skills developed
-        const commSkillsCanvas = document.querySelector('#commSkillsCanvas');
-        const hrSkillsCanvas = document.querySelector('#hrSkillsCanvas');
-        const entrepCanvas = document.querySelector('#entrepCanvas');
-        const itCanvas = document.querySelector('#itCanvas');
-        const problemSolvingCanvas = document.querySelector('#problemSolvingCanvas');
-        const criticalThinkingCanvas = document.querySelector('#criticalThinkingCanvas');
         // configure chart js functions here.
 
         // First Graph
@@ -95,6 +64,7 @@
                     labels: salaryChart_labels,
                     datasets: [{
                         data: salaryChart_data,
+                        borderWidth: 1,
                     }],
 
                 },
@@ -108,70 +78,5 @@
                 }
             }
         )
-
-
-
-        createRelevantSkillsChart(commSkillsCanvas, 'Communication Skills', {
-            labels: ['skilled', 'not skilled'],
-            data: [100, 400]
-        })
-        createRelevantSkillsChart(hrSkillsCanvas, 'Human Relations Skills', {
-            labels: ['skilled', 'not skilled'],
-            data: [100, 400]
-        })
-        createRelevantSkillsChart(entrepCanvas, 'Entreprenuerial Skills', {
-            labels: ['skilled', 'not skilled'],
-            data: [100, 400]
-        })
-        createRelevantSkillsChart(itCanvas, 'Information Technology Skills', {
-            labels: ['skilled', 'not skilled'],
-            data: [100, 400]
-        })
-        createRelevantSkillsChart(problemSolvingCanvas, 'Problem-Solving Skills', {
-            labels: ['skilled', 'not skilled'],
-            data: [100, 400]
-        })
-        createRelevantSkillsChart(criticalThinkingCanvas, 'Critical-Thinking Skills', {
-            labels: ['skilled', 'not skilled'],
-            data: [100, 400]
-        })
-
-        function createRelevantSkillsChart(id, chartTitle, chartData = {
-            labels: [],
-            data: []
-        }) {
-            new Chart(
-                id, {
-                    type: 'pie',
-                    data: {
-                        labels: chartData.labels,
-                        datasets: [{
-                            data: chartData.data
-                        }],
-
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            title: {
-                                display: true,
-                                text: chartTitle,
-                                position: 'bottom',
-                                font: {
-                                    weight: 'bold',
-                                    size: 16,
-                                    family: 'sans-serif'
-                                }
-
-                            }
-                        },
-
-                    }
-                }
-            )
-        }
-
     })
 </script>
