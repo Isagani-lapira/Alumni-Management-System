@@ -136,11 +136,19 @@
                         <div>
                             <label class="font-semibold">Password</label>
                             <input id="password" class="password border border-gray-400 rounded-md p-2 outline-none block w-full" type="password">
+                            <p>Password must contain the following: </p>
+                            <div class="text-xs flex flex-col text-red-400">
+                                <span id="addLowerCase">A lower case letter</span>
+                                <span id="addUpperCase">A capital(uppercase) letter</span>
+                                <span id="addNumber">A number</span>
+                                <span id="minChar">Minimum 8 characters</span>
+                            </div>
                         </div>
 
                         <div>
                             <label class="font-semibold">Confirm Password</label>
                             <input id="confirmpassword" class="password border border-gray-400 rounded-md p-2 outline-none block w-full" type="password">
+                            <p id="passwordWarning" class="text-xs text-red-400 italic hidden">Password does not matched</p>
                         </div>
 
 

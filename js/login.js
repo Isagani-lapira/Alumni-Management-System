@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
-
+    let usernameAvailable = true;
+    let passwordReqFulFill = true;
     //login 
     $('#loginForm').on('submit', (e) => {
         e.preventDefault();
@@ -82,6 +83,7 @@ $(document).ready(function () {
         }
     })
 
+    //register
     $('#registerForm').on('submit', (e) => {
         //prevent from submitting
         e.preventDefault();
@@ -96,14 +98,25 @@ $(document).ready(function () {
             let confirmPass = $('#confirmpassword').val();
 
             if (password === confirmPass) {
-                console.log(' magkamukha password')
-            } else console.log('hindi magkamukha');
+                $('#passwordWarning').hide()
+                if (usernameAvailable && passwordReqFulFill) {
+                    //perform the registration
+                    console.log('yehey')
+                }
+            } else {
+                $('#passwordWarning').show()
+            };
         }
 
     })
 
     $('#usernameField').on('change', function () {
-        let username = $(this).val();
+        checkUsername()
+    });
+
+    //checking username
+    function checkUsername() {
+        let username = $('#usernameField').val();
 
         let form = new FormData();
         var data = {
@@ -122,14 +135,20 @@ $(document).ready(function () {
                 if (response == 'exist') {
                     $('#usernameField').addClass('border-accent').removeClass('border-gray-400');
                     $('#usernameWarning').show();
+                    usernameAvailable = false;
                 }
-                console.log(response)
+                else {
+                    $('#usernameField').removeClass('border-accent').addClass('border-gray-400');
+                    $('#usernameWarning').hide();
+                    usernameAvailable = true;
+                }
             },
             error: (error) => {
                 console.log(error)
             }
         })
-    });
+
+    }
 
     //checking field
     function checkFields(element) {
@@ -149,4 +168,57 @@ $(document).ready(function () {
 
         return allComplete;
     }
+
+    //check if the password has the requirement
+    $('#password').on('input', function () {
+        let passwordVal = $(this).val();
+
+        let hasUpperCase = false;
+        let hasNumber = false;
+        let hasLowerCase = false;
+        let hasMinChar = false;
+
+        for (let i = 0; i < passwordVal.length; i++) {
+            let character = passwordVal[i];
+
+            // Check if it has a capital letter
+            if (character == character.toUpperCase()) {
+                hasUpperCase = true;
+            }
+
+            // Check if it has a number
+            if (!isNaN(character)) {
+                hasNumber = true;
+            }
+
+            // Check if it has a lowercase letter
+            if (character == character.toLowerCase()) {
+                hasLowerCase = true;
+            }
+
+            // Check if it has a minimum length of 8 characters
+            if (passwordVal.length >= 8) {
+                hasMinChar = true;
+            }
+        }
+
+        // Update the requirement indicators
+        if (hasUpperCase) $('#addUpperCase').addClass('text-green-500');
+        else $('#addUpperCase').removeClass('text-green-500');
+
+
+        if (hasNumber) $('#addNumber').addClass('text-green-500');
+        else $('#addNumber').removeClass('text-green-500');
+
+        if (hasLowerCase) $('#addLowerCase').addClass('text-green-500');
+        else $('#addLowerCase').removeClass('text-green-500');
+
+        if (hasMinChar) $('#minChar').addClass('text-green-500');
+        else $('#minChar').removeClass('text-green-500');
+
+
+        passwordReqFulFill = (hasUpperCase && hasLowerCase && hasNumber && hasNumber) ? true : false
+    })
+
+
 });
