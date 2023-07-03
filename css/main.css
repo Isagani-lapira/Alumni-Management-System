@@ -1883,10 +1883,6 @@ th,
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.grid-rows-5 {
-  grid-template-rows: repeat(5, minmax(0, 1fr));
-}
-
 .flex-row {
   flex-direction: row;
 }
