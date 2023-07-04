@@ -1462,7 +1462,7 @@
 
             <div id="groupEmail" class="flex gap-1">
               <div class=" border border-gray-400 rounded flex px-2 py-2">
-                <select name="selectColToEmail" id="" class="w-full outline-none">
+                <select name="selectColToEmail" id="selectColToEmail" class="w-full outline-none">
                   <option value="all" selected>All colleges</option>
                   <?php
                   require_once '../PHP_process/connection.php';
@@ -1485,15 +1485,15 @@
 
               <div class="flex gap-1 items-center">
                 <!-- all -->
-                <input id="allEM" type="radio" checked>
+                <input id="allEM" name="selectedUser" type="radio" checked value="all">
                 <label for="allEM">All</label>
 
                 <!-- alumni -->
-                <input id="alumniEM" type="radio">
+                <input id="alumniEM" name="selectedUser" type="radio" value="alumni">
                 <label for="alumniEM">Alumni</label>
 
                 <!-- student -->
-                <input id="studentEM" type="radio">
+                <input id="studentEM" name="selectedUser" type="radio" value="Student">
                 <label for="studentEM">Student</label>
               </div>
 
@@ -1501,7 +1501,7 @@
 
             <div id="individualEmail" class="flex border border-gray-400 w-full rounded-md p-1 hidden">
               <img class="inline" src="../images/search-icon.png" alt="">
-              <input class="focus:outline-none w-full" type="text" name="" id="searchEmail" placeholder="Typing!">
+              <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Typing!">
             </div>
 
 
@@ -1517,8 +1517,8 @@
 
           <!-- Footer -->
           <div class="modal-footer flex items-end flex-row-reverse px-3">
-            <button class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
-            <button id="sendEmail" class="cancelEmail py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+            <button type="submit" id="sendEmail" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+            <button class="cancelEmail py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
           </div>
         </div>
       </form>

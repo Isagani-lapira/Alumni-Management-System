@@ -480,26 +480,39 @@ $(document).ready(function () {
 
 
   //send email
-  $('#sendEmail').on('click', () => {
+  $('#emailForm').on('submit', (e) => {
+
+    e.preventDefault();
+    //check the type of recipient
+    let recipient = $('input[name="recipient"]:checked').val();
+    let formSend = new FormData();
+
+    if (recipient == 'individualEmail') {
+      let searchEmail = $('#searchEmail').val()
+      formSend.append('searchEmail', searchEmail)
+    }
+    else {
+      let user = $('input[name="selectedUser"]:checked').val();
+      let college = $('#selectColToEmail').val();
+      formSend.append('college', college);
+      formSend.append('user', user);
+    }
+
+    let message = $('#TxtAreaEmail').val();
+    formSend.append('recipient', recipient)
+    formSend.append('message', message);
 
     $.ajax({
       url: '../PHP_process/sendEmail.php',
-      type: 'GET',
+      type: 'POST',
+      data: formSend,
+      processData: false,
+      contentType: false,
       success: (response) => console.log(response),
       error: (error) => console.log(error)
     })
   })
 
-  $('#emailForm').on('submit', e => {
-    e.preventDefault(); //prevent from redirecting the form
-
-    let formData = new FormData($('#emailForm')[0]);
-    console.log(formData)
-  });
-
-  function rar(data) {
-    console.log(data)
-  }
 
   $('.college').on('click', function () {
     var colName = $(this).data('colname');
@@ -579,6 +592,7 @@ $(document).ready(function () {
       $('#individualEmail').addClass('hidden');
     }
   })
+
 });
 
 
