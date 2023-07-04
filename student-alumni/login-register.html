@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <title>BulSuan Landing Page</title>
+
+    <style>
+        body {
+            background-image: url('../assets/bg.jpg');
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Adjust the alpha value between 0 and 1 for desired opacity */
+            background-blend-mode: multiply;
+            background-size: cover;
+        }
+
+        .modal {
+            background-color: #1e1c1c98;
+
+        }
+
+        .modal-body {
+            height: 70%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w-full h-screen flex justify-center items-center">
+        <div class="md:h-max sm:h-14 w-1/2 rounded-xle md:grid grid-cols-2 sm:block text-gray-600">
+            <div class="bg-accent md:rounded-l-2xl text-white pt-10 h-full relative">
+                <h2 class="Lobster text-xl text-center">"We Still Connected"</h2>
+                <img id="graduateLogo" class="relative" src="../assets/graduate_logo.png" alt=""> <!--make it relative-->
+            </div>
+
+            <!-- login -->
+            <div id="loginPanel" class="p-3 rounded-r-2xl relative bg-white">
+                <h1 class="text-2xl font-bold text-greyish_black text-center w-2/3 block mx-auto">Welcome Back BulSuan!
+                </h1>
+                <div>
+                    <form id="loginForm" class="mt-2 p-3 flex flex-col gap-1">
+                        <p id="errorMsg" class="text-sm text-accent hidden"><span class="font-bold">login Failed:</span>
+                            Incorrect
+                            username/password</p>
+                        <label>Username</label>
+                        <input name="username" class="logInput border border-gray-400 rounded-md p-2 outline-none" placeholder="e.g patrickPron625" type="text">
+                        <label>Password</label>
+                        <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
+                            <input name="password" class="logInput flex-1 outline-none" placeholder="e.g patrickPron625" type="password">
+                            <span class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
+                        </div>
+                        <p class="italic text-accent text-sm text-end">Forgot password?</p>
+                        <button type="submit" class="rounded-md bg-accent text-white py-3 mt-3 hover:bg-darkAccent">
+                            Sign in
+                        </button>
+                    </form>
+
+                    <p id="registerBtn" class="text-center absolute bottom-1 w-full cursor-pointer md:text-base sm:text-xs">Don't have an account? <span class="text-accent font-semibold">Register here</span></p>
+                </div>
+            </div>
+
+            <!-- registration -->
+            <div id="registrationPanel" class="w-full p-2 bg-white rounded-r-2xl hidden">
+                <h1 class="text-2xl font-bold text-accent text-center w-2/3 block mx-auto">Sign Up</h1>
+                <div class="flex justify-center mb-4">
+                    <div class="circle-container flex items-center">
+                        <div class="circle active h-4 w-4 rounded-full border-2 border-accent flex items-center justify-center">
+                        </div>
+                      <div class="w-16 border-t-2 border-accent"></div>
+                    </div>
+                    <div class="circle-container flex items-center mx-2">
+                        <div class="circle active h-4 w-4 rounded-full border-2 border-accent flex items-center justify-center">
+                        </div>
+                      <div class="w-16 border-t-2 border-accent flex justify-center items-center"></div>
+                    </div>
+                    <div class="circle-container flex items-center">
+                        <div class="circle active h-4 w-4 rounded-full border-2 border-accent flex items-center justify-center">
+                        </div>
+                    </div>
+                </div>
+                <div id="page1">
+                    <!-- Page 1 Content -->
+                    
+                  </div>
+              
+                  <div id="page2" class="hidden">
+                    <!-- Page 2 Content -->
+                    
+                  </div>
+              
+                  <div id="page3" class="hidden">
+                    <!-- Page 3 Content -->
+                  </div>
+                
+            </div>
+
+
+            <!-- modal promp -->
+            <div id="promptMessage" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
+                 text-grayish  top-0 left-0 hidden">
+                <div class="modal-container w-1/3 bg-white rounded-lg p-3 mt-2">
+                    <div class="modal-header py-5">
+                        <p id="insertionMsg" class="text-greyish_black font-bold text-lg text-center w-1/2 mx-auto"></p>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer flex items-end flex-row-reverse px-3 mt-3">
+                        <button id="goBack" class="bg-accent py-2 rounded px-5 text-white ms-3 hover:bg-darkAccent 
+                        hover:font-semibold">
+                            Go back
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../js/login.js"></script>
+    <script>
+        function showPage(pageNumber) {
+          // Hide all pages
+          document.getElementById('page1').classList.add('hidden');
+          document.getElementById('page2').classList.add('hidden');
+          document.getElementById('page3').classList.add('hidden');
+    
+          // Show selected page
+          document.getElementById('page' + pageNumber).classList.remove('hidden');
+        }
+      </script>
+</body>
+
+</html>
