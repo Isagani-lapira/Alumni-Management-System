@@ -227,8 +227,8 @@ $(document).ready(function () {
         dataType: 'json',
         success: (response) => {
           let data = response;
+          $('#emailTBody').empty();
           if (response.result == 'Success') {
-            $('#emailTBody').empty();
             //display the data as content of the table
             $length = data.recipient.length;
 
@@ -245,6 +245,13 @@ $(document).ready(function () {
               tr.append(tdRecipient, tdColCode, tdDate);
               $('#emailTBody').append(tr);
             }
+          }
+          else {
+            let tr = $('<tr>');
+            let tdRecipient = $('<td>').text('No available email').addClass("text-start text-blue-400 text-base");
+            tr.append(tdRecipient);
+            $('#emailTBody').append(tr);
+
           }
         },
         error: (error) => { console.log(error) }

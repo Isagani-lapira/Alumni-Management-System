@@ -48,7 +48,7 @@
               <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z" />
               </svg>
-              ANNOUNCEMENT</a>
+              MAKE POST</a>
           </li>
 
           <!-- EMAIL -->
@@ -275,8 +275,16 @@
                       <span class="text-accent">10</span>
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
-                      <p class="font-normal text-greyish_black">Total no. of deleted post</p>
-                      <span class="text-accent">0</span>
+                      <p class="font-normal text-greyish_black">Total no. of email sent</p>
+
+                      <?php
+                      require_once '../PHP_process/connection.php';
+                      $query = 'SELECT * FROM `email` WHERE `personID` = "admin23/06/29 11:23:12-932"';
+                      $result = mysqli_query($mysql_con, $query);
+                      $row = mysqli_num_rows($result);
+                      echo '<span class="text-accent">' . $row . '</span>';
+                      ?>
+
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of posted job</p>
@@ -293,7 +301,7 @@
 
         <!-- ANNOUNCEMENT CONTENT -->
         <div id="announcement-tab" class="p-5">
-          <h1 class="text-xl font-extrabold">ANNOUNCEMENT</h1>
+          <h1 class="text-xl font-extrabold">POST</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
             <button id="btnAnnouncement" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
@@ -392,7 +400,6 @@
               NEW
               MESSAGE
             </button>
-            <span class="text-xs text-greyish_black hover:font-medium py-3 cursor-pointer">DELETE POST</span>
           </div>
           <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
 
@@ -784,7 +791,7 @@
           </div>
           <div class="flex text-greyish_black">
             <!-- about section -->
-            <div class="w-1/4 text-sm p-2 mr-5">
+            <div class="w-1/4 text-xs p-2 mr-5">
               <p class="font-bold text-accent">About</p>
               <div class="flex mt-3 justify-start">
                 <img src="../assets/icons/person.png" alt="">
