@@ -141,10 +141,10 @@
                             <label for="female" class="text-sm text-gray-700 italic">Female</label>
                           </div>
                         </div>
-                      </div>
+                    </div>
                   
                       <div class="mt-6 flex justify-end">
-                        <button id="nextButton" type="button" class="w-24 px-4 py-2 bg-accent text-white font-medium rounded-md">
+                        <button id="nextButton" type="button" class="w-24 px-4 py-2 bg-accent text-white font-medium rounded-md hover:bg-darkAccent">
                           Next
                           <i class="fa-solid fa-angle-right"></i>
                         </button>
@@ -157,10 +157,76 @@
                 </div>
                   
      
+                <!-- Account Details -->
                 <div id="page2" class="hidden">
                     <!-- Page 2 Content -->
-                    <p>Page 2 Content</p>
+                    <div class="mt-6">
+                        <div class="flex space-x-2">
+                            <div class="w-1/2">
+                              <select name="college" id="college" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md">
+                                <option value="">College</option>
+                                <!-- Add your college options here -->
+                              </select>
+                            </div>
+                            <div class="w-1/2 pr-4">
+                              <select name="batch" id="batch" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md">
+                                <option value="">Batch</option>
+                                <!-- Add your batch options here -->
+                              </select>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="alumni" name="gender" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
+                                <label for="student" class="text-sm text-gray-700 italic">Alumni</label>
+                                <input type="radio" id="student" name="gender" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
+                                <label for="student" class="text-sm text-gray-700 italic">Student</label>
+                              </div>
+                        </div>
+                          
+
+                      <div class="mt-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email (BulSU Email)</label>
+                        <input name="email" type="email" id="email" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="Enter your email" required>
+                      </div>
+                  
+                      <div class="mt-4 relative">
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
+                            <input name="password" class="logInput flex-1 outline-none italic-placeholder text-sm" placeholder="e.g patrickPron625" type="password">
+                            <span class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
+                        </div>
+                      </div>
+                  
+                      <div class="mt-2 text-xs text-gray-500">
+                        Note: Use 8 or more characters with a mix of letters, numbers & symbols.
+                      </div>
+                  
+                      <div class="mt-4">
+                        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                        <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
+                            <input name="password" class="logInput flex-1 outline-none italic-placeholder text-sm" placeholder="e.g patrickPron625" type="password">
+                            <span class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
+                        </div>
+                      </div>
+                  
+                      <div id="passwordMismatchError" class="hidden mt-2 text-xs text-red-500">
+                        Passwords do not match.
+                      </div>
+                  
+                      <div class="mt-6 flex justify-end">
+                        <button id="backButton" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 font-medium rounded-md" onclick="showPage(1)">
+                          <i class="fa-solid fa-angle-left"></i>
+                          Back
+                        </button>
+                        <button id="nextButton" type="button" class="px-4 py-2 bg-accent text-white font-medium rounded-md" onclick="validateForm(2)">
+                          Next
+                          <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                      </div>
+                    </div>
                 </div>
+                  
+                  
+                  
               
                 <div id="page3" class="hidden">
                     <!-- Page 3 Content -->
