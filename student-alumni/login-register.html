@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -31,6 +30,13 @@
         .modal-body {
             height: 70%;
         }
+        .italic {
+            font-style: italic;
+        }
+
+        .italic-placeholder::placeholder {
+            font-style: italic;
+        }
     </style>
 </head>
 
@@ -43,7 +49,7 @@
             </div>
 
             <!-- login -->
-            <div id="loginPanel" class="p-3 rounded-r-2xl relative bg-white">
+            <div id="loginPanel" class=" p-3 rounded-r-2xl relative bg-white">
                 <h1 class="text-2xl font-bold text-greyish_black text-center w-2/3 block mx-auto">Welcome Back BulSuan!
                 </h1>
                 <div>
@@ -52,10 +58,10 @@
                             Incorrect
                             username/password</p>
                         <label>Username</label>
-                        <input name="username" class="logInput border border-gray-400 rounded-md p-2 outline-none" placeholder="e.g patrickPron625" type="text">
+                        <input name="username" class="logInput border border-gray-400 rounded-md p-2 outline-none italic-placeholder" placeholder="e.g patrickPron625" type="text">
                         <label>Password</label>
                         <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
-                            <input name="password" class="logInput flex-1 outline-none" placeholder="e.g patrickPron625" type="password">
+                            <input name="password" class="logInput flex-1 outline-none italic-placeholder" placeholder="e.g patrickPron625" type="password">
                             <span class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
                         </div>
                         <p class="italic text-accent text-sm text-end">Forgot password?</p>
@@ -69,41 +75,96 @@
             </div>
 
             <!-- registration -->
-            <div id="registrationPanel" class="w-full p-2 bg-white rounded-r-2xl hidden">
-                <h1 class="text-2xl font-bold text-accent text-center w-2/3 block mx-auto">Sign Up</h1>
+            <div id="registrationPanel" class="w-full p-4 bg-white rounded-r-2xl hidden">
+                <h1 class="text-3xl font-bold text-accent text-center w-2/3 block mx-auto">Sign Up</h1>
 
                 <!-- Section Indicator -->
                 <div class="flex justify-center my-4 mx-10">
                     <div class="circle-container flex flex-col items-center">
-                      <div class="circle active h-4 w-4 rounded-full border-2 border-accent flex items-center justify-center"></div>
-                      <p class="text-xs text-grayish text-center w-24">Personal Information</p>
+                      <div id="circle1" class="circle active h-4 w-4 rounded-full border-2 border-accent flex items-center justify-center"></div>
+                      <p class="text-xs text-grayish text-center w-20">Personal Information</p>
                     </div>
-                    <div class="connector flex-grow border-t border-accent my-2"></div>
-                    <div class="circle-container flex flex-col items-center mx-2">
+                    <div class="connector h-px w-4 my-2"></div>
+                    <div id="circle2" class="circle-container flex flex-col items-center mx-2">
                       <div class="circle active h-4 w-4 rounded-full border-2 border-accent flex items-center justify-center"></div>
-                      <p class="text-xs text-grayish text-center w-24">Account Details</p>
+                      <p class="text-xs text-grayish text-center w-10">Account Details</p>
                     </div>
-                    <div class="connector flex-grow border-t border-accent my-2"></div>
+                    <div class="connector h-px w-4  my-2"></div>
                     <div class="circle-container flex flex-col items-center">
-                      <div class="circle active h-4 w-4 rounded-full border-2 border-accent flex items-center justify-center"></div>
-                      <p class="text-xs text-grayish text-center w-24">Confirmation</p>
+                      <div id="circle3" class="circle active h-4 w-4 rounded-full border-2 border-accent flex items-center justify-center"></div>
+                      <p class="text-xs text-grayish text-center w-20">Confirmation</p>
                     </div>
                 </div>  
                   
-                  
+                <!-- Personal Information -->
                 <div id="page1">
-                    <!-- Page 1 Content -->
-                    
-                  </div>
-              
-                  <div id="page2" class="hidden">
+                    <div class="mt-6">
+                      <div class="flex space-x-2">
+                        <div class="w-1/2 pr-4">
+                          <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                          <input name="fname" type="text" id="firstName" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: Juan" required>
+                        </div>
+                        <div class="w-1/2">
+                          <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                          <input name="lname" type="text" id="lastName" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: Dela Cruz" required>
+                        </div>
+                      </div>
+                  
+                      <div class="mt-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email Address (Personal)</label>
+                        <input name="personal_email" type="email" id="emailperso" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: juanDelaCruz@gmail.com" required>
+                      </div>
+                  
+                      <div class="mt-4 flex space-x-2">
+                        <div class="w-1/2 pr-4">
+                          <label for="contactNumber" class="block text-sm font-medium text-gray-700">Contact Number</label>
+                          <input name="contactNo" type="text" id="contactNumber" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: 09062943968" required>
+                        </div>
+                        <div class="w-1/2">
+                          <label for="studentNumber" class="block text-sm font-medium text-gray-700">Student No.</label>
+                          <input name="studNo" type="text" id="studentNumber" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: 2021104943" required>
+                        </div>
+                      </div>
+                  
+                      <div class="mt-4 flex space-x-4">
+                        <div class="w-1/2 pr-4">
+                          <label for="birthday" class="block text-sm font-medium text-gray-700">Birthday</label>
+                          <input name="bday" type="date" id="birthday" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 border border-gray-300 rounded-md text-sm italic-placeholder" required>
+                        </div>
+                  
+                        <div class="w-1/2">
+                          <span class="block mb-2 text-sm font-medium text-gray-700">Gender</span>
+                          <div class="flex items-center space-x-4">
+                            <input type="radio" id="male" name="gender" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
+                            <label for="male" class="text-sm text-gray-700 italic">Male</label>
+                            <input type="radio" id="female" name="gender" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
+                            <label for="female" class="text-sm text-gray-700 italic">Female</label>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <div class="mt-6 flex justify-end">
+                        <button id="nextButton" type="button" class="w-24 px-4 py-2 bg-accent text-white font-medium rounded-md">
+                          Next
+                          <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  
+                    <div class="mt-4 text-sm text-gray-600 text-center">
+                      <p id="loginBtn" class="cursor-pointer md:text-base sm:text-xs" onclick="location.reload()">I have an account. <span class="text-accent text-center font-semibold">Log in</span></p>
+                    </div>
+                </div>
+                  
+     
+                <div id="page2" class="hidden">
                     <!-- Page 2 Content -->
-                    
-                  </div>
+                    <p>Page 2 Content</p>
+                </div>
               
-                  <div id="page3" class="hidden">
+                <div id="page3" class="hidden">
                     <!-- Page 3 Content -->
-                  </div>
+                </div>
                 
             </div>
 
@@ -130,17 +191,44 @@
     </div>
 
     <script src="../js/login.js"></script>
-    <script>
-        function showPage(pageNumber) {
-          // Hide all pages
-          document.getElementById('page1').classList.add('hidden');
-          document.getElementById('page2').classList.add('hidden');
-          document.getElementById('page3').classList.add('hidden');
     
-          // Show selected page
-          document.getElementById('page' + pageNumber).classList.remove('hidden');
-        }
-      </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        
+        // Get the necessary elements
+        const page1 = document.getElementById("page1");
+        const page2 = document.getElementById("page2");
+        const nextButton = document.getElementById("nextButton");
+
+        // Add event listener to the Next button
+        nextButton.addEventListener("click", function() {
+            // Perform form validation
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const email = document.getElementById("emailperso").value;
+            const contactNumber = document.getElementById("contactNumber").value;
+            const studentNumber = document.getElementById("studentNumber").value;
+            const birthday = document.getElementById("birthday").value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+
+            if (
+            firstName.trim() === "" ||
+            lastName.trim() === "" ||
+            email.trim() === "" ||
+            contactNumber.trim() === "" ||
+            studentNumber.trim() === "" ||
+            birthday.trim() === "" ||
+            !gender
+            ) {
+            alert("Please fill in all required fields.");
+            return;
+            }
+
+            // Hide Page 1 and show Page 2
+            page1.classList.add("hidden");
+            page2.classList.remove("hidden");
+        });
+    </script>
 </body>
 
 </html>
