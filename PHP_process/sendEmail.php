@@ -17,9 +17,10 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
     $subject = $_POST['subject'];
     $emailInsertion = new EmailTable();
 
+    $random = rand(0, 4000);
     $uniqueId = substr(md5(uniqid()), 0, 7);
-    $emailID = $subject . $uniqueId;
-    $date = date('y-m-d');
+    $emailID = 'Admin' . $uniqueId . $random;
+    $date = date('y/m/d');
     $personID = 'admin23/06/29 11:23:12-932'; //to be changed
 
     //check for recipient to check what is the available data 

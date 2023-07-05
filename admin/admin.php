@@ -399,8 +399,14 @@
           <div class="flex items-center">
 
             <div class="m-2 p-1">
-              <span class="font-semibold">Total Message</span>
-              <p class="text-5xl font-bold">12</p>
+              <span class="font-semibold">Total Emailed</span>
+              <?php
+              require_once '../PHP_process/connection.php';
+              $query = 'SELECT * FROM `email` WHERE `personID` = "admin23/06/29 11:23:12-932"';
+              $result = mysqli_query($mysql_con, $query);
+              $row = mysqli_num_rows($result);
+              echo '<p class="text-5xl font-bold">' . $row . '</p>';
+              ?>
             </div>
 
             <div class="m-2 p-1">
@@ -451,22 +457,28 @@
                 <th class="text-start">DATE</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="text-start">To All</td>
-                <td class="text-start">CICT</td>
-                <td class="text-start">03/02/2020</td>
-              </tr>
-              <tr>
-                <td class="text-start">lapiraisagani@gmail.com</td>
-                <td class="text-start">CICT</td>
-                <td class="text-start">03/02/2020</td>
-              </tr>
-              <tr>
-                <td class="text-start">patrickpronuevo@gmail.com</td>
-                <td class="text-start">COED</td>
-                <td class="text-start">03/02/2020</td>
-              </tr>
+            <tbody id="emailTBody">
+              <?php
+              require_once '../PHP_process/connection.php';
+              $query = 'SELECT * FROM `email` WHERE `personID` = "admin23/06/29 11:23:12-932"';
+              $result = mysqli_query($mysql_con, $query);
+              $row = mysqli_num_rows($result);
+              if ($result && $row > 0) {
+                while ($data = mysqli_fetch_assoc($result)) {
+                  $recipient = $data['recipient'];
+                  $colCode  = $data['colCode'];
+                  $dateSent  = $data['dateSent'];
+
+                  echo '
+                    <tr>
+                      <td class="text-start">' . $recipient . '</td>
+                      <td class="text-start">' . $colCode . '</td>
+                      <td class="text-start">' . $dateSent . '</td>
+                    </tr>';
+                }
+              }
+
+              ?>
             </tbody>
           </table>
         </div>
