@@ -54,22 +54,21 @@
                 </h1>
                 <div>
                     <form id="loginForm" class="mt-2 p-3 flex flex-col gap-1">
-                        <p id="errorMsg" class="text-sm text-accent hidden"><span class="font-bold">login Failed:</span>
-                            Incorrect
-                            username/password</p>
-                        <label>Username</label>
-                        <input name="username" class="logInput border border-gray-400 rounded-md p-2 outline-none italic-placeholder" placeholder="e.g patrickPron625" type="text">
-                        <label>Password</label>
+                        <p id="errorMsg" class="text-sm text-accent hidden">
+                          <span class="font-bold">login Failed:</span> Incorrect username/password
+                        </p>
+                        <label for="username">Username</label>
+                        <input name="username" class="logInput border border-gray-400 rounded-md p-2 outline-none italic-placeholder" placeholder="e.g patrickPron625" type="text" id="username">
+                        <label for="password">Password</label>
                         <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
-                            <input name="password" class="logInput flex-1 outline-none italic-placeholder" placeholder="e.g patrickPron625" type="password">
-                            <span class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
+                          <input name="password" class="logInput flex-1 outline-none italic-placeholder" placeholder="e.g patrickPron625" type="password" id="password">
+                          <span id="toggleLoginPassword" class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
                         </div>
                         <p class="italic text-accent text-sm text-end">Forgot password?</p>
                         <button type="submit" class="rounded-md bg-accent text-white py-3 mt-3 hover:bg-darkAccent">
-                            Sign in
+                          Sign in
                         </button>
                     </form>
-
                     <p id="registerBtn" class="text-center absolute bottom-1 w-full cursor-pointer md:text-base sm:text-xs">Don't have an account? <span class="text-accent font-semibold">Register here</span></p>
                 </div>
             </div>
@@ -155,81 +154,87 @@
                       <p id="loginBtn" class="cursor-pointer md:text-base sm:text-xs" onclick="location.reload()">I have an account. <span class="text-accent text-center font-semibold">Log in</span></p>
                     </div>
                 </div>
-                  
-     
+                     
                 <!-- Account Details -->
                 <div id="page2" class="hidden">
                     <!-- Page 2 Content -->
                     <div class="mt-6">
                         <div class="flex space-x-2">
-                            <div class="w-1/2">
-                              <select name="college" id="college" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md">
+                          <div class="w-3/5">
+                            <select name="college" id="college" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm font-semibold border border-gray-300 rounded-md bg-accent text-white" required>
                                 <option value="">College</option>
+                                <option value="CICT">CICT</option>
+                                <option value="CIT">CIT</option>
+                                <option value="CoEd">CoEd</option>
                                 <!-- Add your college options here -->
                               </select>
-                            </div>
-                            <div class="w-1/2 pr-4">
-                              <select name="batch" id="batch" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md">
-                                <option value="">Batch</option>
-                                <!-- Add your batch options here -->
-                              </select>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <input type="radio" id="alumni" name="gender" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
-                                <label for="student" class="text-sm text-gray-700 italic">Alumni</label>
-                                <input type="radio" id="student" name="gender" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
-                                <label for="student" class="text-sm text-gray-700 italic">Student</label>
-                              </div>
+                              
+                          </div>
+                          <div class="w-1/2 pr-2">
+                            <select name="batch" id="batch" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-accent rounded-md text-accent font-semibold" required>
+                              <option value="">Batch</option>
+                              <option value="CICT">2021</option>
+                              <option value="CICT">2020</option>
+                              <option value="CICT">2019</option>
+                              <!-- Add your batch options here -->
+                            </select>
+                          </div>
+                          <div class="flex items-center space-x-2">
+                            <input type="radio" id="alumni" name="status" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
+                            <label for="alumni" class="text-sm text-gray-700 italic">Alumni</label>
+                            <input type="radio" id="student" name="status" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
+                            <label for="student" class="text-sm text-gray-700 italic">Student</label>
+                          </div>
                         </div>
-                          
-
-                      <div class="mt-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email (BulSU Email)</label>
-                        <input name="email" type="email" id="email" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="Enter your email" required>
-                      </div>
-                  
-                      <div class="mt-4 relative">
-                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
-                            <input name="password" class="logInput flex-1 outline-none italic-placeholder text-sm" placeholder="e.g patrickPron625" type="password">
-                            <span class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
+                    
+                        <div class="mt-4">
+                          <label for="email" class="block text-sm font-medium text-gray-700">Email (BulSU Email)</label>
+                          <input name="emailBSU" type="email" id="email" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="Enter your email" required>
                         </div>
-                      </div>
-                  
-                      <div class="mt-2 text-xs text-gray-500">
-                        Note: Use 8 or more characters with a mix of letters, numbers & symbols.
-                      </div>
-                  
-                      <div class="mt-4">
-                        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                        <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
-                            <input name="password" class="logInput flex-1 outline-none italic-placeholder text-sm" placeholder="e.g patrickPron625" type="password">
-                            <span class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
+                    
+                        <div class="mt-4 relative">
+                          <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
+                          <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
+                            <input name="password1" class="logInput flex-1 outline-none italic-placeholder text-sm" placeholder="Enter your password" type="password" id="password1" required>
+                            <span id="togglePassword" class="fas fa-eye-slash cursor-pointer" style="color: #969696;"></span>
+                          </div>
                         </div>
-                      </div>
-                  
-                      <div id="passwordMismatchError" class="hidden mt-2 text-xs text-red-500">
-                        Passwords do not match.
-                      </div>
-                  
-                      <div class="mt-6 flex justify-end">
-                        <button id="backButton" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 font-medium rounded-md" onclick="showPage(1)">
-                          <i class="fa-solid fa-angle-left"></i>
-                          Back
-                        </button>
-                        <button id="nextButton" type="button" class="px-4 py-2 bg-accent text-white font-medium rounded-md" onclick="validateForm(2)">
-                          Next
-                          <i class="fa-solid fa-angle-right"></i>
-                        </button>
-                      </div>
+                    
+                        <div class="mt-2 text-xs text-gray-500">
+                          Note: Use 8 or more characters with a mix of letters, numbers & symbols.
+                        </div>
+                    
+                        <div class="mt-4">
+                          <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                          <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
+                            <input name="confirmPassword" class="logInput flex-1 outline-none italic-placeholder text-sm" placeholder="Confirm your password" type="password" id="confirmPassword" required>
+                            <span id="toggleConfirmPassword" class="fas fa-eye-slash cursor-pointer" style="color: #969696;"></span>
+                          </div>
+                        </div>
+                    
+                        <div id="passwordMismatchError" class="hidden mt-2 text-xs text-red-500">
+                          Passwords do not match.
+                        </div>
+                    
+                        <div class="mt-6 flex justify-end">
+                          <button id="backButton" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 font-medium rounded-md hover:bg-darkGray hover:text-white" onclick="showPage(1)">
+                            <i class="fas fa-angle-left"></i>
+                            Back
+                          </button>
+                          <button id="nextButtonPage2" type="button" class="px-4 py-2 bg-accent text-white font-medium rounded-md hover:bg-darkAccent" onclick="validateForm(2)">
+                            Next
+                            <i class="fas fa-angle-right"></i>
+                          </button>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600 text-center">
+                        <p id="loginBtn" class="cursor-pointer md:text-base sm:text-xs" onclick="location.reload()">I have an account. <span class="text-accent text-center font-semibold">Log in</span></p>
                     </div>
                 </div>
                   
-                  
-                  
-              
                 <div id="page3" class="hidden">
                     <!-- Page 3 Content -->
+                    <p>Page 3 content</p>
                 </div>
                 
             </div>
@@ -260,13 +265,12 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        
+
         // Get the necessary elements
         const page1 = document.getElementById("page1");
         const page2 = document.getElementById("page2");
         const nextButton = document.getElementById("nextButton");
 
-        // Add event listener to the Next button
         nextButton.addEventListener("click", function() {
             // Perform form validation
             const firstName = document.getElementById("firstName").value;
@@ -294,6 +298,90 @@
             page1.classList.add("hidden");
             page2.classList.remove("hidden");
         });
+
+        const page3 = document.getElementById("page3");
+        const nextButtonPage2 = document.getElementById("nextButtonPage2");
+        const backButton = document.getElementById("backButton");
+
+        nextButtonPage2.addEventListener("click", function() {
+        // Perform form validation
+        const college = document.getElementById("college").value;
+        const batch = document.getElementById("batch").value;
+        const status = document.querySelector('input[name="status"]:checked');
+        const emailBSU = document.getElementById("email").value;
+        const password1 = document.getElementById("password1").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (
+            college.trim() === "" ||
+            batch.trim() === "" ||
+            !status ||
+            emailBSU.trim() === "" ||
+            password1.trim() === "" ||
+            confirmPassword.trim() === ""
+        ) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        if (password1 != confirmPassword) {
+            alert("Password does not match!");
+            return;
+        }
+
+        // Hide Page 1 and show Page 2
+        page2.classList.add("hidden");
+        page3.classList.remove("hidden");
+        });
+
+        backButton.addEventListener("click", function() {
+
+            // Hide Page 1 and show Page 2
+            page2.classList.add("hidden");
+            page1.classList.remove("hidden");
+        });
+
+
+        document.getElementById('togglePassword').addEventListener('click', function() {
+        var passwordInput = document.getElementById('password1');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            this.classList.remove('fa-eye-slash');
+            this.classList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            this.classList.remove('fa-eye');
+            this.classList.add('fa-eye-slash');
+        }
+        });
+
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+        var confirmPasswordInput = document.getElementById('confirmPassword');
+        if (confirmPasswordInput.type === 'password') {
+            confirmPasswordInput.type = 'text';
+            this.classList.remove('fa-eye-slash');
+            this.classList.add('fa-eye');
+        } else {
+            confirmPasswordInput.type = 'password';
+            this.classList.remove('fa-eye');
+            this.classList.add('fa-eye-slash');
+        }
+        });
+
+        document.getElementById('toggleLoginPassword').addEventListener('click', function() {
+        var loginPasswordInput = document.getElementById('password');
+        if (loginPasswordInput.type === 'password') {
+            loginPasswordInput.type = 'text';
+            this.classList.remove('fa-eye-slash');
+            this.classList.add('fa-eye');
+        } else {
+            loginPasswordInput.type = 'password';
+            this.classList.remove('fa-eye');
+            this.classList.add('fa-eye-slash');
+        }
+        });
+
+
     </script>
 </body>
 
