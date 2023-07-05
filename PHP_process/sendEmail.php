@@ -20,38 +20,46 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
 
         //if the user is alumni / student
         if ($user != 'all') {
-            $query = 'SELECT * FROM `' . $user . '` WHERE `colCode` = "' . $college . '"'; //check which college and type of user 
-            $result = mysqli_query($mysql_con, $query);
-            $personID = '';
-            $personalEmail = '';
-
-            if ($result) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $personID = $row['personID']; //use to pass on the query for getting personal email
-
-                    //retrieve the personal email
-                    $queryEmail = "SELECT person.personal_email
-                                FROM $user JOIN person ON 
-                                $user.personID = person.personID
-                                WHERE $user.personID = '$personID'";
-                    $resultEmail = mysqli_query($mysql_con, $queryEmail);
-                    if ($resultEmail) {
-                        $row = mysqli_fetch_assoc($resultEmail);
-                        $recipient = $row['personal_email'];
-
-                        //send email
-                        sendEmail($subject, $message, $recipient);
-                    }
-                }
-            }
+            queryDataForEmail($user, $college, $subject, $message, $mysql_con);
         }
         //for all user
-        else $query = '';
+        else {
+            queryDataForEmail('alumni', $college, $subject, $message, $mysql_con);
+            queryDataForEmail('student', $college, $subject, $message, $mysql_con);
+        }
     } else {
         $recipient = $_POST['searchEmail'];
         sendEmail($subject, $message, $recipient);
     }
 } else echo 'ayaw';
+
+
+function queryDataForEmail($user, $college, $subject, $message, $con)
+{
+    $query = 'SELECT * FROM `' . $user . '` WHERE `colCode` = "' . $college . '"'; //check which college and type of user 
+    $result = mysqli_query($con, $query);
+    $personID = '';
+
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $personID = $row['personID']; //use to pass on the query for getting personal email
+
+            //retrieve the personal email
+            $queryEmail = "SELECT person.personal_email
+                                FROM $user JOIN person ON 
+                                $user.personID = person.personID
+                                WHERE $user.personID = '$personID'";
+            $resultEmail = mysqli_query($con, $queryEmail);
+            if ($resultEmail) {
+                $row = mysqli_fetch_assoc($resultEmail);
+                $recipient = $row['personal_email'];
+
+                //send email
+                sendEmail($subject, $message, $recipient);
+            }
+        }
+    }
+}
 
 function sendEmail($subject, $message, $recipient)
 {
