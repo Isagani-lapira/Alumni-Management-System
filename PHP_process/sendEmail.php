@@ -8,10 +8,11 @@ require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
 require_once 'connection.php';
 
-if (isset($_POST['message']) && isset($_POST['recipient'])) {
+if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subject'])) {
 
     $recipient = $_POST['recipient'];
     $message = $_POST['message'];
+    $subject = $_POST['subject'];
     //check for recipient to check what is the available data 
     if ($recipient == 'groupEmail') {
         $college = $_POST['college'];
@@ -39,7 +40,7 @@ if (isset($_POST['message']) && isset($_POST['recipient'])) {
                         $recipient = $row['personal_email'];
 
                         //send email
-                        sendEmail($message, $recipient);
+                        sendEmail($subject, $message, $recipient);
                     }
                 }
             }
@@ -48,11 +49,11 @@ if (isset($_POST['message']) && isset($_POST['recipient'])) {
         else $query = '';
     } else {
         $recipient = $_POST['searchEmail'];
-        sendEmail($message, $recipient);
+        sendEmail($subject, $message, $recipient);
     }
 } else echo 'ayaw';
 
-function sendEmail($message, $recipient)
+function sendEmail($subject, $message, $recipient)
 {
     $mail = new PHPMailer(true);
 
@@ -68,10 +69,10 @@ function sendEmail($message, $recipient)
 
     $mail->addAddress($recipient);
     $mail->isHTML(true);
-    $mail->Subject = 'Practice Email sending';
+    $mail->Subject = $subject;
     $mail->Body = $message;
 
 
-    if ($mail->send()) echo 'Email sent successfully';
-    else echo 'Email not send';
+    if ($mail->send()) echo 'Sending emails';
+    else echo 'Something went wrong, please try again later!';
 }

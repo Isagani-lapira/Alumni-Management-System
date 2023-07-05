@@ -1442,12 +1442,12 @@
     <!-- modal add email message -->
     <div id="modalEmail" class="modal fixed inset-0 h-full w-full flex items-center justify-center 
       text-grayish  top-0 left-0 hidden">
-      <form id="emailForm" class="modal-container w-1/3 h-2/3 bg-white rounded-lg p-3">
+      <form id="emailForm" class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
         <div class="w-full h-full">
           <div class="modal-header py-5">
             <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
           </div>
-          <div class="modal-body px-3">
+          <div class="modal-body px-3 h-1/2">
 
             <!-- header part -->
             <div class="flex gap-2 justify-start mb-2">
@@ -1499,15 +1499,20 @@
 
             </div>
 
+
+
             <div id="individualEmail" class="flex border border-gray-400 w-full rounded-md p-1 hidden">
               <img class="inline" src="../images/search-icon.png" alt="">
-              <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Typing!">
+              <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Search email!">
             </div>
 
 
+            <p class="font-semibold text-sm mt-2">Subject</p>
+            <input class="focus:outline-none w-full border border-gray-400 rounded-md py-2 px-1" type="text" name="emailSubj" id="emailSubj" placeholder="Introduce something great!">
+
             <!-- body part -->
             <p class="font-semibold text-sm mt-2">Description</p>
-            <div class="modal-descript relative w-full h-2/3 border border-gray-400 rounded p-3">
+            <div class="modal-descript relative w-full h-48 border border-gray-400 rounded p-3">
               <div class="flex flex-col h-full">
                 <textarea id="TxtAreaEmail" class="rar outline-none w-full h-full p-1" type="text" placeholder="Say something here..."></textarea>
               </div>
@@ -1516,9 +1521,9 @@
           </div>
 
           <!-- Footer -->
-          <div class="modal-footer flex items-end flex-row-reverse px-3">
-            <button type="submit" id="sendEmail" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
-            <button class="cancelEmail py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+          <div class="modal-footer flex items-end flex-row-reverse px-3 mt-2">
+            <button type="submit" id="sendEmail" class="bg-accent h-full py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+            <button class="cancelEmail py-2 rounded px-5  hover:bg-slate-400 hover:text-white">Cancel</button>
           </div>
         </div>
       </form>

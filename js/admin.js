@@ -485,6 +485,7 @@ $(document).ready(function () {
     e.preventDefault();
     //check the type of recipient
     let recipient = $('input[name="recipient"]:checked').val();
+    let emailSubj = $('#emailSubj').val();
     let formSend = new FormData();
 
     if (recipient == 'individualEmail') {
@@ -500,6 +501,7 @@ $(document).ready(function () {
 
     let message = $('#TxtAreaEmail').val();
     formSend.append('recipient', recipient)
+    formSend.append('subject', emailSubj)
     formSend.append('message', message);
 
     $.ajax({
