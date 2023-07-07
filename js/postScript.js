@@ -85,8 +85,18 @@ $(document).ready(function () {
         let formData = new FormData();
         let caption = $('#TxtAreaAnnouncement').val();
         let college = $('#collegePost').val();
+
+        let action = {
+            action: 'insert',
+        }
         formData.append('caption', caption);
         formData.append('college', college);
+        formData.append('action', JSON.stringify(action));
+
+        // Append each file individually to the FormData object
+        for (let i = 0; i < selectedFiles.length; i++) {
+            formData.append('files[]', selectedFiles[i]);
+        }
 
         $.ajax({
             url: '../PHP_process/postDB.php',
