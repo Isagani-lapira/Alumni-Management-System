@@ -1417,9 +1417,24 @@
 
           <!-- header part -->
           <p class="font-semibold text-sm">College</p>
-          <div class="w-max border border-gray-400 rounded flex px-5 py-2">
-            <select name="ss" id="ss" class="w-full outline-none">
+          <div class="w-full border border-gray-400 rounded flex px-5 py-2">
+            <select name="collegePost" id="collegePost" class="w-full outline-none">
               <option value="all" selected>All colleges</option>
+              <?php
+              require_once '../PHP_process/connection.php';
+              $query = "SELECT * FROM `college`";
+              $result = mysqli_query($mysql_con, $query);
+              $rows = mysqli_num_rows($result);
+
+              if ($rows > 0) {
+                while ($data = mysqli_fetch_assoc($result)) {
+                  $colCode = $data['colCode'];
+                  $colName = $data['colname'];
+
+                  echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                }
+              } else echo '<option>No college available</option>';
+              ?>
             </select>
           </div>
 
@@ -1451,7 +1466,7 @@
 
         <!-- Footer -->
         <div class="modal-footer flex items-end flex-row-reverse px-3">
-          <button class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+          <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
           <button class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
         </div>
       </div>
@@ -1681,6 +1696,7 @@
 
 
   <script src="../js/admin.js"></script>
+  <script src="../js/postScript.js"></script>
 </body>
 
 </html>
