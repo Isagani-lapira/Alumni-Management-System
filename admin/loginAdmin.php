@@ -31,6 +31,7 @@
         .modal-body {
             height: 70%;
         }
+        
     </style>
 </head>
 
