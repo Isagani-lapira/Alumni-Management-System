@@ -38,4 +38,62 @@ class PostData
         if ($result) return true;
         else return false;
     }
+
+    function getPostAdmin($username, $con)
+    {
+        $query = 'SELECT * FROM `post` WHERE `username`= "' . $username . '"';
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        $response = "";
+        $postID = array();
+        $colCode = array();
+        $caption = array();
+        $date = array();
+        $images = array();
+
+        if ($result && $row > 0) {
+            $response = 'Success';
+            while ($data = mysqli_fetch_assoc($result)) {
+                $postID[] = $data['postID'];
+                $colCode[] = $data['colCode'];
+                $caption[] = $data['caption'];
+                $date[] = $data['date'];
+
+                $postID = $data['postID'];
+                $images[] = $this->getPostImages($postID, $con);
+            }
+        }
+
+        $data = array(
+            'response' => $response,
+            'username' => $username,
+            'postID' => $postID,
+            'colCode' => $colCode,
+            'caption' => $caption,
+            'date' => $date,
+            'images' => $images
+        );
+
+        echo json_encode($data);
+    }
+
+
+    function getPostImages($postID, $con)
+    {
+        $queryImg = 'SELECT * FROM `post_images` WHERE `postID` = "' . $postID . '"';
+        $resultImg = mysqli_query($con, $queryImg);
+        $rowImg = mysqli_num_rows($resultImg);
+
+        $image = array();
+        if ($resultImg && $rowImg > 0) {
+            while ($data = mysqli_fetch_assoc($resultImg)) {
+                $img = $data['image'];
+                $imgFormat = base64_encode($img);
+                $image[] = $imgFormat;
+            }
+        }
+
+        return $image;
+    }
 }

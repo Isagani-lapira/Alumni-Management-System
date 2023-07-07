@@ -12,6 +12,11 @@ if (isset($_POST['action'])) {
         case 'insert':
             insertData($mysql_con);
             break;
+        case 'read':
+            $username = 'isagani@@'; //to be change
+            $post = new PostData();
+            $post->getPostAdmin($username, $mysql_con);
+            break;
     }
 }
 

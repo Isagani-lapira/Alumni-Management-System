@@ -108,4 +108,73 @@ $(document).ready(function () {
             error: (error) => { console.log(error) }
         })
     })
+
+    let postAction = {
+        action: 'read',
+    }
+    let postData = new FormData();
+    postData.append('action', JSON.stringify(postAction));
+
+    // //show post of admin
+    $.ajax({
+        url: '../PHP_process/postDB.php',
+        type: 'POST',
+        data: postData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: (response) => {
+            let data = response;
+            if (data.response == 'Success') {
+                let length = data.colCode.length;
+                let username = data.username;
+                for (let i = 0; i < length; i++) {
+                    data.response[i]
+                    let postID = data.postID[i]
+                    data.colCode[i]
+                    let caption = data.caption[i]
+                    let date = data.date[i]
+                    let imagesObj = data.images[0];
+
+                    addPost(username, caption, imagesObj, date)
+                }
+            }
+            else console.log('ayaw');
+
+        },
+        error: (error) => { console.log(error) }
+    })
+
+
+    function addPost($username, $caption, $images, $date) {
+        let container = $('<div>').addClass("shadow-sm shadow-gray-600 w-1/2 rounded-md p-3 h-max mt-10")
+        let header = $('<div>').addClass("flex items-center")
+        let avatar = $('<img>').addClass("rounded-full h-10 w-10")
+        let containerNames = $('<div>').addClass("px-3")
+        let userFN = $('<p>').addClass("font-semibold")
+        let username = $('<p>').addClass("text-sm text-gray-500").text($username)
+        containerNames.append(userFN, username);
+
+        let caption = $('<p>').addClass("font-light text-gray-600 text-sm mt-5").text($caption)
+
+        let imgContainer = $('<div>').addClass("imgContainer flex flex-wrap gap-2 mt-3")
+
+        //retrieve all the images
+        for (let i = 0; i < $images.length; i++) {
+            let imgFormat = 'data:image/jpeg;base64,' + $images[i];
+            let img = $('<img>').addClass("flex-1 w-36 rounded-md").attr('src', imgFormat)
+            imgContainer.append(img);
+        }
+        let date = $('<p>').addClass("text-xs text-gray-500 p-2").text($date)
+        let footerContainer = $('<div>').addClass("flex mt-3 gap-2 px-3")
+        let comments = $('<p>').addClass("text-gray-500 text-sm flex-1").text('comments')
+        let share = $('<i>').addClass("fa-solid fa-share text-accent")
+        let like = $('<i>').addClass("fa-regular fa-heart text-accent")
+
+        header.append(avatar, containerNames)
+        footerContainer.append(comments, share, like);
+
+        container.append(header, caption, imgContainer, date, footerContainer)
+        $('#postContainer').append(container)
+    }
 })

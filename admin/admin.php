@@ -299,7 +299,7 @@
           </div>
         </div>
 
-        <!-- ANNOUNCEMENT CONTENT -->
+        <!-- POST CONTENT -->
         <div id="announcement-tab" class="p-5">
           <h1 class="text-xl font-extrabold">POST</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
@@ -342,50 +342,44 @@
           </div>
 
           <!-- recent post -->
-          <div class="w-full">
-            <!-- Post -->
-            <div class="post p-3 w-2/3">
-              <div class="center-shadow p-3 rounded-md">
-                <div class="flex justify-start items-center">
-                  <div class="flex items-center">
-                    <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                    <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                  </div>
-                  <img class="ml-auto" src="../assets/more_horiz.png" alt="">
+          <div id="postContainer" class="w-full">
+            <div class="shadow-sm shadow-gray-600 w-1/2 rounded-md p-3 h-max mt-10">
+              <!-- header -->
+              <div class="flex items-center">
+                <img src="../assets/avatar-prof.png" class="rounded-full h-10 w-10" alt="">
+                <div class="px-3">
+                  <p class="font-semibold">Patrick Pronuevo</p>
+                  <p class="text-sm text-gray-500">@username</p>
                 </div>
+              </div>
 
-                <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                <img class="my-2 rounded-md" src="" alt="">
-                <div class="flex py-2 items-center">
-                  <img class="h-5" src="../assets/icons/heart.png" alt="">
-                  <span class="ms-2 text-sm">1,498</span>
-                  <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                  <span class="ms-2 text-sm">3,000</span>
-                </div>
+              <!-- caption -->
+              <p class="font-light text-gray-600 text-sm mt-5">Don't follow me, I'm lost. Don't enter my life if you don't know
+                how to
+                stay!! I've
+                been doing stupid
+                things; wilder than I've ever been. Never regret something that once made you smile.</p>
+
+              <!-- imgcontainer -->
+              <div class="imgContainer flex flex-wrap gap-2 mt-3">
+                <img class="flex-1 w-36 rounded-md" src="../images/Mr.Jayson.png" alt="">
+                <img class="flex-1 w-36 rounded-md" src="../images/Mr.Keno.png" alt="">
+                <!-- <img class="flex-1 w-36 rounded-md" src="../images/Mr.Keno.png" alt="">
+                <img class="w-36 flex-1 h-36 rounded-md" src="../images/Mr.Keno.png" alt=""> -->
+                <!-- <div class="w-36 flex-1 h-36 rounded-md relative bg-black cursor-pointer">
+                  <p class="absolute w-full h-full text-center top-1/2 transform-translate-y-1/2 font-bold text-white">
+                    View more</p>
+                  <img class="w-full h-full opacity-50 absolute rounded-md " src="../images/Mr.Keno.png" alt="">
+                </div> -->
+              </div>
+
+              <div class="flex mt-3 gap-2 px-3">
+                <p class="text-gray-500 text-sm flex-1">5 comments</p>
+                <span><i class="fa-solid fa-share text-accent"></i></span>
+                <span><i class="fa-regular fa-heart text-accent"></i></span>
               </div>
             </div>
 
-            <!-- Post -->
-            <div class="post p-3 w-2/3">
-              <div class="center-shadow p-3 rounded-md">
-                <div class="flex justify-start items-center">
-                  <div class="flex items-center">
-                    <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                    <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                  </div>
-                  <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-                </div>
-
-                <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                <img class="my-2 rounded-md" src="" alt="">
-                <div class="flex py-2 items-center">
-                  <img class="h-5" src="../assets/icons/heart.png" alt="">
-                  <span class="ms-2 text-sm">1,498</span>
-                  <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                  <span class="ms-2 text-sm">3,000</span>
-                </div>
-              </div>
-            </div>
           </div>
 
 
