@@ -343,43 +343,7 @@
 
           <!-- recent post -->
           <div id="postContainer" class="w-full">
-            <div class="shadow-sm shadow-gray-600 w-1/2 rounded-md p-3 h-max mt-10">
-              <!-- header -->
-              <div class="flex items-center">
-                <img src="../assets/avatar-prof.png" class="rounded-full h-10 w-10" alt="">
-                <div class="px-3">
-                  <p class="font-semibold">Patrick Pronuevo</p>
-                  <p class="text-sm text-gray-500">@username</p>
-                </div>
-              </div>
-
-              <!-- caption -->
-              <p class="font-light text-gray-600 text-sm mt-5">Don't follow me, I'm lost. Don't enter my life if you don't know
-                how to
-                stay!! I've
-                been doing stupid
-                things; wilder than I've ever been. Never regret something that once made you smile.</p>
-
-              <!-- imgcontainer -->
-              <div class="imgContainer flex flex-wrap gap-2 mt-3">
-                <img class="flex-1 w-36 rounded-md" src="../images/Mr.Jayson.png" alt="">
-                <img class="flex-1 w-36 rounded-md" src="../images/Mr.Keno.png" alt="">
-                <!-- <img class="flex-1 w-36 rounded-md" src="../images/Mr.Keno.png" alt="">
-                <img class="w-36 flex-1 h-36 rounded-md" src="../images/Mr.Keno.png" alt=""> -->
-                <!-- <div class="w-36 flex-1 h-36 rounded-md relative bg-black cursor-pointer">
-                  <p class="absolute w-full h-full text-center top-1/2 transform-translate-y-1/2 font-bold text-white">
-                    View more</p>
-                  <img class="w-full h-full opacity-50 absolute rounded-md " src="../images/Mr.Keno.png" alt="">
-                </div> -->
-              </div>
-
-              <div class="flex mt-3 gap-2 px-3">
-                <p class="text-gray-500 text-sm flex-1">5 comments</p>
-                <span><i class="fa-solid fa-share text-accent"></i></span>
-                <span><i class="fa-regular fa-heart text-accent"></i></span>
-              </div>
-            </div>
-
+            <p id="noPostMsg" class="text-blue-400 hidden">No available post</p>
           </div>
 
 
@@ -1258,7 +1222,7 @@
               </div>
 
               <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
-              <img class="my-2 rounded-md" src="https://scontent.fcrk1-1.fna.fbcdn.net/v/t1.15752-9/333207308_1424933228261344_7393454651289714274_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeE5B9TiMN-SoNOCUADUWfprlYe-sTddcxCVh76xN11zEPHbedK-0ikQbroPPFlQrHjb_Jc2ohaNum4BSr24QOUe&_nc_ohc=B7tTROdBfF4AX81fZV5&_nc_ht=scontent.fcrk1-1.fna&oh=03_AdRVi3xQ7seg4j95XDJNWt2dYAFU7FWPkw_mfdXKQkDiJA&oe=64A7A06C" alt="">
+              <img class="my-2 rounded-md" src="" alt="">
               <div class="flex py-2 items-center">
                 <img class="h-5" src="../assets/icons/heart.png" alt="">
                 <span class="ms-2 text-sm">1,498</span>
@@ -1425,7 +1389,7 @@
                   $colCode = $data['colCode'];
                   $colName = $data['colname'];
 
-                  echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                  echo '<option value="' . $colCode . '"class="w-full">' . $colName . '</option>';
                 }
               } else echo '<option>No college available</option>';
               ?>

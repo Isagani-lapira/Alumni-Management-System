@@ -46,7 +46,7 @@ class PostData
         $row = mysqli_num_rows($result);
 
         $response = "";
-        $postID = array();
+        $postID = "";
         $colCode = array();
         $caption = array();
         $date = array();
@@ -55,7 +55,7 @@ class PostData
         if ($result && $row > 0) {
             $response = 'Success';
             while ($data = mysqli_fetch_assoc($result)) {
-                $postID[] = $data['postID'];
+                $postID = $data['postID'];
                 $colCode[] = $data['colCode'];
                 $caption[] = $data['caption'];
                 $date[] = $data['date'];

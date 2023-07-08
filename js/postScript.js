@@ -15,13 +15,13 @@ $(document).ready(function () {
         //remove the images
         while (imgContPost.firstChild) {
             imgContPost.removeChild(imgContPost.firstChild)
-            selectedFiles.length = 0;
+            selectedFiles = [];
         }
         $('#TxtAreaAnnouncement').val('')
     })
 
     let imageSequence = 1;
-    const selectedFiles = [];
+    let selectedFiles = [];
     //add image to the modal
     $('#fileGallery').change(() => {
 
@@ -104,7 +104,10 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: (response) => { console.log(response) },
+            success: (response) => {
+                console.log(response)
+                selectedFiles = [];
+            },
             error: (error) => { console.log(error) }
         })
     })
@@ -114,7 +117,7 @@ $(document).ready(function () {
     }
     let postData = new FormData();
     postData.append('action', JSON.stringify(postAction));
-
+    let position = 0;
     // //show post of admin
     $.ajax({
         url: '../PHP_process/postDB.php',
@@ -125,51 +128,78 @@ $(document).ready(function () {
         dataType: 'json',
         success: (response) => {
             let data = response;
+            console.log(data)
             if (data.response == 'Success') {
+                $('#noPostMsg').hide()
                 let length = data.colCode.length;
                 let username = data.username;
+                let fullname = "Isagani Lapira Jr."; //change base on the full name of the user
+                let avatar = ""; //change base on the avatar of the user
                 for (let i = 0; i < length; i++) {
                     data.response[i]
-                    let postID = data.postID[i]
+                    // let postID = data.postID
                     data.colCode[i]
                     let caption = data.caption[i]
                     let date = data.date[i]
-                    let imagesObj = data.images[0];
+                    date = textDateFormat(date) //change to text format
+                    let imagesObj = data.images;
 
-                    addPost(username, caption, imagesObj, date)
+                    addPost(fullname, username, caption, imagesObj, date, i) //add post;
                 }
             }
-            else console.log('ayaw');
+            else $('#noPostMsg').show();
 
         },
         error: (error) => { console.log(error) }
     })
 
+    function textDateFormat(date) {
+        //extract parts of date
+        year = date.substr(0, 4);
+        month = parseInt(date.substr(5, 2));
+        day = date.substr(8, 2)
 
-    function addPost($username, $caption, $images, $date) {
+        //convert number months to text month
+        months = ["", "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+
+        textDate = months[month] + ' ' + day + ' ' + year;
+        return textDate;
+    }
+
+
+    function addPost(name, accUN, postcaption, images, postdate, position) {
         let container = $('<div>').addClass("shadow-sm shadow-gray-600 w-1/2 rounded-md p-3 h-max mt-10")
         let header = $('<div>').addClass("flex items-center")
-        let avatar = $('<img>').addClass("rounded-full h-10 w-10")
+        let avatar = $('<img>').addClass("rounded-full h-10 w-10 border-2 border-accent")
         let containerNames = $('<div>').addClass("px-3")
-        let userFN = $('<p>').addClass("font-semibold")
-        let username = $('<p>').addClass("text-sm text-gray-500").text($username)
+        let userFN = $('<p>').addClass("font-semibold").text(name)
+        let username = $('<p>').addClass("text-sm text-gray-500").text(accUN)
         containerNames.append(userFN, username);
 
-        let caption = $('<p>').addClass("font-light text-gray-600 text-sm mt-5").text($caption)
+        let caption = $('<p>').addClass("font-light text-gray-600 text-sm mt-5").text(postcaption)
 
         let imgContainer = $('<div>').addClass("imgContainer flex flex-wrap gap-2 mt-3")
 
-        //retrieve all the images
-        for (let i = 0; i < $images.length; i++) {
-            let imgFormat = 'data:image/jpeg;base64,' + $images[i];
-            let img = $('<img>').addClass("flex-1 w-36 rounded-md").attr('src', imgFormat)
+        // Retrieve and display all the images and add it to the current position/post
+        images[position].forEach((image) => {
+            let imgFormat = 'data:image/jpeg;base64,' + image;
+            let img = $('<img>').addClass("flex-1 h-36 w-36 rounded-md").attr('src', imgFormat);
             imgContainer.append(img);
-        }
-        let date = $('<p>').addClass("text-xs text-gray-500 p-2").text($date)
+        });
+        // for (let i = 0; i < images[position].length; i++) {
+
+        //     // for (let j = 0; j < images[i].length; j++) {
+        //     //     let imgFormat = 'data:image/jpeg;base64,' + images[i][j];
+        //     //     let img = $('<img>').addClass("flex-1 h-36 w-36 rounded-md").attr('src', imgFormat);
+        //     //     imgContainer.append(img);
+        //     // }
+        // }
+        let date = $('<p>').addClass("text-xs text-gray-600 p-2").text(postdate)
         let footerContainer = $('<div>').addClass("flex mt-3 gap-2 px-3")
-        let comments = $('<p>').addClass("text-gray-500 text-sm flex-1").text('comments')
-        let share = $('<i>').addClass("fa-solid fa-share text-accent")
-        let like = $('<i>').addClass("fa-regular fa-heart text-accent")
+        let comments = $('<p>').addClass("text-gray-500 text-sm flex-1 cursor-pointer").text('comments')
+        let share = $('<i>').addClass("fa-solid fa-share text-accent cursor-pointer")
+        let like = $('<i>').addClass("fa-regular fa-heart text-accent cursor-pointer")
 
         header.append(avatar, containerNames)
         footerContainer.append(comments, share, like);
