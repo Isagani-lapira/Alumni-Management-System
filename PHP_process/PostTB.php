@@ -51,7 +51,7 @@ class PostData
         $caption = array();
         $date = array();
         $images = array();
-
+        $comments = array();
         if ($result && $row > 0) {
             $response = 'Success';
             while ($data = mysqli_fetch_assoc($result)) {
@@ -62,6 +62,7 @@ class PostData
 
                 $postID = $data['postID'];
                 $images[] = $this->getPostImages($postID, $con);
+                $comments[] = $this->getPostComments($postID, $con);
             }
         }
 
@@ -72,7 +73,8 @@ class PostData
             'colCode' => $colCode,
             'caption' => $caption,
             'date' => $date,
-            'images' => $images
+            'images' => $images,
+            'comments' => $comments
         );
 
         echo json_encode($data);
@@ -95,5 +97,14 @@ class PostData
         }
 
         return $image;
+    }
+
+    function getPostComments($postID, $con)
+    {
+        $query = 'SELECT * FROM `comment` WHERE `postID`= "' . $postID . '"';
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        return $row;
     }
 }

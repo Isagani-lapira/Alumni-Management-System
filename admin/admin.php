@@ -779,7 +779,7 @@
 
             <div class="w-full h-full">
               <p class="font-bold text-accent">Posts</p>
-              <div id="profileContainer" class="h-full overflow-y-scroll no-scrollbar h-">
+              <div id="profileContainer" class="h-full overflow-y-scroll no-scrollbar py-5">
 
               </div>
             </div>

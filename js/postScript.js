@@ -142,13 +142,14 @@ $(document).ready(function () {
                     data.colCode[i]
                     let caption = data.caption[i]
                     let date = data.date[i]
+                    let comment = data.comments[i];
                     date = textDateFormat(date) //change to text format
                     let imagesObj = data.images;
 
                     let containerAnn = 'announcementCont'
                     let containerProfile = 'profileCont'
-                    addPost(fullname, username, caption, imagesObj, date, i, containerAnn) //add post;
-                    addPost(fullname, username, caption, imagesObj, date, i, containerProfile) //add post in profile;
+                    addPost(fullname, username, caption, imagesObj, date, i, comment, containerAnn) //add post;
+                    addPost(fullname, username, caption, imagesObj, date, i, comment, containerProfile) //add post in profile;
                 }
             }
             else $('#noPostMsg').show();
@@ -171,7 +172,7 @@ $(document).ready(function () {
         return textDate;
     }
 
-    function addPost(name, accUN, postcaption, images, postdate, position, container) {
+    function addPost(name, accUN, postcaption, images, postdate, position, comments, container) {
 
         let containerPost = ""
         let toBeAppend = ""
@@ -204,12 +205,15 @@ $(document).ready(function () {
         });
         let date = $('<p>').addClass("text-xs text-gray-600 p-2").text(postdate)
         let footerContainer = $('<div>').addClass("flex mt-3 gap-2 px-3")
-        let comments = $('<p>').addClass("text-gray-500 text-sm flex-1 cursor-pointer").text('comments')
+
+        //check if the comment is 0 or greater than 0
+        comments = (comments == 0) ? "No" : comments;
+        let comment = $('<p>').addClass("text-gray-500 text-sm flex-1 cursor-pointer").text(comments + " comment")
         let share = $('<i>').addClass("fa-solid fa-share text-accent cursor-pointer")
         let like = $('<i>').addClass("fa-regular fa-heart text-accent cursor-pointer")
 
         header.append(avatar, containerNames)
-        footerContainer.append(comments, share, like);
+        footerContainer.append(comment, share, like);
 
         containerPost.append(header, caption, imgContainer, date, footerContainer)
         $(toBeAppend).append(containerPost)
