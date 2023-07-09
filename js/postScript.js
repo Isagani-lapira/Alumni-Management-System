@@ -105,7 +105,11 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
-                console.log(response)
+                $('#modal').hide();
+                $('#promptMsg').removeClass('hidden')
+                setTimeout(() => {
+                    $('#promptMsg').addClass('hidden')
+                }, 4000)
                 selectedFiles = [];
             },
             error: (error) => { console.log(error) }
@@ -132,7 +136,9 @@ $(document).ready(function () {
             if (data.response == 'Success') {
                 $('#noPostMsg').hide()
                 let length = data.colCode.length;
-                $('#totalPost').text(length);
+
+                $('.totalPost').text(length); //total number of posted 
+
                 let username = data.username;
                 let fullname = "Isagani Lapira Jr."; //change base on the full name of the user
                 let avatar = ""; //change base on the avatar of the user

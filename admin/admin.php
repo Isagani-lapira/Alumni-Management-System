@@ -26,8 +26,12 @@
 </head>
 
 <body>
-  <div>
-
+  <div class="relative">
+    <div id="promptMsg" class="w-full absolute top-1 hidden">
+      <div class="promptMsg mx-auto shadow-lg rounded-md w-1/4 p-5 mt-2">
+        <p class="text-accent font-semibold text-center">Announcement successfully added!</p>
+      </div>
+    </div>
     <div id="tabs" class="flex font-Montserrat text-greyish_black">
       <aside class="w-3/12 top-0 h-screen p-5 border border-r-gray-300">
         <h1 class="font-extrabold text-18sm my-5">
@@ -272,7 +276,7 @@
                     <p class="text-accent font-semibold">Personal Logs</p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of posted announcement</p>
-                      <span class="text-accent">10</span>
+                      <span class="totalPost text-accent"></span>
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of email sent</p>
@@ -316,7 +320,7 @@
 
             <div class="m-2 p-1">
               <span class="font-semibold">Total Post</span>
-              <p id="totalPost" class="text-5xl font-bold"></p>
+              <p class="totalPost text-5xl font-bold"></p>
             </div>
 
             <div class="m-2 p-1">

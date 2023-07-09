@@ -1,58 +1,90 @@
-
-svg{
+svg {
   fill: #474645;
 }
 .dash-content,
-.with-shadow{
+.with-shadow {
   box-shadow: rgba(0, 0, 0, 0.19) 5px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 6px;
   color: rgb(34, 32, 32);
 }
 
-.center-shadow{
-  box-shadow: rgba(87, 87, 87, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+.center-shadow {
+  box-shadow: rgba(87, 87, 87, 0.16) 0px 3px 6px,
+    rgba(0, 0, 0, 0.23) 0px 3px 6px;
   cursor: pointer;
 }
 
-.ui-tabs-active{
-  background-color: #991B1B; 
+.ui-tabs-active {
+  background-color: #991b1b;
   font-weight: bold;
   color: white;
 }
 
-.ui-tabs-active svg{
+.ui-tabs-active svg {
   fill: white;
 }
 
-.profile{
+.profile {
   height: 50px;
   width: 50px;
 }
 
-.modal{
+.modal {
   background-color: #1e1c1c98;
-  
 }
 
-.modal-body{
+.modal-body {
   height: 70%;
 }
 
-#galleryLogo:hover >svg path{
-  fill: #1746A2;
+#galleryLogo:hover > svg path {
+  fill: #1746a2;
   cursor: pointer;
 }
-.logo-container{
+.logo-container {
   height: 120px;
 }
 
-.bulsu-logo{
+.bulsu-logo {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
-.messageIcon{
+.messageIcon {
   height: 22px !important;
 }
 
-input{
+input {
   outline: none !important;
+}
+
+.promptMsg {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  -webkit-animation-name: slideInDown;
+  animation-name: slideInDown;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes slideInDown {
+  0% {
+    -webkit-transform: translateY(-100px);
+    transform: translateY(-100px);
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@keyframes slideInDown {
+  0% {
+    -webkit-transform: translateY(-100px);
+    transform: translateY(-100px);
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
 }
