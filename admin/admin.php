@@ -316,7 +316,7 @@
 
             <div class="m-2 p-1">
               <span class="font-semibold">Total Post</span>
-              <p class="text-5xl font-bold">12</p>
+              <p id="totalPost" class="text-5xl font-bold"></p>
             </div>
 
             <div class="m-2 p-1">
@@ -342,7 +342,7 @@
           </div>
 
           <!-- recent post -->
-          <div id="postContainer" class="w-full">
+          <div id="announcementContainer" class="w-full">
             <p id="noPostMsg" class="text-blue-400 hidden">No available post</p>
           </div>
 
@@ -739,7 +739,7 @@
         </div>
 
         <!-- profile content -->
-        <div id="profile-tab" class="p-5">
+        <div id="profile-tab" class="p-5 h-screen">
           <div class="p-3 rounded-md bg-accent flex items-center my-3">
             <img class="h-36 w-36 rounded-full border-2 border-white" src="../images/Mr.Jayson.png" alt="">
             <div class="ms-6">
@@ -747,7 +747,7 @@
               <p class="text-blue-300 hover:cursor-pointer hover:text-blue-500">Edit Profile</p>
             </div>
           </div>
-          <div class="flex text-greyish_black">
+          <div class="flex text-greyish_black h-full">
             <!-- about section -->
             <div class="w-1/4 text-xs p-2 mr-5">
               <p class="font-bold text-accent">About</p>
@@ -777,51 +777,10 @@
               </div>
             </div>
 
-            <div class="w-full">
+            <div class="w-full h-full">
               <p class="font-bold text-accent">Posts</p>
+              <div id="profileContainer" class="h-full overflow-y-scroll no-scrollbar h-">
 
-              <!-- Post -->
-              <div class="post p-3 w-4/5">
-                <div class="center-shadow p-3 rounded-md">
-                  <div class="flex justify-start items-center">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                      <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                    </div>
-                    <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-                  </div>
-
-                  <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                  <img class="my-2 rounded-md" src="" alt="">
-                  <div class="flex py-2 items-center">
-                    <img class="h-5" src="../assets/icons/heart.png" alt="">
-                    <span class="ms-2 text-sm">1,498</span>
-                    <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                    <span class="ms-2 text-sm">3,000</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Post -->
-              <div class="post p-3 w-4/5">
-                <div class="center-shadow p-3 rounded-md">
-                  <div class="flex justify-start items-center">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                      <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                    </div>
-                    <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-                  </div>
-
-                  <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                  <img class="my-2 rounded-md" src="" alt="">
-                  <div class="flex py-2 items-center">
-                    <img class="h-5" src="../assets/icons/heart.png" alt="">
-                    <span class="ms-2 text-sm">1,498</span>
-                    <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                    <span class="ms-2 text-sm">3,000</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

@@ -132,6 +132,7 @@ $(document).ready(function () {
             if (data.response == 'Success') {
                 $('#noPostMsg').hide()
                 let length = data.colCode.length;
+                $('#totalPost').text(length);
                 let username = data.username;
                 let fullname = "Isagani Lapira Jr."; //change base on the full name of the user
                 let avatar = ""; //change base on the avatar of the user
@@ -144,7 +145,10 @@ $(document).ready(function () {
                     date = textDateFormat(date) //change to text format
                     let imagesObj = data.images;
 
-                    addPost(fullname, username, caption, imagesObj, date, i) //add post;
+                    let containerAnn = 'announcementCont'
+                    let containerProfile = 'profileCont'
+                    addPost(fullname, username, caption, imagesObj, date, i, containerAnn) //add post;
+                    addPost(fullname, username, caption, imagesObj, date, i, containerProfile) //add post in profile;
                 }
             }
             else $('#noPostMsg').show();
@@ -167,9 +171,20 @@ $(document).ready(function () {
         return textDate;
     }
 
+    function addPost(name, accUN, postcaption, images, postdate, position, container) {
 
-    function addPost(name, accUN, postcaption, images, postdate, position) {
-        let container = $('<div>').addClass("shadow-sm shadow-gray-600 w-1/2 rounded-md p-3 h-max mt-10")
+        let containerPost = ""
+        let toBeAppend = ""
+
+        if (container == "announcementCont") {
+            containerPost = $('<div>').addClass("shadow-sm shadow-gray-600 w-1/2 rounded-md p-3 h-max mt-10")
+            toBeAppend = '#announcementContainer'
+        }
+        else {
+            containerPost = $('<div>').addClass("shadow-sm shadow-gray-600 w-3/4 rounded-md p-3 h-max mt-10")
+            toBeAppend = '#profileContainer'
+        }
+
         let header = $('<div>').addClass("flex items-center")
         let avatar = $('<img>').addClass("rounded-full h-10 w-10 border-2 border-accent")
         let containerNames = $('<div>').addClass("px-3")
@@ -184,17 +199,9 @@ $(document).ready(function () {
         // Retrieve and display all the images and add it to the current position/post
         images[position].forEach((image) => {
             let imgFormat = 'data:image/jpeg;base64,' + image;
-            let img = $('<img>').addClass("flex-1 h-36 w-36 rounded-md").attr('src', imgFormat);
+            let img = $('<img>').addClass("flex-1 h-44 w-36 rounded-md").attr('src', imgFormat);
             imgContainer.append(img);
         });
-        // for (let i = 0; i < images[position].length; i++) {
-
-        //     // for (let j = 0; j < images[i].length; j++) {
-        //     //     let imgFormat = 'data:image/jpeg;base64,' + images[i][j];
-        //     //     let img = $('<img>').addClass("flex-1 h-36 w-36 rounded-md").attr('src', imgFormat);
-        //     //     imgContainer.append(img);
-        //     // }
-        // }
         let date = $('<p>').addClass("text-xs text-gray-600 p-2").text(postdate)
         let footerContainer = $('<div>').addClass("flex mt-3 gap-2 px-3")
         let comments = $('<p>').addClass("text-gray-500 text-sm flex-1 cursor-pointer").text('comments')
@@ -204,7 +211,8 @@ $(document).ready(function () {
         header.append(avatar, containerNames)
         footerContainer.append(comments, share, like);
 
-        container.append(header, caption, imgContainer, date, footerContainer)
-        $('#postContainer').append(container)
+        containerPost.append(header, caption, imgContainer, date, footerContainer)
+        $(toBeAppend).append(containerPost)
+
     }
 })

@@ -659,12 +659,20 @@ th,
   position: static;
 }
 
+.\!fixed {
+  position: fixed !important;
+}
+
 .fixed {
   position: fixed;
 }
 
 .absolute {
   position: absolute;
+}
+
+.\!relative {
+  position: relative !important;
 }
 
 .relative {
@@ -1105,6 +1113,10 @@ th,
   -webkit-line-clamp: none;
 }
 
+.\!block {
+  display: block !important;
+}
+
 .block {
   display: block;
 }
@@ -1175,6 +1187,10 @@ th,
 
 .inline-grid {
   display: inline-grid;
+}
+
+.\!contents {
+  display: contents !important;
 }
 
 .contents {
@@ -1255,6 +1271,10 @@ th,
 
 .h-40 {
   height: 10rem;
+}
+
+.h-44 {
+  height: 11rem;
 }
 
 .h-48 {
@@ -4000,6 +4020,23 @@ th,
 .content-\[\'this-is-also-valid\]-weirdly-enough\'\] {
   --tw-content: 'this-is-also-valid]-weirdly-enough';
   content: var(--tw-content);
+}
+
+@layer responsive {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
 }
 
 .\[a-zA-Z-\:\#\] {
