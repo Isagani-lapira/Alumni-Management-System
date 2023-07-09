@@ -750,7 +750,7 @@
           <div class="flex text-greyish_black h-full">
             <!-- about section -->
             <div class="w-1/4 text-xs p-2 mr-5">
-              <p class="font-bold text-accent">About</p>
+              <p class="font-bold text-accent text-base">About</p>
               <div class="flex mt-3 justify-start">
                 <img src="../assets/icons/person.png" alt="">
                 <span class="px-2">Male</span>
@@ -779,7 +779,7 @@
 
             <div class="w-full h-full">
               <p class="font-bold text-accent">Posts</p>
-              <div id="profileContainer" class="h-full overflow-y-scroll no-scrollbar py-5">
+              <div id="profileContainer" class="h-full overflow-y-scroll no-scrollbar py-3">
 
               </div>
             </div>
