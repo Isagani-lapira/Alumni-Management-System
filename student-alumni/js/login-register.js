@@ -164,7 +164,7 @@ const backButton = document.getElementById("backButton");
 // PAGE 2
 nextButtonPage2.addEventListener("click", function() {
   // Perform form validation
-  const college = document.getElementById("college");
+  const college1 = document.getElementById("college");
   const batch = document.getElementById("batch");
   const statusOptions = document.querySelectorAll('input[name="status"]');
   const emailBSU = document.getElementById("email");
@@ -177,11 +177,11 @@ nextButtonPage2.addEventListener("click", function() {
 
   let hasError = false;
 
-  if (college.value.trim() === "") {
-    college.style.borderColor = "#991B1B"; // Set accent color for empty field
+  if (college1.value.trim() === "") {
+    college1.style.borderColor = "#991B1B"; // Set accent color for empty field
     hasError = true;
   } else {
-    college.style.borderColor = "#9CA3AF"; // Set default color for filled field
+    college1.style.borderColor = "#9CA3AF"; // Set default color for filled field
   }
 
   if (batch.value.trim() === "") {
@@ -221,21 +221,22 @@ nextButtonPage2.addEventListener("click", function() {
     emailBSU.style.borderColor = "#9CA3AF"; // Set default color for filled field
   }
 
-  // Check if password1 field is empty or does not meet the condition
-  if (!password1.checkValidity() || !isPasswordValid(password1.value)) {
-      passDetailsDiv.style.borderColor = "#991B1B"; // Set accent color for empty field or invalid password
-      hasError = true;
-  } else {
-      passDetailsDiv.style.borderColor = "#9CA3AF"; // Set default color for filled field
-  }
+// Check if password1 field is empty or does not meet the condition
+if (!password1.checkValidity() || !isPasswordValid(password1.value)) {
+  passDetailsDiv.style.borderColor = "#991B1B"; // Set accent color for empty field or invalid password
+  document.querySelector(".text-xs.text-gray-500").style.color = "#991B1B"; // Change note color to accent color
+  hasError = true;
+} else {
+  passDetailsDiv.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  document.querySelector(".text-xs.text-gray-500").style.color = "#000000"; // Change note color back to default
+}
 
-  // Check if confirmPassword field is empty
-  if (!confirmPassword.checkValidity()) {
-      confirmPassDetailsDiv.style.borderColor = "#991B1B"; // Set accent color for empty field
-      hasError = true;
-  } else {
-      confirmPassDetailsDiv.style.borderColor = "#9CA3AF"; // Set default color for filled field
-  }
+// Helper function to check if password meets the criteria
+function isPasswordValid(password) {
+  // Use regular expressions to check if the password contains at least 8 characters with a mix of letters, numbers, and symbols
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  return passwordRegex.test(password);
+}
 
   // Check if any fields have errors
   if (hasError) {
@@ -245,17 +246,25 @@ nextButtonPage2.addEventListener("click", function() {
       reqInputAns.classList.add("hidden"); // Hide error message
   }
 
-  if (password1.value != confirmPassword.value) {
-    passwordMismatchError.classList.remove("hidden");
-    return;
-  } else {
-    passwordMismatchError.classList.add("hidden");
-  }
-
   // Hide Page 2 and show Page 3
   page2.classList.add("hidden");
   page3.classList.remove("hidden");
   circle3.style.backgroundColor = "#991B1B";
+
+  // Display summary information
+  const fullName = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
+  const college = document.getElementById("college").value;
+  const emailPersonal = document.getElementById("emailperso").value;
+  const studentNumber = document.getElementById("studentNumber").value;
+  const emailBulsu = document.getElementById("email").value;
+  const password = document.getElementById("password1").value;
+  
+  document.getElementById("displayFullName").textContent = fullName;
+  document.getElementById("displayCollege").textContent = college;
+  document.getElementById("displayEmailPersonal").textContent = emailPersonal;
+  document.getElementById("displayStudentNumber").textContent = studentNumber;
+  document.getElementById("displayEmailBulsu").textContent = emailBulsu;
+  document.getElementById("displayPassword").textContent = password;
 });
 
 // Function to check if the password meets the condition
@@ -296,7 +305,6 @@ backButtonPage3.addEventListener("click", function() {
     page2.classList.remove("hidden"); 
     circle3.style.backgroundColor = "#FFFFFF";
 });
-
 
 //Toggle password for Page2
 document.getElementById('togglePassword').addEventListener('click', function() {

@@ -103,38 +103,45 @@
                 <div id="page1">
                     <div class="mt-6">
                       <div class="flex space-x-2">
+                        <!-- First Name -->
                         <div class="w-1/2 pr-4">
                           <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
                           <input name="fname" type="text" id="firstName" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: Juan" required>
                         </div>
+                        <!-- Last Name -->
                         <div class="w-1/2">
                           <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
                           <input name="lname" type="text" id="lastName" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: Dela Cruz" required>
                         </div>
                       </div>
                   
+                      <!-- Email Address Personal -->
                       <div class="mt-4">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email Address (Personal)</label>
                         <input name="personal_email" type="email" id="emailperso" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: juanDelaCruz@gmail.com" required>
                       </div>
                   
+                      <!-- Contact Number -->
                       <div class="mt-4 flex space-x-2">
                         <div class="w-1/2 pr-4">
                           <label for="contactNumber" class="block text-sm font-medium text-gray-700">Contact Number</label>
                           <input name="contactNo" type="text" id="contactNumber" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: 09062943968" required>
                         </div>
+                        <!-- Student Number -->
                         <div class="w-1/2">
                           <label for="studentNumber" class="block text-sm font-medium text-gray-700">Student No.</label>
                           <input name="studNo" type="text" id="studentNumber" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: 2021104943" required>
                         </div>
                       </div>
                   
+                      <!-- Birthday -->
                       <div class="mt-4 flex space-x-4">
                         <div class="w-1/2 pr-4">
                           <label for="birthday" class="block text-sm font-medium text-gray-700">Birthday</label>
                           <input name="bday" type="date" id="birthday" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 border border-gray-300 rounded-md text-sm italic-placeholder" required>
                         </div>
                   
+                        <!-- Gender -->
                         <div class="w-1/2">
                           <span class="block mb-2 text-sm font-medium text-gray-700">Gender</span>
                           <div class="flex items-center space-x-4" id="gender-div">
@@ -164,6 +171,8 @@
                     <!-- Page 2 Content -->
                     <div class="mt-6">
                         <div class="flex space-x-2">
+
+                          <!-- College -->
                           <div class="w-3/5">
                             <select name="college" id="college" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm font-semibold border border-gray-300 rounded-md bg-accent text-white" required>
                                 <option value="">College</option>
@@ -171,9 +180,9 @@
                                 <option value="CIT">CIT</option>
                                 <option value="CoEd">CoEd</option>
                                 <!-- Add your college options here -->
-                              </select>
-                              
+                            </select>
                           </div>
+                          <!-- Batch -->
                           <div class="w-1/2 pr-2">
                             <select name="batch" id="batch" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-accent rounded-md text-accent font-semibold" required>
                               <option value="">Batch</option>
@@ -183,6 +192,8 @@
                               <!-- Add your batch options here -->
                             </select>
                           </div>
+
+                          <!-- Status -->
                           <div class="flex items-center space-x-2">
                             <input type="radio" id="alumni" name="status" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
                             <label for="alumni" class="status-label text-sm text-gray-700 italic">Alumni</label>
@@ -191,11 +202,13 @@
                           </div>                          
                         </div>
                     
+                        <!-- Email BulSU -->
                         <div class="mt-4">
                           <label for="email" class="block text-sm font-medium text-gray-700">Email (BulSU Email)</label>
                           <input name="emailBSU" type="email" id="email" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="Enter your email" required>
                         </div>
                     
+                        <!-- Password -->
                         <div class="mt-4 relative">
                           <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
                           <div id="passDetailsDiv" class="pass_details1 border border-gray-400 rounded-md p-2 flex items-center">
@@ -204,10 +217,12 @@
                           </div>                          
                         </div>
                     
+                        <!-- Note -->
                         <div class="mt-2 text-xs text-gray-500">
                           Note: Use 8 or more characters with a mix of letters, numbers & symbols.
                         </div>
                     
+                        <!-- Confirm Password -->
                         <div class="mt-4">
                           <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
                           <div id="confirmPassDetailsDiv" class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
@@ -216,9 +231,11 @@
                           </div>
                         </div>
                     
+                        <!-- Password Mismatch -->
                         <div id="passwordMismatchError" class="hidden mt-2 text-xs text-accent">
                           Passwords do not match.
                         </div>
+                        <!-- If fields have not been answered -->
                         <div id="reqInputAns" class="hidden mt-2 text-xs text-accent">
                             All fields must be answered. Please make sure you have answered all the fields.
                         </div>
@@ -241,17 +258,35 @@
                   
                 <!-- Confirmation -->
                 <div id="page3" class="hidden">
-                    <div class="mt-6">
-                        <h1 class="text-3xl font-bold">Summary</h1>
-                        <p>Full Name: <span id="displayFullName"></span></p>
-                        <p>College: <span id="displayCollege"></span></p>
-                        <p>Email (Personal): <span id="displayEmailPersonal"></span></p>
-                        <p>Student No.: <span id="displayStudentNumber"></span></p>
-                        <p>Email (BulSU): <span id="displayEmailBulsu"></span></p>
-                        <p>Password: <span id="displayPassword"></span></p>
-                      </div>
-                
-                    <div class="mt-6 flex justify-end">
+                  <div class="mt-6">
+                    <h1 class="text-3xl font-bold">Summary</h1>
+                    <div>
+                      <h2 class="text-xl" style="color: #474645;">Full Name:</h2>
+                      <p style="color: #6A6A6A;"><span id="displayFullName"></span></p>
+                    </div>
+                    <div>
+                      <h2 class="text-xl" style="color: #474645;">College:</h2>
+                      <p style="color: #6A6A6A;"><span id="displayCollege"></span></p>
+                    </div>
+                    <div>
+                      <h2 class="text-xl" style="color: #474645;">Email (Personal):</h2>
+                      <p style="color: #6A6A6A;"><span id="displayEmailPersonal"></span></p>
+                    </div>
+                    <div>
+                      <h2 class="text-xl" style="color: #474645;">Student No.:</h2>
+                      <p style="color: #6A6A6A;"><span id="displayStudentNumber"></span></p>
+                    </div>
+                    <div>
+                      <h2 class="text-xl" style="color: #474645;">Email (BulSU):</h2>
+                      <p style="color: #6A6A6A;"><span id="displayEmailBulsu"></span></p>
+                    </div>
+                    <div>
+                      <h2 class="text-xl" style="color: #474645;">Password:</h2>
+                      <p style="color: #6A6A6A;"><span id="displayPassword"></span></p>
+                    </div>
+                  </div>
+
+                  <div class="mt-6 flex justify-end">
                         <button id="backButtonPage3" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 font-medium rounded-md hover:bg-darkGray hover:text-white" onclick="">
                             <i class="fas fa-angle-left"></i>
                             Back
@@ -259,7 +294,7 @@
                     <button id="signUpButton" type="button" class="px-4 py-2 bg-accent text-white font-medium rounded-md hover:bg-darkAccent">
                         Sign Up
                     </button>
-                    </div>
+                  </div>
                 </div>
             </div>
         </div>
