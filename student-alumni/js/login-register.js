@@ -163,98 +163,123 @@ const backButton = document.getElementById("backButton");
 
 // PAGE 2
 nextButtonPage2.addEventListener("click", function() {
-    // Perform form validation
-    const college = document.getElementById("college");
-    const batch = document.getElementById("batch");
-    const statusOptions = document.querySelectorAll('input[name="status"]');
-    const emailBSU = document.getElementById("email");
-    const password1 = document.getElementById("password1");
-    const confirmPassword = document.getElementById("confirmPassword");
-    const passwordMismatchError = document.getElementById("passwordMismatchError");
-    const reqInputAns = document.getElementById("reqInputAns");
-  
-    let hasError = false;
-  
-    if (college.value.trim() === "") {
-      college.style.borderColor = "#991B1B"; // Set accent color for empty field
-      hasError = true;
-    } else {
-      college.style.borderColor = "#9CA3AF"; // Set default color for filled field
-    }
-  
-    if (batch.value.trim() === "") {
-      batch.style.borderColor = "#991B1B"; // Set accent color for empty field
-      hasError = true;
-    } else {
-      batch.style.borderColor = "#9CA3AF"; // Set default color for filled field
-    }
-  
-    let statusSelected = false;
-    for (let i = 0; i < statusOptions.length; i++) {
-      if (statusOptions[i].checked) {
-        statusSelected = true;
-        break;
-      }
-    }
-  
-    if (!statusSelected) {
-      // If no status is selected, highlight the radio buttons' labels in accent color
-      const statusLabels = document.querySelectorAll('.status-label');
-      for (let i = 0; i < statusLabels.length; i++) {
-        statusLabels[i].style.color = "#991B1B";
-      }
-      hasError = true;
-    } else {
-      // If a status is selected, set the default color for the radio buttons' labels
-      const statusLabels = document.querySelectorAll('.status-label');
-      for (let i = 0; i < statusLabels.length; i++) {
-        statusLabels[i].style.color = "#000000";
-      }
-    }
-  
-    if (emailBSU.value.trim() === "") {
-      emailBSU.style.borderColor = "#991B1B"; // Set accent color for empty field
-      hasError = true;
-    } else {
-      emailBSU.style.borderColor = "#9CA3AF"; // Set default color for filled field
-    }
-  
-    // Check if password1 field is empty
-    if (!password1.checkValidity()) {
-        password1.style.borderColor = "#991B1B"; // Set accent color for empty field
-        hasError = true;
-    } else {
-        password1.style.borderColor = "#9CA3AF"; // Set default color for filled field
-    }
+  // Perform form validation
+  const college = document.getElementById("college");
+  const batch = document.getElementById("batch");
+  const statusOptions = document.querySelectorAll('input[name="status"]');
+  const emailBSU = document.getElementById("email");
+  const password1 = document.getElementById("password1");
+  const confirmPassword = document.getElementById("confirmPassword");
+  const passwordMismatchError = document.getElementById("passwordMismatchError");
+  const reqInputAns = document.getElementById("reqInputAns");
+  const passDetailsDiv = document.getElementById("passDetailsDiv");
+  const confirmPassDetailsDiv = document.getElementById("confirmPassDetailsDiv");
 
-    // Check if confirmPassword field is empty
-    if (!confirmPassword.checkValidity()) {
-        confirmPassword.style.borderColor = "#991B1B"; // Set accent color for empty field
-        hasError = true;
-    } else {
-        confirmPassword.style.borderColor = "#9CA3AF"; // Set default color for filled field
-    }
+  let hasError = false;
 
-    // Check if any fields have errors
-    if (hasError) {
-        reqInputAns.classList.remove("hidden"); // Show error message
-        return; // Exit the function if there are errors
-    } else {
-        reqInputAns.classList.add("hidden"); // Hide error message
+  if (college.value.trim() === "") {
+    college.style.borderColor = "#991B1B"; // Set accent color for empty field
+    hasError = true;
+  } else {
+    college.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  }
+
+  if (batch.value.trim() === "") {
+    batch.style.borderColor = "#991B1B"; // Set accent color for empty field
+    hasError = true;
+  } else {
+    batch.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  }
+
+  let statusSelected = false;
+  for (let i = 0; i < statusOptions.length; i++) {
+    if (statusOptions[i].checked) {
+      statusSelected = true;
+      break;
     }
-  
-    if (password1.value != confirmPassword.value) {
-      passwordMismatchError.classList.remove("hidden");
-      return;
-    } else {
-      passwordMismatchError.classList.add("hidden");
+  }
+
+  if (!statusSelected) {
+    // If no status is selected, highlight the radio buttons' labels in accent color
+    const statusLabels = document.querySelectorAll('.status-label');
+    for (let i = 0; i < statusLabels.length; i++) {
+      statusLabels[i].style.color = "#991B1B";
     }
-  
-    // Hide Page 2 and show Page 3
-    page2.classList.add("hidden");
-    page3.classList.remove("hidden");
-    circle3.style.backgroundColor = "#991B1B";
+    hasError = true;
+  } else {
+    // If a status is selected, set the default color for the radio buttons' labels
+    const statusLabels = document.querySelectorAll('.status-label');
+    for (let i = 0; i < statusLabels.length; i++) {
+      statusLabels[i].style.color = "#000000";
+    }
+  }
+
+  if (emailBSU.value.trim() === "") {
+    emailBSU.style.borderColor = "#991B1B"; // Set accent color for empty field
+    hasError = true;
+  } else {
+    emailBSU.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  }
+
+  // Check if password1 field is empty or does not meet the condition
+  if (!password1.checkValidity() || !isPasswordValid(password1.value)) {
+      passDetailsDiv.style.borderColor = "#991B1B"; // Set accent color for empty field or invalid password
+      hasError = true;
+  } else {
+      passDetailsDiv.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  }
+
+  // Check if confirmPassword field is empty
+  if (!confirmPassword.checkValidity()) {
+      confirmPassDetailsDiv.style.borderColor = "#991B1B"; // Set accent color for empty field
+      hasError = true;
+  } else {
+      confirmPassDetailsDiv.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  }
+
+  // Check if any fields have errors
+  if (hasError) {
+      reqInputAns.classList.remove("hidden"); // Show error message
+      return; // Exit the function if there are errors
+  } else {
+      reqInputAns.classList.add("hidden"); // Hide error message
+  }
+
+  if (password1.value != confirmPassword.value) {
+    passwordMismatchError.classList.remove("hidden");
+    return;
+  } else {
+    passwordMismatchError.classList.add("hidden");
+  }
+
+  // Hide Page 2 and show Page 3
+  page2.classList.add("hidden");
+  page3.classList.remove("hidden");
+  circle3.style.backgroundColor = "#991B1B";
 });
+
+// Function to check if the password meets the condition
+function isPasswordValid(password) {
+// Use regular expression to check for 8 or more characters with a mix of letters, numbers, and symbols
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+return passwordRegex.test(password);
+}
+
+
+// Function to show an error message
+function showErrorMessage() {
+  const requiredFields = accountForm.querySelectorAll(':invalid');
+  const reqInputAns = document.getElementById('reqInputAns');
+
+  // Highlight the empty fields with a red border
+  requiredFields.forEach(function(field) {
+    field.style.borderColor = '#991B1B';
+  });
+
+  // Show the error message
+  reqInputAns.classList.remove('hidden');
+}
+
   
 backButton.addEventListener("click", function() {
     // Hide Page 2 and show Page 1
