@@ -49,4 +49,30 @@ class EmailTable
 
         echo json_encode($data); //return data as json
     }
+
+    public function getEmail($email, $con)
+    {
+        $query = 'SELECT `personal_email` FROM `person` WHERE `personal_email` LIKE "' . $email . '%"';
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        $response = "";
+        $suggestions = array();
+        if ($result && $row > 0) {
+            $response = "success";
+            while ($data = mysqli_fetch_assoc($result)) {
+                $suggestions[] = $data['personal_email'];
+            }
+        } else {
+            $response = "unsuccess";
+            $suggestions[] = "No available email";
+        }
+
+        $data = array(
+            "response" => $response,
+            "suggestions" => $suggestions,
+        );
+
+        echo json_encode($data);
+    }
 }

@@ -19,5 +19,10 @@ if (isset($_POST['action'])) {
                 $emailData->queryDate($startDate, $endDate, $personID, $mysql_con);
             } else echo 'no Date inserted';
             break;
+        case 'suggestionEmail':
+            if (isset($_POST['email'])) {
+                $email = $_POST['email'];
+                $emailData->getEmail($email, $mysql_con);
+            }
     }
 } else echo 'ayaw pumasok';

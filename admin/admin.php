@@ -1455,11 +1455,14 @@
             </div>
 
 
-
-            <div id="individualEmail" class="flex border border-gray-400 w-full rounded-md p-1 hidden">
-              <img class="inline" src="../images/search-icon.png" alt="">
-              <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Search email!">
+            <div class="relative">
+              <div id="individualEmail" class="flex border border-gray-400 w-full rounded-md p-1 hidden">
+                <img class="inline" src="../images/search-icon.png" alt="">
+                <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Search email!">
+              </div>
+              <div id="suggestionContainer" class="absolute -bottom-5 p-2 w-full rounded-md "></div>
             </div>
+
 
 
             <p class="font-semibold text-sm mt-2">Subject</p>

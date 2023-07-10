@@ -564,8 +564,39 @@ $(document).ready(function () {
       },
       error: (error) => { console.log(error) }
     });
+
   })
 
+  $('#searchEmail').on('input', function () {
+
+    let action = {
+      action: 'suggestionEmail'
+    }
+    let email = $(this).val();
+    let formData = new FormData();
+    formData.append('email', email);
+    formData.append('action', JSON.stringify(action))
+    $.ajax({
+      url: '../PHP_process/emailDB.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      success: (response) => {
+        let data = response
+        if (data.response == "success") {
+          let length = data.suggestions.length
+          for (let i = 0; i < length; i++) {
+            suggestedEmail = data.suggestions[i]
+            email = $('<p>').text(suggestedEmail).addClass('hover:text-white hover:bg-gray-300 cursor-pointer')
+            $('#suggestionContainer').append(email).addClass('bg-gray-300');
+          }
+        }
+      },
+      error: (error) => { console.log(error) },
+    })
+  });
 
   //checked the type of recipient
   $('input[name="recipient"').on('change', function () {
