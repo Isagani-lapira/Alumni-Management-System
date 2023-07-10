@@ -186,10 +186,12 @@
                           <div class="w-1/2 pr-2">
                             <select name="batch" id="batch" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-accent rounded-md text-accent font-semibold" required>
                               <option value="">Batch</option>
-                              <option value="2021">2021</option>
-                              <option value="2020">2020</option>
-                              <option value="2019">2019</option>
-                              <!-- Add your batch options here -->
+                              <script>
+                                const currentYear = new Date().getFullYear();
+                                for (let year = currentYear; year >= currentYear - 118; year--) {
+                                  document.write('<option value="' + year + '">' + year + '</option>');
+                                }
+                              </script>
                             </select>
                           </div>
 
