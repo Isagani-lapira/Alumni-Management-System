@@ -15,31 +15,33 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
     $recipient = $_POST['recipient'];
     $message = $_POST['message'];
     $subject = $_POST['subject'];
-    $emailInsertion = new EmailTable();
+    $selectedImages = $_FILES['images'];
+    $selectedFiles =  $_FILES['files'];
 
+    $emailInsertion = new EmailTable();
     $random = rand(0, 4000);
     $uniqueId = substr(md5(uniqid()), 0, 7);
     $emailID = 'Admin' . $uniqueId . $random;
     $date = date('y/m/d');
     $personID = 'admin23/06/29 11:23:12-932'; //to be changed
 
-    //check for recipient to check what is the available data 
+    // //check for recipient to check what is the available data 
     if ($recipient == 'groupEmail') {
         $college = $_POST['college'];
         $user = strtolower($_POST['user']);
 
         //if the user is alumni / student
         if ($user != 'all') {
-            sendEmailToManyUser($user, $college, $subject, $message, $mysql_con);
+            sendEmailToManyUser($user, $college, $subject, $message, $selectedImages, $selectedFiles, $mysql_con);
             $email = $emailInsertion->insertEmail($emailID, $user, $college, $date, $personID, $mysql_con);
         }
         //for all user
         else {
-            sendEmailToManyUser('alumni', $college, $subject, $message, $mysql_con);
-            sendEmailToManyUser('student', $college, $subject, $message, $mysql_con);
+            sendEmailToManyUser('alumni', $college, $subject, $message, $selectedImages, $selectedFiles, $mysql_con);
+            sendEmailToManyUser('student', $college, $subject, $message, $selectedImages, $selectedFiles, $mysql_con);
 
             //store a record of creating an email
-            $email = $emailInsertion->insertEmail($emailID, 'All', $college, $date, $personID, $mysql_con);
+            // $email = $emailInsertion->insertEmail($emailID, 'All', $college, $date, $personID, $mysql_con);
         }
     } else {
 
@@ -49,7 +51,7 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
         $college = getUserCollege($recipient, $mysql_con); //user college
         if ($college != '') {
             $college = $college;
-            sendEmail($subject, $message, $recipient);
+            sendEmail($subject, $message, $recipient, $selectedImages, $selectedFiles);
             $email = $emailInsertion->insertEmail($emailID, $recipient, $college, $date, $personID, $mysql_con);
         } else {
             echo 'user is not existing';
@@ -64,9 +66,9 @@ function getUserCollege($email, $con)
     $college = '';
     $query = 'SELECT `personID` FROM `person` WHERE `personal_email` = "' . $email . '"';
     $result = mysqli_query($con, $query);
-
+    $rows = mysqli_num_rows($result);
     //get person ID using the email provided
-    if ($result) {
+    if ($result && $rows > 0) {
         $row = mysqli_fetch_assoc($result);
         $personID = $row['personID'];
 
@@ -90,10 +92,10 @@ function getUserCollege($email, $con)
 
             return $college;
         }
-    }
+    } else return null;
 }
 
-function sendEmailToManyUser($user, $college, $subject, $message, $con)
+function sendEmailToManyUser($user, $college, $subject, $message, $selectedImages, $selectedFiles, $con)
 {
     $query = 'SELECT * FROM `' . $user . '` WHERE `colCode` = "' . $college . '"'; //check which college and type of user 
     $result = mysqli_query($con, $query);
@@ -114,14 +116,14 @@ function sendEmailToManyUser($user, $college, $subject, $message, $con)
                 $recipient = $row['personal_email'];
 
                 //send email
-                sendEmail($subject, $message, $recipient);
+                sendEmail($subject, $message, $recipient, $selectedImages, $selectedFiles);
             }
         }
     }
 }
 
 //use to send email
-function sendEmail($subject, $message, $recipient)
+function sendEmail($subject, $message, $recipient, $images, $files)
 {
     $mail = new PHPMailer(true);
 
@@ -140,6 +142,16 @@ function sendEmail($subject, $message, $recipient)
     $mail->isHTML(true);
     $mail->Subject = $subject; //subject
     $mail->Body = $message; //message
+
+    //adding attachment
+    foreach ($images['tmp_name'] as $index => $tmp_name) {
+        $file_name = $images['name'][$index];
+        $mail->addAttachment($tmp_name, $file_name);
+    }
+    foreach ($files['tmp_name'] as $index => $tmp_name) {
+        $file_name = $files['name'][$index];
+        $mail->addAttachment($files['name'][$index]);
+    }
 
     $mail->send(); //send the email
 }

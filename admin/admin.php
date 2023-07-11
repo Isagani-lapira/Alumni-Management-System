@@ -1460,22 +1460,30 @@
                 <img class="inline" src="../images/search-icon.png" alt="">
                 <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Search email!">
               </div>
-              <div id="suggestionContainer" class="absolute -bottom-5 p-2 w-full rounded-md "></div>
+              <p id="userNotExist" class="text-sm italic text-accent hidden">User not exist</p>
+              <div id="suggestionContainer" class="absolute -bottom-5 p-2 w-full rounded-md z-10"></div>
             </div>
-
-
 
             <p class="font-semibold text-sm mt-2">Subject</p>
             <input class="focus:outline-none w-full border border-gray-400 rounded-md py-2 px-1" type="text" name="emailSubj" id="emailSubj" placeholder="Introduce something great!">
 
             <!-- body part -->
             <p class="font-semibold text-sm mt-2">Description</p>
-            <div class="modal-descript relative w-full h-48 border border-gray-400 rounded p-3">
+            <div class="modal-descript relative w-full h-max border border-gray-400 rounded p-3">
               <div class="flex flex-col h-full">
-                <textarea id="TxtAreaEmail" class="rar outline-none w-full h-full p-1" type="text" placeholder="Say something here..."></textarea>
+                <textarea id="TxtAreaEmail" class="rar outline-none w-full h-48 p-1 border-b border-gray-300" type="text" placeholder="Say something here..."></textarea>
+                <div id="imgContEmail" class=" hidden flex overflow-x-scroll w-full"></div>
+                <div id="fileContEmail" class="hidden"></div>
+                <p class="text-sm text-red-400 hidden" id="errorMsgEM">Sorry we only allow images that has file extension of
+                  jpg,jpeg,png</p>
               </div>
             </div>
-
+            <label class="flex justify-start items-center gap-3 mt-1">
+              <i id="galleryIcon" class="fa-solid fa-image"></i>
+              <i id="fileIcon" class="fa-solid fa-paperclip"></i>
+            </label>
+            <input id="imageSelection" type="file" class="hidden">
+            <input id="fileSelection" type="file" class="hidden">
           </div>
 
           <!-- Footer -->
@@ -1620,6 +1628,7 @@
 
 
   <script src="../js/admin.js"></script>
+  <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>
 </body>
 

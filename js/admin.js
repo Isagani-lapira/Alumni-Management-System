@@ -464,42 +464,6 @@ $(document).ready(function () {
   }
 
 
-  //send email
-  $('#emailForm').on('submit', (e) => {
-
-    e.preventDefault();
-    //check the type of recipient
-    let recipient = $('input[name="recipient"]:checked').val();
-    let emailSubj = $('#emailSubj').val();
-    let formSend = new FormData();
-
-    if (recipient == 'individualEmail') {
-      let searchEmail = $('#searchEmail').val()
-      formSend.append('searchEmail', searchEmail)
-    }
-    else {
-      let user = $('input[name="selectedUser"]:checked').val();
-      let college = $('#selectColToEmail').val();
-      formSend.append('college', college);
-      formSend.append('user', user);
-    }
-
-    let message = $('#TxtAreaEmail').val();
-    formSend.append('recipient', recipient)
-    formSend.append('subject', emailSubj)
-    formSend.append('message', message);
-
-    $.ajax({
-      url: '../PHP_process/sendEmail.php',
-      type: 'POST',
-      data: formSend,
-      processData: false,
-      contentType: false,
-      success: (response) => console.log(response),
-      error: (error) => console.log(error)
-    })
-  })
-
 
   $('.college').on('click', function () {
     var colName = $(this).data('colname');
@@ -567,12 +531,13 @@ $(document).ready(function () {
 
   })
 
+  // adding email suggestions
   $('#searchEmail').on('input', function () {
 
     let action = {
       action: 'suggestionEmail'
     }
-    let email = $(this).val();
+    let email = $(this).val(); //email that has been typed
     let formData = new FormData();
     formData.append('email', email);
     formData.append('action', JSON.stringify(action))
@@ -585,11 +550,21 @@ $(document).ready(function () {
       dataType: 'json',
       success: (response) => {
         let data = response
+        $('#suggestionContainer').show()
+        $('#suggestionContainer').empty() //remove the data first
         if (data.response == "success") {
           let length = data.suggestions.length
+          //show all the suggested email
           for (let i = 0; i < length; i++) {
             suggestedEmail = data.suggestions[i]
             email = $('<p>').text(suggestedEmail).addClass('hover:text-white hover:bg-gray-300 cursor-pointer')
+              .on('click', function () {
+                let emailVal = $(this).text();
+                console.log(emailVal)
+                $('#searchEmail').val(emailVal);
+                $('#suggestionContainer').hide()
+              })
+
             $('#suggestionContainer').append(email).addClass('bg-gray-300');
           }
         }
