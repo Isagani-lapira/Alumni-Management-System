@@ -1,0 +1,127 @@
+#header {
+    background-color: #E9ECEF;
+}
+
+#gtlogo {
+    width: .4in;
+    height: .4in;
+}
+
+h2 {
+    color: #343A40;
+}
+
+#dp {
+    width: .4in;
+    height: .4in;
+}
+
+#DropdownImg {
+    width: .2in;
+    height: .2in;
+}
+
+#prog {
+    width: 4in;
+    height: .6in;
+}
+
+h1 {
+    color: #991B1B;
+}
+
+#typ {
+    color: #991B1B;
+}
+
+option {
+    color: #333333;
+}
+
+#sa {
+    width: 1.5in;
+}
+#cd {
+    color: #333333;
+}
+
+#nxt {
+    
+    background-color: #991B1B;
+}
+
+#c1 {
+    background-color: #991B1B;
+}
+
+
+#text {
+    color: #333333;
+}
+
+#ast {
+    color: #991B1B;
+}
+
+#dblk {
+    width: .1in;
+    height: .1in;
+}
+
+input {
+    outline: none;
+}
+
+select:focus {
+    outline: none;
+}
+
+#ty {
+    color: #1C8A00;
+}
+
+#cbg {
+    background-color: #1C8A00;
+}
+
+#cname {
+    color: #991B1B;
+}
+
+#cmsg {
+    color: #666666;
+}
+
+#cbtn {
+    background-color: #991B1B;
+}
+
+.line {
+    background-color: #C4C4C4;
+}
+
+.circle {
+    background-color: #959595;
+}
+
+.ptxt {
+    color: #959595;
+}
+
+#pBI {
+    color: #991B1B;
+}
+
+#anj {
+    color: #333333;
+}
+
+#prnt {
+    width: fit-content;
+  }
+
+  #vb {
+    width: 2px;
+    padding: 0%;
+    background-color: #333333;
+  }

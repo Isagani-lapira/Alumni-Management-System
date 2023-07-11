@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/style/GTstyle.css">
+    </head>
+
+    <body>
+        <div id="con" class="flex-col justify-center">
+            <div id="header" class="flex h-16 max-h-16 items-center"> <!--HEADER-->
+                <div class="ml-5 flex items-center"> <!--left-->
+                    <img id="gtlogo" src="/images/gtlogo.png" alt="LOGO">
+                    <h2 class="ml-1 font-bold text-xl">Alumni</h2>
+                </div>
+
+                <div class="flex items-center ml-auto mr-5 text-center"><!--right-->
+                    <img id="dp" src="/images/dp.png" class="images ml-auto mr-auto rounded-full border-2 border-red-700" alt="DP">
+                    <div class="font-bold mr-4 ml-1">Isagani Lapira Jr.</div>
+                    <button class="h-7 w-8 rounded-md bg-blue-700 flex items-center justify-center">
+                        <img id="DropdownImg" src="/images/down.png" alt="DROPDOWN IMAGE">
+                    </button>
+                </div>
+            </div> <!--HEADER-->
+              
+        
+            <div class="flex-col items-center mt-5"> <!--PROGRESS-->
+                <div class="flex flex-col justify-center">
+                    <div class="flex justify-center items-center">
+                        <div class="flex items-center justify-center">
+                            <div id="c1" class="rounded-full bg-blue-700 h-7 w-7"></div>
+                            <div id="l1" class="line h-1 w-40 bg-black"></div>
+                        </div>
+
+                        <div class="flex items-center justify-center">
+                            <div id="c2" class="circle rounded-full bg-blue-700 h-7 w-7"></div>
+                            <div id="l2" class="line h-1 w-40 bg-black"></div>
+                        </div>
+
+                        <div class="flex items-center justify-center">
+                            <div id="c3" class="circle rounded-full bg-blue-700 h-7 w-7"></div>
+                            <div id="l3" class="line h-1 w-40 bg-black"></div>
+                        </div>
+
+                        <div class="flex items-center justify-center">
+                            <div id="c4" class="circle rounded-full bg-blue-700 h-7 w-7"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div id="txts" class="flex justify-center text-xs mt-2 items-center font-semibold">
+                    <div id="pBI" class="ml-6 mr-16 w-32 font-bold">Basic Information</div>
+                    <div id="pEB" class="ptxt ml-3 mr-8 w-32 font-bold">Educational Background</div>
+                    <div id="pED" class="ptxt ml-1 mr-10 w-32 font-bold">Employment Details</div>
+                    <div id="pCon" class="ptxt ml-10 w-32 font-bold">Confirmation</div>
+                </div>
+                
+                
+            </div> 
+            
+            
+            
+
+            <!--FIRST TAB CONTAINER-->
+                <div id="first" class=""> 
+
+                    <h1 class="font-bold text-2xl ml-5">Graduate Tracer</h1>
+                    <p class="ml-5 text-justify w-96 mt-1 text-xs">Please complete this questionnaire as accurately and completely as possible. Kindly provide the needed information or check (/) the space corresponding to your response.</p>
+                    <p class="ml-5 text-justify w-96 mt-2 text-xs">Your responses will be used to assess graduate employability and eventually improve the current curriculum of the programs offered in the Bulacan State University (BulSU). We ensure that every information that you will provide in this form will be treated in strict confidentiality.</p>                
+                    <p id="typ" class="ml-5 text-justify w-96 mt-2 text-xs font-extrabold">Thank you for your participation and honesty!</p>
+                    
+                    <div class="flex">
+                        <div class="flex-col w-1/2">
+                            <div class="ml-5 text-xs mt-5">Complete Name</div>
+                            <div class="ml-5 text-xs mt-1 w-2/5 p-1 rounded-md text-gray-600 bg-gray-300">Lapira, Isagani Jr.</div>
+                        </div>
+
+                        <div class="flex-col w-1/2 ">
+                            <div class="ml-5 text-xs mt-5 ml-auto">College</div>
+                            <div class="text-xs mt-1 w-2/5 p-1 rounded-md text-gray-600 bg-gray-300">CICT</div>
+                        </div>
+                    </div>
+
+                    <div class="flex">
+                        <div class="flex-col w-1/2">
+                            <div class="flex">
+                                <div class="ml-5 text-xs mt-5 w-1/6">Sex</div>
+                                <div class="ml-6 text-xs mt-5 w-1/6">Age</div>
+                            </div>
+
+                            <div class="flex 1/6">
+                                <div class="text-xs ml-5 mt-1 p-1 w-1/6 rounded-md text-gray-600 bg-gray-300">Male</div>
+                                <div class="text-xs ml-5 mt-1 p-1 w-1/6 rounded-md text-gray-600 bg-gray-300">21</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-col w-1/2 ">
+                            <div class="text-xs mt-5">Course</div>
+                            <div class="text-xs mt-1 w-2/5 p-1 rounded-md text-gray-600 bg-gray-300">BS Information Technology</div>
+                        </div>
+                    </div>
+
+                    <div class="flex">
+                        <div class="flex-col w-1/2">
+                            <div class="ml-5 text-xs mt-5">E-mail</div>
+                            <div class="ml-5 text-xs mt-1 w-2/5 p-1 rounded-md text-gray-600 bg-gray-300">lapiraIsagani@gmail.com</div>
+                        </div>
+
+                        <div class="flex-col w-1/2 ">
+                            
+                                <div class="ml-5 text-xs mt-5 ml-auto">Civil Status</div>
+                                <select id="dropdownCS" name="civstat" title="Please select your Civil Status." class="text-xs mt-1 w-2/5 font-semibold border border-gray-500 rounded-md p-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                                    <option value="" disabled selected class="text-gray-500">Please Select</option>
+                                    <option value="1">Single</option>
+                                    <option value="2" >Married</option>
+                                    <option value="3">Divorced</option>
+                                    <option value="4">Widowed</option>
+                                </select>
+                            
+                        </div>
+                    </div>
+
+                    <div class="flex">
+                        <div class="flex-col w-1/2">
+                            <div class="ml-5 text-xs mt-5">Contact No.</div>
+                            <div class="ml-5 text-xs mt-1 w-2/5 p-1 rounded-md text-gray-600 bg-gray-300">0912 345 6789</div>
+                        </div>
+                    </div>
+
+                        
+
+                </div>
+            <!--FIRST TAB-->
+        
+
+
+            <!--SECOND TAB CONTAINER-->
+            <div id="second" class="hidden"> 
+
+                <h1 class="font-bold text-2xl ml-5">Educational Background</h1>
+                
+                <div class="flex">
+                    <div class="flex justify-center w-1/2">
+                        <div class=" mt-10 flex-col">
+                            <div id="text" class="text-m mb-3">Highest Level of Education Attained</div>
+
+                            <div id="rbs" class="text-sm flex-col ml-5">
+                                <div class="flex">
+                                    <input type="radio" id="radio1" name="radioGroup" class="mt-1 mr-2 mb-2" checked>
+                                    <label for="radio1" class="mr-5">Certificate in Two Year Course</label>
+                                </div>
+
+                                <div class="flex">
+                                    <input type="radio" id="radio2" name="radioGroup" class="mt-1 mr-2 mb-2">
+                                    <label for="radio2" class="mr-5">College Graduate</label>
+                                </div>
+
+                                <div class="flex">
+                                    <input type="radio" id="radio3" name="radioGroup" class="mt-1 mr-2 mb-2">
+                                <label for="radio3">With Units in Masters Degree</label>
+                                </div>
+
+                                <div class="flex">
+                                    <input type="radio" id="radio4" name="radioGroup" class="mt-1 mr-2 mb-2">
+                                    <label for="radio4" class="mr-5">Masters Degree Holder</label>
+                                </div>
+
+                                <div class="flex">
+                                    <input type="radio" id="radio5" name="radioGroup" class="mt-1 mr-2 mb-2">
+                                    <label for="radio5" class="mr-5">With Units in Doctoral Degree</label>
+                                </div>
+
+                                <div class="flex">
+                                    <input type="radio" id="radio6" name="radioGroup" class="mt-1 mr-2 mb-2">
+                                <label for="radio6">Doctoral Degree Holder</label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center w-1/2">
+                        <div class="mt-10 flex-col">
+                            <div id="text" class="text-m mb-3">Are you a recipient of any scholarship program in the University?</div>
+
+                            <div class="flex-col">
+                                <select id="dropdownRec" name="program" class="w-4/5 text-xs mt-1 text-gray-600 bg-white border border-gray-500 rounded-md p-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="" disabled selected class="text-gray-500">Choose</option>
+                                    <option value="1">Yes, I am a recipient of a GOVERNMENT scholarship program.</option>
+                                    <option value="2" >Yes, I am a recipient of a PRIVATE scholarship program.</option>
+                                    <option value="3">No, I am not a recipient of any scholarship program.</option>                                
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!--SECOND TAB-->
+
+
+
+
+            <!--THIRD TAB CONTAINER-->
+            <div id="third" class="hidden"> 
+
+                <h1 class="font-bold text-2xl ml-5">Graduate Tracer</h1>
+                <p class="ml-5 text-justify w-96 mt-1 text-xs">Employment here means any type of work performed or services rendered in exchanged for compensation under a contract of hire which create the employer and employee relations.</p>
+                <p class="ml-5 text-justify w-96 mt-2 text-xs">Questions marked with (<span id="ast">*</span>) are required.</p>
+
+                <div id="wcon" class="flex-col"> <!--MAIN CONTAINER-->
+
+                    <div id="aype" class="ml-5 text-xs mt-5"><span id="ast" class="mr-1">*</span>Are you presently employed?</div>
+
+                    <select id="dropdownempStatus" name="empStatus" class="text-black ml-10 text-xs mt-1 bg-white border border-gray-500 rounded-md p-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-700 hover:border-gray-700">
+                        <option value="emp" >Yes, with Employer</option>
+                        <option value="self" >Yes, Self-Employed</option>
+                        <option value="no">No</option>
+                    </select>
+
+                    <div id="wemp" class="flex-col mt-5 dropdown-div mb-10"> <!--WITH EMPLOYER CONTAINER-->
+                        <div class="flex items-center justify-center"> 
+                            <div class="items-center w-1/4 justify-center">
+                                <div class="flex-col border border-gray-400 rounded-lg w-96 p-5"> <!--BASIC WORK DETAILS-->
+                                    <div class="text-sm font-semibold">BASIC WORK DETAILS</div> 
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Current Occupation</div>
+                                    <input type="text" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Employment Status</div>
+                                    <select id="dropdownES" name="empES" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Regular / Full-Time</option>
+                                        <option value="2" >Temporary / Part-Time</option>
+                                        <option value="3" >Internship / Apprenticeship</option>                             
+                                    </select>
+                                </div><!--BASIC WORK DETAILS-->
+
+                                <div class="flex-col mt-10 border border-gray-400 rounded-lg w-96 p-5"><!--COMPANY DETAILS-->
+                                    <div class="text-sm font-semibold">COMPANY DETAILS</div>
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Name of Organization / Employer</div>
+                                    <input type="text" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Type of Organization</div>
+                                    <select id="dropdownTO" name="empTO" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Private Sector</option>
+                                        <option value="2" >Public Sector</option>                          
+                                    </select>
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Location of Current Work</div>
+                                    <select id="dropdownLocW" name="empLoc" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Local</option>
+                                        <option value="2" >International</option>                          
+                                    </select>
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Number of Years in the Company</div>
+                                    <select id="dropdownYrsW" name="empYrs" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Less than a Year</option>
+                                        <option value="2" >1 - 5 Years</option>
+                                        <option value="3" >6 - 10 Years</option> 
+                                        <option value="4" >10 - 15 Years</option>
+                                        <option value="5" >16 Years and Above</option>                        
+                                    </select>
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Major line of business of the company you are presently employed in</div>
+                                    <select id="dropdownMLW" name="empML" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">IT/Computer/Software</option>                    
+                                    </select>
+                                </div><!--COMPANY DETAILS-->
+
+                                <div class="flex-col mt-10 border border-gray-400 rounded-lg w-96 p-5"> <!--ADDITIONAL WORK DETAILS-->
+                                    <div class="text-sm font-semibold">ADDITIONAL WORK DETAILS</div> 
+                                    
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>What is the major reason for staying on the job?</div>
+                                    <select id="dropdownBen" name="empReason" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Benefits</option>                            
+                                    </select>
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>What is your gross monthly rate?</div>
+                                    <select id="dropdownGMRW" name="empGMR" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Gross Monthly Rate</option>
+                                        <option value="1">Less than PHP 1,000</option>
+                                        <option value="2" >PHP 1,000 - 5,000</option>
+                                        <option value="3" >PHP 6,000 - 10,000</option> 
+                                        <option value="4" >PHP 10,000 - 15,000</option>
+                                        <option value="5" >PHP 16,000 and Above</option>                              
+                                    </select>
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Was your course completed in college related to your present job?</div>
+                                    <select id="dropdownCourseW" name="empRel" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2" >No</option>
+                                    </select>
+
+                                    <div class="text-xs ml-7 mt-5 mb-2">In the work place, have you received any prestigious award? If Yes, please state the name of the AWARD.</div>
+                                    <textarea placeholder="Your answer" class="h-16 max-h-20 ml-7 text-xs w-3/4 max-w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500"></textarea>
+
+                                    <div class="text-xs ml-7 mt-5 mb-2">Please state KEY Positions held in private and public offices, if any.</div>
+                                    <textarea placeholder="Your answer" class="h-16 max-h-20 ml-7 text-xs w-3/4 max-w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500"></textarea>
+                                </div><!--ADDITIONAL WORK DETAILS-->
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    </div> <!--WITH EMPLOYER CONTAINER-->
+
+                    <div id="semp" style="display: none;" class="flex-col mt-5 dropdown-div mb-10"> <!--SELF-EMPLOYED CONTAINER-->
+                        <div class="flex items-center justify-center"> 
+                            <div class="items-center w-1/4 justify-center">
+                                <div class="flex-col border border-gray-400 rounded-lg w-96 p-5"> <!--BASIC BUSINESS DETAILS-->
+                                    <div class="text-sm font-semibold">BASIC BUSINESS DETAILS</div> 
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Major Line of Your Business</div>
+                                    <select id="dropdownMLB" name="busML" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Trade / Industry</option>                         
+                                    </select>
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Location of the Business</div>
+                                    <select id="dropdownLocB" name="busLoc" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Local</option>
+                                        <option value="2">International</option>                        
+                                    </select>
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Number of Years in the Business</div>
+                                    <select id="dropdownYrsB" name="busYrs" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Less than a Year</option>
+                                        <option value="2" >1 - 5 Years</option>
+                                        <option value="3" >6 - 10 Years</option> 
+                                        <option value="4" >10 - 15 Years</option>
+                                        <option value="5" >16 Years and Above</option>                        
+                                    </select>
+                                </div><!--BASIC BUSINESS DETAILS-->
+
+                                <div class="flex-col mt-5 border border-gray-400 rounded-lg w-96 p-5"> <!--ADDITIONAL BUSINESS DETAILS-->
+                                    <div class="text-sm font-semibold">BASIC BUSINESS DETAILS</div> 
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>What is your gross monthly rate?</div>
+                                    <select id="dropdownGMRB" name="busGMR" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Gross Monthly Rate</option>
+                                        <option value="1">Less than PHP 1,000</option>
+                                        <option value="2" >PHP 1,000 - 5,000</option>
+                                        <option value="3" >PHP 6,000 - 10,000</option> 
+                                        <option value="4" >PHP 10,000 - 15,000</option>
+                                        <option value="5" >PHP 16,000 and Above</option>                              
+                                    </select>
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Was your course completed in college related to your present job?</div>
+                                    <select id="dropdownCourseB" name="busRel" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>                        
+                                    </select>
+
+                                    <div class="text-xs ml-7 mt-5 mb-2">In the work place, have you received any prestigious award? If Yes, please state the name of the AWARD.</div>
+                                    <textarea placeholder="Your answer" class="h-16 max-h-20 ml-7 text-xs w-3/4 max-w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500"></textarea>
+                                </div><!--ADDITIONAL BUSINESS DETAILS-->
+
+                                
+                            </div>
+                        </div>
+                    </div> <!--SELF-EMPLOYED CONTAINER-->
+
+
+
+
+
+                    <div id="nemp" style="display: none;" class="flex-col mt-5 dropdown-div mb-10"> <!--UNEMPLOYED CONTAINER-->
+                        <div class="flex items-center justify-center"> 
+                            <div class="items-center w-1/4 justify-center">
+                                <div class="flex-col border border-gray-400 rounded-lg w-96 p-5"> <!--BASIC DETAILS-->
+                                    <div class="text-sm font-semibold">BASIC DETAILS</div> 
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Please state reason(s) why you are not yet employed. You may select more than one answer.</div>
+                                    <div class="ml-7 flex-col text-xs">
+                                        <div>
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox">
+                                                <span class="ml-2">Advance or further study.</span>
+                                              </label>
+                                        </div>
+
+                                        <div class="mt-1">
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox">
+                                                <span class="ml-2">Family concerns and decided not to find a job.</span>
+                                              </label>
+                                        </div>
+
+                                        <div class="mt-1">
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox">
+                                                <span class="ml-2">Health-related reason(s).</span>
+                                              </label>
+                                        </div>
+
+                                        <div class="mt-1">
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox">
+                                                <span class="ml-2">Lack of work experience.</span>
+                                              </label>
+                                        </div>
+
+                                        <div class="mt-1">
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox">
+                                                <span class="ml-2">No job opportunity.</span>
+                                              </label>
+                                        </div>
+
+                                        <div class="mt-1">
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox">
+                                                <span class="ml-2">Did not look for a job.</span>
+                                              </label>
+                                        </div>
+
+                                        <div class="mt-1">
+                                            <label class="inline-flex items-center">
+                                                <input id="other" onclick="show()" type="checkbox" class="form-checkbox">
+                                                <span class="ml-2">Other</span>
+                                                <input id="otxt" type="text" placeholder="Please state" class="hidden ml-1 text-xs border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                              </label>
+                                        </div>
+                                                  
+                                    </div>
+
+                                    <div class="text-xs ml-5 mt-5 mb-2"><span id="ast" class="mr-1">*</span>Have you ever been employed?</div>
+                                    <select id="dropdownUE" name="noEmp" class="ml-7 text-xs w-3/4 border border-gray-400 rounded-md p-1 focus:border-gray-500">
+                                        <option value="" disabled selected class="text-gray-500">Choose</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>                        
+                                    </select>
+                                </div><!--BASIC DETAILS-->
+                            </div>
+                        </div>
+                    </div> <!--UNEMPLOYED CONTAINER-->
+
+                </div> <!--MAIN CONTAINER-->
+            </div> <!--THIRD TAB-->
+
+            <div id="fourth" class="hidden"> <!--CONFIRMATION TAB CONTAINER-->
+
+                <div class="flex justify-center items-center mt-10">
+                    <div class="flex flex-col justify-center items-center border border-gray-400 rounded-xl w-2/6 py-5">
+                        <div id="cbg" class="flex mt-2 items-center justify-center h-12 w-12 rounded-full">
+                            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div id="ty" class="mt-3 mb-3 text-sm font-bold">THANK YOU!</div>
+                        <div id="cname" class="text-2xl font-bold">Isagani Lapira Jr.</div>
+                        <div id="cmsg" class="text-sm mt-3 mb-10">You’ve successfully answered the graduate tracer.</div>
+                        <button id="cbtn" class="rounded-md text-white font-bold px-3 py-2 mb-3">GO BACK HOME</button>
+                    </div>
+                </div>
+
+                
+
+            </div><!--CONFIRMATION TAB-->
+
+            <div id="awb" class="hidden">
+                <div class="mr-auto ml-5 text-sm">Do you have another Work / Business?</div>
+                <button id="anjBtn" class="flex items-center ml-5 rounded-md px-3 text-sm text-white font-semibold border border-gray-800">
+                    <span id="anj" class="text-black py-2">Add New Job</span>
+                    <span id="vb" class="h-9 ml-2 mr-2"></span>
+                    <img id="db" class="w-3 h-2 ml-1" src="/images/downb.png">
+                  </button>
+                  
+
+                <div id="options" class="mt-2 ml-5 w-36 absolute hidden mt-2 bg-white border border-gray-400 shadow-md">
+                            
+                    <!-- Dropdown menu content here -->
+                    <a id="withemp" class="block  px-1 py-1 text-gray-800 hover:bg-gray-200">With Employer</a>
+                    <a id="selfemp" class="block px-1 py-1 text-gray-800 hover:bg-gray-200">Self-Employed</a> 
+                </div>
+            </div>
+
+            <div id="btndiv" class="flex mt-10 mb-10 ml-10 items-center justify-center">
+                <button id="cdNsub" class=" text-xs font-bold border border-gray-500 rounded-md p-2 hover:border-gray-800">Change Details</button>
+                <button id="nxt" type="submit" class="ml-auto mr-10 text-xs font-bold text-white rounded-md py-2 w-1/12">Next</button>
+            </div>
+            
+           
+
+        </div>
+        <script src="js/GTscript.js"></script>
+    </body>
+
+</html>
