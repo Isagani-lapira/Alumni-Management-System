@@ -41,7 +41,7 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
             sendEmailToManyUser('student', $college, $subject, $message, $selectedImages, $selectedFiles, $mysql_con);
 
             //store a record of creating an email
-            // $email = $emailInsertion->insertEmail($emailID, 'All', $college, $date, $personID, $mysql_con);
+            $email = $emailInsertion->insertEmail($emailID, 'All', $college, $date, $personID, $mysql_con);
         }
     } else {
 
@@ -150,7 +150,7 @@ function sendEmail($subject, $message, $recipient, $images, $files)
     }
     foreach ($files['tmp_name'] as $index => $tmp_name) {
         $file_name = $files['name'][$index];
-        $mail->addAttachment($files['name'][$index]);
+        $mail->addAttachment($tmp_name, $file_name);
     }
 
     $mail->send(); //send the email
