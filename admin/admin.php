@@ -357,7 +357,7 @@ if (
           </div>
 
           <!-- recent post -->
-          <div id="announcementContainer" class="w-full text-xs">
+          <div id="announcementContainer" class="w-full text-xs ">
             <table id="postTable" class="w-full">
               <thead>
                 <tr class="bg-accent text-white">

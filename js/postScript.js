@@ -201,8 +201,8 @@ $(document).ready(function () {
         let postdateData = $('<td>').text(postdate);
         let action = $('<td>').addClass('flex justify-center gap-2')
 
-        let delBtn = $('<button>').addClass('bg-red-400 text-sm text-white rounded-lg p-1').text('Delete')
-        let viewBtn = $('<button>').addClass('bg-blue-400 text-sm text-white rounded-lg py-1 px-2').text('View')
+        let delBtn = $('<button>').addClass(' text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white').text('Delete')
+        let viewBtn = $('<button>').addClass('bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500').text('View')
 
         action.append(delBtn, viewBtn)
         row.append(colCodeData, commentsData, postdateData, action)
