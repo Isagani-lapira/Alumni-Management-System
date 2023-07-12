@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (
+  !isset($_SESSION['username']) ||
+  $_SESSION['logged_in'] != true ||
+  $_SESSION['accountType'] != 'UnivAdmin'
+) {
+  header("location: loginAdmin.php");
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

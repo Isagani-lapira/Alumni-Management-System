@@ -22,12 +22,21 @@ class User_Table
         $row = mysqli_num_rows($result);
 
         //return the response
-        if ($row > 0) echo "successful";
-        else echo "unsuccessful";
+        if ($row > 0) {
+            $data = mysqli_fetch_assoc($result);
+            $accounType = $data['accounType'];
+
+            echo "successful";
+            session_start();
+            $_SESSION['username'] = $username;
+            $_SESSION['logged_in'] = true;
+            $_SESSION['accountType'] = $accounType;
+        } else echo "unsuccessful";
     }
 
     public function checkUsername($username, $connection)
     {
+        session_start();
         $query = 'SELECT * FROM `user` WHERE `username` = "' . $username . '"';
         $result = mysqli_query($connection, $query);
 
