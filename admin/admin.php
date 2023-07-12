@@ -357,7 +357,20 @@ if (
           </div>
 
           <!-- recent post -->
-          <div id="announcementContainer" class="w-full">
+          <div id="announcementContainer" class="w-full text-xs">
+            <table id="postTable" class="w-full">
+              <thead>
+                <tr class="bg-accent text-white">
+                  <th class="rounded-tl-lg">College code</th>
+                  <th>No. of comments</th>
+                  <th>Date posted</th>
+                  <th class="rounded-tr-lg">Action</th>
+                </tr>
+              </thead>
+              <tbody id="postTBody">
+
+              </tbody>
+            </table>
             <p id="noPostMsg" class="text-blue-400 hidden">No available post</p>
           </div>
 

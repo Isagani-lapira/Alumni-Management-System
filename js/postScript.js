@@ -145,7 +145,7 @@ $(document).ready(function () {
                 for (let i = 0; i < length; i++) {
                     data.response[i]
                     // let postID = data.postID
-                    data.colCode[i]
+                    let collegeCode = data.colCode[i]
                     let caption = data.caption[i]
                     let date = data.date[i]
                     let comment = data.comments[i];
@@ -154,8 +154,8 @@ $(document).ready(function () {
 
                     let containerAnn = 'announcementCont'
                     let containerProfile = 'profileCont'
-                    addPost(fullname, username, caption, imagesObj, date, i, comment, containerAnn) //add post;
-                    addPost(fullname, username, caption, imagesObj, date, i, comment, containerProfile) //add post in profile;
+                    addPost(fullname, username, caption, imagesObj, date, i, comment, containerAnn, collegeCode) //add post in table;
+                    addPost(fullname, username, caption, imagesObj, date, i, comment, containerProfile, null) //add post in profile;
                 }
             }
             else $('#noPostMsg').show();
@@ -178,20 +178,40 @@ $(document).ready(function () {
         return textDate;
     }
 
-    function addPost(name, accUN, postcaption, images, postdate, position, comments, container) {
 
-        let containerPost = ""
-        let toBeAppend = ""
+    function addPost(name, accUN, postcaption, images, postdate, position, comments, container, colCode) {
 
         if (container == "announcementCont") {
-            containerPost = $('<div>').addClass("shadow-sm shadow-gray-600 w-1/2 rounded-md p-3 h-max mt-10")
-            toBeAppend = '#announcementContainer'
+            announcementTbDisplay(colCode, name, accUN, postcaption, images, postdate, position, comments)
         }
         else {
-            containerPost = $('<div>').addClass("shadow-sm shadow-gray-600 w-3/4 rounded-md p-3 h-max mt-10")
-            toBeAppend = '#profileContainer'
+            postDisplay(name, accUN, postcaption, images, postdate, position, comments)
         }
 
+
+    }
+
+    function announcementTbDisplay(colCode, name, accUN, postcaption, images, postdate, position, comments) {
+        let tbody = $('#postTBody')
+
+        //create of rows
+        let row = $('<tr>')
+        let colCodeData = $('<td>').text(colCode);
+        let commentsData = $('<td>').text(comments);
+        let postdateData = $('<td>').text(postdate);
+        let action = $('<td>').addClass('flex justify-center gap-2')
+
+        let delBtn = $('<button>').addClass('bg-red-400 text-sm text-white rounded-lg p-1').text('Delete')
+        let viewBtn = $('<button>').addClass('bg-blue-400 text-sm text-white rounded-lg py-1 px-2').text('View')
+
+        action.append(delBtn, viewBtn)
+        row.append(colCodeData, commentsData, postdateData, action)
+        tbody.append(row)
+
+    }
+    function postDisplay(name, accUN, postcaption, images, postdate, position, comments) {
+        containerPost = $('<div>').addClass("shadow-sm shadow-gray-600 w-3/4 rounded-md p-3 h-max mt-10")
+        toBeAppend = '#profileContainer'
         let header = $('<div>').addClass("flex items-center")
         let avatar = $('<img>').addClass("rounded-full h-10 w-10 border-2 border-accent")
         let containerNames = $('<div>').addClass("px-3")
@@ -223,6 +243,5 @@ $(document).ready(function () {
 
         containerPost.append(header, caption, imgContainer, date, footerContainer)
         $(toBeAppend).append(containerPost)
-
     }
 })
