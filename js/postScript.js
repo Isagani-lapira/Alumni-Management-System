@@ -121,48 +121,54 @@ $(document).ready(function () {
     }
     let postData = new FormData();
     postData.append('action', JSON.stringify(postAction));
-    let position = 0;
+    postData.append('startDate', "")
+    postData.append('endDate', "")
+    getPostAdmin(postData)
     // //show post of admin
-    $.ajax({
-        url: '../PHP_process/postDB.php',
-        type: 'POST',
-        data: postData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-        success: (response) => {
-            let data = response;
-            console.log(data)
-            if (data.response == 'Success') {
-                $('#noPostMsg').hide()
-                let length = data.colCode.length;
+    function getPostAdmin(data) {
+        $('#postTBody').empty()
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            type: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: (response) => {
+                let data = response;
+                console.log(data)
+                if (data.response == 'Success') {
+                    $('#noPostMsg').hide()
+                    let length = data.colCode.length;
 
-                $('.totalPost').text(length); //total number of posted 
+                    $('.totalPost').text(length); //total number of posted 
 
-                let username = data.username;
-                let fullname = "Isagani Lapira Jr."; //change base on the full name of the user
-                let avatar = ""; //change base on the avatar of the user
-                for (let i = 0; i < length; i++) {
-                    data.response[i]
-                    // let postID = data.postID
-                    let collegeCode = data.colCode[i]
-                    let caption = data.caption[i]
-                    let date = data.date[i]
-                    let comment = data.comments[i];
-                    date = textDateFormat(date) //change to text format
-                    let imagesObj = data.images;
+                    let username = data.username;
+                    let fullname = "Isagani Lapira Jr."; //change base on the full name of the user
+                    let avatar = ""; //change base on the avatar of the user
+                    for (let i = 0; i < length; i++) {
+                        data.response[i]
+                        // let postID = data.postID
+                        let collegeCode = data.colCode[i]
+                        let caption = data.caption[i]
+                        let date = data.date[i]
+                        let comment = data.comments[i];
+                        date = textDateFormat(date) //change to text format
+                        let imagesObj = data.images;
 
-                    let containerAnn = 'announcementCont'
-                    let containerProfile = 'profileCont'
-                    addPost(fullname, username, caption, imagesObj, date, i, comment, containerAnn, collegeCode) //add post in table;
-                    addPost(fullname, username, caption, imagesObj, date, i, comment, containerProfile, null) //add post in profile;
+                        let containerAnn = 'announcementCont'
+                        let containerProfile = 'profileCont'
+                        addPost(fullname, username, caption, imagesObj, date, i, comment, containerAnn, collegeCode) //add post in table;
+                        addPost(fullname, username, caption, imagesObj, date, i, comment, containerProfile, null) //add post in profile;
+                    }
                 }
-            }
-            else $('#noPostMsg').show();
+                else $('#noPostMsg').show();
 
-        },
-        error: (error) => { console.log(error) }
-    })
+            },
+            error: (error) => { console.log(error) }
+        })
+    }
+
 
     function textDateFormat(date) {
         //extract parts of date
@@ -181,12 +187,10 @@ $(document).ready(function () {
 
     function addPost(name, accUN, postcaption, images, postdate, position, comments, container, colCode) {
 
-        if (container == "announcementCont") {
+        if (container == "announcementCont")
             announcementTbDisplay(colCode, name, accUN, postcaption, images, postdate, position, comments)
-        }
-        else {
+        else
             postDisplay(name, accUN, postcaption, images, postdate, position, comments)
-        }
 
 
     }
@@ -307,5 +311,21 @@ $(document).ready(function () {
         $('#carousel-wrapper').empty()
         $("#carousel-indicators").empty();
     })
+
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function (start, end, label) {
+            let startDate = start.format('YYYY-MM-DD')
+            let endDate = end.format('YYYY-MM-DD')
+
+            let formData = new FormData();
+            formData.append('action', JSON.stringify(postAction))
+            formData.append('startDate', startDate)
+            formData.append('endDate', endDate)
+
+            getPostAdmin(formData)
+        });
+    });
 
 })

@@ -371,7 +371,7 @@ if (
 
               </tbody>
             </table>
-            <p id="noPostMsg" class="text-blue-400 hidden">No available post</p>
+            <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
           </div>
 
 

@@ -14,8 +14,10 @@ if (isset($_POST['action'])) {
             break;
         case 'read':
             $username = 'isagani@@'; //to be change
+            $startgDate = $_POST['startDate'];
+            $endDate = $_POST['endDate'];
             $post = new PostData();
-            $post->getPostAdmin($username, $mysql_con);
+            $post->getPostAdmin($username, $startgDate, $endDate, $mysql_con);
             break;
     }
 }

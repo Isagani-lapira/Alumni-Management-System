@@ -39,9 +39,14 @@ class PostData
         else return false;
     }
 
-    function getPostAdmin($username, $con)
+    function getPostAdmin($username, $startingDate, $endDate, $con)
     {
-        $query = 'SELECT * FROM `post` WHERE `username`= "' . $username . '"';
+        $query = "";
+        if ($startingDate != null && $endDate != null)
+            $query = 'SELECT * FROM `post` WHERE `date` BETWEEN "' . $startingDate . '" AND "' . $endDate . '" AND `username` = "' . $username . '"';
+        else
+            $query = 'SELECT * FROM `post` WHERE `username`= "' . $username . '"';
+
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 
