@@ -1238,14 +1238,11 @@ if (
 
               <div class=" items-center flex">
 
-                <input type="radio" name="post" id="rbAll" checked>
-                <label class="mx-3" for="rbAll">All</label>
-
-                <input type="radio" name="post" id="rbAdmin">
-                <label class="mx-3" for="rbAdmin">Admin</label>
-
-                <input type="radio" name="post" id="rbAlumni">
-                <label class="mx-3" for="rbAlumni">Alumni</label>
+                <select name="" id="">
+                  <option value="all" selected>All</option>
+                  <option value="admin">Admin</option>
+                  <option value="alumni">Alumni</option>
+                </select>
 
                 <div class="border border-accent rounded-md">
                   <img class="inline" src="../images/search-icon.png" alt="">
