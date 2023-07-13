@@ -211,7 +211,7 @@ $(document).ready(function () {
   });
 
   $(function () {
-    $('input[name="aoydaterange"]').daterangepicker({
+    $('input[name="aomdaterange"]').daterangepicker({
       opens: 'left',
       startDate: defaultStart,
       endDate: defaultEnd
