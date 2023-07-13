@@ -886,14 +886,12 @@ if (
               </div>
 
               <!-- gender -->
-              <div class="flex items-center gap-2 ms-2">
-                <input type="radio" name="aoyGender" id="aoyAll" checked>
-                <label for="aoyAll">All</label>
-                <input type="radio" name="aoyGender" id="aoyMale">
-                <label for="aoyMale">Male</label>
-                <input type="radio" name="aoyGender" id="aoyFemale">
-                <label for="aoyFemale">Female</label>
-              </div>
+              <select name="aoyGender" id="aoyGender" class="px-3 py-2">
+                <option value="" selected disabled hidden>All</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+
 
               <!-- Year -->
               <div class="p-1 w-1/5 flex">
@@ -1017,14 +1015,11 @@ if (
             </div>
 
             <!-- gender -->
-            <div class="flex items-center gap-2 ms-2">
-              <input type="radio" name="aomGender" id="aomAll" checked>
-              <label for="aomAll">All</label>
-              <input type="radio" name="aomGender" id="aomMale">
-              <label for="aomMale">Male</label>
-              <input type="radio" name="aomGender" id="aomFemale">
-              <label for="aomFemale">Female</label>
-            </div>
+            <select name="aomGender" id="aomGender" class="px-3 py-2">
+              <option value="" selected disabled hidden>All</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
 
             <!-- range -->
             <div class="w-full flex justify-evenly border p-2 mx-2">

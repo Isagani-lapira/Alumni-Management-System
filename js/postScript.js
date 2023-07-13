@@ -124,6 +124,8 @@ $(document).ready(function () {
     postData.append('startDate', "")
     postData.append('endDate', "")
     getPostAdmin(postData)
+
+    let toAddProfile = true;
     // //show post of admin
     function getPostAdmin(data) {
         $('#postTBody').empty()
@@ -136,7 +138,6 @@ $(document).ready(function () {
             dataType: 'json',
             success: (response) => {
                 let data = response;
-                console.log(data)
                 if (data.response == 'Success') {
                     $('#noPostMsg').hide()
                     let length = data.colCode.length;
@@ -161,6 +162,7 @@ $(document).ready(function () {
                         addPost(fullname, username, caption, imagesObj, date, i, comment, containerAnn, collegeCode) //add post in table;
                         addPost(fullname, username, caption, imagesObj, date, i, comment, containerProfile, null) //add post in profile;
                     }
+                    toAddProfile = false //won't be affected by date range 
                 }
                 else $('#noPostMsg').show();
 
@@ -184,13 +186,14 @@ $(document).ready(function () {
         return textDate;
     }
 
-
     function addPost(name, accUN, postcaption, images, postdate, position, comments, container, colCode) {
 
         if (container == "announcementCont")
             announcementTbDisplay(colCode, name, accUN, postcaption, images, postdate, position, comments)
-        else
+        else if (container == "profileCont" && toAddProfile) {
             postDisplay(name, accUN, postcaption, images, postdate, position, comments)
+        }
+
 
 
     }
@@ -250,6 +253,7 @@ $(document).ready(function () {
 
         containerPost.append(header, caption, imgContainer, date, footerContainer)
         $(toBeAppend).append(containerPost)
+
     }
 
     function viewingOfPost(name, accUN, description, images, position) {
