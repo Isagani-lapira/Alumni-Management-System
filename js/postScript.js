@@ -316,9 +316,21 @@ $(document).ready(function () {
         $("#carousel-indicators").empty();
     })
 
+
+    //get today's date
+    const datePicker = new Date()
+    const thisyear = datePicker.getFullYear();
+    const thismonth = datePicker.getMonth() + 1;
+    const thisday = datePicker.getDate();
+    let defaultStart = thismonth + '/' + thisday + '/' + thisyear
+    let defaultEnd = thismonth + 1 + '/' + thisday + '/' + thisyear
+
+
     $(function () {
         $('input[name="daterange"]').daterangepicker({
-            opens: 'left'
+            opens: 'left',
+            startDate: defaultStart,
+            endDate: defaultEnd
         }, function (start, end, label) {
             let startDate = start.format('YYYY-MM-DD')
             let endDate = end.format('YYYY-MM-DD')

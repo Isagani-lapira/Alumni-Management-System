@@ -441,13 +441,14 @@ if (
 
 
           <!-- recent email -->
-          <p class="mt-10 font-semibold">Recent Email</p>
-          <table class="table-auto w-8/12 text-xs font-thin text-greyish_black">
-            <thead>
+          <p class="mt-5 font-semibold text-greyish_black">Recent Email</p>
+          <table class="table-auto w-full text-xs font-thin text-greyish_black">
+            <thead class="bg-accent text-white">
               <tr>
-                <th class="text-start">EMAIL ADDRESS</th>
+                <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
                 <th class="text-start">COLLEGE</th>
                 <th class="text-start">DATE</th>
+                <th class="text-center rounded-tr-md">ACTION</th>
               </tr>
             </thead>
             <tbody id="emailTBody">
@@ -467,6 +468,10 @@ if (
                       <td class="text-start">' . $recipient . '</td>
                       <td class="text-start">' . $colCode . '</td>
                       <td class="text-start">' . $dateSent . '</td>
+                      <td class="flex justify-center gap-2">
+                        <button class="text-red-400 text-xs">Delete</button>
+                        <button class="bg-blue-400 text-white hover:bg-blue-500 rounded-md text-xs px-3 py-1">View</button>
+                      </td>
                     </tr>';
                 }
               }

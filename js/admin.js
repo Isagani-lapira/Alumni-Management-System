@@ -9,6 +9,16 @@ const reqDiv = 'reqDiv'
 const holderReq = "Add skill/s that needed"
 const imgFormat = "data:image/jpeg;base64,"
 const defaultProfileSrc = "../assets/default_profile.png";
+
+
+//get today's date to set starting date and end for our date picker
+const datePicker = new Date()
+const thisyear = datePicker.getFullYear();
+const thismonth = datePicker.getMonth() + 1;
+const thisday = datePicker.getDate();
+let defaultStart = thismonth + '/' + thisday + '/' + thisyear
+let defaultEnd = thismonth + 1 + '/' + thisday + '/' + thisyear
+
 $(document).ready(function () {
   $("#tabs").tabs();
 
@@ -132,7 +142,9 @@ $(document).ready(function () {
 
   $(function () {
     $('input[name="emDateRange"]').daterangepicker({
-      opens: 'left'
+      opens: 'left',
+      startDate: defaultStart,
+      endDate: defaultEnd
     }, function (start, end, label) {
       let dateStart = start.format('YYYY-MM-DD');
       let dateEnd = end.format('YYYY-MM-DD');
@@ -190,7 +202,9 @@ $(document).ready(function () {
 
   $(function () {
     $('input[name="reportdaterange"]').daterangepicker({
-      opens: 'left'
+      opens: 'left',
+      startDate: defaultStart,
+      endDate: defaultEnd
     }, function (start, end, label) {
       console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
@@ -198,7 +212,9 @@ $(document).ready(function () {
 
   $(function () {
     $('input[name="aoydaterange"]').daterangepicker({
-      opens: 'left'
+      opens: 'left',
+      startDate: defaultStart,
+      endDate: defaultEnd
     }, function (start, end, label) {
       console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
