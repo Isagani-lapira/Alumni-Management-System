@@ -203,7 +203,10 @@ $(document).ready(function () {
 
         let delBtn = $('<button>').addClass(' text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white').text('Delete')
         let viewBtn = $('<button>').addClass('bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500').text('View')
-
+        viewBtn.on('click', function () {
+            $('#modalPost').removeClass('hidden')
+            viewingOfPost(name, accUN, postcaption, images, position)
+        })
         action.append(delBtn, viewBtn)
         row.append(colCodeData, commentsData, postdateData, action)
         tbody.append(row)
@@ -244,4 +247,58 @@ $(document).ready(function () {
         containerPost.append(header, caption, imgContainer, date, footerContainer)
         $(toBeAppend).append(containerPost)
     }
+
+    function viewingOfPost(name, accUN, description, images, position) {
+        $('#postFullName').text(name)
+        $('#postUN').text(accUN)
+        $('#postDescript').text(description)
+
+        const carouselWrapper = $("#carousel-wrapper");
+        const carouselIndicators = $("#carousel-indicators");
+
+        let totalImgNo = images[position].length;
+        images[position].forEach((image, index) => {
+
+            let imageName = 'item-' + index
+            const item = $("<div>")
+                .addClass("hidden duration-700 ease-in-out")
+                .attr("data-carousel-item", "")
+                .attr('id', imageName);
+
+            const format = 'data:image/jpeg;base64,' + image
+            const img = $("<img>")
+                .addClass("absolute block w-full h-full")
+                .attr("src", format)
+                .attr("alt", "Carousel Image");
+
+            item.append(img);
+            carouselWrapper.append(item);
+
+            const indicator = $("<button>")
+                .attr("type", "button")
+                .addClass("w-3 h-3 rounded-full")
+                .attr("aria-current", index === 0 ? "true" : "false")
+                .attr("aria-label", "Slide " + (index + 1))
+                .attr("data-carousel-slide-to", index.toString());
+
+            carouselIndicators.append(indicator);
+        })
+
+        // Show the first image and update the indicator
+        carouselWrapper.find("[data-carousel-item]").first().removeClass("hidden");
+        carouselIndicators.find("[data-carousel-slide-to]").first().attr("aria-current", "true");
+
+
+        let currentImageDisplay = 0;
+        $('#btnNext').on('click', function () {
+            currentImageDisplay = (currentImageDisplay == (totalImgNo - 1)) ? currentImageDisplay : currentImageDisplay + 1; //check first reach the end
+            $('#item-' + currentImageDisplay).removeClass('hidden') //show the next image
+        })
+        $('#btnPrev').on('click', function () {
+            if (currentImageDisplay != 0) //check if the image is the last image
+                $('#item-' + currentImageDisplay).addClass('hidden')
+            currentImageDisplay = (currentImageDisplay == 0) ? 0 : currentImageDisplay - 1
+        })
+    }
+
 })

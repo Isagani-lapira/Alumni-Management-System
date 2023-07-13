@@ -31,7 +31,6 @@
         .modal-body {
             height: 70%;
         }
-        
     </style>
 </head>
 
@@ -49,7 +48,7 @@
                 </h1>
                 <div>
                     <form id="loginForm" class="mt-2 p-3 flex flex-col gap-1">
-                        <p id="errorMsg" class="text-sm text-accent hidden"><span class="font-bold">login Failed:</span>
+                        <p id="errorMsg" class="text-sm text-accent hidden"><span class="font-bold">Login failed:</span>
                             Incorrect
                             username/password</p>
                         <label>Username</label>

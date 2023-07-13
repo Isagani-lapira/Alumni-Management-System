@@ -1648,6 +1648,64 @@ if (
         </div>
       </div>
     </div>
+
+
+    <!-- post modal -->
+    <div id="modalPost" class="modal fixed inset-0 h-full w-full flex items-center justify-center hidden">
+      <div class="modal-container w-10/12 h-2/3 bg-white rounded-lg p-3 flex">
+        <div id="containerSection" class="w-8/12 h-full p-5 gap-1">
+
+          <div id="default-carousel" class="relative w-full h-full" data-carousel="slide">
+            <!-- Carousel wrapper -->
+            <div class="relative overflow-hidden rounded-lg md:h-96" id="carousel-wrapper">
+            </div>
+            <!-- Slider indicators -->
+            <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2" id="carousel-indicators">
+            </div>
+            <!-- Slider controls -->
+            <button id="btnPrev" type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
+                </svg>
+                <span class="sr-only">Previous</span>
+              </span>
+            </button>
+            <button id="btnNext" type="button" class="text-white absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <span class="sr-only">Next</span>
+              </span>
+
+            </button>
+          </div>
+
+
+        </div>
+
+        <!-- description -->
+        <div id="descriptionInfo" class="w-4/12 h-full p-2 border-l border-gray-400">
+          <div class="flex justify-start gap-2">
+            <img class="rounded-full border-2 border-accent h-10 w-10" src="" alt="">
+            <div class="flex flex-col">
+              <span id="postFullName" class=" text-greyish_black font-bold">Firstname and Last name</span>
+              <span id="postUN" class=" text-gray-400">username</span>
+            </div>
+          </div>
+          <p id="postDescript" class=" text-grayish font-light text-sm">Description</p>
+          <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm">
+
+            <span id="noOfLikes">32</span>
+            <img src="../assets/icons/emptyheart.png" alt="">
+            <span id="noOfComment">0</span>
+            <img src="../assets/icons/comment.png" alt="">
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 
