@@ -1028,8 +1028,8 @@ if (
 
             <!-- range -->
             <div class="w-full flex justify-evenly border p-2 mx-2">
-              <input type="text" name="aoydaterange" id="aoydaterange" value="01/01/2018 - 01/15/2018" />
-              <label class="" for="aoydaterange">
+              <input type="text" name="aomdaterange" id="aomdaterange" value="01/01/2018 - 01/15/2018" />
+              <label class="" for="aomdaterange">
                 <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
               </label>
             </div>
