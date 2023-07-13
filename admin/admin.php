@@ -469,7 +469,7 @@ if (
                       <td class="text-start">' . $colCode . '</td>
                       <td class="text-start">' . $dateSent . '</td>
                       <td class="flex justify-center gap-2">
-                        <button class="text-red-400 text-xs">Delete</button>
+                        <button class="text-red-400 hover:bg-red-400 hover:text-white px-3 py-1 rounded-md text-xs">Delete</button>
                         <button class="bg-blue-400 text-white hover:bg-blue-500 rounded-md text-xs px-3 py-1">View</button>
                       </td>
                     </tr>';
