@@ -659,20 +659,12 @@ th,
   position: static;
 }
 
-.\!fixed {
-  position: fixed !important;
-}
-
 .fixed {
   position: fixed;
 }
 
 .absolute {
   position: absolute;
-}
-
-.\!relative {
-  position: relative !important;
 }
 
 .relative {
@@ -1153,10 +1145,6 @@ th,
   -webkit-line-clamp: none;
 }
 
-.\!block {
-  display: block !important;
-}
-
 .block {
   display: block;
 }
@@ -1227,10 +1215,6 @@ th,
 
 .inline-grid {
   display: inline-grid;
-}
-
-.\!contents {
-  display: contents !important;
 }
 
 .contents {
@@ -3303,6 +3287,11 @@ th,
   padding-bottom: 2rem;
 }
 
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -3350,6 +3339,10 @@ th,
 
 .pr-1 {
   padding-right: 0.25rem;
+}
+
+.pr-12 {
+  padding-right: 3rem;
 }
 
 .pr-16 {
@@ -3410,6 +3403,18 @@ th,
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pr-14 {
+  padding-right: 3.5rem;
+}
+
+.pr-10 {
+  padding-right: 2.5rem;
+}
+
+.pr-8 {
+  padding-right: 2rem;
 }
 
 .text-left {

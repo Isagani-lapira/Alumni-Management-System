@@ -16,6 +16,8 @@ const nextButton = document.getElementById("nextButton");
 const circle1 = document.getElementById("circle1");
 const circle2 = document.getElementById("circle2");
 const circle3 = document.getElementById("circle3");
+const connector1 = document.getElementById("connector1");
+const connector2 = document.getElementById("connector2");
 
 
 // PAGE 1
@@ -105,6 +107,7 @@ nextButton.addEventListener("click", function() {
     page1.classList.add("hidden");
     page2.classList.remove("hidden");
     circle2.style.backgroundColor = "#991B1B";
+    connector1.style.backgroundColor = "#991B1B";
 });
   
   // PAGE 1 - Add event listeners for input fields to reset the border color
@@ -250,6 +253,7 @@ function isPasswordValid(password) {
   page2.classList.add("hidden");
   page3.classList.remove("hidden");
   circle3.style.backgroundColor = "#991B1B";
+  connector2.style.backgroundColor = "#991B1B";
 
   // Display summary information
   const fullName = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
@@ -295,6 +299,7 @@ backButton.addEventListener("click", function() {
     page2.classList.add("hidden");
     page1.classList.remove("hidden");
     circle2.style.backgroundColor = "#FFFFFF";
+    connector1.style.backgroundColor = "#FFFFFF";
 });
 
 const backButtonPage3 = document.getElementById("backButtonPage3");
@@ -304,6 +309,7 @@ backButtonPage3.addEventListener("click", function() {
     page3.classList.add("hidden");
     page2.classList.remove("hidden"); 
     circle3.style.backgroundColor = "#FFFFFF";
+    connector2.style.backgroundColor = "#FFFFFF";
 });
 
 //Toggle password for Page2
