@@ -1652,13 +1652,13 @@ if (
 
     <!-- post modal -->
     <div id="modalPost" class="modal fixed inset-0 h-full w-full flex items-center justify-center hidden">
-      <div class="modal-container w-10/12 h-2/3 bg-white rounded-lg p-3 flex">
-        <div id="containerSection" class="w-8/12 h-full p-5 gap-1">
+      <div class="modal-container w-10/12 h-2/3 bg-white rounded-lg p-3 flex relative">
+        <span id="closePostModal" class="absolute -top-16 -right-1 py-2 px-4 rounded-full text-center text-2xl hover:bg-gray-400 cursor-pointer">x</span>
+        <div id="containerSection" class="w-8/12 h-full p-3 ">
 
           <div id="default-carousel" class="relative w-full h-full" data-carousel="slide">
             <!-- Carousel wrapper -->
-            <div class="relative overflow-hidden rounded-lg md:h-96" id="carousel-wrapper">
-            </div>
+            <div class="relative overflow-hidden rounded-lg h-full" id="carousel-wrapper"></div>
             <!-- Slider indicators -->
             <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2" id="carousel-indicators">
             </div>
@@ -1682,7 +1682,6 @@ if (
             </button>
           </div>
 
-
         </div>
 
         <!-- description -->
@@ -1694,8 +1693,8 @@ if (
               <span id="postUN" class=" text-gray-400">username</span>
             </div>
           </div>
-          <p id="postDescript" class=" text-grayish font-light text-sm">Description</p>
-          <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm">
+          <p id="postDescript" class=" text-greyish_black font-light text-sm">Description</p>
+          <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2">
 
             <span id="noOfLikes">32</span>
             <img src="../assets/icons/emptyheart.png" alt="">

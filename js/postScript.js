@@ -301,4 +301,11 @@ $(document).ready(function () {
         })
     }
 
+    //close the post modal view
+    $('#closePostModal').on('click', function () {
+        $('#modalPost').addClass('hidden')
+        $('#carousel-wrapper').empty()
+        $("#carousel-indicators").empty();
+    })
+
 })
