@@ -227,18 +227,21 @@ nextButtonPage2.addEventListener("click", function() {
 // Check if password1 field is empty or does not meet the condition
 if (!password1.checkValidity() || !isPasswordValid(password1.value)) {
   passDetailsDiv.style.borderColor = "#991B1B"; // Set accent color for empty field or invalid password
-  document.querySelector(".text-xs.text-gray-500").style.color = "#991B1B"; // Change note color to accent color
+  document.querySelector(".note").style.color = "#991B1B"; // Change note color to accent color
   hasError = true;
 } else {
   passDetailsDiv.style.borderColor = "#9CA3AF"; // Set default color for filled field
-  document.querySelector(".text-xs.text-gray-500").style.color = "#000000"; // Change note color back to default
+  document.querySelector(".note").style.color = "#000000"; // Change note color back to default
 }
 
-// Helper function to check if password meets the criteria
-function isPasswordValid(password) {
-  // Use regular expressions to check if the password contains at least 8 characters with a mix of letters, numbers, and symbols
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-  return passwordRegex.test(password);
+// Check if confirmPassword field is empty or does not match password1 field
+if (confirmPassword.value.trim() === "" || confirmPassword.value !== password1.value) {
+  confirmPassDetailsDiv.style.borderColor = "#991B1B"; // Set accent color for empty field or mismatch
+  passwordMismatchError.classList.remove("hidden"); // Show password mismatch error message
+  hasError = true;
+} else {
+  confirmPassDetailsDiv.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  passwordMismatchError.classList.add("hidden"); // Hide password mismatch error message
 }
 
   // Check if any fields have errors
