@@ -7,6 +7,46 @@ if (
 ) {
   header("location: loginAdmin.php");
   exit();
+} else {
+  require_once '../PHP_process/connection.php';
+  require '../PHP_process/personDB.php';
+  $username = $_SESSION['username'];
+
+  //get the person ID of that user
+  $query = "SELECT univadmin.personID
+            FROM univadmin
+            JOIN user ON univadmin.username = user.username
+            WHERE user.username = '$username'";
+  $result = mysqli_query($mysql_con, $query);
+  if ($result) {
+    $data = mysqli_fetch_assoc($result);
+    $personID = $data['personID'];
+
+    //get person details
+    $personObj = new personDB();
+    $personDataJSON = $personObj->readPerson($personID, $mysql_con);
+    $personData = json_decode($personDataJSON, true);
+
+    $fullname = $personData['fname'] . ' ' . $personData['lname'];
+    $age = $personData['age'];
+    $address = $personData['address'];
+    $bday = $personData['bday'];
+    $gender = ucfirst($personData['gender']);
+    $contactNo = $personData['contactNo'];
+    $personal_email = $personData['personal_email'];
+    $bulsu_email = $personData['bulsu_email'];
+    $profilepicture = $personData['profilepicture'];
+
+    $_SESSION['fullname'] = $fullname;
+    $_SESSION['age'] = $age;
+    $_SESSION['address'] = $address;
+    $_SESSION['bday'] = $bday;
+    $_SESSION['gender'] = $gender;
+    $_SESSION['contactNo'] = $contactNo;
+    $_SESSION['personal_email'] = $personal_email;
+    $_SESSION['bulsu_email'] = $bulsu_email;
+    $_SESSION['profilepicture'] = $profilepicture;
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -164,7 +204,10 @@ if (
                   <span class="block text-lg text-white text-right">
                     Welcome Back <br />
                     <span class="font-semibold text-lg">
-                      Mr. Juan Dela Cruz
+                      Mr.
+                      <?php
+                      echo $_SESSION['fullname'];
+                      ?>
                     </span>
                   </span>
                 </div>
@@ -776,7 +819,11 @@ if (
           <div class="p-3 rounded-md bg-accent flex items-center my-3">
             <img class="h-36 w-36 rounded-full border-2 border-white" src="../images/Mr.Jayson.png" alt="">
             <div class="ms-6">
-              <p class="text-lg text-white font-bold">Jayson Batoon</p>
+              <p class="text-lg text-white font-bold">
+                <?php
+                echo $_SESSION['fullname'];
+                ?>
+              </p>
               <p class="text-blue-300 hover:cursor-pointer hover:text-blue-500">Edit Profile</p>
             </div>
           </div>
@@ -786,27 +833,47 @@ if (
               <p class="font-bold text-accent text-base">About</p>
               <div class="flex mt-3 justify-start">
                 <img src="../assets/icons/person.png" alt="">
-                <span class="px-2">Male</span>
+                <span class="px-2">
+                  <?php
+                  echo $_SESSION['gender'];
+                  ?>
+                </span>
               </div>
 
               <div class="flex mt-3">
                 <img src="../assets/icons/cake.png" alt="">
-                <span class="px-2">Born June 26, 1980</span>
+                <span class="px-2">Born
+                  <?php
+                  echo $_SESSION['bday'];
+                  ?>
+                </span>
               </div>
 
               <div class="flex mt-3">
                 <img class="ps-1 messageIcon" src="../assets/icons/Location.png" alt="">
-                <span class="px-3">32 Sta. Monica Bulakan Bulacan</span>
+                <span class="px-3">
+                  <?php
+                  echo $_SESSION['address'];
+                  ?>
+                </span>
               </div>
 
               <div class="flex mt-3">
                 <img class="ps-1 " src="../assets/icons/Message.png" alt="">
-                <span class="px-4">jaysonbatoon@gmail.com</span>
+                <span class="px-4">
+                  <?php
+                  echo $_SESSION['personal_email'];
+                  ?>
+                </span>
               </div>
 
               <div class="flex mt-3">
                 <img class="ps-1" src="../assets/icons/Call.png" alt="">
-                <span class="px-4">09323887301</span>
+                <span class="px-4">
+                  <?php
+                  echo $_SESSION['contactNo'];
+                  ?>
+                </span>
               </div>
             </div>
 
