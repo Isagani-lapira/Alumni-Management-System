@@ -195,13 +195,7 @@
                           <!-- Batch -->
                           <div class="w-1/2 pr-2">
                             <select name="batch" id="batch" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-accent rounded-md text-accent font-semibold" required>
-                              <option value="">Batch</option>
-                              <script>
-                                const currentYear = new Date().getFullYear();
-                                for (let year = currentYear; year >= currentYear - 23; year--) {
-                                  document.write('<option value="' + year + '">' + year + '</option>');
-                                }
-                              </script>
+                              
                             </select>
                           </div>
 
@@ -234,7 +228,7 @@
                                 }
                               } else if (studentRadio.checked) {
                                 // Add options for student
-                                const yearOptions = ['1st year', '2nd year', '3rd year', '4th year'];
+                                const yearOptions = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
                                 for (let i = 0; i < yearOptions.length; i++) {
                                   const option = document.createElement('option');
                                   option.value = yearOptions[i];
