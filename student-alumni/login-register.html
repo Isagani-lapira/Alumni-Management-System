@@ -155,7 +155,7 @@
                         <div class="w-1/2">
                           <span class="block mb-2 text-sm font-medium text-gray-700">Gender</span>
                           <div class="flex items-center space-x-4" id="gender-div">
-                            <input type="radio" id="male" name="gender" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
+                            <input type="radio" id="male" name="gender" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" checked required>
                             <label for="male" class="text-sm text-gray-700 italic gender-label">Male</label>
                             <input type="radio" id="female" name="gender" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
                             <label for="female" class="text-sm text-gray-700 italic gender-label">Female</label>
@@ -207,11 +207,53 @@
 
                           <!-- Status -->
                           <div class="flex items-center space-x-2">
-                            <input type="radio" id="alumni" name="status" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
+                            <input type="radio" id="alumni" name="status" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" checked required>
                             <label for="alumni" class="status-label text-sm text-gray-700 italic">Alumni</label>
                             <input type="radio" id="student" name="status" class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded" required>
                             <label for="student" class="status-label text-sm text-gray-700 italic">Student</label>
-                          </div>                          
+                          </div>
+
+                          <!-- Script for changing the value inside the dropdown (Batch) -->
+                          <script>
+                            const alumniRadio = document.getElementById('alumni');
+                            const studentRadio = document.getElementById('student');
+                            const batchSelect = document.getElementById('batch');
+
+                            function updateBatchOptions() {
+                              // Clear existing options
+                              batchSelect.innerHTML = '';
+
+                              if (alumniRadio.checked) {
+                                // Add options for alumni
+                                const currentYear = new Date().getFullYear();
+                                for (let year = currentYear; year >= currentYear - 23; year--) {
+                                  const option = document.createElement('option');
+                                  option.value = year;
+                                  option.textContent = year;
+                                  batchSelect.appendChild(option);
+                                }
+                              } else if (studentRadio.checked) {
+                                // Add options for student
+                                const yearOptions = ['1st year', '2nd year', '3rd year', '4th year'];
+                                for (let i = 0; i < yearOptions.length; i++) {
+                                  const option = document.createElement('option');
+                                  option.value = yearOptions[i];
+                                  option.textContent = yearOptions[i];
+                                  batchSelect.appendChild(option);
+                                }
+                              }
+                            }
+
+                            // Initially update the batch options based on the checked radio button
+                            updateBatchOptions();
+
+                            // Add change event listeners to the radio buttons
+                            alumniRadio.addEventListener('change', updateBatchOptions);
+                            studentRadio.addEventListener('change', updateBatchOptions);
+                          </script>
+
+                          
+                          
                         </div>
                     
                         <!-- Email BulSU -->
