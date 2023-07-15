@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once 'connection.php';
 require 'PostTB.php';
 
@@ -13,7 +14,7 @@ if (isset($_POST['action'])) {
             insertData($mysql_con);
             break;
         case 'read':
-            $username = 'isagani@@'; //to be change
+            $username = $_SESSION['username']; //to be change
             $startgDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
             $post = new PostData();
@@ -31,7 +32,7 @@ function insertData($con)
 
     $random = rand(0, 4000);
     $postID = uniqid() . '-' . $random;
-    $username = 'isagani@@'; // to be changed
+    $username = $_SESSION['username']; // to be changed
     $date = date('y/m/d');
     $post = new PostData();
 

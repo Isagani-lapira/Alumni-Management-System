@@ -37,6 +37,7 @@ if (
     $bulsu_email = $personData['bulsu_email'];
     $profilepicture = $personData['profilepicture'];
 
+    $_SESSION['personID'] = $personID;
     $_SESSION['fullname'] = $fullname;
     $_SESSION['age'] = $age;
     $_SESSION['address'] = $address;
@@ -438,7 +439,7 @@ if (
               <span class="font-semibold">Total Emailed</span>
               <?php
               require_once '../PHP_process/connection.php';
-              $query = 'SELECT * FROM `email` WHERE `personID` = "admin23/06/29 11:23:12-932" '; //to be change the personID
+              $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" '; //to be change the personID
               $result = mysqli_query($mysql_con, $query);
               $row = mysqli_num_rows($result);
               echo '<p class="text-5xl font-bold">' . $row . '</p>';
@@ -497,7 +498,7 @@ if (
             <tbody id="emailTBody">
               <?php
               require_once '../PHP_process/connection.php';
-              $query = 'SELECT * FROM `email` WHERE `personID` = "admin23/06/29 11:23:12-932" ORDER BY `dateSent` DESC LIMIT 12';
+              $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ORDER BY `dateSent` DESC LIMIT 12'; //to be change
               $result = mysqli_query($mysql_con, $query);
               $row = mysqli_num_rows($result);
               if ($result && $row > 0) {
@@ -517,8 +518,11 @@ if (
                       </td>
                     </tr>';
                 }
+              } else {
+                echo '<tr>
+                      <p>No available email sent</p>
+                    </tr>';
               }
-
               ?>
             </tbody>
           </table>
