@@ -596,6 +596,52 @@ $(document).ready(function () {
     }
   })
 
+  getStudentRecord()
+  //get student record
+  function getStudentRecord() {
+
+    let action = {
+      action: 'read',
+      currentYear: ''
+    }
+
+    let studentData = new FormData();
+    studentData.append('action', JSON.stringify(action));
+    $.ajax({
+      url: '../PHP_process/studentData.php',
+      method: 'POST',
+      data: studentData,
+      dataType: 'json',
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response.response == "Success") {
+          let data = response
+          let length = data.studentNo.length;
+
+          let tbody = $('#studentTB')
+          for (let i = 0; i < length; i++) {
+            studentNo = data.studentNo[i];
+            fullname = data.fullname[i];
+            contactNo = data.contactNo[i];
+            let tr = $('<tr>');
+            let tdStudentNo = $('<td>').addClass('text-center font-bold').text(studentNo)
+            let tdfullname = $('<td>').addClass('text-center').text(fullname)
+            let tdcontactNo = $('<td>').addClass('text-center').text(contactNo)
+            let viewProfile = $('<td>')
+              .addClass('text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue')
+              .text('VIEW PROFILE')
+
+            tr.append(tdStudentNo, tdfullname, tdcontactNo, viewProfile);
+            tbody.append(tr);
+          }
+        }
+      },
+      error: (error) => { console.log(error) }
+    });
+  }
+
+
 });
 
 
