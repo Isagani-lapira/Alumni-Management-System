@@ -24,8 +24,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style/student-alumni.css" />
-  <link href="/css/main.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../style/student-alumni.css" />
+  <link href="../css/main.css" rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
   <title>BulSU Connect</title>
@@ -126,8 +126,30 @@
       </div>
       
       <!-- TAB 1 -->
-      <div id="tabs-1" class="tab">
+      <div id="tabs-1">
+        <div class="flex pt-48 z-10 w-full h-full">
+
+          <!-- LEFT DIV -->
+          <div class="left-div fixed top-48 left-0 w-2/12 h-full bg-grayish px-8">
+            <!-- Content for the left div -->
+            <p>Left Div</p>
+          </div>
         
+          <div class="flex-1 flex justify-center items-center">
+            <div id="centerDiv" class="bg-green-200 border-2 border-black">
+              <!-- Content for the center div -->
+              <p>Center Div</p>
+              
+            </div>
+          </div>
+        
+          <!-- RIGHT DIV -->
+          <div class="right-div fixed top-48 right-2 w-2/12 h-full bg-grayish px-8">
+            <!-- Content for the right div -->
+            <p>Right Div</p>
+          </div>
+        </div>
+  
       </div>
       
       <!-- TAB 2 -->
@@ -818,9 +840,27 @@
   </div>
       
 
-  <script src="/student-alumni/js/hompage.js"></script>
-  <script src="/js/admin.js"></script>
+  <script src="../student-alumni/js/hompage.js"></script>
+  <script src="../js/admin.js"></script>
   <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
+  <script>
+    // Calculate and set the width of the center div dynamically
+    function setCenterDivWidth() {
+      const leftDiv = document.querySelector('.left-div');
+      const rightDiv = document.querySelector('.right-div');
+      const centerDiv = document.getElementById('centerDiv');
+      
+      const leftDivWidth = leftDiv.offsetWidth;
+      const rightDivWidth = rightDiv.offsetWidth;
+      const centerDivWidth = window.innerWidth - leftDivWidth - rightDivWidth;
+      
+      centerDiv.style.width = `${centerDivWidth}px`;
+    }
+    
+    // Call the function initially and on window resize
+    setCenterDivWidth();
+    window.addEventListener('resize', setCenterDivWidth);
+  </script>
  
 </body>
 

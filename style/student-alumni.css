@@ -30,10 +30,6 @@ body {
   top: 60px; /* Adjust the value according to the height of your navbar */
 }
 
-#tabs-1{
-  margin-top: 100px;
-}
-
 .bg-cover {
   margin-top: 95px; 
   width: auto;
