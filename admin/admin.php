@@ -37,6 +37,8 @@ if (
     $personal_email = $personData['personal_email'];
     $bulsu_email = $personData['bulsu_email'];
     $profilepicture = $personData['profilepicture'];
+
+    $_SESSION['personID'] = $personID;
   }
 }
 ?>
