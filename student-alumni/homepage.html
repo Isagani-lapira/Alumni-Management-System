@@ -142,7 +142,6 @@
               </button>
             </div>
 
-        
             <!-- Verification Job Post -->
             <div id="target-div-job" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
               <button id="verif-btn" onclick="toggleColorJob(), toggleJobPost()">
@@ -150,7 +149,6 @@
                 <span class="ps-3 text-sm text-greyish_black font-medium">Verified Job Post</span>
               </button>
             </div>
-            
 
             <!-- Yearbook -->
             <div id="target-div-yearbook" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
@@ -161,11 +159,11 @@
             </div>
 
             <!-- Make Post Button -->
-            <button id="postButton" class="bg-postButton hover:bg-postHoverButton rounded-md w-full lg:w-3/4 py-2 text-white mt-3">Make a post</button>
+            <button id="postButton" class="bg-postButton hover:bg-postHoverButton rounded-md w-full lg:w-3/4 py-2 text-white mt-3" onclick="openModal()">Make a post</button>
 
             <!-- Upcoming Events -->
             <div class="py-4">
-              <h3 class="text-xl font-bold text-grayish_black">Upcoming Events:</h3>
+              <h3 class="text-lg font-bold text-grayish_black">Upcoming Events:</h3>
               <div class="px-8">
                 <div class="py-1">
                   <ul class="list-disc text-sm">
@@ -186,7 +184,7 @@
                   <p class="list-disc pl-2 text-gray-600 text-sm">August 7, 2023</p>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
 
           <!-- CENTER DIV -->
@@ -204,7 +202,7 @@
                   <div class="flex items-center">
                     <img class="h-12 border-2 border-accentBlue rounded-full inline" src="/images/ye.jpg" alt="">
                     <div class="write pl-2 w-full">
-                      <button id="writeBtn" class="bg-gray-200 hover:bg-gray-100 text-grayish font-extralight py-2 px-4 rounded-full flex-grow w-full hover:shadow-md border-2">
+                      <button id="writeBtn" class="bg-gray-200 hover:bg-gray-100 text-grayish font-extralight py-2 px-4 rounded-full flex-grow w-full hover:shadow-md border-2" onclick="openModal()">
                         <span class="flex items-center">
                           <span>Write something...</span>
                         </span>
@@ -252,7 +250,211 @@
             <p>Right Div</p>
           </div>
 
-          
+          <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
+          <!-- Notifications Tab -->
+          <div id="notification-tab" class="notification-tab hidden fixed top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
+            <div class="notification-content bg-white center-shadow border-2 p-4 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
+              <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
+              
+              <div class="flex space-x-4 mb-4">
+                <button class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">All</button>
+                <button class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">Unread</button>
+              </div>
+              
+              <!-- THIS WEEK -->
+              <div class="this-week">
+                <h3 class="text-greyish text-sm font-semibold mb-2">This Week</h3>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+              </div>
+
+              <!-- THIS MONTH -->
+              <div class="this-month">
+                <h3 class="text-greyish text-sm font-semibold mb-2">This Month</h3>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+              </div>
+
+              <!-- EARLIER -->
+              <div class="earlier">
+                <h3 class="text-greyish text-sm font-semibold mb-2">Earlier</h3>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- MODAL FOR POST -->
+          <div id="postModal" class="post modal hidden fixed inset-0 flex items-center justify-center">
+            <div class="modal-content bg-white mx-auto rounded-md p-4 shadow-lg mt-10">
+              <!-- Modal header -->
+              <div class="flex items-center justify-between mb-4">
+                <!-- Modal title -->
+                <h2 class="text-grayish_black text-lg font-bold mx-auto">CREATE POST</h2>
+                <!-- Close button -->
+                <button class="text-gray-600 text-3xl p-1 focus:outline-none" onclick="closeModal()">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="mb-4">
+                <!-- User profile picture and name -->
+                <div class="flex items-center mb-2">
+                  <img class="h-10 border-2 border-accentBlue rounded-full inline" src="/images/ye.jpg" alt="">
+                  <p class="text-grayish_black font-semibold text-sm pl-2">Patrick Joseph Pronuevo</p>
+                </div>
+                <!-- Post description -->
+                <textarea id="postDescription" class="w-full h-32 p-2 border-gray-300 border rounded-md resize-none" placeholder="Write something..."></textarea>
+                <!-- Add images button -->
+                <button class="hover:bg-gray-100 text-grayish font-extralight py-2 px-4 rounded-md flex items-center mt-3 ml-auto" onclick="openFileExplorer()">
+                  <span class="fa-solid fa-image text-green-600"></span>
+                  <span class="ml-2"> Add Photo</span>
+                </button>
+                <input type="file" id="fileInput" class="hidden" accept="image/*" multiple onchange="handleFileSelection(event)">
+                <!-- Selected image previews -->
+                <div id="selectedImagesContainer" class="mt-4 flex flex-wrap justify-center max-h-64 overflow-y-auto"></div>
+              </div>
+              <!-- Modal footer -->
+              <div class="flex">
+                <!-- Post button -->
+                <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white py-2 px-4 w-full" onclick="submitPost()">Post</button>
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -950,7 +1152,6 @@
       
 
   <script src="../student-alumni/js/hompage.js"></script>
-  <script src="../js/admin.js"></script>
   <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
  
 </body>

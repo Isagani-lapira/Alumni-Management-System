@@ -133,6 +133,21 @@ function toggleJobPost() {
   $("#jobPostFeed").toggleClass("hidden");
 }
 
+//Yearbook
+function toggleYearbook() {
+  $("#mainFeedContainer").toggleClass("hidden");
+  $("#yearbookContainer").toggleClass("hidden");
+}
+
+// TOGGLE THE FEED AGAIN 
+function toggleFeed() {
+  $("#mainFeedContainer").removeClass("hidden");
+  $("#yearbookContainer").addClass("hidden");
+  //$("#mainFeed").removeClass("hidden");
+  //$("#jobPostFeed").addClass("hidden");
+
+}
+
 const jobOffers = document.querySelectorAll('.job-offer');
 jobOffers.forEach(offer => {
   offer.addEventListener('click', () => {
@@ -143,16 +158,6 @@ jobOffers.forEach(offer => {
   });
 });
 
-//Yearbook
-function toggleYearbook() {
-  $("#mainFeedContainer").toggleClass("hidden");
-  $("#yearbookContainer").toggleClass("hidden");
-}
-
-function toggleFeed() {
-  $("#mainFeedContainer").removeClass("hidden");
-  $("#yearbookContainer").addClass("hidden");
-}
 
 //BOOKMARK ICON ON JOB HUNT
 jobOffers.forEach((offer) => {
@@ -179,4 +184,63 @@ function setCenterDivWidth() {
 // Call the function initially and on window resize
 setCenterDivWidth();
 window.addEventListener('resize', setCenterDivWidth);
+
+// MODAL RELATED FUCNTIONS
+
+// Open the modal
+function openModal() {
+  var modal = document.getElementById("postModal");
+  modal.style.display = "block";
+}
+
+// Close the modal
+function closeModal() {
+  var modal = document.getElementById("postModal");
+  modal.style.display = "none";
+}
+
+//IMAGE PICKER
+
+function openFileExplorer() {
+  document.getElementById("fileInput").click();
+}
+
+function handleFileSelection(event) {
+  const selectedFiles = event.target.files;
+  const selectedImagesContainer = document.getElementById("selectedImagesContainer");
+
+  for (let i = 0; i < selectedFiles.length; i++) {
+    const selectedFile = selectedFiles[i];
+
+    if (selectedFile.type.startsWith("image/")) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const imageContainer = document.createElement("div");
+        imageContainer.className = "relative max-w-xs h-auto mr-2 mt-2 rounded-md";
+
+        const image = document.createElement("img");
+        image.src = e.target.result;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "&times;";
+        deleteButton.className = "text-accent text-3xl p-1 focus:outline-none absolute top-0 right-0";
+        deleteButton.onclick = function () {
+          deleteImage(imageContainer);
+        };
+
+        imageContainer.appendChild(image);
+        imageContainer.appendChild(deleteButton);
+        selectedImagesContainer.appendChild(imageContainer);
+      };
+
+      reader.readAsDataURL(selectedFile);
+    }
+  }
+}
+
+function deleteImage(imageContainer) {
+  imageContainer.parentNode.removeChild(imageContainer);
+}
+
 
