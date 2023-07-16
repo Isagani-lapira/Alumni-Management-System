@@ -131,8 +131,8 @@
 
           <!-- LEFT DIV -->
           <div class="left-div fixed top-48 left-0 w-1/4 h-full px-8">
+            
             <!-- Content for the left div -->
-
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
               <button id="notif-btn" class="notif " onclick="buttonColor(), toggleNotifications()">
@@ -160,9 +160,10 @@
             <!-- Make Post Button -->
             <button id="postButton" class="bg-postButton hover:bg-postHoverButton rounded-md w-full lg:w-3/4 py-2 text-white mt-3">Make a post</button>
 
+            <!-- Upcoming Events -->
             <div class="py-4">
               <h3 class="text-xl font-bold text-grayish_black">Upcoming Events:</h3>
-              <div class="px-4">
+              <div class="px-8">
                 <div class="py-1">
                   <ul class=" list-disc text-sm">
                     <li>Alumni Event</li>
@@ -180,30 +181,65 @@
                     <li>Start of Classes</li>
                   </ul>
                   <p class="list-disc pl-2 text-gray-600 text-sm">August 7, 2023</p>
-                </div>
-                
+                </div> 
               </div>
             </div>
-            
-              
           </div>
         
+          <!-- CENTER DIV -->
           <div class="flex-1 flex justify-center items-center">
-            <div id="centerDiv" class="bg-green-200 border-2 border-black">
+            <div id="centerDiv" class="border-l border-r border-grayish px-4 mt-2">
               <!-- Content for the center div -->
-              <p>Center Div</p>
               
+              <!-- Make Post &&Profile -->
+              <div class="post p-3 input-post-width mx-auto rounded-md center-shadow w-5/6">
+                <div class="flex items-center">
+                  <img class="h-12 border-2 border-accentBlue rounded-full inline" src="/images/ye.jpg" alt="">
+                  <div class="write pl-2 w-full">
+                    <button id="writeBtn" class="bg-gray-200 hover:bg-gray-100 text-grayish font-extralight py-2 px-4 rounded-full flex-grow w-full hover:shadow-md border-2">
+                      <span class="flex items-center">
+                        <span>Write something...</span>
+                      </span>
+                    </button>                              
+                  </div> 
+                </div>
+              </div>
+
+              <!-- POST -->
+              <div class="post w-5/6 mt-5 mx-auto post-width">
+                <div class="center-shadow p-3 rounded-md">
+                  <div class="flex justify-start items-center">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full" src="/images/univ-prof.jpg" alt="">
+                      <p class="text-start px-3 text-sm font-semibold">Bulacan State University</p>
+                    </div>
+                    <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                  </div>
+
+                  <p class="text-sm mt-2 p-2">"Our future growth relies on competitiveness and innovation, skills and productivity... and these in turn rely on the education of our people." ~ Julia Gilla
+                    Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU!  😊🙌
+                    #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars</p>
+                  <img class="my-2 rounded-md" src="/images/univ-post.jpg" alt="">
+                  <div class="flex py-2 items-center">
+                    <img class="h-5" src="/assets/icons/heart.png" alt="">
+                    <span class="ms-2 text-sm">1,498</span>
+                    <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
+                    <span class="ms-2 text-sm">3,000</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         
           <!-- RIGHT DIV -->
-          <div class="right-div fixed top-48 right-2 w-1/4 h-full bg-grayish px-8">
+          <div class="right-div fixed top-48 right-2 w-1/4 h-full px-8">
             <!-- Content for the right div -->
             <p>Right Div</p>
           </div>
 
+          
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
-
           <!-- Notifications Tab -->
           <div id="notification-tab" class="notification-tab hidden fixed top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
             <div class="notification-content bg-white center-shadow border-2 p-4 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
@@ -373,7 +409,6 @@
           </div>
 
         </div>
-  
       </div>
       
       <!-- TAB 2 -->
@@ -1058,7 +1093,6 @@
 
         </div>
       </div>
-
 
     </div>
   </div>
