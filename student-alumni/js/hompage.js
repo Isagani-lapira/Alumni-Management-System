@@ -143,6 +143,17 @@ jobOffers.forEach(offer => {
   });
 });
 
+//Yearbook
+function toggleYearbook() {
+  $("#mainFeedContainer").toggleClass("hidden");
+  $("#yearbookContainer").toggleClass("hidden");
+}
+
+function toggleFeed() {
+  $("#mainFeedContainer").removeClass("hidden");
+  $("#yearbookContainer").addClass("hidden");
+}
+
 //BOOKMARK ICON ON JOB HUNT
 jobOffers.forEach((offer) => {
   const bookmarkIcon = offer.querySelector('.bookmark-icon');
