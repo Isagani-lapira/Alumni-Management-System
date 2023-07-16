@@ -491,7 +491,7 @@ if (
             <tbody id="emailTBody">
               <?php
               require_once '../PHP_process/connection.php';
-              $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ORDER BY `dateSent` DESC LIMIT 12';
+              $query = 'SELECT * FROM `email` WHERE `personID` = "' . $personID . '" ORDER BY `dateSent` DESC LIMIT 12';
               $result = mysqli_query($mysql_con, $query);
               $row = mysqli_num_rows($result);
               if ($result && $row > 0) {
@@ -1546,7 +1546,7 @@ if (
                 <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Search email!">
               </div>
               <p id="userNotExist" class="text-sm italic text-accent hidden">User not exist</p>
-              <div id="suggestionContainer" class="absolute -bottom-5 p-2 w-full rounded-md z-10"></div>
+              <div id="suggestionContainer" class="absolute p-2 w-full rounded-md z-10"></div>
             </div>
 
             <p class="font-semibold text-sm mt-2">Subject</p>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -15,15 +16,15 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
     $recipient = $_POST['recipient'];
     $message = $_POST['message'];
     $subject = $_POST['subject'];
-    $selectedImages = $_FILES['images'];
-    $selectedFiles =  $_FILES['files'];
+    $selectedImages = (isset($_FILES['images'])) ? $_FILES['images'] : null;
+    $selectedFiles =  (isset($_FILES['files'])) ? $_FILES['files'] : null;
 
     $emailInsertion = new EmailTable();
     $random = rand(0, 4000);
     $uniqueId = substr(md5(uniqid()), 0, 7);
     $emailID = 'Admin' . $uniqueId . $random;
     $date = date('y/m/d');
-    $personID = 'admin23/06/29 11:23:12-932'; //to be changed
+    $personID = $_SESSION['personID']; //to be changed
 
     // //check for recipient to check what is the available data 
     if ($recipient == 'groupEmail') {
@@ -144,14 +145,20 @@ function sendEmail($subject, $message, $recipient, $images, $files)
     $mail->Body = $message; //message
 
     //adding attachment
-    foreach ($images['tmp_name'] as $index => $tmp_name) {
-        $file_name = $images['name'][$index];
-        $mail->addAttachment($tmp_name, $file_name);
+    if ($images != null) {
+        foreach ($images['tmp_name'] as $index => $tmp_name) {
+            $file_name = $images['name'][$index];
+            $mail->addAttachment($tmp_name, $file_name);
+        }
     }
-    foreach ($files['tmp_name'] as $index => $tmp_name) {
-        $file_name = $files['name'][$index];
-        $mail->addAttachment($tmp_name, $file_name);
+
+    if ($files != null) {
+        foreach ($files['tmp_name'] as $index => $tmp_name) {
+            $file_name = $files['name'][$index];
+            $mail->addAttachment($tmp_name, $file_name);
+        }
     }
+
 
     $mail->send(); //send the email
 }

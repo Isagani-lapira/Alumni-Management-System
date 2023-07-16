@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'connection.php';
 require 'emailTable.php';
 
@@ -15,7 +15,7 @@ if (isset($_POST['action'])) {
             if (isset($_POST['dateStart']) && isset($_POST['dateEnd'])) {
                 $startDate = $_POST['dateStart'];
                 $endDate = $_POST['dateEnd'];
-                $personID = 'admin23/06/29 11:23:12-932'; // to be change
+                $personID = $_SESSION['personID'];
                 $emailData->queryDate($startDate, $endDate, $personID, $mysql_con);
             } else echo 'no Date inserted';
             break;

@@ -568,14 +568,14 @@ $(document).ready(function () {
           //show all the suggested email
           for (let i = 0; i < length; i++) {
             suggestedEmail = data.suggestions[i]
-            email = $('<p>').text(suggestedEmail).addClass('hover:text-white hover:bg-gray-300 cursor-pointer')
+            email = $('<p>').text(suggestedEmail).addClass('hover:bg-gray-200 cursor-pointer border-b border-gray-300 py-1')
               .on('click', function () {
                 let emailVal = $(this).text();
                 $('#searchEmail').val(emailVal);
                 $('#suggestionContainer').hide()
               })
 
-            $('#suggestionContainer').append(email).addClass('bg-gray-300');
+            $('#suggestionContainer').append(email).addClass('bg-white');
           }
         }
       },
