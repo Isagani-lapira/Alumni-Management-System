@@ -604,77 +604,10 @@ if (
                 <th class="text-start rounded-tl-lg">Student Number</th>
                 <th>NAME</th>
                 <th>CONTACT NUMBER</th>
-                <th>USER TYPE</th>
                 <th class="rounded-tr-lg">DETAILS</th>
               </tr>
             </thead>
-            <tbody class="text-sm">
-              <tr class="h-14 text-xs">
-                <td class="text-start font-bold">2020101933</td>
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/alumni-pic2.png"></img>
-                    <span class="ml-2">Wade Warren</span>
-                  </div>
-                </td>
-                <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">
-                  <span class="py-1 px-2 rounded-lg text-xs font-medium bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE
-                </td>
-              </tr>
-
-              <tr class="h-14 text-xs">
-                <td class="text-start font-bold">2020101933</td>
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/avatar-prof.png"></img>
-                    <span class="ml-2">Leslie Alexander</span>
-                  </div>
-                </td>
-                <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">
-                  <span class="py-1 px-2 rounded-lg text-xs font-medium bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE
-                </td>
-              </tr>
-
-              <tr class="h-14 text-xs">
-                <td class="text-start font-bold">2020101933</td>
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/footer-img.png"></img>
-                    <span class="ml-2">Floyd Miles</span>
-                  </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                  <span class="py-1 px-2 rounded-lg text-xs font-medium bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE
-                </td>
-              </tr>
-
-
-              <tr class="h-14 text-xs">
-                <td class="text-start font-bold">2020101933</td>
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src=""></img>
-                    <span class="ml-2">Cameron Williamson</span>
-                  </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                  <span class="py-1 px-2 rounded-lg text-xs font-medium bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">VIEW PROFILE
-                </td>
-              </tr>
-
-
+            <tbody id="studentTB" class="text-sm">
             </tbody>
           </table>
         </div>
