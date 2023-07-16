@@ -25,6 +25,7 @@ $(document).ready(function () {
   let validExtension = ['jpeg', 'jpg', 'png'] //only allowed extension
   let fileExtension
 
+  const decodedPersonID = decodeURIComponent($('#accPersonID').val())
   //change the tab appearance when active and not
   $(".tabs li").click(function () {
     $(".tabs li").removeClass("ui-tabs-active")
@@ -282,7 +283,7 @@ $(document).ready(function () {
       data.append('author', 'Admin');
       data.append('skills', JSON.stringify(skills));
       data.append('requirements', JSON.stringify(requirements));
-      data.append('personID', 'admin23/06/27 11:34:36-1440');
+      data.append('personID', decodedPersonID);
 
       $.ajax({
         url: '../PHP_process/jobTable.php',
@@ -350,7 +351,7 @@ $(document).ready(function () {
             let logo = imgFormat + companyLogo;
 
             //encrypt the personID to be compare on the personID return that is also encrypted
-            let desiredValue = 'admin23/06/27 11:23:12-904'
+            let desiredValue = decodedPersonID;
             let desiredValueEncrypted = md5(desiredValue);
 
             //check if there's a similar person ID and produce a my joblist
@@ -570,7 +571,6 @@ $(document).ready(function () {
             email = $('<p>').text(suggestedEmail).addClass('hover:text-white hover:bg-gray-300 cursor-pointer')
               .on('click', function () {
                 let emailVal = $(this).text();
-                console.log(emailVal)
                 $('#searchEmail').val(emailVal);
                 $('#suggestionContainer').hide()
               })

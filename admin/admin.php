@@ -10,6 +10,7 @@ if (
 } else {
   require_once '../PHP_process/connection.php';
   require '../PHP_process/personDB.php';
+
   $username = $_SESSION['username'];
 
   //get the person ID of that user
@@ -36,17 +37,6 @@ if (
     $personal_email = $personData['personal_email'];
     $bulsu_email = $personData['bulsu_email'];
     $profilepicture = $personData['profilepicture'];
-
-    $_SESSION['personID'] = $personID;
-    $_SESSION['fullname'] = $fullname;
-    $_SESSION['age'] = $age;
-    $_SESSION['address'] = $address;
-    $_SESSION['bday'] = $bday;
-    $_SESSION['gender'] = $gender;
-    $_SESSION['contactNo'] = $contactNo;
-    $_SESSION['personal_email'] = $personal_email;
-    $_SESSION['bulsu_email'] = $bulsu_email;
-    $_SESSION['profilepicture'] = $profilepicture;
   }
 }
 ?>
@@ -84,6 +74,9 @@ if (
         <p class="text-accent font-semibold text-center">Announcement successfully added!</p>
       </div>
     </div>
+    <?php
+    echo '<input type="hidden" id="accPersonID" value="' .  rawurlencode($personID) . '">';
+    ?>
     <div id="tabs" class="flex font-Montserrat text-greyish_black">
       <aside class="w-3/12 top-0 h-screen p-5 border border-r-gray-300">
         <h1 class="font-extrabold text-18sm my-5">
@@ -207,7 +200,7 @@ if (
                     <span class="font-semibold text-lg">
                       Mr.
                       <?php
-                      echo $_SESSION['fullname'];
+                      echo $fullname;
                       ?>
                     </span>
                   </span>
@@ -338,7 +331,7 @@ if (
 
                       <?php
                       require_once '../PHP_process/connection.php';
-                      $query = 'SELECT * FROM `email` WHERE `personID` = "admin23/06/29 11:23:12-932"';
+                      $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '"';
                       $result = mysqli_query($mysql_con, $query);
                       $row = mysqli_num_rows($result);
                       echo '<span class="text-accent">' . $row . '</span>';
@@ -439,7 +432,7 @@ if (
               <span class="font-semibold">Total Emailed</span>
               <?php
               require_once '../PHP_process/connection.php';
-              $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" '; //to be change the personID
+              $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ';
               $result = mysqli_query($mysql_con, $query);
               $row = mysqli_num_rows($result);
               echo '<p class="text-5xl font-bold">' . $row . '</p>';
@@ -498,7 +491,7 @@ if (
             <tbody id="emailTBody">
               <?php
               require_once '../PHP_process/connection.php';
-              $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ORDER BY `dateSent` DESC LIMIT 12'; //to be change
+              $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ORDER BY `dateSent` DESC LIMIT 12';
               $result = mysqli_query($mysql_con, $query);
               $row = mysqli_num_rows($result);
               if ($result && $row > 0) {
@@ -520,7 +513,7 @@ if (
                 }
               } else {
                 echo '<tr>
-                      <p>No available email sent</p>
+                      <td class="text-blue-400 text-lg text-center w-full">No available email sent</td>
                     </tr>';
               }
               ?>
@@ -825,7 +818,7 @@ if (
             <div class="ms-6">
               <p class="text-lg text-white font-bold">
                 <?php
-                echo $_SESSION['fullname'];
+                echo $fullname;
                 ?>
               </p>
               <p class="text-blue-300 hover:cursor-pointer hover:text-blue-500">Edit Profile</p>
@@ -839,7 +832,7 @@ if (
                 <img src="../assets/icons/person.png" alt="">
                 <span class="px-2">
                   <?php
-                  echo $_SESSION['gender'];
+                  echo $gender;
                   ?>
                 </span>
               </div>
@@ -848,7 +841,7 @@ if (
                 <img src="../assets/icons/cake.png" alt="">
                 <span class="px-2">Born
                   <?php
-                  echo $_SESSION['bday'];
+                  echo $bday;
                   ?>
                 </span>
               </div>
@@ -857,7 +850,7 @@ if (
                 <img class="ps-1 messageIcon" src="../assets/icons/Location.png" alt="">
                 <span class="px-3">
                   <?php
-                  echo $_SESSION['address'];
+                  echo $address;
                   ?>
                 </span>
               </div>
@@ -866,7 +859,7 @@ if (
                 <img class="ps-1 " src="../assets/icons/Message.png" alt="">
                 <span class="px-4">
                   <?php
-                  echo $_SESSION['personal_email'];
+                  echo $personal_email;
                   ?>
                 </span>
               </div>
@@ -875,7 +868,7 @@ if (
                 <img class="ps-1" src="../assets/icons/Call.png" alt="">
                 <span class="px-4">
                   <?php
-                  echo $_SESSION['contactNo'];
+                  echo $contactNo
                   ?>
                 </span>
               </div>
