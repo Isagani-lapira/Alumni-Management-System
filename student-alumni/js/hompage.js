@@ -109,6 +109,30 @@ function buttonColor() {
   }
 }
 
+//Verification Job Post
+function toggleColorJob() {
+  var targetDiv = document.getElementById("target-div-job");
+  targetDiv.classList.toggle("red-color");
+
+  var icon = document.querySelector("#verif-btn .fa-check-circle");
+  var text = document.querySelector("#verif-btn .text-greyish_black");
+
+  if (targetDiv.classList.contains("red-color")) {
+    icon.style.color = "white";
+    text.style.color = "white";
+    targetDiv.classList.add("hover:bg-red-900");
+  } else {
+    icon.style.color = "";
+    text.style.color = "";
+    targetDiv.classList.remove("hover:bg-red-900");
+  }
+}
+
+function toggleJobPost() {
+  $("#mainFeed").toggleClass("hidden");
+  $("#jobPostFeed").toggleClass("hidden");
+}
+
 const jobOffers = document.querySelectorAll('.job-offer');
 jobOffers.forEach(offer => {
   offer.addEventListener('click', () => {

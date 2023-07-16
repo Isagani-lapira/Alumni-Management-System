@@ -131,9 +131,6 @@ body {
   scrollbar-color: #991B1B; /* Set the color of the thumb */
 }
 
-.tab {
-  display: none;
-}
 
 /* For Firefox */
 /* Note: Firefox does not support rounded scrollbars, so this is just a general styling */

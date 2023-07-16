@@ -683,10 +683,6 @@ th,
   inset: 0px;
 }
 
-.-bottom-5 {
-  bottom: -1.25rem;
-}
-
 .-left-2 {
   left: -0.5rem;
 }
@@ -767,8 +763,16 @@ th,
   right: 0px;
 }
 
+.right-1 {
+  right: 0.25rem;
+}
+
 .right-12 {
   right: 3rem;
+}
+
+.right-2 {
+  right: 0.5rem;
 }
 
 .right-3 {
@@ -805,6 +809,10 @@ th,
 
 .top-24 {
   top: 6rem;
+}
+
+.top-48 {
+  top: 12rem;
 }
 
 .top-5 {
@@ -1504,6 +1512,10 @@ th,
 
 .w-5 {
   width: 1.25rem;
+}
+
+.w-5\/6 {
+  width: 83.333333%;
 }
 
 .w-6 {
@@ -3287,11 +3299,6 @@ th,
   padding-bottom: 2rem;
 }
 
-.px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -3339,10 +3346,6 @@ th,
 
 .pr-1 {
   padding-right: 0.25rem;
-}
-
-.pr-12 {
-  padding-right: 3rem;
 }
 
 .pr-16 {
@@ -3403,18 +3406,6 @@ th,
 
 .pt-8 {
   padding-top: 2rem;
-}
-
-.pr-14 {
-  padding-right: 3.5rem;
-}
-
-.pr-10 {
-  padding-right: 2.5rem;
-}
-
-.pr-8 {
-  padding-right: 2rem;
 }
 
 .text-left {
