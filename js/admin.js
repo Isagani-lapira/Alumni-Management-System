@@ -280,7 +280,7 @@ $(document).ready(function () {
 
       //data to be sent in the php
       data.append('action', JSON.stringify(action))
-      data.append('author', 'Admin');
+      data.append('author', 'University Admin');
       data.append('skills', JSON.stringify(skills));
       data.append('requirements', JSON.stringify(requirements));
       data.append('personID', decodedPersonID);

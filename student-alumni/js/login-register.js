@@ -37,6 +37,27 @@ $(document).ready(function () {
     })
   })
 
+  $('#registrationForm').on('submit', function (e) {
+    e.preventDefault();
+    let action = {
+      action: 'create',
+      account: 'User'
+    }
+    let formData = new FormData(this)
+    formData.append('action', JSON.stringify(action))
+
+    //register the person
+    $.ajax({
+      type: "POST",
+      url: "../PHP_process/userData.php",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => { console.log(response) },
+      error: (error) => { console.log(error) }
+    })
+  })
+
 });
 
 // Get the necessary elements
@@ -55,7 +76,7 @@ nextButton.addEventListener("click", function () {
   // Perform form validation
   const firstName = document.getElementById("firstName");
   const lastName = document.getElementById("lastName");
-  const email = document.getElementById("emailperso");
+  const email = document.getElementById("personalEmail");
   const contactNumber = document.getElementById("contactNumber");
   const studentNumber = document.getElementById("studentNumber");
   const birthday = document.getElementById("birthday");
@@ -286,7 +307,7 @@ nextButtonPage2.addEventListener("click", function () {
   // Display summary information
   const fullName = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
   const college = document.getElementById("college").value;
-  const emailPersonal = document.getElementById("emailperso").value;
+  const emailPersonal = document.getElementById("personalEmail").value;
   const studentNumber = document.getElementById("studentNumber").value;
   const emailBulsu = document.getElementById("email").value;
   const password = document.getElementById("password1").value;

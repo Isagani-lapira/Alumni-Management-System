@@ -5,6 +5,8 @@ require_once 'userTable.php';
 require_once 'personDB.php';
 require_once 'userTable.php';
 require_once 'univAdmin.php';
+require_once 'studentTB.php';
+require_once 'alumniTB.php';
 
 if (isset($_POST['action'])) {
     $data = $_POST['action'];
@@ -14,7 +16,10 @@ if (isset($_POST['action'])) {
     //check what are to be perform
     switch ($action) {
         case 'create':
-            insertionPerson($mysql_con);
+            $accountType = $actionArray['account'];
+            //check if account is user to identify if it is alumni or student
+            $userType = ($accountType == "User") ? $_POST['status'] : null;
+            insertionPerson($accountType, $userType, $mysql_con);
             break;
         case 'read':
             //check first if it has query
@@ -41,14 +46,14 @@ if (isset($_POST['action'])) {
     }
 } else echo 'not pumasok';
 
-function insertionPerson($con)
+function insertionPerson($accountType, $userType, $con)
 {
 
     //datas to be stored
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
-    $age = $_POST['age'];
     $bday = $_POST['bday'];
+    $age = getAge($bday);
     $contactNo = $_POST['contactNo'];
     $address = $_POST['address'];
     $personalEmail = $_POST['personalEmail'];
@@ -59,7 +64,7 @@ function insertionPerson($con)
 
     $randomNo = rand(1, 2000);
     $currentDateTime = date('y/m/d h:i:s');
-    $personID = 'admin' . $currentDateTime . '-' . $randomNo;
+    $personID = $accountType . $currentDateTime . '-' . $randomNo;
 
     $person = new personDB();
     $insert_person = $person->insertPerson(
@@ -78,7 +83,6 @@ function insertionPerson($con)
     );
 
     if ($insert_person) {
-        $accountType = 'UnivAdmin';
         $userTable = new User_Table();
         $userAcc = $userTable->addUser($username, $password, $accountType, $con);
 
@@ -86,11 +90,50 @@ function insertionPerson($con)
             $currentYr = date('Y');
             $adminID = 'ADM' . '-' . $currentYr . '-' . $randomNo;
 
-            $univAdmin = new UniversityAdmin();
-            $insertUnivAdmin = $univAdmin->insertUnivAdmin($adminID, $personID, $username, $con);
+            $insertAcc = false;
+            switch ($accountType) {
+                case 'UnivAdmin':
+                    $univAdmin = new UniversityAdmin();
+                    $insertAcc = $univAdmin->insertUnivAdmin($adminID, $personID, $username, $con);
+                    break;
+                case 'User':
+                    $studentNo = $_POST['studNo'];
+                    $college = $_POST['college'];
+                    $batch = $_POST['batch'];
+                    if ($userType == "Student") {
+                        $studentUser = new Student();
+                        $insertAcc = $studentUser->insertStudent($studentNo, $college, $personID, $username, $batch, $con);
+                    } else {
+                        $alumniUser = new Alumni();
+                        $insertAcc = $alumniUser->insertAlumni($studentNo, $personID, $college, $username, $batch, $con);
+                    }
+                    break;
+                case 'ColAdmin':
+                    echo 'colAdmin';
+                    break;
+                default:
+                    echo 'ayaw gumana';
+                    break;
+            }
 
-            if ($insertUnivAdmin) echo 'Success';
+
+            if ($insertAcc) echo 'Success';
             else echo 'Unsuccess';
         }
     }
+}
+
+function getAge($bday)
+{
+    // Current date
+    $currentDate = date('Y-m-d');
+
+    // Create DateTime objects for the birthdate and current date
+    $birthdateObj = (int)substr($bday, 0, 4);
+    $currentDateObj = (int)substr($currentDate, 0, 4);
+
+    // Calculate the difference between the two dates
+    $ageInterval = $birthdateObj - $currentDateObj;
+
+    return $ageInterval;
 }
