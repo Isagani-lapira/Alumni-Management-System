@@ -245,25 +245,29 @@
 
                     <!-- Image Modal -->
                     <div id="imageModal" class="modal hidden fixed inset-0 flex items-center justify-center">
-                      <div class="modal-contentPost post relative flex flex-col md:flex-row w-3/4 h-auto rounded-md bg-white">
+                      <div class="modal-contentPost post relative flex flex-col md:flex-row w-full h-full overflow-x-hidden rounded-md bg-white">
                         <!-- Left Side: Image -->
-                        <div class="w-full h-full p-3 relative">
-                          <button class="text-black text-3xl absolute top-2 left-2 w-10 rounded-full" onclick="closeModalPost()">&times;</button>
-                          <img id="modalImage" class="max-w-full max-h-full object-contain rounded-md" src="" alt="">
+                        <div class="w-full h-full px-10 relative bg-black">
+                          <button class="text-white text-3xl absolute top-2 left-2 w-10 rounded-full" onclick="closeModalPost()">&times;</button>
+                          <img id="modalImage" class="w-full h-full object-contain rounded-md" src="" alt="">
                         </div>
 
                         <!-- Vertical Line Separator -->
-                        <div class="border-l border-gray-200 px-1 my-4 hidden md:block"></div>
+                        <!-- <div class="border-l border-gray-200 px-1 my-4 hidden md:block"></div> -->
 
                         <!-- Right Side: User Info and Comments -->
-                        <div class="my-4 md:mt-0 flex-grow p-4">
+                        <div class="my-4 md:mt-0 flex-grow p-4 bg-gray-100">
                           <!-- User Info -->
                           <div class="flex items-center mb-2">
-                            <img class="h-10 border-2 border-accentBlue rounded-full inline" src="../images/ye.jpg" alt="">
+                            <img class="h-10 border-2 border-accent rounded-full inline" src="../images/BSU-logo.png" alt="">
                             <div class="ml-2">
-                              <p class="text-grayish_black font-semibold text-sm">Patrick Joseph Pronuevo</p>
-                              <p class="text-grayish text-xs">@3xjoseph</p>
+                              <p class="text-grayish_black font-semibold text-sm">Bulacan State University</p>
+                              <p class="text-accent text-xs">@BulSU</p>
                             </div>
+                          </div>
+
+                          <div class="w-1/2">
+                             <p class="text-black text-xs break-words"> #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars</p>
                           </div>
 
                           <!-- Likes and Comments -->
@@ -280,18 +284,18 @@
                             </div>
                           </div>
 
-                          <hr class="border-gray-200 mb-2">
+                          <hr class="border-black mb-2">
 
                           <!-- User Comments -->
-                          <div class="comment-section max-h-72 overflow-y-auto">
+                          <div class="comment-section h-96 overflow-y-auto">
                             <!-- Comment 1 -->
                             <div class="flex items-start mb-2"> 
                               <div class="p-2">
-                                <div class="w-8 h-8">
+                                <div class="w-10 h-10">
                                   <img class="h-full w-full border-2 border-accentBlue rounded-full" src="../images/happy.png" alt="">
                                 </div>
                               </div>
-                              <div class="pl-2 bg-gray-200 rounded-lg p-2 mt-2 w-48">
+                              <div class="pl-2 bg-gray-200 rounded-lg p-2 mt-2 w-52">
                                 <div class="flex items-center justify-between">
                                   <div>
                                     <div class="flex">
@@ -315,7 +319,7 @@
                             <!-- Comment 2 -->
                             <div class="flex items-start mb-2"> 
                               <div class="p-2">
-                                <div class="w-8 h-8">
+                                <div class="w-10 h-10">
                                   <img class="h-full w-full border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
                                 </div>
                               </div>
@@ -341,12 +345,28 @@
                             </div>
 
                           </div>
+
+                          <!-- User Comment Input -->
+                          <div class="flex p-1">
+                            <!-- User Profile Image -->
+                            <img id="userProfileImage" class="h-10 border-2 border-accentBlue rounded-full inline" src="../images/ye.jpg" alt="">
+                            <!-- Comment Text Area -->
+                            <div class="flex flex-col ml-2 border border-gray-300 rounded-md w-full">
+                              <textarea id="commentInput" class="w-full h-16 p-2 bg-gray-100 outline-none" placeholder="Write your comment"></textarea>
+                              <div class="flex justify-end">
+                                <button class="text-accent rounded-md hover:bg-accentDark" onclick="submitComment()">
+                                  <i class="fa-regular fa-paper-plane p-2"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
                         </div>
                       </div>
                     </div>
 
                     <!-- Comment Modal -->
-                    <div id="commentModal" class="modal hidden fixed inset-0 flex items-center justify-center">
+                    <div id="commentModal" class="modal hidden fixed inset-0 flex items-center justify-center ">
                       <div class="modal-contentPost post relative flex flex-col w-5/12 rounded-md bg-white">
 
                         <!-- Modal header -->
@@ -429,7 +449,7 @@
                           <img id="userProfileImage" class="h-10 border-2 border-accentBlue rounded-full inline" src="../images/ye.jpg" alt="">
                           <!-- Comment Text Area -->
                           <div class="flex flex-col ml-2 border border-gray-300 rounded-md w-full">
-                            <textarea id="commentInput" class="w-full h-16 p-2" placeholder="Write your comment"></textarea>
+                            <textarea id="commentInput" class="w-full h-16 p-2 outline-none" placeholder="Write your comment"></textarea>
                             <div class="flex justify-end">
                               <button class="text-accent rounded-md hover:bg-accentDark" onclick="submitComment()">
                                 <i class="fa-regular fa-paper-plane p-2"></i>

@@ -1398,14 +1398,6 @@ th,
   height: 100vh;
 }
 
-.h-72 {
-  height: 18rem;
-}
-
-.h-2\/4 {
-  height: 50%;
-}
-
 .max-h-16 {
   max-height: 4rem;
 }
@@ -1414,24 +1406,16 @@ th,
   max-height: 5rem;
 }
 
+.max-h-40 {
+  max-height: 10rem;
+}
+
 .max-h-64 {
   max-height: 16rem;
 }
 
-.max-h-72 {
-  max-height: 18rem;
-}
-
 .max-h-full {
   max-height: 100%;
-}
-
-.max-h-48 {
-  max-height: 12rem;
-}
-
-.max-h-40 {
-  max-height: 10rem;
 }
 
 .min-h-screen {
@@ -1578,6 +1562,10 @@ th,
   width: 83.333333%;
 }
 
+.w-52 {
+  width: 13rem;
+}
+
 .w-6 {
   width: 1.5rem;
 }
@@ -1622,24 +1610,16 @@ th,
   width: 40rem;
 }
 
+.w-auto {
+  width: auto;
+}
+
 .w-full {
   width: 100%;
 }
 
 .w-screen {
   width: 100vw;
-}
-
-.w-11\/12 {
-  width: 91.666667%;
-}
-
-.w-2\/4 {
-  width: 50%;
-}
-
-.w-auto {
-  width: auto;
 }
 
 .max-w-6xl {
@@ -1664,6 +1644,10 @@ th,
 
 .max-w-xs {
   max-width: 20rem;
+}
+
+.max-w-screen-2xl {
+  max-width: 1536px;
 }
 
 .flex-1 {
@@ -2967,6 +2951,11 @@ th,
   background-color: rgb(96 16 16 / var(--tw-bg-opacity));
 }
 
+.bg-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -3378,16 +3367,6 @@ th,
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.px-64 {
-  padding-left: 16rem;
-  padding-right: 16rem;
-}
-
-.px-36 {
-  padding-left: 9rem;
-  padding-right: 9rem;
 }
 
 .pb-2 {
@@ -4646,10 +4625,6 @@ body {
     height: max-content;
   }
 
-  .md\:max-h-72 {
-    max-height: 18rem;
-  }
-
   .md\:w-2\/6 {
     width: 33.333333%;
   }
@@ -4668,10 +4643,6 @@ body {
 
   .md\:w-full {
     width: 100%;
-  }
-
-  .md\:w-3\/4 {
-    width: 75%;
   }
 
   .md\:max-w-5xl {
@@ -4741,19 +4712,11 @@ body {
     display: flex;
   }
 
-  .lg\:h-2\/5 {
-    height: 40%;
-  }
-
   .lg\:w-3\/4 {
     width: 75%;
   }
 
   .lg\:w-3\/6 {
-    width: 50%;
-  }
-
-  .lg\:w-1\/2 {
     width: 50%;
   }
 
@@ -4781,10 +4744,6 @@ body {
 }
 
 @media (min-width: 1280px) {
-  .xl\:h-2\/5 {
-    height: 40%;
-  }
-
   .xl\:w-2\/5 {
     width: 40%;
   }
