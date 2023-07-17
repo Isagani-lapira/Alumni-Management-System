@@ -103,7 +103,8 @@ $(document).ready(function () {
                     let formData = $('#registerForm')[0];
                     let form = new FormData(formData)
                     let action = {
-                        action: 'create'
+                        action: 'create',
+                        account: 'UnivAdmin'
                     }
                     form.append('action', JSON.stringify(action))
 
@@ -135,6 +136,10 @@ $(document).ready(function () {
             };
         }
 
+    })
+
+    $('#goBack').on('click', function () {
+        window.location.href = "../admin/loginAdmin.php"
     })
 
     $('#usernameField').on('change', function () {

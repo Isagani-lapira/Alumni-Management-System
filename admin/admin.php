@@ -696,7 +696,7 @@ if (
                 <th>NAME</th>
                 <th>COLLEGE</th>
                 <th>BATCH</th>
-                <th>Employment Status</th>
+                <th class="rounded-tr-lg">Employment Status</th>
               </tr>
             </thead>
             <tbody id="alumniTB" class="text-sm">

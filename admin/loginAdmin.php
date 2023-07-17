@@ -103,8 +103,8 @@
                             <div>
                                 <label class="font-semibold">Gender</label>
                                 <div class="flex justify-evenly items-center mt-2 w-full">
-                                    <input name="gender" type="radio" checked>Male
-                                    <input name="gender" type="radio">Female
+                                    <input name="gender" type="radio" checked value="male">Male
+                                    <input name="gender" type="radio" value="female">Female
                                 </div>
                             </div>
                             <div>
