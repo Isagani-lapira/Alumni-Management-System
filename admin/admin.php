@@ -692,16 +692,17 @@ if (
           <table class="table-auto w-full mt-10 text-xs font-thin">
             <thead>
               <tr class="bg-accent text-white">
-                <th class="text-start rounded-tl-lg">Student Number</th>
+                <th class="rounded-tl-lg">Student Number</th>
                 <th>NAME</th>
-                <th>CONTACT NUMBER</th>
+                <th>COLLEGE</th>
+                <th>BATCH</th>
                 <th>Employment Status</th>
-                <th class="rounded-tr-lg">DETAILS</th>
               </tr>
             </thead>
             <tbody id="alumniTB" class="text-sm">
             </tbody>
           </table>
+          <p id="alumniNoRecMsg" class="text-center text-blue-500">No available data</p>
         </div>
 
         <!-- college content -->

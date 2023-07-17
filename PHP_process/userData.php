@@ -105,7 +105,8 @@ function insertionPerson($accountType, $userType, $con)
                         $insertAcc = $studentUser->insertStudent($studentNo, $college, $personID, $username, $batch, $con);
                     } else {
                         $alumniUser = new Alumni();
-                        $insertAcc = $alumniUser->insertAlumni($studentNo, $personID, $college, $username, $batch, $con);
+                        $employmentStat = "Employed";
+                        $insertAcc = $alumniUser->insertAlumni($studentNo, $personID, $college, $username, $batch, $employmentStat, $con);
                     }
                     break;
                 case 'ColAdmin':
