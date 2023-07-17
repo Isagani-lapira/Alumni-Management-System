@@ -360,25 +360,88 @@
 
                         <!-- Image -->
                         <div class="p-4">
-                          <img id="modalPostImage" class="max-w-full max-h-full rounded-md" src="" alt="">
+                          <img id="modalPostImage" class="max-w-full max-h-full rounded-md" src="" alt=""> 
                         </div>
-                        
-                        
-                        <!-- User Info -->
-                        <div id="modalUserInfo" class="flex items-center p-4">
-                          <!-- User Profile Image and Name -->
-                          <img id="userProfileImage" class="h-10 border-2 border-accentBlue rounded-full inline" src="../images/ye.jpg" alt="">
-                          <p id="userName" class="text-grayish_black font-semibold ml-2">Patrick Joseph Pronuevo</p>
+                             
+
+                        <!-- Comments -->
+                        <div id="modalComments" class="max-h-48 overflow-y-auto px-4">
+                          <!-- Comment 1 -->
+                          <div class="flex items-start mb-2"> 
+                            <div class="p-2">
+                              <div class="w-8 h-8">
+                                <img class="h-full w-full border-2 border-accentBlue rounded-full" src="../images/happy.png" alt="">
+                              </div>
+                            </div>
+                            <div class="pl-2 bg-gray-200 rounded-lg p-2 mt-2 w-auto">
+                              <div class="flex items-center justify-between">
+                                <div>
+                                  <div class="flex">
+                                    <p class="text-black font-semibold text-sm pr-2">Isagani Lapira jr.</p>
+                                    <div class="relative inline-block">
+                                      <i class="fa-solid fa-ellipsis text-grayish cursor-pointer" onclick="toggleDropdownPostModal('dropdown1-1')"></i>
+                                      <div id="dropdown1-1" class="hidden absolute right-0 top-8 mt-2 w-40 bg-white rounded-md shadow-lg">
+                                        <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
+                                          <i class="fa-solid fa-flag p-2 text-black"></i>
+                                          <span class="ml-2 text-black">Report</span>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <p class="text-grayish_black text-sm break-words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id dignissim erat. Suspendisse sed malesuada nisi, sit amet laoreet tellus. Sed feugiat aliquet tortor, quis semper diam condimentum vitae. Praesent tincidunt velit sed erat congue euismod. Pellentesque tortor leo, tempus sit amet sem blandit, congue tincidunt sem. Donec scelerisque orci at tortor facilisis, vitae molestie lorem luctus. Proin porta lobortis ipsum id scelerisque. Curabitur sed consequat tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce faucibus auctor scelerisque.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <!-- Comment 2 -->
+                          <div class="flex items-start mb-2"> 
+                            <div class="p-2">
+                              <div class="w-8 h-8">
+                                <img class="h-full w-full border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
+                              </div>
+                            </div>
+                            <div class="pl-2 bg-gray-200 rounded-lg p-2 mt-2 w-auto">
+                              <div class="flex items-center justify-between">
+                                <div>
+                                  <div class="flex">
+                                    <p class="text-black font-semibold text-sm pr-2">Jayson Batoon.</p>
+                                    <div class="relative inline-block">
+                                      <i class="fa-solid fa-ellipsis text-grayish cursor-pointer" onclick="toggleDropdownPostModal('dropdown2-2')"></i>
+                                      <div id="dropdown2-2" class="hidden absolute right-0 top-8 mt-2 w-40 bg-white rounded-md shadow-lg">
+                                        <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
+                                          <i class="fa-solid fa-flag p-2 text-black"></i>
+                                          <span class="ml-2 text-black">Report</span>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <p class="text-grayish_black text-sm break-words">Congrats! Good job guys.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Add more comments here... -->
                         </div>
 
-                        <!-- Comment Input -->
-                        <div class="flex-grow p-4">
-                          <textarea id="commentInput" class="w-full h-24 border border-gray-300 rounded-md p-2" placeholder="Write your comment"></textarea>
-                          <button class="mt-4 px-4 py-2 bg-accent text-white rounded-md hover:bg-accentDark" onclick="submitComment()">Submit</button>
+                        <!-- User Comment Input -->
+                        <div class="flex p-4">
+                          <!-- User Profile Image -->
+                          <img id="userProfileImage" class="h-10 border-2 border-accentBlue rounded-full inline" src="../images/ye.jpg" alt="">
+                          <!-- Comment Text Area -->
+                          <div class="flex flex-col ml-2 border border-gray-300 rounded-md w-full">
+                            <textarea id="commentInput" class="w-full h-16 p-2" placeholder="Write your comment"></textarea>
+                            <div class="flex justify-end">
+                              <button class="text-accent rounded-md hover:bg-accentDark" onclick="submitComment()">
+                                <i class="fa-regular fa-paper-plane p-2"></i>
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-
 
                     <!-- Footer -->
                     <div class="flex py-2 items-center justify-start">
