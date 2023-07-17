@@ -245,15 +245,15 @@
 
                     <!-- Image Modal -->
                     <div id="imageModal" class="modal hidden fixed inset-0 flex items-center justify-center">
-                      <div class="modal-contentPost post relative flex flex-col md:flex-row w-3/4 rounded-md bg-white">
+                      <div class="modal-contentPost post relative flex flex-col md:flex-row w-3/4 h-auto rounded-md bg-white">
                         <!-- Left Side: Image -->
-                        <div class="w-3/4 h-full p-3 relative">
+                        <div class="w-full h-full p-3 relative">
                           <button class="text-black text-3xl absolute top-2 left-2 w-10 rounded-full" onclick="closeModalPost()">&times;</button>
                           <img id="modalImage" class="max-w-full max-h-full object-contain rounded-md" src="" alt="">
                         </div>
 
                         <!-- Vertical Line Separator -->
-                        <div class="border-l border-gray-200 px-1 my-4"></div>
+                        <div class="border-l border-gray-200 px-1 my-4 hidden md:block"></div>
 
                         <!-- Right Side: User Info and Comments -->
                         <div class="my-4 md:mt-0 flex-grow p-4">
@@ -312,7 +312,6 @@
                               </div>
                             </div>
 
-
                             <!-- Comment 2 -->
                             <div class="flex items-start mb-2"> 
                               <div class="p-2">
@@ -345,7 +344,7 @@
                         </div>
                       </div>
                     </div>
-        
+
                     <!-- Comment Modal -->
                     <div id="commentModal" class="modal hidden fixed inset-0 flex items-center justify-center">
                       <div class="modal-contentPost post relative flex flex-col w-5/12 rounded-md bg-white">
@@ -359,13 +358,12 @@
                         </div>
 
                         <!-- Image -->
-                        <div class="p-4">
+                        <div class="p-4 w-10/12 mx-auto">
                           <img id="modalPostImage" class="max-w-full max-h-full rounded-md" src="" alt=""> 
-                        </div>
-                             
+                        </div>                           
 
                         <!-- Comments -->
-                        <div id="modalComments" class="max-h-48 overflow-y-auto px-4">
+                        <div id="modalComments" class="max-h-40 overflow-y-auto px-4">
                           <!-- Comment 1 -->
                           <div class="flex items-start mb-2"> 
                             <div class="p-2">
@@ -393,7 +391,6 @@
                               </div>
                             </div>
                           </div>
-
 
                           <!-- Comment 2 -->
                           <div class="flex items-start mb-2"> 
