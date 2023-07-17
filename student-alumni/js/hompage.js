@@ -270,3 +270,24 @@ function closeModalPost() {
   modal.classList.add('hidden');
 }
 
+//For Like and Comment (POST)
+function toggleIcon(iconId) {
+  const icon = document.getElementById(iconId);
+  icon.classList.toggle('fa-solid');
+  icon.classList.toggle('fa-regular');
+}
+
+//For Like and Comment (IMAGEMODAL POST)
+function toggleIcon1(iconId) {
+  const icon = document.getElementById(iconId);
+  icon.classList.toggle('fa-solid');
+  icon.classList.toggle('fa-regular');
+}
+
+//Dropdown for Image Modal (POST)
+function toggleDropdown(dropdownId) {
+  const dropdown = document.getElementById(dropdownId);
+  dropdown.classList.toggle('hidden');
+}
+
+

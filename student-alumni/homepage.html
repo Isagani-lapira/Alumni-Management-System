@@ -212,60 +212,156 @@
                 <div class="post w-5/6 mt-5 mx-auto post-width h-3/6">
                   <div class="center-shadow p-3 rounded-md">
                     
-                   <!-- Header -->
-                  <div class="flex justify-between items-center">
-                    <!-- User information -->
-                    <div class="flex items-center">
-                      <!-- Profile -->
-                      <img class="h-12 border-2 border-accent rounded-full" src="../images/univ-prof.jpg" alt="">
-                      <!-- Name -->
-                      <p class="text-start px-3 text-sm font-semibold">Bulacan State University</p>
+                    <!-- Header -->
+                    <div class="flex justify-between items-center">
+                      <!-- User information -->
+                      <div class="flex items-center">
+                        <!-- Profile -->
+                        <img class="h-12 border-2 border-accent rounded-full" src="../images/univ-prof.jpg" alt="">
+                        <!-- Name -->
+                        <p class="text-start px-3 text-sm font-semibold">Bulacan State University</p>
+                      </div>
+
+                      <!-- Elipsis Dropdown for report -->
+                      <div class="relative inline-block">
+                        <i class="fa-solid fa-ellipsis p-4 cursor-pointer" onclick="toggleDropdown()"></i>
+                        <div id="dropdownMenu" class="flex hidden absolute right-4 w-40 bg-white rounded-md shadow-lg post">
+                          <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
+                            <i class="fa-solid fa-flag p-2 text-black"></i>
+                            <span class="ml-2 text-black">Report</span>
+                          </button>
+                        </div>
+                      </div>
+
                     </div>
 
-                    <!-- Elipsis Dropdown for report -->
-                    <div class="relative inline-block">
-                      <i class="fa-solid fa-ellipsis p-4 cursor-pointer" onclick="toggleDropdown()"></i>
-                      <div id="dropdownMenu" class="flex hidden absolute right-4 w-40 bg-white rounded-md shadow-lg post">
-                        <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
-                          <i class="fa-solid fa-flag p-2 text-black"></i>
-                          <span class="ml-2 text-black">Report</span>
-                        </button>
+                    <!-- Body -->
+                    <p class="text-sm mt-2 p-2">
+                      "Our future growth relies on competitiveness and innovation, skills and productivity... and these in turn rely on the education of our people." ~ Julia Gilla
+                      Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU! 😊🙌
+                      #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars
+                    </p>
+                    <img class="my-2 rounded-md cursor-pointer" src="../images/univ-post.jpg" alt="" onclick="openImageModal(this.src)">
+
+                    <!-- Image Modal -->
+                    <div id="imageModal" class="modal hidden fixed inset-0 flex items-center justify-center">
+                      <div class="modal-contentPost post relative flex flex-col md:flex-row w-9/12 rounded-md bg-white">
+                        <!-- Left Side: Image -->
+                        <div class="w-3/4 h-full p-3 relative">
+                          <button class="text-black text-3xl absolute top-2 left-2 w-10 rounded-full" onclick="closeModalPost()">&times;</button>
+                          <img id="modalImage" class="max-w-full max-h-full object-contain rounded-md" src="" alt="">
+                        </div>
+
+                        <!-- Vertical Line Separator -->
+                        <div class="border-l border-gray-200 px-1 my-4"></div>
+
+                        <!-- Right Side: User Info and Comments -->
+                        <div class="my-4 md:mt-0 flex-grow p-4">
+                          <!-- User Info -->
+                          <div class="flex items-center mb-2">
+                            <img class="h-10 border-2 border-accentBlue rounded-full inline" src="../images/ye.jpg" alt="">
+                            <div class="ml-2">
+                              <p class="text-grayish_black font-semibold text-sm">Patrick Joseph Pronuevo</p>
+                              <p class="text-grayish text-xs">@3xjoseph</p>
+                            </div>
+                          </div>
+
+                          <!-- Likes and Comments -->
+                          <div class="flex items-center justify-end mb-2">
+                            <!-- Likes (Heart) -->
+                            <div class="likes px-2">
+                              <button id="heartIcon1" class="fa-regular fa-heart h-8 text-accent" onclick="toggleIcon1('heartIcon1')"></button>
+                              <span class="text-sm">1,498</span>
+                            </div>
+                            <!-- Comment -->
+                            <div class="comment px-2">
+                              <button id="commentIcon1" class="fa-regular fa-comment h-8 text-grayish" onclick="toggleIcon1('commentIcon1')"></button>
+                              <span class="text-sm">3,000</span>
+                            </div>
+                          </div>
+
+                          <hr class="border-gray-200 mb-2">
+
+                          <!-- User Comments -->
+                          <div class="comment-section max-h-72 overflow-y-auto">
+                            <!-- Comment 1 -->
+                            <div class="flex items-start mb-2"> 
+                              <div class="p-2">
+                                <div class="w-8 h-8">
+                                  <img class="h-full w-full border-2 border-accentBlue rounded-full" src="../images/happy.png" alt="">
+                                </div>
+                              </div>
+                              <div class="pl-2 bg-gray-200 rounded-lg p-2 mt-2 w-48">
+                                <div class="flex items-center justify-between">
+                                  <div>
+                                    <div class="flex">
+                                      <p class="text-black font-semibold text-sm pr-2">Isagani Lapira jr.</p>
+                                      <i class="fa-solid fa-ellipsis text-grayish cursor-pointer" onclick="toggleDropdown('dropdown1')"></i>
+                                    </div>
+                                    <p class="text-grayish_black text-sm break-words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id dignissim erat. Suspendisse sed malesuada nisi, sit amet laoreet tellus. Sed feugiat aliquet tortor, quis semper diam condimentum vitae. Praesent tincidunt velit sed erat congue euismod. Pellentesque tortor leo, tempus sit amet sem blandit, congue tincidunt sem. Donec scelerisque orci at tortor facilisis, vitae molestie lorem luctus. Proin porta lobortis ipsum id scelerisque. Curabitur sed consequat tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce faucibus auctor scelerisque.</p>
+                                  </div>
+                                  <div class="relative inline-block">
+                                    <div id="dropdown1" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
+                                      <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
+                                        <i class="fa-solid fa-flag p-2 text-black"></i>
+                                        <span class="ml-2 text-black">Report</span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Comment 2 -->
+                            <div class="flex items-start mb-2"> 
+                              <div class="p-2">
+                                <div class="w-8 h-8">
+                                  <img class="h-full w-full border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
+                                </div>
+                              </div>
+                              <div class="pl-2 bg-gray-200 rounded-lg p-2 mt-2 w-48">
+                                <div class="flex items-center justify-between">
+                                  <div>
+                                    <div class="flex">
+                                      <p class="text-black font-semibold text-sm pr-2">Jayson Batoon</p>
+                                      <i class="fa-solid fa-ellipsis text-grayish cursor-pointer" onclick="toggleDropdown('dropdown2')"></i>
+                                    </div>
+                                    <p class="text-grayish_black text-sm break-words">Congrats! Good job.</p>
+                                  </div>
+                                  <div class="relative inline-block">
+                                    <div id="dropdown2" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
+                                      <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
+                                        <i class="fa-solid fa-flag p-2 text-black"></i>
+                                        <span class="ml-2 text-black">Report</span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                  </div>
 
-                  <!-- Body -->
-                  <p class="text-sm mt-2 p-2">
-                    "Our future growth relies on competitiveness and innovation, skills and productivity... and these in turn rely on the education of our people." ~ Julia Gilla
-                    Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU! 😊🙌
-                    #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars
-                  </p>
-                  <img class="my-2 rounded-md cursor-pointer" src="../images/univ-post.jpg" alt="" onclick="openImageModal(this.src)">
-
-                  <!-- Image Modal -->
-                  <div id="imageModal" class="modal hidden fixed inset-0 flex items-center justify-center">
-                    <div class="modal-contentPost relative">
-                      <img id="modalImage" class="max-w-full max-h-full" src="" alt="">
-                      <button class="text-black text-3xl absolute top-4 right-4 w-10 rounded-full bg-gray-100 hover:bg-gray-200" onclick="closeModalPost()">&times;</button>
-
+                    <!-- Footer -->
+                    <div class="flex py-2 items-center justify-start">
+                      <div class="likes px-2">
+                        <button id="heartIcon" class="fa-regular fa-heart h-10 text-accent " onclick="toggleIcon('heartIcon')"></button>
+                        <span class="text-sm">1,498</span>
+                      </div>
+                      <div class="comment px-2">
+                        <button id="commentIcon" class="fa-regular fa-comment h-10 text-grayish " onclick="toggleIcon('commentIcon')"></button>
+                        <span class="text-sm">3,000</span>
+                      </div>   
                     </div>
-                  </div>
-                                        
-                  <!-- Footer -->
-                  <div class="flex py-2 items-center justify-start">
-                    <div class="likes px-2">
-                      <i class="fa-regular fa-heart h-8 text-accent"></i>
-                      <span class="text-sm">1,498</span>
-                    </div>
-                    <div class="comment px-2">
-                      <i class="fa-regular fa-comment h-8 text-grayish"></i>
-                      <span class="text-sm">3,000</span>
-                    </div>   
-                  </div>
 
                   </div>
                 </div>
+
+                
               </div>
 
               <!-- Job Post Feed -->
