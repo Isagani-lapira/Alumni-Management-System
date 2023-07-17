@@ -1305,6 +1305,10 @@ th,
   height: 0.75rem;
 }
 
+.h-3\/4 {
+  height: 75%;
+}
+
 .h-3\/6 {
   height: 50%;
 }
@@ -1392,6 +1396,10 @@ th,
 
 .h-screen {
   height: 100vh;
+}
+
+.h-8 {
+  height: 2rem;
 }
 
 .max-h-16 {
@@ -3795,6 +3803,11 @@ th,
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
 }
 
 .underline {

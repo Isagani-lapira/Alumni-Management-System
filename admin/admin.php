@@ -1784,13 +1784,14 @@ if (
           </div>
           <p id="postDescript" class=" text-greyish_black font-light text-sm">Description</p>
           <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2">
-
             <span id="noOfLikes">32</span>
             <img src="../assets/icons/emptyheart.png" alt="">
             <span id="noOfComment">0</span>
             <img src="../assets/icons/comment.png" alt="">
-
           </div>
+
+          <!-- comments -->
+          <div id="commentContainer" class=" h-3/4 p-2"></div>
         </div>
       </div>
     </div>

@@ -142,7 +142,6 @@ $(document).ready(function () {
                 if (data.response == 'Success') {
                     $('#noPostMsg').hide()
                     let length = data.colCode.length;
-
                     $('.totalPost').text(length); //total number of posted 
 
                     let username = data.username;
@@ -150,7 +149,7 @@ $(document).ready(function () {
                     let avatar = ""; //change base on the avatar of the user
                     for (let i = 0; i < length; i++) {
                         data.response[i]
-                        // let postID = data.postID
+                        let postID = data.postID[i]
                         let collegeCode = data.colCode[i]
                         let caption = data.caption[i]
                         let date = data.date[i]
@@ -160,8 +159,8 @@ $(document).ready(function () {
 
                         let containerAnn = 'announcementCont'
                         let containerProfile = 'profileCont'
-                        addPost(fullname, username, caption, imagesObj, date, i, comment, containerAnn, collegeCode) //add post in table;
-                        addPost(fullname, username, caption, imagesObj, date, i, comment, containerProfile, null) //add post in profile;
+                        addPost(postID, fullname, username, caption, imagesObj, date, i, comment, containerAnn, collegeCode) //add post in table;
+                        addPost(postID, fullname, username, caption, imagesObj, date, i, comment, containerProfile, null) //add post in profile;
                     }
                     toAddProfile = false //won't be affected by date range 
                 }
@@ -187,19 +186,17 @@ $(document).ready(function () {
         return textDate;
     }
 
-    function addPost(name, accUN, postcaption, images, postdate, position, comments, container, colCode) {
+    function addPost(postID, name, accUN, postcaption, images, postdate, position, comments, container, colCode) {
 
         if (container == "announcementCont")
-            announcementTbDisplay(colCode, name, accUN, postcaption, images, postdate, position, comments)
+            announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments)
         else if (container == "profileCont" && toAddProfile) {
             postDisplay(name, accUN, postcaption, images, postdate, position, comments)
         }
 
-
-
     }
 
-    function announcementTbDisplay(colCode, name, accUN, postcaption, images, postdate, position, comments) {
+    function announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments) {
         let tbody = $('#postTBody')
 
         //create of rows
@@ -213,7 +210,7 @@ $(document).ready(function () {
         let viewBtn = $('<button>').addClass('bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500').text('View')
         viewBtn.on('click', function () {
             $('#modalPost').removeClass('hidden')
-            viewingOfPost(name, accUN, postcaption, images, position)
+            viewingOfPost(postID, name, accUN, postcaption, images, position)
         })
         action.append(delBtn, viewBtn)
         row.append(colCodeData, commentsData, postdateData, action)
@@ -257,10 +254,10 @@ $(document).ready(function () {
 
     }
 
-    function viewingOfPost(name, accUN, description, images, position) {
+    function viewingOfPost(postID, name, accUN, description, images, position) {
         $('#postFullName').text(name)
         $('#postUN').text(accUN)
-        $('#postDescript').text(description)
+        $('#postDescript').text(description).addClass('text-sm my-2 text-gray-400')
 
         const carouselWrapper = $("#carousel-wrapper");
         const carouselIndicators = $("#carousel-indicators");
@@ -308,6 +305,8 @@ $(document).ready(function () {
                 $('#item-' + currentImageDisplay).addClass('hidden')
             currentImageDisplay = (currentImageDisplay == 0) ? 0 : currentImageDisplay - 1
         })
+
+        getComment(postID)
     }
 
     //close the post modal view
@@ -345,4 +344,48 @@ $(document).ready(function () {
         });
     });
 
+
+    //retrieving the comments
+    function getComment(postID) {
+        const action = {
+            action: 'read',
+            postID: postID
+        }
+
+        let formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+
+        $.ajax({
+            url: '../PHP_process/commentData.php',
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (response) => {
+                const parsedResponse = JSON.parse(response);
+                if (parsedResponse.result == 'Success') {
+                    const length = parsedResponse.commentID.length;
+
+                    //display every comments
+                    for (let i = 0; i < length; i++) {
+                        const commentID = parsedResponse.commentID[i];
+                        const fullname = parsedResponse.fullname[i];
+                        const comment = parsedResponse.comment[i];
+
+                        let commentContainer = $('<div>').addClass("flex gap-2 my-2")
+                        let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full border border-accent");
+                        let commentDescript = $('<div>').addClass("bg-gray-300 rounded-md p-2 flex-grow text-sm flex flex-col gap-1 text-greyish_black");
+                        let commentor = $('<p>').text(fullname)
+                        let postComment = $('<p>').text(comment).addClass('text-xs text-gray-500');
+
+                        commentDescript.append(commentor, postComment);
+                        commentContainer.append(imgProfile, commentDescript)
+
+                        $('#commentContainer').append(commentContainer);
+                    }
+                }
+            },
+            error: (error) => { console.log(error) }
+        })
+    }
 })
