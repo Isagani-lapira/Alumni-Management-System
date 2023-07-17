@@ -244,3 +244,29 @@ function deleteImage(imageContainer) {
 }
 
 
+// Dropdown report for post
+
+// Toggle dropdown menu
+function toggleDropdown() {
+  const dropdownMenu = document.getElementById('dropdownMenu');
+  dropdownMenu.classList.toggle('hidden');
+}
+
+
+//Function for Zoom Image (POST)
+function openImageModal(imageSrc) {
+  const modal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  
+  modalImage.src = imageSrc;
+  modal.classList.remove('hidden');
+}
+
+function closeModalPost() {
+  const modal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  
+  modalImage.src = '';
+  modal.classList.add('hidden');
+}
+

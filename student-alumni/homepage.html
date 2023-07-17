@@ -39,7 +39,7 @@
       <div class="Navbar fixed top-0 left-0 right-0 z-30">
         <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
           <a href="homepage.html" class="col-span-1 flex items-center">
-            <img src="/images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
+            <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
             <span class="ml-2 text-xl font-bold">BulSU Connect</span>
           </a>
       
@@ -56,7 +56,7 @@
       
           <div class="col-span-2 md:col-span-1 flex items-center justify-end">
             <img href="profile.html" class="mr-4">
-            <img src="/images/ye.jpg" alt="Profile Icon" class="w-10 h-10 profile-icon" />
+            <img src="../images/ye.jpg" alt="Profile Icon" class="w-10 h-10 profile-icon" />
             </img>
             <p href="profile.html" class="mr-4 text-sm font-medium text-greyish_black p-4">
               Patrick Joseph Pronuevo
@@ -70,10 +70,7 @@
             </div>
       
             <!-- Dropdown Content -->
-            <div
-              id="dropdown-content"
-              class="absolute bg-white rounded-md shadow-lg mt-40 justify-evenly right-8 hidden w-72 p-2"
-            >
+            <div id="dropdown-content" class="absolute bg-white rounded-md shadow-lg mt-40 justify-evenly right-8 hidden w-72 p-2">
               <a href="profile.html" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg">
                 <i class="fas fa-light fa-user text-md pr-2"></i>See Profile
               </a>
@@ -200,7 +197,7 @@
                 <!-- Make Post && Profile -->
                 <div id="makePostProfile" class="post p-3 input-post-width mx-auto rounded-md center-shadow w-5/6">
                   <div class="flex items-center">
-                    <img class="h-12 border-2 border-accentBlue rounded-full inline" src="/images/ye.jpg" alt="">
+                    <img class="h-12 border-2 border-accentBlue rounded-full inline" src="../images/ye.jpg" alt="">
                     <div class="write pl-2 w-full">
                       <button id="writeBtn" class="bg-gray-200 hover:bg-gray-100 text-grayish font-extralight py-2 px-4 rounded-full flex-grow w-full hover:shadow-md border-2" onclick="openModal()">
                         <span class="flex items-center">
@@ -214,24 +211,57 @@
                 <!-- POST -->
                 <div class="post w-5/6 mt-5 mx-auto post-width">
                   <div class="center-shadow p-3 rounded-md">
-                    <div class="flex justify-start items-center">
-                      <div class="flex items-center">
-                        <img class="h-12 border-2 border-accent rounded-full" src="../images/univ-prof.jpg" alt="">
-                        <p class="text-start px-3 text-sm font-semibold">Bulacan State University</p>
-                      </div>
-                      <img class="ml-auto" src="/assets/more_horiz.png" alt="">
+                    
+                   <!-- Header -->
+                  <div class="flex justify-between items-center">
+                    <!-- User information -->
+                    <div class="flex items-center">
+                      <!-- Profile -->
+                      <img class="h-12 border-2 border-accent rounded-full" src="../images/univ-prof.jpg" alt="">
+                      <!-- Name -->
+                      <p class="text-start px-3 text-sm font-semibold">Bulacan State University</p>
                     </div>
 
-                    <p class="text-sm mt-2 p-2">"Our future growth relies on competitiveness and innovation, skills and productivity... and these in turn rely on the education of our people." ~ Julia Gilla
-                      Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU! 😊🙌
-                      #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars</p>
-                    <img class="my-2 rounded-md" src="/images/univ-post.jpg" alt="">
-                    <div class="flex py-2 items-center">
-                      <img class="h-5" src="/assets/icons/heart.png" alt="">
-                      <span class="ms-2 text-sm">1,498</span>
-                      <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
-                      <span class="ms-2 text-sm">3,000</span>
+                    <!-- Elipsis Dropdown for report -->
+                    <div class="relative inline-block">
+                      <i class="fa-solid fa-ellipsis p-4 cursor-pointer" onclick="toggleDropdown()"></i>
+                      <div id="dropdownMenu" class="flex hidden absolute right-4 w-40 bg-white rounded-md shadow-lg post">
+                        <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
+                          <i class="fa-solid fa-flag p-2 text-black"></i>
+                          <span class="ml-2 text-black">Report</span>
+                        </button>
+                      </div>
                     </div>
+
+                  </div>
+
+
+
+                    <!-- Body -->
+                    <p class="text-sm mt-2 p-2">
+                      "Our future growth relies on competitiveness and innovation, skills and productivity... and these in turn rely on the education of our people." ~ Julia Gilla
+                      Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU! 😊🙌
+                      #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars
+                    </p>
+                    <img class="my-2 rounded-md cursor-pointer" src="../images/univ-post.jpg" alt="" onclick="openImageModal(this.src)">
+
+                    <!-- Image Modal -->
+                    <div id="imageModal" class="modal hidden fixed inset-0 flex items-center justify-center">
+                      <div class="modal-contentPost relative">
+                        <img id="modalImage" class="max-w-full max-h-full" src="" alt="">
+                        <button class="text-black text-3xl absolute top-1 right-10 h-10 w-10 rounded-full bg-gray-100 hover:bg-gray-200" onclick="closeModalPost()">&times;</button>
+
+                      </div>
+                    </div>
+                                        
+                   <!-- Footer -->
+                  <div class="flex py-2 items-center justify-end">
+                    <i class="fa-regular fa-heart h-6 p-2 text-accent"></i>
+                    <span class="text-lg">1,498</span>
+                    <i class="fa-regular fa-comment h-6 p-2 text-grayish"></i>
+                    <span class="ml-1 text-lg">3,000</span>
+                  </div>
+
                   </div>
                 </div>
               </div>
@@ -468,7 +498,7 @@
       <div id="tabs-2">
         <!--IMAGE HEADER-->
         <div id="image-header-con" class="relative top-24 mt-1 z-10 h-4/12">
-          <img src="/images/bsu-header5.jpg" alt="Image Header" class="w-full h-auto">
+          <img src="../images/bsu-header5.jpg" alt="Image Header" class="w-full h-auto">
           <div class="absolute inset-0 flex flex-col items-center justify-center">
             <h1 class="text-white text-5xl lg:text-7xl font-bold">Welcome to BulSU Events</h1>
             <p class="text-white text-lg font-bold">See the newest events here</p>
@@ -484,7 +514,7 @@
             <div class="h-full pl-16 pt-10">
               <h1 class="text-4xl font-bold text-greyish_black mb-4 pl-4">Schedule of the Year</h1>
               <div class="flex p-4">
-                <img src="/images/bsu-header.jpg" alt="Square Image" class="w-5/5 h-4/5 rounded-2xl shadow-lg">
+                <img src="../images/bsu-header.jpg" alt="Square Image" class="w-5/5 h-4/5 rounded-2xl shadow-lg">
               </div>
             </div>
             
@@ -578,11 +608,13 @@
 
               <div class="scrollable-container mt-8 rounded-md">
                 <ul class="tab-links overflow-y-scroll px-2 pb-4" style="max-height: 440px;">
+                  
                   <li><a href="#job-offer1">
+                    
                     <!-- Job Offer 1 -->
                     <div class="job-offer center-shadow flex-col md:flex-row rounded-md text-sm selected p-2">
                       <div class="left-div w-full md:w-full p-4 md:p-2 h-auto md:h-2/5 flex flex-col md:flex-row items-start">
-                        <img src="/images/BSU-logo.png" alt="Company Image" class="h-12 w-12 rounded-full mb-2 md:mb-0 md:mr-4">
+                        <img src="../images/BSU-logo.png" alt="Company Image" class="h-12 w-12 rounded-full mb-2 md:mb-0 md:mr-4">
                         <div class="flex-grow">
                           <div>
                             <h2 class="text-md text-accent font-bold">Web Designer</h2>
@@ -627,7 +659,7 @@
                     <!-- Job Offers 2 -->
                     <div class="job-offer center-shadow flex-col md:flex-row rounded-md text-sm mt-4 p-2">
                       <div class="left-div w-full md:w-full p-4 md:p-2 h-auto md:h-2/5 flex flex-col md:flex-row items-start">
-                        <img src="/images/job-logo.jpg" alt="Company Image" class="h-12 w-12 rounded-full mb-2 md:mb-0 md:mr-4">
+                        <img src="../images/job-logo.jpg" alt="Company Image" class="h-12 w-12 rounded-full mb-2 md:mb-0 md:mr-4">
                         <div class="flex-grow">
                           <div>
                             <h2 class="text-md text-accent font-bold">Game Level Design</h2>
@@ -672,7 +704,7 @@
                     <!-- Job Offers 3 -->
                     <div class="job-offer center-shadow flex-col md:flex-row rounded-md text-sm mt-4 p-2 ">
                       <div class="left-div w-full md:w-full p-4 md:p-2 h-auto md:h-2/5 flex flex-col md:flex-row items-start">
-                        <img src="/images/ms-logo.webp" alt="Company Image" class="h-12 w-12 rounded-full mb-2 md:mb-0 md:mr-4">
+                        <img src="../images/ms-logo.webp" alt="Company Image" class="h-12 w-12 rounded-full mb-2 md:mb-0 md:mr-4">
                         <div class="flex-grow">
                           <div>
                             <h2 class="text-md text-accent font-bold">Data Scientist </h2>
@@ -728,7 +760,8 @@
               </div>
               <div class="content-div center-shadow rounded-md text-sm h-auto">
 
-                <div class="tab-content">                  
+                <div class="tab-content">
+
                   <!-- Job Offer 1 -->
                   <div id="job-offer1" class="job-offer-content">
                     <!-- Job Offer 1 content goes here -->
@@ -737,7 +770,7 @@
                       <!-- Company Name and Image -->
                       <div class="flex py-10 px-16">
                         <div>
-                          <img src="/images/BSU-logo.png" alt="Company Logo" class="w-24 h-24 object-cover rounded-full">
+                          <img src="../images/BSU-logo.png" alt="Company Logo" class="w-24 h-24 object-cover rounded-full">
                         </div>
                         <div class="pl-4">
                           <h2 class="text-lg font-bold">Web Designer</h2>
@@ -876,7 +909,7 @@
                       <!-- Company Name and Image -->
                       <div class="flex py-10 px-16">
                         <div>
-                          <img src="/images/job-logo.jpg" alt="Company Logo" class="w-24 h-24 object-cover rounded-full">
+                          <img src="../images/job-logo.jpg" alt="Company Logo" class="w-24 h-24 object-cover rounded-full">
                         </div>
                         <div class="pl-4">
                           <h2 class="text-lg font-bold">Game Level Design</h2>
@@ -1010,7 +1043,7 @@
                       <!-- Company Name and Image -->
                       <div class="flex py-10 px-16">
                         <div>
-                          <img src="/images/ms-logo.webp" alt="Company Logo" class="w-24 h-24 object-cover rounded-full">
+                          <img src="../images/ms-logo.webp" alt="Company Logo" class="w-24 h-24 object-cover rounded-full">
                         </div>
                         <div class="pl-4">
                           <h2 class="text-lg font-bold">Data Scientist</h2>
@@ -1135,7 +1168,6 @@
                     </div>
                   </div>
 
-                 
                 </div>
 
                 
