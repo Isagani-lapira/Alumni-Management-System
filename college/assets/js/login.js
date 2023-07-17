@@ -4,6 +4,23 @@ const successLogin = "/college/index.php";
 $(document).ready(function () {
   let usernameAvailable = true;
   let passwordReqFulFill = true;
+
+  // On Blur
+  $(".logInput").on("blur", function (event) {
+    const elem = $(this);
+    const messageElem = $(this).siblings(".input-msg");
+    console.log(elem.val());
+    if (elem.val() === "") {
+      messageElem.removeClass("valid");
+      messageElem.addClass("invalid");
+      messageElem.text("Value must not be null");
+    } else {
+      messageElem.removeClass("invalid");
+      messageElem.addClass("valid");
+      messageElem.text("valid");
+    }
+  });
+
   //login
   $("#loginForm").on("submit", (e) => {
     e.preventDefault();
@@ -12,6 +29,7 @@ $(document).ready(function () {
 
     //traverse all the input available
     $(".logInput").each(function () {
+      console.log("test");
       let val = $(this).val();
       let field;
       field =

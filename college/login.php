@@ -31,6 +31,9 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- Jquery Validation Plugin -->
+    <script src=" https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js "></script>
+
     <!-- End JS Plugins -->
     <!-- System Script -->
     <script src="./assets/js/core.js" defer></script>
@@ -82,15 +85,17 @@
                             username/password</p>
                         <div class="form-control">
                             <label class='block'>Username</label>
-                            <input name="username" class="add-focus input-text w-full" placeholder="JaysonBatoonBulSU-CICT" type="text">
+                            <input name="username" class="add-focus input-text w-full logInput" placeholder="JaysonBatoonBulSU-CICT" type="text">
+                            <span class=" input-msg">Hello</span>
                         </div>
                         <div class="form-control">
                             <label class="block">Password</label>
                             <div>
-                                <input name="password" class="w-full add-focus input-text" placeholder="JaysonBatoonBulSU-CICT" type="password" id="password">
+                                <input name="password" class="logInput w-full add-focus input-text" placeholder="JaysonBatoonBulSU-CICT" type="password" id="password">
                                 <i class="far fa-eye -ml-8" id="togglePassword"></i>
+                                <span class=" input-msg">Hello</span>
                             </div>
-                            <a class="italic text-accent text-sm text-end py-2">Forgot password?</a>
+                            <a class="italic text-accent text-sm text-end py-2 hover:underline cursor-pointer">Forgot password?</a>
                         </div>
                         <button type="submit" class="rounded-md bg-accent text-white py-3 mt-3 hover:bg-darkAccent">
                             Sign in

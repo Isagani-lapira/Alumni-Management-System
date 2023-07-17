@@ -54,6 +54,17 @@ body {
   .text-subheading {
     @apply font-bold uppercase text-accent;
   }
+
+  /* Input Message */
+  .input-msg {
+    @apply block h-4 font-bold text-green-500 invisible;
+  }
+  .input-msg.valid {
+    @apply visible;
+  }
+  .input-msg.invalid {
+    @apply visible text-red-500;
+  }
 }
 
 @layer utilities {
