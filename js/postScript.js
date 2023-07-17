@@ -107,6 +107,7 @@ $(document).ready(function () {
             success: (response) => {
                 $('#modal').hide();
                 $('#promptMsg').removeClass('hidden')
+                $('#message').text('Announcement successfully posted!')
                 setTimeout(() => {
                     $('#promptMsg').addClass('hidden')
                 }, 4000)
@@ -236,7 +237,7 @@ $(document).ready(function () {
         // Retrieve and display all the images and add it to the current position/post
         images[position].forEach((image) => {
             let imgFormat = 'data:image/jpeg;base64,' + image;
-            let img = $('<img>').addClass("flex-1 h-44 w-36 rounded-md").attr('src', imgFormat);
+            let img = $('<img>').addClass("flex-1 h-44 w-36 rounded-md object-contain bg-gray-300").attr('src', imgFormat);
             imgContainer.append(img);
         });
         let date = $('<p>').addClass("text-xs text-gray-600 p-2").text(postdate)

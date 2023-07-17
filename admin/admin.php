@@ -73,7 +73,7 @@ if (
   <div class="relative">
     <div id="promptMsg" class="w-full absolute top-1 hidden">
       <div class="promptMsg mx-auto shadow-lg rounded-md w-1/4 p-5 mt-2">
-        <p class="text-accent font-semibold text-center">Announcement successfully added!</p>
+        <p id="message" class="text-accent font-semibold text-center text-sm "></p>
       </div>
     </div>
     <?php
