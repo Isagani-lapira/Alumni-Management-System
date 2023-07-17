@@ -617,8 +617,9 @@ $(document).ready(function () {
       success: (response) => {
         if (response.response == "Success") {
           let data = response
-          let length = data.studentNo.length;
+          let length = data.studentNo.length; //length of the data has been retrieved
 
+          //display the student record on the table 
           let tbody = $('#studentTB')
           for (let i = 0; i < length; i++) {
             studentNo = data.studentNo[i];
@@ -641,6 +642,52 @@ $(document).ready(function () {
     });
   }
 
+
+
+
+  getAlumniRecord();
+  function getAlumniRecord() {
+    let actionAlumni = {
+      action: 'readAll'
+    }
+
+    let alumniData = new FormData();
+    alumniData.append('action', JSON.stringify(actionAlumni));
+
+    $.ajax({
+      url: '../PHP_process/alumniData.php',
+      method: "POST",
+      data: alumniData,
+      processData: false,
+      contentType: false,
+      success: (response) => { console.log(response) },
+      error: (error) => { console.log(error) }
+    })
+  }
+
+
+  //sign out
+  $('#signout').on('click', function () {
+    $('#signOutPrompt').removeClass('hidden');
+
+    let cancelBtn = $('#cancelSignout')
+    let signOutBtn = $('#signoutBtn')
+
+    cancelBtn.on('click', function () {
+      $('#signOutPrompt').addClass('hidden');
+    })
+
+    signOutBtn.on('click', function () {
+      $.ajax({
+        url: '../PHP_process/signout.php',
+        type: 'GET',
+        success: (response) => {
+          window.location.href = 'loginAdmin.php'
+        },
+        error: (error) => { console.log(error) }
+      })
+    })
+  })
 
 });
 
