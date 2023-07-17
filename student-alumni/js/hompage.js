@@ -296,19 +296,16 @@ function openCommentModal() {
   // Get the post image source
   const postImageSrc = document.getElementById('postImage').src;
 
-  // Get the user profile image source and name
-  const userProfileImageSrc = document.getElementById('userProfileImage').src;
-  const userName = document.getElementById('userName').textContent;
-
   // Set the post image source for the comment modal
   document.getElementById('modalPostImage').src = postImageSrc;
-
-  // Set the user profile image source and name for the comment modal
-  document.getElementById('modalUserProfileImage').src = userProfileImageSrc;
-  document.getElementById('modalUserName').textContent = userName;
 
   // Open the comment modal
   document.getElementById('commentModal').classList.remove('hidden');
 }
+
+function closeCommentModal() {
+  document.getElementById('commentModal').classList.add('hidden');
+}
+
 
 

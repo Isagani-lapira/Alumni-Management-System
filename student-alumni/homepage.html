@@ -241,11 +241,11 @@
                       Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU! 😊🙌
                       #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars
                     </p>
-                    <img id="postImage" class="my-2 rounded-md cursor-pointer" src="../images/univ-post.jpg" alt="" onclick="openImageModal(this.src), openCommentModal(this.src)">
+                    <img id="postImage" class="my-2 rounded-md cursor-pointer" src="../images/univ-post.jpg" alt="" onclick="openImageModal(this.src)">
 
                     <!-- Image Modal -->
                     <div id="imageModal" class="modal hidden fixed inset-0 flex items-center justify-center">
-                      <div class="modal-contentPost post relative flex flex-col md:flex-row w-9/12 rounded-md bg-white">
+                      <div class="modal-contentPost post relative flex flex-col md:flex-row w-3/4 rounded-md bg-white">
                         <!-- Left Side: Image -->
                         <div class="w-3/4 h-full p-3 relative">
                           <button class="text-black text-3xl absolute top-2 left-2 w-10 rounded-full" onclick="closeModalPost()">&times;</button>
@@ -348,17 +348,27 @@
         
                     <!-- Comment Modal -->
                     <div id="commentModal" class="modal hidden fixed inset-0 flex items-center justify-center">
-                      <div class="modal-contentPost post relative flex flex-col w-7/12 rounded-md bg-white">
+                      <div class="modal-contentPost post relative flex flex-col w-5/12 rounded-md bg-white">
+
+                        <!-- Modal header -->
+                        <div class="flex items-center justify-between p-2">
+                          <!-- Modal title -->
+                          <h2 class="text-grayish_black text-2xl font-bold mx-auto">COMMENT POST</h2>
+                          <!-- Close button -->
+                          <button class="text-gray-600 text-3xl p-1 focus:outline-none" onclick="closeCommentModal()">&times;</button>
+                        </div>
+
                         <!-- Image -->
-                        <img id="modalPostImage" class="max-w-full max-h-full object-contain rounded-t-md" src="" alt="">
-
-                        <!-- Close Button -->
-                        <button class="text-black text-3xl absolute top-2 right-2 w-10 rounded-full" onclick="closeCommentModal()">&times;</button>
-
+                        <div class="p-4">
+                          <img id="modalPostImage" class="max-w-full max-h-full rounded-md" src="" alt="">
+                        </div>
+                        
+                        
                         <!-- User Info -->
-                        <div class="flex items-center p-4">
-                          <img id="modalUserProfileImage" class="h-10 w-10 border-2 border-accentBlue rounded-full" src="" alt="">
-                          <p id="modalUserName" class="text-grayish_black font-semibold ml-2"></p>
+                        <div id="modalUserInfo" class="flex items-center p-4">
+                          <!-- User Profile Image and Name -->
+                          <img id="userProfileImage" class="h-10 border-2 border-accentBlue rounded-full inline" src="../images/ye.jpg" alt="">
+                          <p id="userName" class="text-grayish_black font-semibold ml-2">Patrick Joseph Pronuevo</p>
                         </div>
 
                         <!-- Comment Input -->
@@ -368,6 +378,7 @@
                         </div>
                       </div>
                     </div>
+
 
                     <!-- Footer -->
                     <div class="flex py-2 items-center justify-start">
