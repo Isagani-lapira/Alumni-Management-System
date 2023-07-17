@@ -18,6 +18,10 @@ body {
 }
 
 @layer components {
+  /* * For Modal Background (the translucent grayish)*/
+  .modal-bg {
+    background-color: #1e1c1c98;
+  }
   .input-text {
     @apply border border-gray-600 rounded-sm py-2 px-4  shadow-md;
   }
@@ -25,9 +29,11 @@ body {
     @apply focus:outline-none focus:ring-2 focus:ring-red-950 focus:ring-opacity-75;
   }
   .btn-primary {
-    @apply bg-accent hover:bg-darkAccent py-2 px-5 text-white font-normal rounded-md;
+    @apply bg-accent hover:bg-darkAccent py-2 px-5 text-white font-normal rounded-md transition-all;
   }
-
+  .btn-tertiary {
+    @apply bg-gray-100 hover:bg-accent py-2 px-5 hover:text-white  font-normal rounded-md border border-gray-300 transition-all;
+  }
   .Lobster {
     font-family: "Lobster", cursive;
   }

@@ -77,7 +77,40 @@ $(document).ready(function () {
         // No Page Found
         container.load("pages/missing-page.php");
       },
-      async: false,
+      async: true,
     });
   }
+
+  // Sign Out functionality
+  (function () {
+    //sign out
+    $("#signOutPromptBtn").on("click", function () {
+      $("#sign-out-prompt").removeClass("hidden");
+
+      // remove signout prompt
+      $("#cancelSignoutBtn").on("click", function () {
+        $("#sign-out-prompt").addClass("hidden");
+      });
+      // $("#sign-out-prompt").on("click", function () {
+
+      //   $(this).addClass("hidden");
+      // });
+
+      // Signout
+      $("#signoutBtn").on("click", function () {
+        $.ajax({
+          url: "./php/process/signout.php",
+          type: "GET",
+          success: (response) => {
+            window.location.href = "./login.php";
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+      });
+      //end
+    });
+  })();
+  // End
 });

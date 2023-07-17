@@ -1,3 +1,59 @@
+<?php
+session_start();
+
+// Check if Logged In
+if (
+    !isset($_SESSION['username']) ||
+    $_SESSION['logged_in'] == false ||
+    // todo check later if they could use UnivAdmin
+    $_SESSION['accountType'] != 'ColAdmin'
+) {
+    // session does not exist 
+    header("location: login.php");
+    exit();
+} else {
+    // fetch details and proceed
+    require_once '../PHP_process/connection.php';
+    require '../PHP_process/personDB.php';
+
+    // todo validate and sanitize user input
+    $username = $_SESSION['username'];
+
+    //get the person ID of user
+    $query = "SELECT coladmin.personID
+            FROM coladmin
+            JOIN user ON coladmin.username = user.username
+            WHERE user.username = '$username'";
+
+    $result = mysqli_query($mysql_con, $query);
+    if ($result) {
+        $data = mysqli_fetch_assoc($result);
+        $personID = $data['personID'];
+
+        //get person details
+        $personObj = new personDB();
+        $personDataJSON = $personObj->readPerson($personID, $mysql_con);
+        $personData = json_decode($personDataJSON, true);
+
+        $fullname = $personData['fname'] . ' ' . $personData['lname'];
+        $age = $personData['age'];
+        $address = $personData['address'];
+        $bday = $personData['bday'];
+        $gender = ucfirst($personData['gender']);
+        $contactNo = $personData['contactNo'];
+        $personal_email = $personData['personal_email'];
+        $bulsu_email = $personData['bulsu_email'];
+        $profilepicture = $personData['profilepicture'];
+
+        $_SESSION['personID'] = $personID;
+    }
+}
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +92,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- End JS Plugins -->
     <!-- System Script -->
-    <script src="./assets/scripts/core.js" defer></script>
+    <script src="./assets/js/core.js" defer></script>
     <!-- End JS Scripts -->
 
 </head>
@@ -98,7 +154,10 @@
                             <i class="fa-xl mr-2 fa-solid fa-briefcase"></i>
                             Job Oppurtunities</a></li>
                 </ul>
+
             </nav>
+            <!-- Sign out Button -->
+            <button class="btn-accent absolute bottom-2" id="signOutPromptBtn"><i class="px-2 fa-solid fa-right-from-bracket"></i>Sign Out</button>
         </aside>
 
         <main class="flex-1 mx-auto mt-10">
@@ -107,6 +166,20 @@
             </div>
 
         </main>
+    </div>
+    <!-- Modals -->
+    <div id="sign-out-prompt" class="modal-bg fixed inset-0 h-full w-full flex items-center justify-center 
+      text-grayish hidden ">
+
+        <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
+            <p class="text-center font-medium text-greyish_black mb-7 mt-3">Are you sure you want to sign out?</p>
+            <div class="flex gap-2 justify-end">
+                <button id="cancelSignoutBtn" class="btn-tertiary text-gray-800 ">Cancel</button>
+                <button id="signoutBtn" class="btn-primary">Sign out</button>
+
+            </div>
+        </div>
+
     </div>
 
 
