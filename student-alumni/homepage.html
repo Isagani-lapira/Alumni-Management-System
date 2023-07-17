@@ -241,7 +241,7 @@
                       Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU! 😊🙌
                       #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars
                     </p>
-                    <img class="my-2 rounded-md cursor-pointer" src="../images/univ-post.jpg" alt="" onclick="openImageModal(this.src)">
+                    <img id="postImage" class="my-2 rounded-md cursor-pointer" src="../images/univ-post.jpg" alt="" onclick="openImageModal(this.src), openCommentModal(this.src)">
 
                     <!-- Image Modal -->
                     <div id="imageModal" class="modal hidden fixed inset-0 flex items-center justify-center">
@@ -296,21 +296,22 @@
                                   <div>
                                     <div class="flex">
                                       <p class="text-black font-semibold text-sm pr-2">Isagani Lapira jr.</p>
-                                      <i class="fa-solid fa-ellipsis text-grayish cursor-pointer" onclick="toggleDropdown('dropdown1')"></i>
+                                      <div class="relative inline-block">
+                                        <i class="fa-solid fa-ellipsis text-grayish cursor-pointer" onclick="toggleDropdownPostModal('dropdown1')"></i>
+                                        <div id="dropdown1" class="hidden absolute right-0 top-8 mt-2 w-40 bg-white rounded-md shadow-lg">
+                                          <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
+                                            <i class="fa-solid fa-flag p-2 text-black"></i>
+                                            <span class="ml-2 text-black">Report</span>
+                                          </button>
+                                        </div>
+                                      </div>
                                     </div>
                                     <p class="text-grayish_black text-sm break-words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id dignissim erat. Suspendisse sed malesuada nisi, sit amet laoreet tellus. Sed feugiat aliquet tortor, quis semper diam condimentum vitae. Praesent tincidunt velit sed erat congue euismod. Pellentesque tortor leo, tempus sit amet sem blandit, congue tincidunt sem. Donec scelerisque orci at tortor facilisis, vitae molestie lorem luctus. Proin porta lobortis ipsum id scelerisque. Curabitur sed consequat tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce faucibus auctor scelerisque.</p>
-                                  </div>
-                                  <div class="relative inline-block">
-                                    <div id="dropdown1" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
-                                      <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
-                                        <i class="fa-solid fa-flag p-2 text-black"></i>
-                                        <span class="ml-2 text-black">Report</span>
-                                      </button>
-                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
+
 
                             <!-- Comment 2 -->
                             <div class="flex items-start mb-2"> 
@@ -323,18 +324,18 @@
                                 <div class="flex items-center justify-between">
                                   <div>
                                     <div class="flex">
-                                      <p class="text-black font-semibold text-sm pr-2">Jayson Batoon</p>
-                                      <i class="fa-solid fa-ellipsis text-grayish cursor-pointer" onclick="toggleDropdown('dropdown2')"></i>
+                                      <p class="text-black font-semibold text-sm pr-2">Jayson Batoon.</p>
+                                      <div class="relative inline-block">
+                                        <i class="fa-solid fa-ellipsis text-grayish cursor-pointer" onclick="toggleDropdownPostModal('dropdown2')"></i>
+                                        <div id="dropdown2" class="hidden absolute right-0 top-8 mt-2 w-40 bg-white rounded-md shadow-lg">
+                                          <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
+                                            <i class="fa-solid fa-flag p-2 text-black"></i>
+                                            <span class="ml-2 text-black">Report</span>
+                                          </button>
+                                        </div>
+                                      </div>
                                     </div>
-                                    <p class="text-grayish_black text-sm break-words">Congrats! Good job.</p>
-                                  </div>
-                                  <div class="relative inline-block">
-                                    <div id="dropdown2" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
-                                      <button class="flex items-center w-full py-2 px-4 text-grayish text-sm hover:bg-gray-100">
-                                        <i class="fa-solid fa-flag p-2 text-black"></i>
-                                        <span class="ml-2 text-black">Report</span>
-                                      </button>
-                                    </div>
+                                    <p class="text-grayish_black text-sm break-words">Congrats! Good job guys.</p>
                                   </div>
                                 </div>
                               </div>
@@ -344,7 +345,29 @@
                         </div>
                       </div>
                     </div>
+        
+                    <!-- Comment Modal -->
+                    <div id="commentModal" class="modal hidden fixed inset-0 flex items-center justify-center">
+                      <div class="modal-contentPost post relative flex flex-col w-7/12 rounded-md bg-white">
+                        <!-- Image -->
+                        <img id="modalPostImage" class="max-w-full max-h-full object-contain rounded-t-md" src="" alt="">
 
+                        <!-- Close Button -->
+                        <button class="text-black text-3xl absolute top-2 right-2 w-10 rounded-full" onclick="closeCommentModal()">&times;</button>
+
+                        <!-- User Info -->
+                        <div class="flex items-center p-4">
+                          <img id="modalUserProfileImage" class="h-10 w-10 border-2 border-accentBlue rounded-full" src="" alt="">
+                          <p id="modalUserName" class="text-grayish_black font-semibold ml-2"></p>
+                        </div>
+
+                        <!-- Comment Input -->
+                        <div class="flex-grow p-4">
+                          <textarea id="commentInput" class="w-full h-24 border border-gray-300 rounded-md p-2" placeholder="Write your comment"></textarea>
+                          <button class="mt-4 px-4 py-2 bg-accent text-white rounded-md hover:bg-accentDark" onclick="submitComment()">Submit</button>
+                        </div>
+                      </div>
+                    </div>
 
                     <!-- Footer -->
                     <div class="flex py-2 items-center justify-start">
@@ -353,7 +376,7 @@
                         <span class="text-sm">1,498</span>
                       </div>
                       <div class="comment px-2">
-                        <button id="commentIcon" class="fa-regular fa-comment h-10 text-grayish " onclick="toggleIcon('commentIcon')"></button>
+                        <button id="commentIcon" class="fa-regular fa-comment h-10 text-grayish" onclick="openCommentModal()"></button>
                         <span class="text-sm">3,000</span>
                       </div>   
                     </div>
