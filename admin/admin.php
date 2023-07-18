@@ -1401,7 +1401,7 @@ if (
 
                 <!-- right side -->
                 <div class="w-1/2">
-                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Skills</label>
+                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Tags</label>
                   <div id="skillDiv" class="flex flex-col">
                     <div>
                       <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
