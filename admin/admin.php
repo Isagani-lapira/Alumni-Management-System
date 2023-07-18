@@ -37,7 +37,6 @@ if (
     $personal_email = $personData['personal_email'];
     $bulsu_email = $personData['bulsu_email'];
     $profilepicture = $personData['profilepicture'];
-
     $_SESSION['personID'] = $personID;
   }
 }
@@ -77,6 +76,7 @@ if (
       </div>
     </div>
     <?php
+    echo '<p class="profilePicVal hidden">' . $profilepicture . '</p>';
     echo '<input type="hidden" id="accPersonID" value="' .  rawurlencode($personID) . '">';
     ?>
     <div id="tabs" class="flex font-Montserrat text-greyish_black">
@@ -842,7 +842,7 @@ if (
         <!-- profile content -->
         <div id="profile-tab" class="p-5 h-screen">
           <div class="p-3 rounded-md bg-accent flex items-center my-3">
-            <img class="h-36 w-36 rounded-full border-2 border-white" src="../images/Mr.Jayson.png" alt="">
+            <img class="profilePic h-36 w-36 rounded-full border-2 border-white" alt="">
             <div class="ms-6">
               <p class="text-lg text-white font-bold">
                 <?php
@@ -1776,7 +1776,7 @@ if (
         <!-- description -->
         <div id="descriptionInfo" class="w-4/12 h-full p-2 border-l border-gray-400">
           <div class="flex justify-start gap-2">
-            <img class="rounded-full border-2 border-accent h-10 w-10" src="" alt="">
+            <img id="profilePic" class="rounded-full border-2 border-accent h-10 w-10" src="" alt="">
             <div class="flex flex-col">
               <span id="postFullName" class=" text-greyish_black font-bold">Firstname and Last name</span>
               <span id="postUN" class=" text-gray-400">username</span>

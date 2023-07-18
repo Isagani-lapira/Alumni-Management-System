@@ -4,6 +4,11 @@ $(document).ready(function () {
 
     let validExtension = ['jpeg', 'jpg', 'png'] //only allowed extension
     let fileExtension
+    const imgFormat = "data:image/jpeg;base64,";
+    // profile of the current user
+    let imgProfileVal = $('.profilePicVal').html();
+    let profilePic = imgFormat + imgProfileVal;
+
     //show or close the prompt modal
     function prompt(id, openIt) {
         openIt == true ? $(id).removeClass('hidden') : $(id).addClass('hidden')
@@ -146,7 +151,6 @@ $(document).ready(function () {
 
                     let username = data.username;
                     let fullname = "Isagani Lapira Jr."; //change base on the full name of the user
-                    let avatar = ""; //change base on the avatar of the user
                     for (let i = 0; i < length; i++) {
                         data.response[i]
                         let postID = data.postID[i]
@@ -217,24 +221,26 @@ $(document).ready(function () {
         tbody.append(row)
 
     }
+
+    //all post to be displayed on the profile tab
     function postDisplay(name, accUN, postcaption, images, postdate, position, comments) {
         containerPost = $('<div>').addClass("shadow-sm shadow-gray-600 w-3/4 rounded-md p-3 h-max mt-10")
         toBeAppend = '#profileContainer'
         let header = $('<div>').addClass("flex items-center")
-        let avatar = $('<img>').addClass("rounded-full h-10 w-10 border-2 border-accent")
+        let avatar = $('<img>').addClass("profilePic rounded-full h-10 w-10")
         let containerNames = $('<div>').addClass("px-3")
         let userFN = $('<p>').addClass("font-semibold").text(name)
         let username = $('<p>').addClass("text-sm text-gray-500").text(accUN)
         containerNames.append(userFN, username);
+        avatar.attr('src', profilePic)
 
-        let caption = $('<p>').addClass("font-light text-gray-600 text-sm mt-5").text(postcaption)
-
+        let caption = $('<p>').addClass("font-light text-gray-600 text-sm mt-5").text(postcaption) //post caption
         let imgContainer = $('<div>').addClass("imgContainer flex flex-wrap gap-2 mt-3")
 
         // Retrieve and display all the images and add it to the current position/post
         images[position].forEach((image) => {
-            let imgFormat = 'data:image/jpeg;base64,' + image;
-            let img = $('<img>').addClass("flex-1 h-44 w-36 rounded-md object-contain bg-gray-300").attr('src', imgFormat);
+            let imageData = imgFormat + image;
+            let img = $('<img>').addClass("flex-1 h-44 w-36 rounded-md object-contain bg-gray-300").attr('src', imageData);
             imgContainer.append(img);
         });
         let date = $('<p>').addClass("text-xs text-gray-600 p-2").text(postdate)
@@ -255,6 +261,7 @@ $(document).ready(function () {
     }
 
     function viewingOfPost(postID, name, accUN, description, images, position) {
+        $('#profilePic').attr('src', profilePic)
         $('#postFullName').text(name)
         $('#postUN').text(accUN)
         $('#postDescript').text(description).addClass('text-sm my-2 text-gray-400')
@@ -271,7 +278,7 @@ $(document).ready(function () {
                 .attr("data-carousel-item", "")
                 .attr('id', imageName);
 
-            const format = 'data:image/jpeg;base64,' + image
+            const format = imgFormat + image
             const img = $("<img>")
                 .addClass("absolute block w-full h-full")
                 .attr("src", format)
@@ -371,9 +378,10 @@ $(document).ready(function () {
                         const commentID = parsedResponse.commentID[i];
                         const fullname = parsedResponse.fullname[i];
                         const comment = parsedResponse.comment[i];
+                        const img = imgFormat + parsedResponse.profile[i];
 
                         let commentContainer = $('<div>').addClass("flex gap-2 my-2")
-                        let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full border border-accent");
+                        let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full").attr('src', img);
                         let commentDescript = $('<div>').addClass("bg-gray-300 rounded-md p-2 flex-grow text-sm flex flex-col gap-1 text-greyish_black");
                         let commentor = $('<p>').text(fullname)
                         let postComment = $('<p>').text(comment).addClass('text-xs text-gray-500');

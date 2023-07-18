@@ -11,6 +11,7 @@ class Comment
         $commentID = array();
         $fullname  = array();
         $comment = array();
+        $profilePic = array();
 
         if ($result && $row > 0) {
             $response = "Success";
@@ -20,18 +21,17 @@ class Comment
                 $user = $data['username'];
 
 
-
-                $queryPerson = "SELECT 'univadmin' AS user_type, p.fname, p.lname
+                $queryPerson = "SELECT 'univadmin' AS user_type, p.fname, p.lname, p.profilepicture
                 FROM univadmin ua
                 JOIN person p ON p.personID = ua.personID
                 WHERE ua.username = '$user'
                 UNION
-                SELECT 'alumni' AS user_type, p.fname, p.lname
+                SELECT 'alumni' AS user_type, p.fname, p.lname, p.profilepicture
                 FROM alumni al
                 JOIN person p ON p.personID = al.personID
                 WHERE al.username = '$user'
                 UNION
-                SELECT 'student' AS user_type, p.fname, p.lname
+                SELECT 'student' AS user_type, p.fname, p.lname, p.profilepicture
                 FROM student s
                 JOIN person p ON p.personID = s.personID
                 WHERE s.username = '$user';
@@ -41,6 +41,8 @@ class Comment
                 if ($resultPerson) {
                     while ($personData = mysqli_fetch_assoc($resultPerson)) {
                         $fullname[] = $personData['fname'] . ' ' . $personData['lname'];
+                        $img = $personData['profilepicture'];
+                        $profilePic[] = base64_encode($img);
                     }
                 }
             }
@@ -51,6 +53,7 @@ class Comment
             'commentID' => $commentID,
             'fullname' => $fullname,
             'comment' => $comment,
+            'profile' => $profilePic
         );
 
         echo json_encode($data);

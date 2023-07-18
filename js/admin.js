@@ -711,12 +711,23 @@ $(document).ready(function () {
       $.ajax({
         url: '../PHP_process/signout.php',
         type: 'GET',
-        success: (response) => {
+        success: () => {
           window.location.href = 'loginAdmin.php'
         },
         error: (error) => { console.log(error) }
       })
     })
+  })
+
+
+  //displaying image
+  let imgProfileVal = $('.profilePicVal').html();
+  let profilePic = imgFormat + imgProfileVal;
+
+  //set all the profile with a user picture
+  $('.profilePic').each(function () {
+    var imgElement = $(this);
+    imgElement.attr('src', profilePic)
   })
 
 });
