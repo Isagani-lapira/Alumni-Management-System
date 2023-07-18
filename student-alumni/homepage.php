@@ -247,7 +247,7 @@
                     <div id="imageModal" class="modal hidden fixed inset-0 flex items-center justify-center">
                       <div class="modal-contentPost post relative flex flex-col md:flex-row w-full h-full overflow-x-hidden rounded-md bg-white">
                         <!-- Left Side: Image -->
-                        <div class="w-full h-full px-10 relative bg-black">
+                        <div class="w-full h-full px-10 relative bg-licorice">
                           <button class="text-white text-3xl absolute top-2 left-2 w-10 rounded-full" onclick="closeModalPost()">&times;</button>
                           <img id="modalImage" class="w-full h-full object-contain rounded-md" src="" alt="">
                         </div>

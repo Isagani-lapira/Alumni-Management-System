@@ -2963,6 +2963,10 @@ th,
   background-color: rgb(96 16 16 / var(--tw-bg-opacity));
 }
 
+.bg-dirtyWhite {
+  background-color: E8E4C9;
+}
+
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -3016,6 +3020,11 @@ th,
 .bg-green-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+}
+
+.bg-licorice {
+  --tw-bg-opacity: 1;
+  background-color: rgb(26 17 16 / var(--tw-bg-opacity));
 }
 
 .bg-postButton {

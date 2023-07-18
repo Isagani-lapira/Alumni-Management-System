@@ -18,6 +18,8 @@ module.exports = {
         accentBlue: "#1746A2",
         postButton: '#60A5FA',
         postHoverButton: '#3B82F6',
+        licorice: '#1A1110',
+        dirtyWhite: 'E8E4C9',
       },
       fontWeight: {
         medium: '510',
