@@ -2249,12 +2249,6 @@ th,
   gap: 1.25rem;
 }
 
-.space-x-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.25rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 .space-x-12 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(3rem * var(--tw-space-x-reverse));
@@ -2963,10 +2957,6 @@ th,
   background-color: rgb(96 16 16 / var(--tw-bg-opacity));
 }
 
-.bg-dirtyWhite {
-  background-color: E8E4C9;
-}
-
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -3020,11 +3010,6 @@ th,
 .bg-green-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
-}
-
-.bg-licorice {
-  --tw-bg-opacity: 1;
-  background-color: rgb(26 17 16 / var(--tw-bg-opacity));
 }
 
 .bg-postButton {
@@ -3318,16 +3303,6 @@ th,
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
-}
-
-.py-0 {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-
-.py-0\.5 {
-  padding-top: 0.125rem;
-  padding-bottom: 0.125rem;
 }
 
 .py-1 {
@@ -3793,6 +3768,11 @@ th,
 .text-grayish {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+.text-green-400 {
+  --tw-text-opacity: 1;
+  color: rgb(74 222 128 / var(--tw-text-opacity));
 }
 
 .text-green-500 {
@@ -4617,14 +4597,6 @@ body {
     grid-column: span 1 / span 1;
   }
 
-  .md\:mb-0 {
-    margin-bottom: 0px;
-  }
-
-  .md\:mr-4 {
-    margin-right: 1rem;
-  }
-
   .md\:mt-0 {
     margin-top: 0px;
   }
@@ -4635,10 +4607,6 @@ body {
 
   .md\:grid {
     display: grid;
-  }
-
-  .md\:h-2\/5 {
-    height: 40%;
   }
 
   .md\:h-max {
@@ -4662,10 +4630,6 @@ body {
     width: 75%;
   }
 
-  .md\:w-full {
-    width: 100%;
-  }
-
   .md\:max-w-5xl {
     max-width: 64rem;
   }
@@ -4682,17 +4646,9 @@ body {
     flex-direction: row;
   }
 
-  .md\:items-center {
-    align-items: center;
-  }
-
   .md\:rounded-l-2xl {
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
-  }
-
-  .md\:p-2 {
-    padding: 0.5rem;
   }
 
   .md\:p-8 {

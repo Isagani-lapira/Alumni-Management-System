@@ -1,13 +1,15 @@
 
 $(document).ready(function () {
-  $('#tabs').tabs();
 
+  const imgFormat = 'data:image/jpeg;base64,';
+
+  $('#tabs').tabs();
   // Initialize the tabs - FEED BTN
   $("#tabs-feed-btns").tabs();
 
 
   $("#job-offer-tabs").tabs();
-  
+
   // When hovering at JOB HUNT IT WILL CHANGE COLOR AND IMG
   $('#jobHuntLink').hover(
     function () {
@@ -40,10 +42,10 @@ $(document).ready(function () {
   }).on('mouseleave', function () {
     $(this).find('img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA5ElEQVR4nO3SMUoDURDG8aewaQSbgNYW2tnoDaz0CrmEYGObK3iHnMFKWy30AhamUrAVbSz0J4sT8lgSdjeriJgPpnnzzX/ezHsp/SvhpIyfAK9gaKozrH4XvIdRgN8ixFmvK3wN5wF8wSEO8Bxnl1hfFN7HdYCesJfldvEQuVtstoVv4S4A99iu8Yyx0xRe3u4xCm+wUTPlVTblfh083+9Fk/1W3ukVR/OMg+yHlCoajfxVW2R1JWNQNRzjPTNpCp8or8UHTtMsdW2QFjGao7/XILXwLBt0X9EspRae32uwVKroE2OChkKsj2YoAAAAAElFTkSuQmCC');
     $(this).find('#feedText').css('color', 'white');
-  });  
+  });
 
-   // Drop down PROFILE AND LOGOUT
-   $('#dropdown-btn').click(function() {
+  // Drop down PROFILE AND LOGOUT
+  $('#dropdown-btn').click(function () {
     $('#dropdown-content').toggle();
     $(this).toggleClass('active');
   });
@@ -57,32 +59,99 @@ $(document).ready(function () {
 
   //MODAL
   // When either of the buttons is clicked, show the modal
-  $('#writeBtn, #postButton').click(function() {
+  $('#writeBtn, #postButton').click(function () {
     $('#modal').removeClass('hidden');
   });
 
   // When the cancel button or the modal overlay is clicked, hide the modal
-  $('.cancel, #modal').click(function() {
+  $('.cancel, #modal').click(function () {
     $('#modal').addClass('hidden');
   });
 
   // Prevent closing the modal when clicking inside it
-  $('.modal-container').click(function(e) {
+  $('.modal-container').click(function (e) {
     e.stopPropagation();
-  }); 
+  });
 
-  $("#yearbookButton").click(function() {
+  $("#yearbookButton").click(function () {
     $("#tabs-yrbook").show();
     $("#tabs-1").hide();
   });
 
-  $("#feedLink").click(function() {
+  $("#feedLink").click(function () {
     $("#tabs-yrbook").hide();
     $("#tabs-1").show();
     $("#tabs-college").show();
 
   });
-  
+
+  getListOfWork() //list of work
+  function getListOfWork() {
+    const action = {
+      action: 'readWithCol',
+      colCode: 'CICT', //to be change
+    }
+    let formData = new FormData();
+    formData.append('action', JSON.stringify(action));
+
+    $.ajax({
+      method: 'POST',
+      url: '../PHP_process/jobTable.php',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        const parsedResponse = JSON.parse(response);
+        //if there's a value
+        if (parsedResponse.result == 'Success') {
+          const length = parsedResponse.author.length; //total length of all data that has been retrieved
+          for (let i = 0; i < length; i++) {
+            //data to be use
+            const companyLogo = imgFormat + parsedResponse.companyLogo[i];
+            const jobTitle = parsedResponse.jobTitle[i];
+            const company = parsedResponse.companyName[i];
+            const author = parsedResponse.author[i];
+            const skill = parsedResponse.skills[i];
+
+            //display job with design
+            listOfJobDisplay(jobTitle, company, author, skill, companyLogo)
+          }
+
+        }
+        else $('#noJobMsg').removeClass('hidden');
+      },
+      error: (error) => { console.log(error) }
+    })
+  }
+
+  function listOfJobDisplay(jobTitle, company, author, skills, companyLogo) {
+
+    //creating elements
+    let containerJob = $('<div>').addClass('rounded-md px-2 py-3 text-sm center-shadow flex gap-2 text-gray-500 cursor-pointer')
+    let companyImg = $('<img>').addClass('h-12 w-12 rounded-full').attr('src', companyLogo)
+    let jobDescription = $('<div>').addClass('flex-grow flex flex-col')
+    let jobTitleElement = $('<p>').text(jobTitle).addClass('text-accent font-bold')
+    let companyName = $('<p>').text(company).addClass('text-xs')
+    let postedCont = $('<div>').addClass('flex gap-1 text-xs')
+    let postedText = $('<p>').text('Posted by:')
+    let postedByElement = $('<p>').text(author).addClass('text-green-400 font-bold')
+    let skillContainer = $('<div>').addClass('text-xs flex py-2')
+    let bookmark = $('<span>').addClass("far fa-bookmark text-accent text-xl bookmark-icon")
+    //retrieve all the skill and display in on a div to be included on the container
+    skills.forEach(skill => {
+      let skillElement = $('<span>').html('&#x2022; ' + skill)
+      skillContainer.append(skillElement)
+    })
+
+    //put the element to their corresponding container
+    postedCont.append(postedText, postedByElement);
+    jobDescription.append(jobTitleElement, companyName, postedCont, skillContainer)
+    containerJob.append(companyImg, jobDescription, bookmark)
+    let list = $('<li>').append(containerJob);
+    $('#listOfJob').append(list) // add to the list
+
+  }
+
 });
 
 // NOTIFICATIONS  
@@ -162,7 +231,7 @@ jobOffers.forEach(offer => {
 //BOOKMARK ICON ON JOB HUNT
 jobOffers.forEach((offer) => {
   const bookmarkIcon = offer.querySelector('.bookmark-icon');
-  bookmarkIcon.addEventListener('click', function() {
+  bookmarkIcon.addEventListener('click', function () {
     bookmarkIcon.classList.toggle('fas');
   });
 });
@@ -173,11 +242,11 @@ function setCenterDivWidth() {
   const leftDiv = document.querySelector('.left-div');
   const rightDiv = document.querySelector('.right-div');
   const centerDiv = document.getElementById('centerDiv');
-  
+
   const leftDivWidth = leftDiv.offsetWidth;
   const rightDivWidth = rightDiv.offsetWidth;
   const centerDivWidth = window.innerWidth - leftDivWidth - rightDivWidth;
-  
+
   centerDiv.style.width = `${centerDivWidth}px`;
 }
 
@@ -257,7 +326,7 @@ function toggleDropdown() {
 function openImageModal(imageSrc) {
   const modal = document.getElementById('imageModal');
   const modalImage = document.getElementById('modalImage');
-  
+
   modalImage.src = imageSrc;
   modal.classList.remove('hidden');
 }
@@ -265,7 +334,7 @@ function openImageModal(imageSrc) {
 function closeModalPost() {
   const modal = document.getElementById('imageModal');
   const modalImage = document.getElementById('modalImage');
-  
+
   modalImage.src = '';
   modal.classList.add('hidden');
 }
