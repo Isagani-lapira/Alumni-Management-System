@@ -1585,12 +1585,12 @@ if (
             <div class="modal-descript relative w-full h-max border border-gray-400 rounded p-3">
               <div class="flex flex-col h-full">
                 <textarea id="TxtAreaEmail" class="rar outline-none w-full h-48 p-1 border-b border-gray-300" type="text" placeholder="Say something here..."></textarea>
-                <div id="imgContEmail" class=" hidden flex overflow-x-scroll w-full"></div>
-                <div id="fileContEmail" class="hidden"></div>
-                <p class="text-sm text-red-400 hidden" id="errorMsgEM">Sorry we only allow images that has file extension of
-                  jpg,jpeg,png</p>
               </div>
             </div>
+            <div id="imgContEmail" class=" hidden flex overflow-x-auto w-full"></div>
+            <div id="fileContEmail" class="hidden"></div>
+            <p class="text-sm text-red-400 hidden" id="errorMsgEM">Sorry we only allow images that has file extension of
+              jpg,jpeg,png</p>
             <label class="flex justify-start items-center gap-3 mt-1">
               <i id="galleryIcon" class="fa-solid fa-image"></i>
               <i id="fileIcon" class="fa-solid fa-paperclip"></i>
