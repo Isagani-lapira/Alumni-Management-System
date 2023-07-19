@@ -179,7 +179,7 @@ if (
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
               <button id="notif-btn" class="notif" onclick="buttonColor(), toggleNotifications()">
-              <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21 19v1H3v-1l2-2v-6c0-3.1 2.03-5.83 5-6.71V4a2 2 0 0 1 2-2a2 2 0 0 1 2 2v.29c2.97.88 5 3.61 5 6.71v6l2 2m-7 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2"/></svg>
+                <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M21 19v1H3v-1l2-2v-6c0-3.1 2.03-5.83 5-6.71V4a2 2 0 0 1 2-2a2 2 0 0 1 2 2v.29c2.97.88 5 3.61 5 6.71v6l2 2m-7 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2"/></svg>
                 <span class="ps-3 text-sm text-greyish_black font-medium">Notifications</span>
               </button>
             </div>
@@ -187,7 +187,7 @@ if (
             <!-- Verification Job Post -->
             <div id="target-div-job" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
               <button id="verif-btn" onclick="toggleColorJob(), toggleJobPost()">
-                <span class="h-4 w-4 fas fa-check-circle"></span>
+              <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4l4.25 4.25ZM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg>
                 <span class="ps-3 text-sm text-greyish_black font-medium">Verified Job Post</span>
               </button>
             </div>
@@ -195,7 +195,7 @@ if (
             <!-- Yearbook -->
             <div id="target-div-yearbook" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
               <button id="yearbook-btn" onclick="toggleYearbook()">
-                <span class="h-4 w-4 fa fa-book-open"></span>
+              <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="currentColor" d="M464 48c-67.61.29-117.87 9.6-154.24 25.69c-27.14 12-37.76 21.08-37.76 51.84V448c41.57-37.5 78.46-48 224-48V48ZM48 48c67.61.29 117.87 9.6 154.24 25.69c27.14 12 37.76 21.08 37.76 51.84V448c-41.57-37.5-78.46-48-224-48V48Z"/></svg>
                 <span class="ps-3 text-sm text-greyish_black font-medium">Yearbook</span>
               </button>
             </div>
@@ -299,7 +299,7 @@ if (
 
                     <!-- Image Modal -->
                     <div id="imageModal" class="modal hidden fixed inset-0 flex items-center justify-center">
-                      <div class="modal-contentPost post relative flex flex-col md:flex-row w-full h-full overflow-x-hidden rounded-md bg-white">
+                      <div class="modal-contentPost post relative flex flex-col md:flex-row w-full h-full overflow-x-hidden rounded-md bg-gray-100">
                         <!-- Left Side: Image -->
                         <div class="w-full h-full px-10 relative bg-black">
                           <button class="text-white text-3xl absolute top-2 left-2 w-10 rounded-full" onclick="closeModalPost()">&times;</button>
@@ -421,7 +421,7 @@ if (
 
                     <!-- Comment Modal -->
                     <div id="commentModal" class="modal hidden fixed inset-0 flex items-center justify-center ">
-                      <div class="modal-contentPost post relative flex flex-col w-5/12 rounded-md bg-white">
+                      <div class="modal-contentPost post relative flex flex-col w-5/12 rounded-lg bg-white">
 
                         <!-- Modal header -->
                         <div class="flex items-center justify-between p-2">
@@ -432,9 +432,9 @@ if (
                         </div>
 
                         <!-- Image -->
-                        <div class="p-4 w-10/12 mx-auto">
+                        <!-- <div class="p-4 w-10/12 mx-auto">
                           <img id="modalPostImage" class="max-w-full max-h-full rounded-md" src="" alt="">
-                        </div>
+                        </div> -->
 
                         <!-- Comments -->
                         <div id="modalComments" class="max-h-40 overflow-y-auto px-4">

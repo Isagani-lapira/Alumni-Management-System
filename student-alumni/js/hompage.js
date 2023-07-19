@@ -193,7 +193,7 @@ function toggleColorJob() {
   var targetDiv = document.getElementById("target-div-job");
   targetDiv.classList.toggle("red-color");
 
-  var icon = document.querySelector("#verif-btn .fa-check-circle");
+  var icon = document.querySelector("#verif-btn .fa");
   var text = document.querySelector("#verif-btn .text-greyish_black");
 
   if (targetDiv.classList.contains("red-color")) {
@@ -373,10 +373,10 @@ function toggleDropdownPostModal(dropdownId) {
 //Comment Modal
 function openCommentModal() {
   // Get the post image source
-  const postImageSrc = document.getElementById('postImage').src;
+  //const postImageSrc = document.getElementById('postImage').src;
 
   // Set the post image source for the comment modal
-  document.getElementById('modalPostImage').src = postImageSrc;
+  //document.getElementById('modalPostImage').src = postImageSrc;
 
   // Open the comment modal
   document.getElementById('commentModal').classList.remove('hidden');
