@@ -260,61 +260,122 @@ $(document).ready(function () {
 
     }
 
-    function viewingOfPost(postID, name, accUN, description, images, position) {
-        $('#profilePic').attr('src', profilePic)
-        $('#postFullName').text(name)
-        $('#postUN').text(accUN)
-        $('#postDescript').text(description).addClass('text-sm my-2 text-gray-400')
+    // function viewingOfPost(postID, name, accUN, description, images, position) {
+    //     $('#profilePic').attr('src', profilePic)
+    //     $('#postFullName').text(name)
+    //     $('#postUN').text(accUN)
+    //     $('#postDescript').text(description).addClass('text-sm my-2 text-gray-400')
 
-        const carouselWrapper = $("#carousel-wrapper");
-        const carouselIndicators = $("#carousel-indicators");
+    //     const carouselWrapper = $("#carousel-wrapper");
+    //     const carouselIndicators = $("#carousel-indicators");
+
+    //     let totalImgNo = images[position].length;
+    //     images[position].forEach((image, index) => {
+
+    //         let imageName = 'item-' + index
+    //         const item = $("<div>")
+    //             .addClass("relative duration-700 ease-in-out h-full")
+    //             .attr("data-carousel-item", "")
+    //             .attr('id', imageName);
+
+    //         const format = imgFormat + image
+    //         const img = $("<img>")
+    //             .addClass("absolute object-contain left-1/2 top-1/2")
+    //             .attr("src", format)
+    //             .attr("alt", "Carousel Image");
+
+    //         item.append(img);
+    //         carouselWrapper.append(item);
+
+    //         const indicator = $("<button>")
+    //             .attr("type", "button")
+    //             .addClass("w-3 h-3 rounded-full")
+    //             .attr("aria-current", index === 0 ? "true" : "false")
+    //             .attr("aria-label", "Slide " + (index + 1))
+    //             .attr("data-carousel-slide-to", index.toString());
+
+    //         carouselIndicators.append(indicator);
+    //     })
+
+    //     // Show the first image and update the indicator
+    //     carouselWrapper.find("[data-carousel-item]").first().removeClass("hidden");
+    //     carouselIndicators.find("[data-carousel-slide-to]").first().attr("aria-current", "true");
+
+
+    //     let currentImageDisplay = 0;
+    //     $('#btnNext').on('click', function () {
+    //         currentImageDisplay = (currentImageDisplay == (totalImgNo - 1)) ? currentImageDisplay : currentImageDisplay + 1; //check first reach the end
+    //         $('#item-' + currentImageDisplay).removeClass('hidden').addClass('block') //show the next image
+    //     })
+    //     $('#btnPrev').on('click', function () {
+    //         if (currentImageDisplay != 0) //check if the image is the last image
+    //             $('#item-' + currentImageDisplay).addClass('hidden')
+    //         currentImageDisplay = (currentImageDisplay == 0) ? 0 : currentImageDisplay - 1
+    //     })
+
+    //     getComment(postID)
+    // }
+
+    function viewingOfPost(postID, name, accUN, description, images, position) {
+        $('#profilePic').attr('src', profilePic);
+        $('#postFullName').text(name);
+        $('#postUN').text(accUN);
+        $('#postDescript').text(description).addClass('text-sm my-2 text-gray-400');
+
+        const carouselWrapper = $('#carousel-wrapper');
+        const carouselIndicators = $('#carousel-indicators');
 
         let totalImgNo = images[position].length;
         images[position].forEach((image, index) => {
-
-            let imageName = 'item-' + index
-            const item = $("<div>")
-                .addClass("hidden duration-700 ease-in-out")
-                .attr("data-carousel-item", "")
+            let imageName = 'item-' + index;
+            const item = $('<div>')
+                .addClass('relative duration-700 ease-in-out h-full')
+                .attr('data-carousel-item', '')
                 .attr('id', imageName);
 
-            const format = imgFormat + image
-            const img = $("<img>")
-                .addClass("absolute block w-full h-full")
-                .attr("src", format)
-                .attr("alt", "Carousel Image");
+            const format = imgFormat + image;
+            const img = $('<img>')
+                .addClass('absolute inset-0 left-0 right-0 top-0 bottom-0 m-auto object-contain')
+                .attr('src', format)
+                .attr('alt', 'Carousel Image');
+
+            if (index === 0) {
+                item.removeClass('hidden'); // Show the first image
+            } else {
+                item.addClass('hidden'); // Hide the rest of the images
+            }
 
             item.append(img);
             carouselWrapper.append(item);
 
-            const indicator = $("<button>")
-                .attr("type", "button")
-                .addClass("w-3 h-3 rounded-full")
-                .attr("aria-current", index === 0 ? "true" : "false")
-                .attr("aria-label", "Slide " + (index + 1))
-                .attr("data-carousel-slide-to", index.toString());
+            const indicator = $('<button>')
+                .attr('type', 'button')
+                .addClass('w-3 h-3 rounded-full')
+                .attr('aria-current', index === 0 ? 'true' : 'false')
+                .attr('aria-label', 'Slide ' + (index + 1))
+                .attr('data-carousel-slide-to', index.toString());
 
             carouselIndicators.append(indicator);
-        })
-
-        // Show the first image and update the indicator
-        carouselWrapper.find("[data-carousel-item]").first().removeClass("hidden");
-        carouselIndicators.find("[data-carousel-slide-to]").first().attr("aria-current", "true");
-
+        });
 
         let currentImageDisplay = 0;
         $('#btnNext').on('click', function () {
-            currentImageDisplay = (currentImageDisplay == (totalImgNo - 1)) ? currentImageDisplay : currentImageDisplay + 1; //check first reach the end
-            $('#item-' + currentImageDisplay).removeClass('hidden') //show the next image
-        })
-        $('#btnPrev').on('click', function () {
-            if (currentImageDisplay != 0) //check if the image is the last image
-                $('#item-' + currentImageDisplay).addClass('hidden')
-            currentImageDisplay = (currentImageDisplay == 0) ? 0 : currentImageDisplay - 1
-        })
+            $('#item-' + currentImageDisplay).addClass('hidden'); // Hide the current image
+            currentImageDisplay = (currentImageDisplay + 1) % totalImgNo; // Move to the next image
+            $('#item-' + currentImageDisplay).removeClass('hidden'); // Show the next image
+        });
 
-        getComment(postID)
+        $('#btnPrev').on('click', function () {
+            $('#item-' + currentImageDisplay).addClass('hidden'); // Hide the current image
+            currentImageDisplay = (currentImageDisplay - 1 + totalImgNo) % totalImgNo; // Move to the previous image
+            $('#item-' + currentImageDisplay).removeClass('hidden'); // Show the previous image
+        });
+
+        getComment(postID);
     }
+
+
+
 
     //close the post modal view
     $('#closePostModal').on('click', function () {
@@ -370,9 +431,11 @@ $(document).ready(function () {
             contentType: false,
             success: (response) => {
                 const parsedResponse = JSON.parse(response);
+                $('#commentContainer').empty(); //remove the comment of the firstly view
                 if (parsedResponse.result == 'Success') {
                     const length = parsedResponse.commentID.length;
-
+                    $('#noOfComment').text(length) //set the number of comments
+                    $('#commentMsg').addClass('hidden')
                     //display every comments
                     for (let i = 0; i < length; i++) {
                         const commentID = parsedResponse.commentID[i];
@@ -382,7 +445,7 @@ $(document).ready(function () {
 
                         let commentContainer = $('<div>').addClass("flex gap-2 my-2")
                         let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full").attr('src', img);
-                        let commentDescript = $('<div>').addClass("bg-gray-300 rounded-md p-2 flex-grow text-sm flex flex-col gap-1 text-greyish_black");
+                        let commentDescript = $('<div>').addClass("bg-gray-300 rounded-md p-3 flex-grow text-sm flex flex-col gap-1 text-greyish_black");
                         let commentor = $('<p>').text(fullname)
                         let postComment = $('<p>').text(comment).addClass('text-xs text-gray-500');
 
@@ -391,6 +454,9 @@ $(document).ready(function () {
 
                         $('#commentContainer').append(commentContainer);
                     }
+                } else {
+                    let noCommentMsg = $('<p>').addClass('text-gray-500').text('No available comment')
+                    $('#commentContainer').append(noCommentMsg) //show no comment
                 }
             },
             error: (error) => { console.log(error) }

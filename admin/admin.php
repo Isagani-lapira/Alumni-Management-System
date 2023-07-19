@@ -1740,14 +1740,14 @@ if (
 
 
     <!-- post modal -->
-    <div id="modalPost" class="modal fixed inset-0 h-full w-full flex items-center justify-center hidden">
-      <div class="modal-container w-10/12 h-2/3 bg-white rounded-lg p-3 flex relative">
-        <span id="closePostModal" class="absolute -top-16 -right-1 py-2 px-4 rounded-full text-center text-2xl hover:bg-gray-400 cursor-pointer">x</span>
-        <div id="containerSection" class="w-8/12 h-full p-3 ">
+    <div id="modalPost" class="modal fixed inset-0 h-full w-full p-3 hidden">
+      <div class="modal-container w-full h-full bg-white rounded-lg flex relative">
+        <span id="closePostModal" class="absolute top-0 right-0 text-center text-2xl cursor-pointer p-3 hover:scale-50 hover:font-bold">x</span>
+        <div id="containerSection" class="w-8/12 h-full ">
 
-          <div id="default-carousel" class="relative w-full h-full" data-carousel="slide">
+          <div id="default-carousel" class="relative w-full h-full bg-black" data-carousel="slide">
             <!-- Carousel wrapper -->
-            <div class="relative overflow-hidden rounded-lg h-full" id="carousel-wrapper"></div>
+            <div class="overflow-hidden rounded-lg h-full" id="carousel-wrapper"></div>
             <!-- Slider indicators -->
             <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2" id="carousel-indicators">
             </div>
@@ -1774,24 +1774,29 @@ if (
         </div>
 
         <!-- description -->
-        <div id="descriptionInfo" class="w-4/12 h-full p-2 border-l border-gray-400">
+        <div id="descriptionInfo" class="w-4/12 h-full p-2 border-l p-3 border-gray-400">
           <div class="flex justify-start gap-2">
             <img id="profilePic" class="rounded-full border-2 border-accent h-10 w-10" src="" alt="">
             <div class="flex flex-col">
-              <span id="postFullName" class=" text-greyish_black font-bold">Firstname and Last name</span>
-              <span id="postUN" class=" text-gray-400">username</span>
+              <span id="postFullName" class=" text-greyish_black font-bold"></span>
+              <span id="postUN" class=" text-gray-400 text-xs">username</span>
             </div>
           </div>
           <p id="postDescript" class=" text-greyish_black font-light text-sm">Description</p>
+
           <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2">
-            <span id="noOfLikes">32</span>
+
             <img src="../assets/icons/emptyheart.png" alt="">
-            <span id="noOfComment">0</span>
+            <span id="noOfLikes">32</span>
             <img src="../assets/icons/comment.png" alt="">
+            <span id="noOfComment">0</span>
+
           </div>
 
           <!-- comments -->
-          <div id="commentContainer" class=" h-3/4 p-2"></div>
+          <div id="commentContainer" class=" h-3/4 p-2 overflow-auto">
+
+          </div>
         </div>
       </div>
     </div>

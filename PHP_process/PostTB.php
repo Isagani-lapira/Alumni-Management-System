@@ -45,7 +45,7 @@ class PostData
         if ($startingDate != null && $endDate != null)
             $query = 'SELECT * FROM `post` WHERE `date` BETWEEN "' . $startingDate . '" AND "' . $endDate . '" AND `username` = "' . $username . '"';
         else
-            $query = 'SELECT * FROM `post` WHERE `username`= "' . $username . '"';
+            $query = 'SELECT * FROM `post` WHERE `username`= "' . $username . '"ORDER BY `date` DESC';
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
