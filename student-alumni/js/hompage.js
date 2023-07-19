@@ -8,9 +8,17 @@ $(document).ready(function () {
   // Initialize the tabs - FEED BTN
   $("#tabs-feed-btns").tabs();
 
-
   $("#job-offer-tabs").tabs();
 
+
+
+ 
+
+  // Drop down PROFILE AND LOGOUT
+  $('#dropdown-btn').click(function () {
+    $('#dropdown-content').toggle();
+    $(this).toggleClass('active');
+  });
 
   // // Notification
   // $('#notification-content').hide(); // Hide the notification tab initially
@@ -19,6 +27,33 @@ $(document).ready(function () {
   //   $('#notification-content').toggle('fast'); // Show or hide the notification tab with a fast animation
   // });
 
+  //MODAL
+  // When either of the buttons is clicked, show the modal
+  $('#writeBtn, #postButton').click(function () {
+    $('#modal').removeClass('hidden');
+  });
+
+  // When the cancel button or the modal overlay is clicked, hide the modal
+  $('.cancel, #modal').click(function () {
+    $('#modal').addClass('hidden');
+  });
+
+  // Prevent closing the modal when clicking inside it
+  $('.modal-container').click(function (e) {
+    e.stopPropagation();
+  });
+
+  $("#yearbookButton").click(function () {
+    $("#tabs-yrbook").show();
+    $("#tabs-1").hide();
+  });
+
+  $("#feedLink").click(function () {
+    $("#tabs-yrbook").hide();
+    $("#tabs-1").show();
+    $("#tabs-college").show();
+
+  });
 
   getListOfWork() //list of work
   function getListOfWork() {
@@ -127,7 +162,7 @@ function toggleColorJob() {
   var targetDiv = document.getElementById("target-div-job");
   targetDiv.classList.toggle("red-color");
 
-  var icon = document.querySelector("#verif-btn .fa");
+  var icon = document.querySelector("#verif-btn .fa-check-circle");
   var text = document.querySelector("#verif-btn .text-greyish_black");
 
   if (targetDiv.classList.contains("red-color")) {
@@ -307,10 +342,10 @@ function toggleDropdownPostModal(dropdownId) {
 //Comment Modal
 function openCommentModal() {
   // Get the post image source
-  //const postImageSrc = document.getElementById('postImage').src;
+  const postImageSrc = document.getElementById('postImage').src;
 
   // Set the post image source for the comment modal
-  //document.getElementById('modalPostImage').src = postImageSrc;
+  document.getElementById('modalPostImage').src = postImageSrc;
 
   // Open the comment modal
   document.getElementById('commentModal').classList.remove('hidden');
