@@ -30,7 +30,7 @@ $(document).ready(function () {
         if (response == 'unsuccessful') $('#errorMsg').show();
         else {
           $('#errorMsg').hide()
-          window.location.href = "../student-alumni/homepage.html"
+          window.location.href = "../student-alumni/homepage.php"
         }
       },
       error: (error) => console.log(error)

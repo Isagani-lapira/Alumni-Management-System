@@ -1,6 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+
+session_start();
+if (
+  !isset($_SESSION['username']) ||
+  $_SESSION['logged_in'] != true ||
+  $_SESSION['accountType'] != 'User'
+) {
+  header("location: login.php");
+  exit();
+} else {
+  require_once '../PHP_process/connection.php';
+  require '../PHP_process/personDB.php';
+
+  $username = $_SESSION['username'];
+
+  //get the person ID of that user
+  $query = "SELECT student.personID
+            FROM student
+            JOIN user ON student.username = user.username
+            WHERE user.username = '$username'";
+  $result = mysqli_query($mysql_con, $query);
+  if ($result) {
+    $data = mysqli_fetch_assoc($result);
+    $personID = $data['personID'];
+
+    //get person details
+    $personObj = new personDB();
+    $personDataJSON = $personObj->readPerson($personID, $mysql_con);
+    $personData = json_decode($personDataJSON, true);
+
+    $fullname = $personData['fname'] . ' ' . $personData['lname'];
+    $age = $personData['age'];
+    $address = $personData['address'];
+    $bday = $personData['bday'];
+    $gender = ucfirst($personData['gender']);
+    $contactNo = $personData['contactNo'];
+    $personal_email = $personData['personal_email'];
+    $bulsu_email = $personData['bulsu_email'];
+    $profilepicture = $personData['profilepicture'];
+    $_SESSION['personID'] = $personID;
+  }
+}
+
+?>
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,7 +80,7 @@
       <!-- Navbar -->
       <div class="Navbar fixed top-0 left-0 right-0 z-30">
         <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
-          <a href="homepage.html" class="col-span-1 flex items-center">
+          <a href="homepage.php" class="col-span-1 flex items-center">
             <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
             <span class="ml-2 text-xl font-bold">BulSU Connect</span>
           </a>
@@ -47,11 +93,21 @@
           </div>
 
           <div class="col-span-2 md:col-span-1 flex items-center justify-end">
-            <img href="profile.html" class="mr-4">
-            <img src="../images/ye.jpg" alt="Profile Icon" class="w-10 h-10 profile-icon" />
+            <!-- set profile image -->
+            <?php
+            if ($profilepicture == "") {
+              echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+            } else {
+              $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+              echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+            }
+
+            ?>
             </img>
-            <p href="profile.html" class="mr-4 text-sm font-medium text-greyish_black p-4">
-              Patrick Joseph Pronuevo
+            <p class="mr-4 text-sm font-medium text-greyish_black p-4">
+              <?php
+              echo $fullname;
+              ?>
             </p>
 
             <!-- Dropdown Button -->
@@ -66,9 +122,9 @@
               <a href="profile.html" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg">
                 <i class="fas fa-light fa-user text-md pr-2"></i>See Profile
               </a>
-              <a href="/student-alumni/login.php" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg">
+              <span id="logout" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg cursor-pointer">
                 <i class="fas fa-sign-out-alt text-md pr-2"></i>Logout
-              </a>
+              </span>
             </div>
           </div>
         </nav>
@@ -186,7 +242,16 @@
                 <!-- Make Post && Profile -->
                 <div id="makePostProfile" class="post p-3 input-post-width mx-auto rounded-md center-shadow w-5/6">
                   <div class="flex items-center">
-                    <img class="h-12 border-2 border-accentBlue rounded-full inline" src="../images/ye.jpg" alt="">
+                    <!-- set profile image -->
+                    <?php
+                    if ($profilepicture == "") {
+                      echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                    } else {
+                      $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                      echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                    }
+
+                    ?>
                     <div class="write pl-2 w-full">
                       <button id="writeBtn" class="bg-gray-200 hover:bg-gray-100 text-grayish font-extralight py-2 px-4 rounded-full flex-grow w-full hover:shadow-md border-2" onclick="openModal()">
                         <span class="flex items-center">
@@ -665,7 +730,16 @@
               <div class="mb-4">
                 <!-- User profile picture and name -->
                 <div class="flex items-center mb-2">
-                  <img class="h-10 border-2 border-accentBlue rounded-full inline" src="/images/ye.jpg" alt="">
+                  <!-- set profile image -->
+                  <?php
+                  if ($profilepicture == "") {
+                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                  } else {
+                    $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                  }
+
+                  ?>
                   <p class="text-grayish_black font-semibold text-sm pl-2">Patrick Joseph Pronuevo</p>
                 </div>
                 <!-- Post description -->

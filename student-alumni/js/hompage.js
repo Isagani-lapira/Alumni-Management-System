@@ -1,3 +1,4 @@
+// const { format } = require("prettier");
 
 $(document).ready(function () {
 
@@ -152,6 +153,15 @@ $(document).ready(function () {
 
   }
 
+  //logout the user
+  $('#logout').on('click', function () {
+    //perform php process for signing out
+    $.ajax({
+      method: 'POST',
+      url: "../PHP_process/signout.php",
+      success: () => { window.location.href = "login.php" }, //go back to login page
+    })
+  })
 });
 
 // NOTIFICATIONS  
