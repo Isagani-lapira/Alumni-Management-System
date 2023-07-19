@@ -150,3 +150,12 @@ body {
 /* scrollbar-color: #888 #f1f1f1; */
 /* scrollbar-width: thin; */
 
+
+/* UI ACTIVE TAB */
+svg {
+  fill: white;
+}
+
+.ui-tabs-active svg {
+  fill: black;
+}

@@ -131,13 +131,13 @@ if (
       </div>
 
       <!--SUB NAVBAR-->
-      <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-1 left-0 right-3 sm:top-24 sm:mt-1 sm:justify-center z-20">
+      <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-1 left-0 right-2 sm:top-24 sm:mt-1 sm:justify-center z-20">
 
-        <ul class="sub-navbar bg-accent text-white flex flex-wrap items-center justify-evenly h-max sm:w-2/6 md:w-5/12 p-4 text-sm" style="width: 45%;">
+        <ul class="sub-navbar bg-accent text-white flex flex-wrap items-center justify-evenly h-max sm:w-2/6 md:w-5/12 p-4 text-sm" style="width: 50%;">
           <!--FEED TAB-->
           <li class="w-full sm:w-auto">
             <a href="#tabs-1" class="flex items-center" id="feedLink" onclick="toggleFeed()">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA5ElEQVR4nO3SMUoDURDG8aewaQSbgNYW2tnoDaz0CrmEYGObK3iHnMFKWy30AhamUrAVbSz0J4sT8lgSdjeriJgPpnnzzX/ezHsp/SvhpIyfAK9gaKozrH4XvIdRgN8ixFmvK3wN5wF8wSEO8Bxnl1hfFN7HdYCesJfldvEQuVtstoVv4S4A99iu8Yyx0xRe3u4xCm+wUTPlVTblfh083+9Fk/1W3ukVR/OMg+yHlCoajfxVW2R1JWNQNRzjPTNpCp8or8UHTtMsdW2QFjGao7/XILXwLBt0X9EspRae32uwVKroE2OChkKsj2YoAAAAAElFTkSuQmCC" alt="Home Icon" class="w-5 h-5 mr-2 text-white" />
+            <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z"/></svg>
               <span class="inline-block text-white font-semibold" id="feedText">Feed</span>
             </a>
           </li>
@@ -179,7 +179,7 @@ if (
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
               <button id="notif-btn" class="notif" onclick="buttonColor(), toggleNotifications()">
-                <span class="h-4 w-4 fa fa-bell"></span>
+              <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21 19v1H3v-1l2-2v-6c0-3.1 2.03-5.83 5-6.71V4a2 2 0 0 1 2-2a2 2 0 0 1 2 2v.29c2.97.88 5 3.61 5 6.71v6l2 2m-7 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2"/></svg>
                 <span class="ps-3 text-sm text-greyish_black font-medium">Notifications</span>
               </button>
             </div>
