@@ -566,6 +566,7 @@ if (
               </div>
 
               <!-- 2 -->
+
               <div class="carousel-slide absolute top-0 left-0 flex flex-col items-center justify-end opacity-0 transition-opacity duration-700 ease-in-out" data-carousel-item>
                 <div class="w-full h-48 md:h-96">
                   <img src="../images/ye.jpg" alt="Image 1" class="w-full h-full object-cover rounded-lg" />
@@ -582,15 +583,6 @@ if (
                 </div>
               </div>
               <!-- Add more carousel slides with descriptions and "Read More" buttons here -->
-            </div>
-
-            <!-- Slider indicators -->
-            <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
             </div>
 
             <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" onclick="nextSlide()" data-carousel-prev>
@@ -610,8 +602,6 @@ if (
                 </span>
             </button>
           </div>
-
-
 
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
           <!-- Notifications Tab -->
