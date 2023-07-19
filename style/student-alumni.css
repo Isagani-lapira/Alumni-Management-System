@@ -152,10 +152,33 @@ body {
 
 
 /* UI ACTIVE TAB */
-svg {
-  fill: white;
+/* Default styles for inactive tabs */
+#tabs .icon,
+#tabs .text {
+  fill: rgb(202, 152, 152);
+  color: rgb(202, 152, 152);
 }
 
-.ui-tabs-active svg {
-  fill: black;
+
+/* Styles for active tabs */
+#tabs .ui-tabs-active #feedLink .icon,
+#tabs .ui-tabs-active #feedLink .text {
+  fill: white;
+  color: white;
 }
+
+#tabs .ui-tabs-active .icon,
+#tabs .ui-tabs-active .text {
+  fill: white;
+  color: white;
+}
+
+/* Bottom border color for active tab */
+#tabs .ui-tabs-active::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: white;
+}
+

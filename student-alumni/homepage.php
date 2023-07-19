@@ -56,8 +56,8 @@ if (
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -137,8 +137,10 @@ if (
           <!--FEED TAB-->
           <li class="w-full sm:w-auto">
             <a href="#tabs-1" class="flex items-center" id="feedLink" onclick="toggleFeed()">
-            <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z"/></svg>
-              <span class="inline-block text-white font-semibold" id="feedText">Feed</span>
+              <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z"/>
+              </svg>
+              <span class="text-white font-semibold text" id="feedText">Feed</span>
             </a>
           </li>
 
@@ -148,8 +150,10 @@ if (
           <!--EVENTS TAB-->
           <li class="w-full sm:w-auto">
             <a href="#tabs-2" id="eventsLink" class="inline-flex items-center">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAqUlEQVR4nN3UQQrCMBCF4aw9hLj1JuodXCkU9FzeSlzYa2g/kaZQxGpp2kp9EEiYyfyZR5IQ/laiQk954wCwQa67cqw/AVKKV7r2026X/aMBUhV+DghDWxTaFdti0QsAs5d1hgKXeqwTAHOccYzrPe4RcEjuQGlFEcepNs/aOvA1Abt4au9OngyoWXOrrBrkFmHZuLmMF9N5B10Bg3/X62dCSnGsGgGT1ANaBPWW0/Q4dwAAAABJRU5ErkJggg==" alt="Events Icon" class="w-5 h-5 mr-2 text-white" />
-              <span id="eventsText" class="text-white font-semibold">Events</span>
+              <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/>
+              </svg>
+              <span id="eventsText" class="text-white font-semibold text" id="eventText">Events</span>
             </a>
           </li>
 
@@ -159,8 +163,10 @@ if (
           <!--JOB HUNT TAB-->
           <li class="w-full sm:w-auto">
             <a href="#tabs-3" id="jobHuntLink" class="flex items-center">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAX0lEQVR4nO2UQQqAMAwE93kWny1+xPqPKT0KtiqJFDRz3bADe4gUeECDpyUzsGMnA+lMUAMvtuYMpi3V6QnBDycCVmC5UXi4uxR4oWECGeHTgvz2s0s18CgHJusSgdwoBMOg0T9wg1YAAAAASUVORK5CYII=" class="w-5 h-5 mr-2 text-white" alt="Job Hunt" />
-              <span id="JobHuntText" class="text-white font-semibold">Job Hunt</span>
+              <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4ZM4 15v4h16v-4H4Zm7-4v2h2v-2h-2ZM9 3v2h6V3H9Z"/>
+              </svg>
+              <span id="JobHuntText" class="text-white font-semibold text" id="jobHuntText">Job Hunt</span>
             </a>
           </li>
         </ul>
@@ -543,8 +549,69 @@ if (
           <!-- RIGHT DIV -->
           <div class="right-div fixed top-48 right-2 w-1/4 h-full px-8">
             <!-- Content for the right div -->
-            <p>Right Div</p>
+            <p class="font-medium border-b-2 border-grayish ml-auto block text-lg pb-2 mb-4">ANNOUNCEMENT</p>
+            <div class="carousel relative w-full h-2/5" data-carousel="slide">
+              <!-- Carousel Slides -->
+              <!-- 1 -->
+              <div class="carousel-slide absolute top-0 left-0 flex flex-col items-center justify-end opacity-0 transition-opacity duration-700 ease-in-out" data-carousel-item>
+                <div class="w-full h-48 md:h-96">
+                  <img src="../images/bsu-header4.jpg" alt="Image 1" class="w-full h-full object-cover rounded-lg" />
+                </div>
+                <div class="carousel-description w-full bg-white bg-opacity-75 p-2 flex flex-col">
+                  <p class="text-sm line-clamp-3">Our future growth relies on competitiveness and innovation, skills and productivity... and these in turn rely on the education of our people." ~ Julia Gilla Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU! 😊🙌 #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars</p>
+                  <div class="flex justify-end">
+                    <button class="read-more-button text-blue-500 text-sm font-semibold mt-2" onclick="toggleDescription(0)">Read More</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2 -->
+              <div class="carousel-slide absolute top-0 left-0 flex flex-col items-center justify-end opacity-0 transition-opacity duration-700 ease-in-out" data-carousel-item>
+                <div class="w-full h-48 md:h-96">
+                  <img src="../images/ye.jpg" alt="Image 1" class="w-full h-full object-cover rounded-lg" />
+                </div>
+                <div class="carousel-description w-full bg-white bg-opacity-75 p-2 flex flex-col">
+                  <p class="text-sm line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id dignissim erat. Suspendisse sed malesuada nisi, sit amet laoreet tellus. Sed feugiat aliquet tortor, quis semper diam condimentum vitae. 
+                    Praesent tincidunt velit sed erat congue euismod. Pellentesque tortor leo, tempus sit amet sem blandit, congue tincidunt sem. 
+                    Donec scelerisque orci at tortor facilisis, vitae molestie lorem luctus. Proin porta lobortis ipsum id scelerisque. 
+                    Curabitur sed consequat tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce faucibus auctor scelerisque
+                  </p>
+                  <div class="flex justify-end">
+                    <button class="read-more-button text-blue-500 text-sm font-semibold mt-2" onclick="toggleDescription(1)">Read More</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Add more carousel slides with descriptions and "Read More" buttons here -->
+            </div>
+
+            <!-- Slider indicators -->
+            <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+            </div>
+
+            <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" onclick="nextSlide()" data-carousel-prev>
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                    </svg>
+                    <span class="sr-only">Previous</span>
+                </span>
+            </button>
+            <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" onclick="prevSlide()" data-carousel-next>
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                    <span class="sr-only">Next</span>
+                </span>
+            </button>
           </div>
+
+
 
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
           <!-- Notifications Tab -->
