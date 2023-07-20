@@ -81,6 +81,14 @@ class Career
         if ($result) $this->getCareerDetail($result, $con);
         else echo 'something went wrong, please try again';
     }
+    public function selectWithCareerID($con, $careerID)
+    {
+        $query = 'SELECT * FROM `career` WHERE `careerID` = "' . $careerID . '"  ORDER BY`date_posted`DESC'; //as defult
+        $result = mysqli_query($con, $query);
+
+        if ($result) $this->getCareerDetail($result, $con);
+        else echo 'something went wrong, please try again';
+    }
     public function selectDataForCollege($college, $con)
     {
         $query = 'SELECT * FROM `career` WHERE `colCode` ="' . $college . '"';
@@ -128,7 +136,8 @@ class Career
                 $maxSalary[] = $row_data['colCode'];
                 $colCode[] = $row_data['colCode'];
                 $author[] = $row_data['author'];
-                $date_posted[] = $row_data['date_posted'];
+                $date = $row_data['date_posted'];
+                $date_posted[] = $this->dateInText($date);
                 // Pseudonymize the personID
                 $personIDEncrypted[] = $this->generatePseudonym($row_data['personID']);
 
@@ -179,5 +188,23 @@ class Career
         );
 
         echo json_encode($data); //return data as json
+    }
+
+    function dateInText($date)
+    {
+        $year = substr($date, 0, 4);
+        $month = intval(substr($date, 5, 2));
+        $day = substr($date, 8, 2);
+        $months = [
+            '', 'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        //2023-07-17
+        //convert date month to text format
+        $month = $months[$month];
+
+        //return in a formatted date
+        return $month . ' ' . $day . ', ' . $year;
     }
 }

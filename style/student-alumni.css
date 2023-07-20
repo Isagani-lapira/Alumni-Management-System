@@ -1,11 +1,11 @@
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .search-input-focused {
   outline: none;
-  border-color: #991B1B;
-  box-shadow: 0 0 0 2px #991B1B;
+  border-color: #991b1b;
+  box-shadow: 0 0 0 2px #991b1b;
 }
 
 .text-black {
@@ -16,7 +16,7 @@ body {
   border-radius: 50%;
   border: 2px solid #113782;
 }
-.sub-navbar{
+.sub-navbar {
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
 }
@@ -31,7 +31,7 @@ body {
 }
 
 .bg-cover {
-  margin-top: 95px; 
+  margin-top: 95px;
   width: auto;
   height: auto;
 }
@@ -78,8 +78,8 @@ body {
   max-width: 500px;
 }
 
-#galleryLogo:hover >svg path{
-  fill: #1746A2;
+#galleryLogo:hover > svg path {
+  fill: #1746a2;
   cursor: pointer;
 }
 
@@ -88,18 +88,19 @@ body {
 }
 
 .red-color {
-  background-color: #991B1B;
+  background-color: #991b1b;
 }
 
-.center-shadow{
-  box-shadow: rgba(87, 87, 87, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+.center-shadow {
+  box-shadow: rgba(87, 87, 87, 0.16) 0px 3px 6px,
+    rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .tags-con {
   padding: 4px;
 }
 
-.job-offer.selected{
+.job-offer.selected {
   background-color: rgba(153, 27, 27, 0.25);
   color: #000000;
 }
@@ -136,20 +137,18 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #991B1B;
+  background-color: #991b1b;
   border-radius: 10px;
 }
 
 :root {
-  scrollbar-color: #991B1B; /* Set the color of the thumb */
+  scrollbar-color: #991b1b; /* Set the color of the thumb */
 }
-
 
 /* For Firefox */
 /* Note: Firefox does not support rounded scrollbars, so this is just a general styling */
 /* scrollbar-color: #888 #f1f1f1; */
 /* scrollbar-width: thin; */
-
 
 /* UI ACTIVE TAB */
 /* Default styles for inactive tabs */
@@ -158,7 +157,6 @@ body {
   fill: rgb(202, 152, 152);
   color: rgb(202, 152, 152);
 }
-
 
 /* Styles for active tabs */
 #tabs .ui-tabs-active #feedLink .icon,
@@ -175,10 +173,14 @@ body {
 
 /* Bottom border color for active tab */
 #tabs .ui-tabs-active::after {
-  content: '';
+  content: "";
   display: block;
   width: 100%;
   height: 3px;
   background-color: white;
 }
 
+.selectedJob {
+  background-color: #e09191;
+  color: white !important;
+}

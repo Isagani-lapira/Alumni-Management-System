@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
   const imgFormat = 'data:image/jpeg;base64,';
-
+  const colCode = $('#colCode').html();
   $('#tabs').tabs();
   // Initialize the tabs - FEED BTN
   $("#tabs-feed-btns").tabs();
@@ -51,13 +51,13 @@ $(document).ready(function () {
     $("#tabs-college").show();
 
   });
+  const action = {
+    action: 'readWithCol',
+    colCode: colCode, //to be change
+  }
 
-  getListOfWork() //list of work
-  function getListOfWork() {
-    const action = {
-      action: 'readWithCol',
-      colCode: 'CICT', //to be change
-    }
+  getWork(action) //list of work
+  function getWork(action) {
     let formData = new FormData();
     formData.append('action', JSON.stringify(action));
 
@@ -74,6 +74,7 @@ $(document).ready(function () {
           const length = parsedResponse.author.length; //total length of all data that has been retrieved
           for (let i = 0; i < length; i++) {
             //data to be use
+            const careerID = parsedResponse.careerID[i];
             const companyLogo = imgFormat + parsedResponse.companyLogo[i];
             const jobTitle = parsedResponse.jobTitle[i];
             const company = parsedResponse.companyName[i];
@@ -81,7 +82,7 @@ $(document).ready(function () {
             const skill = parsedResponse.skills[i];
 
             //display job with design
-            listOfJobDisplay(jobTitle, company, author, skill, companyLogo)
+            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID)
           }
 
         }
@@ -91,7 +92,7 @@ $(document).ready(function () {
     })
   }
 
-  function listOfJobDisplay(jobTitle, company, author, skills, companyLogo) {
+  function listOfJobDisplay(jobTitle, company, author, skills, companyLogo, careerID) {
 
     //creating elements
     let containerJob = $('<div>').addClass('rounded-md px-2 py-3 text-sm center-shadow flex gap-2 text-gray-500 cursor-pointer')
@@ -117,6 +118,81 @@ $(document).ready(function () {
     let list = $('<li>').append(containerJob);
     $('#listOfJob').append(list) // add to the list
 
+
+    containerJob.on('click', function () {
+
+      //remove the the last one has been selected
+      $('.selectedJob').each((index, element) => {
+        element.removeClass('selectedJob')
+      })
+      containerJob.addClass('selectedJob');//set the container that has been clicked as selected container
+      //viewing of particular job
+      viewOfCareer(careerID);
+    })
+  }
+
+  function displaySelectedCareer(jobTitle, companyName, author, datePosted, companyLogo,
+    description, skills, qualification, requirements) {
+    let logo = imgFormat + companyLogo;
+
+    //displaying a particular job data
+    $('#viewJobLogo').attr('src', logo)
+    $('#viewJobTitle').text(jobTitle)
+    $('#viewJobCompany').text(companyName)
+    $('#viewJobAuthor').text(author)
+    $('#viewJobDatePosted').text(datePosted)
+    $('#jobDescript').text(description)
+    $('#viewJobQuali').text(qualification)
+
+    //get all the skills that a particular career has
+    skills.forEach(skill => {
+      skillVal = $('<p>').text(skill);
+
+      //add it on the container
+      $('#skillsContainer').append(skillVal);
+    })
+
+    //get all the requirements of this job
+    requirements.forEach(requirement => {
+      let list = $('<li>').text(requirement)
+      $('#requirements').append(list);
+    })
+  }
+
+  function viewOfCareer(careerID) {
+    const actionCareer = {
+      action: 'readWithCareerID',
+      careerID: careerID, //to be change
+    }
+
+    let formData = new FormData();
+    formData.append('action', JSON.stringify(actionCareer));
+
+    $.ajax({
+      url: '../PHP_process/jobTable.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (result) => {
+        //if the process is successful
+        const parsedResponse = JSON.parse(result);
+        if (parsedResponse.result == 'Success') {
+          const companyName = parsedResponse.companyName[0];
+          const jobTitle = parsedResponse.jobTitle[0];
+          const companyLogo = parsedResponse.companyLogo[0];
+          const author = parsedResponse.author[0];
+          const datePosted = parsedResponse.date_posted[0];
+          const description = parsedResponse.jobDescript[0];
+          const skills = parsedResponse.skills[0];
+          const qualification = parsedResponse.jobQuali[0];
+          const requirements = parsedResponse.requirements[0];
+          displaySelectedCareer(jobTitle, companyName, author, datePosted,
+            companyLogo, description, skills, qualification, requirements)
+        }
+      },
+      error: (error) => { console.log(error) }
+    })
   }
 
   //logout the user

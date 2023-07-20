@@ -58,6 +58,9 @@ if (isset($_POST['action'])) {
         } else if ($action == 'readWithCol') {
             $colCode = $arrayData['colCode'];
             $readCareer->selectDataForCollege($colCode, $mysql_con);
+        } else if ($action == 'readWithCareerID') {
+            $careerID = $arrayData['careerID'];
+            $readCareer->selectWithCareerID($mysql_con, $careerID);
         }
     } catch (Exception $e) {
         echo $e->getMessage();

@@ -42,7 +42,30 @@ if (
     $bulsu_email = $personData['bulsu_email'];
     $profilepicture = $personData['profilepicture'];
     $_SESSION['personID'] = $personID;
+
+    $data = json_decode(getAccDetails($mysql_con, $personID), true); //query to get account type and college code
+    $accountType = $data[0];
+    $colCode = $data[1];
   }
+}
+function getAccDetails($con, $personID)
+{
+  $query = "SELECT 'student' AS accountType, colCode FROM student WHERE personID = '$personID' UNION 
+    SELECT 'alumni' AS accountType, colCode FROM alumni WHERE personID = '$personID'";
+  $result = mysqli_query($con, $query);
+  $row = mysqli_num_rows($result);
+
+  $accountType = "";
+  $colCode = "";
+  if ($result && $row) {
+    while ($data = mysqli_fetch_assoc($result)) {
+      $accountType = $data['accountType'];
+      $colCode = $data['colCode'];
+    }
+  }
+
+  $data = array($accountType, $colCode);
+  return json_encode($data);
 }
 
 ?>
@@ -76,6 +99,9 @@ if (
 <body>
   <!--CONTENT PAGE -->
   <div class="fixed top-0 w-full z-50">
+    <?php
+    echo '<p id="colCode" class="hidden">' . $colCode . '</p>'
+    ?>
     <div id="tabs" class="h-screen overflow-y-scroll hide-scrollbar">
       <!-- Navbar -->
       <div class="Navbar fixed top-0 left-0 right-0 z-30">
@@ -138,7 +164,7 @@ if (
           <li class="w-full sm:w-auto">
             <a href="#tabs-1" class="flex items-center" id="feedLink" onclick="toggleFeed()">
               <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z"/>
+                <path d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z" />
               </svg>
               <span class="text-white font-semibold text" id="feedText">Feed</span>
             </a>
@@ -151,7 +177,7 @@ if (
           <li class="w-full sm:w-auto">
             <a href="#tabs-2" id="eventsLink" class="inline-flex items-center">
               <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/>
+                <path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z" />
               </svg>
               <span id="eventsText" class="text-white font-semibold text" id="eventText">Events</span>
             </a>
@@ -164,7 +190,7 @@ if (
           <li class="w-full sm:w-auto">
             <a href="#tabs-3" id="jobHuntLink" class="flex items-center">
               <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4ZM4 15v4h16v-4H4Zm7-4v2h2v-2h-2ZM9 3v2h6V3H9Z"/>
+                <path fill="currentColor" d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4ZM4 15v4h16v-4H4Zm7-4v2h2v-2h-2ZM9 3v2h6V3H9Z" />
               </svg>
               <span id="JobHuntText" class="text-white font-semibold text" id="jobHuntText">Job Hunt</span>
             </a>
@@ -185,7 +211,9 @@ if (
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
               <button id="notif-btn" class="notif" onclick="buttonColor(), toggleNotifications()">
-                <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M21 19v1H3v-1l2-2v-6c0-3.1 2.03-5.83 5-6.71V4a2 2 0 0 1 2-2a2 2 0 0 1 2 2v.29c2.97.88 5 3.61 5 6.71v6l2 2m-7 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2"/></svg>
+                <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M21 19v1H3v-1l2-2v-6c0-3.1 2.03-5.83 5-6.71V4a2 2 0 0 1 2-2a2 2 0 0 1 2 2v.29c2.97.88 5 3.61 5 6.71v6l2 2m-7 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2" />
+                </svg>
                 <span class="ps-3 text-sm text-greyish_black font-medium">Notifications</span>
               </button>
             </div>
@@ -193,7 +221,9 @@ if (
             <!-- Verification Job Post -->
             <div id="target-div-job" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
               <button id="verif-btn" onclick="toggleColorJob(), toggleJobPost()">
-              <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4l4.25 4.25ZM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg>
+                <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4l4.25 4.25ZM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z" />
+                </svg>
                 <span class="ps-3 text-sm text-greyish_black font-medium">Verified Job Post</span>
               </button>
             </div>
@@ -201,7 +231,9 @@ if (
             <!-- Yearbook -->
             <div id="target-div-yearbook" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
               <button id="yearbook-btn" onclick="toggleYearbook()">
-              <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="currentColor" d="M464 48c-67.61.29-117.87 9.6-154.24 25.69c-27.14 12-37.76 21.08-37.76 51.84V448c41.57-37.5 78.46-48 224-48V48ZM48 48c67.61.29 117.87 9.6 154.24 25.69c27.14 12 37.76 21.08 37.76 51.84V448c-41.57-37.5-78.46-48-224-48V48Z"/></svg>
+                <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
+                  <path fill="currentColor" d="M464 48c-67.61.29-117.87 9.6-154.24 25.69c-27.14 12-37.76 21.08-37.76 51.84V448c41.57-37.5 78.46-48 224-48V48ZM48 48c67.61.29 117.87 9.6 154.24 25.69c27.14 12 37.76 21.08 37.76 51.84V448c-41.57-37.5-78.46-48-224-48V48Z" />
+                </svg>
                 <span class="ps-3 text-sm text-greyish_black font-medium">Yearbook</span>
               </button>
             </div>
@@ -572,9 +604,9 @@ if (
                   <img src="../images/ye.jpg" alt="Image 1" class="w-full h-full object-cover rounded-lg" />
                 </div>
                 <div class="carousel-description w-full bg-white bg-opacity-75 p-2 flex flex-col">
-                  <p class="text-sm line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id dignissim erat. Suspendisse sed malesuada nisi, sit amet laoreet tellus. Sed feugiat aliquet tortor, quis semper diam condimentum vitae. 
-                    Praesent tincidunt velit sed erat congue euismod. Pellentesque tortor leo, tempus sit amet sem blandit, congue tincidunt sem. 
-                    Donec scelerisque orci at tortor facilisis, vitae molestie lorem luctus. Proin porta lobortis ipsum id scelerisque. 
+                  <p class="text-sm line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id dignissim erat. Suspendisse sed malesuada nisi, sit amet laoreet tellus. Sed feugiat aliquet tortor, quis semper diam condimentum vitae.
+                    Praesent tincidunt velit sed erat congue euismod. Pellentesque tortor leo, tempus sit amet sem blandit, congue tincidunt sem.
+                    Donec scelerisque orci at tortor facilisis, vitae molestie lorem luctus. Proin porta lobortis ipsum id scelerisque.
                     Curabitur sed consequat tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce faucibus auctor scelerisque
                   </p>
                   <div class="flex justify-end">
@@ -586,20 +618,20 @@ if (
             </div>
 
             <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" onclick="nextSlide()" data-carousel-prev>
-                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                    </svg>
-                    <span class="sr-only">Previous</span>
-                </span>
+              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
+                </svg>
+                <span class="sr-only">Previous</span>
+              </span>
             </button>
             <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" onclick="prevSlide()" data-carousel-next>
-                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                    </svg>
-                    <span class="sr-only">Next</span>
-                </span>
+              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <span class="sr-only">Next</span>
+              </span>
             </button>
           </div>
 
@@ -961,23 +993,23 @@ if (
                     <!-- Company Name and Image -->
                     <div class="flex py-10 px-16">
                       <div>
-                        <img src="../images/BSU-logo.png" alt="Company Logo" class="w-24 h-24 object-cover rounded-full">
+                        <img id="viewJobLogo" class="w-24 h-24 object-contain rounded-full">
                       </div>
                       <div class="pl-4">
-                        <h2 class="text-lg font-bold">Web Designer</h2>
-                        <p class="text-sm">Bulacan State University</p>
+                        <h2 id="viewJobTitle" class="text-lg font-bold"></h2>
+                        <p id="viewJobCompany" class="text-sm"></p>
                         <div class="flex items-center pt-2">
-                          <i class="fa-solid fa-location-dot text-sm pr-1 text-gray-400"></i>
-                          <p class="text-sm text-gray-400">Philippines</p>
+                          <!-- <i class="fa-solid fa-location-dot text-sm pr-1 text-gray-400"></i> -->
+                          <p class="text-sm text-gray-400"></p>
                         </div>
                         <div class="flex items-center">
-                          <p class="text-sm text-gray-400 pr-1">Posted by:</p>
-                          <p class="text-sm text-green-500">Admin</p>
+                          <!-- <p class="text-sm text-gray-400 pr-1">Posted by:</p> -->
+                          <p id="viewJobAuthor" class="text-sm text-green-500"></p>
                         </div>
                         <div class="flex items-center">
                           <p class="text-sm text-gray-400 pr-1">Posted
                             <span class="font-semibold" style="font-size: 1rem">·</span>
-                            22/06/23
+                            <span id="viewJobDatePosted"></span>
                           </p>
                         </div>
 
@@ -997,97 +1029,28 @@ if (
                       <hr class="w-full h-2 border-black">
                     </div>
 
-                    <!-- Jobs, Company, and Salary -->
-                    <div class="flex px-16 py-2 justify-between">
-                      <div class="w-1/3 p-2">
-                        <h3 class="font-bold text-lg p-2">Job</h3>
-                        <ul class="list-disc pl-8">
-                          <li class="p-1">10 Applicants</li>
-                          <li class="p-1">College Graduate</li>
-                          <li class="p-1">Full time</li>
-                          <!-- Add more jobs as needed -->
-                        </ul>
-                      </div>
-                      <div class="w-1/3 p-2">
-                        <h3 class="font-bold p-2 text-lg">Company</h3>
-                        <ul class="list-disc pl-4">
-                          <li class="p-1">50-200 Employees</li>
-                          <li class="p-1">Marketing & Advertisment</li>
-
-                          <!-- Add more companies as needed -->
-                        </ul>
-                      </div>
-                      <div class="w-1/3 p-2">
-                        <h3 class="font-bold p-2 text-lg">Salary</h3>
-                        <ul class="list-disc pl-4">
-                          <li class="p-1">$35, 000 a yr</li>
-                          <!-- Add more salaries as needed -->
-                        </ul>
-                      </div>
-                    </div>
-
-                    <!-- Horizontal Line -->
-                    <div class="flex justify-center px-10">
-                      <hr class="w-full h-2 border-black">
-                    </div>
-
                     <!-- Project Overview -->
                     <div class="px-10 py-6">
-                      <h3 class="text-xl font-bold">Project Overview</h3>
-                      <p class="indented text-justify">As a web designer, your role will be to create visually appealing and user-friendly websites that effectively communicate the client's brand and message.
-                        You will utilize your design skills and technical expertise to develop website layouts, select appropriate colors and fonts, and implement interactive elements.
-                        Your ability to collaborate with clients and understand their goals will be crucial in delivering successful web design projects.</p>
+                      <h3 class="text-xl font-bold">Job Description</h3>
+                      <p id="jobDescript" class="indented text-justify"></p>
                     </div>
 
                     <!-- Skills -->
                     <div class="px-10 py-6">
                       <h3 class="text-xl font-bold">Skills</h3>
-                      <div class="flex flex-wrap">
-                        <div class="tags-con">
-                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">User Interface (UI) Design</span>
-                        </div>
-                        <div class="tags-con">
-                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Graphic Design</span>
-                        </div>
-                        <div class="tags-con">
-                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">HTML/CSS</span>
-                        </div>
-                        <div class="tags-con">
-                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Responsive Design</span>
-                        </div>
-                        <div class="tags-con">
-                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Content Management Systems (CMS)</span>
-                        </div>
-                        <div class="tags-con">
-                          <span class="text-xs bg-gray-200 px-2 py-1 rounded">Collaboration</span>
-                        </div>
-                      </div>
+                      <div id="skillsContainer" class="flex flex-wrap"></div>
                     </div>
 
                     <!-- Qualifications -->
                     <div class="px-10 py-6">
                       <h3 class="font-bold">Qualifications:</h3>
-                      <ul class="list-disc pl-8">
-                        <li>Experience in web design or a related field, demonstrating a portfolio of past projects and design skills</li>
-                        <li>Strong understanding of design principles, including color theory, typography, and layout composition.</li>
-                        <li>Proficiency in design software such as Adobe Photoshop, Illustrator, or Sketch for creating and editing visual assets.</li>
-                        <li>Knowledge of HTML, CSS, and JavaScript to implement design elements and collaborate effectively with developers.</li>
-                        <li>Excellent problem-solving and analytical skills to address design challenges and optimize user experience.</li>
-                        <li>Ability to work collaboratively in a team environment, adapting to feedback and incorporating changes as necessary.</li>
-                      </ul>
+                      <p id="viewJobQuali"></p>
                     </div>
 
                     <!-- Requirements -->
                     <div class="px-10 py-6">
                       <h3 class="font-bold ">Requirements:</h3>
-                      <ul class="list-disc pl-8">
-                        <li>Bachelor's degree in web design, graphic design, or a related field is preferred.</li>
-                        <li>Previous experience in designing successful websites for clients or organizations,
-                          showcasing a diverse range of design styles and approaches.</li>
-                        <li>Proficiency in web design tools and frameworks, such as Adobe XD, Figma, or Bootstrap.</li>
-                        <li>Strong attention to detail and ability to meet project deadlines while maintaining high-quality standards.</li>
-                        <li>Passion for web design and a commitment to staying up-to-date with industry trends, emerging technologies, and design best practices.</li>
-                      </ul>
+                      <ul id="requirements" class="list-disc gap-3"></ul>
                     </div>
 
                   </div>
