@@ -22,12 +22,7 @@ body {
   .modal-bg {
     background-color: #1e1c1c98;
   }
-  .input-text {
-    @apply border border-gray-600 rounded-sm py-2 px-4  shadow-md;
-  }
-  .add-focus {
-    @apply focus:outline-none focus:ring-2 focus:ring-red-950 focus:ring-opacity-75;
-  }
+
   .btn-primary {
     @apply bg-accent hover:bg-darkAccent py-2 px-5 text-white font-normal rounded-md transition-all;
   }
@@ -55,9 +50,24 @@ body {
     @apply font-bold uppercase text-accent;
   }
 
-  /* Input Message */
+  /* *  Input Styles */
+  .input-text {
+    @apply border border-gray-600 rounded-sm py-2 px-4  shadow-md;
+  }
+  .add-focus {
+    @apply focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-blue-600;
+  }
   .input-msg {
     @apply block h-4 font-bold text-green-500 invisible;
+  }
+
+  /* * Input validation */
+  .invalid-input {
+    @apply bg-red-100 border-red-900 border-2;
+  }
+
+  .valid-input {
+    @apply bg-green-100 border-green-900 border-2;
   }
   .input-msg.valid {
     @apply visible;

@@ -1,23 +1,44 @@
 // constant variables
 const successLogin = "/college/index.php";
 
+function toggleInvalidClass(element) {
+  element.removeClass("valid");
+  element.addClass("invalid");
+}
+function toggleValidClass(element) {
+  element.removeClass("invalid");
+  element.addClass("valid");
+}
+
+function toggleInputClassValid(input) {
+  input.addClass("valid-input");
+  input.removeClass("invalid-input");
+}
+
+function toggleInputClassInvalid(input) {
+  input.addClass("invalid-input");
+  input.removeClass("valid-input");
+}
+
 $(document).ready(function () {
   let usernameAvailable = true;
   let passwordReqFulFill = true;
 
+  const validHTMLContent = `<i class="fa-solid fa-check"></i> Valid`;
+  const invalidHTMLContent = `<i class="fa-solid fa-xmark"></i> Invalid: Value must not be null`;
   // On Blur
   $(".logInput").on("blur", function (event) {
     const elem = $(this);
     const messageElem = $(this).siblings(".input-msg");
-    console.log(elem.val());
+
     if (elem.val() === "") {
-      messageElem.removeClass("valid");
-      messageElem.addClass("invalid");
-      messageElem.text("Value must not be null");
+      toggleInvalidClass(messageElem);
+      toggleInputClassInvalid(elem);
+      messageElem.html(invalidHTMLContent);
     } else {
-      messageElem.removeClass("invalid");
-      messageElem.addClass("valid");
-      messageElem.text("valid");
+      toggleValidClass(messageElem);
+      toggleInputClassValid(elem);
+      messageElem.html(validHTMLContent);
     }
   });
 
