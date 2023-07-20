@@ -61,6 +61,9 @@ if (isset($_POST['action'])) {
         } else if ($action == 'readWithCareerID') {
             $careerID = $arrayData['careerID'];
             $readCareer->selectWithCareerID($mysql_con, $careerID);
+        } else if ($action == "searching") {
+            $jobTitle = $arrayData['jobTitle'];
+            $readCareer->selectSearchJob($jobTitle, $mysql_con);
         }
     } catch (Exception $e) {
         echo $e->getMessage();

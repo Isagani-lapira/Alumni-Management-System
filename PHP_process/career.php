@@ -71,7 +71,6 @@ class Career
         else echo 'Unexpected error, try again later!';
     }
 
-
     public function selectData($con)
     {
 
@@ -97,7 +96,15 @@ class Career
         if ($result) $this->getCareerDetail($result, $con);
         else echo 'something went wrong, please try again';
     }
+    //searching a particular job title
+    public function selectSearchJob($jobTitle, $con)
+    {
+        $query = 'SELECT * FROM career WHERE jobTitle LIKE "%' . $jobTitle . '%"';
+        $result = mysqli_query($con, $query);
 
+        if ($result) $this->getCareerDetail($result, $con);
+        else echo 'something went wrong, please try again';
+    }
     function generatePseudonym($personID)
     {
         $pseudonym = md5($personID);

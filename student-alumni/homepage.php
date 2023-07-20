@@ -961,7 +961,7 @@ function getAccDetails($con, $personID)
 
               <!-- Searchbar -->
               <div class="relative w-full pb-2 md:pb-0 pl-2">
-                <input type="text" placeholder="Search" class="pl-10 pr-4 py-2 w-full text-black text-sm border outline-none border-grayish center-shadow p-3 rounded-md shadow text-sm border outline-none" />
+                <input id="searchJob" type="text" placeholder="Search" class="pl-10 pr-4 py-2 w-full text-black text-sm border outline-none border-grayish center-shadow p-3 rounded-md shadow text-sm border outline-none" />
                 <i class="absolute left-3 top-5 transform -translate-y-1/2 fas fa-search text-grayish"></i>
               </div>
             </div>
@@ -984,8 +984,6 @@ function getAccDetails($con, $personID)
             <div class="content-div center-shadow rounded-md text-sm h-auto">
 
               <div class="tab-content">
-
-                <!-- Job Offer 1 -->
                 <div id="job-offer1" class="job-offer-content">
                   <!-- Job Offer 1 content goes here -->
                   <!-- JOB DESC. -->
@@ -1043,13 +1041,13 @@ function getAccDetails($con, $personID)
 
                     <!-- Qualifications -->
                     <div class="px-10 py-6">
-                      <h3 class="font-bold">Qualifications:</h3>
+                      <h3 class="text-xl font-bold">Qualifications:</h3>
                       <p id="viewJobQuali"></p>
                     </div>
 
                     <!-- Requirements -->
                     <div class="px-10 py-6">
-                      <h3 class="font-bold ">Requirements:</h3>
+                      <h3 class="text-xl font-bold ">Requirements:</h3>
                       <ul id="requirements" class="list-disc gap-3"></ul>
                     </div>
 

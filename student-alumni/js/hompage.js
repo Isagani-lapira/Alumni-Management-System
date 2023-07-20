@@ -123,7 +123,7 @@ $(document).ready(function () {
 
       //remove the the last one has been selected
       $('.selectedJob').each((index, element) => {
-        element.removeClass('selectedJob')
+        $(element).removeClass('selectedJob')
       })
       containerJob.addClass('selectedJob');//set the container that has been clicked as selected container
       //viewing of particular job
@@ -134,6 +134,10 @@ $(document).ready(function () {
   function displaySelectedCareer(jobTitle, companyName, author, datePosted, companyLogo,
     description, skills, qualification, requirements) {
     let logo = imgFormat + companyLogo;
+
+    //remove the past display
+    $('#skillsContainer').empty();
+    $('#requirements').empty();
 
     //displaying a particular job data
     $('#viewJobLogo').attr('src', logo)
@@ -203,6 +207,52 @@ $(document).ready(function () {
       url: "../PHP_process/signout.php",
       success: () => { window.location.href = "login.php" }, //go back to login page
     })
+  })
+
+
+  //searching for job
+  $('#searchJob').on('input', function () {
+    let search = $(this).val();
+
+    //data to be send to the php
+    let action = {
+      action: 'searching',
+      jobTitle: search
+    }
+    let formData = new FormData();
+    formData.append('action', JSON.stringify(action))
+
+    $.ajax({
+      url: '../PHP_process/jobTable.php',
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: (response) => {
+        $('#listOfJob').empty() //remove the past suggestion to show new suggestion
+        const parsedResponse = JSON.parse(response);
+        //if there's a value
+        if (parsedResponse.result == 'Success') {
+          const length = parsedResponse.author.length; //total length of all data that has been retrieved
+          for (let i = 0; i < length; i++) {
+            //data to be use
+            const careerID = parsedResponse.careerID[i];
+            const companyLogo = imgFormat + parsedResponse.companyLogo[i];
+            const jobTitle = parsedResponse.jobTitle[i];
+            const company = parsedResponse.companyName[i];
+            const author = parsedResponse.author[i];
+            const skill = parsedResponse.skills[i];
+
+            //display job with design
+            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID)
+          }
+
+        }
+        else $('#noJobMsg').removeClass('hidden');
+      },
+      error: (error) => { console.log(error) }
+    })
+
   })
 });
 
