@@ -39,9 +39,11 @@ class PostData
         else return false;
     }
 
+    //get all the post by admin
     function getPostAdmin($username, $startingDate, $endDate, $con)
     {
         $query = "";
+        //check if it the post retrieve based on date
         if ($startingDate != null && $endDate != null)
             $query = 'SELECT * FROM `post` WHERE `date` BETWEEN "' . $startingDate . '" AND "' . $endDate . '" AND `username` = "' . $username . '"';
         else
@@ -50,6 +52,7 @@ class PostData
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 
+        //data that will be retrieving
         $response = "";
         $postID = array();
         $colCode = array();
@@ -57,6 +60,8 @@ class PostData
         $date = array();
         $images = array();
         $comments = array();
+        $likes = array();
+
         if ($result && $row > 0) {
             $response = 'Success';
             while ($data = mysqli_fetch_assoc($result)) {
@@ -68,6 +73,7 @@ class PostData
                 $ID = $data['postID'];
                 $images[] = $this->getPostImages($ID, $con);
                 $comments[] = $this->getPostComments($ID, $con);
+                $likes[] = $this->getPostLikes($ID, $con);
             }
         }
 
@@ -79,13 +85,14 @@ class PostData
             'caption' => $caption,
             'date' => $date,
             'images' => $images,
-            'comments' => $comments
+            'comments' => $comments,
+            'likes' => $likes,
         );
 
         echo json_encode($data);
     }
 
-
+    //get all the images of a particular post
     function getPostImages($postID, $con)
     {
         $queryImg = 'SELECT * FROM `post_images` WHERE `postID` = "' . $postID . '"';
@@ -104,9 +111,20 @@ class PostData
         return $image;
     }
 
+    //get total number of comments f a particular post
     function getPostComments($postID, $con)
     {
         $query = 'SELECT * FROM `comment` WHERE `postID`= "' . $postID . '"';
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        return $row;
+    }
+
+    //get total number of likes f a particular post
+    function getPostLikes($postID, $con)
+    {
+        $query = "SELECT * FROM `postlike` WHERE `postID` = '$postID' ";
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 

@@ -148,7 +148,6 @@ $(document).ready(function () {
                     $('#noPostMsg').hide()
                     let length = data.colCode.length;
                     $('.totalPost').text(length); //total number of posted 
-
                     let username = data.username;
                     let fullname = "Isagani Lapira Jr."; //change base on the full name of the user
                     for (let i = 0; i < length; i++) {
@@ -158,13 +157,13 @@ $(document).ready(function () {
                         let caption = data.caption[i]
                         let date = data.date[i]
                         let comment = data.comments[i];
+                        let likes = data.likes[i];
                         date = textDateFormat(date) //change to text format
                         let imagesObj = data.images;
-
                         let containerAnn = 'announcementCont'
                         let containerProfile = 'profileCont'
-                        addPost(postID, fullname, username, caption, imagesObj, date, i, comment, containerAnn, collegeCode) //add post in table;
-                        addPost(postID, fullname, username, caption, imagesObj, date, i, comment, containerProfile, null) //add post in profile;
+                        addPost(postID, fullname, username, caption, imagesObj, date, i, likes, comment, containerAnn, collegeCode) //add post in table;
+                        addPost(postID, fullname, username, caption, imagesObj, date, i, likes, comment, containerProfile, null) //add post in profile;
                     }
                     toAddProfile = false //won't be affected by date range 
                 }
@@ -190,22 +189,23 @@ $(document).ready(function () {
         return textDate;
     }
 
-    function addPost(postID, name, accUN, postcaption, images, postdate, position, comments, container, colCode) {
+    function addPost(postID, name, accUN, postcaption, images, postdate, position, likes, comments, container, colCode) {
 
         if (container == "announcementCont")
-            announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments)
+            announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments, likes)
         else if (container == "profileCont" && toAddProfile) {
-            postDisplay(name, accUN, postcaption, images, postdate, position, comments)
+            postDisplay(name, accUN, postcaption, images, postdate, position, comments, likes)
         }
 
     }
 
-    function announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments) {
+    function announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments, likes) {
         let tbody = $('#postTBody')
 
         //create of rows
         let row = $('<tr>')
         let colCodeData = $('<td>').text(colCode);
+        let likesData = $('<td>').text(likes);
         let commentsData = $('<td>').text(comments);
         let postdateData = $('<td>').text(postdate);
         let action = $('<td>').addClass('flex justify-center gap-2')
@@ -214,16 +214,16 @@ $(document).ready(function () {
         let viewBtn = $('<button>').addClass('bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500').text('View')
         viewBtn.on('click', function () {
             $('#modalPost').removeClass('hidden')
-            viewingOfPost(postID, name, accUN, postcaption, images, position)
+            viewingOfPost(postID, name, accUN, postcaption, images, position, likes)
         })
         action.append(delBtn, viewBtn)
-        row.append(colCodeData, commentsData, postdateData, action)
+        row.append(colCodeData, likesData, commentsData, postdateData, action)
         tbody.append(row)
 
     }
 
     //all post to be displayed on the profile tab
-    function postDisplay(name, accUN, postcaption, images, postdate, position, comments) {
+    function postDisplay(name, accUN, postcaption, images, postdate, position, comments, likes) {
         containerPost = $('<div>').addClass("shadow-sm shadow-gray-600 w-3/4 rounded-md p-3 h-max mt-10")
         toBeAppend = '#profileContainer'
         let header = $('<div>').addClass("flex items-center")
@@ -250,7 +250,7 @@ $(document).ready(function () {
         comments = (comments == 0) ? "No" : comments;
         let comment = $('<p>').addClass("text-gray-500 text-sm flex-1 cursor-pointer").text(comments + " comment")
         let share = $('<i>').addClass("fa-solid fa-share text-accent cursor-pointer")
-        let like = $('<i>').addClass("fa-regular fa-heart text-accent cursor-pointer")
+        let like = $('<i>').addClass("fa-regular fa-heart text-accent cursor-pointer").text(likes)
 
         header.append(avatar, containerNames)
         footerContainer.append(comment, share, like);
@@ -260,66 +260,11 @@ $(document).ready(function () {
 
     }
 
-    // function viewingOfPost(postID, name, accUN, description, images, position) {
-    //     $('#profilePic').attr('src', profilePic)
-    //     $('#postFullName').text(name)
-    //     $('#postUN').text(accUN)
-    //     $('#postDescript').text(description).addClass('text-sm my-2 text-gray-400')
-
-    //     const carouselWrapper = $("#carousel-wrapper");
-    //     const carouselIndicators = $("#carousel-indicators");
-
-    //     let totalImgNo = images[position].length;
-    //     images[position].forEach((image, index) => {
-
-    //         let imageName = 'item-' + index
-    //         const item = $("<div>")
-    //             .addClass("relative duration-700 ease-in-out h-full")
-    //             .attr("data-carousel-item", "")
-    //             .attr('id', imageName);
-
-    //         const format = imgFormat + image
-    //         const img = $("<img>")
-    //             .addClass("absolute object-contain left-1/2 top-1/2")
-    //             .attr("src", format)
-    //             .attr("alt", "Carousel Image");
-
-    //         item.append(img);
-    //         carouselWrapper.append(item);
-
-    //         const indicator = $("<button>")
-    //             .attr("type", "button")
-    //             .addClass("w-3 h-3 rounded-full")
-    //             .attr("aria-current", index === 0 ? "true" : "false")
-    //             .attr("aria-label", "Slide " + (index + 1))
-    //             .attr("data-carousel-slide-to", index.toString());
-
-    //         carouselIndicators.append(indicator);
-    //     })
-
-    //     // Show the first image and update the indicator
-    //     carouselWrapper.find("[data-carousel-item]").first().removeClass("hidden");
-    //     carouselIndicators.find("[data-carousel-slide-to]").first().attr("aria-current", "true");
-
-
-    //     let currentImageDisplay = 0;
-    //     $('#btnNext').on('click', function () {
-    //         currentImageDisplay = (currentImageDisplay == (totalImgNo - 1)) ? currentImageDisplay : currentImageDisplay + 1; //check first reach the end
-    //         $('#item-' + currentImageDisplay).removeClass('hidden').addClass('block') //show the next image
-    //     })
-    //     $('#btnPrev').on('click', function () {
-    //         if (currentImageDisplay != 0) //check if the image is the last image
-    //             $('#item-' + currentImageDisplay).addClass('hidden')
-    //         currentImageDisplay = (currentImageDisplay == 0) ? 0 : currentImageDisplay - 1
-    //     })
-
-    //     getComment(postID)
-    // }
-
-    function viewingOfPost(postID, name, accUN, description, images, position) {
+    function viewingOfPost(postID, name, accUN, description, images, position, likes) {
         $('#profilePic').attr('src', profilePic);
         $('#postFullName').text(name);
         $('#postUN').text(accUN);
+        $('#noOfLikes').text(likes);
         $('#postDescript').text(description).addClass('text-sm my-2 text-gray-400');
 
         const carouselWrapper = $('#carousel-wrapper');
@@ -372,6 +317,17 @@ $(document).ready(function () {
         });
 
         getComment(postID);
+
+        $('#noOfLikes').hover(
+            function () {
+                //show the name of the one who likes the post
+                getLikes(postID)
+                $('#namesOfUser').show()
+            },
+            function () {
+                $('#namesOfUser').hide().empty() //remove so that it the first one that added will not duplicate
+            }
+        )
     }
 
 
@@ -457,6 +413,39 @@ $(document).ready(function () {
                 } else {
                     let noCommentMsg = $('<p>').addClass('text-gray-500').text('No available comment')
                     $('#commentContainer').append(noCommentMsg) //show no comment
+                }
+            },
+            error: (error) => { console.log(error) }
+        })
+    }
+
+
+    function getLikes(postID) {
+        let action = {
+            action: 'readLikes',
+            postID: postID,
+        }
+
+        let formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+
+        //process the data
+        $.ajax({
+            url: '../PHP_process/likesData.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: (response) => {
+                const parsedResponse = JSON.parse(response);
+                if (parsedResponse.result == 'Success') {
+                    let length = parsedResponse.fullname.length;
+                    //retrieve all the names of the people who likes a post
+                    for (let i = 0; i < length; i++) {
+                        let fullname = parsedResponse.fullname
+                        let p = $('<p>').text(fullname);
+                        $('#namesOfUser').append(p)
+                    }
                 }
             },
             error: (error) => { console.log(error) }

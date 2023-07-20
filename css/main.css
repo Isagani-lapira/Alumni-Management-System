@@ -691,8 +691,8 @@ th,
   inset: 0px;
 }
 
-.inset-1 {
-  inset: 0.25rem;
+.-bottom-0 {
+  bottom: -0px;
 }
 
 .-left-2 {
@@ -783,10 +783,6 @@ th,
   right: 0.5rem;
 }
 
-.right-3 {
-  right: 0.75rem;
-}
-
 .right-4 {
   right: 1rem;
 }
@@ -837,6 +833,10 @@ th,
 
 .top-8 {
   top: 2rem;
+}
+
+.-bottom-2 {
+  bottom: -0.5rem;
 }
 
 .isolate {
@@ -981,11 +981,6 @@ th,
 .my-7 {
   margin-top: 1.75rem;
   margin-bottom: 1.75rem;
-}
-
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
 }
 
 .mb-10 {
@@ -1175,6 +1170,13 @@ th,
   box-sizing: content-box;
 }
 
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .line-clamp-none {
   overflow: visible;
   display: block;
@@ -1308,6 +1310,10 @@ th,
 
 .h-2\/3 {
   height: 66.666667%;
+}
+
+.h-2\/5 {
+  height: 40%;
 }
 
 .h-20 {
@@ -3089,6 +3095,10 @@ th,
   --tw-bg-opacity: 0.5;
 }
 
+.bg-opacity-75 {
+  --tw-bg-opacity: 0.75;
+}
+
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -3409,10 +3419,6 @@ th,
 
 .pl-4 {
   padding-left: 1rem;
-}
-
-.pl-8 {
-  padding-left: 2rem;
 }
 
 .pr-1 {
@@ -3845,6 +3851,11 @@ th,
   color: rgb(234 179 8 / var(--tw-text-opacity));
 }
 
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -3889,6 +3900,18 @@ th,
 .subpixel-antialiased {
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+.opacity-25 {
+  opacity: 0.25;
 }
 
 .opacity-50 {
@@ -4190,6 +4213,12 @@ th,
   transition-duration: 150ms;
 }
 
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .duration-700 {
   transition-duration: 700ms;
 }
@@ -4387,18 +4416,6 @@ body {
 
 .hover\:bg-opacity-20:hover {
   --tw-bg-opacity: 0.2;
-}
-
-.hover\:bg-opacity-10:hover {
-  --tw-bg-opacity: 0.1;
-}
-
-.hover\:bg-opacity-30:hover {
-  --tw-bg-opacity: 0.3;
-}
-
-.hover\:bg-opacity-50:hover {
-  --tw-bg-opacity: 0.5;
 }
 
 .hover\:font-bold:hover {
@@ -4634,6 +4651,10 @@ body {
 
   .md\:grid {
     display: grid;
+  }
+
+  .md\:h-96 {
+    height: 24rem;
   }
 
   .md\:h-max {

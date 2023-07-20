@@ -414,6 +414,7 @@ if (
               <thead>
                 <tr class="bg-accent text-white">
                   <th class="rounded-tl-lg">College code</th>
+                  <th>No. of likes</th>
                   <th>No. of comments</th>
                   <th>Date posted</th>
                   <th class="rounded-tr-lg">Action</th>
@@ -1784,13 +1785,15 @@ if (
           </div>
           <p id="postDescript" class=" text-greyish_black font-light text-sm">Description</p>
 
-          <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2 px-3">
+          <div class="relative">
 
-            <img src="../assets/icons/emptyheart.png" alt="">
-            <span id="noOfLikes">32</span>
-            <img src="../assets/icons/comment.png" alt="">
-            <span id="noOfComment">0</span>
-
+            <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2 px-3">
+              <img src="../assets/icons/emptyheart.png" alt="">
+              <span id="noOfLikes" class="cursor-pointer w-10 text-center"></span>
+              <img src="../assets/icons/comment.png" alt="">
+              <span id="noOfComment">0</span>
+            </div>
+            <div id="namesOfUser" class="absolute -bottom-2 right-0 bg-black opacity-25 text-gray-300 w-1/3 text-xs p-2 rounded-md hidden"></div>
           </div>
 
           <!-- comments -->
