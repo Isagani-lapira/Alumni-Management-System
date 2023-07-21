@@ -169,6 +169,7 @@ class PostData
         //data that will be retrieving
         $response = "";
         $username = array();
+        $fullname = array();
         $postID = array();
         $colCode = array();
         $caption = array();
@@ -181,6 +182,8 @@ class PostData
             $response = 'Success';
             while ($data = mysqli_fetch_assoc($result)) {
                 $postID[] = $data['postID'];
+                $username[] = $data['username'];
+                $user = $data['username'];
                 $colCode[] = $data['colCode'];
                 $caption[] = $data['caption'];
                 $date[] = $data['date'];
@@ -189,6 +192,10 @@ class PostData
                 $images[] = $this->getPostImages($ID, $con);
                 $comments[] = $this->getPostComments($ID, $con);
                 $likes[] = $this->getPostLikes($ID, $con);
+
+                $user = $this->getUserDetails($user, $con);
+                $fullname[] = $user['fullname'];
+                $imgProfile[] = $user['profilePic'];
             }
         }
 
@@ -202,8 +209,46 @@ class PostData
             'images' => $images,
             'comments' => $comments,
             'likes' => $likes,
+            'fullname' => $fullname,
+            'profilePic' => $imgProfile
         );
 
         echo json_encode($data);
+    }
+
+
+    function getUserDetails($username, $con)
+    {
+        $queryPerson = "SELECT 'univadmin' AS user_type, p.fname, p.lname, p.profilepicture
+                FROM univadmin ua
+                JOIN person p ON p.personID = ua.personID
+                WHERE ua.username = '$username'
+                UNION
+                SELECT 'alumni' AS user_type, p.fname, p.lname, p.profilepicture
+                FROM alumni al
+                JOIN person p ON p.personID = al.personID
+                WHERE al.username = '$username'
+                UNION
+                SELECT 'student' AS user_type, p.fname, p.lname, p.profilepicture
+                FROM student s
+                JOIN person p ON p.personID = s.personID
+                WHERE s.username = '$username'";
+
+        $fullname = "";
+        $profilePic = "";
+        $resultPerson = mysqli_query($con, $queryPerson);
+        if ($resultPerson) {
+            while ($personData = mysqli_fetch_assoc($resultPerson)) {
+                $fullname = $personData['fname'] . ' ' . $personData['lname'];
+                $img = $personData['profilepicture'];
+                $profilePic = base64_encode($img);
+            }
+        }
+
+        $accDetails = array(
+            "fullname" => $fullname,
+            "profilePic" => $profilePic
+        );
+        return $accDetails;
     }
 }

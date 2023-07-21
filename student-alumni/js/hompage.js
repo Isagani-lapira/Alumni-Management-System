@@ -1,6 +1,18 @@
 // const { format } = require("prettier");
 
 $(document).ready(function () {
+  const swiper = new Swiper('.swiper', {
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
 
   const imgFormat = 'data:image/jpeg;base64,';
   const colCode = $('#colCode').html();
@@ -16,13 +28,6 @@ $(document).ready(function () {
     $('#dropdown-content').toggle();
     $(this).toggleClass('active');
   });
-
-  // // Notification
-  // $('#notification-content').hide(); // Hide the notification tab initially
-
-  // $('#notif-btn').click(function() {
-  //   $('#notification-content').toggle('fast'); // Show or hide the notification tab with a fast animation
-  // });
 
   //MODAL
   // When either of the buttons is clicked, show the modal
@@ -301,13 +306,102 @@ $(document).ready(function () {
         else {
           //parse the json that have been retrieved
           const parsedResponse = JSON.parse(response);
-          console.log(parsedResponse.response);
+          //get data that retrieve
+          let length = parsedResponse.username.length;
+          console.log(parsedResponse)
+          //traverse all the data
+          for (let i = 0; i < length; i++) {
+            let imgProfile = parsedResponse.profilePic[i];
+            let fullname = parsedResponse.fullname[i];
+            let username = parsedResponse.username[i];
+            let images = parsedResponse.images[i];
+            let caption = parsedResponse.caption[i];
+            let date = parsedResponse.date[i];
+            date = getFormattedDate(date)
+
+            displayPost(imgProfile, username, fullname, caption, images, date);
+          }
 
         }
       },
       error: (error) => { console.log(error) }
     })
   }
+
+  function getFormattedDate(date) {
+    //parts out the date
+    let year = date.substring(0, 4);
+    let dateMonth = parseInt(date.substring(5, 7));
+    let day = date.substring(8, 10);
+
+    const listOfMonths = ['', 'January', 'February', 'March', 'April', 'May',
+      'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    let month = listOfMonths[dateMonth];
+
+    return month + ' ' + day + ', ' + year
+  }
+  function displayPost(imgProfile, username, fullname, caption, images, date) {
+    //creating a markup for post
+    let postWrapper = $('<div>').addClass("center-shadow p-4 rounded-md")
+    let header = $('<div>')
+    let headerWrapper = $('<div>').addClass("flex gap-2 items-center")
+
+    let img = imgFormat + imgProfile
+    let userProfile = $('<img>').addClass("h-10 w-10 rounded-full").attr('src', img);
+    let authorDetails = $('<div>').addClass("flex-1")
+    let fullnameElement = $('<p>').addClass("font-bold text-greyish_black").text(fullname)
+    let usernameElement = $('<p>').addClass("text-gray-400 text-xs").text(username)
+    // let svg = $('<svg>').
+
+    // header content
+    authorDetails.append(fullnameElement, usernameElement);
+    headerWrapper.append(userProfile, authorDetails)
+    header.append(headerWrapper)
+
+    //markup for body
+    let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption)
+    let swiperContainer = $('<div>').addClass("swiper max-h-full bg-black rounded-md")
+    let swiperWrapper = $('<div>').addClass("swiper-wrapper")
+
+    //add images
+    images.forEach(image => {
+      let postImg = imgFormat + image;
+
+      //create slides for the image
+      let slide = $('<div>').addClass("swiper-slide")
+      let imageContainer = $('<img>').addClass('object-contain')
+        .attr('src', postImg);
+
+      slide.append(imageContainer);
+      swiperWrapper.append(slide)
+    })
+    //navigation buttons
+    let pagination = $('<div>').addClass("swiper-pagination")
+    let prevBtn = $('<div>').addClass("swiper-button-prev")
+    let nextBtn = $('<div>').addClass("swiper-button-next")
+
+    swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
+    date_posted = $('<p>').addClass('text-xs text-gray-500 my-1').text(date);
+
+    //set up the details of the post
+    postWrapper.append(header, description, swiperContainer, date_posted)
+    $('#feedContainer').append(postWrapper);
+
+    new Swiper('.swiper', {
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
+
+
 });
 
 // NOTIFICATIONS  
