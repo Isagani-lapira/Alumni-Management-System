@@ -254,6 +254,60 @@ $(document).ready(function () {
     })
 
   })
+  function getCurrentDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0');
+    var day = String(today.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
+  }
+
+  function getPreviousDate(daysToSubtract) {
+    var today = new Date();
+    today.setDate(today.getDate() - daysToSubtract);
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0');
+    var day = String(today.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
+  }
+
+
+  var todayDate = getCurrentDate();
+  var noOfDaySubtract = 1;
+  getPost()
+  //retrieve post data
+  function getPost() {
+    let action = {
+      action: 'readColPost',
+      todayDate: todayDate // to be change
+    }
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action));
+
+    $.ajax({
+      url: '../PHP_process/postDB.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        let numberOfNone = 0;
+        if (response == "none" && numberOfNone != 55) {
+          todayDate = getPreviousDate(noOfDaySubtract);
+          getPost()
+          noOfDaySubtract++;
+          numberOfNone++
+        }
+        else {
+          //parse the json that have been retrieved
+          const parsedResponse = JSON.parse(response);
+          console.log(parsedResponse.response);
+
+        }
+      },
+      error: (error) => { console.log(error) }
+    })
+  }
 });
 
 // NOTIFICATIONS  

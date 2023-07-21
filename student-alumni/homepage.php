@@ -46,6 +46,8 @@ if (
     $data = json_decode(getAccDetails($mysql_con, $personID), true); //query to get account type and college code
     $accountType = $data[0];
     $colCode = $data[1];
+
+    $_SESSION['colCode'] = $colCode;
   }
 }
 function getAccDetails($con, $personID)
