@@ -317,9 +317,11 @@ $(document).ready(function () {
             let images = parsedResponse.images[i];
             let caption = parsedResponse.caption[i];
             let date = parsedResponse.date[i];
+            let likes = parsedResponse.likes[i];
+            let comments = parsedResponse.comments[i];
             date = getFormattedDate(date)
 
-            displayPost(imgProfile, username, fullname, caption, images, date);
+            displayPost(imgProfile, username, fullname, caption, images, date, likes, comments);
           }
 
         }
@@ -340,9 +342,9 @@ $(document).ready(function () {
 
     return month + ' ' + day + ', ' + year
   }
-  function displayPost(imgProfile, username, fullname, caption, images, date) {
+  function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments) {
     //creating a markup for post
-    let postWrapper = $('<div>').addClass("center-shadow p-4 rounded-md")
+    let postWrapper = $('<div>').addClass("center-shadow w-10/12 p-4 rounded-md")
     let header = $('<div>')
     let headerWrapper = $('<div>').addClass("flex gap-2 items-center")
 
@@ -360,16 +362,15 @@ $(document).ready(function () {
 
     //markup for body
     let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption)
-    let swiperContainer = $('<div>').addClass("swiper max-h-full bg-black rounded-md")
+    let swiperContainer = $('<div>').addClass("swiper h-80 bg-black rounded-md")
     let swiperWrapper = $('<div>').addClass("swiper-wrapper")
-
     //add images
     images.forEach(image => {
       let postImg = imgFormat + image;
 
       //create slides for the image
-      let slide = $('<div>').addClass("swiper-slide")
-      let imageContainer = $('<img>').addClass('object-contain')
+      let slide = $('<div>').addClass("swiper-slide relative")
+      let imageContainer = $('<img>').addClass('object-contain rounded-lg')
         .attr('src', postImg);
 
       slide.append(imageContainer);
@@ -381,13 +382,38 @@ $(document).ready(function () {
     let nextBtn = $('<div>').addClass("swiper-button-next")
 
     swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
-    date_posted = $('<p>').addClass('text-xs text-gray-500 my-1').text(date);
+    date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
 
+    //interaction buttons
+    let isLiked = false;
+    let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
+    let heartIcon = $('<span>').html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>')
+      .addClass('cursor-pointer flex items-center')
+      .on('click', function () {
+        //toggle like button
+        if (isLiked)
+          heart.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>');
+        else
+          heart.html('<iconify-icon icon="mdi:heart" style="color: #ed1d24;" width="20" height="20"></iconify-icon>');
+
+        isLiked = !isLiked;
+      });
+
+    let commentIcon = $('<span>').html('<iconify-icon icon="uil:comment" style="color: #626262;" width="20" height="20"></iconify-icon>')
+      .addClass('cursor-pointer flex items-center comment')
+    let likesElement = $('<p>').addClass('text-xs text-gray-500').text(likes)
+    let commentElement = $('<p>').addClass('text-xs text-gray-500 comment').text(comments)
+    let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
+
+
+    let reportElement = $('<p>').addClass('text-xs text-red-400 cursor-pointer ').text('report');
+    interactionContainer.append(leftContainer, reportElement)
     //set up the details of the post
-    postWrapper.append(header, description, swiperContainer, date_posted)
+    postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
     $('#feedContainer').append(postWrapper);
 
     new Swiper('.swiper', {
+      effect: 'cards',
       // If we need pagination
       pagination: {
         el: '.swiper-pagination',
@@ -399,6 +425,14 @@ $(document).ready(function () {
         prevEl: '.swiper-button-prev',
       },
     });
+
+  }
+
+  function createHeart() {
+    var svg = '<svg class="heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="red" stroke-width="2">' +
+      '<path d="M12 4.929C7.469 1.768 1 5.601 1 11.21c0 3.38 2.882 6.396 6 8.045 3.118-1.649 6-4.665 6-8.045 0-1.91-1.287-3.63-3-4.281z"></path>' +
+      '</svg>';
+    return svg;
   }
 
 

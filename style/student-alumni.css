@@ -184,3 +184,46 @@ body {
   background-color: #e09191;
   color: white !important;
 }
+
+.liked path {
+  fill: #df5050;
+}
+
+.heart {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  transform: rotate(-45deg);
+  background-color: red;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+.heart::before {
+  border-radius: 50%;
+  top: -50px;
+  left: 0;
+}
+
+.heart::after {
+  border-radius: 50%;
+  top: 0;
+  left: 50px;
+}
+
+.heart-outline {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 110px;
+  height: 110px;
+  border: 5px solid black;
+  border-radius: 50%;
+}

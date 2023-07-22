@@ -302,7 +302,7 @@ function getAccDetails($con, $personID)
                 </div>
 
                 <!-- POST -->
-                <div id="feedContainer" class="post w-5/6 mt-5 mx-auto post-width h-3/6 flex flex-col gap-2">
+                <div id="feedContainer" class="post w-5/6 mt-5 mx-auto post-width h-3/6 flex flex-col gap-2 justify-center items-center">
                 </div>
               </div>
 
@@ -807,6 +807,7 @@ function getAccDetails($con, $personID)
   <script src="../student-alumni/js/hompage.js"></script>
   <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </body>
 
 </html>
