@@ -13,9 +13,9 @@ require_once 'connection.php';
 if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subject'])) {
 
     //data to be use
-    $recipient = $_POST['recipient'];
-    $message = $_POST['message'];
-    $subject = $_POST['subject'];
+    $recipient = trim($_POST['recipient']);
+    $message = trim($_POST['message']);
+    $subject = trim($_POST['subject']);
     $selectedImages = (isset($_FILES['images'])) ? $_FILES['images'] : null;
     $selectedFiles =  (isset($_FILES['files'])) ? $_FILES['files'] : null;
 

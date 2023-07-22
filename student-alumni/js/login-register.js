@@ -1,3 +1,5 @@
+
+let usernameAvailable = true;
 $(document).ready(function () {
 
   //go registration button
@@ -58,6 +60,46 @@ $(document).ready(function () {
     })
   })
 
+
+  $('#usernameReg').on('change', function () {
+    checkUsername()
+  })
+
+  //checking username
+  function checkUsername() {
+    let username = $('#usernameReg').val();
+
+    let form = new FormData();
+    var data = {
+      action: 'read',
+      query: false,
+    };
+    form.append('username', username);
+    form.append('action', JSON.stringify(data))
+    $.ajax({
+      url: '../PHP_process/userData.php',
+      type: 'POST',
+      data: form,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response == 'exist') {
+          $('#usernameReg').addClass('border-accent').removeClass('border-gray-400');
+          $('#usernameWarning').show();
+          usernameAvailable = false;
+        }
+        else {
+          $('#usernameField').removeClass('border-accent').addClass('border-gray-400');
+          $('#usernameWarning').hide();
+          usernameAvailable = true;
+        }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+
+  }
 });
 
 // Get the necessary elements
@@ -219,6 +261,7 @@ const backButton = document.getElementById("backButton");
 nextButtonPage2.addEventListener("click", function () {
   // Perform form validation
   const college1 = document.getElementById("college");
+  const username = document.getElementById("usernameReg");
   const batch = document.getElementById("batch");
   const statusOptions = document.querySelectorAll('input[name="status"]');
   const emailBSU = document.getElementById("email");
@@ -230,7 +273,12 @@ nextButtonPage2.addEventListener("click", function () {
   const confirmPassDetailsDiv = document.getElementById("confirmPassDetailsDiv");
 
   let hasError = false;
-
+  if (username.value.trim() === "") {
+    username.style.borderColor = "#991B1B"; // Set accent color for empty field
+    hasError = true;
+  } else {
+    username.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  }
   if (college1.value.trim() === "") {
     college1.style.borderColor = "#991B1B"; // Set accent color for empty field
     hasError = true;
@@ -291,7 +339,7 @@ nextButtonPage2.addEventListener("click", function () {
   }
 
   // Check if any fields have errors
-  if (hasError) {
+  if (hasError || !usernameAvailable) {
     reqInputAns.classList.remove("hidden"); // Show error message
     return; // Exit the function if there are errors
   } else {

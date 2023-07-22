@@ -2,6 +2,22 @@ $(document).ready(function () {
 
     let usernameAvailable = true;
     let passwordReqFulFill = true;
+
+    let isLocked = false
+    //show password
+    $('#passwordLock').on('click', function () {
+        if (isLocked) {
+            $(this).addClass('fa-regular fa-eye-slash').removeClass('fa-solid fa-eye')
+            $('#loginPass').attr('type', 'password')
+        }
+        else {
+            $(this).addClass('fa-solid fa-eye').removeClass('fa-regular fa-eye-slash')
+            $('#loginPass').attr('type', 'text')
+        }
+        isLocked = !isLocked
+    })
+
+
     //login 
     $('#loginForm').on('submit', (e) => {
         e.preventDefault();
@@ -22,7 +38,6 @@ $(document).ready(function () {
 
             } else field.removeClass('border-accent').addClass('border-gray-400');
         })
-
         //check if the the input have all value
         if (allHaveVal) {
             let formData = $('#loginForm')[0]; //get the form 

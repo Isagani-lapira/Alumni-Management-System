@@ -270,10 +270,11 @@
 
               </div>
 
-              <!-- Email BulSU -->
+              <!-- Username -->
               <div class="mt-4">
-                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                <input name="username" type="text" id="username" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="Enter your username" required>
+                <label for="usernameReg" class="block text-sm font-medium text-gray-700">Username</label>
+                <input name="username" type="text" id="usernameReg" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="Enter your username" required>
+                <p id="usernameWarning" class="hidden text-xs italic text-accent">Username already exist</p>
               </div>
 
               <!-- Email BulSU -->

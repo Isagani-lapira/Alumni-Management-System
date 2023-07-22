@@ -55,8 +55,8 @@
                         <input name="username" class="logInput border border-gray-400 rounded-md p-2 outline-none" placeholder="e.g patrickPron625" type="text">
                         <label>Password</label>
                         <div class="pass_details border border-gray-400 rounded-md p-2 flex items-center">
-                            <input name="password" class="logInput flex-1 outline-none" placeholder="e.g patrickPron625" type="password">
-                            <span class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
+                            <input id="loginPass" name="password" class="logInput flex-1 outline-none" placeholder="e.g patrickPron625" type="password">
+                            <span id="passwordLock" class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
                         </div>
                         <p class="italic text-accent text-sm text-end">Forgot password?</p>
                         <button type="submit" class="rounded-md bg-accent text-white py-3 mt-3 hover:bg-darkAccent">

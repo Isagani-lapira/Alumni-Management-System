@@ -50,17 +50,17 @@ function insertionPerson($accountType, $userType, $con)
 {
 
     //datas to be stored
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $bday = $_POST['bday'];
+    $fname = trim($_POST['fname']);
+    $lname = trim($_POST['lname']);
+    $bday = trim($_POST['bday']);
     $age = getAge($bday);
-    $contactNo = $_POST['contactNo'];
-    $address = $_POST['address'];
-    $personalEmail = $_POST['personalEmail'];
-    $bulsuEmail = $_POST['bulsuEmail'];
-    $gender = $_POST['gender'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $contactNo = trim($_POST['contactNo']);
+    $address = trim($_POST['address']);
+    $personalEmail = trim($_POST['personalEmail']);
+    $bulsuEmail = trim($_POST['bulsuEmail']);
+    $gender = trim($_POST['gender']);
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
     $randomNo = rand(1, 2000);
     $currentDateTime = date('y/m/d h:i:s');
