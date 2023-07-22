@@ -1,5 +1,6 @@
 
 let usernameAvailable = true;
+let personalEmailAvailable = true;
 $(document).ready(function () {
 
   //go registration button
@@ -60,7 +61,7 @@ $(document).ready(function () {
     })
   })
 
-
+  //check if the username already existing
   $('#usernameReg').on('change', function () {
     checkUsername()
   })
@@ -99,6 +100,44 @@ $(document).ready(function () {
       }
     })
 
+  }
+
+  //check if the email already existing
+  $('#personalEmail').on('change', function () {
+    checkEmailAddress()
+  })
+
+  function checkEmailAddress() {
+    let personalEmail = $('#personalEmail').val();
+
+    let form = new FormData();
+    var data = {
+      action: 'read',
+    };
+    form.append('personalEmail', personalEmail);
+    form.append('action', JSON.stringify(data))
+    $.ajax({
+      url: '../PHP_process/person.php',
+      type: 'POST',
+      data: form,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response == 'Exist') {
+          $('#personalEmail').addClass('border-accent').removeClass('border-gray-400');
+          $('#emailExist').show();
+          personalEmailAvailable = false;
+        }
+        else {
+          $('#personalEmail').removeClass('border-accent').addClass('border-gray-400');
+          $('#emailExist').hide();
+          personalEmailAvailable = true;
+        }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
   }
 });
 
@@ -192,7 +231,7 @@ nextButton.addEventListener("click", function () {
   }
 
   // Check if any field is empty
-  if (hasError) {
+  if (hasError || !personalEmailAvailable) {
     return;
   }
 

@@ -132,6 +132,7 @@
               <div class="mt-4">
                 <label for="personalEmail" class="block text-sm font-medium text-gray-700">Email Address (Personal)</label>
                 <input name="personalEmail" type="text" id="personalEmail" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: juanDelaCruz@gmail.com" required>
+                <p id="emailExist" class="hidden text-xs text-red-500 italic">The email address you entered is already associated with an existing account.</p>
               </div>
 
               <!-- Email Address Personal -->
