@@ -110,6 +110,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
+                console.log(response)
                 $('#modal').hide();
                 $('#promptMsg').removeClass('hidden')
                 $('#message').text('Announcement successfully posted!')

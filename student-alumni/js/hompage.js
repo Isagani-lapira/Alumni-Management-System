@@ -296,19 +296,20 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: (response) => {
+        //parse the json that have been retrieved
+        const parsedResponse = JSON.parse(response);
         let numberOfNone = 0;
-        if (response == "none" && numberOfNone != 55) {
+        if (parsedResponse.response == "None" && numberOfNone != 55) {
           todayDate = getPreviousDate(noOfDaySubtract);
+          console.log('dine na');
           getPost()
           noOfDaySubtract++;
           numberOfNone++
         }
         else {
-          //parse the json that have been retrieved
-          const parsedResponse = JSON.parse(response);
           //get data that retrieve
           let length = parsedResponse.username.length;
-          console.log(parsedResponse)
+          let timestamp = "";
           //traverse all the data
           for (let i = 0; i < length; i++) {
             let imgProfile = parsedResponse.profilePic[i];
@@ -321,12 +322,36 @@ $(document).ready(function () {
             let comments = parsedResponse.comments[i];
             date = getFormattedDate(date)
 
+            timestamp = parsedResponse.timestamp
             displayPost(imgProfile, username, fullname, caption, images, date, likes, comments);
           }
 
+          //insert the last timestamp that post retrieve
+          insertPrevPost(todayDate, timestamp)
         }
       },
       error: (error) => { console.log(error) }
+    })
+  }
+
+  function insertPrevPost(date, timestamp) {
+    let action = {
+      action: 'insertPrevPost',
+      date: date,
+      timestamp: timestamp,
+    }
+
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action));
+
+    $.ajax({
+      url: '../PHP_process/postDB.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => { console.log(response) },
+      erro: (error) => { console.log(error) },
     })
   }
 
@@ -392,9 +417,9 @@ $(document).ready(function () {
       .on('click', function () {
         //toggle like button
         if (isLiked)
-          heart.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>');
+          heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>');
         else
-          heart.html('<iconify-icon icon="mdi:heart" style="color: #ed1d24;" width="20" height="20"></iconify-icon>');
+          heartIcon.html('<iconify-icon icon="mdi:heart" style="color: #ed1d24;" width="20" height="20"></iconify-icon>');
 
         isLiked = !isLiked;
       });
@@ -426,13 +451,6 @@ $(document).ready(function () {
       },
     });
 
-  }
-
-  function createHeart() {
-    var svg = '<svg class="heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="red" stroke-width="2">' +
-      '<path d="M12 4.929C7.469 1.768 1 5.601 1 11.21c0 3.38 2.882 6.396 6 8.045 3.118-1.649 6-4.665 6-8.045 0-1.91-1.287-3.63-3-4.281z"></path>' +
-      '</svg>';
-    return svg;
   }
 
 

@@ -25,6 +25,13 @@ if (isset($_POST['action'])) {
             $college = $_SESSION['colCode'];
             $date = $data['todayDate'];
             $post->getCollegePost($username, $college, $date, $mysql_con);
+            break;
+        case 'insertPrevPost':
+            $username = $_SESSION['username'];
+            $date = $data['date'];
+            $timestamp = $data['timestamp'];
+            $post->insertToPrevPost($username, $date, $timestamp, $mysql_con);
+            break;
     }
 }
 

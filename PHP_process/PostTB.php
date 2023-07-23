@@ -5,8 +5,10 @@ class PostData
     public function insertPostData($postID, $username, $colCode, $caption, $date, $img, $con)
     {
         $imgFileLength = count($img['name']);
-        $query = "INSERT INTO `post`(`postID`, `username`, `colCode`, `caption`, `date`) 
-        VALUES ('$postID','$username','$colCode','$caption','$date')";
+        $timestamp = date('Y-m-d H:i:s');
+
+        $query = "INSERT INTO `post`(`postID`, `username`, `colCode`, `caption`, `date`, `timestamp`) 
+        VALUES ('$postID','$username','$colCode','$caption','$date','$timestamp')";
         $result = mysqli_query($con, $query);
 
         if ($result) {
@@ -131,34 +133,30 @@ class PostData
         return $row;
     }
 
-    function getCollegePost($username, $college, $todayDate, $con)
+    function getCollegePost($username, $college, $date, $con)
     {
+        //check user if it retrieve post today or not
+        $queryPrevPost = "SELECT `timestamp` FROM `previous_post` WHERE `username`= '$username' AND `date_posted` = '$date'";
+        $result = mysqli_query($con, $queryPrevPost);
+        $numOfRetrievedData = mysqli_num_rows($result);
 
-        $query = 'SELECT * FROM `post` WHERE`colCode` = "' . $college . '" AND `date` = "' . $todayDate . '"';
-        $result = mysqli_query($con, $query);
-        $row = mysqli_num_rows($result);
-        $perPage = 10;
-        if ($result && $row > 0) {
-            //get data with offset
-            $previousPost = 'SELECT `offset` FROM `previous_post` WHERE `username` = "' . $username . '" AND `date_posted`="' . $todayDate . '"';
-            $prevPostResult = mysqli_query($con, $previousPost);
-            $prevRow = mysqli_num_rows($prevPostResult);
-            $offset = 0;
+        //the user already retrieve post posted today
+        if ($numOfRetrievedData > 0) {
+            $prevTimeStamp = mysqli_fetch_assoc($result);
+            $timestamp = $prevTimeStamp['timestamp'];
 
-            //check for offset if how many the user has loading post
-            if ($prevPostResult && $prevRow > 0) {
-                $row = mysqli_fetch_assoc($prevPostResult);
-                $offset = $row['offset'];
-            }
-            $query = 'SELECT * FROM `post` WHERE `colCode` = "CICT" AND `date`="2023-07-17" LIMIT ' . $offset . ',' . $perPage . '';
-            $result = mysqli_query($con, $query);
-            $row = mysqli_num_rows($result);
+            //retrieve first the data left from today's post
+            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `timestamp`>'$timestamp' LIMIT 0, 10";
+            $result = mysqli_query($con, $queryRetrievePost);
 
-            if ($result && $row > 0)
-                $this->getPostData($result, $con); //get data
-            else echo 'none';
-        } else {
-            echo 'none';
+            //get all the data of the post
+            $this->getPostData($result, $con);
+        } else { // if the user just starting to retrieve data for today
+
+            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' ORDER BY `date` DESC ";
+            $result = mysqli_query($con, $queryRetrievePost);
+            //get all the data of the post
+            $this->getPostData($result, $con);
         }
     }
 
@@ -168,8 +166,10 @@ class PostData
 
         //data that will be retrieving
         $response = "";
+        $timestamp = "";
         $username = array();
         $fullname = array();
+        $imgProfile = array();
         $postID = array();
         $colCode = array();
         $caption = array();
@@ -187,7 +187,7 @@ class PostData
                 $colCode[] = $data['colCode'];
                 $caption[] = $data['caption'];
                 $date[] = $data['date'];
-
+                $timestamp = $data['timestamp'];
                 $ID = $data['postID'];
                 $images[] = $this->getPostImages($ID, $con);
                 $comments[] = $this->getPostComments($ID, $con);
@@ -197,7 +197,7 @@ class PostData
                 $fullname[] = $user['fullname'];
                 $imgProfile[] = $user['profilePic'];
             }
-        }
+        } else $response = 'None';
 
         $data = array(
             'response' => $response,
@@ -210,11 +210,23 @@ class PostData
             'comments' => $comments,
             'likes' => $likes,
             'fullname' => $fullname,
-            'profilePic' => $imgProfile
+            'profilePic' => $imgProfile,
+            'timestamp' => $timestamp,
         );
 
         echo json_encode($data);
     }
+
+    function insertToPrevPost($username, $date, $timestamp, $con)
+    {
+        $query = "INSERT INTO `previous_post`(`username`, `date_posted`, `timestamp`) 
+        VALUES ('$username','$date','$timestamp')";
+        $result = mysqli_query($con, $query);
+
+        if ($result) echo 'yehey';
+        else echo 'ayaw';
+    }
+
 
 
     function getUserDetails($username, $con)
