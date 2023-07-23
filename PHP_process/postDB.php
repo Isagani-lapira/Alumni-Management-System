@@ -24,7 +24,8 @@ if (isset($_POST['action'])) {
             $username = $_SESSION['username'];
             $college = $_SESSION['colCode'];
             $date = $data['todayDate'];
-            $post->getCollegePost($username, $college, $date, $mysql_con);
+            $maxLimit = $data['maxRetrieve'];
+            $post->getCollegePost($username, $college, $date, $maxLimit, $mysql_con);
             break;
         case 'insertPrevPost':
             $username = $_SESSION['username'];

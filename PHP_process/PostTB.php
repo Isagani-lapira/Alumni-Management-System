@@ -133,7 +133,7 @@ class PostData
         return $row;
     }
 
-    function getCollegePost($username, $college, $date, $con)
+    function getCollegePost($username, $college, $date, $maxLimit, $con)
     {
         //check user if it retrieve post today or not
         $queryPrevPost = "SELECT `timestamp` FROM `previous_post` WHERE `username`= '$username' AND `date_posted` = '$date'";
@@ -145,18 +145,23 @@ class PostData
             $prevTimeStamp = mysqli_fetch_assoc($result);
             $timestamp = $prevTimeStamp['timestamp'];
 
-            //retrieve first the data left from today's post
-            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `timestamp`>'$timestamp' LIMIT 0, 10";
+            // //retrieve first the data left from day post
+            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `timestamp`>'$timestamp'";
             $result = mysqli_query($con, $queryRetrievePost);
+            $row = mysqli_num_rows($result);
 
-            //get all the data of the post
-            $this->getPostData($result, $con);
+            if ($row > 0) $this->getPostData($result, $con); //get all the data of the post
+            else echo 'nandine';
         } else { // if the user just starting to retrieve data for today
 
             $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' ORDER BY `date` DESC ";
             $result = mysqli_query($con, $queryRetrievePost);
+            $row = mysqli_num_rows($result);
+
             //get all the data of the post
-            $this->getPostData($result, $con);
+            if ($row > 0)
+                $this->getPostData($result, $con);
+            else echo 'rar';
         }
     }
 
@@ -197,7 +202,7 @@ class PostData
                 $fullname[] = $user['fullname'];
                 $imgProfile[] = $user['profilePic'];
             }
-        } else $response = 'None';
+        } else  $response = 'Unsuccess';;
 
         $data = array(
             'response' => $response,

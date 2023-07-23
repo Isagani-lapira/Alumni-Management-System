@@ -1,6 +1,6 @@
-// const { format } = require("prettier");
 
 $(document).ready(function () {
+
   const swiper = new Swiper('.swiper', {
     // If we need pagination
     pagination: {
@@ -276,15 +276,17 @@ $(document).ready(function () {
     return year + '-' + month + '-' + day;
   }
 
-
   var todayDate = getCurrentDate();
   var noOfDaySubtract = 1;
+  var maxRetrieve = 10;
+
   getPost()
   //retrieve post data
   function getPost() {
     let action = {
       action: 'readColPost',
-      todayDate: todayDate // to be change
+      todayDate: todayDate, // to be change
+      maxRetrieve: maxRetrieve
     }
     const formData = new FormData();
     formData.append('action', JSON.stringify(action));
@@ -296,43 +298,53 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: (response) => {
-        //parse the json that have been retrieved
-        const parsedResponse = JSON.parse(response);
-        let numberOfNone = 0;
-        if (parsedResponse.response == "None" && numberOfNone != 55) {
-          todayDate = getPreviousDate(noOfDaySubtract);
-          console.log('dine na');
-          getPost()
-          noOfDaySubtract++;
-          numberOfNone++
-        }
-        else {
-          //get data that retrieve
-          let length = parsedResponse.username.length;
-          let timestamp = "";
-          //traverse all the data
-          for (let i = 0; i < length; i++) {
-            let imgProfile = parsedResponse.profilePic[i];
-            let fullname = parsedResponse.fullname[i];
-            let username = parsedResponse.username[i];
-            let images = parsedResponse.images[i];
-            let caption = parsedResponse.caption[i];
-            let date = parsedResponse.date[i];
-            let likes = parsedResponse.likes[i];
-            let comments = parsedResponse.comments[i];
-            date = getFormattedDate(date)
 
-            timestamp = parsedResponse.timestamp
-            displayPost(imgProfile, username, fullname, caption, images, date, likes, comments);
+        console.log(response)
+        if (response != "nandine") {
+          //parse the json that have been retrieved
+          const parsedResponse = JSON.parse(response);
+          let numberOfNone = 0;
+
+          if (parsedResponse.response == "None") {
+            todayDate = getPreviousDate(noOfDaySubtract);
+            getPost()
+            noOfDaySubtract++;
+            numberOfNone++
           }
+          else {
+            //get data that retrieve
+            let length = parsedResponse.username.length;
+            let timestamp = "";
 
-          //insert the last timestamp that post retrieve
-          insertPrevPost(todayDate, timestamp)
+            //traverse all the data
+            for (let i = 0; i < length; i++) {
+              let imgProfile = parsedResponse.profilePic[i];
+              let fullname = parsedResponse.fullname[i];
+              let username = parsedResponse.username[i];
+              let images = parsedResponse.images[i];
+              let caption = parsedResponse.caption[i];
+              let date = parsedResponse.date[i];
+              let likes = parsedResponse.likes[i];
+              let comments = parsedResponse.comments[i];
+              date = getFormattedDate(date)
+              timestamp = parsedResponse.timestamp
+
+              displayPost(imgProfile, username, fullname, caption, images, date, likes, comments); //display the post on the container
+            }
+
+            //insert the last timestamp that post retrieve
+            insertPrevPost(todayDate, timestamp)
+          }
         }
+        else console.log('no available data')
+
       },
       error: (error) => { console.log(error) }
     })
+
+
   }
+
 
   function insertPrevPost(date, timestamp) {
     let action = {
@@ -367,9 +379,10 @@ $(document).ready(function () {
 
     return month + ' ' + day + ', ' + year
   }
+
   function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments) {
     //creating a markup for post
-    let postWrapper = $('<div>').addClass("center-shadow w-10/12 p-4 rounded-md")
+    let postWrapper = $('<div>').addClass("postWrapper center-shadow w-10/12 p-4 rounded-md mx-auto")
     let header = $('<div>')
     let headerWrapper = $('<div>').addClass("flex gap-2 items-center")
 
@@ -378,7 +391,7 @@ $(document).ready(function () {
     let authorDetails = $('<div>').addClass("flex-1")
     let fullnameElement = $('<p>').addClass("font-bold text-greyish_black").text(fullname)
     let usernameElement = $('<p>').addClass("text-gray-400 text-xs").text(username)
-    // let svg = $('<svg>').
+
 
     // header content
     authorDetails.append(fullnameElement, usernameElement);
@@ -453,8 +466,21 @@ $(document).ready(function () {
 
   }
 
+  //add retrieve new data
+  $('#feedContainer').on('scroll', function () {
+    const containerHeight = $(this).height();
+    const contentHeight = $(this)[0].scrollHeight;
+    const scrollOffset = $(this).scrollTop();
+
+    if (scrollOffset + containerHeight >= contentHeight) {
+      console.log('rarr');
+
+      //get another sets of post
+    }
+  })
 
 });
+
 
 // NOTIFICATIONS  
 function toggleNotifications() {

@@ -269,40 +269,39 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- CENTER DIV -->
-          <div class="flex-1 flex justify-center items-center">
-            <div id="centerDiv" class="border-l border-r border-grayish px-4 mt-2">
+          <div id="rar" class="flex-1 flex justify-center items-center h-screen">
+            <div id="centerDiv" class="border-l border-r border-grayish px-4 mt-2 h-full">
 
               <!-- Content for the center div -->
 
               <!-- Main Feed -->
-              <div id="mainFeed" class="mainFeed">
+              <div id="mainFeed" class="mainFeed h-full">
                 <!-- Content for the main feed -->
 
-                <!-- Make Post && Profile -->
-                <div id="makePostProfile" class="post p-3 input-post-width mx-auto rounded-md center-shadow w-5/6">
-                  <div class="flex items-center">
-                    <!-- set profile image -->
-                    <?php
-                    if ($profilepicture == "") {
-                      echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
-                    } else {
-                      $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-                      echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
-                    }
+                <!-- POST -->
+                <div id="feedContainer" class="post w-5/6 mx-auto post-width h-full no-scrollbar">
+                  <!-- Make Post && Profile -->
+                  <div id="makePostProfile" class="post p-3 input-post-width mx-auto rounded-md center-shadow w-full my-2">
+                    <div class="flex items-center">
+                      <!-- set profile image -->
+                      <?php
+                      if ($profilepicture == "") {
+                        echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                      } else {
+                        $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                        echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                      }
 
-                    ?>
-                    <div class="write pl-2 w-full">
-                      <button id="writeBtn" class="bg-gray-200 hover:bg-gray-100 text-grayish font-extralight py-2 px-4 rounded-full flex-grow w-full hover:shadow-md border-2" onclick="openModal()">
-                        <span class="flex items-center">
-                          <span>Write something...</span>
-                        </span>
-                      </button>
+                      ?>
+                      <div class="write pl-2 w-full">
+                        <button id="writeBtn" class="bg-gray-200 hover:bg-gray-100 text-grayish font-extralight py-2 px-4 rounded-full flex-grow w-full hover:shadow-md border-2" onclick="openModal()">
+                          <span class="flex items-center">
+                            <span>Write something...</span>
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <!-- POST -->
-                <div id="feedContainer" class="post w-5/6 mt-5 mx-auto post-width h-3/6 flex flex-col gap-2 justify-center items-center">
                 </div>
               </div>
 
@@ -390,7 +389,21 @@ function getAccDetails($con, $personID)
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
                   <div class="flex justify-start items-center inline ">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
+                    </div>
+                  </div>
+                  <div class="notification-description p-2">
+                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
+                    <p class="inline">added a post.</p>
+                  </div>
+                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
+                </a>
+
+                <!-- NOTIFICATION POST -->
+                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
+                  <div class="flex justify-start items-center inline ">
+                    <div class="flex items-center">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
                     </div>
                   </div>
                   <div class="notification-description p-2">
@@ -404,7 +417,7 @@ function getAccDetails($con, $personID)
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
                   <div class="flex justify-start items-center inline ">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
                     </div>
                   </div>
                   <div class="notification-description p-2">
@@ -418,21 +431,7 @@ function getAccDetails($con, $personID)
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
                   <div class="flex justify-start items-center inline ">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img src="/images/bg1.jpg" alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
                     </div>
                   </div>
                   <div class="notification-description p-2">
@@ -451,7 +450,7 @@ function getAccDetails($con, $personID)
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
                   <div class="flex justify-start items-center inline ">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
                     </div>
                   </div>
                   <div class="notification-description p-2">
@@ -465,7 +464,7 @@ function getAccDetails($con, $personID)
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
                   <div class="flex justify-start items-center inline ">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
                     </div>
                   </div>
                   <div class="notification-description p-2">
@@ -479,7 +478,7 @@ function getAccDetails($con, $personID)
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
                   <div class="flex justify-start items-center inline ">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
                     </div>
                   </div>
                   <div class="notification-description p-2">
@@ -498,7 +497,7 @@ function getAccDetails($con, $personID)
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
                   <div class="flex justify-start items-center inline ">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
                     </div>
                   </div>
                   <div class="notification-description p-2">
@@ -512,7 +511,7 @@ function getAccDetails($con, $personID)
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
                   <div class="flex justify-start items-center inline ">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
                     </div>
                   </div>
                   <div class="notification-description p-2">
@@ -526,7 +525,7 @@ function getAccDetails($con, $personID)
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
                   <div class="flex justify-start items-center inline ">
                     <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" src="/images/Mr.Jayson.png" alt="">
+                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
                     </div>
                   </div>
                   <div class="notification-description p-2">
