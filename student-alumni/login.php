@@ -41,6 +41,9 @@
     .error {
       border-color: #991B1B !important;
     }
+    .validation-border select:invalid {
+      border-color: #991B1B; /* Set red border color for invalid dropdown */
+    }
   </style>
 </head>
 
@@ -274,10 +277,9 @@
 
               <!-- Employement Status -->
               <div id="employment-status-div" class="mt-4">
-                <!-- Label -->
-                <label for="employment-status" class="text-sm font-medium text-gray-700">Employment Status:</label>
                 <!-- Dropdown -->
-                <select id="employment-status" class="text-sm border border-accent h-10 rounded-md text-accent font-semibold" required>
+                <select id="employment-status" class="text-sm border w-full rounded-md font-semibold" required>
+                  <option value="">Select Employment Status</option>
                   <option value="employed">Employed</option>
                   <option value="unemployed">Unemployed</option>
                   <option value="self-employed">Self-Employed</option>

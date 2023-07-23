@@ -310,6 +310,8 @@ nextButtonPage2.addEventListener("click", function () {
   const reqInputAns = document.getElementById("reqInputAns");
   const passDetailsDiv = document.getElementById("passDetailsDiv");
   const confirmPassDetailsDiv = document.getElementById("confirmPassDetailsDiv");
+  const employmentStatus = document.getElementById("employment-status");
+  const employmentStatusDiv = document.getElementById("employment-status-div");
 
   let hasError = false;
   if (username.value.trim() === "") {
@@ -325,11 +327,11 @@ nextButtonPage2.addEventListener("click", function () {
     college1.style.borderColor = "#9CA3AF"; // Set default color for filled field
   }
 
-  if (batch.value.trim() === "") {
-    batch.style.borderColor = "#991B1B"; // Set accent color for empty field
+  if (employmentStatus.value.trim() === "") {
+    employmentStatusDiv.classList.add("validation-border"); // Add validation class to show red border
     hasError = true;
   } else {
-    batch.style.borderColor = "#9CA3AF"; // Set default color for filled field
+    employmentStatusDiv.classList.remove("validation-border"); // Remove validation class to reset border
   }
 
   let statusSelected = false;
@@ -354,8 +356,6 @@ nextButtonPage2.addEventListener("click", function () {
       statusLabels[i].style.color = "#000000";
     }
   }
-
-
 
   // Check if password1 field is empty or does not meet the condition
   if (!password1.checkValidity() || !isPasswordValid(password1.value)) {
