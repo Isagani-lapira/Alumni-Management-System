@@ -135,7 +135,7 @@
                 <p id="emailExist" class="hidden text-xs text-red-500 italic">The email address you entered is already associated with an existing account.</p>
               </div>
 
-              <!-- Email Address Personal -->
+              <!-- Address -->
               <div class="mt-4">
                 <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
                 <input name="address" type="text" id="address" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: Mabolo, malolos, bulacan" required>
@@ -147,9 +147,10 @@
                   <label for="contactNumber" class="block text-sm font-medium text-gray-700">Contact Number</label>
                   <input name="contactNo" type="text" id="contactNumber" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: 09062943968" required>
                 </div>
+                
                 <!-- Student Number -->
-                <div class="w-1/2">
-                  <label for="studentNumber" class="block text-sm font-medium text-gray-700">Student No.</label>
+              <div class="w-1/2">
+                <label for="studentNumber" class="block text-sm font-medium text-gray-700">Student No.</label>
                   <input name="studNo" type="text" id="studentNumber" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: 2021104943" required>
                 </div>
               </div>
@@ -269,6 +270,21 @@
                   studentRadio.addEventListener('change', updateBatchOptions);
                 </script>
 
+              </div>
+
+              <!-- Employement Status -->
+              <div id="employment-status-div" class="mt-4">
+                <!-- Label -->
+                <label for="employment-status" class="text-sm font-medium text-gray-700">Employment Status:</label>
+                <!-- Dropdown -->
+                <select id="employment-status" class="text-sm border border-accent h-10 rounded-md text-accent font-semibold" required>
+                  <option value="employed">Employed</option>
+                  <option value="unemployed">Unemployed</option>
+                  <option value="self-employed">Self-Employed</option>
+                  <option value="retired">Retired</option>
+                  <option value="student">Student</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
 
               <!-- Username -->
