@@ -276,7 +276,7 @@ $(document).ready(function () {
     return year + '-' + month + '-' + day;
   }
 
-  var todayDate = getCurrentDate();
+  var retrievalDate = getCurrentDate(); //to be change getCurrentDate()
   var noOfDaySubtract = 1;
   var maxRetrieve = 10;
 
@@ -285,7 +285,7 @@ $(document).ready(function () {
   function getPost() {
     let action = {
       action: 'readColPost',
-      todayDate: todayDate, // to be change
+      retrievalDate: retrievalDate, // to be change
       maxRetrieve: maxRetrieve
     }
     const formData = new FormData();
@@ -299,44 +299,35 @@ $(document).ready(function () {
       contentType: false,
       success: (response) => {
 
-        console.log(response)
-        if (response != "nandine") {
-          //parse the json that have been retrieved
+        //no data available for the day
+        if (response == "none") {
+          console.log(todayDate);
+        }
+        else {
+          //parsed the json data
           const parsedResponse = JSON.parse(response);
-          let numberOfNone = 0;
 
-          if (parsedResponse.response == "None") {
-            todayDate = getPreviousDate(noOfDaySubtract);
-            getPost()
-            noOfDaySubtract++;
-            numberOfNone++
-          }
-          else {
-            //get data that retrieve
-            let length = parsedResponse.username.length;
-            let timestamp = "";
+          //check for response
+          if (parsedResponse.response == "Success") {
 
-            //traverse all the data
+            const length = parsedResponse.username.length;
             for (let i = 0; i < length; i++) {
-              let imgProfile = parsedResponse.profilePic[i];
-              let fullname = parsedResponse.fullname[i];
-              let username = parsedResponse.username[i];
-              let images = parsedResponse.images[i];
-              let caption = parsedResponse.caption[i];
+              //store data that retrieve
+              const imgProfile = parsedResponse.profilePic[i];
+              const fullname = parsedResponse.fullname[i];
+              const username = parsedResponse.username[i];
+              const images = parsedResponse.images[i];
+              const caption = parsedResponse.caption[i];
               let date = parsedResponse.date[i];
-              let likes = parsedResponse.likes[i];
-              let comments = parsedResponse.comments[i];
-              date = getFormattedDate(date)
-              timestamp = parsedResponse.timestamp
+              const likes = parsedResponse.likes[i];
+              const comments = parsedResponse.comments[i];
+              date = getFormattedDate(date) //formatted date for easy viewing of date
 
               displayPost(imgProfile, username, fullname, caption, images, date, likes, comments); //display the post on the container
             }
 
-            //insert the last timestamp that post retrieve
-            insertPrevPost(todayDate, timestamp)
           }
         }
-        else console.log('no available data')
 
       },
       error: (error) => { console.log(error) }
@@ -407,8 +398,8 @@ $(document).ready(function () {
       let postImg = imgFormat + image;
 
       //create slides for the image
-      let slide = $('<div>').addClass("swiper-slide relative")
-      let imageContainer = $('<img>').addClass('object-contain rounded-lg')
+      let slide = $('<div>').addClass("swiper-slide relative flex justify-center items-center")
+      let imageContainer = $('<img>').addClass('object-contain h-full')
         .attr('src', postImg);
 
       slide.append(imageContainer);
@@ -474,7 +465,6 @@ $(document).ready(function () {
 
     if (scrollOffset + containerHeight >= contentHeight) {
       console.log('rarr');
-
       //get another sets of post
     }
   })

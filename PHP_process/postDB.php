@@ -23,7 +23,7 @@ if (isset($_POST['action'])) {
         case 'readColPost':
             $username = $_SESSION['username'];
             $college = $_SESSION['colCode'];
-            $date = $data['todayDate'];
+            $date = $data['retrievalDate'];
             $maxLimit = $data['maxRetrieve'];
             $post->getCollegePost($username, $college, $date, $maxLimit, $mysql_con);
             break;

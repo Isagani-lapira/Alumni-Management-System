@@ -151,17 +151,17 @@ class PostData
             $row = mysqli_num_rows($result);
 
             if ($row > 0) $this->getPostData($result, $con); //get all the data of the post
-            else echo 'nandine';
+            else echo 'none';
         } else { // if the user just starting to retrieve data for today
 
             $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' ORDER BY `date` DESC ";
             $result = mysqli_query($con, $queryRetrievePost);
-            $row = mysqli_num_rows($result);
 
-            //get all the data of the post
-            if ($row > 0)
-                $this->getPostData($result, $con);
-            else echo 'rar';
+            $post = $this->getPostData($result, $con); //get all the data of the post
+            if ($post) {
+                //create a previous post
+                echo $post;
+            } else echo 'none';
         }
     }
 
@@ -202,7 +202,7 @@ class PostData
                 $fullname[] = $user['fullname'];
                 $imgProfile[] = $user['profilePic'];
             }
-        } else  $response = 'Unsuccess';;
+        } else return false;
 
         $data = array(
             'response' => $response,
@@ -219,7 +219,7 @@ class PostData
             'timestamp' => $timestamp,
         );
 
-        echo json_encode($data);
+        return json_encode($data);
     }
 
     function insertToPrevPost($username, $date, $timestamp, $con)
