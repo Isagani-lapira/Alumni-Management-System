@@ -27,26 +27,24 @@
         </div>
         <!-- end search-bar -->
         <!-- daterangepicker input -->
-        <div class="w-full flex border p-2 mx-2">
-            <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018">
-            <label class="" for="reportdaterange">
-                <i class="fa-solid fa-calendar -ml-5"></i>
-            </label>
+        <div class="relative">
+            <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018" class="input-text py-2 px-2">
+            <i class="fa-solid fa-calendar  absolute mr-2 right-0 top-3"></i>
         </div>
         <!-- end daterangepicker input -->
         <!-- batch selection -->
-        <select name="" id="batch" class="w-full p-1 border">
+        <select name="" id="batch" class="input-text">
             <option value="" selected disabled hidden>Batch</option>
             <!-- php function on batch -->
         </select>
 
         <!-- college selection -->
-        <select name="college" id="college" class="w-full p-1 border">
+        <select name="college" id="college" class="input-text">
             <option value="" selected disabled hidden>Course</option>
         </select>
 
         <!-- employment status selection -->
-        <select name="employment" id="employment" class="w-full p-1 border">
+        <select name="employment" id="employment" class="input-text">
             <option value="" selected disabled hidden>Employment Status</option>
             <option value="">Employed</option>
             <option value="">Unemployed</option>
