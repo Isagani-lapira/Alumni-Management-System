@@ -2,6 +2,7 @@
 
 class PostData
 {
+    private $postTimeStamp = "";
     public function insertPostData($postID, $username, $colCode, $caption, $date, $img, $con)
     {
         $imgFileLength = count($img['name']);
@@ -145,22 +146,35 @@ class PostData
             $prevTimeStamp = mysqli_fetch_assoc($result);
             $timestamp = $prevTimeStamp['timestamp'];
 
-            // //retrieve first the data left from day post
-            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `timestamp`>'$timestamp'";
+            //retrieve first the data left from day post
+            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `timestamp`>'$timestamp' LIMIT 0, $maxLimit";
             $result = mysqli_query($con, $queryRetrievePost);
             $row = mysqli_num_rows($result);
 
-            if ($row > 0) $this->getPostData($result, $con); //get all the data of the post
-            else echo 'none';
+            if ($row > 0) {
+                $postResult = $this->getPostData($result, $con); //get all the data of the post
+                $data = json_decode($postResult, true);
+                $prevtimestamp = $data['timestamp'];
+
+                //update the latest timestamp
+                $queryUpdate = "UPDATE `previous_post` SET `timestamp`='$prevtimestamp' WHERE `username`='$username' AND `date_posted` = '$date'";
+                $resultUpdate = mysqli_query($con, $queryUpdate);
+
+                if ($resultUpdate) echo $postResult;
+            } else echo 'none';
         } else { // if the user just starting to retrieve data for today
 
-            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' ORDER BY `date` DESC ";
+            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' ORDER BY `date` DESC LIMIT 0, $maxLimit";
             $result = mysqli_query($con, $queryRetrievePost);
 
             $post = $this->getPostData($result, $con); //get all the data of the post
             if ($post) {
+                //insert the previous post
+                $query = "INSERT INTO `previous_post`(`username`, `date_posted`, `timestamp`) VALUES ('$username','$date','$this->postTimeStamp')";
+                $result = mysqli_query($con, $query);
+
                 //create a previous post
-                echo $post;
+                if ($result) echo $post;
             } else echo 'none';
         }
     }
@@ -193,6 +207,7 @@ class PostData
                 $caption[] = $data['caption'];
                 $date[] = $data['date'];
                 $timestamp = $data['timestamp'];
+                $this->postTimeStamp = $timestamp;
                 $ID = $data['postID'];
                 $images[] = $this->getPostImages($ID, $con);
                 $comments[] = $this->getPostComments($ID, $con);

@@ -279,7 +279,8 @@ $(document).ready(function () {
   var retrievalDate = getCurrentDate(); //to be change getCurrentDate()
   var noOfDaySubtract = 1;
   var maxRetrieve = 10;
-
+  let dataRetrieved = 0;
+  var stoppingPostRetrieval = 0;
   getPost()
   //retrieve post data
   function getPost() {
@@ -298,14 +299,18 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: (response) => {
-
+        $('#noAvailablePostMsg').addClass('hidden')
         //no data available for the day
-        if (response == "none") {
-          console.log(todayDate);
+        if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 30) {
+          retrievalDate = getPreviousDate(noOfDaySubtract);
+          getPost()
+          noOfDaySubtract++ //if no more the day will be increasing to get the previous date
+          stoppingPostRetrieval++
+          console.log(retrievalDate)
         }
-        else {
-          //parsed the json data
-          const parsedResponse = JSON.parse(response);
+        else if (response != 'none') {
+          console.log(response)
+          const parsedResponse = JSON.parse(response); //parsed the json data
 
           //check for response
           if (parsedResponse.response == "Success") {
@@ -326,8 +331,16 @@ $(document).ready(function () {
               displayPost(imgProfile, username, fullname, caption, images, date, likes, comments); //display the post on the container
             }
 
+            dataRetrieved = length; // get how many data has been retrieve for that day
+            maxRetrieve = maxRetrieve - dataRetrieved;
+            if (maxRetrieve != 0) {
+              retrievalDate = getPreviousDate(noOfDaySubtract);
+              stoppingPostRetrieval = 0;
+              getPost()
+            } else maxRetrieve = 10;
           }
         }
+        else $('#noAvailablePostMsg').removeClass('hidden');
 
       },
       error: (error) => { console.log(error) }
