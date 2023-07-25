@@ -1,6 +1,6 @@
 <!-- report content -->
 <section id="report-tab" class=" mx-auto lg:mx-8">
-    <h1 class="text-xl font-extrabold uppercase">Student Record</h1>
+    <h1 class="text-xl font-extrabold uppercase">Alumni Record</h1>
 
     <div class="flex justify-end text-sm text-greyish_black">
         <!-- HISTORY LOGS -->
@@ -21,16 +21,16 @@
     <div class="grid  grid-flow-row grid-cols-5 gap-4">
 
         <!-- search-bar -->
-        <div class="flex border border-greyish_black w-full rounded-md p-1">
-            <img class="inline " src="/images/search-icon.png" alt="">
-            <input class="focus:outline-none" type="text" name="" id="" placeholder="Typing!">
+        <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-2 top-0 mt-3 text-gray-400 "></i>
+            <input class="border border-greyish_black w-full rounded-md p-2 pl-7" type="text" name="" id="" placeholder="Typing!">
         </div>
         <!-- end search-bar -->
         <!-- daterangepicker input -->
         <div class="w-full flex border p-2 mx-2">
             <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018">
             <label class="" for="reportdaterange">
-                <i class="fa-solid fa-calendar"></i>
+                <i class="fa-solid fa-calendar -ml-5"></i>
             </label>
         </div>
         <!-- end daterangepicker input -->

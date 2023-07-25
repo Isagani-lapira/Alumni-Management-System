@@ -918,6 +918,14 @@ th,
   top: 2rem;
 }
 
+.left-2 {
+  left: 0.5rem;
+}
+
+.top-1\/4 {
+  top: 25%;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -1243,6 +1251,14 @@ th,
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.-ml-4 {
+  margin-left: -1rem;
+}
+
+.-ml-5 {
+  margin-left: -1.25rem;
 }
 
 .box-border {
@@ -3559,6 +3575,14 @@ th,
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pl-6 {
+  padding-left: 1.5rem;
+}
+
+.pl-7 {
+  padding-left: 1.75rem;
 }
 
 .text-left {

@@ -125,10 +125,14 @@ if (
                     <li><a data-link="email" href="#email" class="flex rounded p-2 ">
                             <i class="fa-solid fa-envelope fa-xl mr-2"></i> Email
                         </a></li>
-                    <li><a data-link="reports" href="#reports" class="flex rounded-lg p-2">
+                    <li><a data-link="student-record" href="#student-record" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
 
                             Student Records</a></li>
+                    <li><a data-link="alumni-record" href="#alumni-record" class="flex rounded-lg p-2">
+                            <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
+
+                            Alumni Records</a></li>
                     <li><a data-link="event" href="#event" class="flex rounded p-2 ">
                             <i class="fa-solid fa-calendar-check mr-2 fa-xl"></i>
                             Event</a></li>
