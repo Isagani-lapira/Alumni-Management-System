@@ -48,10 +48,8 @@ $(document).ready(function () {
                     getPost()
                     noOfDaySubtract++ //if no more the day will be increasing to get the previous date
                     stoppingPostRetrieval++
-                    console.log(retrievalDate)
                 }
                 else if (response != 'none') {
-                    console.log(response)
                     const parsedResponse = JSON.parse(response); //parsed the json data
 
                     //check for response
@@ -148,7 +146,8 @@ $(document).ready(function () {
         let prevBtn = $('<div>').addClass("swiper-button-prev")
         let nextBtn = $('<div>').addClass("swiper-button-next")
 
-        swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
+        if (images.length != 0)
+            swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
         date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
 
         //interaction buttons
@@ -175,27 +174,32 @@ $(document).ready(function () {
 
         let reportElement = $('<p>').addClass('text-xs text-red-400 cursor-pointer ').text('report');
         interactionContainer.append(leftContainer, reportElement)
+
         //set up the details of the post
-        postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
+        if (images.length != 0) {
+            postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
+            new Swiper('.swiper', {
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            swiperContainer.on('click', function () {
+                $('#viewingPost').removeClass("hidden");
+                viewingOfPost(postID, fullname, username, caption, images, likes, img)
+            })
+        }
+        else
+            postWrapper.append(header, description, date_posted, interactionContainer)
         $('#feedContainer').append(postWrapper);
 
-        new Swiper('.swiper', {
-            // If we need pagination
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
-
-        swiperContainer.on('click', function () {
-            $('#viewingPost').removeClass("hidden");
-            viewingOfPost(postID, fullname, username, caption, images, likes, img)
-        })
     }
 
     //add retrieve new data

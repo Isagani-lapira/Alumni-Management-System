@@ -746,44 +746,43 @@ function getAccDetails($con, $personID)
         <div id="job-offer-tabs" class="flex flex-col md:flex-row pt-48 z-10">
 
           <!-- LEFT DIV -->
-          <div class="fixed left-div w-3/12 md:w-4/12 p-10">
+          <div class="fixed left-div w-3/12 md:w-4/12 p-10 relative">
 
             <!-- Upper Part -->
             <div class="flex flex-col md:flex-row items-center">
               <!-- Dropdown List -->
-              <div class="dp-list px-2 pb-2 md:pb-0 relative">
-                <select class="py-2 pr-4 p-3 outline-none border-black center-shadow rounded-md shadow text-sm appearance-none slide-down-select">
-                  <option value="option1">All</option>
-                  <option value="option2">Tags</option>
-                  <option value="option3">Com. Name</option>
-                </select>
-                <i class="absolute top-1 right-5 pr-2 py-2 fas fa-chevron-down text-grayish"></i>
-              </div>
+              <select class="py-2 p-3 outline-none border-black center-shadow rounded-md shadow text-sm appearance-none cursor-pointer">
+                <option value="all">All</option>
+                <option value="Saved">Saved</option>
+                <option value="Applied">Applied</option>
+              </select>
 
               <!-- Searchbar -->
-              <div class="relative w-full pb-2 md:pb-0 pl-2">
+              <div class="relative w-full pb-2 md:pb-0">
                 <input id="searchJob" type="text" placeholder="Search" class="pl-10 pr-4 py-2 w-full text-black text-sm border outline-none border-grayish center-shadow p-3 rounded-md shadow text-sm border outline-none" />
                 <i class="absolute left-3 top-5 transform -translate-y-1/2 fas fa-search text-grayish"></i>
               </div>
             </div>
 
             <div class="scrollable-container mt-8 rounded-md">
-              <ul id="listOfJob" class="tab-links overflow-y-scroll px-2 pb-4 flex flex-col gap-2" style="max-height: 440px;">
+              <ul id="listOfJob" class="tab-links overflow-y-auto px-2 pb-4 flex flex-col gap-2" style="max-height: 440px;">
                 <p id="noJobMsg" class="hidden">No available job right now</p>
               </ul>
             </div>
 
+            <div class="mt-3 flex justify-center items-center">
+              <button class="bg-blue-400 rounded-md text-white w-full py-3 hover:bg-blue-500">
+                <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-2 -2 24 24">
+                  <path fill="white" d="m5.72 14.456l1.761-.508l10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635l-.52 1.82zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.901.901 0 0 1-1.11-.623a.915.915 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635h3.592z" />
+                </svg>
+                Job post
+              </button>
+            </div>
           </div>
-
-          <div class="w-3/12 md:w-4/12 p-10"></div>
 
           <!-- CENTER DIV -->
           <div class="center-div w-3/5 md:w-9/12 py-10 px-8">
-            <div class="flex justify-end p-4 w-full">
-              <button class="py-2 bg-postButton hover:bg-postHoverButton text-white rounded w-28">Post</button>
-            </div>
             <div class="content-div center-shadow rounded-md text-sm h-auto">
-
               <div class="tab-content">
                 <div id="job-offer1" class="job-offer-content">
                   <!-- Job Offer 1 content goes here -->
@@ -829,25 +828,25 @@ function getAccDetails($con, $personID)
                     </div>
 
                     <!-- Project Overview -->
-                    <div class="px-10 py-6">
+                    <div class="px-10 py-2">
                       <h3 class="text-xl font-bold">Job Description</h3>
                       <p id="jobDescript" class="indented text-justify"></p>
                     </div>
 
                     <!-- Skills -->
-                    <div class="px-10 py-6">
+                    <div class="px-10 py-2">
                       <h3 class="text-xl font-bold">Skills</h3>
-                      <div id="skillsContainer" class="flex flex-wrap"></div>
+                      <div id="skillsContainer" class="flex flex-wrap gap-3"></div>
                     </div>
 
                     <!-- Qualifications -->
-                    <div class="px-10 py-6">
+                    <div class="px-10 py-2">
                       <h3 class="text-xl font-bold">Qualifications:</h3>
                       <p id="viewJobQuali"></p>
                     </div>
 
                     <!-- Requirements -->
-                    <div class="px-10 py-6">
+                    <div class="px-10 py-2">
                       <h3 class="text-xl font-bold ">Requirements:</h3>
                       <ul id="requirements" class="list-disc gap-3"></ul>
                     </div>

@@ -5,7 +5,7 @@ class PostData
     private $postTimeStamp = "";
     public function insertPostData($postID, $username, $colCode, $caption, $date, $img, $con)
     {
-        $imgFileLength = count($img['name']);
+        $imgFileLength = ($img != null) ? count($img['name']) : 0;
         $timestamp = date('Y-m-d H:i:s');
 
         $query = "INSERT INTO `post`(`postID`, `username`, `colCode`, `caption`, `date`, `timestamp`) 

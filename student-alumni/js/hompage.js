@@ -91,7 +91,7 @@ $(document).ready(function () {
     let companyImg = $('<img>').addClass('h-12 w-12 rounded-full').attr('src', companyLogo)
     let jobDescription = $('<div>').addClass('flex-grow flex flex-col')
     let jobTitleElement = $('<p>').text(jobTitle).addClass('text-accent font-bold')
-    let companyName = $('<p>').text(company).addClass('text-xs')
+    let companyName = $('<p>').text(company).addClass('text-sm')
     let postedCont = $('<div>').addClass('flex gap-1 text-xs')
     let postedText = $('<p>').text('Posted by:')
     let postedByElement = $('<p>').text(author).addClass('text-green-400 font-bold')

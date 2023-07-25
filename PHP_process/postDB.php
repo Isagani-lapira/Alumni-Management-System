@@ -41,7 +41,7 @@ function insertData($con)
     //data that will be sending
     $caption = $_POST['caption'];
     $college = $_POST['college'];
-    $uploadedFiles = $_FILES['files'];
+    $uploadedFiles = (isset($_FILES['files'])) ? $_FILES['files'] : null;
 
     $random = rand(0, 4000);
     $postID = uniqid() . '-' . $random;
