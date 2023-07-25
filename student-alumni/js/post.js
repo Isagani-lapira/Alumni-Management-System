@@ -42,7 +42,6 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
-                $('#noAvailablePostMsg').addClass('hidden')
                 //no data available for the day
                 if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 30) {
                     retrievalDate = getPreviousDate(noOfDaySubtract);
@@ -84,7 +83,10 @@ $(document).ready(function () {
                         } else maxRetrieve = 10;
                     }
                 }
-                else $('#noAvailablePostMsg').removeClass('hidden');
+                else {
+                    const noMsgPost = $('<p>').addClass("text-blue-400 text-center").text("No available post")
+                    $('#feedContainer').append(noMsgPost);
+                }
 
             },
             error: (error) => { console.log(error) }
@@ -227,7 +229,15 @@ $(document).ready(function () {
         const carouselIndicators = $('#carousel-indicators');
 
         let totalImgNo = images.length;
-        console.log(totalImgNo)
+
+        //remove the navigation button when it is only 1
+        if (totalImgNo === 1) {
+            $('#btnPrev, #btnNext').addClass('hidden');
+        } else {
+            $('#btnPrev, #btnNext').removeClass('hidden');
+        }
+
+        //add image/s to the carousel
         images.forEach((image, index) => {
             let imageName = 'item-' + index;
             const item = $('<div>')
@@ -260,6 +270,7 @@ $(document).ready(function () {
             carouselIndicators.append(indicator);
         });
 
+        //controller how to next image
         let currentImageDisplay = 0;
         $('#btnNext').on('click', function () {
             $('#item-' + currentImageDisplay).addClass('hidden'); // Hide the current image
@@ -267,14 +278,16 @@ $(document).ready(function () {
             $('#item-' + currentImageDisplay).removeClass('hidden'); // Show the next image
         });
 
+        //controller how to previous image
         $('#btnPrev').on('click', function () {
             $('#item-' + currentImageDisplay).addClass('hidden'); // Hide the current image
             currentImageDisplay = (currentImageDisplay - 1 + totalImgNo) % totalImgNo; // Move to the previous image
             $('#item-' + currentImageDisplay).removeClass('hidden'); // Show the previous image
         });
 
-        getComment(postID);
+        getComment(postID); //retrieve the comment if available
 
+        //display all the person who likes a specific post
         $('#noOfLikes').hover(
             function () {
                 //show the name of the one who likes the post

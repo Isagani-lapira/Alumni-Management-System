@@ -302,7 +302,7 @@ function getAccDetails($con, $personID)
                       </div>
                     </div>
                   </div>
-                  <p id="noAvailablePostMsg" class="text-blue-400 text-center">No available post</p>
+
                 </div>
               </div>
 
@@ -601,7 +601,7 @@ function getAccDetails($con, $personID)
                 <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2" id="carousel-indicators">
                 </div>
                 <!-- Slider controls -->
-                <button id="btnPrev" type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20" data-carousel-prev>
+                <button id="btnPrev" type="button" class="navigatorBtn absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20" data-carousel-prev>
                   <span class="inline-flex items-center justify-center w-10 h-10 ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                       <path fill="white" d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z" />
@@ -609,7 +609,7 @@ function getAccDetails($con, $personID)
                     <span class="sr-only">Previous</span>
                   </span>
                 </button>
-                <button id="btnNext" type="button" class="text-white absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20">
+                <button id="btnNext" type="button" class="navigatorBtn text-white absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20">
                   <span class="inline-flex items-center justify-center w-10 h-10">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                       <path fill="none" stroke="currentColor" stroke-width="2" d="m7 2l10 10L7 22" />
