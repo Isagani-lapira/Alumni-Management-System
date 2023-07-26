@@ -48,12 +48,9 @@ $(document).ready(function () {
                     getPost()
                     noOfDaySubtract++ //if no more the day will be increasing to get the previous date
                     stoppingPostRetrieval++
-                    console.log(retrievalDate)
                 }
                 else if (response != 'none') {
-                    console.log(response)
                     const parsedResponse = JSON.parse(response); //parsed the json data
-
                     //check for response
                     if (parsedResponse.response == "Success") {
 
