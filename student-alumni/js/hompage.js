@@ -350,19 +350,6 @@ function setCenterDivWidth() {
 setCenterDivWidth();
 window.addEventListener('resize', setCenterDivWidth);
 
-// MODAL RELATED FUCNTIONS
-
-// Open the modal
-function openModal() {
-  var modal = document.getElementById("postModal");
-  modal.style.display = "block";
-}
-
-// Close the modal
-function closeModal() {
-  var modal = document.getElementById("postModal");
-  modal.style.display = "none";
-}
 
 //IMAGE PICKER
 
