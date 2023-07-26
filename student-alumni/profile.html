@@ -10,8 +10,46 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="../style/student-alumni.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+    /* Transparent navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px); /* Apply backdrop filter for a blur effect */
+      z-index: 100;
+    }
+
+    /* Adjust padding for the content below the navbar */
+    body {
+      padding-top: 4rem;
+    }
+  </style>
 </head>
+
 <body class="bg-gray-100 scrollable-container">
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 p-4">
+        <!-- Add your navbar content here -->
+        <!-- For example, you can add links and logo -->
+        <div class="container mx-auto">
+        <ul class="flex items-center justify-end space-x-4">
+            <li>
+            <a href="#" class="text-blue-600 hover:text-blue-800">Home</a>
+            </li>
+            <li>
+            <a href="#" class="text-blue-600 hover:text-blue-800">About</a>
+            </li>
+            <li>
+            <a href="#" class="text-blue-600 hover:text-blue-800">Contact</a>
+            </li>
+        </ul>
+        </div>
+    </nav>
+    
     <!-- Cover Photo -->
     <div class="relative">
         <img src="../images/bganim.jpg" alt="Cover Photo" class="w-full h-96 object-cover">
