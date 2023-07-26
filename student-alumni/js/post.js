@@ -24,6 +24,7 @@ $(document).ready(function () {
     var maxRetrieve = 10;
     let dataRetrieved = 0;
     var stoppingPostRetrieval = 0;
+
     getPost()
     //retrieve post data
     function getPost() {
@@ -125,6 +126,7 @@ $(document).ready(function () {
         // Markup for body
         let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption);
         let swiperContainer = null;
+        let rar = null
 
         // Check if there are images to display
         if (images.length > 0) {
@@ -167,9 +169,11 @@ $(document).ready(function () {
                 $('#viewingPost').removeClass("hidden");
                 viewingOfPost(postID, fullname, username, caption, images, likes, img)
             })
-        }
+        } else { postWrapper.css('min-height', '100px') }
+
         date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
 
+        let newlyAddedLike = parseInt(likes);
         //interaction buttons
         let isLiked = false;
         let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
@@ -177,10 +181,21 @@ $(document).ready(function () {
             .addClass('cursor-pointer flex items-center')
             .on('click', function () {
                 //toggle like button
-                if (isLiked)
+                if (isLiked) {
+                    //decrease the current total number of likes by 1
+                    newlyAddedLike -= 1
+                    console.log(newlyAddedLike)
+                    likesElement.text(newlyAddedLike)
                     heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>');
-                else
+                    removeLike(postID)
+                }
+                else {
+                    //increase the current total number of likes by 1
+                    newlyAddedLike += 1
+                    likesElement.text(newlyAddedLike)
                     heartIcon.html('<iconify-icon icon="mdi:heart" style="color: #ed1d24;" width="20" height="20"></iconify-icon>');
+                    addLikes(postID)
+                }
 
                 isLiked = !isLiked;
             });
@@ -200,6 +215,50 @@ $(document).ready(function () {
 
         $('#feedContainer').append(postWrapper);
 
+    }
+
+    //add the likes to a post
+    function addLikes(postID) {
+        let action = {
+            action: 'addLike',
+        }
+
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID);
+
+        //process the adding of like
+        $.ajax({
+            url: '../PHP_process/likesData.php',
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (response) => { console.log(response) },
+            error: (error) => { console.log(error) }
+        })
+    }
+
+    //add the likes to a post
+    function removeLike(postID) {
+        let action = {
+            action: 'removeLike',
+        }
+
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID);
+
+        //process the removal of like
+        $.ajax({
+            url: '../PHP_process/likesData.php',
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (response) => { console.log(response) },
+            error: (error) => { console.log(error) }
+        })
     }
 
     //add retrieve new data

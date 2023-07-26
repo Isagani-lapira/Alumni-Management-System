@@ -34,4 +34,27 @@ class Likes
         );
         echo json_encode($data);
     }
+
+    public function addLikes($username, $postID, $con)
+    {
+        $random = rand(0, 1000);
+        $postLike = $username .  substr(uniqid(), -4) . $random;
+
+        $query = "INSERT INTO `postlike`(`likeID`, `username`, `postID`) 
+        VALUES ('$postLike','$username','$postID')";
+
+        $result =  mysqli_query($con, $query);
+
+        if ($result) echo 'Success';
+        else echo 'Unsuccess';
+    }
+
+    public function removeLike($username, $postID, $con)
+    {
+        $query = "DELETE FROM `postlike` WHERE `postID` ='$postID' AND `username`='$username'";
+        $result =  mysqli_query($con, $query);
+
+        if ($result) echo 'Success';
+        else echo 'Unsuccess';
+    }
 }
