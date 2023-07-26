@@ -18,13 +18,8 @@
       left: 0;
       right: 0;
       background-color: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(10px); /* Apply backdrop filter for a blur effect */
+      backdrop-filter: blur(10px); 
       z-index: 100;
-    }
-
-    /* Adjust padding for the content below the navbar */
-    body {
-      padding-top: 4rem;
     }
   </style>
 </head>
@@ -32,42 +27,21 @@
 <body class="bg-gray-100 scrollable-container">
 
     <!-- Navbar -->
-    <div class="navbar fixed top-0 left-0 right-0 z-30">
-        <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
-          <a href="homepage.php" class="col-span-1 flex items-center">
-            <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
-            <span class="ml-2 text-xl font-bold">BulSU Connect</span>
-          </a>
-
-          <div class="col-span-3 md:col-span-1 flex items-center justify-center mt-4 md:mt-0">
-            <div class="relative w-full">
-              <input type="text" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-black text-sm border outline-none border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none" />
-              <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
-            </div>
-          </div>
-
-          <div class="col-span-2 md:col-span-1 flex items-center justify-end">
-            <!-- set profile image -->
-
-            <!-- Dropdown Button -->
-            <div class="relative">
-              <button id="dropdown-btn" class="bg-transparent border-none outline-none">
-                <i class="fas fa-chevron-down text-lg"></i>
-              </button>
-            </div>
-
-            <!-- Dropdown Content -->
-            <div id="dropdown-content" class="absolute bg-white rounded-md shadow-lg mt-40 justify-evenly right-8 hidden w-72 p-2">
-              <a href="profile.html" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg">
-                <i class="fas fa-light fa-user text-md pr-2"></i>See Profile
-              </a>
-              <span id="logout" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg cursor-pointer">
-                <i class="fas fa-sign-out-alt text-md pr-2"></i>Logout
-              </span>
-            </div>
-          </div>
-        </nav>
-      </div>
+    <nav class="navbar fixed top-0 left-0 right-0 p-4">
+        <div class="container mx-auto">
+        <ul class="flex items-center justify-end space-x-4">
+            <li>
+            <a href="#" class="text-blue-600 hover:text-blue-800">Home</a>
+            </li>
+            <li>
+            <a href="#" class="text-blue-600 hover:text-blue-800">Job Hunt</a>
+            </li>
+            <li>
+            <a href="#" class="text-blue-600 hover:text-blue-800">Notifications</a>
+            </li>
+        </ul>
+        </div>
+    </nav>
     
     <!-- Cover Photo -->
     <div class="relative">
