@@ -308,8 +308,6 @@ function toggleYearbook() {
 function toggleFeed() {
   $("#mainFeedContainer").removeClass("hidden");
   $("#yearbookContainer").addClass("hidden");
-  //$("#mainFeed").removeClass("hidden");
-  //$("#jobPostFeed").addClass("hidden");
 
 }
 

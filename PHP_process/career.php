@@ -90,7 +90,7 @@ class Career
     }
     public function selectDataForCollege($college, $con)
     {
-        $query = 'SELECT * FROM `career` WHERE `colCode` ="' . $college . '"';
+        $query = 'SELECT * FROM `career` WHERE `colCode` ="' . $college . '" ORDER BY`date_posted`DESC ';
         $result = mysqli_query($con, $query);
 
         if ($result) $this->getCareerDetail($result, $con);

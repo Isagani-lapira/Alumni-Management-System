@@ -110,45 +110,67 @@ $(document).ready(function () {
     }
 
     function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID) {
-        //creating a markup for post
-        let postWrapper = $('<div>').addClass("postWrapper center-shadow w-10/12 p-4 rounded-md mx-auto")
-        let header = $('<div>')
-        let headerWrapper = $('<div>').addClass("flex gap-2 items-center")
+        let postWrapper = $('<div>').addClass("postWrapper center-shadow w-10/12 p-4 rounded-md mx-auto");
 
-        let img = imgFormat + imgProfile
+        let header = $('<div>');
+        let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
+        let img = imgFormat + imgProfile;
         let userProfile = $('<img>').addClass("h-10 w-10 rounded-full").attr('src', img);
-        let authorDetails = $('<div>').addClass("flex-1")
-        let fullnameElement = $('<p>').addClass("font-bold text-greyish_black").text(fullname)
-        let usernameElement = $('<p>').addClass("text-gray-400 text-xs").text(username)
+        let authorDetails = $('<div>').addClass("flex-1");
+        let fullnameElement = $('<p>').addClass("font-bold text-greyish_black").text(fullname);
+        let usernameElement = $('<p>').addClass("text-gray-400 text-xs").text(username);
 
-
-        // header content
+        // Header content
         authorDetails.append(fullnameElement, usernameElement);
-        headerWrapper.append(userProfile, authorDetails)
-        header.append(headerWrapper)
+        headerWrapper.append(userProfile, authorDetails);
+        header.append(headerWrapper);
 
-        //markup for body
-        let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption)
-        let swiperContainer = $('<div>').addClass("swiper h-80 bg-black rounded-md cursor-pointer")
-        let swiperWrapper = $('<div>').addClass("swiper-wrapper")
-        //add images
-        images.forEach(image => {
-            let postImg = imgFormat + image;
+        // Markup for body
+        let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption);
+        let swiperContainer = null;
 
-            //create slides for the image
-            let slide = $('<div>').addClass("swiper-slide relative flex justify-center items-center")
-            let imageContainer = $('<img>').addClass('object-contain h-full')
-                .attr('src', postImg);
+        // Check if there are images to display
+        if (images.length > 0) {
+            swiperContainer = $('<div>').addClass("swiper h-80 bg-black rounded-md cursor-pointer");
+            let swiperWrapper = $('<div>').addClass("swiper-wrapper");
 
-            slide.append(imageContainer);
-            swiperWrapper.append(slide)
-        })
-        //navigation buttons
-        let pagination = $('<div>').addClass("swiper-pagination")
-        let prevBtn = $('<div>').addClass("swiper-button-prev")
-        let nextBtn = $('<div>').addClass("swiper-button-next")
+            // Add images
+            images.forEach(image => {
+                let postImg = imgFormat + image;
 
-        swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
+                // Create slides for the image
+                let slide = $('<div>').addClass("swiper-slide relative flex justify-center items-center");
+                let imageContainer = $('<img>').addClass('object-contain h-full').attr('src', postImg);
+
+                slide.append(imageContainer);
+                swiperWrapper.append(slide);
+            });
+
+            // Navigation buttons
+            let pagination = $('<div>').addClass("swiper-pagination");
+            let prevBtn = $('<div>').addClass("swiper-button-prev");
+            let nextBtn = $('<div>').addClass("swiper-button-next");
+
+            swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
+
+            new Swiper('.swiper', {
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            swiperContainer.on('click', function () {
+                $('#viewingPost').removeClass("hidden");
+                viewingOfPost(postID, fullname, username, caption, images, likes, img)
+            })
+        }
         date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
 
         //interaction buttons
@@ -175,27 +197,12 @@ $(document).ready(function () {
 
         let reportElement = $('<p>').addClass('text-xs text-red-400 cursor-pointer ').text('report');
         interactionContainer.append(leftContainer, reportElement)
+
         //set up the details of the post
         postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
+
         $('#feedContainer').append(postWrapper);
 
-        new Swiper('.swiper', {
-            // If we need pagination
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
-
-        swiperContainer.on('click', function () {
-            $('#viewingPost').removeClass("hidden");
-            viewingOfPost(postID, fullname, username, caption, images, likes, img)
-        })
     }
 
     //add retrieve new data
