@@ -9,7 +9,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="../style/student-alumni.css" />
+    <link rel="stylesheet" type="text/css" href="/style/mstyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-9KVJ1y4VkpGr98MvJtk54UcuMm9eL8Y7Wkaj0hEXlMjpnpFtllLAyVLjjhKgr6RCr2l90FZMlf9eFpWUCIwzZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Transparent navbar */
         .navbar {
@@ -19,7 +21,7 @@
             right: 0;
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(3px); 
-            z-index: 100;
+            z-index: 20;
         }
 
         .transparent-search-bar {
@@ -54,7 +56,7 @@
         <!-- Menu Items -->
         <ul class="col-span-1 flex items-center justify-end space-x-8 px-4">
         <li>
-            <a href="#" class="text-gray-800 hover:text-gray-600 font-bold">Home</a>
+            <a href="../student-alumni/homepage.php" class="text-gray-800 hover:text-gray-600 font-bold">Home</a>
         </li>
         <li>
             <a href="#" class="text-gray-800 hover:text-gray-600 font-bold">Jobs</a>
@@ -81,8 +83,8 @@
     
     <!-- Buttons -->
     <div class="flex justify-end mt-4 space-x-4 px-8 pt-8">
-        <button class="bg-accent hover:bg-darkAccent text-white px-4 py-2 rounded-lg">View Resume</button>
-        <button class="bg-gray-100 hover:bg-gray-200 text-accent border border-accent px-4 py-2 rounded-lg">Edit Profile</button>
+        <button class="bg-accent hover:bg-darkAccent text-white px-4 py-2 rounded-lg"><a href="../student-alumni/resume.html">View Resum</a>e</button>
+        <button id="modal-openBtn" class="bg-gray-100 hover:bg-gray-200 text-accent border border-accent px-4 py-2 rounded-lg">Edit Profile</button>
     </div>
     
     <!-- Profile Info -->
@@ -186,10 +188,149 @@
     </div>
 
     <!-- MODALS -->
-
+      
     <!-- EDIT PROFILE -->
-   
+    <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded shadow-lg overflow-x-auto hide-scrollbar" style="width: 500px; height: 600px;">
+        <!-- Profile Picture -->
+        <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold">Profile Picture</h2>
+            <button id="editProfilePicBtn" class="focus:outline-none">
+            <i class="fas fa-edit text-gray-600 hover:text-gray-700"></i>
+            </button>
+        </div>
+
+        <!-- Center the image -->
+        <div class="flex items-center justify-center">
+            <img id="profilePic" src="../images/ye.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full mt-2 mb-4 border-2 border-accentBlue">
+        </div>
+
+        <!-- File input for Profile Picture -->
+        <input type="file" id="profilePicInput" accept="image/*" class="hidden">
+
+        <!-- Cover Photo -->
+        <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold">Cover Photo</h2>
+            <button id="editCoverPhotoBtn" class="focus:outline-none">
+            <i class="fas fa-edit text-gray-600 hover:text-gray-700"></i>
+            </button>
+        </div>
+
+        <!-- Center the cover photo -->
+        <div class="flex items-center justify-center">
+            <img id="coverPhoto" src="../images/bganim.jpg" alt="Cover Photo" class="w-full h-40 object-cover mt-2 mb-4 rounded-lg">
+        </div>
+
+        <!-- File input for Cover Photo -->
+        <input type="file" id="coverPhotoInput" accept="image/*" class="hidden">
+
+
+        <!-- Customize Information -->
+        <div class="mt-6">
+            <h2 class="text-lg font-bold mb-2">Customize Your Information</h2>
+
+            <!-- Location -->
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                    <div class="pr-1"><i class="fa-solid fa-location-dot text-gray-500"></i></div>
+                    <h3 class="text-sm text-gray-700 mr-2">Lives in</h3>
+                    <p id="locationText" class="text-sm mr-4 font-bold">Malolos, Bulacan</p>
+                    <!-- Editable input field (initially hidden) -->
+                    <input type="text" id="locationInput" class="hidden text-sm text-gray-600 font-bold border-b border-gray-500 outline-none">
+                </div>
+                <button id="editLocationBtn" class="focus:outline-none">
+                    <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
+                </button>
+            </div>
+
+            <!-- Email Address -->
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                    <div class="pr-1"><i class="fa-regular fa-envelope text-gray-500"></i></div>
+                    <p id="emailText" class="text-sm mr-4 font-bold">3xjoseph@gmail.com</p>
+                    <!-- Editable input field (initially hidden) -->
+                    <input type="text" id="emailInput" class="hidden text-sm text-gray-600 font-bold border-b border-gray-500 outline-none">
+                </div>
+                <button id="editEmailBtn" class="focus:outline-none">
+                    <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
+                </button>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                    <div class="pr-1"><i class="fa-solid fa-phone text-gray-500"></i></div>
+                    <p id="contactText" class="text-sm mr-4 font-bold">+639753752218</p>
+                    <!-- Editable input field (initially hidden) -->
+                    <input type="text" id="contactInput" class="hidden text-sm text-gray-600 font-bold border-b border-gray-500 outline-none">
+                </div>
+                <button id="editContactBtn" class="focus:outline-none">
+                    <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Social Media -->
+        <h2 class="text-lg font-bold">Social Media Accounts</h2>
+        <!-- Add form elements for Facebook, Instagram, and Twitter here -->
         
+        <!-- Facebook -->
+        <div class="flex mt-1 items-center">
+                <i class="fa-brands fa-facebook text-gray-500"></i>
+                <div class="ml-1 flex w-4/6 rounded-md border border-gray-500">
+                  <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">facebook.com/</div>
+                  <div id="facebookText" class="editText pl-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
+                  <!-- Editable input field (initially hidden) -->
+                  <input type="text" id="facebookInput" class="hidden text-sm text-gray-600 font-bold outline-none ml-auto">
+                </div>
+                <button id="editFacebookBtn" class="focus:outline-none ml-auto">
+                  <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
+                </button>
+        </div>
+
+        <!-- Instagram -->
+        <div class="flex mt-2 items-center">
+                <i class="fa-brands fa-instagram text-gray-500"></i>
+                <div class="ml-1 flex w-4/6 rounded-md border border-gray-500">
+                    <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">instagram.com/</div>
+                    <div id="instagramText" class="editText pl-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
+                    <!-- Editable input field (initially hidden) -->
+                    <input type="text" id="instagramInput" class="hidden text-sm text-gray-600 font-bold outline-none ml-auto">
+                </div>
+                <button id="editInstagramBtn" class="focus:outline-none ml-auto">
+                    <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
+                </button>
+        </div>
+
+        <!-- Twitter -->
+        <div class="flex mt-2 items-center">
+                <i class="fa-brands fa-twitter text-gray-500"></i>
+                <div class="ml-1 flex w-4/6 rounded-md border border-gray-500">
+                    <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">twitter.com/</div>
+                    <div id="twitterText" class="editText pl-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
+                    <!-- Editable input field (initially hidden) -->
+                    <input type="text" id="twitterInput" class="hidden text-sm text-gray-600 font-bold outline-none ml-auto">
+                </div>
+                <button id="editTwitterBtn" class="focus:outline-none ml-auto">
+                    <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
+                </button>
+        </div>
+        
+        <!-- Edit Resume -->
+        <div class="flex justify-center mt-2">
+            <div class="text-sm text-gray-600">Want to edit your resume?</div>
+            <a href="/student-alumni/EditResume.html" class="text-sm text-blue-600 ml-1 hover:text-blue-800 hover:underline">Click here.</a>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-end mt-6">
+        <button id="modal-cancelBtn" class="mr-2 text-gray-600 hover:text-gray-800 hover:underline">Cancel</button>
+        <button id="modal-saveBtn" class="text-accent hover:text-accent-dark">Save</button>
+        </div>
+    </div>
+    </div>
+
+    
     <script src="../student-alumni/js/profile.js"></script>
 </body>   
 </html>
