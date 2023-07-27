@@ -497,17 +497,17 @@ const studentRadioButton = document.getElementById("student");
 const employmentStatusDiv = document.getElementById("employment-status-div");
 
 // Add event listeners to the radio buttons
-alumniRadioButton.addEventListener("change", toggleEmploymentStatus);
-studentRadioButton.addEventListener("change", toggleEmploymentStatus);
+// alumniRadioButton.addEventListener("change", toggleEmploymentStatus);
+// studentRadioButton.addEventListener("change", toggleEmploymentStatus);
 
 // Function to toggle the display of the employment status div based on the selected radio button
-function toggleEmploymentStatus() {
-  if (alumniRadioButton.checked) {
-    employmentStatusDiv.style.display = "block";
-  } else if (studentRadioButton.checked) {
-    employmentStatusDiv.style.display = "none";
-  }
-}
+// function toggleEmploymentStatus() {
+//   if (alumniRadioButton.checked) {
+//     employmentStatusDiv.style.display = "block";
+//   } else if (studentRadioButton.checked) {
+//     employmentStatusDiv.style.display = "none";
+//   }
+// }
 
 // Call the function on page load to set the initial state based on the default checked radio button
 toggleEmploymentStatus();
