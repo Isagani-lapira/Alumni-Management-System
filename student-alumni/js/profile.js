@@ -173,3 +173,11 @@ contactInput.addEventListener('blur', function () {
     textElement.textContent = inputElement.value;
     toggleEdit("twitter");
   });
+
+  const notificationsLink = document.getElementById('notificationsLink');
+  const notificationsDropdown = document.getElementById('notificationsDropdown');
+
+  notificationsLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    notificationsDropdown.classList.toggle('hidden');
+  });
