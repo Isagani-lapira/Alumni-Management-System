@@ -11,36 +11,63 @@
     <link rel="stylesheet" href="../style/student-alumni.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-    /* Transparent navbar */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(10px); 
-      z-index: 100;
-    }
-  </style>
+        /* Transparent navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(3px); 
+            z-index: 100;
+        }
+
+        .transparent-search-bar {
+            background-color: transparent;
+        }
+
+        /* Set the color of the placeholder text */
+        .transparent-search-bar::placeholder {
+            color: #6A6A6A; /* Change this to your desired color */
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 scrollable-container">
 
     <!-- Navbar -->
-    <nav class="navbar fixed top-0 left-0 right-0 p-4">
-        <div class="container mx-auto">
-        <ul class="flex items-center justify-end space-x-4">
-            <li>
-            <a href="#" class="text-blue-600 hover:text-blue-800">Home</a>
-            </li>
-            <li>
-            <a href="#" class="text-blue-600 hover:text-blue-800">Job Hunt</a>
-            </li>
-            <li>
-            <a href="#" class="text-blue-600 hover:text-blue-800">Notifications</a>
-            </li>
-        </ul>
+    <nav class="navbar grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
+        <!-- Logo -->
+        <a href="homepage.php" class="col-span-1 flex items-center">
+            <img src="../images/BSU-logo.png" alt="Logo" class="w-16 h-16" />
+            <span class="ml-2 text-xl font-bold text-gray-800">BulSU Connect</span>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="col-span-1 flex items-center justify-center">
+            <div class="relative w-full">
+                <input type="text" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-accent text-sm border-2 outline-none border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none transparent-search-bar" />
+                <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
+            </div>
         </div>
+
+        <!-- Menu Items -->
+        <ul class="col-span-1 flex items-center justify-end space-x-8 px-4">
+        <li>
+            <a href="#" class="text-gray-800 hover:text-gray-600 font-bold">Home</a>
+        </li>
+        <li>
+            <a href="#" class="text-gray-800 hover:text-gray-600 font-bold">Jobs</a>
+        </li>
+        <li>
+            <a href="#" class="text-gray-800 hover:text-gray-600 font-bold">Notifications</a>
+        </li>
+        <li>
+            <a href="#" class="text-blue-600 hover:text-blue-800">
+            <img src="../images/ye.jpg" alt="Profile Picture" class="w-12 h-12 rounded-full border-2 border-accentBlue" />
+            </a>
+        </li>
+        </ul>
     </nav>
     
     <!-- Cover Photo -->
