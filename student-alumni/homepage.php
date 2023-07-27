@@ -378,8 +378,8 @@ function getAccDetails($con, $personID)
               <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
 
               <div class="flex space-x-4 mb-4">
-                <button class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">All</button>
-                <button class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">Unread</button>
+                <button id="btnNotifAll" class="hover:bg-gray-500 rounded-full  px-4 py-2 text-sm font-semibold bg-accent text-white">All</button>
+                <button id="btnNotifUnread" class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">Unread</button>
               </div>
 
             </div>
