@@ -211,7 +211,7 @@ function getAccDetails($con, $personID)
             <!-- Content for the left div -->
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
-              <button id="notif-btn" class="notif" onclick="buttonColor(), toggleNotifications()">
+              <button id="notif-btn" class="notif" onclick="buttonColor()">
                 <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M21 19v1H3v-1l2-2v-6c0-3.1 2.03-5.83 5-6.71V4a2 2 0 0 1 2-2a2 2 0 0 1 2 2v.29c2.97.88 5 3.61 5 6.71v6l2 2m-7 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2" />
                 </svg>
@@ -380,25 +380,6 @@ function getAccDetails($con, $personID)
               <div class="flex space-x-4 mb-4">
                 <button class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">All</button>
                 <button class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">Unread</button>
-              </div>
-
-              <!-- THIS WEEK -->
-              <div class="this-week">
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-
               </div>
 
             </div>

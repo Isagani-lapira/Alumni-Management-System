@@ -250,11 +250,6 @@ $(document).ready(function () {
 });
 
 
-// NOTIFICATIONS  
-function toggleNotifications() {
-  const notificationsTab = document.getElementById("notification-tab");
-  notificationsTab.classList.toggle("hidden");
-}
 
 function buttonColor() {
   var targetDiv = document.getElementById("target-div");

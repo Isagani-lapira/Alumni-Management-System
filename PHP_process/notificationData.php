@@ -14,7 +14,8 @@ if (isset($_POST['action'])) {
         case 'readNotif':
             $date = $actionJSON['retrievalDate'];
             $username = $_SESSION['username'];
-            $notificationObj->ReadNotification($username, $date, $mysql_con);
+            $maxLimit = $actionJSON['maxRetrieve'];
+            $notificationObj->ReadNotification($username, $date, $maxLimit, $mysql_con);
             break;
         default:
             echo 'nothing';

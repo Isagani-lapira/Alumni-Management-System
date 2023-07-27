@@ -2,11 +2,11 @@
 
 class Notification
 {
-    public function ReadNotification($username, $date, $con)
+    public function ReadNotification($username, $date, $maxLimit, $con)
     {
         $query = "SELECT * FROM `notification` 
         WHERE `username`= '$username' AND `date_notification` = '$date'
-        ORDER BY `date_notification` AND `timestamp` DESC";
+        ORDER BY `date_notification` AND `timestamp` DESC LIMIT 0, $maxLimit";
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
@@ -35,7 +35,7 @@ class Notification
                 $is_read[] = $data['is_read'];
                 $profile[] = base64_encode($data['profile']);
             }
-        } else $response = "None";
+        } else $response = "Nothing";
 
         $notification = array(
             'result' => $response,
