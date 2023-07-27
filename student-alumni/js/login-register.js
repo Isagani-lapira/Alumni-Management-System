@@ -327,11 +327,23 @@ nextButtonPage2.addEventListener("click", function () {
     college1.style.borderColor = "#9CA3AF"; // Set default color for filled field
   }
 
-  if (employmentStatus.value.trim() === "") {
-    employmentStatusDiv.classList.add("validation-border"); // Add validation class to show red border
-    hasError = true;
-  } else {
-    employmentStatusDiv.classList.remove("validation-border"); // Remove validation class to reset border
+  // Check if the selected status is "Student"
+  let isStudent = false;
+  for (let i = 0; i < statusOptions.length; i++) {
+    if (statusOptions[i].checked && statusOptions[i].value === "Student") {
+      isStudent = true;
+      break;
+    }
+  }
+
+  if (!isStudent) {
+    // If the selected status is not "Student," perform validation for the employmentStatus field
+    if (employmentStatus.value.trim() === "") {
+      employmentStatusDiv.classList.add("validation-border"); // Add validation class to show red border
+      hasError = true;
+    } else {
+      employmentStatusDiv.classList.remove("validation-border"); // Remove validation class to reset border
+    }
   }
 
   let statusSelected = false;
@@ -497,17 +509,17 @@ const studentRadioButton = document.getElementById("student");
 const employmentStatusDiv = document.getElementById("employment-status-div");
 
 // Add event listeners to the radio buttons
-// alumniRadioButton.addEventListener("change", toggleEmploymentStatus);
-// studentRadioButton.addEventListener("change", toggleEmploymentStatus);
+alumniRadioButton.addEventListener("change", toggleEmploymentStatus);
+studentRadioButton.addEventListener("change", toggleEmploymentStatus);
 
 // Function to toggle the display of the employment status div based on the selected radio button
-// function toggleEmploymentStatus() {
-//   if (alumniRadioButton.checked) {
-//     employmentStatusDiv.style.display = "block";
-//   } else if (studentRadioButton.checked) {
-//     employmentStatusDiv.style.display = "none";
-//   }
-// }
+function toggleEmploymentStatus() {
+  if (alumniRadioButton.checked) {
+    employmentStatusDiv.style.display = "block";
+  } else if (studentRadioButton.checked) {
+    employmentStatusDiv.style.display = "none";
+  }
+}
 
 // Call the function on page load to set the initial state based on the default checked radio button
 toggleEmploymentStatus();
