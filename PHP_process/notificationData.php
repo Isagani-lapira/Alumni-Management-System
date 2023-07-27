@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require 'notificationTable.php';
 require_once 'connection.php';
 
@@ -12,7 +13,8 @@ if (isset($_POST['action'])) {
     switch ($action) {
         case 'readNotif':
             $date = $actionJSON['retrievalDate'];
-            $notificationObj->ReadNotification($date, $mysql_con);
+            $username = $_SESSION['username'];
+            $notificationObj->ReadNotification($username, $date, $mysql_con);
             break;
         default:
             echo 'nothing';

@@ -384,7 +384,6 @@ function getAccDetails($con, $personID)
 
               <!-- THIS WEEK -->
               <div class="this-week">
-                <h3 class="text-greyish text-sm font-semibold mb-2">This Week</h3>
 
                 <!-- NOTIFICATION POST -->
                 <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
@@ -400,142 +399,8 @@ function getAccDetails($con, $personID)
                   <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
                 </a>
 
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
               </div>
 
-              <!-- THIS MONTH -->
-              <div class="this-month">
-                <h3 class="text-greyish text-sm font-semibold mb-2">This Month</h3>
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-              </div>
-
-              <!-- EARLIER -->
-              <div class="earlier">
-                <h3 class="text-greyish text-sm font-semibold mb-2">Earlier</h3>
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-
-                <!-- NOTIFICATION POST -->
-                <a href="#profile" class="notification-item mb-2 flex items-center hover:bg-gray-300 rounded-md p-2">
-                  <div class="flex justify-start items-center inline ">
-                    <div class="flex items-center">
-                      <img class="h-12 border-2 border-accent rounded-full inline" alt="">
-                    </div>
-                  </div>
-                  <div class="notification-description p-2">
-                    <p class="text-start text-sm font-semibold inline">Jayson Batoon</p>
-                    <p class="inline">added a post.</p>
-                  </div>
-                  <img alt="Notification Image" class="w-16 h-16 rounded-md ml-auto">
-                </a>
-              </div>
             </div>
 
           </div>
