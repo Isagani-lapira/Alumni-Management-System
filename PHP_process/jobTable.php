@@ -15,8 +15,6 @@ if (isset($_POST['action'])) {
             $skillData = $_POST['skills'];
             $skillArray = json_decode($skillData, true);
 
-            $reqData = $_POST['requirements'];
-            $reqArray = json_decode($reqData, true);
             //logo
             $image = addslashes(file_get_contents($_FILES['jobLogoInput']['tmp_name']));
 
@@ -28,6 +26,8 @@ if (isset($_POST['action'])) {
             $maxSalary = $_POST['maxSalary'];
             $qualification = $_POST['qualificationTxt'];
             $personID = $_POST['personID'];
+            $college = $_POST['collegeJob'];
+            $location = $_POST['jobLocation'];
             //for career ID
             $uniqueId = substr(md5(uniqid()), 0, 7); //unique id with length of 7
             $careerID = 'career' . $uniqueId;
@@ -43,11 +43,11 @@ if (isset($_POST['action'])) {
                 $image,
                 $minSalary,
                 $maxSalary,
-                'CICT',
+                $college,
                 $author,
                 $skillArray,
-                $reqArray,
                 $personID,
+                $location,
                 $mysql_con
             );
 

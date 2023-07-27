@@ -18,10 +18,14 @@ if (
   $username = $_SESSION['username'];
 
   //get the person ID of that user
-  $query = "SELECT student.personID
+  $query = "SELECT 'student' AS user_details, student.personID
             FROM student
-            JOIN user ON student.username = user.username
-            WHERE user.username = '$username'";
+            WHERE student.username = '$username'
+            UNION
+            SELECT 'alumni' AS user_details, alumni.personID
+            FROM alumni
+            WHERE alumni.username = '$username'";
+
   $result = mysqli_query($mysql_con, $query);
   if ($result) {
     $data = mysqli_fetch_assoc($result);
@@ -701,12 +705,6 @@ function getAccDetails($con, $personID)
                     <div class="px-10 py-2">
                       <h3 class="text-xl font-bold">Qualifications:</h3>
                       <p id="viewJobQuali"></p>
-                    </div>
-
-                    <!-- Requirements -->
-                    <div class="px-10 py-2">
-                      <h3 class="text-xl font-bold ">Requirements:</h3>
-                      <ul id="requirements" class="list-disc gap-3"></ul>
                     </div>
 
                   </div>

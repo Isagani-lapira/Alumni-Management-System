@@ -105,7 +105,7 @@ function insertionPerson($accountType, $userType, $con)
                         $insertAcc = $studentUser->insertStudent($studentNo, $college, $personID, $username, $batch, $con);
                     } else {
                         $alumniUser = new Alumni();
-                        $employmentStat = "Employed";
+                        $employmentStat = $_POST['empStatus'];
                         $insertAcc = $alumniUser->insertAlumni($studentNo, $personID, $college, $username, $batch, $employmentStat, $con);
                     }
                     break;

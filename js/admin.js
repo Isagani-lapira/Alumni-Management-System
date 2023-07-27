@@ -105,9 +105,6 @@ $(document).ready(function () {
   $('.inputSkill').on('input', function () {
     addNewField(skillDiv, holderSkill, true)
   })
-  $('.inputReq').on('input', function () {
-    addNewField(reqDiv, holderReq, false)
-  })
 
 
   //error handling for logo
@@ -269,7 +266,6 @@ $(document).ready(function () {
     e.preventDefault()
 
     var skills = skillArray()
-    var requirements = reqArray();
 
     //check first if all input field are complete
     if (jobField()) {
@@ -282,7 +278,6 @@ $(document).ready(function () {
       data.append('action', JSON.stringify(action))
       data.append('author', 'University Admin');
       data.append('skills', JSON.stringify(skills));
-      data.append('requirements', JSON.stringify(requirements));
       data.append('personID', decodedPersonID);
 
       $.ajax({
@@ -346,7 +341,6 @@ $(document).ready(function () {
             let datePosted = data.date_posted[i];
             let companyLogo = data.companyLogo[i];
             let skills = data.skills[i];
-            let requirements = data.requirements[i];
             let personID = data.personID[i];
             let logo = imgFormat + companyLogo;
 
@@ -376,7 +370,6 @@ $(document).ready(function () {
               .on('click', function () {
                 //remove the recent added skill and requirements
                 $('#skillSets').empty()
-                $('#reqCont').empty()
 
                 //set value to the view modal
                 $('#viewJob').removeClass('hidden');
@@ -394,18 +387,6 @@ $(document).ready(function () {
                   //create a span and append it in the div
                   spSkill = $('<span>').html('&#x2022; ' + skill);
                   $('#skillSets').append(spSkill)
-                })
-
-                //retrieve the requirements
-                requirements.forEach(requirement => {
-                  // <p><span class="font-bold text-lg">&#x2022</span> Resume</p>
-                  pTag = $('<p>')
-                  spanTag = $('<span>').addClass('font-bold text-lg mx-2')
-                    .html('&#x2022');
-
-                  pTag.text(requirement)
-                  pTag.prepend(spanTag)
-                  $('#reqCont').append(pTag);
                 })
 
               }));
@@ -447,17 +428,6 @@ $(document).ready(function () {
     })
 
     return skills
-
-  }
-
-  //retrieve all the requirements have been written
-  function reqArray() {
-    var requirement = [];
-    $('.reqInput').each(function () {
-      requirement.push($(this).val());
-    })
-
-    return requirement;
 
   }
 

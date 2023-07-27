@@ -72,9 +72,10 @@ $(document).ready(function () {
             const company = parsedResponse.companyName[i];
             const author = parsedResponse.author[i];
             const skill = parsedResponse.skills[i];
+            const location = parsedResponse.location[i];
 
             //display job with design
-            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID)
+            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
           }
 
         }
@@ -84,18 +85,25 @@ $(document).ready(function () {
     })
   }
 
-  function listOfJobDisplay(jobTitle, company, author, skills, companyLogo, careerID) {
+  function listOfJobDisplay(jobTitle, company, author, skills, companyLogo, careerID, location) {
 
     //creating elements
     let containerJob = $('<div>').addClass('rounded-md px-2 py-3 text-sm center-shadow flex gap-2 text-gray-500 cursor-pointer')
     let companyImg = $('<img>').addClass('h-12 w-12 rounded-full').attr('src', companyLogo)
-    let jobDescription = $('<div>').addClass('flex-grow flex flex-col')
-    let jobTitleElement = $('<p>').text(jobTitle).addClass('text-accent font-bold')
+    let jobDescription = $('<div>').addClass('flex-grow flex flex-col text-dirtyWhite gap-1')
+    let jobTitleElement = $('<p>').text(jobTitle).addClass('text-bold font-semibold text-black')
     let companyName = $('<p>').text(company).addClass('text-sm')
+
+    // location
+    let locationIcon = '<iconify-icon icon="fluent:location-16-filled"></iconify-icon>';
+    let locationElement = $('<span>')
+      .addClass('flex gap-1 items-center text-xs')
+      .append(locationIcon, location)
+
     let postedCont = $('<div>').addClass('flex gap-1 text-xs')
     let postedText = $('<p>').text('Posted by:')
     let postedByElement = $('<p>').text(author).addClass('text-green-400 font-bold')
-    let skillContainer = $('<div>').addClass('text-xs flex py-2')
+    let skillContainer = $('<div>').addClass('text-xs flex gap-2')
     let bookmark = $('<span>').addClass("far fa-bookmark text-accent text-xl bookmark-icon")
     //retrieve all the skill and display in on a div to be included on the container
     skills.forEach(skill => {
@@ -105,7 +113,7 @@ $(document).ready(function () {
 
     //put the element to their corresponding container
     postedCont.append(postedText, postedByElement);
-    jobDescription.append(jobTitleElement, companyName, postedCont, skillContainer)
+    jobDescription.append(jobTitleElement, companyName, locationElement, postedCont, skillContainer)
     containerJob.append(companyImg, jobDescription, bookmark)
     let list = $('<li>').append(containerJob);
     $('#listOfJob').append(list) // add to the list
@@ -124,12 +132,11 @@ $(document).ready(function () {
   }
 
   function displaySelectedCareer(jobTitle, companyName, author, datePosted, companyLogo,
-    description, skills, qualification, requirements) {
+    description, skills, qualification) {
     let logo = imgFormat + companyLogo;
 
     //remove the past display
     $('#skillsContainer').empty();
-    $('#requirements').empty();
 
     //displaying a particular job data
     $('#viewJobLogo').attr('src', logo)
@@ -146,12 +153,6 @@ $(document).ready(function () {
 
       //add it on the container
       $('#skillsContainer').append(skillVal);
-    })
-
-    //get all the requirements of this job
-    requirements.forEach(requirement => {
-      let list = $('<li>').text(requirement)
-      $('#requirements').append(list);
     })
   }
 
@@ -182,9 +183,8 @@ $(document).ready(function () {
           const description = parsedResponse.jobDescript[0];
           const skills = parsedResponse.skills[0];
           const qualification = parsedResponse.jobQuali[0];
-          const requirements = parsedResponse.requirements[0];
           displaySelectedCareer(jobTitle, companyName, author, datePosted,
-            companyLogo, description, skills, qualification, requirements)
+            companyLogo, description, skills, qualification)
         }
       },
       error: (error) => { console.log(error) }

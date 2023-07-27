@@ -1365,69 +1365,115 @@ if (
           <!-- job posting -->
           <div id="jobPosting" class="mt-10 w-full hidden">
             <form id="jobForm" enctype="multipart/form-data">
-              <div class="flex">
+              <div class="flex text-greyish_black">
                 <!-- left side -->
                 <div class="w-1/2">
-                  <label class="font-bold text-greyish_black text-sm" for="jobTitle">Job Title</label>
-                  <input id="jobTitle" name="jobTitle" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Software Engineer">
 
-                  <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
-                  <input id="jobCompany" name="companyName" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Accenture">
+                  <!-- college -->
+                  <div class="mb-3">
+                    <label for="collegeJob" class="font-bold text-greyish_black block">College</label>
+                    <!-- college selection -->
+                    <select name="collegeJob" id="collegeJob" class=" border border-grayish p-2 rounded-lg w-4/5 outline-none text-gray-400">
+                      <option value="" selected disabled hidden>All</option>
+                      <?php
+                      require_once '../PHP_process/connection.php';
+                      $query = "SELECT * FROM `college`";
+                      $result = mysqli_query($mysql_con, $query);
+                      $rows = mysqli_num_rows($result);
 
-                  <label class="font-bold text-greyish_black text-sm mt-5" for="projOverviewTxt">Project
-                    Description</label>
-                  <textarea class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm" name="projDescriptTxt" id="projOverviewTxt"></textarea>
+                      if ($rows > 0) {
+                        while ($data = mysqli_fetch_assoc($result)) {
+                          $colCode = $data['colCode'];
+                          $colName = $data['colname'];
 
-                  <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
-                    Choose logo
-                    <input id="jobLogoInput" name="jobLogoInput" class="jobField hidden" type="file">
-                  </label>
-                  <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
+                          echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                        }
+                      } else echo '<option>No college available</option>';
+                      ?>
+                    </select>
+                  </div>
 
-                  <!-- salary -->
-                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="minSalary">Salary Range</label>
-                  <div class="flex gap-2 mt-2 items-center">
-                    <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
-                      <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                      <input class="jobField w-full" type="number" name="minSalary" id="minSalary" value="0">
-                    </div>
-                    -
-                    <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
-                      <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                      <input class="jobField w-full" type="number" name="maxSalary" id="maxSalary" value="0">
-                    </div>
+                  <!-- job title -->
+                  <div>
+                    <label class="font-bold text-greyish_black" for="jobTitle">Job Title</label>
+                    <input id="jobTitle" name="jobTitle" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Software Engineer">
+                  </div>
+
+                  <!-- job description -->
+                  <div>
+                    <label class="font-bold text-greyish_black mt-5" for="projOverviewTxt">Project Description</label>
+                    <textarea class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  
+                      rounded-lg focus:outline-none text-greyish_black text-sm p-3" name="projDescriptTxt" id="projOverviewTxt" placeholder="Describe the person or provide other information you want to share to other people...."></textarea>
+                  </div>
+
+                  <!-- company logo -->
+                  <div>
+                    <label class="font-bold text-greyish_black mt-5 block my-2" for="projOverviewTxt">Company Logo</label>
+                    <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
+                      Choose logo
+                      <input id="jobLogoInput" name="jobLogoInput" class="jobField hidden" type="file">
+                    </label>
+                    <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
                   </div>
 
                 </div>
 
                 <!-- right side -->
                 <div class="w-1/2">
-                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Tags</label>
-                  <div id="skillDiv" class="flex flex-col">
-                    <div>
-                      <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                      <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
-                    </div>
-                  </div>
 
-                  <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
-                  <textarea class="jobField block message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5
-                      resize-none p-3 focus:outline-none text-greyish_black text-sm" name="qualificationTxt" id="qualificationTxt"></textarea>
-
-                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputReq">Requirements</label>
-                  <div id="reqDiv" class="flex flex-col">
-                    <div>
-                      <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png" alt="">
-                      <input id="inputReq" class="inputReq reqInput" type="text" placeholder="Add things that an applicants needed">
-                    </div>
-                  </div>
-
+                  <!-- company name -->
                   <div>
-                    <button type="submit" class="bg-postButton w-4/5 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
-                      a post</button>
+                    <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
+                    <input id="jobCompany" name="companyName" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Accenture">
                   </div>
+
+                  <!-- location -->
+                  <div>
+                    <label class="font-bold text-greyish_black text-sm mt-5" for="jobLocation">Location</label>
+                    <input id="jobLocation" name="jobLocation" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Accenture">
+                  </div>
+
+                  <!-- job qualification -->
+                  <div>
+                    <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
+                    <textarea class="jobField block message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5
+                      resize-none p-3 focus:outline-none text-greyish_black text-sm" name="qualificationTxt" id="qualificationTxt"></textarea>
+                  </div>
+
+                  <!-- salary -->
+                  <div>
+                    <label class="font-bold text-greyish_black text-sm mt-5 block" for="minSalary">Salary Range</label>
+                    <div class="flex gap-2 mt-2 items-center">
+                      <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
+                        <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
+                        <input class="jobField w-full" type="number" name="minSalary" id="minSalary" value="0">
+                      </div>
+                      -
+                      <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
+                        <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
+                        <input class="jobField w-full" type="number" name="maxSalary" id="maxSalary" value="0">
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
 
+              </div>
+
+              <!-- tags -->
+              <div>
+                <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Tags</label>
+                <div id="skillDiv" class="flex flex-wrap">
+                  <div>
+                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
+                    <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <button type="submit" class="bg-postButton w-4/5 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
+                  a post</button>
               </div>
             </form>
           </div>

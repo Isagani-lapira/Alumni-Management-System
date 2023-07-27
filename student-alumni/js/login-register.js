@@ -522,6 +522,6 @@ function toggleEmploymentStatus() {
 }
 
 // Call the function on page load to set the initial state based on the default checked radio button
-toggleEmploymentStatus();
+
 
 

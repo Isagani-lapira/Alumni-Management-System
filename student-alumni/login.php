@@ -41,8 +41,10 @@
     .error {
       border-color: #991B1B !important;
     }
+
     .validation-border select:invalid {
-      border-color: #991B1B; /* Set red border color for invalid dropdown */
+      border-color: #991B1B;
+      /* Set red border color for invalid dropdown */
     }
   </style>
 </head>
@@ -150,10 +152,10 @@
                   <label for="contactNumber" class="block text-sm font-medium text-gray-700">Contact Number</label>
                   <input name="contactNo" type="text" id="contactNumber" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: 09062943968" required>
                 </div>
-                
+
                 <!-- Student Number -->
-              <div class="w-1/2">
-                <label for="studentNumber" class="block text-sm font-medium text-gray-700">Student No.</label>
+                <div class="w-1/2">
+                  <label for="studentNumber" class="block text-sm font-medium text-gray-700">Student No.</label>
                   <input name="studNo" type="text" id="studentNumber" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: 2021104943" required>
                 </div>
               </div>
@@ -278,14 +280,12 @@
               <!-- Employement Status -->
               <div id="employment-status-div" class="mt-4">
                 <!-- Dropdown -->
-                <select id="employment-status" class="text-sm border w-full rounded-md font-semibold" required>
-                  <option value="">Select Employment Status</option>
+                <select id="employment-status" name="empStatus" class="text-sm border w-full rounded-md font-semibold" required>
+                  <option value="" selected disabled>Select Employment Status</option>
                   <option value="employed">Employed</option>
                   <option value="unemployed">Unemployed</option>
                   <option value="self-employed">Self-Employed</option>
                   <option value="retired">Retired</option>
-                  <option value="student">Student</option>
-                  <option value="other">Other</option>
                 </select>
               </div>
 
