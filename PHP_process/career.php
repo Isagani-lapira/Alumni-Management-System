@@ -128,7 +128,7 @@ class Career
                 $jobQuali[] = $row_data['jobqualification'];
                 $companyLogo[] = base64_encode($row_data['companyLogo']);
                 $minSalary[] = $row_data['minSalary'];
-                $maxSalary[] = $row_data['colCode'];
+                $maxSalary[] = $row_data['maxSalary'];
                 $colCode[] = $row_data['colCode'];
                 $author[] = $row_data['author'];
                 $date = $row_data['date_posted'];

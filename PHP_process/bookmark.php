@@ -70,23 +70,95 @@ function readBookmark($username, $careerID, $con)
 
 function readAllBookmark($username, $con)
 {
-    $query = "SELECT * FROM `saved_career` WHERE `username`= '$username'";
+    $query = "SELECT * FROM `saved_career` WHERE `username` = '$username'";
     $result = mysqli_query($con, $query);
     $row = mysqli_num_rows($result);
 
-    $careerData = array();
+    $career = array();
     if ($result && $row > 0) {
         while ($data = mysqli_fetch_assoc($result)) {
             $careerID = $data['careerID'];
 
-            $careerObj = new Career();
-            $careerData[] = $careerObj->selectWithCareerID($con, $careerID);
+            $career[] = getCareer($careerID, $con);
         }
     } else return 'none';
 
-    return $careerData;
+    echo json_encode($career);
 }
 
+function getCareer($careerID, $con)
+{
+    $query = "SELECT * FROM `career` WHERE `careerID` = '$careerID'";
+    $result = mysqli_query($con, $query);
+
+    $response = "";
+    $careerIDs = "";
+    $jobTitle = "";
+    $companyName = "";
+    $jobDescript = "";
+    $jobQuali = "";
+    $companyLogo = "";
+    $minSalary = "";
+    $maxSalary = "";
+    $colCode = "";
+    $author = "";
+    $date_posted = "";
+    $skills = array();
+    $location = "";
+    $personIDEncrypted = "";
+
+    if ($result) {
+        $data = mysqli_fetch_assoc($result);
+        $response = "Success";
+        $careerIDs = $data['careerID'];
+        $jobTitle = $data['jobTitle'];
+        $companyName = $data['companyName'];
+        $jobDescript = $data['jobDescript'];
+        $jobQuali = $data['jobqualification'];
+        $companyLogo = base64_encode($data['companyLogo']);
+        $minSalary = $data['minSalary'];
+        $maxSalary = $data['maxSalary'];
+        $colCode = $data['colCode'];
+        $author = $data['author'];
+        $date_posted = $data['date_posted'];
+        $location = $data['location'];
+        $personIDEncrypted = generatePseudonym($data['personID']);
+
+        //retrieve skills from the database
+        $skillQuery = 'SELECT * FROM `skill` WHERE careerID = "' . $data['careerID'] . '"';
+        $skillResult = mysqli_query($con, $skillQuery);
+        $skillNames = array();
+
+        if ($skillResult && mysqli_num_rows($skillResult) > 0) {
+            while ($skill_data = mysqli_fetch_assoc($skillResult)) {
+                $skillNames[] = $skill_data['skill'];
+            }
+        }
+
+        $skills[] = $skillNames;
+    }
+
+    //data to be sent
+    $data =  array(
+        'result' => $response,
+        'careerID' => $careerIDs,
+        'jobTitle' => $jobTitle,
+        'companyName' => $companyName,
+        'companyLogo' => $companyLogo,
+        'jobDescript' => $jobDescript,
+        'jobQuali' => $jobQuali,
+        'minSalary' => $minSalary,
+        'maxSalary' => $maxSalary,
+        'skills' => $skills,
+        'colCode' => $colCode,
+        'author' => $author,
+        'date_posted' => $date_posted,
+        'personID' => $personIDEncrypted,
+        'location' => $location
+    );
+
+    return $data; //return data as json
+}
 function dateInText($date)
 {
     $year = substr($date, 0, 4);

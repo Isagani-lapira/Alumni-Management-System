@@ -141,17 +141,18 @@ $(document).ready(function () {
 
     //bookmark
     let isSave = false;
-    let bookmark = '<iconify-icon id="bookmark" icon="iconamoon:bookmark-light" style="color: gray;" width="24" height="24"></iconify-icon>'
-    let bookmarkCont = $('<span>').html(bookmark)
+    let outlineBookmark = '<iconify-icon id="bookmark" icon="iconamoon:bookmark-light" style="color: gray;" width="24" height="24"></iconify-icon>'
+    let solidBookmark = '<iconify-icon icon="iconamoon:bookmark-fill" style="color: #991b1b;" width="24" height="24"></iconify-icon>'
+    let bookmarkCont = $('<span>').html(outlineBookmark)
       .on('click', function () {
         //remove the saved career
         if (isSave) {
-          $(this).html(bookmark)
+          $(this).html(outlineBookmark)
           removeBookmark(careerID)
         }
         else {
           //save the career
-          $(this).html('<iconify-icon icon="iconamoon:bookmark-fill" style="color: #991b1b;" width="24" height="24"></iconify-icon>')
+          $(this).html(solidBookmark)
           saveCareer(careerID);
         }
         isSave = !isSave
@@ -160,8 +161,9 @@ $(document).ready(function () {
     checkCareerMarked(careerID)
       .then((result) => {
         if (result === 'exist') {
+          bookmarkCont.html(solidBookmark)
           // Trigger the bookmarkCont click event
-          bookmarkCont.click();
+          isSave = true;
         }
       })
 
@@ -247,27 +249,22 @@ $(document).ready(function () {
       contentType: false,
       success: (response) => {
         const parsedResponse = JSON.parse(response);
-        console.log(parsedResponse)
-        if (response != 'none') {
-          const parsedResponse = JSON.parse(response);
-          //if there's a value
-          if (parsedResponse.result == 'Success') {
-            const length = parsedResponse.author.length; //total length of all data that has been retrieved
-            for (let i = 0; i < length; i++) {
-              //data to be use
-              const careerID = parsedResponse.careerID[i];
-              const companyLogo = imgFormat + parsedResponse.companyLogo[i];
-              const jobTitle = parsedResponse.jobTitle[i];
-              const company = parsedResponse.companyName[i];
-              const author = parsedResponse.author[i];
-              const skill = parsedResponse.skills[i];
-              const location = parsedResponse.location[i];
+        const length = parsedResponse.length;
 
-              //display job with design
-              listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
-            }
+        if (length > 0) {
+          //display data that has been retrived
+          parsedResponse.forEach((value) => {
+            const careerID = value.careerID;
+            const companyLogo = imgFormat + value.companyLogo;
+            const jobTitle = value.jobTitle;
+            const company = value.companyName;
+            const author = value.author;
+            const skill = value.skills;
+            const location = value.location;
 
-          }
+            //display job with design
+            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
+          })
         }
         else $('#noJobMsg').removeClass('hidden');
       },
