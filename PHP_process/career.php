@@ -69,13 +69,20 @@ class Career
         if ($result) $this->getCareerDetail($result, $con);
         else echo 'something went wrong, please try again';
     }
-    public function selectDataForCollege($college, $con)
+    public function selectDataForCollege($college, $startDate, $endDate, $con)
     {
-        $query = 'SELECT * FROM `career` WHERE `colCode` ="' . $college . '" ORDER BY`date_posted`DESC ';
-        $result = mysqli_query($con, $query);
 
-        if ($result) $this->getCareerDetail($result, $con);
-        else echo 'something went wrong, please try again';
+        // Properly formatted SQL query
+        $query = 'SELECT * FROM `career`
+        WHERE `colCode` = "' . $college . '"
+        AND `date_posted` BETWEEN "' . $startDate . '" AND "' . $endDate . '"
+        ORDER BY `date_posted` DESC;';
+
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row) $this->getCareerDetail($result, $con);
+        else echo 'none';
     }
     //searching a particular job title
     public function selectSearchJob($jobTitle, $con)
@@ -143,7 +150,7 @@ class Career
 
                 $skills[] = $skillNames;
             }
-        } else $response = "Error";
+        } else $response = "none";
 
         //data to be sent
         $data =  array(
@@ -183,5 +190,19 @@ class Career
 
         //return in a formatted date
         return $month . ' ' . $day . ', ' . $year;
+    }
+
+    public function selectCareerAdmin($college, $startDate, $endDate, $con)
+    {
+
+        $query = "SELECT * FROM `career` WHERE `colCode` = '$college' AND 
+              `date_posted` BETWEEN '$startDate' AND '$endDate' AND 
+              `author` = 'University Admin'
+              ORDER BY `date_posted` DESC"; // as default
+
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+        if ($result && $row > 0) $this->getCareerDetail($result, $con);
+        else echo 'none';
     }
 }

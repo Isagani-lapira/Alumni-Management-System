@@ -2,6 +2,7 @@
 
 session_start();
 require_once 'connection.php';
+require 'career.php';
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
@@ -18,6 +19,10 @@ if (isset($_POST['action'])) {
         case 'checkBookmark':
             $careerID = $_POST['careerID'];
             readBookmark($username, $careerID, $mysql_con);
+            break;
+        case 'readBookmark':
+            $username;
+            readAllBookmark($username, $mysql_con);
             break;
         default:
             echo 'error';
@@ -61,4 +66,48 @@ function readBookmark($username, $careerID, $con)
 
     if ($result && $row > 0) echo "Exist";
     else echo 'Not exist';
+}
+
+function readAllBookmark($username, $con)
+{
+    $query = "SELECT * FROM `saved_career` WHERE `username`= '$username'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_num_rows($result);
+
+    $careerData = array();
+    if ($result && $row > 0) {
+        while ($data = mysqli_fetch_assoc($result)) {
+            $careerID = $data['careerID'];
+
+            $careerObj = new Career();
+            $careerData[] = $careerObj->selectWithCareerID($con, $careerID);
+        }
+    } else return 'none';
+
+    return $careerData;
+}
+
+function dateInText($date)
+{
+    $year = substr($date, 0, 4);
+    $month = intval(substr($date, 5, 2));
+    $day = substr($date, 8, 2);
+    $months = [
+        '', 'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    //2023-07-17
+    //convert date month to text format
+    $month = $months[$month];
+
+    //return in a formatted date
+    return $month . ' ' . $day . ', ' . $year;
+}
+
+function generatePseudonym($personID)
+{
+    $pseudonym = md5($personID);
+
+    return $pseudonym;
 }

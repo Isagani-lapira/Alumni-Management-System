@@ -613,10 +613,11 @@ function getAccDetails($con, $personID)
             <!-- Upper Part -->
             <div class="flex flex-col md:flex-row items-center w-10/12">
               <!-- Dropdown List -->
-              <select class="py-2 p-3 outline-none border-black center-shadow rounded-md shadow text-sm appearance-none cursor-pointer">
+              <select id="jobSelection" class="py-2 p-3 outline-none border-black center-shadow rounded-md shadow text-sm appearance-none cursor-pointer">
                 <option value="all">All</option>
                 <option value="Saved">Saved</option>
                 <option value="Applied">Applied</option>
+                <option value="Admin">Admin post</option>
               </select>
 
               <!-- Searchbar -->

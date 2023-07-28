@@ -3,7 +3,6 @@ $(document).ready(function () {
 
   const imgFormat = 'data:image/jpeg;base64,';
   const colCode = $('#colCode').html();
-  let isSaved = false
   $('#tabs').tabs();
   // Initialize the tabs - FEED BTN
   $("#tabs-feed-btns").tabs();
@@ -44,16 +43,48 @@ $(document).ready(function () {
     $("#tabs-college").show();
 
   });
-  const action = {
-    action: 'readWithCol',
-    colCode: colCode, //to be change
+
+  function getCurrentDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0');
+    var day = String(today.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
   }
 
-  getWork(action) //list of work
-  function getWork(action) {
+  function formatDate(date) {
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var day = String(date.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
+  }
+
+  function getLastTwoWeeksFromStringDate(dateString) {
+    var currentDate = new Date(dateString); // Convert the string date to a Date object
+    var dates = "";
+
+    for (var i = 0; i < 14; i++) {
+      var date = new Date(currentDate.getTime() - i * 24 * 60 * 60 * 1000);
+      dates = formatDate(date);
+    }
+
+    return dates;
+  }
+
+  let endDate = getCurrentDate();
+  let startDate = getLastTwoWeeksFromStringDate(endDate)
+
+  let action = {
+    action: 'readWithCol',
+    colCode: colCode,
+  }
+
+  getWork(action, startDate, endDate) //list of work
+  function getWork(action, startDate, endDate) {
     let formData = new FormData();
     formData.append('action', JSON.stringify(action));
-
+    formData.append('startDate', startDate)
+    formData.append('endDate', endDate)
     $.ajax({
       method: 'POST',
       url: '../PHP_process/jobTable.php',
@@ -61,24 +92,26 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: (response) => {
-        const parsedResponse = JSON.parse(response);
-        //if there's a value
-        if (parsedResponse.result == 'Success') {
-          const length = parsedResponse.author.length; //total length of all data that has been retrieved
-          for (let i = 0; i < length; i++) {
-            //data to be use
-            const careerID = parsedResponse.careerID[i];
-            const companyLogo = imgFormat + parsedResponse.companyLogo[i];
-            const jobTitle = parsedResponse.jobTitle[i];
-            const company = parsedResponse.companyName[i];
-            const author = parsedResponse.author[i];
-            const skill = parsedResponse.skills[i];
-            const location = parsedResponse.location[i];
+        if (response != 'none') {
+          const parsedResponse = JSON.parse(response);
+          //if there's a value
+          if (parsedResponse.result == 'Success') {
+            const length = parsedResponse.author.length; //total length of all data that has been retrieved
+            for (let i = 0; i < length; i++) {
+              //data to be use
+              const careerID = parsedResponse.careerID[i];
+              const companyLogo = imgFormat + parsedResponse.companyLogo[i];
+              const jobTitle = parsedResponse.jobTitle[i];
+              const company = parsedResponse.companyName[i];
+              const author = parsedResponse.author[i];
+              const skill = parsedResponse.skills[i];
+              const location = parsedResponse.location[i];
 
-            //display job with design
-            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
+              //display job with design
+              listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
+            }
+
           }
-
         }
         else $('#noJobMsg').removeClass('hidden');
       },
@@ -165,7 +198,6 @@ $(document).ready(function () {
     }
   }
 
-
   //saving career to bookmark
   function saveCareer(careerID) {
     //data to be send
@@ -202,6 +234,48 @@ $(document).ready(function () {
     })
   }
 
+  //read all the bookmark
+  function readBookMark() {
+    formData = new FormData();
+    formData.append('action', 'readBookmark');
+
+    $.ajax({
+      method: 'POST',
+      url: '../PHP_process/bookmark.php',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        const parsedResponse = JSON.parse(response);
+        console.log(parsedResponse)
+        if (response != 'none') {
+          const parsedResponse = JSON.parse(response);
+          //if there's a value
+          if (parsedResponse.result == 'Success') {
+            const length = parsedResponse.author.length; //total length of all data that has been retrieved
+            for (let i = 0; i < length; i++) {
+              //data to be use
+              const careerID = parsedResponse.careerID[i];
+              const companyLogo = imgFormat + parsedResponse.companyLogo[i];
+              const jobTitle = parsedResponse.jobTitle[i];
+              const company = parsedResponse.companyName[i];
+              const author = parsedResponse.author[i];
+              const skill = parsedResponse.skills[i];
+              const location = parsedResponse.location[i];
+
+              //display job with design
+              listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
+            }
+
+          }
+        }
+        else $('#noJobMsg').removeClass('hidden');
+      },
+      error: (error) => { console.log(error) }
+    })
+  }
+
+  //checking if the career is already in saved
   function checkCareerMarked(careerID) {
     return new Promise((resolve, reject) => {
       // data to be sent
@@ -230,6 +304,48 @@ $(document).ready(function () {
       });
     });
   }
+
+  function getCurrentDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0');
+    var day = String(today.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
+  }
+
+  //change list to admin
+  $('#jobSelection').on('change', function () {
+    let jobVal = $(this).val();
+
+    //restart everything
+    endDate = getCurrentDate()
+    startDate = getLastTwoWeeksFromStringDate(endDate)
+    $('#listOfJob').empty()
+    if (jobVal == 'Admin') {
+      let actionAdmin = {
+        action: 'readWithAuthor',
+        colCode: colCode
+      }
+      //change list into admin's list
+      getWork(actionAdmin, startDate, endDate) //list of work
+    }
+    else if (jobVal == 'Saved') {
+      readBookMark()
+    }
+    //back to all
+    else if (jobVal == 'all') {
+      getWork(action, startDate, endDate)
+    }
+  })
+
+  //retrieve new data of post
+  $('#listOfJob').on('scroll', function () {
+    if ($('#listOfJob').scrollTop() + $('#listOfJob').innerHeight() >= $('#listOfJob')[0].scrollHeight) {
+      endDate = startDate
+      startDate = getLastTwoWeeksFromStringDate(endDate)
+      getWork(action, startDate, endDate) //list of work
+    }
+  })
 
 
   function displaySelectedCareer(jobTitle, companyName, author, datePosted, companyLogo,

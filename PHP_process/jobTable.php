@@ -57,13 +57,20 @@ if (isset($_POST['action'])) {
             $readCareer->selectData($mysql_con);
         } else if ($action == 'readWithCol') {
             $colCode = $arrayData['colCode'];
-            $readCareer->selectDataForCollege($colCode, $mysql_con);
+            $startDate = $_POST['startDate'];
+            $endDate = $_POST['endDate'];
+            $readCareer->selectDataForCollege($colCode, $startDate, $endDate, $mysql_con);
         } else if ($action == 'readWithCareerID') {
             $careerID = $arrayData['careerID'];
             $readCareer->selectWithCareerID($mysql_con, $careerID);
         } else if ($action == "searching") {
             $jobTitle = $arrayData['jobTitle'];
             $readCareer->selectSearchJob($jobTitle, $mysql_con);
+        } else if ($action == 'readWithAuthor') {
+            $colCode = $arrayData['colCode'];
+            $startDate = $_POST['startDate'];
+            $endDate = $_POST['endDate'];
+            $readCareer->selectCareerAdmin($colCode, $startDate, $endDate, $mysql_con);
         }
     } catch (Exception $e) {
         echo $e->getMessage();
