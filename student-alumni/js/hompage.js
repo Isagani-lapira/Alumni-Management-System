@@ -167,7 +167,6 @@ $(document).ready(function () {
         }
       })
 
-
     //retrieve all the skill and display in on a div to be included on the container
     skills.forEach(skill => {
       let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
@@ -308,6 +307,29 @@ $(document).ready(function () {
     var month = String(today.getMonth() + 1).padStart(2, '0');
     var day = String(today.getDate()).padStart(2, '0');
     return year + '-' + month + '-' + day;
+  }
+
+  badgeNotification()
+  function badgeNotification() {
+    let action = {
+      action: 'readUnreadNotif'
+    }
+    let formatData = new FormData()
+    formatData.append('action', JSON.stringify(action));
+
+    $.ajax({
+      url: '../PHP_process/notificationData.php',
+      method: 'POST',
+      data: formatData,
+      processData: false,
+      contentType: false,
+      success: (success) => {
+        //display a notification badge
+        if (success != 'none') $('#notifBadge').removeClass('hidden').html(success);
+        else $('#notifBadge').addClass('hidden')
+      },
+      error: (error) => { console.log(error) }
+    })
   }
 
   //change list to admin

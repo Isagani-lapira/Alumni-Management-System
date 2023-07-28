@@ -69,4 +69,14 @@ class Notification
         //return in a formatted date
         return $month . ' ' . $day . ', ' . $year;
     }
+
+    public function totalUnreadNotif($username, $con)
+    {
+        $query = "SELECT * FROM `notification` WHERE `username` = '$username' AND `is_read`= 0";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row > 0) echo $row;
+        else echo 'none';
+    }
 }

@@ -215,11 +215,14 @@ function getAccDetails($con, $personID)
             <!-- Content for the left div -->
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
-              <button id="notif-btn" class="notif" onclick="buttonColor()">
+              <button id="notif-btn" class="notif relative" onclick="buttonColor()">
                 <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M21 19v1H3v-1l2-2v-6c0-3.1 2.03-5.83 5-6.71V4a2 2 0 0 1 2-2a2 2 0 0 1 2 2v.29c2.97.88 5 3.61 5 6.71v6l2 2m-7 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2" />
                 </svg>
                 <span class="ps-3 text-sm text-greyish_black font-medium">Notifications</span>
+                <span id="notifBadge" class="inline-flex items-center hidden justify-center w-7 h-7 ml-2 text-xs font-semibold text-white
+                  bg-red-400 rounded-full">
+                </span>
               </button>
             </div>
 
