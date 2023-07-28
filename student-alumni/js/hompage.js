@@ -3,6 +3,7 @@ $(document).ready(function () {
 
   const imgFormat = 'data:image/jpeg;base64,';
   const colCode = $('#colCode').html();
+  let isSaved = false
   $('#tabs').tabs();
   // Initialize the tabs - FEED BTN
   $("#tabs-feed-btns").tabs();
@@ -104,7 +105,33 @@ $(document).ready(function () {
     let postedText = $('<p>').text('Posted by:')
     let postedByElement = $('<p>').text(author)
     let skillContainer = $('<div>').addClass('text-xs flex gap-1 flex-wrap')
-    let bookmark = '<iconify-icon icon="iconamoon:bookmark-light" style="color: gray;" width="24" height="24"></iconify-icon>'
+
+    //bookmark
+    let isSave = false;
+    let bookmark = '<iconify-icon id="bookmark" icon="iconamoon:bookmark-light" style="color: gray;" width="24" height="24"></iconify-icon>'
+    let bookmarkCont = $('<span>').html(bookmark)
+      .on('click', function () {
+        //remove the saved career
+        if (isSave) {
+          $(this).html(bookmark)
+          removeBookmark(careerID)
+        }
+        else {
+          //save the career
+          $(this).html('<iconify-icon icon="iconamoon:bookmark-fill" style="color: #991b1b;" width="24" height="24"></iconify-icon>')
+          saveCareer(careerID);
+        }
+        isSave = !isSave
+      })
+
+    checkCareerMarked(careerID)
+      .then((result) => {
+        if (result === 'exist') {
+          // Trigger the bookmarkCont click event
+          bookmarkCont.click();
+        }
+      })
+
 
     //retrieve all the skill and display in on a div to be included on the container
     skills.forEach(skill => {
@@ -116,7 +143,7 @@ $(document).ready(function () {
     //put the element to their corresponding container
     postedCont.append(postedText, postedByElement);
     jobDescription.append(jobTitleElement, companyName, locationElement, skillContainer, postedCont)
-    containerJob.append(companyImg, jobDescription, bookmark)
+    containerJob.append(companyImg, jobDescription, bookmarkCont)
     let list = $('<li>').append(containerJob);
     $('#listOfJob').append(list) // add to the list
 
@@ -137,6 +164,73 @@ $(document).ready(function () {
       containerJob.trigger('click');
     }
   }
+
+
+  //saving career to bookmark
+  function saveCareer(careerID) {
+    //data to be send
+    let formData = new FormData();
+    formData.append('action', 'saveCareer');
+    formData.append('careerID', careerID);
+
+    //process insertion
+    $.ajax({
+      method: 'POST',
+      url: '../PHP_process/bookmark.php',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => { console.log(response) },
+    })
+  }
+
+  //remove career in bookmark
+  function removeBookmark(careerID) {
+    //data to be send
+    let formData = new FormData();
+    formData.append('action', 'removeBookmark');
+    formData.append('careerID', careerID);
+
+    //process removal
+    $.ajax({
+      method: 'POST',
+      url: '../PHP_process/bookmark.php',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => { console.log(response) },
+    })
+  }
+
+  function checkCareerMarked(careerID) {
+    return new Promise((resolve, reject) => {
+      // data to be sent
+      let formData = new FormData();
+      formData.append('action', 'checkBookmark');
+      formData.append('careerID', careerID);
+
+      // process checking
+      $.ajax({
+        method: 'POST',
+        url: '../PHP_process/bookmark.php',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: (response) => {
+          if (response === 'Exist') {
+            resolve('exist'); // Resolve the promise with the value 'exist'
+          } else {
+            resolve('not exist'); // Resolve the promise with the value 'not exist'
+          }
+        },
+        error: (error) => {
+          console.log(error);
+          reject(error); // Reject the promise if an error occurs
+        },
+      });
+    });
+  }
+
 
   function displaySelectedCareer(jobTitle, companyName, author, datePosted, companyLogo,
     description, skills, qualification, location) {
