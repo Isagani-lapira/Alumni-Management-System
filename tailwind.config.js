@@ -20,6 +20,7 @@ module.exports = {
         postHoverButton: '#3B82F6',
         licorice: '#1A1110',
         dirtyWhite: '#6C6C6C',
+        lightDirtyWhite: "#6A6A6A",
       },
       fontWeight: {
         medium: '510',

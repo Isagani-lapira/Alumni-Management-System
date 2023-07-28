@@ -100,20 +100,22 @@ $(document).ready(function () {
       .addClass('flex gap-1 items-center text-xs')
       .append(locationIcon, location)
 
-    let postedCont = $('<div>').addClass('flex gap-1 text-xs')
+    let postedCont = $('<div>').addClass('flex text-xs justify-end text-lightDirtyWhite mt-2')
     let postedText = $('<p>').text('Posted by:')
-    let postedByElement = $('<p>').text(author).addClass('text-green-400 font-bold')
-    let skillContainer = $('<div>').addClass('text-xs flex gap-2')
-    let bookmark = $('<span>').addClass("far fa-bookmark text-accent text-xl bookmark-icon")
+    let postedByElement = $('<p>').text(author)
+    let skillContainer = $('<div>').addClass('text-xs flex gap-1 flex-wrap')
+    let bookmark = '<iconify-icon icon="iconamoon:bookmark-light" style="color: gray;" width="24" height="24"></iconify-icon>'
+
     //retrieve all the skill and display in on a div to be included on the container
     skills.forEach(skill => {
-      let skillElement = $('<span>').html('&#x2022; ' + skill)
-      skillContainer.append(skillElement)
+      let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+      let skillElement = $('<span>').html(skill)
+      skillContainer.append(bulletIcon, skillElement)
     })
 
     //put the element to their corresponding container
     postedCont.append(postedText, postedByElement);
-    jobDescription.append(jobTitleElement, companyName, locationElement, postedCont, skillContainer)
+    jobDescription.append(jobTitleElement, companyName, locationElement, skillContainer, postedCont)
     containerJob.append(companyImg, jobDescription, bookmark)
     let list = $('<li>').append(containerJob);
     $('#listOfJob').append(list) // add to the list
@@ -129,10 +131,15 @@ $(document).ready(function () {
       //viewing of particular job
       viewOfCareer(careerID);
     })
+
+    // Automatically select the first job listing and trigger the click event
+    if ($('#listOfJob li').length === 1) {
+      containerJob.trigger('click');
+    }
   }
 
   function displaySelectedCareer(jobTitle, companyName, author, datePosted, companyLogo,
-    description, skills, qualification) {
+    description, skills, qualification, location) {
     let logo = imgFormat + companyLogo;
 
     //remove the past display
@@ -146,13 +153,14 @@ $(document).ready(function () {
     $('#viewJobDatePosted').text(datePosted)
     $('#jobDescript').text(description)
     $('#viewJobQuali').text(qualification)
-
+    $('#locationContainer').text(location)
     //get all the skills that a particular career has
     skills.forEach(skill => {
+      let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
       skillVal = $('<p>').text(skill);
 
       //add it on the container
-      $('#skillsContainer').append(skillVal);
+      $('#skillsContainer').append(bulletIcon, skillVal);
     })
   }
 
@@ -183,8 +191,10 @@ $(document).ready(function () {
           const description = parsedResponse.jobDescript[0];
           const skills = parsedResponse.skills[0];
           const qualification = parsedResponse.jobQuali[0];
+          const location = parsedResponse.location[0];
+
           displaySelectedCareer(jobTitle, companyName, author, datePosted,
-            companyLogo, description, skills, qualification)
+            companyLogo, description, skills, qualification, location)
         }
       },
       error: (error) => { console.log(error) }

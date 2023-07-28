@@ -176,7 +176,13 @@ body {
 }
 
 .selectedJob {
-  background-color: #b66767;
+  background-color: #c90505;
+  opacity: 0.6;
+}
+
+.selectedJob p,
+.selectedJob span,
+.selectedJob iconify-icon {
   color: white !important;
 }
 
