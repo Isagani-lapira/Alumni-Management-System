@@ -664,7 +664,7 @@ function getAccDetails($con, $personID)
                         </div>
                         <div class="flex items-center">
                           <!-- <p class="text-sm text-gray-400 pr-1">Posted by:</p> -->
-                          <p id="viewJobAuthor" class="text-sm text-green-500"></p>
+                          <p id="viewJobAuthor" class="text-sm text-green-500 font-bold"></p>
                         </div>
                         <div class="flex items-center">
                           <p class="text-sm text-gray-400 pr-1">Posted
