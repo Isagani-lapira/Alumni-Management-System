@@ -10,28 +10,30 @@ if (isset($_POST['action'])) {
     $action = $data['action'];
     $post = new PostData();
 
+    $username = $_SESSION['username'];
+    $college = $_SESSION['colCode'];
     switch ($action) {
         case 'insert':
             insertData($mysql_con);
             break;
         case 'read':
-            $username = $_SESSION['username'];
             $startgDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
             $post->getPostAdmin($username, $startgDate, $endDate, $mysql_con);
             break;
         case 'readColPost':
-            $username = $_SESSION['username'];
-            $college = $_SESSION['colCode'];
             $date = $data['retrievalDate'];
             $maxLimit = $data['maxRetrieve'];
             $post->getCollegePost($username, $college, $date, $maxLimit, $mysql_con);
             break;
         case 'insertPrevPost':
-            $username = $_SESSION['username'];
             $date = $data['date'];
             $timestamp = $data['timestamp'];
             $post->insertToPrevPost($username, $date, $timestamp, $mysql_con);
+            break;
+        case 'readUserPost':
+            $date = $data['retrievalDate'];
+            $post->getUserPost($username, $date, $mysql_con);
             break;
     }
 }

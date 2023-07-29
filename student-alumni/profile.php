@@ -84,10 +84,11 @@ function getAccDetails($con, $personID)
     <link href="../css/main.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="../style/student-alumni.css" />
-    <link rel="stylesheet" type="text/css" href="/style/mstyle.css">
+    <link rel="stylesheet" href="../style/profile.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="/style/mstyle.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-9KVJ1y4VkpGr98MvJtk54UcuMm9eL8Y7Wkaj0hEXlMjpnpFtllLAyVLjjhKgr6RCr2l90FZMlf9eFpWUCIwzZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         /* Transparent navbar */
         .navbar {
@@ -269,7 +270,31 @@ function getAccDetails($con, $personID)
         <div class="px-6 w-1/2 h-full">
             <h2 class="text-lg text-accent font-bold">Posts</h2>
             <hr class="mt-2 border-gray-300">
+            <div id="feedContainer" class="post w-5/6 mx-auto post-width h-full no-scrollbar">
+                <!-- Make Post && Profile -->
+                <div id="makePostProfile" class="post p-3 input-post-width mx-auto rounded-md center-shadow w-full my-2">
+                    <div class="flex items-center">
+                        <!-- set profile image -->
+                        <?php
+                        if ($profilepicture == "") {
+                            echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 rounded-full profile-icon" />';
+                        } else {
+                            $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                            echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="rounded-full w-10 h-10 profile-icon" />';
+                        }
 
+                        ?>
+                        <div class="write pl-2 w-full">
+                            <button id="writeBtn" class="bg-gray-200 hover:bg-gray-100 text-grayish font-extralight py-2 px-4 rounded-full flex-grow w-full hover:shadow-md border-2">
+                                <span class="flex items-center">
+                                    <span>Write something...</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
     </div>
@@ -433,9 +458,8 @@ function getAccDetails($con, $personID)
     </div>
 
 
-
-
     <script src="../student-alumni/js/profile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </body>
 
 </html>

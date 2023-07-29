@@ -108,7 +108,7 @@ $(document).ready(function () {
     }
 
     function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID) {
-        let postWrapper = $('<div>').addClass("postWrapper center-shadow w-10/12 p-4 rounded-md mx-auto");
+        let postWrapper = $('<div>').addClass("postWrapper center-shadow w-full p-4 rounded-md mx-auto");
 
         let header = $('<div>');
         let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
@@ -126,7 +126,6 @@ $(document).ready(function () {
         // Markup for body
         let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption);
         let swiperContainer = null;
-        let rar = null
 
         // Check if there are images to display
         if (images.length > 0) {
