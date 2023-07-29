@@ -79,7 +79,10 @@ $(document).ready(function () {
     colCode: colCode,
   }
 
-  getWork(action, startDate, endDate) //list of work
+  $('#JobHuntText').on('click', function () {
+    getWork(action, startDate, endDate) //load a list of work
+  })
+
   function getWork(action, startDate, endDate) {
     let formData = new FormData();
     formData.append('action', JSON.stringify(action));
@@ -158,11 +161,11 @@ $(document).ready(function () {
         isSave = !isSave
       })
 
+    //check if the career is bookedmark
     checkCareerMarked(careerID)
       .then((result) => {
         if (result === 'exist') {
-          bookmarkCont.html(solidBookmark)
-          // Trigger the bookmarkCont click event
+          bookmarkCont.html(solidBookmark) //change the bookmark from outline to solid
           isSave = true;
         }
       })
@@ -309,6 +312,7 @@ $(document).ready(function () {
     return year + '-' + month + '-' + day;
   }
 
+  //display the badge if there's a notification haven't read yet
   badgeNotification()
   function badgeNotification() {
     let action = {
