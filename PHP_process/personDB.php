@@ -31,9 +31,7 @@ class personDB
 
     public function readPerson($personID, $con)
     {
-        $query = 'SELECT `personID`, `fname`, `lname`, `age`, `bday`, `gender`, 
-            `contactNo`, `address`, `personal_email`, `bulsu_email`, `profilepicture`
-            FROM `person` WHERE `personID` = "' . $personID . '"';
+        $query = 'SELECT * FROM `person` WHERE `personID` = "' . $personID . '"';
 
         $result = mysqli_query($con, $query);
 
@@ -45,7 +43,6 @@ class personDB
         $contactNo = "";
         $personal_email = "";
         $bulsu_email = "";
-
         if ($result && mysqli_num_rows($result) > 0) {
             while ($row_data = mysqli_fetch_assoc($result)) {
 
@@ -59,6 +56,7 @@ class personDB
                 $personal_email = $row_data['personal_email'];
                 $bulsu_email = $row_data['bulsu_email'];
                 $profilepicture = base64_encode($row_data['profilepicture']);
+                $coverPhoto = base64_encode($row_data['cover_photo']);
             }
 
             $personData = array(
@@ -72,6 +70,7 @@ class personDB
                 "personal_email" => $personal_email,
                 "bulsu_email" => $bulsu_email,
                 "profilepicture" => $profilepicture,
+                "coverPhoto" => $coverPhoto,
             );
 
             return json_encode($personData);

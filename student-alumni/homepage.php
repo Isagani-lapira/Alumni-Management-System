@@ -134,7 +134,6 @@ function getAccDetails($con, $personID)
             }
 
             ?>
-            </img>
             <p class="mr-4 text-sm font-medium text-greyish_black p-4">
               <?php
               echo $fullname;
@@ -150,7 +149,7 @@ function getAccDetails($con, $personID)
 
             <!-- Dropdown Content -->
             <div id="dropdown-content" class="absolute bg-white rounded-md shadow-lg mt-40 justify-evenly right-8 hidden w-72 p-2">
-              <a href="profile.html" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg">
+              <a href="profile.php" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg">
                 <i class="fas fa-light fa-user text-md pr-2"></i>See Profile
               </a>
               <span id="logout" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg cursor-pointer">
