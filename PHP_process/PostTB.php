@@ -7,9 +7,9 @@ class PostData
     {
         $imgFileLength = ($img != null) ? count($img['name']) : 0;
         $timestamp = date('Y-m-d H:i:s');
-
-        $query = "INSERT INTO `post`(`postID`, `username`, `colCode`, `caption`, `date`, `timestamp`) 
-        VALUES ('$postID','$username','$colCode','$caption','$date','$timestamp')";
+        $status = 'available'; //default status
+        $query = "INSERT INTO `post`(`postID`, `username`, `colCode`, `caption`, `date`, `timestamp`, `status`) 
+        VALUES ('$postID','$username','$colCode','$caption','$date','$timestamp','$status')";
         $result = mysqli_query($con, $query);
 
         if ($result) {
@@ -48,9 +48,9 @@ class PostData
         $query = "";
         //check if it the post retrieve based on date
         if ($startingDate != null && $endDate != null)
-            $query = 'SELECT * FROM `post` WHERE `date` BETWEEN "' . $startingDate . '" AND "' . $endDate . '" AND `username` = "' . $username . '"';
+            $query = 'SELECT * FROM `post` WHERE `date` BETWEEN "' . $startingDate . '" AND "' . $endDate . '" AND `username` = "' . $username . '" AND `status` = "available"';
         else
-            $query = 'SELECT * FROM `post` WHERE `username`= "' . $username . '"ORDER BY `date` DESC';
+            $query = 'SELECT * FROM `post` WHERE `username`= "' . $username . '" AND `status` = "available" ORDER BY `date` DESC';
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
@@ -147,7 +147,7 @@ class PostData
             $timestamp = $prevTimeStamp['timestamp'];
 
             //retrieve first the data left from day post
-            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `timestamp`>'$timestamp' LIMIT 0, $maxLimit";
+            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `status` = 'available' AND `timestamp`>'$timestamp' LIMIT 0, $maxLimit";
             $result = mysqli_query($con, $queryRetrievePost);
             $row = mysqli_num_rows($result);
 
@@ -164,7 +164,7 @@ class PostData
             } else echo 'none';
         } else { // if the user just starting to retrieve data for today
 
-            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' ORDER BY `date` DESC LIMIT 0, $maxLimit";
+            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `status` = 'available' ORDER BY `date` DESC LIMIT 0, $maxLimit";
             $result = mysqli_query($con, $queryRetrievePost);
 
             $post = $this->getPostData($result, $con); //get all the data of the post
@@ -287,7 +287,7 @@ class PostData
     function getUserPost($username, $date, $con)
     {
         //query to get the post of user
-        $query = "SELECT * FROM `post` WHERE `username` = '$username' AND `date` = '$date'";
+        $query = "SELECT * FROM `post` WHERE `username` = '$username' AND `date` = '$date' AND `status` = 'available'";
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 

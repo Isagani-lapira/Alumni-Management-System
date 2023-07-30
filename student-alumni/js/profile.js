@@ -851,4 +851,15 @@ $(document).ready(function () {
     })
   }
 
+
+  //close the modal
+  $('#profileModal').on('click', function (event) {
+    const target = event.target
+    const formUpdate = $('.formUpdate')
+
+    //clicked outside the edit modal
+    if (!formUpdate.is(target) && !formUpdate.has(target).length) {
+      $(this).addClass('hidden')
+    }
+  })
 })
