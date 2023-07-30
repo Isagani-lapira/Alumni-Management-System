@@ -19,9 +19,9 @@ class personDB
 
         $query = "INSERT INTO `person`(`personID`, `fname`, `lname`, 
             `age`, `bday`, `gender`, `contactNo`, `address`, `personal_email`, 
-            `bulsu_email`, `profilepicture`,`cover_photo`) VALUES ('$personID','$FName',
-            '$LName','$age','$bday','$gender','$contactNo','$address','$personalEmail',
-            '$bulsuEmail','$profilePic',null)";
+            `bulsu_email`, `profilepicture`,`cover_photo`,`facebookUN`, `instagramUN`, `twitterUN`, `linkedInUN`) 
+            VALUES ('$personID','$FName', '$LName','$age','$bday','$gender','$contactNo','$address','$personalEmail',
+            '$bulsuEmail','$profilePic',null,null,null,null,null)";
 
         $result = mysqli_query($con, $query);
 

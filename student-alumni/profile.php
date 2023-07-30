@@ -223,7 +223,7 @@ function getAccDetails($con, $personID)
     <!-- Content -->
     <div class="content flex mt-8">
         <!-- About Section -->
-        <div class="px-6 max-w-md text-sm">
+        <div class="px-6 max-w-md text-sm w-3/12">
             <div class="text-left">
                 <h2 class="text-lg text-accent font-bold border-b border-gray-300 py-1">About</h2>
                 <div class="mt-4">
@@ -304,6 +304,10 @@ function getAccDetails($con, $personID)
             </div>
         </div>
 
+        <div class="px-6 w-3/12 h-full">
+            <h2 class="text-lg text-accent font-bold">Social Media</h2>
+            <hr class="mt-2 border-gray-300">
+        </div>
     </div>
 
     <!-- MODALS -->
