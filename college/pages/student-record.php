@@ -36,7 +36,21 @@
         <!-- college selection -->
         <select name="college" id="college" class=" w-full border border-gray-400 bg-transparent rounded-md shadow-md px-4">
             <option value="" selected disabled hidden>Course</option>
-            <option value="" selected>Information Technology</option>
+            <?php
+            require_once '../../PHP_process/connection.php';
+            $query = "SELECT * FROM `college`";
+            $result = mysqli_query($mysql_con, $query);
+            $rows = mysqli_num_rows($result);
+
+            if ($rows > 0) {
+                while ($data = mysqli_fetch_assoc($result)) {
+                    $colCode = $data['colCode'];
+                    $colName = $data['colname'];
+
+                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                }
+            } else echo '<option>No college available</option>';
+            ?>
         </select>
 
     </div>
@@ -63,6 +77,9 @@
                 </td>
                 <td class="text-center">09104905440</td>
                 <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
+
+
+
             </tr>
         </tbody>
     </table>
