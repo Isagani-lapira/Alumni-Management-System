@@ -1,6 +1,8 @@
 <?php
-
+session_start();
 require_once 'connection.php';
+require 'personDB.php';
+
 if (isset($_POST['action'])) {
     $data = $_POST['action'];
     $actionArray = json_decode($data, true);
@@ -10,6 +12,13 @@ if (isset($_POST['action'])) {
         case 'read':
             $email =  $_POST['personalEmail'];
             checkEmail($email, $mysql_con);
+            break;
+        case 'updateProfile':
+            $personID = $_SESSION['personID'];
+            $imgSrc = $_FILES['imgSrc'];
+            $query = "profilepicture";
+            $personObj = new personDB();
+            $personObj->updateImage($personID, $query, $imgSrc, $mysql_con);
             break;
     }
 } else echo 'ayaw pumasok';

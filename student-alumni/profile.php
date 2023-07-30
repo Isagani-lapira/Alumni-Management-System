@@ -86,7 +86,6 @@ function getAccDetails($con, $personID)
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="../style/profile.css" />
     <link rel="stylesheet" href="../style/style.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="/style/mstyle.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
@@ -181,10 +180,10 @@ function getAccDetails($con, $personID)
         <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-full border-4 border-accentBlue overflow-hidden w-56 h-56">
             <?php
             if ($profilepicture == "") {
-                echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-full h-full object-cover" />';
+                echo '<img id="profilePhoto" src="../assets/icons/person.png" alt="Profile Icon" class="w-full h-full object-cover" />';
             } else {
                 $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-                echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-full h-full object-cover" />';
+                echo '<img id="profilePhoto" src="' . $srcFormat . '" alt="Profile Icon" class="w-full h-full object-cover" />';
             }
             ?>
         </div>
@@ -303,157 +302,69 @@ function getAccDetails($con, $personID)
 
     <!-- EDIT PROFILE -->
     <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div class="bg-white p-6 rounded shadow-lg overflow-x-auto hide-scrollbar" style="width: 500px; height: 600px;">
-            <!-- Profile Picture -->
-            <div class="flex items-center justify-between">
-                <h2 class="text-lg font-bold">Profile Picture</h2>
-                <button id="editProfilePicBtn" class="focus:outline-none">
-                    <i class="fas fa-edit text-gray-600 hover:text-gray-700"></i>
-                </button>
+        <div class="formUpdate bg-white rounded-md w-2/5 h-4/5 p-5 flex flex-col gap-2">
+            <!-- profile picture -->
+            <div class="flex justify-between text-greyish_black items-center">
+                <p class="text-lg font-bold">Profile Picture</p>
+                <label id="profileLbl" for="profilePic">
+                    <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </label>
+                <input type="file" name="profilePic" id="profilePic" class="hidden" accept="image/*">
             </div>
-
-            <!-- Center the image -->
-            <div class="flex items-center justify-center">
+            <!-- Profile Photo (Intersecting with the Cover Photo) -->
+            <div class="h-48 w-full flex justify-center">
                 <?php
                 if ($profilepicture == "") {
-                    echo '<img id="profilePic" src="../assets/icons/person.png" alt="Profile Icon" class="w-full h-full object-cover" alt="Profile Picture"/>';
+                    echo '<img id="profileLoading" src="../assets/icons/person.png" alt="Profile Icon" class="w-48 h-48 rounded-full" id="profileImg" />';
                 } else {
                     $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-                    echo '<img id="profilePic" src="' . $srcFormat . '" alt="Profile Icon" class="w-32 h-32 rounded-full mt-2 mb-4 
-                    border-2 border-accentBlue" alt="Profile Picture" />';
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class=" w-48 h-48 rounded-full " id="profileImg"/>';
                 }
                 ?>
-
             </div>
 
-            <!-- File input for Profile Picture -->
-            <input type="file" id="profilePicInput" accept="image/*" class="hidden">
-
-            <!-- Cover Photo -->
-            <div class="flex items-center justify-between">
-                <h2 class="text-lg font-bold">Cover Photo</h2>
-                <button id="editCoverPhotoBtn" class="focus:outline-none">
-                    <i class="fas fa-edit text-gray-600 hover:text-gray-700"></i>
-                </button>
+            <div id="profileBtn" class="flex justify-end gap-2 hidden">
+                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+                <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveProfile">Save</button>
             </div>
 
-            <!-- Center the cover photo -->
-            <div class="flex items-center justify-center">
-                <img id="coverPhoto" src="../images/bganim.jpg" alt="Cover Photo" class="w-full h-40 object-cover mt-2 mb-4 rounded-lg">
+            <!-- cover photo -->
+            <div class="flex justify-between text-greyish_black items-center">
+                <p class="text-lg font-bold">Cover Picture</p>
+                <label for="coverPic">
+                    <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </label>
+                <input type="file" name="coverPic" id="coverPic" class="hidden" accept="image/*">
             </div>
+            <!-- Profile Photo (Intersecting with the Cover Photo) -->
+            <div class=" h-48 w-full flex justify-center">
+                <?php
+                if ($coverPhoto == "") {
+                    echo '<img src="../images/bganim.jpg" alt="Cover Icon" class="w-4/5 h-48 bg-black rounded-md" id="coverImg" />';
+                } else {
+                    $srcFormat = 'data:image/jpeg;base64,' . $coverPhoto;
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class=" w-4/5 h-48 rounded-md bg-black object-contain" id="coverImg"/>';
+                }
+                ?>
+            </div>
+            <p class="text-lg font-bold">Customize Your Information</p>
 
-            <!-- File input for Cover Photo -->
-            <input type="file" id="coverPhotoInput" accept="image/*" class="hidden">
+            <div class="flex justify-between text-greyish_black items-center">
+                <div>
+                    <span class="text-sm font-thin">
+                        <iconify-icon icon="fluent:location-20-regular" style="color: #474645;"></iconify-icon>
+                        Lives in
+                    </span>
+                    <?php
+                    echo '<input class="font-bold text-sm" disabled type="text" id="editAddress" value="' . $address . '" placeholder = "' . $address . '" >';
+                    ?>
 
-
-            <!-- Customize Information -->
-            <div class="mt-6">
-                <h2 class="text-lg font-bold mb-2">Customize Your Information</h2>
-
-                <!-- Location -->
-                <div class="flex items-center justify-between mb-2">
-                    <div class="flex items-center">
-                        <div class="pr-1"><i class="fa-solid fa-location-dot text-gray-500"></i></div>
-                        <h3 class="text-sm text-gray-700 mr-2">Lives in</h3>
-                        <?php
-                        echo '<p id="locationText" class="text-sm mr-4 font-bold">' . $address . '</p>';
-                        ?>
-                        <!-- Editable input field (initially hidden) -->
-                        <input type="text" id="locationInput" class="hidden text-sm text-gray-600 font-bold border-b border-gray-500 outline-none">
-                    </div>
-                    <button id="editLocationBtn" class="focus:outline-none">
-                        <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
-                    </button>
                 </div>
-
-                <!-- Email Address -->
-                <div class="flex items-center justify-between mb-2">
-                    <div class="flex items-center">
-                        <div class="pr-1"><i class="fa-regular fa-envelope text-gray-500"></i></div>
-                        <?php
-                        echo '<p id="emailText" class="text-sm mr-4 font-bold">' . $personal_email . '</p>';
-                        ?>
-                        <!-- Editable input field (initially hidden) -->
-                        <input type="text" id="emailInput" class="hidden text-sm text-gray-600 font-bold border-b border-gray-500 outline-none">
-                    </div>
-                    <button id="editEmailBtn" class="focus:outline-none">
-                        <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
-                    </button>
-                </div>
-
-                <!-- Contact Number -->
-                <div class="flex items-center justify-between mb-2">
-                    <div class="flex items-center">
-                        <div class="pr-1"><i class="fa-solid fa-phone text-gray-500"></i></div>
-                        <?php
-                        echo '<p id="contactText" class="text-sm mr-4 font-bold">' . $contactNo . '</p>';
-                        ?>
-                        <!-- Editable input field (initially hidden) -->
-                        <input type="text" id="contactInput" class="hidden text-sm text-gray-600 font-bold border-b border-gray-500 outline-none">
-                    </div>
-                    <button id="editContactBtn" class="focus:outline-none">
-                        <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
-                    </button>
-                </div>
+                <label id="editAddLabel" for="editAddress">
+                    <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </label>
             </div>
 
-            <!-- Social Media -->
-            <h2 class="text-lg font-bold">Social Media Accounts</h2>
-            <!-- Add form elements for Facebook, Instagram, and Twitter here -->
-
-            <!-- Facebook -->
-            <div class="flex mt-1 items-center">
-                <i class="fa-brands fa-facebook text-gray-500"></i>
-                <div class="ml-1 flex w-4/6 rounded-md border border-gray-500">
-                    <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">facebook.com/</div>
-                    <div id="facebookText" class="editText pl-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
-                    <!-- Editable input field (initially hidden) -->
-                    <input type="text" id="facebookInput" class="hidden text-sm text-gray-600 font-bold outline-none ml-auto">
-                </div>
-                <button id="editFacebookBtn" class="focus:outline-none ml-auto">
-                    <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
-                </button>
-            </div>
-
-            <!-- Instagram -->
-            <div class="flex mt-2 items-center">
-                <i class="fa-brands fa-instagram text-gray-500"></i>
-                <div class="ml-1 flex w-4/6 rounded-md border border-gray-500">
-                    <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">instagram.com/</div>
-                    <div id="instagramText" class="editText pl-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
-                    <!-- Editable input field (initially hidden) -->
-                    <input type="text" id="instagramInput" class="hidden text-sm text-gray-600 font-bold outline-none ml-auto">
-                </div>
-                <button id="editInstagramBtn" class="focus:outline-none ml-auto">
-                    <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
-                </button>
-            </div>
-
-            <!-- Twitter -->
-            <div class="flex mt-2 items-center">
-                <i class="fa-brands fa-twitter text-gray-500"></i>
-                <div class="ml-1 flex w-4/6 rounded-md border border-gray-500">
-                    <div class="py-1 px-1 rounded-l-md text-sm bg-gray-300">twitter.com/</div>
-                    <div id="twitterText" class="editText pl-1 py-1 text-sm whitespace-nowrap overflow-hidden"></div>
-                    <!-- Editable input field (initially hidden) -->
-                    <input type="text" id="twitterInput" class="hidden text-sm text-gray-600 font-bold outline-none ml-auto">
-                </div>
-                <button id="editTwitterBtn" class="focus:outline-none ml-auto">
-                    <i class="fa-solid fa-pen text-gray-600 hover:text-gray-700 text-sm p-2"></i>
-                </button>
-            </div>
-
-            <!-- Edit Resume -->
-            <div class="flex justify-center mt-2">
-                <div class="text-sm text-gray-600">Want to edit your resume?</div>
-                <a href="/student-alumni/EditResume.html" class="text-sm text-blue-600 ml-1 hover:text-blue-800 hover:underline">Click here.</a>
-            </div>
-
-            <!-- Buttons -->
-            <div class="flex justify-end mt-6">
-                <button id="modal-cancelBtn" class="mr-2 text-gray-600 hover:text-gray-800 hover:underline">Cancel</button>
-                <button id="modal-saveBtn" class="text-accent hover:text-accent-dark">Save</button>
-            </div>
         </div>
     </div>
 
@@ -527,7 +438,7 @@ function getAccDetails($con, $personID)
         </div>
     </div>
 
-    <div id="modal" class="modal fixed inset-0 z-50 h-full w-full flex items-center justify-center
+    <div id="modal" class="modal hidden fixed inset-0 z-50 h-full w-full flex items-center justify-center
             text-grayish  top-0 left-0">
         <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
             <div class="modal-header py-5 border-b border-gray-400">
@@ -584,6 +495,7 @@ function getAccDetails($con, $personID)
         </div>
     </div>
 
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="../student-alumni/js/profile.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </body>

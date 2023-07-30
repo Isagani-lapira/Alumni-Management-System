@@ -19,9 +19,9 @@ class personDB
 
         $query = "INSERT INTO `person`(`personID`, `fname`, `lname`, 
             `age`, `bday`, `gender`, `contactNo`, `address`, `personal_email`, 
-            `bulsu_email`, `profilepicture`) VALUES ('$personID','$FName',
+            `bulsu_email`, `profilepicture`,`cover_photo`) VALUES ('$personID','$FName',
             '$LName','$age','$bday','$gender','$contactNo','$address','$personalEmail',
-            '$bulsuEmail','$profilePic')";
+            '$bulsuEmail','$profilePic',null)";
 
         $result = mysqli_query($con, $query);
 
@@ -75,5 +75,19 @@ class personDB
 
             return json_encode($personData);
         }
+    }
+
+    public function updateImage($personID, $query, $newValue, $con)
+    {
+        $temp = $newValue['tmp_name'];
+        $fileContent = addslashes(file_get_contents($temp));
+
+        // //query for update
+        $query = "UPDATE `person` SET  `$query` = '$fileContent'
+        WHERE`personID` = '$personID'";
+        $result = mysqli_query($con, $query);
+
+        if ($result) echo 'success';
+        else echo 'error';
     }
 }
