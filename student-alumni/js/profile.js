@@ -598,7 +598,6 @@ $(document).ready(function () {
       var reader = new FileReader();
       reader.onload = (e) => {
         profileImg.attr('src', e.target.result);
-        isProfileChange = true;
         profileBtn.removeClass('hidden')
         profileLbl.addClass('hidden');
       }
@@ -610,13 +609,19 @@ $(document).ready(function () {
   $('#saveProfile').on('click', function () {
     let newProfile = $('#profilePic').prop('files')[0];
 
-
     let action = {
       action: 'updateProfile',
+      dataUpdate: 'profilepicture'
     }
+    let profileBtn = $('#profileBtn')
+    let label = $('#profileLbl')
+    processImgUpdate(action, newProfile, profileBtn, label)
+  })
+
+  function processImgUpdate(action, img, confirmationCont, editIcon) {
     let formData = new FormData()
     formData.append('action', JSON.stringify(action))
-    formData.append('imgSrc', newProfile);
+    formData.append('imgSrc', img);
 
     $.ajax({
       url: '../PHP_process/person.php',
@@ -626,35 +631,224 @@ $(document).ready(function () {
       contentType: false,
       success: (response) => {
         if (response == 'success') {
-          profileBtn.addClass('hidden')
-          profileLbl.removeClass('hidden');
+          confirmationCont.addClass('hidden')
+          editIcon.removeClass('hidden');
         }
       },
       error: (error) => { console.log(error) }
     })
+  }
+
+  //change cover if the user edit it
+  var coverImg = $("#coverImg");
+  $('#coverPic').on('change', function () {
+    let selectedFile = $(this).prop("files")[0];
+
+    //change the current display profile to new profile
+    if (selectedFile) {
+      var reader = new FileReader();
+      coverLbl = $('#coverLbl')
+      coverBtn = $('#coverBtn')
+
+      reader.onload = (e) => {
+        coverImg.attr('src', e.target.result); //display the selected image
+        coverBtn.removeClass('hidden') //show the save button
+        coverLbl.addClass('hidden'); //remove the edit label
+      }
+      reader.readAsDataURL(selectedFile)
+    }
   })
 
-  // //change cover if the user edit it
-  // var coverImg = $("#coverImg");
-  // $('#coverPic').on('change', function () {
-  //   let selectedFile = $(this).prop("files")[0];
+  $('#saveCover').on('click', function () {
+    let newCoverPhoto = $('#coverPic').prop('files')[0];
 
-  //   //change the current display profile to new profile
-  //   if (selectedFile) {
-  //     var reader = new FileReader();
-  //     reader.onload = (e) => {
-  //       coverImg.attr('src', e.target.result);
-  //       isCoverChange = true;
-  //     }
-  //     reader.readAsDataURL(selectedFile)
-  //   }
-  // })
+    let action = {
+      action: 'updateCover',
+      dataUpdate: 'cover_photo'
+    }
+    let btnCont = $('#coverBtn')
+    let label = $('#coverLbl')
+    processImgUpdate(action, newCoverPhoto, btnCont, label)
 
-  // //edit location
-  // $('#editAddLabel').on('click', function () {
-  //   $('#editAddress').removeAttr('disabled') //allows to be edit
-  //     .addClass('border-b border-gray-400')
-  //   $(this).replaceWith('<p class="text-blue-400 font-thin">Save</p>')
-  // })
+  })
+
+  //edit location
+  $('#editAddLabel').on('click', function () {
+    $('#editAddress').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#locBtn').removeClass('hidden') //show the save button
+    $('#editAddLabel').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveLocation').on('click', function () {
+    let newAddress = $('#editAddress').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'address'
+    }
+    let btnCont = $('#locBtn')
+    let label = $('#editAddLabel')
+    processPersonalInfo(action, newAddress, btnCont, label)
+
+  })
+
+
+  //edit email address
+  $('#editEmailLbl').on('click', function () {
+    $('#editEmail').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#emailBtn').removeClass('hidden') //show the save button
+    $('#editEmailLbl').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveEmail').on('click', function () {
+    let newEmail = $('#editEmail').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'personal_email'
+    }
+    let btnCont = $('#emailBtn')
+    let label = $('#editEmailLbl')
+    processPersonalInfo(action, newEmail, btnCont, label)
+
+  })
+
+
+  //edit contact Number
+  $('#editContactLbl').on('click', function () {
+    $('#editContact').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#contactBtn').removeClass('hidden') //show the save button
+    $('#editContactLbl').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveContact').on('click', function () {
+    let newEmail = $('#editContact').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'contactNo'
+    }
+    let btnCont = $('#contactBtn')
+    let label = $('#editContactLbl')
+    processPersonalInfo(action, newEmail, btnCont, label)
+
+  })
+
+
+  //edit facebook
+  $('#editFBLbl').on('click', function () {
+    $('#editFacebook').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#fbBtn').removeClass('hidden') //show the save button
+    $('#editFBLbl').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveFB').on('click', function () {
+    let newEmail = $('#editFacebook').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'facebookUN'
+    }
+    let btnCont = $('#fbBtn')
+    let label = $('#editFBLbl')
+    processPersonalInfo(action, newEmail, btnCont, label)
+
+  })
+
+  //edit instagram
+  $('#editIGLbl').on('click', function () {
+    $('#editInstagram').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#igBtn').removeClass('hidden') //show the save button
+    $('#editIGLbl').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveIG').on('click', function () {
+    let newUN = $('#editInstagram').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'instagramUN'
+    }
+    let btnCont = $('#igBtn')
+    let label = $('#editIGLbl')
+    processPersonalInfo(action, newUN, btnCont, label)
+
+  })
+
+  //edit twitter
+  $('#editTweetLbl').on('click', function () {
+    $('#editTwitter').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#tweetBtn').removeClass('hidden') //show the save button
+    $('#editTweetLbl').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveTweet').on('click', function () {
+    let newUN = $('#editTwitter').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'twitterUN'
+    }
+    let btnCont = $('#tweetBtn')
+    let label = $('#editTweetLbl')
+    processPersonalInfo(action, newUN, btnCont, label)
+
+  })
+
+
+  //edit linkedIn
+  $('#editLinkedLbl').on('click', function () {
+    $('#editLinked').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#linkedBtn').removeClass('hidden') //show the save button
+    $('#editLinkedLbl').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveLinkedIn').on('click', function () {
+    let newUN = $('#editLinked').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'linkedInUN'
+    }
+    let btnCont = $('#linkedBtn')
+    let label = $('#editLinkedLbl')
+    processPersonalInfo(action, newUN, btnCont, label)
+
+  })
+
+  function processPersonalInfo(action, value, confirmationCont, editIcon) {
+    let formData = new FormData()
+    formData.append('action', JSON.stringify(action))
+    formData.append('value', value);
+
+    $.ajax({
+      url: '../PHP_process/person.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response == 'success') {
+          confirmationCont.addClass('hidden')
+          editIcon.removeClass('hidden');
+        }
+      },
+      error: (error) => { console.log(error) }
+    })
+  }
 
 })

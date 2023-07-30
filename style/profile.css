@@ -3,3 +3,16 @@
   overflow-y: auto;
   max-height: 4609.86px;
 }
+
+.bgCover {
+  height: 500px;
+}
+
+.bg-opacity-50 {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Here, 0.5 is the alpha value (opacity) ranging from 0 to 1 */
+}

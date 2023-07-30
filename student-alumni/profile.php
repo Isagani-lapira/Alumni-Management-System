@@ -45,6 +45,10 @@ if (
         $bulsu_email = $personData['bulsu_email'];
         $profilepicture = $personData['profilepicture'];
         $coverPhoto = $personData['coverPhoto'];
+        $facebookUN = $personData['facebookUN'];
+        $instagramUN = $personData['instagramUN'];
+        $twitterUN = $personData['twitterUN'];
+        $linkedInUN = $personData['linkedInUN'];
         $_SESSION['personID'] = $personID;
 
         $data = json_decode(getAccDetails($mysql_con, $personID), true); //query to get account type and college code
@@ -167,13 +171,17 @@ function getAccDetails($con, $personID)
     </nav>
 
     <!-- Cover Photo -->
-    <div class="relative">
+    <div class="relative bgCover">
         <?php
         if ($coverPhoto == "") {
-            echo '<img src="../images/bganim.jpg" alt="Profile Icon" class="w-full h-96 object-cover" />';
+            // Use the default image as the background of the container
+            echo '<div class="h-full bg-black rounded-md" style="background-image: url(../images/bganim.jpg); background-size: cover; background-position: center;"></div>';
         } else {
+            // Use the uploaded image as the background of the container
             $srcFormat = 'data:image/jpeg;base64,' . $coverPhoto;
-            echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-full h-96 object-cover" />';
+            echo '<div class="h-full bg-no-repeat rounded-md bg-black bg-opacity-50" style="background-image: url(' . $srcFormat . '); background-size: cover; background-position: center top;">
+            <img id="profilePhoto" src="' . $srcFormat . '" alt="Profile Icon" class="w-full h-full object-contain" />
+            </div>';
         }
         ?>
         <!-- Profile Photo (Intersecting with the Cover Photo) -->
@@ -302,7 +310,7 @@ function getAccDetails($con, $personID)
 
     <!-- EDIT PROFILE -->
     <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div class="formUpdate bg-white rounded-md w-2/5 h-4/5 p-5 flex flex-col gap-2">
+        <div class="formUpdate bg-white rounded-md w-2/5 h-4/5 p-5 flex flex-col gap-3 overflow-y-auto">
             <!-- profile picture -->
             <div class="flex justify-between text-greyish_black items-center">
                 <p class="text-lg font-bold">Profile Picture</p>
@@ -315,7 +323,7 @@ function getAccDetails($con, $personID)
             <div class="h-48 w-full flex justify-center">
                 <?php
                 if ($profilepicture == "") {
-                    echo '<img id="profileLoading" src="../assets/icons/person.png" alt="Profile Icon" class="w-48 h-48 rounded-full" id="profileImg" />';
+                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-48 h-48 rounded-full" id="profileImg" />';
                 } else {
                     $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
                     echo '<img src="' . $srcFormat . '" alt="Profile Icon" class=" w-48 h-48 rounded-full " id="profileImg"/>';
@@ -331,40 +339,194 @@ function getAccDetails($con, $personID)
             <!-- cover photo -->
             <div class="flex justify-between text-greyish_black items-center">
                 <p class="text-lg font-bold">Cover Picture</p>
-                <label for="coverPic">
+                <label id="coverLbl" for="coverPic">
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <input type="file" name="coverPic" id="coverPic" class="hidden" accept="image/*">
             </div>
-            <!-- Profile Photo (Intersecting with the Cover Photo) -->
+
             <div class=" h-48 w-full flex justify-center">
                 <?php
                 if ($coverPhoto == "") {
-                    echo '<img src="../images/bganim.jpg" alt="Cover Icon" class="w-4/5 h-48 bg-black rounded-md" id="coverImg" />';
+                    echo '<img src="../images/bganim.jpg" alt="Cover Icon" class="w-3/4 h-48 bg-black rounded-md object-cover" id="coverImg" />';
                 } else {
                     $srcFormat = 'data:image/jpeg;base64,' . $coverPhoto;
-                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class=" w-4/5 h-48 rounded-md bg-black object-contain" id="coverImg"/>';
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-3/4  h-48 rounded-md bg-black object-cover" id="coverImg"/>';
                 }
                 ?>
             </div>
+
+            <div id="coverBtn" class="flex justify-end gap-2 hidden">
+                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+                <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveCover">Save</button>
+            </div>
+
+
             <p class="text-lg font-bold">Customize Your Information</p>
 
+            <!-- location -->
             <div class="flex justify-between text-greyish_black items-center">
-                <div>
-                    <span class="text-sm font-thin">
-                        <iconify-icon icon="fluent:location-20-regular" style="color: #474645;"></iconify-icon>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-thin flex items-center">
+                        <iconify-icon icon="fluent:location-20-regular" style="color: #474645;" width="20" height="20"></iconify-icon>
                         Lives in
                     </span>
+
                     <?php
-                    echo '<input class="font-bold text-sm" disabled type="text" id="editAddress" value="' . $address . '" placeholder = "' . $address . '" >';
+                    echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editAddress" value="' . $address . '" placeholder = "' . $address . '" >';
                     ?>
 
                 </div>
                 <label id="editAddLabel" for="editAddress">
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
+                <div id="locBtn" class="text-sm hidden">
+                    <button class="px-2 py-1">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLocation">Save</button>
+                </div>
+
             </div>
 
+            <!-- email address -->
+            <div class="flex justify-between text-greyish_black items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-thin flex items-center gap-1">
+                        <iconify-icon icon="formkit:email" style="color: #474645;" width="20" height="20"></iconify-icon>
+                        Email
+                    </span>
+
+                    <?php
+                    echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editEmail" value="' . $personal_email . '" placeholder = "' . $address . '" >';
+                    ?>
+
+                </div>
+                <label id="editEmailLbl" for="editEmail">
+                    <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </label>
+                <div id="emailBtn" class="text-sm hidden">
+                    <button class="px-2 py-1">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveEmail">Save</button>
+                </div>
+
+            </div>
+
+            <!-- contact No -->
+            <div class="flex justify-between text-greyish_black items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-thin flex items-center gap-1">
+                        <iconify-icon icon="fluent:call-24-regular" style="color: #474645;" width="20" height="20"></iconify-icon>
+                        Contact No.
+                    </span>
+
+                    <?php
+                    echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editContact" value="' . $contactNo . '" placeholder = "' . $address . '" >';
+                    ?>
+
+                </div>
+                <label id="editContactLbl" for="editContact">
+                    <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </label>
+                <div id="contactBtn" class="text-sm hidden">
+                    <button class="px-2 py-1">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveContact">Save</button>
+                </div>
+
+            </div>
+
+            <p class="text-lg font-bold">Social Media Username</p>
+
+            <!-- facebook -->
+            <div class="flex justify-between text-greyish_black items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-thin flex items-center gap-2">
+                        <iconify-icon icon="ic:baseline-facebook" width="20" height="20"></iconify-icon>
+                        Facebook Username:
+                    </span>
+
+                    <?php
+                    echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editFacebook" value="' . $facebookUN . '" placeholder = "' . $facebookUN . '" >';
+                    ?>
+
+                </div>
+                <label id="editFBLbl" for="editFacebook">
+                    <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </label>
+                <div id="fbBtn" class="text-sm hidden">
+                    <button class="px-2 py-1">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveFB">Save</button>
+                </div>
+
+            </div>
+
+            <!-- instagram -->
+            <div class="flex justify-between text-greyish_black items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-thin flex items-center gap-2">
+                        <iconify-icon icon="uim:instagram" width="20" height="20"></iconify-icon>
+                        Instagram Username:
+                    </span>
+
+                    <?php
+                    echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editInstagram" value="' . $instagramUN . '" placeholder = "' . $instagramUN . '" >';
+                    ?>
+
+                </div>
+                <label id="editIGLbl" for="editInstagram">
+                    <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </label>
+                <div id="igBtn" class="text-sm hidden">
+                    <button class="px-2 py-1">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveIG">Save</button>
+                </div>
+
+            </div>
+
+
+            <!-- Twitter -->
+            <div class="flex justify-between text-greyish_black items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-thin flex items-center gap-2">
+                        <iconify-icon icon="bxl:twitter" width="20" height="20"></iconify-icon>
+                        Twitter Username:
+                    </span>
+
+                    <?php
+                    echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editTwitter" value="' . $twitterUN . '" placeholder = "' . $twitterUN . '" >';
+                    ?>
+
+                </div>
+                <label id="editTweetLbl" for="editTwitter">
+                    <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </label>
+                <div id="tweetBtn" class="text-sm hidden">
+                    <button class="px-2 py-1">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveTweet">Save</button>
+                </div>
+
+            </div>
+
+            <!-- linkedIn -->
+            <div class="flex justify-between text-greyish_black items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-thin flex items-center gap-2">
+                        <iconify-icon icon="raphael:linkedin" width="20" height="20"></iconify-icon>
+                        LinkedIn Username:
+                    </span>
+
+                    <?php
+                    echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editLinked" value="' . $linkedInUN . '" placeholder = "' . $linkedInUN . '" >';
+                    ?>
+
+                </div>
+                <label id="editLinkedLbl" for="editLinked">
+                    <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </label>
+                <div id="linkedBtn" class="text-sm hidden">
+                    <button class="px-2 py-1">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLinkedIn">Save</button>
+                </div>
+
+            </div>
         </div>
     </div>
 

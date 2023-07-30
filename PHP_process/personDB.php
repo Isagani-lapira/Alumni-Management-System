@@ -43,6 +43,10 @@ class personDB
         $contactNo = "";
         $personal_email = "";
         $bulsu_email = "";
+        $facebookUN = "";
+        $instagramUN = "";
+        $twitterUN = "";
+        $linkedInUN = "";
         if ($result && mysqli_num_rows($result) > 0) {
             while ($row_data = mysqli_fetch_assoc($result)) {
 
@@ -55,6 +59,10 @@ class personDB
                 $contactNo = $row_data['contactNo'];
                 $personal_email = $row_data['personal_email'];
                 $bulsu_email = $row_data['bulsu_email'];
+                $facebookUN = $row_data['facebookUN'];
+                $instagramUN = $row_data['instagramUN'];
+                $twitterUN = $row_data['twitterUN'];
+                $linkedInUN = $row_data['linkedInUN'];
                 $profilepicture = base64_encode($row_data['profilepicture']);
                 $coverPhoto = base64_encode($row_data['cover_photo']);
             }
@@ -71,6 +79,10 @@ class personDB
                 "bulsu_email" => $bulsu_email,
                 "profilepicture" => $profilepicture,
                 "coverPhoto" => $coverPhoto,
+                "facebookUN" => $facebookUN,
+                "instagramUN" => $instagramUN,
+                "twitterUN" => $twitterUN,
+                "linkedInUN" => $linkedInUN,
             );
 
             return json_encode($personData);
@@ -84,6 +96,30 @@ class personDB
 
         // //query for update
         $query = "UPDATE `person` SET  `$query` = '$fileContent'
+        WHERE`personID` = '$personID'";
+        $result = mysqli_query($con, $query);
+
+        if ($result) echo 'success';
+        else echo 'error';
+    }
+
+    public function updateCover($personID, $query, $newValue, $con)
+    {
+        $temp = $newValue['tmp_name'];
+        $fileContent = addslashes(file_get_contents($temp));
+
+        // //query for update
+        $query = "UPDATE `person` SET  `$query` = '$fileContent'
+        WHERE`personID` = '$personID'";
+        $result = mysqli_query($con, $query);
+
+        if ($result) echo 'success';
+        else echo 'error';
+    }
+
+    public function updateInfo($personID, $query, $newValue, $con)
+    {
+        $query = "UPDATE `person` SET  `$query` = '$newValue'
         WHERE`personID` = '$personID'";
         $result = mysqli_query($con, $query);
 

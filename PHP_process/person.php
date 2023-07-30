@@ -7,6 +7,8 @@ if (isset($_POST['action'])) {
     $data = $_POST['action'];
     $actionArray = json_decode($data, true);
     $action = $actionArray['action'];
+    $personID = $_SESSION['personID'];
+    $personObj = new personDB();
 
     switch ($action) {
         case 'read':
@@ -14,11 +16,19 @@ if (isset($_POST['action'])) {
             checkEmail($email, $mysql_con);
             break;
         case 'updateProfile':
-            $personID = $_SESSION['personID'];
             $imgSrc = $_FILES['imgSrc'];
-            $query = "profilepicture";
-            $personObj = new personDB();
+            $query = $actionArray['dataUpdate'];
             $personObj->updateImage($personID, $query, $imgSrc, $mysql_con);
+            break;
+        case 'updateCover':
+            $imgSrc = $_FILES['imgSrc'];
+            $query = $actionArray['dataUpdate'];
+            $personObj->updateCover($personID, $query, $imgSrc, $mysql_con);
+            break;
+        case 'updatePersonDetails':
+            $val = $_POST['value'];
+            $query = $actionArray['dataUpdate'];
+            $personObj->updateInfo($personID, $query, $val, $mysql_con);
             break;
     }
 } else echo 'ayaw pumasok';
