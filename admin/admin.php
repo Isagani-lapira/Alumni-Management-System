@@ -1475,8 +1475,8 @@ if (
                 </div>
               </div>
 
-              <div>
-                <button type="submit" class="bg-postButton w-4/5 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
+              <div class="flex justify-start">
+                <button type="submit" class="bg-postButton px-4 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
                   a post</button>
               </div>
             </form>
