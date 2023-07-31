@@ -87,10 +87,22 @@ $(document).ready(function () {
 
     //make a post
     $('#postBtn').on('click', function () {
-        let formData = new FormData();
         let caption = $('#TxtAreaAnnouncement').val();
         let college = $('#collegePost').val();
 
+        if (college == "all") {
+            $('#collegePost option').slice(1).each(function () { // to skip the index 0 (all)
+                const collegeVal = $(this).val();
+                postInsertion(caption, collegeVal);
+            })
+        }
+        else {
+            postInsertion(caption, college);
+        }
+    })
+
+    function postInsertion(caption, college) {
+        let formData = new FormData();
         let action = {
             action: 'insert',
         }
@@ -121,7 +133,7 @@ $(document).ready(function () {
             },
             error: (error) => { console.log(error) }
         })
-    })
+    }
 
     let postAction = {
         action: 'read',
