@@ -54,7 +54,8 @@ if (isset($_POST['action'])) {
             if ($career) echo 'Job successfully added on the hunt';
             else echo 'Unexpected issue: Try again later';
         } else if ($action == 'read') {
-            $readCareer->selectData($mysql_con);
+            $offset = $_POST['offset'];
+            $readCareer->selectData($offset, $mysql_con);
         } else if ($action == 'readWithCol') {
             $colCode = $arrayData['colCode'];
             $startDate = $_POST['startDate'];

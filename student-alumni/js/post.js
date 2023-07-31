@@ -147,7 +147,7 @@ $(document).ready(function () {
             // Navigation buttons
             let pagination = $('<div>').addClass("swiper-pagination");
             let prevBtn = $('<div>').addClass("swiper-button-prev");
-            let nextBtn = $('<div>').addClass("swiper-button-next");
+            let nextBtn = $('<div>').addClass("swiper-button-next ");
 
             swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
 
@@ -164,10 +164,14 @@ $(document).ready(function () {
                 },
             });
 
-            swiperContainer.on('click', function () {
-                $('#viewingPost').removeClass("hidden");
-                viewingOfPost(postID, fullname, username, caption, images, likes, img)
-            })
+            swiperContainer.on('click', function (event) {
+                // Check if the click event is coming from the navigation buttons
+                if (!$(event.target).hasClass('swiper-button-prev') && !$(event.target).hasClass('swiper-button-next')) {
+                    $('#viewingPost').removeClass("hidden");
+                    viewingOfPost(postID, fullname, username, caption, images, likes, img);
+                }
+            });
+
         } else { postWrapper.css('min-height', '100px') }
 
         date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);

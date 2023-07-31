@@ -1345,7 +1345,7 @@ if (
 
             </div>
 
-            <table class="w-full mt-10">
+            <table class="w-full mt-10 center-shadow">
               <thead class="bg-accent text-sm text-white p-3">
                 <tr>
                   <th class="rounded-tl-lg">Company</th>
@@ -1359,7 +1359,11 @@ if (
 
               <tbody class="text-sm" id="jobTBContent"></tbody>
             </table>
-            <p class="hidden jobErrorMsg text-center mt-5 text-accent">No available data yet</p>
+            <div class="flex justify-end gap-2 px-2 mt-2">
+              <button id="prevJob" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
+              <button id="nextJob" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
+            </div>
+            <p class="hidden jobErrorMsg text-center mt-5 text-accent ">No available data yet</p>
           </div>
 
           <!-- job posting -->

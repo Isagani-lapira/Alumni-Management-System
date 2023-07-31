@@ -307,11 +307,14 @@ $(document).ready(function () {
 
 
   var jobData = new FormData();
+  let offset = 0;
   var jobAction = {
     action: 'read', //read the data
   }
-  jobData.append('action', JSON.stringify(jobAction));
 
+  let isData = true;
+  jobData.append('action', JSON.stringify(jobAction));
+  jobData.append('offset', offset);
   //job table listing
   jobList()
   function jobList() {
@@ -361,7 +364,9 @@ $(document).ready(function () {
             let tdAuthor = $('<td>').text(author);
             let tdCollege = $('<td>').text(college);
             let tdDatePosted = $('<td>').text(datePosted);
-            let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
+            let tdLogo = $('<td>').append($('<img>')
+              .attr('src', logo)
+              .addClass('w-20 mx-auto rounded-full'));
 
 
             //set up the value if th button view was clicked to view the details of the job
@@ -397,6 +402,8 @@ $(document).ready(function () {
           }
         } else {
           $('.jobErrorMsg').removeClass('hidden'); //add message to the user
+          $('#nextJob').attr('disabled', true)
+            .addClass('hidden')
         }
 
       },
@@ -406,6 +413,33 @@ $(document).ready(function () {
 
     })
   }
+
+  //next sets of data
+  $('#nextJob').on('click', function () {
+
+    offset += 10
+    jobData.delete('offset');
+    jobData.append('offset', offset); //set new offset that is increase by 10
+    $('#jobTBContent').empty(); //remove the currently display list
+    jobList(); //retrieve new sets of data
+
+  })
+
+  //previous sets of data
+  $('#prevJob').on('click', function () {
+    if (offset != 0) {
+      offset -= 10
+      jobData.delete('offset');
+      jobData.append('offset', offset); //set new offset that is increase by 10
+      $('#jobTBContent').empty(); //remove the currently display list
+      jobList(); //retrieve new sets of data
+
+      //enable the next button
+      $('#nextJob').removeAttr('disabled')
+        .removeClass('hidden')
+    }
+
+  })
 
   function myJobPostList(careerTitle, companyLogo) {
 

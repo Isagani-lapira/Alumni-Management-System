@@ -19,11 +19,53 @@ class Career
         $con
     ) {
 
+        $status = "verified"; //default for admins
         $date_posted  = date('y-m-d');
         $query = "INSERT INTO `career`(`careerID`, `jobTitle`, `companyName`, `jobDescript`,`jobqualification`,
-            `companyLogo`, `minSalary`, `maxSalary`, `colCode`, `author`, `date_posted`, `personID`, `location`) 
+            `companyLogo`, `minSalary`, `maxSalary`, `colCode`, `author`, `date_posted`, `personID`, `location`, `status`) 
             VALUES ('$careerID','$jobTitle','$companyName','$descript','$qualification','$logo','$minSalary',
-            '$maxSalary','$colCode','$author','$date_posted','$personID','$location')";
+            '$maxSalary','$colCode','$author','$date_posted','$personID','$location','$status')";
+
+        $result = mysqli_query($con, $query);
+
+        //check if the result if success
+        if ($result) {
+            $skillLength = count($skill) - 1; //there's always a one extra due to automatic creation of input field
+            $index = 0;
+            while ($index < $skillLength) {
+                $random = rand(0, 5000);
+                $skillID = $careerID . '-' . $random;
+
+                $this->insertSkill($skillID, $careerID, $skill[$index], $con);
+                $index++;
+            }
+            return true;
+        } else return false;
+    }
+
+    public function userInsertionJob(
+        $careerID,
+        $jobTitle,
+        $companyName,
+        $descript,
+        $qualification,
+        $logo,
+        $minSalary,
+        $maxSalary,
+        $colCode,
+        $author,
+        $skill,
+        $personID,
+        $location,
+        $con
+    ) {
+
+        $status = "unverified"; //default for admins
+        $date_posted  = date('y-m-d');
+        $query = "INSERT INTO `career`(`careerID`, `jobTitle`, `companyName`, `jobDescript`,`jobqualification`,
+            `companyLogo`, `minSalary`, `maxSalary`, `colCode`, `author`, `date_posted`, `personID`, `location`, `status`) 
+            VALUES ('$careerID','$jobTitle','$companyName','$descript','$qualification','$logo','$minSalary',
+            '$maxSalary','$colCode','$author','$date_posted','$personID','$location','$status')";
 
         $result = mysqli_query($con, $query);
 
@@ -52,10 +94,10 @@ class Career
     }
 
 
-    public function selectData($con)
+    public function selectData($offset, $con)
     {
-
-        $query = "SELECT * FROM `career` ORDER BY`date_posted`DESC"; //as defult
+        $maxLimit = 5;
+        $query = "SELECT * FROM `career` WHERE `status` = 'verified' ORDER BY`date_posted`DESC LIMIT $offset, $maxLimit"; //as defult
         $result = mysqli_query($con, $query);
 
         if ($result) $this->getCareerDetail($result, $con);
@@ -76,7 +118,7 @@ class Career
         $query = 'SELECT * FROM `career`
         WHERE `colCode` = "' . $college . '"
         AND `date_posted` BETWEEN "' . $startDate . '" AND "' . $endDate . '"
-        ORDER BY `date_posted` DESC;';
+        AND `status` = "verified" ORDER BY `date_posted` DESC;';
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
@@ -87,7 +129,7 @@ class Career
     //searching a particular job title
     public function selectSearchJob($jobTitle, $con)
     {
-        $query = 'SELECT * FROM career WHERE jobTitle LIKE "%' . $jobTitle . '%"';
+        $query = 'SELECT * FROM career WHERE `status` = "verified" AND jobTitle LIKE "%' . $jobTitle . '%"';
         $result = mysqli_query($con, $query);
 
         if ($result) $this->getCareerDetail($result, $con);
