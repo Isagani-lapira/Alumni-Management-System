@@ -850,7 +850,7 @@ if (
                 echo $fullname;
                 ?>
               </p>
-              <p class="text-blue-300 hover:cursor-pointer hover:text-blue-500">Edit Profile</p>
+              <p id="editProf" class="text-blue-300 hover:cursor-pointer hover:text-blue-500">Edit Profile</p>
             </div>
           </div>
           <div class="flex text-greyish_black h-full">
@@ -1854,6 +1854,109 @@ if (
       </div>
     </div>
 
+    <!-- EDIT PROFILE -->
+    <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+      <div class="formUpdate bg-white rounded-md w-2/6 h-max p-5 flex flex-col gap-3">
+        <!-- profile picture -->
+        <div class="flex justify-between text-greyish_black items-center">
+          <p class="text-lg font-bold">Profile Picture</p>
+          <label id="profileLbl" for="profileFile">
+            <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+          </label>
+          <input type="file" name="profilePic" id="profileFile" class="hidden" accept="image/*">
+        </div>
+        <!-- Profile Photo (Intersecting with the Cover Photo) -->
+        <div class="h-48 w-full flex justify-center">
+          <?php
+          if ($profilepicture == "") {
+            echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-48 h-48 rounded-full" id="profileImgEdit" />';
+          } else {
+            $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+            echo '<img src="' . $srcFormat . '" alt="Profile Icon" class=" w-48 h-48 rounded-full " id="profileImgEdit"/>';
+          }
+          ?>
+        </div>
+
+        <div id="profileBtn" class="flex justify-end gap-2 hidden">
+          <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+          <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveProfile">Save</button>
+        </div>
+
+        <p class="text-lg font-bold">Customize Your Information</p>
+
+        <!-- location -->
+        <div class="flex justify-between text-greyish_black items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-thin flex items-center">
+              <iconify-icon icon="fluent:location-20-regular" style="color: #474645;" width="20" height="20"></iconify-icon>
+              Lives in
+            </span>
+
+            <?php
+            echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editAddress" value="' . $address . '" placeholder = "' . $address . '" >';
+            ?>
+
+          </div>
+          <label id="editAddLabel" for="editAddress">
+            <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+          </label>
+          <div id="locBtn" class="text-sm hidden">
+            <button class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLocation">Save</button>
+          </div>
+
+        </div>
+
+        <!-- email address -->
+        <div class="flex justify-between text-greyish_black items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-thin flex items-center gap-1">
+              <iconify-icon icon="formkit:email" style="color: #474645;" width="20" height="20"></iconify-icon>
+              Email
+            </span>
+
+            <?php
+            echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editEmail" value="' . $personal_email . '" placeholder = "' . $address . '" >';
+            ?>
+
+          </div>
+          <label id="editEmailLbl" for="editEmail">
+            <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+          </label>
+          <div id="emailBtn" class="text-sm hidden">
+            <button class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveEmail">Save</button>
+          </div>
+
+        </div>
+
+        <!-- contact No -->
+        <div class="flex justify-between text-greyish_black items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-thin flex items-center gap-1">
+              <iconify-icon icon="fluent:call-24-regular" style="color: #474645;" width="20" height="20"></iconify-icon>
+              Contact No.
+            </span>
+
+            <?php
+            echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editContact" value="' . $contactNo . '" placeholder = "' . $address . '" >';
+            ?>
+
+          </div>
+          <label id="editContactLbl" for="editContact">
+            <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+          </label>
+          <div id="contactBtn" class="text-sm hidden">
+            <button class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveContact">Save</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
     <!-- log out -->
     <div id="signOutPrompt" class="modal fixed inset-0 h-full w-full flex items-center justify-center 
       text-grayish hidden">
@@ -1869,6 +1972,7 @@ if (
   </div>
 
 
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>
