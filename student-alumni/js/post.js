@@ -205,7 +205,23 @@ $(document).ready(function () {
         let commentElement = $('<p>').addClass('text-xs text-gray-500 comment').text(comments)
         let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
 
+        //make comment
+        commentIcon.on('click', function () {
+            $('#commentPost').removeClass('hidden') //open the comment modal
 
+            //set up the details for comment to be display
+            $('#postProfile').attr('src', img)
+            $('#postFullname').text(fullname)
+            $('#postUsername').text(username)
+            $('#replyToUsername').text(username)
+
+            //insert a comment to database
+            $('#commentBtn').on('click', function () {
+                let commentVal = $('#commentArea').val()
+                insertComment(postID, commentVal)
+            })
+
+        })
         let reportElement = $('<p>').addClass('text-xs text-red-400 cursor-pointer ').text('report');
         interactionContainer.append(leftContainer, reportElement)
 
@@ -216,6 +232,49 @@ $(document).ready(function () {
 
     }
 
+    $("#closeComment").on('click', function () {
+        $('#commentPost').addClass('hidden')
+    })
+
+    $('#commentArea').on('input', function () {
+        let commentVal = $(this).val();
+        //enable the comment button
+        if (commentVal != "") {
+            $('#commentBtn').removeAttr('disabled')
+                .addClass('bg-accent')
+                .removeClass('bg-red-950')
+        }
+        else {
+            $('#commentBtn').attr('disabled', true) //disabled the button again
+                .addClass('bg-red-950')
+                .removeClass('bg-accent')
+        }
+    })
+
+    function insertComment(postID, comment) {
+        const action = {
+            action: 'insertComment'
+        }
+
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID);
+        formData.append('comment', comment);
+
+        $.ajax({
+            url: '../PHP_process/commentData.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: (response) => {
+                console.log(response)
+            },
+            error: error => {
+                console.log(error)
+            }
+        })
+    }
     //add the likes to a post
     function addLikes(postID) {
         let action = {

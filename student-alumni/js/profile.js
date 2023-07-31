@@ -24,12 +24,13 @@ $(document).ready(function () {
   let stoppingPoint = 0;
   let maxRetrieve = 10;
   let dataRetrieved = 0;
-  getPost()
-  function getPost() {
-    let action = {
-      action: 'readUserPost',
-      retrievalDate: retrievalDate, // to be change
-    }
+
+  var actionRetrieval = {
+    action: 'readUserPost',
+    retrievalDate: retrievalDate,
+  }
+  getPost(actionRetrieval)
+  function getPost(action) {
 
     const formData = new FormData();
     formData.append('action', JSON.stringify(action));
@@ -43,7 +44,8 @@ $(document).ready(function () {
         if (response == "none" && stoppingPoint <= 20 && maxRetrieve != 0) {
           console.log('pumasok dine')
           retrievalDate = getPreviousDate(noOfDaySubtract); //get the previous dates
-          getPost();
+          action.retrievalDate = retrievalDate;
+          getPost(action);
           noOfDaySubtract++;
           stoppingPoint++;
         }
@@ -71,8 +73,9 @@ $(document).ready(function () {
             console.log(dataRetrieved)
             if (dataRetrieved < 10) {
               retrievalDate = getPreviousDate(noOfDaySubtract);
+              action.retrievalDate = retrievalDate;
               stoppingPostRetrieval = 0;
-              getPost()
+              getPost(action)
               noOfDaySubtract++;
             }
           }
@@ -88,6 +91,41 @@ $(document).ready(function () {
     })
   }
 
+  //display achieved post
+  $('#archievedBtn').on('click', function () {
+    $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
+    $('#userPost').removeClass('text-white bg-accent').addClass('text-gray-400')
+
+    //reset everything
+    retrievalDate = getCurrentDate();
+    noOfDaySubtract = 1;
+    stoppingPoint = 0;
+    maxRetrieve = 10;
+    dataRetrieved = 0;
+
+    //data to be change to be delivered to verify what action to be use
+    let actionAchieved = {
+      action: 'readUserArchievedPost',
+      retrievalDate: retrievalDate, // to be change
+    }
+    $('.postWrapper').remove() // remove the current displayed post
+    getPost(actionAchieved)
+  })
+
+  $('#userPost').on('click', function () {
+    $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
+    $('#archievedBtn').removeClass('text-white bg-accent').addClass('text-gray-400')
+
+    //reset everything
+    retrievalDate = getCurrentDate();
+    noOfDaySubtract = 1;
+    stoppingPoint = 0;
+    maxRetrieve = 10;
+    dataRetrieved = 0;
+
+    $('.postWrapper').remove() // remove the current displayed post
+    getPost(actionRetrieval)
+  })
 
   function getFormattedDate(date) {
     //parts out the date

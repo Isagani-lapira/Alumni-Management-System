@@ -3,7 +3,7 @@ class Comment
 {
     public function getPostComments($postID, $con)
     {
-        $query = 'SELECT * FROM `comment` WHERE `postID`= "' . $postID . '"';
+        $query = 'SELECT * FROM `comment` WHERE `postID`= "' . $postID . '" ORDER BY `timestamp` DESC';
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 
@@ -57,5 +57,19 @@ class Comment
         );
 
         echo json_encode($data);
+    }
+
+    public function insertComment($username, $postID, $comment, $con)
+    {
+        $random = rand(0, 4000);
+        $timestamp = date('Y-m-d H:i:s');
+        $commendID = substr($postID, 0, 5) . $random  . $timestamp;
+
+        $query = "INSERT INTO `comment`(`commentID`, `username`, `postID`, `comment`, `timestamp`) 
+        VALUES ('$commendID','$username','$postID','$comment','$timestamp')";
+        $result = mysqli_query($con, $query);
+
+        if ($result) echo 'Success';
+        else echo 'Unsuccess';
     }
 }

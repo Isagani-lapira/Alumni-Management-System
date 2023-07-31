@@ -118,7 +118,7 @@ function getAccDetails($con, $personID)
 
           <div class="col-span-3 md:col-span-1 flex items-center justify-center mt-4 md:mt-0">
             <div class="relative w-full">
-              <input type="text" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-black text-sm border outline-none border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none" />
+              <input type="text" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-black border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none" />
               <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
             </div>
           </div>
@@ -516,7 +516,42 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <!-- comment -->
+        <div id="commentPost" class="post modal fixed inset-0 flex justify-center p-3 hidden">
+          <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 mt-14 flex flex-col gap-1">
+            <!-- close button -->
+            <span class="flex justify-end">
+              <iconify-icon id="closeComment" class="rounded-full cursor-pointer p-2 hover:bg-gray-300" icon="ep:close" style="color: #686b6f;" width="20" height="20"></iconify-icon>
+            </span>
 
+            <div class="flex gap-2 items-center">
+              <img id="postProfile" class="h-10 w-10 rounded-full" src="../" alt="">
+              <div>
+                <p id="postFullname" class="text-black">Fullname ko 'to</p>
+                <p id="postUsername" class="text-xs text-gray-400 font-thin">username ko 'to</p>
+              </div>
+            </div>
+
+            <div class="border-l-2 border-gray-400 w-max ml-5 p-3">
+              <p class="text-center text-sm italic text-gray-400">Reply to
+                <span id="replyToUsername" class=" font-semibold text-blue-500">username</span>
+              </p>
+            </div>
+            <div class="flex gap-2 ">
+              <?php
+              if ($profilepicture == "") {
+                echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+              } else {
+                $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+              }
+              ?>
+              <textarea id="commentArea" class="w-full h-28 outline-none text-gray-400" placeholder="Comment your thought!"></textarea>
+            </div>
+
+            <button id="commentBtn" class="px-3 py-2 rounded-lg bg-red-950 text-white font-semibold block ml-auto text-sm" disabled>Comment</button>
+          </div>
+        </div>
         <!-- Container for Yearbook -->
         <div id="yearbookContainer" class="hidden flex pt-48 z-10 w-full h-full">
           <p>Yearbook</p>

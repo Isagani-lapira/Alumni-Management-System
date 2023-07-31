@@ -35,6 +35,10 @@ if (isset($_POST['action'])) {
             $date = $data['retrievalDate'];
             $post->getUserPost($username, $date, $mysql_con);
             break;
+        case 'readUserArchievedPost':
+            $date = $data['retrievalDate'];
+            $post->getUserArchieved($username, $date, $mysql_con);
+            break;
     }
 }
 

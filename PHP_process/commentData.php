@@ -2,6 +2,7 @@
 
 require 'commentTB.php';
 require_once 'connection.php';
+session_start();
 
 if (isset($_POST['action'])) {
     $actionArray = $_POST['action'];
@@ -14,5 +15,10 @@ if (isset($_POST['action'])) {
             $postID = $actionJSON['postID'];
             $commentObj->getPostComments($postID, $mysql_con);
             break;
+        case 'insertComment':
+            $postID = $_POST['postID'];
+            $username = $_SESSION['username'];
+            $comment = $_POST['comment'];
+            $commentObj->insertComment($username, $postID, $comment, $mysql_con);
     }
 } else echo 'not pumasok';

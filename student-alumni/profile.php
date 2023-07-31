@@ -275,7 +275,8 @@ function getAccDetails($con, $personID)
 
         <!-- Center div for user's posts -->
         <div class="px-6 w-1/2 h-full">
-            <h2 class="text-lg text-accent font-bold">Posts</h2>
+            <button id="userPost" class="text-lg text-white bg-accent px-3 rounded-lg py-1 font-bold">Posts</button>
+            <button id="archievedBtn" class="text-lg text-gray-400 hover:bg-gray-300 px-3 rounded-lg py-1 font-bold">Archived</button>
             <hr class="mt-2 border-gray-300">
             <div id="feedContainer" class="post w-5/6 mx-auto post-width h-full no-scrollbar">
                 <!-- Make Post && Profile -->
