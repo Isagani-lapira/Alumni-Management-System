@@ -83,6 +83,11 @@ $(document).ready(function () {
     getWork(action, startDate, endDate) //load a list of work
   })
 
+
+  $('#closeReportModal').on('click', function () {
+    $('#reportModal').addClass('hidden')
+  })
+
   function getWork(action, startDate, endDate) {
     let formData = new FormData();
     formData.append('action', JSON.stringify(action));

@@ -556,6 +556,106 @@ function getAccDetails($con, $personID)
         <div id="yearbookContainer" class="hidden flex pt-48 z-10 w-full h-full">
           <p>Yearbook</p>
         </div>
+
+        <div id="reportModal" class="post modal hidden fixed inset-0 z-50 flex items-center justify-center p-3">
+          <div class="modal-container w-2/5 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+            <h1 class="text-xl  text-center font-bold py-3 border-b border-gray-400">Report</h1>
+
+            <!-- description -->
+            <div>
+              <p class=" text-lg font-bold">Please select a problem</p>
+              <p class="">Help BulSU Connect to remove inappropriate action here! Report something if it is in the following. Let’s build a wonderful community</p>
+            </div>
+
+            <!-- report types -->
+            <div class="flex flex-wrap gap-3 mt-5 mb-10">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="">
+                <label class="font-semibold text-sm" for="">Nudity</label>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="">
+                <label class="font-semibold text-sm" for="">Violence</label>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="">
+                <label class="font-semibold text-sm" for="">Terrorism</label>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="">
+                <label class="font-semibold text-sm" for="">Hate Speech</label>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="">
+                <label class="font-semibold text-sm" for="">False Information</label>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="">
+                <label class="font-semibold text-sm" for="">Suicide or self-injury</label>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="">
+                <label class="font-semibold text-sm" for="">Harassment</label>
+              </div>
+
+            </div>
+
+            <!-- definitions -->
+            <div class="flex flex-col gap-2 border-t border-gray-400 py-3 mb-10 px-2">
+              <span class="text-sm">
+                <iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #474645;"></iconify-icon>
+                <span class="font-bold">Nudity</span> - the state or fact of being naked.
+              </span>
+
+              <span class="text-sm">
+                <iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #474645;"></iconify-icon>
+                <span class="font-bold">Violence</span> - behavior involving physical force intended to hurt,
+                damage, or kill someone or something.
+              </span>
+
+              <span class="text-sm">
+                <iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #474645;"></iconify-icon>
+                Terrorism - the unlawful use of violence and intimidation, especially against civilians, in the pursuit
+                of political aims.
+              </span>
+
+              <span class="text-sm">
+                <iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #474645;"></iconify-icon>
+                <span class="font-bold">Hate Speech</span> - abusive or threatening speech or writing that expresses prejudice on the basis of
+                ethnicity, religion, sexual orientation, or similar grounds.
+              </span>
+
+              <span class="text-sm">
+                <iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #474645;"></iconify-icon>
+                <span class="font-bold">False Information</span> - wrong information which is given to someone, often in a deliberate attempt to
+                make them believe something which is not true.
+              </span>
+
+              <span class="text-sm">
+                <iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #474645;"></iconify-icon>
+                <span class="font-bold">Suicide or self-injury</span> - the act of harming your own body on purpose
+              </span>
+
+              <span class="text-sm">
+                <iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #474645;"></iconify-icon>
+                <span class="font-bold">Harassment</span> - If someone is abusing, insulting, or otherwise harming you on a regular basis.
+              </span>
+
+            </div>
+
+            <!-- interaction container -->
+            <div class="flex gap-2 text-sm justify-end">
+              <button id="closeReportModal" class="text-gray-400 hover:text-gray-500">Cancel</button>
+              <button class="bg-accent py-2 px-5 rounded-md hover:bg-darkAccent text-white" disabled>Report</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- TAB 2 -->
