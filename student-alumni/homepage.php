@@ -178,7 +178,7 @@ function getAccDetails($con, $personID)
           <div class="h-10 w-0.5 bg-white md:5"></div>
 
           <!--EVENTS TAB-->
-          <li class="w-full sm:w-auto px-5">
+          <li id="eventLI" class="w-full sm:w-auto px-5">
             <a href="#tabs-2" id="eventsLink" class="inline-flex items-center">
               <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z" />
@@ -674,31 +674,33 @@ function getAccDetails($con, $personID)
       </div>
 
       <!-- TAB 2 -->
-      <div id="tabs-2" class="h-1/2">
+      <div id="tabs-2" class=" h-2/3">
         <!--IMAGE HEADER-->
         <div id="image-header-con" class="relative top-24 mt-1 z-10 h-full">
           <div class="flex items-center justify-center bg-black h-full">
             <div class="w-2/5 p-5">
-              <h1 class="text-white text-5xl lg:text-7xl font-bold">Get Ready to Dance with</h1>
-              <p class=" text-4xl font-bold text-red-500">Rainbow Pop</p>
-              <button class="text-black font-bold bg-white rounded-md px-5 py-3 my-2">CONNECT WITH US</button>
+              <h1 id="headerEvent" class="text-white text-5xl lg:text-7xl font-bold">Get Ready to Dance with</h1>
+              <p id="eventNameHeader" class=" text-4xl font-bold text-red-500">Rainbow Pop</p>
+              <button class="text-black font-bold bg-white rounded-md px-5 py-3 my-2">
+                <a id="connectURL">CONNECT WITH US</a>
+              </button>
             </div>
 
+            <!-- swiper -->
             <div class="w-1/2 flex justify-center items-center p-3 h-full">
               <div class="swiper mySwiper w-2/3 h-2/3">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide flex justify-center">
-                    <img class="rounded-md" src="../images/ye.jpg" alt="">
+                    <img class="rounded-md" src="https://scontent.fcrk1-5.fna.fbcdn.net/v/t39.30808-6/362926686_295011356369978_7999728170722341030_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=730e14&_nc_ohc=CRxHUGoskBMAX-57KxN&_nc_ht=scontent.fcrk1-5.fna&oh=00_AfBaq-kzcfYUfe6ND-bcDd4svXhSBcUWAphmFoiwd617Hg&oe=64CE00C8" alt="">
                   </div>
-                  <div class="swiper-slide">Slide 2</div>
-                  <div class="swiper-slide">Slide 3</div>
-                  <div class="swiper-slide">Slide 4</div>
-                  <div class="swiper-slide">Slide 5</div>
-                  <div class="swiper-slide">Slide 6</div>
-                  <div class="swiper-slide">Slide 7</div>
-                  <div class="swiper-slide">Slide 8</div>
-                  <div class="swiper-slide">Slide 9</div>
+                  <div class="swiper-slide flex justify-center">
+                    <img class="rounded-md" src="https://scontent.fcrk1-4.fna.fbcdn.net/v/t39.30808-6/362676444_295011423036638_7980627999515508541_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=730e14&_nc_ohc=UhuMdjB-EwsAX96YL52&_nc_ht=scontent.fcrk1-4.fna&oh=00_AfBx2XQORgjzyPbjxYUQ_SC0HgvegY7myNtHiETBtc5OhA&oe=64CE50D3" alt="">
+                  </div>
+                  <div class="swiper-slide flex justify-center">
+                    <img class="rounded-md" src="https://www.facebook.com/photo?fbid=295011719703275&set=pcb.295012296369884" alt="">
+                  </div>
                 </div>
+                <div class="swiper-pagination"></div>
               </div>
             </div>
           </div>
@@ -710,29 +712,30 @@ function getAccDetails($con, $personID)
         <div class="flex flex-nowrap p-5">
           <!-- about image -->
           <div class="w-1/2 flex justify-center items-center">
-            <img class="h-4/5 w-4/5 rounded-md center-shadow object-contain bg-black" src="../images/ye.jpg" alt="">
+            <img id="aboutImg" class="h-4/5 w-4/5 rounded-md center-shadow object-contain bg-black" src="../images/ye.jpg" alt="">
           </div>
 
           <!-- about the event -->
           <div class="flex flex-col p-5 w-1/2">
             <h1 class=" w-4/5 mt-16 text-end text-4xl text-greyish_black font-bold">About the Event</h1>
-            <p class="text-lg  w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            <p id="aboutEvent" class="text-lg  w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
               dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
               ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
               fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
               mollit anim id est laborum."</p>
+
+            <!-- where  and when -->
+            <div class="my-10  w-full text-end">
+              <h1 class="w-4/5 text-4xl text-greyish_black font-bold">When and Where?</h1>
+              <p id="whenWhere" class="w-4/5 text-lg text-gray-500">"Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p>
+            </div>
           </div>
 
 
         </div>
 
-        <!-- where  and when -->
-        <div class="px-10 my-10">
-          <h1 class="w-full text-center text-4xl text-greyish_black font-bold">When and Where?</h1>
-          <p class=" w-full text-lg text-gray-500 text-center">"Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
 
         <!-- Expectation for event -->
         <div class="px-10">
@@ -900,6 +903,7 @@ function getAccDetails($con, $personID)
 
 
   <script src="../student-alumni/js/hompage.js"></script>
+  <script src="../student-alumni/js/eventscript.js"></script>
   <script src="../student-alumni/js/notification.js"></script>
   <script src="../student-alumni/js/post.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
