@@ -294,6 +294,15 @@ $(document).ready(function () {
                 let reportCateg = $(this).val();
                 reportPost(postID, reportCateg)
             })
+            setTimeout(function () {
+                $('#reportModal').addClass('hidden')
+                $('#successModal').removeClass('hidden')
+
+                setTimeout(function () {
+                    $('#successModal').addClass('hidden');
+                }, 5000);
+            }, 2000);
+
         })
     }
 
@@ -314,8 +323,6 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: (response) => { console.log(response) },
-            error: (error) => { console.log(error) }
         })
     }
 
