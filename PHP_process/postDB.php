@@ -39,6 +39,11 @@ if (isset($_POST['action'])) {
             $date = $data['retrievalDate'];
             $post->getUserArchieved($username, $date, $mysql_con);
             break;
+        case 'reportPost':
+            $postID = $_POST['postID'];
+            $reportCateg = $_POST['category'];
+            $post->reportPost($postID, $username, $reportCateg, $mysql_con);
+            break;
     }
 }
 

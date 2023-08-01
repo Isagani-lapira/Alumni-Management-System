@@ -311,4 +311,20 @@ class PostData
             echo $postResult;
         } else echo 'none';
     }
+
+
+    function reportPost($postID, $username, $reportCategory, $con)
+    {
+
+        $timestamp = date('Y-m-d H:i:s');
+        $random = rand(0, 5000);
+        $reportID = $timestamp . '-' . $postID . '-' . $username . '-' . $random;
+
+        $query = "INSERT INTO `report_post`(`reportID`, `postID`, `username`, `timestamp`, 
+        `report_category`) VALUES ('$reportID','$postID','$username','$timestamp','$reportCategory')";
+        $result = mysqli_query($con, $query);
+
+        if ($result) echo 'Success';
+        else echo 'Failed';
+    }
 }

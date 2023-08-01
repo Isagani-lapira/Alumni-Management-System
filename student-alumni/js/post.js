@@ -226,7 +226,14 @@ $(document).ready(function () {
             })
 
         })
-        let reportElement = $('<p>').addClass('text-xs text-red-400 cursor-pointer ').text('report');
+        let reportElement = $('<p>').addClass('text-xs text-red-400 cursor-pointer ')
+            .text('report')
+            .on('click', function () {
+                //open report modal
+                $('#reportModal').removeClass('hidden')
+
+                reportProcess(postID)
+            })
         interactionContainer.append(leftContainer, reportElement)
 
         //set up the details of the post
@@ -254,6 +261,64 @@ $(document).ready(function () {
                 .removeClass('bg-accent')
         }
     })
+
+
+    function reportProcess(postID) {
+        let haveReported = false;
+        $('.reportCateg').each(function () {
+            let checkBox = $(this)
+
+            checkBox.on('click', function () {
+                haveReported = $('.reportCateg:checked').length > 0;
+                //add the behavior of report button
+                let reportBtn = $('#reportBtn');
+
+                //enable the rerport butotn
+                if (haveReported) {
+                    reportBtn.removeAttr('disabled')
+                        .addClass('text-white bg-accent')
+                        .removeClass('bg-red-300 text-gray-300')
+
+                }
+                else {
+                    reportBtn.attr('disabled', true)
+                        .removeClass('text-white bg-accent')
+                        .addClass('bg-red-300 text-gray-300');
+                }
+            })
+        })
+
+        let reportBtn = $('#reportBtn')
+        reportBtn.on('click', function () {
+            $('.reportCateg:checked').each(function () {
+                let reportCateg = $(this).val();
+                reportPost(postID, reportCateg)
+            })
+        })
+    }
+
+
+    //report a specific post
+    function reportPost(postID, reportCateg) {
+        let action = {
+            action: 'reportPost'
+        }
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID);
+        formData.append('category', reportCateg);
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (response) => { console.log(response) },
+            error: (error) => { console.log(error) }
+        })
+    }
+
 
     function insertComment(postID, comment) {
         const action = {

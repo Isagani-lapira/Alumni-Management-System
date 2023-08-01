@@ -570,38 +570,38 @@ function getAccDetails($con, $personID)
             <!-- report types -->
             <div class="flex flex-wrap gap-3 mt-5 mb-10">
               <div class="flex items-center gap-3">
-                <input type="checkbox" id="">
-                <label class="font-semibold text-sm" for="">Nudity</label>
+                <input class="reportCateg" type="checkbox" id="nudity" value="Nudity">
+                <label class="font-semibold text-sm" for="nudity">Nudity</label>
               </div>
 
               <div class="flex items-center gap-3">
-                <input type="checkbox" id="">
-                <label class="font-semibold text-sm" for="">Violence</label>
+                <input class="reportCateg" type="checkbox" id="Violence" value="Violence">
+                <label class="font-semibold text-sm" for="Violence">Violence</label>
               </div>
 
               <div class="flex items-center gap-3">
-                <input type="checkbox" id="">
-                <label class="font-semibold text-sm" for="">Terrorism</label>
+                <input class="reportCateg" type="checkbox" id="Terrorism" value="Terrorism">
+                <label class="font-semibold text-sm" for="Terrorism">Terrorism</label>
               </div>
 
               <div class="flex items-center gap-3">
-                <input type="checkbox" id="">
-                <label class="font-semibold text-sm" for="">Hate Speech</label>
+                <input class="reportCateg" type="checkbox" id="HateSpeech" value="Hate Speech">
+                <label class="font-semibold text-sm" for="HateSpeech">Hate Speech</label>
               </div>
 
               <div class="flex items-center gap-3">
-                <input type="checkbox" id="">
-                <label class="font-semibold text-sm" for="">False Information</label>
+                <input class="reportCateg" type="checkbox" id="falseInfo" value="False Information">
+                <label class="font-semibold text-sm" for="falseInfo">False Information</label>
               </div>
 
               <div class="flex items-center gap-3">
-                <input type="checkbox" id="">
-                <label class="font-semibold text-sm" for="">Suicide or self-injury</label>
+                <input class="reportCateg" type="checkbox" id="SOS" value="Suicide or self-injury">
+                <label class="font-semibold text-sm" for="SOS">Suicide or self-injury</label>
               </div>
 
               <div class="flex items-center gap-3">
-                <input type="checkbox" id="">
-                <label class="font-semibold text-sm" for="">Harassment</label>
+                <input class="reportCateg" type="checkbox" id="Harassment" value="Harassment">
+                <label class="font-semibold text-sm" for="Harassment">Harassment</label>
               </div>
 
             </div>
@@ -652,7 +652,7 @@ function getAccDetails($con, $personID)
             <!-- interaction container -->
             <div class="flex gap-2 text-sm justify-end">
               <button id="closeReportModal" class="text-gray-400 hover:text-gray-500">Cancel</button>
-              <button class="bg-accent py-2 px-5 rounded-md hover:bg-darkAccent text-white" disabled>Report</button>
+              <button id="reportBtn" class="bg-red-300 text-gray-300 py-2 px-5 rounded-md " disabled>Report</button>
             </div>
           </div>
         </div>
