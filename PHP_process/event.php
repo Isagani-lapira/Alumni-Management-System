@@ -13,8 +13,8 @@ if (isset($_POST['action'])) {
 function reatrieveEvent($colCode, $con)
 {
     $currentDate = $_POST['currentDate'];
-    $query = "SELECT * FROM `event` WHERE `date_posted`>= '$currentDate' AND `colCode` = '$colCode'
-    ORDER by `date_posted` ASC LIMIT 0, 1";
+    $query = "SELECT * FROM `event` WHERE `eventDate`>= '$currentDate' AND `colCode` = '$colCode'
+    ORDER by `eventDate` ASC LIMIT 0, 1";
     $result = mysqli_query($con, $query);
     $row = mysqli_num_rows($result);
 
