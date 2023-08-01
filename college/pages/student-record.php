@@ -135,3 +135,4 @@
     // Date picker
     $('#reportdaterange').daterangepicker();
 </script>
+<script src="./assets/js/pages/record.js"></script>

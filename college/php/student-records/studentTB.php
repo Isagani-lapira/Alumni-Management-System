@@ -1,11 +1,10 @@
 <?php
 
-require_once '/PHP_process/connection.php';
+require '../../../PHP_process/connection.php';
 
 // class that fetches from student information
 class Student
 {
-
 
 
     function insertStudent($studNo, $colCode, $personID, $username, $currentYear, $con)
@@ -19,8 +18,11 @@ class Student
         else return false;
     }
 
-    function getStudenData($currentYear, $con)
+    function getStudenData($currentYear = '', $con = null)
     {
+        if ($con == null) {
+            $con = $GLOBALS['mysql_con'];
+        }
         $query = "";
         if ($currentYear != "")
             $query = 'SELECT * FROM `student` WHERE `currentYear` = "' . $currentYear . '"';

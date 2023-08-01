@@ -1,8 +1,10 @@
 const PHP_SERVER_URL = "../../PHP_process/";
 
-function fetchResource(url, callback = null) {
+fetchResource();
+
+function fetchResource(url = "", callback = null) {
   $.ajax({
-    url: "../PHP_process/studentData.php",
+    url: "php/student-records/studentData.php",
     method: "GET",
     dataType: "json",
     processData: false,
@@ -11,6 +13,7 @@ function fetchResource(url, callback = null) {
       if (response.response == "Success") {
         console.log("fetch " + url + " successs");
         if (!callback) {
+          console.log(response);
           return response;
         } else callback(response);
       }
