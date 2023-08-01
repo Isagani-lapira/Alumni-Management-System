@@ -674,83 +674,93 @@ function getAccDetails($con, $personID)
       </div>
 
       <!-- TAB 2 -->
-      <div id="tabs-2">
+      <div id="tabs-2" class="h-1/2">
         <!--IMAGE HEADER-->
-        <div id="image-header-con" class="relative top-24 mt-1 z-10 h-4/12">
-          <img src="../images/bsu-header5.jpg" alt="Image Header" class="w-full h-auto">
-          <div class="absolute inset-0 flex flex-col items-center justify-center">
-            <h1 class="text-white text-5xl lg:text-7xl font-bold">Welcome to BulSU Events</h1>
-            <p class="text-white text-lg font-bold">See the newest events here</p>
+        <div id="image-header-con" class="relative top-24 mt-1 z-10 h-full">
+          <div class="flex items-center justify-center bg-black h-full">
+            <div class="w-2/5 p-5">
+              <h1 class="text-white text-5xl lg:text-7xl font-bold">Get Ready to Dance with</h1>
+              <p class=" text-4xl font-bold text-red-500">Rainbow Pop</p>
+              <button class="text-black font-bold bg-white rounded-md px-5 py-3 my-2">CONNECT WITH US</button>
+            </div>
+
+            <div class="w-1/2 flex justify-center items-center p-3 h-full">
+              <div class="swiper mySwiper w-2/3 h-2/3">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide flex justify-center">
+                    <img class="rounded-md" src="../images/ye.jpg" alt="">
+                  </div>
+                  <div class="swiper-slide">Slide 2</div>
+                  <div class="swiper-slide">Slide 3</div>
+                  <div class="swiper-slide">Slide 4</div>
+                  <div class="swiper-slide">Slide 5</div>
+                  <div class="swiper-slide">Slide 6</div>
+                  <div class="swiper-slide">Slide 7</div>
+                  <div class="swiper-slide">Slide 8</div>
+                  <div class="swiper-slide">Slide 9</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="separator h-10"></div>
+        <div class="separator h-10 mt-16"></div>
 
-        <!-- CONTENT -->
-        <div class="grid grid-cols-2 mt-16 h-full w-full">
-
-          <!-- Content for the left side div -->
-          <div class="h-full pl-16 pt-10">
-            <h1 class="text-4xl font-bold text-greyish_black mb-4 pl-4">Schedule of the Year</h1>
-            <div class="flex p-4">
-              <img src="../images/bsu-header.jpg" alt="Square Image" class="w-5/5 h-4/5 rounded-2xl shadow-lg">
-            </div>
+        <h1 id="eventName" class="text-4xl p-5 indented font-bold text-red-500">RAINBOX POP</h1>
+        <div class="flex flex-nowrap p-5">
+          <!-- about image -->
+          <div class="w-1/2 flex justify-center items-center">
+            <img class="h-4/5 w-4/5 rounded-md center-shadow object-contain bg-black" src="../images/ye.jpg" alt="">
           </div>
 
-          <!-- Content for the right side div -->
-          <div class="flex flex-col pr-16 pt-16">
+          <!-- about the event -->
+          <div class="flex flex-col p-5 w-1/2">
+            <h1 class=" w-4/5 mt-16 text-end text-4xl text-greyish_black font-bold">About the Event</h1>
+            <p class="text-lg  w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum."</p>
+          </div>
 
-            <div class="text-right px-8 md:px-16 lg:px-24">
-              <a href="#" class="text-accentBlue underline font-semibold p-4">show all</a>
+
+        </div>
+
+        <!-- where  and when -->
+        <div class="px-10 my-10">
+          <h1 class="w-full text-center text-4xl text-greyish_black font-bold">When and Where?</h1>
+          <p class=" w-full text-lg text-gray-500 text-center">"Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+
+        <!-- Expectation for event -->
+        <div class="px-10">
+          <h1 class="w-full text-center text-4xl text-greyish_black font-bold">Expectation for this event</h1>
+
+          <div class="flex flex-nowrap justify-center gap-3 px-10 my-5">
+            <div class="rounded-md center-shadow text-sm bg-gray-700 w-64 p-3 text-gray-400 text-justify">
+              "Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+              Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
             </div>
-            <div class="flex flex-col justify-center items-center mt-4">
 
-              <!-- CONTENT EVENT -->
-              <div class="w-9/12 p-2 ">
-                <a href="#link-here1" class="flex items-center bg-accent px-2 md:px-8 rounded-lg p-4 md:p-8 h-20">
-                  <div class="w-1 bg-white h-16"></div>
-                  <div class="p-8">
-                    <p class="text-white font-bold text-center text-lg">03</p>
-                    <p class="text-white font-bold text-center text-lg">Feb</p>
-                  </div>
-                  <div class="flex justify-center">
-                    <p class="text-white pl-4 md:pl-8 font-bold text-center text-lg tracking-wide">CICT Fun Run for a Cause</p>
-                  </div>
-                </a>
-              </div>
+            <div class="rounded-md center-shadow text-sm bg-gray-700 w-64 p-3 text-gray-400 text-justify">
+              "Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+              Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+            </div>
 
-              <!-- CONTENT EVENT -->
-              <div class="w-9/12 p-2 ">
-                <a href="#link-here1" class="flex items-center bg-accent px-2 md:px-8 rounded-lg p-4 md:p-8 h-20">
-                  <div class="w-1 bg-white h-16"></div>
-                  <div class="p-8">
-                    <p class="text-white font-bold text-center text-lg">16</p>
-                    <p class="text-white font-bold text-center text-lg">May</p>
-                  </div>
-                  <div class="flex justify-center">
-                    <p class="text-white pl-4 md:pl-8 font-bold text-center text-lg tracking-wide">Alumni Homecoming Event</p>
-                  </div>
-                </a>
-              </div>
-
-              <!-- CONTENT EVENT -->
-              <div class="w-9/12 p-2 ">
-                <a href="#link-here1" class="flex items-center bg-accent px-2 md:px-8 rounded-lg p-4 md:p-8 h-20">
-                  <div class="w-1 bg-white h-16"></div>
-                  <div class="p-8">
-                    <p class="text-white font-bold text-center text-lg">21</p>
-                    <p class="text-white font-bold text-center text-lg">Nov</p>
-                  </div>
-                  <div class="flex justify-center">
-                    <p class="text-white pl-4 md:pl-8 font-bold text-center text-lg tracking-wide">CICT Trick o' Treatin</p>
-                  </div>
-                </a>
-              </div>
-
+            <div class="rounded-md center-shadow text-sm bg-gray-700 w-64 p-3 text-gray-400 text-justify">
+              "Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+              Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
             </div>
 
           </div>
-
         </div>
       </div>
 
