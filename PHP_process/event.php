@@ -35,7 +35,8 @@ function getDetail($result, $con)
     $when_where = $data['when_where'];
     $aboutImg = $data['aboutImg'];
     $images = array();
-    //retrieve images
+
+    //retrieve images for carousel
     $query = "SELECT * FROM `eventimg` WHERE `eventID`= '$eventID'";
     $resultImg = mysqli_query($con, $query);
 
@@ -46,6 +47,8 @@ function getDetail($result, $con)
         }
     }
 
+    // get expectation
+    $expectationJSON = getEventExpectation($eventID, $con);
     $data = array(
         "headerPhrase" => $headerPhrase,
         "eventName" => $eventName,
@@ -55,8 +58,31 @@ function getDetail($result, $con)
         "contactLink" => $contactLink,
         "when_where" => $when_where,
         "aboutImg" => base64_encode($aboutImg),
-        "images" => $images
+        "images" => $images,
+        "expectation" => $expectationJSON
     );
 
     echo json_encode($data);
+}
+
+function getEventExpectation($eventID, $con)
+{
+    $query = "SELECT * FROM `event_expectation` WHERE `eventID` = '$eventID'";
+    $result = mysqli_query($con, $query);
+
+    $expectation = array();
+    $sampleImg = array();
+    if ($result) {
+        //get event expectation 
+        while ($data = mysqli_fetch_assoc($result)) {
+            $expectation[] = $data['imgDescription'];
+            $sampleImg[] = base64_encode($data['sampleImg']);
+        }
+    }
+    $data = array(
+        "sampleImg" => $sampleImg,
+        "expectation" => $expectation
+    );
+
+    return $data;
 }

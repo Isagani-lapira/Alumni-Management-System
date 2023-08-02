@@ -699,15 +699,15 @@ function getAccDetails($con, $personID)
         <div class="separator h-10 mt-16"></div>
 
         <h1 id="eventName" class="text-5xl p-5 indented font-bold">RAINBOX POP</h1>
-        <div class="flex flex-nowrap p-5">
+        <div class="flex flex-nowrap px-5">
           <!-- about image -->
-          <div class="w-1/2 flex justify-center items-center">
+          <div class="w-1/2 flex justify-center">
             <img id="aboutImg" class="h-4/5 w-4/5 rounded-md center-shadow object-contain bg-black" src="../images/ye.jpg" alt="">
           </div>
 
           <!-- about the event -->
           <div class="flex flex-col p-5 w-1/2">
-            <h1 class=" w-4/5 mt-16 text-end text-4xl text-greyish_black font-bold">About the Event</h1>
+            <h1 class=" w-4/5 text-end text-4xl text-greyish_black font-bold">About the Event</h1>
             <p id="aboutEvent" class="text-lg  w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
               dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
               ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -728,32 +728,25 @@ function getAccDetails($con, $personID)
 
 
         <!-- Expectation for event -->
-        <div class="px-10">
-          <h1 class="w-full text-center text-4xl text-greyish_black font-bold">Expectation for this event</h1>
+        <div class="p-10 mb-10 bg-red-400 relative">
+          <h1 class="w-full px-5 indented text-4xl text-center text-white font-bold">Expectation for this event</h1>
 
-          <div class="flex flex-nowrap justify-center gap-3 px-10 my-5">
-            <div class="rounded-md center-shadow text-sm bg-gray-700 w-64 p-3 text-gray-400 text-justify">
+          <div id="expectContainer" class="flex flex-nowrap justify-center gap-3 my-5">
+            <!-- <div class="rounded-md center-shadow text-sm bg-white w-72 p-3 text-gray-600 text-justify">
+              <img class="h-36 w-full object-contain rounded-t-md my-2" src="../images/avatar.png" alt="">
               "Lorem ipsum dolor sit amet, consectetur
               adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
               Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-            </div>
-
-            <div class="rounded-md center-shadow text-sm bg-gray-700 w-64 p-3 text-gray-400 text-justify">
-              "Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+              Lorem ipsum dolor sit amet, consectetur
               adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
               Lorem ipsum dolor sit amet, consectetur
               adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-            </div>
+            </div> -->
 
-            <div class="rounded-md center-shadow text-sm bg-gray-700 w-64 p-3 text-gray-400 text-justify">
-              "Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-            </div>
 
           </div>
+
         </div>
       </div>
 

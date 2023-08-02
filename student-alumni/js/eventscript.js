@@ -38,7 +38,6 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
-                console.log(response)
                 const headerPhrase = response.headerPhrase
                 const eventName = response.eventName
                 const eventDate = response.eventDate
@@ -48,14 +47,15 @@ $(document).ready(function () {
                 const when_where = response.when_where
                 const aboutImg = response.aboutImg
                 const images = response.images
+                const expectation = response.expectation
 
-                displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg, images)
+                displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg, images, expectation)
             },
             error: error => { console.log(error) }
         })
     }
 
-    function displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg, images) {
+    function displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg, images, expectation) {
         //display it on the content of event
         $('#headerEvent').html(headerPhrase)
         $('#eventName').html(eventName)
@@ -79,5 +79,21 @@ $(document).ready(function () {
             $('#swiperWrapperEvent').append(swiperSlider) // append to the root container
         });
 
+        console.log(expectation);
+        const expectationLength = expectation.expectation.length;
+        for (let i = 0; i < expectationLength; i++) {
+            const description = expectation.expectation[i];
+            const imgSrc = imgFormat + expectation.sampleImg[i];
+
+            //create a markup for expectation
+            const wrapper = $('<div>').addClass('rounded-md center-shadow text-sm bg-white w-72 p-3 text-gray-600 text-justify')
+            const img = $('<img>').addClass("h-36 w-full object-contain bg-gray-300 rounded-t-md my-2")
+                .attr('src', imgSrc)
+            const descriptElement = $('<p>').text(description)
+
+            wrapper.append(img, descriptElement)
+            $('#expectContainer').append(wrapper)
+        }
     }
+
 })
