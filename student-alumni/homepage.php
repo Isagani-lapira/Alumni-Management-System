@@ -677,29 +677,19 @@ function getAccDetails($con, $personID)
       <div id="tabs-2" class=" h-2/3">
         <!--IMAGE HEADER-->
         <div id="image-header-con" class="relative top-24 mt-1 z-10 h-full">
-          <div class="flex items-center justify-center bg-black h-full">
+          <div class="flex items-center justify-center h-full">
             <div class="w-2/5 p-5">
-              <h1 id="headerEvent" class="text-white text-5xl lg:text-7xl font-bold">Get Ready to Dance with</h1>
-              <p id="eventNameHeader" class=" text-4xl font-bold text-red-500">Rainbow Pop</p>
-              <button class="text-black font-bold bg-white rounded-md px-5 py-3 my-2">
+              <h1 id="headerEvent" class=" text-gray-800 text-5xl lg:text-7xl font-bold">Get Ready to Dance with</h1>
+              <p id="eventNameHeader" class=" text-4xl font-bold mb-2">Rainbow Pop</p>
+              <button class="text-white font-bold bg-blue-300 px-5 py-3 my-2">
                 <a id="connectURL">CONNECT WITH US</a>
               </button>
             </div>
 
             <!-- swiper -->
             <div class="w-1/2 flex justify-center items-center p-3 h-full">
-              <div class="swiper mySwiper w-2/3 h-2/3">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide flex justify-center">
-                    <img class="rounded-md" src="https://scontent.fcrk1-5.fna.fbcdn.net/v/t39.30808-6/362926686_295011356369978_7999728170722341030_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=730e14&_nc_ohc=CRxHUGoskBMAX-57KxN&_nc_ht=scontent.fcrk1-5.fna&oh=00_AfBaq-kzcfYUfe6ND-bcDd4svXhSBcUWAphmFoiwd617Hg&oe=64CE00C8" alt="">
-                  </div>
-                  <div class="swiper-slide flex justify-center">
-                    <img class="rounded-md" src="https://scontent.fcrk1-4.fna.fbcdn.net/v/t39.30808-6/362676444_295011423036638_7980627999515508541_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=730e14&_nc_ohc=UhuMdjB-EwsAX96YL52&_nc_ht=scontent.fcrk1-4.fna&oh=00_AfBx2XQORgjzyPbjxYUQ_SC0HgvegY7myNtHiETBtc5OhA&oe=64CE50D3" alt="">
-                  </div>
-                  <div class="swiper-slide flex justify-center">
-                    <img class="rounded-md" src="https://www.facebook.com/photo?fbid=295011719703275&set=pcb.295012296369884" alt="">
-                  </div>
-                </div>
+              <div class="swiper mySwiper w-1/2 h-1/2">
+                <div id="swiperWrapperEvent" class="swiper-wrapper"></div>
                 <div class="swiper-pagination"></div>
               </div>
             </div>
@@ -708,7 +698,7 @@ function getAccDetails($con, $personID)
 
         <div class="separator h-10 mt-16"></div>
 
-        <h1 id="eventName" class="text-4xl p-5 indented font-bold text-red-500">RAINBOX POP</h1>
+        <h1 id="eventName" class="text-5xl p-5 indented font-bold">RAINBOX POP</h1>
         <div class="flex flex-nowrap p-5">
           <!-- about image -->
           <div class="w-1/2 flex justify-center items-center">

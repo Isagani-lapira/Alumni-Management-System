@@ -18,11 +18,11 @@ function reatrieveEvent($colCode, $con)
     $result = mysqli_query($con, $query);
     $row = mysqli_num_rows($result);
 
-    if ($result && $row > 0) getDetail($result);
+    if ($result && $row > 0) getDetail($result, $con);
     else echo 'ayaw';
 }
 
-function getDetail($result)
+function getDetail($result, $con)
 {
     $data = mysqli_fetch_assoc($result);
     $eventID  = $data['eventID'];
@@ -34,8 +34,17 @@ function getDetail($result)
     $contactLink = $data['contactLink'];
     $when_where = $data['when_where'];
     $aboutImg = $data['aboutImg'];
+    $images = array();
+    //retrieve images
+    $query = "SELECT * FROM `eventimg` WHERE `eventID`= '$eventID'";
+    $resultImg = mysqli_query($con, $query);
 
-
+    if ($resultImg) {
+        while ($data = mysqli_fetch_assoc($resultImg)) {
+            $imgSrc = $data['event_img'];
+            $images[] = base64_encode($imgSrc);
+        }
+    }
 
     $data = array(
         "headerPhrase" => $headerPhrase,
@@ -46,6 +55,7 @@ function getDetail($result)
         "contactLink" => $contactLink,
         "when_where" => $when_where,
         "aboutImg" => base64_encode($aboutImg),
+        "images" => $images
     );
 
     echo json_encode($data);

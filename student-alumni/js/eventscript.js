@@ -38,6 +38,7 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
+                console.log(response)
                 const headerPhrase = response.headerPhrase
                 const eventName = response.eventName
                 const eventDate = response.eventDate
@@ -46,14 +47,15 @@ $(document).ready(function () {
                 const contactLink = response.contactLink
                 const when_where = response.when_where
                 const aboutImg = response.aboutImg
+                const images = response.images
 
-                displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg)
+                displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg, images)
             },
             error: error => { console.log(error) }
         })
     }
 
-    function displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg) {
+    function displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg, images) {
         //display it on the content of event
         $('#headerEvent').html(headerPhrase)
         $('#eventName').html(eventName)
@@ -65,6 +67,17 @@ $(document).ready(function () {
         const imgSrc = imgFormat + aboutImg
         $('#aboutImg').attr('src', imgSrc);
         $('#whenWhere').html(when_where)
-        // $('#headerEvent').html(headerPhrase)
+
+        // set up the carousel
+        images.forEach(element => {
+            const swiperSlider = $('<div>').addClass("swiper-slide flex justify-center")
+            const imgElement = $('<img>').addClass("rounded-md");
+            const carouselImg = imgFormat + element
+            imgElement.attr('src', carouselImg); //set source of image
+
+            swiperSlider.append(imgElement)
+            $('#swiperWrapperEvent').append(swiperSlider) // append to the root container
+        });
+
     }
 })
