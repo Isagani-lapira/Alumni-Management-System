@@ -183,7 +183,7 @@ if (
             </li>
 
             <!-- Job Opportunities -->
-            <li class="rounded-lg p-2 "><a href="#jobOpportunities-tab">
+            <li id="jobLI" class="rounded-lg p-2 "><a href="#jobOpportunities-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M4 21q-.825 0-1.413-.588T2 19V8q0-.825.588-1.413T4 6h4V4q0-.825.588-1.413T10 2h4q.825 0 1.413.588T16 4v2h4q.825 0 1.413.588T22 8v11q0 .825-.588 1.413T20 21H4Zm6-15h4V4h-4v2Z" />
                 </svg>
@@ -339,7 +339,13 @@ if (
                     <p class="text-accent font-semibold">Personal Logs</p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of posted announcement</p>
-                      <span class="totalPost text-accent"></span>
+                      <?php
+                      require_once '../PHP_process/connection.php';
+                      $query = "SELECT * FROM `post` WHERE `username`= '$username' AND `status` = 'available'";
+                      $result = mysqli_query($mysql_con, $query);
+                      $row = mysqli_num_rows($result);
+                      echo '<span id="totalPosted" class="text-accent">' . $row . '</span>';
+                      ?>
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of email sent</p>
@@ -355,7 +361,13 @@ if (
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of posted job</p>
-                      <span id="noPostedJob" class="text-accent"></span>
+                      <?php
+                      require_once '../PHP_process/connection.php';
+                      $query = "SELECT * FROM `career` WHERE `personID` = '" . $_SESSION["personID"] . "'";
+                      $result = mysqli_query($mysql_con, $query);
+                      $row = mysqli_num_rows($result);
+                      echo '<span class="text-accent">' . $row . '</span>';
+                      ?>
                     </div>
                   </div>
                 </div>
@@ -375,7 +387,7 @@ if (
               NEW
               POST
             </button>
-            <span class="text-sm text-greyish_black hover:font-medium py-3 cursor-pointer">DELETE POST</span>
+
           </div>
           <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
 

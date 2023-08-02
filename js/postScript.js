@@ -149,6 +149,9 @@ $(document).ready(function () {
     $('#announcementLI').on('click', function () {
         getPostAdmin(postData)
     })
+
+    let totalPostCount = $('#totalPosted').html();
+    $('.totalPost').text(totalPostCount)
     let toAddProfile = true;
     // //show post of admin
     function getPostAdmin(data) {
@@ -165,7 +168,6 @@ $(document).ready(function () {
                 if (data.response == 'Success') {
                     $('#noPostMsg').hide()
                     let length = data.colCode.length;
-                    $('.totalPost').text(length); //total number of posted 
                     let username = data.username;
                     let fullname = $('#userFullname').html(); //change base on the full name of the user
                     for (let i = 0; i < length; i++) {
