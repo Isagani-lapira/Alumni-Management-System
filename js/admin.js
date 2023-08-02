@@ -312,7 +312,6 @@ $(document).ready(function () {
     action: 'read', //read the data
   }
 
-  let isData = true;
   jobData.append('action', JSON.stringify(jobAction));
   jobData.append('offset', offset);
   //job table listing

@@ -11,7 +11,6 @@ if (isset($_POST['action'])) {
     $post = new PostData();
 
     $username = $_SESSION['username'];
-    $college = $_SESSION['colCode'];
     switch ($action) {
         case 'insert':
             insertData($mysql_con);
@@ -19,9 +18,11 @@ if (isset($_POST['action'])) {
         case 'read':
             $startgDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
-            $post->getPostAdmin($username, $startgDate, $endDate, $mysql_con);
+            $offset = $_POST['offset'];
+            $post->getPostAdmin($username, $startgDate, $endDate, $offset, $mysql_con);
             break;
         case 'readColPost':
+            $college = $_SESSION['colCode'];
             $date = $data['retrievalDate'];
             $maxLimit = $data['maxRetrieve'];
             $post->getCollegePost($username, $college, $date, $maxLimit, $mysql_con);

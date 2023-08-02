@@ -138,19 +138,24 @@ $(document).ready(function () {
     let postAction = {
         action: 'read',
     }
+    let offsetPost = 0;
+    let tempCount = 0;
     let postData = new FormData();
     postData.append('action', JSON.stringify(postAction));
     postData.append('startDate', "")
     postData.append('endDate', "")
-    getPostAdmin(postData)
+    postData.append('offset', offsetPost)
 
+    $('#announcementLI').on('click', function () {
+        getPostAdmin(postData)
+    })
     let toAddProfile = true;
     // //show post of admin
     function getPostAdmin(data) {
         $('#postTBody').empty()
         $.ajax({
             url: '../PHP_process/postDB.php',
-            type: 'POST',
+            method: 'POST',
             data: data,
             processData: false,
             contentType: false,
@@ -162,7 +167,7 @@ $(document).ready(function () {
                     let length = data.colCode.length;
                     $('.totalPost').text(length); //total number of posted 
                     let username = data.username;
-                    let fullname = "Isagani Lapira Jr."; //change base on the full name of the user
+                    let fullname = $('#userFullname').html(); //change base on the full name of the user
                     for (let i = 0; i < length; i++) {
                         data.response[i]
                         let postID = data.postID[i]
@@ -179,14 +184,43 @@ $(document).ready(function () {
                         addPost(postID, fullname, username, caption, imagesObj, date, i, likes, comment, containerProfile, null) //add post in profile;
                     }
                     toAddProfile = false //won't be affected by date range 
+                    offsetPost += length
+                    tempCount = length
                 }
-                else $('#noPostMsg').show();
+                else {
+                    $('#noPostMsg').show();
+                    //disable the next button
+                    $('#nextPost').attr('disabled', true)
+                        .addClass('hidden')
+                }
 
             },
             error: (error) => { console.log(error) }
         })
     }
 
+    //show next set of post
+    $('#nextPost').on('click', function () {
+        postData.delete('offset')
+        postData.append('offset', offsetPost);
+        getPostAdmin(postData)
+    })
+
+    //show prev set of post
+    $('#prevPost').on('click', function () {
+        //check if it still not 0
+        if (tempCount != 0) {
+            offsetPost = tempCount
+            postData.delete('offset');
+            postData.append('offset', offsetPost); //set new offset that is increase by 10
+            getPostAdmin(postData); //retrieve new sets of data
+
+            //enable the next button
+            $('#nextPost').removeAttr('disabled')
+                .removeClass('hidden')
+        }
+
+    })
 
     function textDateFormat(date) {
         //extract parts of date
@@ -371,13 +405,13 @@ $(document).ready(function () {
         }, function (start, end, label) {
             let startDate = start.format('YYYY-MM-DD')
             let endDate = end.format('YYYY-MM-DD')
-
             let formData = new FormData();
             formData.append('action', JSON.stringify(postAction))
             formData.append('startDate', startDate)
             formData.append('endDate', endDate)
-
+            formData.append('offset', offsetPost)
             getPostAdmin(formData)
+            $('#paginationBtnPost').addClass('hidden')
         });
     });
 

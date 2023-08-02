@@ -96,7 +96,7 @@ if (
             </li>
 
             <!-- ANNOUNCEMENT -->
-            <li class="rounded-lg p-2"><a href="#announcement-tab">
+            <li id="announcementLI" class="rounded-lg p-2"><a href="#announcement-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z" />
                 </svg>
@@ -215,7 +215,7 @@ if (
                     <span class="font-semibold text-lg">
                       Mr.
                       <?php
-                      echo $fullname;
+                      echo '<span id="userFullname">' . $fullname . '</span>';
                       ?>
                     </span>
                   </span>
@@ -410,7 +410,7 @@ if (
 
           <!-- recent post -->
           <div id="announcementContainer" class="w-full text-xs ">
-            <table id="postTable" class="w-full">
+            <table id="postTable" class="w-full center-shadow">
               <thead>
                 <tr class="bg-accent text-white">
                   <th class="rounded-tl-lg">College code</th>
@@ -425,6 +425,10 @@ if (
               </tbody>
             </table>
             <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
+            <div id="paginationBtnPost" class="flex justify-end gap-2 px-2 mt-2">
+              <button id="prevPost" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
+              <button id="nextPost" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
+            </div>
           </div>
 
 
