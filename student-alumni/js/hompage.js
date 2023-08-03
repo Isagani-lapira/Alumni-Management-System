@@ -495,6 +495,57 @@ $(document).ready(function () {
 
   })
 
+  retreiveUpcomingEvent()
+  //retrieve the upcoming event
+  function retreiveUpcomingEvent() {
+    let currentDate = getCurrentDate();
+    let action = 'readUpcomingEvent'
+    let formData = new FormData();
+    //data to be send
+    formData.append('action', action)
+    formData.append('currentDate', currentDate)
+
+    //process retrieval of upcoming event
+    $.ajax({
+      method: 'POST',
+      url: '../PHP_process/event.php',
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      success: response => {
+        if (response.result == 'Success') {
+
+          // retrieve data 
+          const length = response.eventName.length
+          for (let i = 0; i < length; i++) {
+            const eventName = response.eventName[i]
+            const eventDate = response.eventDate[i]
+
+            //display the upcoming event
+            let eventWrapper = $('<div>').addClass('flex flex-wrap gap-2 items-center')
+            let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+            let eventNameElement = $('<p>')
+              .addClass('font-bold italic text-greyish_black')
+              .text(eventName)
+            let eventDateElement = $('<p>')
+              .addClass('text-sm text-gray-500')
+              .text(eventDate)
+
+            let viewDetails = $('<button>')
+              .addClass('text-blue-500 text-xs')
+              .text('View Details')
+
+            let eventDetailWrapper = $('<div>').append(eventNameElement, eventDateElement, viewDetails)
+            eventWrapper.append(bulletIcon, eventDetailWrapper);
+            $('#upcomingEventroot').append(eventWrapper);
+          }
+
+        }
+      },
+      error: error => { console.log(error) }
+    })
+  }
 
 });
 

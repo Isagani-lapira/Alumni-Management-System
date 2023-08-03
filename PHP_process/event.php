@@ -7,6 +7,10 @@ if (isset($_POST['action'])) {
     if ($action == 'readEvent') {
         $colCode = $_SESSION['colCode'];
         reatrieveEvent($colCode, $mysql_con);
+    } else if ($action == 'readUpcomingEvent') {
+        $colCode = $_SESSION['colCode'];
+        $currentDate = $_POST['currentDate'];
+        getUpcomingEvent($colCode, $currentDate, $mysql_con);
     }
 } else echo 'ayaw';
 
@@ -85,4 +89,52 @@ function getEventExpectation($eventID, $con)
     );
 
     return $data;
+}
+
+function getUpcomingEvent($colCode, $currentDate, $con)
+{
+    $offset = 0;
+    $maxLimit = 5;
+    $query = "SELECT `eventName`,`eventDate` FROM `event` WHERE `colCode`= '$colCode' AND 
+    `eventDate`>='$currentDate' ORDER BY `eventDate` ASC LIMIT $offset, $maxLimit";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_num_rows($result);
+
+    $response = "";
+    $eventName = array();
+    $eventDate = array();
+
+    //retrieve the events
+    if ($result && $row > 0) {
+        $response = "Success";
+        while ($data = mysqli_fetch_assoc($result)) {
+            $eventName[] = $data['eventName'];
+            $eventDate[] = dateInText($data['eventDate']);
+        }
+    } else $response = "Failed";
+
+    $data = array(
+        "result" => $response,
+        "eventName" => $eventName,
+        "eventDate" => $eventDate
+    );
+    echo json_encode($data);
+}
+
+function dateInText($date)
+{
+    $year = substr($date, 0, 4);
+    $month = intval(substr($date, 5, 2));
+    $day = substr($date, 8, 2);
+    $months = [
+        '', 'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    //2023-07-17
+    //convert date month to text format
+    $month = $months[$month];
+
+    //return in a formatted date
+    return $month . ' ' . $day . ', ' . $year;
 }

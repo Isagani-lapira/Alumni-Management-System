@@ -79,8 +79,8 @@ $(document).ready(function () {
             $('#swiperWrapperEvent').append(swiperSlider) // append to the root container
         });
 
-        console.log(expectation);
         const expectationLength = expectation.expectation.length;
+        $('#expectContainer').empty();
         for (let i = 0; i < expectationLength; i++) {
             const description = expectation.expectation[i];
             const imgSrc = imgFormat + expectation.sampleImg[i];

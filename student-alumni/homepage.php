@@ -211,7 +211,7 @@ function getAccDetails($con, $personID)
 
           <!-- LEFT DIV -->
           <div class="left-div fixed top-48 left-0 w-1/4 h-full px-8">
-            <!-- Content for the left div -->
+
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
               <button id="notif-btn" class="notif relative" onclick="buttonColor()">
@@ -223,6 +223,7 @@ function getAccDetails($con, $personID)
                   bg-red-400 rounded-full">
                 </span>
               </button>
+
             </div>
 
             <!-- Verification Job Post -->
@@ -251,25 +252,8 @@ function getAccDetails($con, $personID)
             <!-- Upcoming Events -->
             <div class="py-4">
               <h3 class="text-lg font-bold text-grayish_black">Upcoming Events:</h3>
-              <div class="px-8">
-                <div class="py-1">
-                  <ul class="list-disc text-sm">
-                    <li>Alumni Event</li>
-                  </ul>
-                  <p class="list-disc pl-2 text-gray-600 text-sm">July 13, 2023</p>
-                </div>
-                <div class="py-1">
-                  <ul class="list-disc text-sm">
-                    <li>Enrollment Date</li>
-                  </ul>
-                  <p class="list-disc pl-2 text-gray-600 text-sm">July 23, 2023</p>
-                </div>
-                <div class="py-1">
-                  <ul class="list-disc text-sm">
-                    <li>Start of Classes</li>
-                  </ul>
-                  <p class="list-disc pl-2 text-gray-600 text-sm">August 7, 2023</p>
-                </div>
+              <div id="upcomingEventroot" class="px-3 flex flex-col gap-2 mt-2">
+
               </div>
             </div>
           </div>
@@ -731,21 +715,7 @@ function getAccDetails($con, $personID)
         <div class="p-10 mb-10 bg-red-400 relative">
           <h1 class="w-full px-5 indented text-4xl text-center text-white font-bold">Expectation for this event</h1>
 
-          <div id="expectContainer" class="flex flex-nowrap justify-center gap-3 my-5">
-            <!-- <div class="rounded-md center-shadow text-sm bg-white w-72 p-3 text-gray-600 text-justify">
-              <img class="h-36 w-full object-contain rounded-t-md my-2" src="../images/avatar.png" alt="">
-              "Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-            </div> -->
-
-
-          </div>
+          <div id="expectContainer" class="flex flex-nowrap justify-center gap-3 my-5"></div>
 
         </div>
       </div>
