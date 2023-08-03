@@ -307,17 +307,13 @@ function getAccDetails($con, $personID)
           <!-- RIGHT DIV -->
           <div class="right-div fixed top-48 right-2 w-1/4 h-full px-8">
             <!-- Content for the right div -->
-            <p class="font-medium border-b-2 border-grayish ml-auto block text-lg pb-2 mb-4">ANNOUNCEMENT</p>
+            <p class="font-medium border-b-2 border-grayish ml-auto block text-sm pb-2 mb-4 text-greyish_black">University News</p>
             <div class="h-1/3">
               <div class="swiper announcementSwiper">
                 <div id="announcementWrapper" class="swiper-wrapper"></div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-pagination"></div>
-              </div>
-              <div>
-                <p id="description" class="text-sm"></p>
-                <button class="text-xs text-blue-500 font-bold block ml-auto">View Details</button>
               </div>
             </div>
 

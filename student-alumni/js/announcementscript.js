@@ -58,9 +58,7 @@ $(document).ready(function () {
                         const date_posted = response.date_posted[i];
                         const headline_img = response.headline_img[i];
 
-                        var tempDescription = Descrip.substring(0, 200) // get only 200 character to minimize the character
-                        descriptionArr.push(tempDescription)
-                        displayAnnouncement(headline_img);
+                        displayAnnouncement(headline_img, Descrip);
                     }
                 }
             },
@@ -69,15 +67,25 @@ $(document).ready(function () {
     }
 
     //display announcement content as carousel
-    function displayAnnouncement(headline_img) {
+    function displayAnnouncement(headline_img, description) {
+
         // set up the markup for slides
-        const swiper_slide = $('<div>').addClass('swiper-slide')
+        const swiper_slide = $('<div>').addClass('swiper-slide h-max')
         const imgSrc = imgFormat + headline_img
         const img = $('<img>').attr('src', imgSrc)
             .addClass('rounded-md object-contain bg-gray-300')
-        swiper_slide.append(img)
+
+        let trimedDescription = description.substring(0, 200);
+        const descriptElement = $('<p>')
+            .addClass('text-sm text-gray-500')
+            .text(trimedDescription)
+        const viewDetails = $('<button>')
+            .addClass('text-blue-400 text-xs italic block ml-auto')
+            .text('View details')
+        swiper_slide.append(img, descriptElement, viewDetails)
         $('#announcementWrapper').append(swiper_slide)
 
+        console.log(descriptionArr)
         // set up swiper configuration
         var swiper = new Swiper(".announcementSwiper", {
             slidesPerView: 1,
@@ -96,11 +104,5 @@ $(document).ready(function () {
             },
         });
 
-        // change the description based on its corresponding slide
-        swiper.on('slideChange', function () {
-            let index = swiper.activeIndex;
-
-            $('#description').html(descriptionArr[index])
-        })
     }
 })
