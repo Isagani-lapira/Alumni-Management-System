@@ -70,7 +70,7 @@ $(document).ready(function () {
 
         // set up the carousel
         images.forEach(element => {
-            const swiperSlider = $('<div>').addClass("swiper-slide flex justify-center")
+            const swiperSlider = $('<div>').addClass("swiper-slide event-carousel flex justify-center")
             const imgElement = $('<img>').addClass("rounded-md");
             const carouselImg = imgFormat + element
             imgElement.attr('src', carouselImg); //set source of image

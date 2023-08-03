@@ -752,32 +752,6 @@ function closeCommentModal() {
   document.getElementById('commentModal').classList.add('hidden');
 }
 
-//RIGHT DIV - Carousel
-let currentSlide = 0;
-const slides = document.getElementsByClassName('carousel-slide');
-
-function showSlide(index) {
-  if (index < 0) {
-    currentSlide = slides.length - 1;
-  } else if (index >= slides.length) {
-    currentSlide = 0;
-  }
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].classList.remove('opacity-100');
-  }
-  slides[currentSlide].classList.add('opacity-100');
-}
-
-function prevSlide() {
-  showSlide(currentSlide - 1);
-}
-
-function nextSlide() {
-  showSlide(currentSlide + 1);
-}
-
-showSlide(currentSlide); // Show the first slide initially
-
 
 //Truncate sentence from carousel RIGHT DIV
 document.addEventListener("DOMContentLoaded", function () {

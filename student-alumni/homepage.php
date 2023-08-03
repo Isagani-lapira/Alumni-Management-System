@@ -308,57 +308,19 @@ function getAccDetails($con, $personID)
           <div class="right-div fixed top-48 right-2 w-1/4 h-full px-8">
             <!-- Content for the right div -->
             <p class="font-medium border-b-2 border-grayish ml-auto block text-lg pb-2 mb-4">ANNOUNCEMENT</p>
-            <div class="carousel relative w-full h-2/5" data-carousel="slide">
-              <!-- Carousel Slides -->
-              <!-- 1 -->
-              <div class="carousel-slide absolute top-0 left-0 flex flex-col items-center justify-end opacity-0 transition-opacity duration-700 ease-in-out" data-carousel-item>
-                <div class="w-full h-48 md:h-96">
-                  <img src="../images/bsu-header4.jpg" alt="Image 1" class="w-full h-full object-cover rounded-lg" />
-                </div>
-                <div class="carousel-description w-full bg-white bg-opacity-75 p-2 flex flex-col">
-                  <p class="text-sm line-clamp-3">Our future growth relies on competitiveness and innovation, skills and productivity... and these in turn rely on the education of our people." ~ Julia Gilla Congratulations to our BulSU Faculty Scholars who have graduated in SY 2021, SY 2022, and SY 2023! May all the great opportunities and blessings come your way. Soar high, BulSU! 😊🙌 #BulSUFacultyScholars #Graduates #LearningNeverStops #ProudBulSUan #SoarHighFacultyScholars</p>
-                  <div class="flex justify-end">
-                    <button class="read-more-button text-blue-500 text-sm font-semibold mt-2" onclick="toggleDescription(0)">Read More</button>
-                  </div>
-                </div>
+            <div class="h-1/3">
+              <div class="swiper announcementSwiper">
+                <div id="announcementWrapper" class="swiper-wrapper"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
               </div>
-
-              <!-- 2 -->
-
-              <div class="carousel-slide absolute top-0 left-0 flex flex-col items-center justify-end opacity-0 transition-opacity duration-700 ease-in-out" data-carousel-item>
-                <div class="w-full h-48 md:h-96">
-                  <img src="../images/ye.jpg" alt="Image 1" class="w-full h-full object-cover rounded-lg" />
-                </div>
-                <div class="carousel-description w-full bg-white bg-opacity-75 p-2 flex flex-col">
-                  <p class="text-sm line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id dignissim erat. Suspendisse sed malesuada nisi, sit amet laoreet tellus. Sed feugiat aliquet tortor, quis semper diam condimentum vitae.
-                    Praesent tincidunt velit sed erat congue euismod. Pellentesque tortor leo, tempus sit amet sem blandit, congue tincidunt sem.
-                    Donec scelerisque orci at tortor facilisis, vitae molestie lorem luctus. Proin porta lobortis ipsum id scelerisque.
-                    Curabitur sed consequat tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce faucibus auctor scelerisque
-                  </p>
-                  <div class="flex justify-end">
-                    <button class="read-more-button text-blue-500 text-sm font-semibold mt-2" onclick="toggleDescription(1)">Read More</button>
-                  </div>
-                </div>
+              <div>
+                <p id="description" class="text-sm"></p>
+                <button class="text-xs text-blue-500 font-bold block ml-auto">View Details</button>
               </div>
-              <!-- Add more carousel slides with descriptions and "Read More" buttons here -->
             </div>
 
-            <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" onclick="nextSlide()" data-carousel-prev>
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
-                </svg>
-                <span class="sr-only">Previous</span>
-              </span>
-            </button>
-            <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" onclick="prevSlide()" data-carousel-next>
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                </svg>
-                <span class="sr-only">Next</span>
-              </span>
-            </button>
           </div>
 
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
@@ -856,6 +818,7 @@ function getAccDetails($con, $personID)
 
 
   <script src="../student-alumni/js/hompage.js"></script>
+  <script src="../student-alumni/js/announcementscript.js"></script>
   <script src="../student-alumni/js/eventscript.js"></script>
   <script src="../student-alumni/js/notification.js"></script>
   <script src="../student-alumni/js/post.js"></script>
