@@ -54,11 +54,11 @@ $(document).ready(function () {
                         const announcementID = response.announcementID[i];
                         const title = response.title[i];
                         const Descrip = response.Descrip[i];
-                        const univAdminID = response.univAdminID[i];
+                        const fullname = response.fullname[i];
                         const date_posted = response.date_posted[i];
                         const headline_img = response.headline_img[i];
 
-                        displayAnnouncement(headline_img, Descrip);
+                        displayAnnouncement(headline_img, title, date_posted, fullname, Descrip);
                     }
                 }
             },
@@ -67,7 +67,7 @@ $(document).ready(function () {
     }
 
     //display announcement content as carousel
-    function displayAnnouncement(headline_img, description) {
+    function displayAnnouncement(headline_img, title, date_posted, author, description) {
 
         // set up the markup for slides
         const swiper_slide = $('<div>').addClass('swiper-slide h-max')
@@ -76,13 +76,20 @@ $(document).ready(function () {
             .addClass('rounded-md object-contain bg-gray-300')
 
         let trimedDescription = description.substring(0, 200);
+        const titleElement = $('<p>')
+            .addClass('font-bold text-greyish_black text-lg')
+            .text(title)
         const descriptElement = $('<p>')
             .addClass('text-sm text-gray-500')
             .text(trimedDescription)
         const viewDetails = $('<button>')
             .addClass('text-blue-400 text-xs italic block ml-auto')
             .text('View details')
-        swiper_slide.append(img, descriptElement, viewDetails)
+            .on('click', function () {
+                $('#announcementModal').removeClass('hidden')
+                displayAnnouncementDetails(imgSrc, date_posted, author, title, description)
+            })
+        swiper_slide.append(img, titleElement, descriptElement, viewDetails)
         $('#announcementWrapper').append(swiper_slide)
 
         console.log(descriptionArr)
@@ -105,4 +112,24 @@ $(document).ready(function () {
         });
 
     }
+
+    // assign value in the announcement modal
+    function displayAnnouncementDetails(headline, date_posted, author, title, description) {
+        $('#headline_img').attr('src', headline)
+        $('#announceDatePosted').text(date_posted)
+        $('#announcementAuthor').text(author)
+        $('#announcementTitle').text(title)
+        $('#announcementDescript').text(description)
+    }
+
+    //close the announcement modal
+    $('#announcementModal').on('click', function (e) {
+        const target = e.target
+        let container = $('#announcementContainer')
+
+        //check if the clicked is outside the container
+        if (!container.is(target) && !container.has(target).length) {
+            $('#announcementModal').addClass('hidden')
+        }
+    })
 })

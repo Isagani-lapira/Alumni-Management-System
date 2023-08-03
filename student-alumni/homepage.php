@@ -499,6 +499,7 @@ function getAccDetails($con, $personID)
           <p>Yearbook</p>
         </div>
 
+        <!-- report modal -->
         <div id="reportModal" class="post modal hidden fixed inset-0 z-50 flex items-center justify-center p-3">
           <div class="modal-container w-2/5 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
             <h1 class="text-xl  text-center font-bold py-3 border-b border-gray-400">Report</h1>
@@ -599,6 +600,7 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <!-- success prompt -->
         <div id="successModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
           <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
             <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -611,6 +613,26 @@ function getAccDetails($con, $personID)
             </svg>
             <h1 class=" text-3xl font-bold text-green-500 text-center">Thank you</h1>
             <p class=" text-lg text-center text-gray-500">"Your feedback is important to us, and we take all reports seriously"</p>
+          </div>
+        </div>
+
+        <!-- announcement modal -->
+        <div id="announcementModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+          <div id="announcementContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
+            <!-- header -->
+            <div class="flex gap-2 items-center py-2">
+              <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
+              <span class="ml-2 text-xl font-bold">BulSU Update</span>
+            </div>
+
+            <!-- headline image -->
+            <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" src="../images/bsu-header5.jpg" alt="">
+
+            <p class="text-sm text-gray-500">Date Posted: <span id="announceDatePosted"></span></p>
+            <p class="text-sm text-gray-500">By: <span id="announcementAuthor" class="text-accent"></span></p>
+
+            <p id="announcementTitle" class="text-2xl text-greyish_black font-black"></p>
+            <pre id="announcementDescript" class=" text-gray-500 text-justify w-full"></pre>
           </div>
         </div>
       </div>

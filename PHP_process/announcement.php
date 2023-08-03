@@ -26,7 +26,7 @@ function getAnnouncement($currentDate, $con)
     $announcementID = array();
     $title = array();
     $Descrip = array();
-    $univAdminID  = array();
+    $fullname = array();
     $date_posted = array();
     $headline_img = array();
 
@@ -37,9 +37,22 @@ function getAnnouncement($currentDate, $con)
             $announcementID[] = $data['announcementID'];
             $title[] = $data['title'];
             $Descrip[] = $data['Descrip'];
-            $univAdminID[] = $data['univAdminID'];
+            $univAdminID = $data['univAdminID'];
             $date_posted[] = $data['date_posted'];
             $headline_img[] = base64_encode($data['headline_img']);
+
+            //get admin fullname
+            $adminQuery = "SELECT p.fname, p.lname
+            FROM univadmin AS ua
+            JOIN person AS p ON ua.personID = p.personID
+            WHERE ua.adminID = '$univAdminID'";
+
+            $resultAdmin = mysqli_query($con, $adminQuery);
+
+            if ($resultAdmin) {
+                $data = mysqli_fetch_assoc($resultAdmin);
+                $fullname[] = $data['fname'] . ' ' . $data['lname'];
+            }
         }
     } else $response = "Failed";
 
@@ -48,7 +61,7 @@ function getAnnouncement($currentDate, $con)
         "announcementID" => $announcementID,
         "title" => $title,
         "Descrip" => $Descrip,
-        "univAdminID" => $univAdminID,
+        "fullname" => $fullname,
         "date_posted" => $date_posted,
         "headline_img" => $headline_img,
     );
