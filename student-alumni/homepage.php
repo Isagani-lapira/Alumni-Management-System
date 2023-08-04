@@ -633,6 +633,12 @@ function getAccDetails($con, $personID)
 
             <p id="announcementTitle" class="text-2xl text-greyish_black font-black"></p>
             <pre id="announcementDescript" class=" text-gray-500 text-justify w-full"></pre>
+
+            <!-- images container -->
+            <div id="imagesContainer" class="my-2">
+              <p class="font-semibold text-blue-400">More images available</p>
+              <div id="imagesWrapper" class="flex flex-wrap gap-2"></div>
+            </div>
           </div>
         </div>
       </div>

@@ -58,7 +58,7 @@ $(document).ready(function () {
                         const date_posted = response.date_posted[i];
                         const headline_img = response.headline_img[i];
 
-                        displayAnnouncement(headline_img, title, date_posted, fullname, Descrip);
+                        displayAnnouncement(announcementID, headline_img, title, date_posted, fullname, Descrip);
                     }
                 }
             },
@@ -67,7 +67,7 @@ $(document).ready(function () {
     }
 
     //display announcement content as carousel
-    function displayAnnouncement(headline_img, title, date_posted, author, description) {
+    function displayAnnouncement(announcementID, headline_img, title, date_posted, author, description) {
 
         // set up the markup for slides
         const swiper_slide = $('<div>').addClass('swiper-slide h-max')
@@ -87,14 +87,13 @@ $(document).ready(function () {
             .text('View details')
             .on('click', function () {
                 $('#announcementModal').removeClass('hidden')
-                displayAnnouncementDetails(imgSrc, date_posted, author, title, description)
+                displayAnnouncementDetails(announcementID, imgSrc, date_posted, author, title, description)
             })
         swiper_slide.append(img, titleElement, descriptElement, viewDetails)
         $('#announcementWrapper').append(swiper_slide)
 
-        console.log(descriptionArr)
         // set up swiper configuration
-        var swiper = new Swiper(".announcementSwiper", {
+        new Swiper(".announcementSwiper", {
             slidesPerView: 1,
             spaceBetween: 30,
             autoplay: {
@@ -114,12 +113,54 @@ $(document).ready(function () {
     }
 
     // assign value in the announcement modal
-    function displayAnnouncementDetails(headline, date_posted, author, title, description) {
+    function displayAnnouncementDetails(ID, headline, date_posted, author, title, description) {
         $('#headline_img').attr('src', headline)
         $('#announceDatePosted').text(date_posted)
         $('#announcementAuthor').text(author)
         $('#announcementTitle').text(title)
         $('#announcementDescript').text(description)
+
+        const action = "readImageOfAnnouncement";
+        const formdata = new FormData();
+        formdata.append('action', action);
+        formdata.append('announcementID', ID)
+        // retrieve images if theres any
+        $.ajax({
+            url: '../PHP_process/announcement.php',
+            method: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                //remove the previous display images
+                $('#imagesWrapper').empty();
+
+                if (response.result != "Nothing") {
+                    $('#imagesContainer').removeClass('hidden') // show the container
+
+                    // const image = response.images
+                    const images = response.images
+
+                    //display all the images
+                    images.forEach(value => {
+                        const imgSrc = imgFormat + value;//convert into base64
+                        displayImages(imgSrc)
+                    })
+
+                } else $('#imagesContainer').addClass('hidden') //hide the container
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function displayImages(imgSrc) {
+        const imgElement = $('<img>')
+            .addClass('w-40 object-contain bg-gray-500 rounded-md')
+            .attr('src', imgSrc);
+
+        console.log('rar')
+        $("#imagesWrapper").append(imgElement);
     }
 
     //close the announcement modal

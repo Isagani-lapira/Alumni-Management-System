@@ -8,6 +8,9 @@ if (isset($_POST['action'])) {
     if ($action == "readAnnouncement") {
         $currentDate = $_POST['currentDate'];
         getAnnouncement($currentDate, $mysql_con);
+    } else if ($action == "readImageOfAnnouncement") {
+        $announcementID = $_POST['announcementID'];
+        getAnnouncementImg($announcementID, $mysql_con);
     }
 }
 
@@ -66,5 +69,29 @@ function getAnnouncement($currentDate, $con)
         "headline_img" => $headline_img,
     );
 
+    echo json_encode($data);
+}
+
+function getAnnouncementImg($id, $con)
+{
+    $query = "SELECT  `image` FROM `univ_announcement_images` WHERE `announcementID` = '$id'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_num_rows($result);
+
+    $response = "";
+    $img = array();
+    if ($result && $row > 0) {
+        $response = "Success";
+        //get all the images
+        while ($data = mysqli_fetch_assoc($result)) {
+            $img[] = base64_encode($data['image']);
+        }
+    } else $response = 'Nothing';
+
+    $data = array(
+        "result" => $response,
+        "images" => $img,
+    );
+    //send back the images
     echo json_encode($data);
 }
