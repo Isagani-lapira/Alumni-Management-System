@@ -300,6 +300,20 @@ class PostData
         } else echo 'none';
     }
 
+    function getAdminProfile($username, $date, $con)
+    {
+        //query to get the post of user
+        $query = "SELECT * FROM `post` WHERE `username` = '$username' AND `date` = '$date' AND `status` = 'available'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row > 0) {
+            //retrieve data for a specific day
+            $postResult = $this->getPostData($result, $con); //get all the data of the post
+            echo $postResult;
+        } else echo 'none';
+    }
+
     function getUserArchieved($username, $date, $con)
     {
         //query to get the post of user

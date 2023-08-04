@@ -1,5 +1,4 @@
 const imgContPost = document.getElementById('imgContPost')
-
 $(document).ready(function () {
 
     let validExtension = ['jpeg', 'jpg', 'png'] //only allowed extension
@@ -147,14 +146,13 @@ $(document).ready(function () {
     postData.append('offset', offsetPost)
 
     $('#announcementLI').on('click', function () {
-        getPostAdmin(postData)
+        getPostAdmin(postData, true)
     })
 
     let totalPostCount = $('#totalPosted').html();
     $('.totalPost').text(totalPostCount)
-    let toAddProfile = true;
     // //show post of admin
-    function getPostAdmin(data) {
+    function getPostAdmin(data, isTable) {
         $('#postTBody').empty()
         $.ajax({
             url: '../PHP_process/postDB.php',
@@ -180,10 +178,11 @@ $(document).ready(function () {
                         let likes = data.likes[i];
                         date = textDateFormat(date) //change to text format
                         let imagesObj = data.images;
-                        let containerAnn = 'announcementCont'
-                        let containerProfile = 'profileCont'
-                        addPost(postID, fullname, username, caption, imagesObj, date, i, likes, comment, containerAnn, collegeCode) //add post in table;
-                        addPost(postID, fullname, username, caption, imagesObj, date, i, likes, comment, containerProfile, null) //add post in profile;
+
+                        if (isTable)
+                            announcementTbDisplay(postID, collegeCode, fullname, username, caption, imagesObj, date, i, comment, likes) //add post in table;
+                        else
+                            displayToProfile();
                     }
                     toAddProfile = false //won't be affected by date range 
                     offsetPost += length
@@ -200,6 +199,7 @@ $(document).ready(function () {
             error: (error) => { console.log(error) }
         })
     }
+
 
     //show next set of post
     $('#nextPost').on('click', function () {
@@ -238,15 +238,6 @@ $(document).ready(function () {
         return textDate;
     }
 
-    function addPost(postID, name, accUN, postcaption, images, postdate, position, likes, comments, container, colCode) {
-
-        if (container == "announcementCont")
-            announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments, likes)
-        else if (container == "profileCont" && toAddProfile) {
-            postDisplay(name, accUN, postcaption, images, postdate, position, comments, likes)
-        }
-
-    }
 
     function announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments, likes) {
         let tbody = $('#postTBody')
@@ -268,44 +259,6 @@ $(document).ready(function () {
         action.append(delBtn, viewBtn)
         row.append(colCodeData, likesData, commentsData, postdateData, action)
         tbody.append(row)
-
-    }
-
-    //all post to be displayed on the profile tab
-    function postDisplay(name, accUN, postcaption, images, postdate, position, comments, likes) {
-        containerPost = $('<div>').addClass("shadow-sm shadow-gray-600 w-3/4 rounded-md p-3 h-max mt-10")
-        toBeAppend = '#profileContainer'
-        let header = $('<div>').addClass("flex items-center")
-        let avatar = $('<img>').addClass("profilePic rounded-full h-10 w-10")
-        let containerNames = $('<div>').addClass("px-3")
-        let userFN = $('<p>').addClass("font-semibold").text(name)
-        let username = $('<p>').addClass("text-sm text-gray-500").text(accUN)
-        containerNames.append(userFN, username);
-        avatar.attr('src', profilePic)
-
-        let caption = $('<p>').addClass("font-light text-gray-600 text-sm mt-5").text(postcaption) //post caption
-        let imgContainer = $('<div>').addClass("imgContainer flex flex-wrap gap-2 mt-3")
-
-        // Retrieve and display all the images and add it to the current position/post
-        images[position].forEach((image) => {
-            let imageData = imgFormat + image;
-            let img = $('<img>').addClass("flex-1 h-44 w-36 rounded-md object-contain bg-gray-300").attr('src', imageData);
-            imgContainer.append(img);
-        });
-        let date = $('<p>').addClass("text-xs text-gray-600 p-2").text(postdate)
-        let footerContainer = $('<div>').addClass("flex mt-3 gap-2 px-3")
-
-        //check if the comment is 0 or greater than 0
-        comments = (comments == 0) ? "No" : comments;
-        let comment = $('<p>').addClass("text-gray-500 text-sm flex-1 cursor-pointer").text(comments + " comment")
-        let share = $('<i>').addClass("fa-solid fa-share text-accent cursor-pointer")
-        let like = $('<i>').addClass("fa-regular fa-heart text-accent cursor-pointer").text(likes)
-
-        header.append(avatar, containerNames)
-        footerContainer.append(comment, share, like);
-
-        containerPost.append(header, caption, imgContainer, date, footerContainer)
-        $(toBeAppend).append(containerPost)
 
     }
 
@@ -499,5 +452,178 @@ $(document).ready(function () {
             },
             error: (error) => { console.log(error) }
         })
+    }
+
+
+    $('#profileTabAdmin').on('click', function () {
+        displayToProfile()
+    })
+
+    function getCurrentDate() {
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = String(today.getMonth() + 1).padStart(2, '0');
+        var day = String(today.getDate()).padStart(2, '0');
+        return year + '-' + month + '-' + day;
+    }
+
+    //for retrieving recent date
+    function getPreviousDate(daysToSubtract) {
+        var today = new Date();
+        today.setDate(today.getDate() - daysToSubtract);
+        var year = today.getFullYear();
+        var month = String(today.getMonth() + 1).padStart(2, '0');
+        var day = String(today.getDate()).padStart(2, '0');
+        return year + '-' + month + '-' + day;
+    }
+
+    let retrievalDate = getCurrentDate();
+    let maxRetrievalSet = 10;
+    let stoppingPoint = 0;
+    let daysToSubtract = 1;
+    let dataRetreived = 0;
+
+    function displayToProfile() {
+        let profileAction = {
+            action: 'readAdminProfile'
+        }
+        const formData = new FormData()
+        formData.append('action', JSON.stringify(profileAction));
+        formData.append('retrievalDate', retrievalDate);
+
+        //process retrieval
+        $.ajax({
+            method: 'POST',
+            url: "../PHP_process/postDB.php",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                if (response == 'none' && stoppingPoint <= 20) {
+                    formData.delete('retrievalDate') //remove the current date set
+
+                    //set new date (previous) to be retrieve
+                    retrievalDate = getPreviousDate(daysToSubtract)
+                    formData.append('retrievalDate', retrievalDate);
+                    console.log(retrievalDate)
+                    displayToProfile() //process retrieval again
+                    daysToSubtract++
+                    stoppingPoint++
+                }
+                else if (response != 'none') {
+                    const parsedData = JSON.parse(response)
+                    const length = parsedData.username.length
+
+                    //get all the data that gather
+                    for (let i = 0; i < length; i++) {
+                        const imgProfile = parsedData.profilePic[i];
+                        const postID = parsedData.postID[i];
+                        const fullname = parsedData.fullname[i];
+                        const username = parsedData.username[i];
+                        const images = parsedData.images[i];
+                        const caption = parsedData.caption[i];
+                        let date = parsedData.date[i];
+                        const likes = parsedData.likes[i];
+                        const comments = parsedData.comments[i];
+
+                        displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments)
+                    }
+                    dataRetreived = length
+                    maxRetrievalSet -= dataRetreived
+
+                    //check if the maximum retrieval has been reached
+                    if (maxRetrievalSet != 0 || maxRetrievalSet > 0) {
+                        //get another set of data
+                        daysToSubtract++
+                        retrievalDate = getPreviousDate(daysToSubtract)
+                        formData.append('retrievalDate', retrievalDate);
+                        displayToProfile()
+                        stoppingPoint = 0
+                    } else maxRetrievalSet = 10
+
+                }
+                else console.log('stopping point')
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments) {
+        const feedContainer = $('#feedContainer')
+        const postWrapper = $('<div>').addClass(' relative rounded-md center-shadow p-4 mx-auto');
+
+        //adding details for header
+        let header = $('<div>');
+        let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
+        let img = imgFormat + imgProfile;
+        let userProfile = $('<img>').addClass("h-10 w-10 rounded-full").attr('src', img);
+        let authorDetails = $('<div>').addClass("flex-1");
+        let fullnameElement = $('<p>').addClass("font-bold text-greyish_black").text(fullname);
+        let usernameElement = $('<p>').addClass("text-gray-400 text-xs").text(username);
+
+        //set up the header to be displayed
+        authorDetails.append(fullnameElement, usernameElement)
+        headerWrapper.append(userProfile, authorDetails)
+        header.append(headerWrapper)
+
+        //for body
+        let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption);
+        let swiperContainer = null;
+        //check if post is status only or with image
+        if (images.length > 0) {
+            //set up the swiper
+            swiperContainer = $("<div>").addClass("swiper relative profilePostSwiper w-full h-80 bg-black rounded-md cursor-pointer overflow-x-hidden")
+            const swiperWrapper = $('<div>').addClass('swiper-wrapper h-full')
+
+            //carousel the image
+            images.forEach(value => {
+                let postImg = imgFormat + value;
+                //create slider
+                const swiperSlider = $('<div>').addClass('swiper-slide h-full flex justify-center')
+                const swiperImg = $('<img>')
+                    .addClass('object-contain h-full w-full bg-black')
+                    .attr('src', postImg)
+
+                //slider to wrapper
+                swiperSlider.append(swiperImg)
+                swiperWrapper.append(swiperSlider);
+            })
+            // Navigation buttons
+            let pagination = $('<div>').addClass("swiper-pagination");
+            let prevBtn = $('<div>').addClass("swiper-button-prev");
+            let nextBtn = $('<div>').addClass("swiper-button-next ");
+            swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
+
+            swiperContainer.on('click', function (event) {
+                // Check if the click event is coming from the navigation buttons
+                if (!$(event.target).hasClass('swiper-button-prev') && !$(event.target).hasClass('swiper-button-next')) {
+                    $('#viewingPost').removeClass("hidden");
+                    viewingOfPost(postID, fullname, username, caption, images, likes, img);
+                }
+            });
+        } else { postWrapper.css('min-height', '100px') }
+
+        postWrapper.append(header, description, swiperContainer)
+        feedContainer.append(postWrapper);
+
+        var percent = feedContainer.width() * 0.65;
+        postWrapper.width(percent);
+
+        // Initialize the swiper inside the postWrapper
+        if (swiperContainer) {
+            const swiper = new Swiper(swiperContainer[0], {
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        }
+
     }
 })

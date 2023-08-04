@@ -87,3 +87,9 @@ input {
     transform: translateY(0);
   }
 }
+
+#feedContainer {
+  overflow-y: auto;
+  height: 75vh;
+  max-height: 4609.86px;
+}

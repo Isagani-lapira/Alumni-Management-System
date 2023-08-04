@@ -54,7 +54,7 @@ if (
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Corinthia&family=Dancing+Script:wght@500&family=Exo+2:wght@700&family=Fasthand&family=Freehand&family=Montserrat:ital,wght@0,400;0,700;1,400;1,600;1,700;1,800&family=Poppins:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&family=Source+Sans+Pro:ital@1&display=swap" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -80,7 +80,7 @@ if (
     echo '<input type="hidden" id="accPersonID" value="' .  rawurlencode($personID) . '">';
     ?>
     <div id="tabs" class="flex font-Montserrat text-greyish_black">
-      <aside class="w-3/12 top-0 h-screen p-5 border border-r-gray-300 fixed">
+      <aside class="w-3/12 top-0 h-screen p-5 border border-r-gray-300">
         <div class="h-full relative">
           <h1 class="font-extrabold text-18sm my-5">
             Alumni <span class="font-normal">System</span>
@@ -145,7 +145,7 @@ if (
             </li>
 
             <!-- PROFILE -->
-            <li class="rounded-lg p-2 "><a href="#profile-tab">
+            <li id="profileTabAdmin" class="rounded-lg p-2 "><a href="#profile-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <g fill-rule="evenodd" clip-rule="evenodd">
                     <path d="M16 9a4 4 0 1 1-8 0a4 4 0 0 1 8 0Zm-2 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z" />
@@ -191,7 +191,7 @@ if (
             </li>
           </ul>
 
-          <p id="signout" class="text-center absolute bottom-2 cursor-pointer px-3">
+          <p id="signout" class="text-center absolute bottom-0 cursor-pointer px-3">
             <i class="fa-solid fa-right-from-bracket"></i>
             Sign out
           </p>
@@ -199,8 +199,8 @@ if (
 
       </aside>
 
-      <div class="w-3/12 top-0 h-screen p-5 border border-r-gray-300"></div>
-      <main id="mainDiv" class="mt-10 flex-1 p-3">
+      <!-- <div class="w-3/12 top-0 h-screen p-5 border border-r-gray-300"></div> -->
+      <main id="mainDiv" class=" flex-1 p-3">
 
         <!-- dashboard content -->
         <div id="dashboard-tab">
@@ -209,7 +209,7 @@ if (
               <div class="flex-1">
                 <!-- welcome part -->
                 <div class="relative rounded-lg h-max p-10 bg-gradient-to-r from-accent to-darkAccent">
-                  <img class="absolute -left-2 -top-20" src="../images/standing-2.png" alt="" srcset="" />
+                  <img class="absolute -left-2 " src="../images/standing-2.png" style="top: -55px;" alt="" srcset="" />
                   <span class="block text-lg text-white text-right">
                     Welcome Back <br />
                     <span class="font-semibold text-lg">
@@ -857,7 +857,7 @@ if (
         </div>
 
         <!-- profile content -->
-        <div id="profile-tab" class="p-5 h-screen">
+        <div id="profile-tab" class="p-5">
           <div class="p-3 rounded-md bg-accent flex items-center my-3">
             <img class="profilePic h-36 w-36 rounded-full border-2 border-white" alt="">
             <div class="ms-6">
@@ -869,63 +869,55 @@ if (
               <p id="editProf" class="text-blue-300 hover:cursor-pointer hover:text-blue-500">Edit Profile</p>
             </div>
           </div>
-          <div class="flex text-greyish_black h-full">
-            <!-- about section -->
-            <div class="w-1/4 text-xs p-2 mr-5">
+          <div class="flex text-greyish_black">
+            <div class=" w-1/3">
               <p class="font-bold text-accent text-base">About</p>
-              <div class="flex mt-3 justify-start">
-                <img src="../assets/icons/person.png" alt="">
-                <span class="px-2">
+              <div class="flex flex-col gap-2">
+                <!-- gender -->
+                <span class="flex items-center text-sm gap-2">
+                  <img src="../assets/icons/person.png" alt="">
                   <?php
                   echo $gender;
                   ?>
                 </span>
-              </div>
 
-              <div class="flex mt-3">
-                <img src="../assets/icons/cake.png" alt="">
-                <span class="px-2">Born
+                <!-- birthday -->
+                <span class="flex items-center text-sm gap-2">
+                  <img src="../assets/icons/cake.png" alt="">
                   <?php
                   echo $bday;
                   ?>
                 </span>
-              </div>
 
-              <div class="flex mt-3">
-                <img class="ps-1 messageIcon" src="../assets/icons/Location.png" alt="">
-                <span class="px-3">
+                <!-- location -->
+                <span class="flex items-center text-sm gap-2">
+                  <img class="ps-1 messageIcon" src="../assets/icons/Location.png" alt="">
                   <?php
                   echo $address;
                   ?>
                 </span>
-              </div>
 
-              <div class="flex mt-3">
-                <img class="ps-1 " src="../assets/icons/Message.png" alt="">
-                <span class="px-4">
+                <!-- email -->
+                <span class="flex items-center text-sm gap-2">
+                  <img class="ps-1 " src="../assets/icons/Message.png" alt="">
                   <?php
                   echo $personal_email;
                   ?>
                 </span>
-              </div>
 
-              <div class="flex mt-3">
-                <img class="ps-1" src="../assets/icons/Call.png" alt="">
-                <span class="px-4">
+                <!-- contact -->
+                <span class="flex items-center text-sm gap-2">
+                  <img class="ps-1" src="../assets/icons/Call.png" alt="">
                   <?php
-                  echo $contactNo
+                  echo $contactNo;
                   ?>
                 </span>
               </div>
             </div>
 
-            <div class="w-full h-full">
-              <p class="font-bold text-accent">Posts</p>
-              <div id="profileContainer" class="h-full overflow-y-scroll no-scrollbar py-3">
-
-              </div>
-            </div>
+            <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar"></div>
           </div>
+
         </div>
 
         <!-- alumni of the year content -->
@@ -1992,6 +1984,7 @@ if (
   <script src="../js/admin.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </body>
 
 </html>

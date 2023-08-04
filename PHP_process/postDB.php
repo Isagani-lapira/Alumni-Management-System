@@ -45,6 +45,10 @@ if (isset($_POST['action'])) {
             $reportCateg = $_POST['category'];
             $post->reportPost($postID, $username, $reportCateg, $mysql_con);
             break;
+        case 'readAdminProfile':
+            $date = $_POST['retrievalDate'];
+            $post->getAdminProfile($username, $date, $mysql_con);
+            break;
     }
 }
 
