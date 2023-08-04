@@ -11,6 +11,9 @@ if (isset($_POST['action'])) {
         $colCode = $_SESSION['colCode'];
         $currentDate = $_POST['currentDate'];
         getUpcomingEvent($colCode, $currentDate, $mysql_con);
+    } else if ($action == "retrieveSpecificEvent") {
+        $eventID = $_POST['eventID'];
+        retrieveSpecificEvent($eventID, $mysql_con);
     }
 } else echo 'ayaw';
 
@@ -26,6 +29,16 @@ function reatrieveEvent($colCode, $con)
     else echo 'ayaw';
 }
 
+function retrieveSpecificEvent($eventID, $con)
+{
+    $query = "SELECT * FROM `event` WHERE `eventID` = '$eventID'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_num_rows($result);
+
+    if ($result && $row > 0) getDetail($result, $con);
+    else echo 'nothing';
+}
+
 function getDetail($result, $con)
 {
     $data = mysqli_fetch_assoc($result);
@@ -36,7 +49,8 @@ function getDetail($result, $con)
     $date_posted  = $data['date_posted'];
     $about_event = $data['about_event'];
     $contactLink = $data['contactLink'];
-    $when_where = $data['when_where'];
+    $eventPlace = $data['eventPlace'];
+    $eventStartTime = $data['eventStartTime'];
     $aboutImg = $data['aboutImg'];
     $images = array();
 
@@ -60,7 +74,8 @@ function getDetail($result, $con)
         "date_posted" => $date_posted,
         "about_event" => $about_event,
         "contactLink" => $contactLink,
-        "when_where" => $when_where,
+        "eventPlace" => $eventPlace,
+        "eventStartTime" => $eventStartTime,
         "aboutImg" => base64_encode($aboutImg),
         "images" => $images,
         "expectation" => $expectationJSON
@@ -95,12 +110,13 @@ function getUpcomingEvent($colCode, $currentDate, $con)
 {
     $offset = 0;
     $maxLimit = 5;
-    $query = "SELECT `eventName`,`eventDate` FROM `event` WHERE `colCode`= '$colCode' AND 
+    $query = "SELECT `eventID`, `eventName`,`eventDate` FROM `event` WHERE `colCode`= '$colCode' AND 
     `eventDate`>='$currentDate' ORDER BY `eventDate` ASC LIMIT $offset, $maxLimit";
     $result = mysqli_query($con, $query);
     $row = mysqli_num_rows($result);
 
     $response = "";
+    $eventID = array();
     $eventName = array();
     $eventDate = array();
 
@@ -108,6 +124,7 @@ function getUpcomingEvent($colCode, $currentDate, $con)
     if ($result && $row > 0) {
         $response = "Success";
         while ($data = mysqli_fetch_assoc($result)) {
+            $eventID[] = $data['eventID'];
             $eventName[] = $data['eventName'];
             $eventDate[] = dateInText($data['eventDate']);
         }
@@ -115,6 +132,7 @@ function getUpcomingEvent($colCode, $currentDate, $con)
 
     $data = array(
         "result" => $response,
+        "eventID" => $eventID,
         "eventName" => $eventName,
         "eventDate" => $eventDate
     );

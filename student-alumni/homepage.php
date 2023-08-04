@@ -641,6 +641,29 @@ function getAccDetails($con, $personID)
             </div>
           </div>
         </div>
+
+        <!-- event modal -->
+        <div id="eventModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+          <div id="eventContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-7 px-12 
+          text-greyish_black flex flex-col gap-2">
+
+            <!-- Event images -->
+            <div id="eventImgWrapper" class="flex flex-wrap justify-center gap-1">
+
+            </div>
+
+            <p id="eventTitleModal" class="text-center text-2xl text-accent font-black"></p>
+            <pre id="eventDescript" class="text-gray-500 text-justify w-full indented"></pre>
+            <p class="text-lg font-bold text-greyish_black">WHEN AND WHERE</p>
+            <p class="text-sm text-gray-500">Date: <span id="eventDateModal"></span></p>
+            <p class="text-sm text-gray-500">Place: <span id="eventPlaceModal"></span></p>
+            <p class="text-sm text-gray-500">Start time: <span id="eventTimeModal"></span></p>
+            <!-- <p id="author" class="text-sm text-gray-500">By: <span class="text-accent">Media Relations Office</span></p> -->
+            <p class="text-lg text-greyish_black font-bold">EXPECTATION</p>
+            <div id="expectationList" class="flex flex-col gap-2"></div>
+          </div>
+        </div>
+
       </div>
 
       <!-- TAB 2 -->

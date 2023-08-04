@@ -41,10 +41,9 @@ $(document).ready(function () {
                 const headerPhrase = response.headerPhrase
                 const eventName = response.eventName
                 const eventDate = response.eventDate
-                const date_posted = response.date_posted
                 const about_event = response.about_event
                 const contactLink = response.contactLink
-                const when_where = response.when_where
+                const when_where = "sadfasd" // to be change
                 const aboutImg = response.aboutImg
                 const images = response.images
                 const expectation = response.expectation
@@ -96,4 +95,14 @@ $(document).ready(function () {
         }
     }
 
+
+    // close the event modal
+    $('#eventModal').on('click', e => {
+        const target = e.target
+        const container = $('#eventContainer')
+
+        if (!container.is(target) && !container.has(target).length) {
+            $('#eventModal').addClass('hidden')
+        }
+    })
 })

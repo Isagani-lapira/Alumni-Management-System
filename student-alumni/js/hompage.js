@@ -519,6 +519,7 @@ $(document).ready(function () {
           // retrieve data 
           const length = response.eventName.length
           for (let i = 0; i < length; i++) {
+            const eventID = response.eventID[i]
             const eventName = response.eventName[i]
             const eventDate = response.eventDate[i]
 
@@ -535,6 +536,11 @@ $(document).ready(function () {
             let viewDetails = $('<button>')
               .addClass('text-blue-500 text-xs')
               .text('View Details')
+              .on('click', function () {
+                // open the modal
+                $('#eventModal').removeClass('hidden')
+                displayEventModal(eventID, eventName, eventDate)
+              })
 
             let eventDetailWrapper = $('<div>').append(eventNameElement, eventDateElement, viewDetails)
             eventWrapper.append(bulletIcon, eventDetailWrapper);
@@ -542,6 +548,67 @@ $(document).ready(function () {
           }
 
         }
+      },
+      error: error => { console.log(error) }
+    })
+  }
+
+  function displayEventModal(eventID, eventTitle, eventDateModal) {
+    $('#eventTitleModal').text(eventTitle)
+    $('#eventDateModal').text(eventDateModal)
+
+    let action = "retrieveSpecificEvent"
+    const formatData = new FormData();
+    formatData.append('action', action)
+    formatData.append('eventID', eventID);
+
+    // get other details
+    $.ajax({
+      method: 'POST',
+      url: "../PHP_process/event.php",
+      data: formatData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      success: response => {
+        //data that has been retrieved
+        const aboutEvent = response.about_event
+        const images = response.images
+        const eventPlace = response.eventPlace
+        const eventStartTime = response.eventStartTime
+        const expectation = response.expectation
+
+        //display the data
+        $('#eventDescript').text(aboutEvent)
+        $('#eventPlaceModal').text(eventPlace)
+        $('#eventTimeModal').text(eventStartTime)
+
+        $('#eventImgWrapper').empty(); //remove the previously display images
+        //show images
+        images.forEach(value => {
+          const imgSrc = imgFormat + value //convert into base64 format
+          const imgElement = $('<img>')
+            .addClass('rounded-md w-40')
+            .attr('src', imgSrc)
+
+          $('#eventImgWrapper').append(imgElement);
+        })
+
+        $('#expectationList').empty() //remove the previously display list of expectation
+        // show expectation
+        const expectationData = expectation.expectation
+        expectationData.forEach(value => {
+          const wrapper = $('<div>')
+            .addClass('flex gap-2 items-center text-gray-500')
+
+          const bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+          const expectationElement = $('<p>')
+            .addClass('text-sm')
+            .text(value)
+          wrapper.append(bulletIcon, expectationElement)
+
+          $('#expectationList').append(wrapper)
+        })
       },
       error: error => { console.log(error) }
     })
