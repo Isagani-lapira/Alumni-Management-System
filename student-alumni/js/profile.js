@@ -91,31 +91,7 @@ $(document).ready(function () {
     })
   }
 
-  //display achieved post
-  $('#archievedBtn').on('click', function () {
-    $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
-    $('#userPost').removeClass('text-white bg-accent').addClass('text-gray-400')
-
-    //reset everything
-    retrievalDate = getCurrentDate();
-    noOfDaySubtract = 1;
-    stoppingPoint = 0;
-    maxRetrieve = 10;
-    dataRetrieved = 0;
-
-    //data to be change to be delivered to verify what action to be use
-    let actionAchieved = {
-      action: 'readUserArchievedPost',
-      retrievalDate: retrievalDate, // to be change
-    }
-    $('.postWrapper').remove() // remove the current displayed post
-    getPost(actionAchieved)
-  })
-
-  $('#userPost').on('click', function () {
-    $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
-    $('#archievedBtn').removeClass('text-white bg-accent').addClass('text-gray-400')
-
+  function restartPost() {
     //reset everything
     retrievalDate = getCurrentDate();
     noOfDaySubtract = 1;
@@ -125,6 +101,28 @@ $(document).ready(function () {
 
     $('.postWrapper').remove() // remove the current displayed post
     getPost(actionRetrieval)
+  }
+
+  //display achieved post
+  $('#archievedBtn').on('click', function () {
+    $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
+    $('#userPost').removeClass('text-white bg-accent').addClass('text-gray-400')
+
+    restartPost();
+    //data to be change to be delivered to verify what action to be use
+    let actionAchieved = {
+      action: 'readUserArchievedPost',
+      retrievalDate: retrievalDate, // to be change
+    }
+    getPost(actionAchieved)
+  })
+
+  $('#userPost').on('click', function () {
+    $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
+    $('#archievedBtn').removeClass('text-white bg-accent').addClass('text-gray-400')
+
+    //display the post available post again
+    restartPost()
   })
 
   function getFormattedDate(date) {
@@ -241,8 +239,38 @@ $(document).ready(function () {
     let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
 
 
-    let reportElement = $('<p>').addClass('text-xs text-red-400 cursor-pointer ').text('report');
-    interactionContainer.append(leftContainer, reportElement)
+    let deletePost = $('<p>')
+      .addClass('text-sm text-red-400 cursor-pointer ')
+      .text('Delete')
+      .on('click', function () {
+        //update the status of the post into delete
+        //open the delete prompt
+        $('#delete-modal').removeClass('hidden')
+        //update the post status into deleted
+        $('#deletePostbtn').on('click', function () {
+          let action = { action: 'deletePost' };
+          const formdata = new FormData()
+          formdata.append('action', JSON.stringify(action));
+          formdata.append('postID', postID);
+
+          //process the deletion
+          $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: response => {
+              //close the modal
+              $('#delete-modal').addClass('hidden')
+              restartPost()
+              getPost(actionRetrieval) //reload the post again
+            },
+            error: error => { console.log(error) }
+          })
+        })
+      })
+    interactionContainer.append(leftContainer, deletePost)
 
     //set up the details of the post
     postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)

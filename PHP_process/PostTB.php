@@ -343,4 +343,13 @@ class PostData
         if ($result) echo 'Success';
         else echo 'Failed';
     }
+
+    function deletePost($postID, $con)
+    {
+        $query = "UPDATE `post` SET `status`= 'deleted' WHERE `postID`='$postID'";
+        $result = mysqli_query($con, $query);
+
+        if ($result) echo 'Deleted';
+        else echo 'Error';
+    }
 }

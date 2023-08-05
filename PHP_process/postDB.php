@@ -40,6 +40,10 @@ if (isset($_POST['action'])) {
             $date = $data['retrievalDate'];
             $post->getUserArchieved($username, $date, $mysql_con);
             break;
+        case 'readAdminArchievedPost':
+            $date = $_POST['retrievalDate'];
+            $post->getUserArchieved($username, $date, $mysql_con);
+            break;
         case 'reportPost':
             $postID = $_POST['postID'];
             $reportCateg = $_POST['category'];
@@ -48,6 +52,10 @@ if (isset($_POST['action'])) {
         case 'readAdminProfile':
             $date = $_POST['retrievalDate'];
             $post->getAdminProfile($username, $date, $mysql_con);
+            break;
+        case 'deletePost':
+            $postID = $_POST['postID'];
+            $post->deletePost($postID, $mysql_con);
             break;
     }
 }

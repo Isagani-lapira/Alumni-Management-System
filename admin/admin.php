@@ -56,7 +56,6 @@ if (
   <link href="https://fonts.googleapis.com/css2?family=Corinthia&family=Dancing+Script:wght@500&family=Exo+2:wght@700&family=Fasthand&family=Freehand&family=Montserrat:ital,wght@0,400;0,700;1,400;1,600;1,700;1,800&family=Poppins:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&family=Source+Sans+Pro:ital@1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
@@ -917,8 +916,8 @@ if (
 
             <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar z-0">
               <div class="flex gap-2 text-greyish_black text-sm my-2 border-b border-gray-300 p-3">
-                <button class="activeBtn rounded-md px-5 py-1">Post</button>
-                <button class="rounded-md px-5 py-1">Archieved</button>
+                <button id="availablePostBtn" class="activeBtn rounded-md px-5 py-1">Post</button>
+                <button id="archievedBtnProfile" class="rounded-md px-5 py-1">Archieved</button>
               </div>
 
             </div>
@@ -1983,6 +1982,32 @@ if (
         </div>
       </div>
     </div>
+
+
+
+    <div id="delete-modal" class="modal hidden fixed inset-0 h-full w-full flex items-center justify-center ">
+      <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow">
+          <button onclick="closeReport()" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <div class="p-6 text-center">
+            <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
+            <button id="deletePostbtn" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+              Yes, I'm sure
+            </button>
+            <button type="button" class="text-gray-400" onclick="closeReport()">No, cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
@@ -1991,6 +2016,7 @@ if (
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
 </body>
 
 </html>

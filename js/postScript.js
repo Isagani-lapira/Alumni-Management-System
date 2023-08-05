@@ -456,7 +456,7 @@ $(document).ready(function () {
 
 
     $('#profileTabAdmin').on('click', function () {
-        displayToProfile()
+        displayToProfile(archievedAction)
     })
 
     function getCurrentDate() {
@@ -483,13 +483,14 @@ $(document).ready(function () {
     let daysToSubtract = 1;
     let dataRetreived = 0;
 
-    function displayToProfile() {
-        let profileAction = {
-            action: 'readAdminProfile'
-        }
-        const formData = new FormData()
-        formData.append('action', JSON.stringify(profileAction));
-        formData.append('retrievalDate', retrievalDate);
+    const profileAction = {
+        action: 'readAdminProfile',
+    }
+    const formData = new FormData()
+    formData.append('action', JSON.stringify(profileAction));
+    formData.append('retrievalDate', retrievalDate);
+
+    function displayToProfile(action) {
 
         //process retrieval
         $.ajax({
@@ -506,7 +507,7 @@ $(document).ready(function () {
                     retrievalDate = getPreviousDate(daysToSubtract)
                     formData.append('retrievalDate', retrievalDate);
                     console.log(retrievalDate)
-                    displayToProfile() //process retrieval again
+                    displayToProfile(action) //process retrieval again
                     daysToSubtract++
                     stoppingPoint++
                 }
@@ -537,7 +538,7 @@ $(document).ready(function () {
                         daysToSubtract++
                         retrievalDate = getPreviousDate(daysToSubtract)
                         formData.append('retrievalDate', retrievalDate);
-                        displayToProfile()
+                        displayToProfile(action)
                         stoppingPoint = 0
                     } else maxRetrievalSet = 10
 
@@ -562,7 +563,7 @@ $(document).ready(function () {
     }
     function displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments) {
         const feedContainer = $('#feedContainer')
-        const postWrapper = $('<div>').addClass('rounded-md center-shadow p-4 mx-auto');
+        const postWrapper = $('<div>').addClass('postWrapper rounded-md center-shadow p-4 mx-auto');
 
         //adding details for header
         let header = $('<div>');
@@ -683,24 +684,57 @@ $(document).ready(function () {
             })
 
         })
-        let reportElement = $('<p>').addClass('text-xs text-red-400 cursor-pointer ')
+        let deleteElement = $('<p>')
+            .addClass('text-xs text-red-400 cursor-pointer ')
             .text('Delete post')
             .on('click', function () {
-                //open report modal
-                $('#reportModal').removeClass('hidden')
+                //open the delete prompt
+                $('#delete-modal').removeClass('hidden')
+                //update the post status into deleted
+                $('#deletePostbtn').on('click', function () {
+                    let action = { action: 'deletePost' };
+                    const formdata = new FormData()
+                    formdata.append('action', JSON.stringify(action));
+                    formdata.append('postID', postID);
 
-                reportProcess(postID)
+                    //process the deletion
+                    $.ajax({
+                        url: '../PHP_process/postDB.php',
+                        method: 'POST',
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: response => {
+                            //close the modal
+                            $('#delete-modal').addClass('hidden')
+                            restartPost()
+                            displayToProfile() //reload the post again
+                        },
+                        error: error => { console.log(error) }
+                    })
+                })
             })
 
 
         //attach all details to a postwrapper and to the root
-        interactionContainer.append(leftContainer, reportElement)
+        interactionContainer.append(leftContainer, deleteElement)
         postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
         feedContainer.append(postWrapper);
 
         var percent = feedContainer.width() * 0.80;
         postWrapper.width(percent);
 
+    }
+
+    function restartPost() {
+        retrievalDate = getCurrentDate();
+        maxRetrievalSet = 10;
+        stoppingPoint = 0;
+        daysToSubtract = 1;
+        dataRetreived = 0;
+
+        //remove the currently displayed
+        $('.postWrapper').remove();
     }
     //add the likes to a post
     function addLikes(postID) {
@@ -840,4 +874,41 @@ $(document).ready(function () {
             }
         )
     }
+
+    let archievedAction = {
+        action: 'readAdminArchievedPost',
+    }
+
+    //show archieved post
+    $('#archievedBtnProfile').on('click', function () {
+        $(this).addClass('activeBtn')
+        $('#availablePostBtn').removeClass('activeBtn')
+        restartPost() //restart everything
+
+        //delete the current data that set on formdata
+        formData.delete('action')
+        formData.delete('retrievalDate')
+        formData.append('action', JSON.stringify(archievedAction));
+        formData.append('retrievalDate', retrievalDate)
+
+        displayToProfile(archievedAction) //process the retrieval of post for archieved post
+    })
+
+    $('#availablePostBtn').on('click', function () {
+        $(this).addClass('activeBtn')
+        $('#archievedBtnProfile').removeClass('activeBtn')
+        restartPost() //restart everything
+
+        //delete the current data that set on formdata
+        formData.delete('action')
+        formData.delete('retrievalDate')
+        formData.append('action', JSON.stringify(profileAction));
+        formData.append('retrievalDate', retrievalDate)
+
+        displayToProfile(profileAction) //process the retrieval of post for archieved post
+    })
 })
+
+function closeReport() {
+    $('#delete-modal').addClass('hidden')
+}
