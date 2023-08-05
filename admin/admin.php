@@ -870,8 +870,8 @@ if (
             </div>
           </div>
           <div class="flex text-greyish_black">
-            <div class=" w-1/3">
-              <p class="font-bold text-accent text-base">About</p>
+            <div class="w-1/3 my-2">
+              <p class="font-bold text-accent text-base my-3">About</p>
               <div class="flex flex-col gap-2">
                 <!-- gender -->
                 <span class="flex items-center text-sm gap-2">
@@ -915,7 +915,13 @@ if (
               </div>
             </div>
 
-            <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar"></div>
+            <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar z-0">
+              <div class="flex gap-2 text-greyish_black text-sm my-2 border-b border-gray-300 p-3">
+                <button class="activeBtn rounded-md px-5 py-1">Post</button>
+                <button class="rounded-md px-5 py-1">Archieved</button>
+              </div>
+
+            </div>
           </div>
 
         </div>

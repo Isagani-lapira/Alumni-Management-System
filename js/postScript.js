@@ -548,9 +548,21 @@ $(document).ready(function () {
         })
     }
 
+    function getFormattedDate(date) {
+        //parts out the date
+        let year = date.substring(0, 4);
+        let dateMonth = parseInt(date.substring(5, 7));
+        let day = date.substring(8, 10);
+
+        const listOfMonths = ['', 'January', 'February', 'March', 'April', 'May',
+            'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        let month = listOfMonths[dateMonth];
+
+        return month + ' ' + day + ', ' + year
+    }
     function displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments) {
         const feedContainer = $('#feedContainer')
-        const postWrapper = $('<div>').addClass(' relative rounded-md center-shadow p-4 mx-auto');
+        const postWrapper = $('<div>').addClass('rounded-md center-shadow p-4 mx-auto');
 
         //adding details for header
         let header = $('<div>');
@@ -597,21 +609,12 @@ $(document).ready(function () {
             swiperContainer.on('click', function (event) {
                 // Check if the click event is coming from the navigation buttons
                 if (!$(event.target).hasClass('swiper-button-prev') && !$(event.target).hasClass('swiper-button-next')) {
-                    $('#viewingPost').removeClass("hidden");
-                    viewingOfPost(postID, fullname, username, caption, images, likes, img);
+                    $('#modalPost').removeClass("hidden");
+                    viewingOfPost1(postID, fullname, username, caption, images, likes, img);
                 }
             });
-        } else { postWrapper.css('min-height', '100px') }
 
-        postWrapper.append(header, description, swiperContainer)
-        feedContainer.append(postWrapper);
-
-        var percent = feedContainer.width() * 0.65;
-        postWrapper.width(percent);
-
-        // Initialize the swiper inside the postWrapper
-        if (swiperContainer) {
-            const swiper = new Swiper(swiperContainer[0], {
+            new Swiper('.swiper', {
                 // If we need pagination
                 pagination: {
                     el: '.swiper-pagination',
@@ -623,7 +626,218 @@ $(document).ready(function () {
                     prevEl: '.swiper-button-prev',
                 },
             });
+
+        } else { postWrapper.css('min-height', '155px') }
+
+
+        date = getFormattedDate(date)
+        date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
+
+        let newlyAddedLike = parseInt(likes);
+        //interaction buttons
+        let isLiked = false;
+        let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
+        let heartIcon = $('<span>').html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>')
+            .addClass('cursor-pointer flex items-center')
+            .on('click', function () {
+                //toggle like button
+                if (isLiked) {
+                    //decrease the current total number of likes by 1
+                    newlyAddedLike -= 1
+                    console.log(newlyAddedLike)
+                    likesElement.text(newlyAddedLike)
+                    heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>');
+                    removeLike(postID)
+                }
+                else {
+                    //increase the current total number of likes by 1
+                    newlyAddedLike += 1
+                    likesElement.text(newlyAddedLike)
+                    heartIcon.html('<iconify-icon icon="mdi:heart" style="color: #ed1d24;" width="20" height="20"></iconify-icon>');
+                    addLikes(postID)
+                }
+
+                isLiked = !isLiked;
+            });
+
+        let commentIcon = $('<span>').html('<iconify-icon icon="uil:comment" style="color: #626262;" width="20" height="20"></iconify-icon>')
+            .addClass('cursor-pointer flex items-center comment')
+        let likesElement = $('<p>').addClass('text-xs text-gray-500').text(likes)
+        let commentElement = $('<p>').addClass('text-xs text-gray-500 comment').text(comments)
+        let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
+
+        //make comment
+        commentIcon.on('click', function () {
+            $('#commentPost').removeClass('hidden') //open the comment modal
+
+            //set up the details for comment to be display
+            $('#postProfile').attr('src', img)
+            $('#postFullname').text(fullname)
+            $('#postUsername').text(username)
+            $('#replyToUsername').text(username)
+
+            //insert a comment to database
+            $('#commentBtn').on('click', function () {
+                let commentVal = $('#commentArea').val()
+                insertComment(postID, commentVal)
+            })
+
+        })
+        let reportElement = $('<p>').addClass('text-xs text-red-400 cursor-pointer ')
+            .text('Delete post')
+            .on('click', function () {
+                //open report modal
+                $('#reportModal').removeClass('hidden')
+
+                reportProcess(postID)
+            })
+
+
+        //attach all details to a postwrapper and to the root
+        interactionContainer.append(leftContainer, reportElement)
+        postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
+        feedContainer.append(postWrapper);
+
+        var percent = feedContainer.width() * 0.80;
+        postWrapper.width(percent);
+
+    }
+    //add the likes to a post
+    function addLikes(postID) {
+        let action = {
+            action: 'addLike',
         }
 
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID);
+
+        //process the adding of like
+        $.ajax({
+            url: '../PHP_process/likesData.php',
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (response) => { console.log(response) },
+            error: (error) => { console.log(error) }
+        })
+    }
+
+    //add the likes to a post
+    function removeLike(postID) {
+        let action = {
+            action: 'removeLike',
+        }
+
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID);
+
+        //process the removal of like
+        $.ajax({
+            url: '../PHP_process/likesData.php',
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (response) => { console.log(response) },
+            error: (error) => { console.log(error) }
+        })
+    }
+    //add retrieve new data
+    $('#feedContainer').on('scroll', function () {
+        const containerHeight = $(this).height();
+        const contentHeight = $(this)[0].scrollHeight;
+        const scrollOffset = $(this).scrollTop();
+
+        //once the bottom ends, it will reach another sets of data (post)
+        if (scrollOffset + containerHeight >= contentHeight) {
+            displayToProfile();
+            console.log('rar');
+        }
+    })
+
+
+    function viewingOfPost1(postID, name, accUN, description, images, likes, imgProfile) {
+        $('#profilePic').attr('src', imgProfile);
+        $('#postFullName').text(name);
+        $('#postUN').text(accUN);
+        $('#noOfLikes').text(likes);
+        $('#postDescript').text(description).addClass('text-sm my-2 text-gray-400');
+
+        const carouselWrapper = $('#carousel-wrapper');
+        const carouselIndicators = $('#carousel-indicators');
+
+        let totalImgNo = images.length;
+
+        //remove the navigation button when it is only 1
+        if (totalImgNo === 1) {
+            $('#btnPrev, #btnNext').addClass('hidden');
+        } else {
+            $('#btnPrev, #btnNext').removeClass('hidden');
+        }
+
+        //add image/s to the carousel
+        images.forEach((image, index) => {
+            let imageName = 'item-' + index;
+            const item = $('<div>')
+                .addClass('relative duration-700 ease-in-out h-full flex justify-center items-center')
+                .attr('data-carousel-item', '')
+                .attr('id', imageName);
+
+            const format = imgFormat + image;
+            const img = $('<img>')
+                .addClass('object-contain h-full w-full')
+                .attr('src', format)
+                .attr('alt', 'Carousel Image');
+
+            if (index === 0) {
+                item.removeClass('hidden'); // Show the first image
+            } else {
+                item.addClass('hidden'); // Hide the rest of the images
+            }
+
+            item.append(img);
+            carouselWrapper.append(item);
+
+            const indicator = $('<button>')
+                .attr('type', 'button')
+                .addClass('w-3 h-3 rounded-full')
+                .attr('aria-current', index === 0 ? 'true' : 'false')
+                .attr('aria-label', 'Slide ' + (index + 1))
+                .attr('data-carousel-slide-to', index.toString());
+
+            carouselIndicators.append(indicator);
+        });
+
+        //controller how to next image
+        let currentImageDisplay = 0;
+        $('#btnNext').on('click', function () {
+            $('#item-' + currentImageDisplay).addClass('hidden'); // Hide the current image
+            currentImageDisplay = (currentImageDisplay + 1) % totalImgNo; // Move to the next image
+            $('#item-' + currentImageDisplay).removeClass('hidden'); // Show the next image
+        });
+
+        //controller how to previous image
+        $('#btnPrev').on('click', function () {
+            $('#item-' + currentImageDisplay).addClass('hidden'); // Hide the current image
+            currentImageDisplay = (currentImageDisplay - 1 + totalImgNo) % totalImgNo; // Move to the previous image
+            $('#item-' + currentImageDisplay).removeClass('hidden'); // Show the previous image
+        });
+
+        getComment(postID); //retrieve the comment if available
+
+        //display all the person who likes a specific post
+        $('#noOfLikes').hover(
+            function () {
+                //show the name of the one who likes the post
+                getLikes(postID)
+                $('#namesOfUser').show()
+            },
+            function () {
+                $('#namesOfUser').hide().empty() //remove so that it the first one that added will not duplicate
+            }
+        )
     }
 })

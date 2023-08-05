@@ -93,3 +93,8 @@ input {
   height: 75vh;
   max-height: 4609.86px;
 }
+
+.activeBtn {
+  color: white;
+  background: #991b1b;
+}
