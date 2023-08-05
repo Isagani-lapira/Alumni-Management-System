@@ -672,7 +672,7 @@ function getAccDetails($con, $personID)
         <div id="image-header-con" class="relative top-24 mt-1 z-10 h-full">
           <div class="flex items-center justify-center h-full">
             <div class="w-2/5 p-5">
-              <h1 id="headerEvent" class=" text-gray-800 text-5xl lg:text-7xl font-bold">Get Ready to Dance with</h1>
+              <h1 id="headerEvent" class=" text-gray-800 text-5xl lg:text-6xl font-bold">Get Ready to Dance with</h1>
               <p id="eventNameHeader" class=" text-4xl font-bold mb-2">Rainbow Pop</p>
               <button class="text-white font-bold bg-blue-300 px-5 py-3 my-2">
                 <a id="connectURL">CONNECT WITH US</a>

@@ -107,14 +107,6 @@ skAdd.addEventListener('click', function () {
 
 
 
-// const doneButton = document.getElementById('done');
-
-// doneButton.addEventListener('click', function() {
-//   const destinationUrl = 'https://facebook.com';
-
-//   window.location.href = destinationUrl;
-// });
-
 
 
 
