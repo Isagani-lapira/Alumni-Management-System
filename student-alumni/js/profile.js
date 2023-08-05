@@ -106,7 +106,7 @@ $(document).ready(function () {
   //display achieved post
   $('#archievedBtn').on('click', function () {
     $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
-    $('#userPost').removeClass('text-white bg-accent').addClass('text-gray-400')
+    $('#userPost').removeClass('text-white bg-accent font-bold').addClass('text-gray-400')
 
     restartPost();
     //data to be change to be delivered to verify what action to be use
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
   $('#userPost').on('click', function () {
     $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
-    $('#archievedBtn').removeClass('text-white bg-accent').addClass('text-gray-400')
+    $('#archievedBtn').removeClass('text-white bg-accent font-bold').addClass('text-gray-400')
 
     //display the post available post again
     restartPost()

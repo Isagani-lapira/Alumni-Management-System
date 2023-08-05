@@ -275,9 +275,9 @@ function getAccDetails($con, $personID)
 
         <!-- Center div for user's posts -->
         <div class="px-6 w-1/2 h-full">
-            <button id="userPost" class="text-lg text-white bg-accent px-3 rounded-lg py-1 font-bold">Posts</button>
-            <button id="archievedBtn" class="text-lg text-gray-400 hover:bg-gray-300 px-3 rounded-lg py-1 font-bold">Archived</button>
-            <hr class="mt-2 border-gray-300">
+            <button id="userPost" class="text-white bg-accent px-3 rounded-lg py-1 font-bold">Posts</button>
+            <button id="archievedBtn" class="text-gray-400 hover:bg-gray-300 px-3 rounded-lg py-1 ">Archived</button>
+            <hr class=" mt-2 border-gray-300">
             <div id="feedContainer" class="post w-5/6 mx-auto post-width h-full no-scrollbar">
                 <!-- Make Post && Profile -->
                 <div id="makePostProfile" class="post p-3 input-post-width mx-auto rounded-md center-shadow w-full my-2">
@@ -305,9 +305,42 @@ function getAccDetails($con, $personID)
             </div>
         </div>
 
-        <div class="px-6 w-3/12 h-full">
+        <div class="px-6 w-3/12 h-full flex flex-col gap-2">
             <h2 class="text-lg text-accent font-bold">Social Media</h2>
             <hr class="mt-2 border-gray-300">
+
+            <!-- facebook -->
+            <div class="flex gap-2 items-center mt-4">
+                <iconify-icon icon="formkit:facebook" style="color: #474645;" width="20" height="20"></iconify-icon>
+                <?php
+                echo '<span >' . $facebookUN . '<span>';
+                ?>
+            </div>
+
+            <!-- instagram -->
+            <div class="flex gap-2 items-center">
+                <iconify-icon icon="ri:instagram-fill" style="color: #474645;" width="20" height="20"></iconify-icon>
+                <?php
+                echo '<span >' . $instagramUN . '<span>';
+                ?>
+            </div>
+
+            <!-- twitter -->
+            <div class="flex gap-2 items-center">
+                <iconify-icon icon="ri:twitter-fill" style="color: #474645;" width="20" height="20"></iconify-icon>
+                <?php
+                echo '<span >' . $twitterUN . '<span>';
+                ?>
+            </div>
+
+            <!-- linkedIn -->
+            <div class="flex gap-2 items-center">
+                <iconify-icon icon="mdi:linkedin" style="color: #474645;" width="20" height="20"></iconify-icon>
+                <?php
+                echo '<span >' . $linkedInUN . '<span>';
+                ?>
+            </div>
+
         </div>
     </div>
 
