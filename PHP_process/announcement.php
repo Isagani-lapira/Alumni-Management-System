@@ -1,9 +1,11 @@
 <?php
 
 require_once 'connection.php';
+session_start();
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
+    $univAdminID = $_SESSION['univAdminID'];
 
     if ($action == "readAnnouncement") {
         $currentDate = $_POST['currentDate'];
@@ -11,6 +13,11 @@ if (isset($_POST['action'])) {
     } else if ($action == "readImageOfAnnouncement") {
         $announcementID = $_POST['announcementID'];
         getAnnouncementImg($announcementID, $mysql_con);
+    } else if ($action == "insertData") {
+        $headerImg = $_FILES['imgHeader'];
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        insertNews($title, $description, $univAdminID, $headerImg);
     }
 }
 
@@ -94,4 +101,21 @@ function getAnnouncementImg($id, $con)
     );
     //send back the images
     echo json_encode($data);
+}
+
+function insertNews($title, $description, $univAdminID, $headerImg)
+{
+    $random = rand(0, 4000);
+    $announcementID = $title . '-' . substr(md5(uniqid()), 10) . '-' . $random;
+    $datePosted = date('Y-m-d');
+    $date_end = date('Y-m-d', strtotime('+2 weeks'));
+
+    $tempName = $headerImg['tmp_name'];
+    $fileContent = addslashes(file_get_contents($tempName));
+    $query = "INSERT INTO `university_announcement`(`announcementID`, `title`, `Descrip`, `univAdminID`,
+     `date_posted`, `headline_img`, `date_end`) VALUES ('$announcementID','$title','$description',
+     '$univAdminID','$datePosted','$fileContent','$date_end')";
+
+    if ($query) echo 'Success';
+    else echo 'Failed';
 }

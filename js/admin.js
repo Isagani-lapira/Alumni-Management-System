@@ -990,6 +990,32 @@ $(document).ready(function () {
   $('#newsBtn').on('click', function () {
     $('#newsUpdateModal').removeClass('hidden')
   })
+
+  $('#postNewsBtn').on('click', function () {
+    let imgHeader = $('#headerImg').prop('files')[0]; //get the header
+    let action = "insertData";
+    let title = $('#newsTitle').val()
+    let description = $('#newstTxtArea').val()
+
+    //data to be send
+    const formData = new FormData();
+    formData.append('action', action);
+    formData.append('imgHeader', imgHeader)
+    formData.append('title', title)
+    formData.append('description', description)
+
+    //process the insertion
+    $.ajax({
+      url: '../PHP_process/announcement.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: response => { console.log(response) },
+      error: error => { console.log(error) },
+    })
+
+  })
 });
 
 

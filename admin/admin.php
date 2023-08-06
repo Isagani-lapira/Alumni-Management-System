@@ -14,7 +14,7 @@ if (
   $username = $_SESSION['username'];
 
   //get the person ID of that user
-  $query = "SELECT univadmin.personID
+  $query = "SELECT univadmin.personID, univadmin.adminID
             FROM univadmin
             JOIN user ON univadmin.username = user.username
             WHERE user.username = '$username'";
@@ -38,6 +38,7 @@ if (
     $bulsu_email = $personData['bulsu_email'];
     $profilepicture = $personData['profilepicture'];
     $_SESSION['personID'] = $personID;
+    $_SESSION['univAdminID'] = $data['adminID'];
   }
 }
 ?>
@@ -1829,9 +1830,9 @@ if (
     </div>
 
     <!-- news and update modal -->
-    <div id="newsUpdateModal" class="modal fixed inset-0 h-full w-full flex items-center justify-center hidden">
+    <div id="newsUpdateModal" class="modal fixed inset-0 h-full w-full flex items-center justify-center hidden p-10">
       <!-- container -->
-      <div class=" w-2/6 h-max bg-white rounded-sm overflow-y-auto py-3 px-5 overflow-y-auto">
+      <div id="newsContainer" class="w-2/6 h-max bg-white rounded-sm overflow-y-auto py-3 px-5 max-h-full">
         <!-- header -->
         <div class="flex gap-2 items-center py-2">
           <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
