@@ -922,7 +922,6 @@ $(document).ready(function () {
     let isComplete = false;
     $.each(fieldToTest, function (index, field) {
       let value = $(field).val().trim();
-      console.log(value)
       if (value === '') {
         isComplete = false; // If any field is empty, set isComplete to false
         return false; // Exit the loop early if we find an empty field
@@ -946,7 +945,7 @@ $(document).ready(function () {
     }
   }
 
-  const imageCollection = [];
+  let imageCollection = [];
   $('#collectionFile').on('change', function () {
     let imgSrc = this.files[0];
 
@@ -1023,10 +1022,17 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: response => {
+        //close the modal
+        $('#newsUpdateModal').addClass('hidden')
+        restartNewsModal()
         if (response == "Success") {
-          //close the modal
-          $('#newsUpdateModal').addClass('hidden')
-          restartNewsModal()
+          setTimeout(function () {
+            $('#successModal').removeClass('hidden')
+
+            setTimeout(function () {
+              $('#successModal').addClass('hidden')
+            }, 5000)
+          }, 1000)
         }
       },
       error: error => { console.log(error) },

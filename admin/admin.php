@@ -2048,7 +2048,7 @@ if (
     </div>
 
 
-
+    <!-- deletion modal -->
     <div id="delete-modal" class="modal hidden fixed inset-0 h-full w-full flex items-center justify-center ">
       <div class="relative w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow">
@@ -2069,6 +2069,22 @@ if (
             <button type="button" class="text-gray-400" onclick="closeReport()">No, cancel</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- success prompt -->
+    <div id="successModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+        <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <circle id="filled-circle" fill="#47CF73" cx="66.5" cy="66.5" r="54.5" />
+            <circle id="white-circle" fill="#FFFFFF" cx="66.5" cy="66.5" r="55.5" />
+            <circle id="outline" stroke="#47CF73" stroke-width="4" cx="66.5" cy="66.5" r="54.5" />
+            <polyline id="check" stroke="#FFFFFF" stroke-width="5.5" points="41 70 56 85 92 49" />
+          </g>
+        </svg>
+        <h1 class=" text-xl font-bold text-green-500 text-center">Successfully Posted</h1>
+        <p class="text-lg text-center text-gray-500">"Post successfully posted! 🎉 Happy sharing!</p>
       </div>
     </div>
 
