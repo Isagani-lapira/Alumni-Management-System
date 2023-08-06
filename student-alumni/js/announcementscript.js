@@ -30,11 +30,12 @@ $(document).ready(function () {
     function getAnnouncement() {
         const currentDate = getCurrentDate();
         let action = 'readAnnouncement'
-
+        const maxLimit = 4;
         //data to be send to database
         const formdata = new FormData();
         formdata.append('action', action)
         formdata.append('currentDate', currentDate);
+        formdata.append('maxLimit', maxLimit)
 
         //process retrieval
         $.ajax({

@@ -467,9 +467,20 @@ if (
         <div id="newsAndUpdate-tab" class="p-5">
           <h1 class="text-xl font-extrabold">NEWS AND UPDATE</h1>
           <p class="text-grayish">Here you can make announcement that everyone can see, it can be news or events</p>
-          <div class="flex justify-end">
+          <div class="flex justify-end py-2 border-b border-gray-300">
             <button id="newsBtn" class="text-sm text-white rounded-md bg-accent p-2">Make announcement</button>
           </div>
+          <table class="w-full text-sm mt-5 center-shadow">
+            <thead>
+              <tr class="bg-accent text-white">
+                <th class=" rounded-tl-lg">Title</th>
+                <th>Description</th>
+                <th>Date Posted</th>
+                <th class=" rounded-tr-lg">Action</th>
+              </tr>
+            </thead>
+            <tbody id="announcementList" class="text-xs"></tbody>
+          </table>
         </div>
 
         <!-- Email content -->

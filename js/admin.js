@@ -1039,6 +1039,88 @@ $(document).ready(function () {
     })
 
   })
+
+  $('#newsAndUpdate').on('click', retrievedAnnouncement)
+
+  let offsetAnnouncement = 0;
+  //retrieve the announcement data
+  function retrievedAnnouncement() {
+    let action = "readAdminPost"
+    let formData = new FormData();
+    formData.append('action', action)
+    formData.append('offset', offsetAnnouncement);
+
+    //process retrieval
+    $.ajax({
+      url: '../PHP_process/announcement.php',
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      dataType: 'json',
+      success: response => {
+        if (response.result == 'Success') {
+          const data = response
+          $('#announcementList').empty() //remove the previously displayed
+
+          //get all the data retrieved from the processing
+          const length = data.title.length
+          for (let i = 0; i < length; i++) {
+            const announcementID = data.announcementID[i];
+            const title = data.title[i];
+            const Descrip = data.Descrip[i].substring(0, 50);
+            const date_posted = getFormattedDate(data.date_posted[i]); //format the date as well
+
+            // create markup for table
+            const row = $('<tr>')
+              .addClass('border-b border-gray-300')
+            const titleTD = $('<td>')
+              .addClass('font-semibold')
+              .text(title);
+            const descriptTD = $('<td>')
+              .text(Descrip);
+            const datePostedTD = $('<td>').text(date_posted);
+
+            const delBtn = $('<button>')
+              .addClass("bg-red-400 hover:bg-red-500 rounded-sm text-white px-3 py-1 text-xs")
+              .text('Delete')
+
+            const viewBtn = $('<button>')
+              .addClass('bg-postButton hover:bg-postHoverButton rounded-sm text-white px-3 py-1 text-xs')
+              .text('View')
+
+            const actionContainer = $('<div>')
+              .addClass('flex flex-wrap justify-center gap-2')
+              .append(delBtn, viewBtn)
+
+            //action data
+            const actionTD = $('<td>')
+              .append(actionContainer)
+
+            //attach every data to the table
+            row.append(titleTD, descriptTD, datePostedTD, actionTD);
+            $('#announcementList').append(row)
+          }
+
+        }
+      }
+
+    })
+  }
+
+  // format the date into easy to read date
+  function getFormattedDate(date) {
+    //parts out the date
+    let year = date.substring(0, 4);
+    let dateMonth = parseInt(date.substring(5, 7));
+    let day = date.substring(8, 10);
+
+    const listOfMonths = ['', 'January', 'February', 'March', 'April', 'May',
+      'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    let month = listOfMonths[dateMonth];
+
+    return month + ' ' + day + ', ' + year
+  }
 });
 
 

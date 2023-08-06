@@ -9,7 +9,8 @@ if (isset($_POST['action'])) {
 
     if ($action == "readAnnouncement") {
         $currentDate = $_POST['currentDate'];
-        getAnnouncement($currentDate, $mysql_con);
+        $maxLimit = $_POST['maxLimit'];
+        getAnnouncement($currentDate, $maxLimit, $mysql_con);
     } else if ($action == "readImageOfAnnouncement") {
         $announcementID = $_POST['announcementID'];
         getAnnouncementImg($announcementID, $mysql_con);
@@ -19,18 +20,36 @@ if (isset($_POST['action'])) {
         $description = $_POST['description'];
         $imgCollection = (isset($_FILES['file'])) ? $_FILES['file'] : null;
         insertNews($title, $description, $univAdminID, $headerImg, $imgCollection, $mysql_con);
+    } else if ($action = 'readAdminPost') {
+        $offset = $_POST['offset'];
+        getAdminAnnouncement($univAdminID, $offset, $mysql_con);
     }
 }
 
 
-function getAnnouncement($currentDate, $con)
+function getAnnouncement($currentDate, $maxLimit, $con)
 {
     $offset = 0;
-    $maxLimit = 4;
 
     $query = "SELECT * FROM `university_announcement` WHERE 
     `date_end`>='$currentDate' ORDER BY `date_posted`ASC LIMIT $offset, $maxLimit";
     $result = mysqli_query($con, $query);
+
+    getDetails($result, $con);
+}
+
+function getAdminAnnouncement($univAdminID, $offset, $con)
+{
+    $maxLimit = 10;
+    $query = "SELECT * FROM `university_announcement` WHERE `univAdminID` = '$univAdminID'
+     ORDER BY `date_posted` DESC LIMIT $offset,$maxLimit";
+    $result = mysqli_query($con, $query);
+
+    getDetails($result, $con);
+}
+
+function getDetails($result, $con)
+{
     $row = mysqli_num_rows($result);
 
     $response = "";
@@ -79,7 +98,6 @@ function getAnnouncement($currentDate, $con)
 
     echo json_encode($data);
 }
-
 function getAnnouncementImg($id, $con)
 {
     $query = "SELECT  `image` FROM `univ_announcement_images` WHERE `announcementID` = '$id'";
