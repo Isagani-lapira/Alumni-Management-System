@@ -891,6 +891,105 @@ $(document).ready(function () {
       $(this).addClass('hidden')
     }
   })
+
+
+  // make news and announcement
+  $('#headerImg').on('change', function () {
+    const file = this.files[0]; //get the first file selected
+
+    if (file) {
+      const reader = new FileReader();
+
+      //display the file on image element
+      reader.onload = (e) => {
+        $('#imgHeader').attr('src', e.target.result);
+
+        //hide the label
+        $('.headerLbl').addClass('hidden')
+      }
+
+      //read the selected file to trigger onload
+      reader.readAsDataURL(file)
+    }
+  })
+
+  $('#newsTitle, #newstTxtArea').on('input', enableAnnouncementBtn);
+  $('#headerImg').on('change', enableAnnouncementBtn)
+
+  function enableAnnouncementBtn() {
+
+    const fieldToTest = ['#newsTitle', '#newstTxtArea', '#headerImg'];
+    let isComplete = false;
+    $.each(fieldToTest, function (index, field) {
+      let value = $(field).val().trim();
+      console.log(value)
+      if (value === '') {
+        isComplete = false; // If any field is empty, set isComplete to false
+        return false; // Exit the loop early if we find an empty field
+      }
+      else isComplete = true
+    });
+
+    const enabledBtn = 'text-white bg-accent'
+    const disabledBnt = 'text-gray-300  bg-red-300'
+    //if everything is added then remove the disabled in button
+    if (isComplete) {
+      $('#postNewsBtn').prop('disabled', false)
+        .addClass(enabledBtn)
+        .removeClass(disabledBnt)
+    }
+    else {
+      //disable again the button
+      $('#postNewsBtn').prop('disabled', true)
+        .addClass(disabledBnt)
+        .removeClass(enabledBtn)
+    }
+  }
+
+  $('#collectionFile').on('change', function () {
+    let imgSrc = this.files[0];
+
+    //get image selected
+    if (imgSrc) {
+      var reader = new FileReader();
+
+      //load the selected file
+      reader.onload = (e) => {
+
+        //create a new container
+        const imgWrapper = $('<div>')
+          .addClass('imgWrapper w-24 h-24 rounded-md')
+        const imgElement = $('<img>')
+          .addClass('h-full w-full rounded-md')
+          .attr('src', e.target.result);
+
+        //attach everything
+        imgWrapper.append(imgElement)
+        $('#collectionContainer').append(imgWrapper) //attach to the root
+      }
+
+      //read the file for onload to be trigger
+      reader.readAsDataURL(imgSrc)
+    }
+  })
+
+  $('#closeNewsModal').on('click', function () {
+    $('#newsUpdateModal').addClass('hidden')
+    restartNewsModal()
+  })
+
+  //restart the news modal
+  function restartNewsModal() {
+    $('#imgHeader').attr('src', '')
+    $('.headerLbl').removeClass('hidden')
+    $('#newsTitle').val("")
+    $('#newstTxtArea').val("")
+    $('.imgWrapper').remove()
+  }
+  //open announcement modal
+  $('#newsBtn').on('click', function () {
+    $('#newsUpdateModal').removeClass('hidden')
+  })
 });
 
 

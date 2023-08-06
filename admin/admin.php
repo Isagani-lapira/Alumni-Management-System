@@ -94,12 +94,29 @@ if (
                 DASHBOARD</a>
             </li>
 
-            <!-- ANNOUNCEMENT -->
+            <!-- MAKE POST -->
             <li id="announcementLI" class="rounded-lg p-2"><a href="#announcement-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z" />
                 </svg>
                 MAKE POST</a>
+            </li>
+
+            <!-- announcement -->
+            <li id="newsAndUpdate" class="rounded-lg p-2">
+              <a href="#newsAndUpdate-tab">
+                <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
+                  <mask id="ipSAnnouncement0">
+                    <g fill="none" stroke-linejoin="round" stroke-width="4">
+                      <rect width="40" height="26" x="4" y="15" fill="#fff" stroke="#fff" rx="2" />
+                      <path fill="#fff" stroke="#fff" stroke-linecap="round" d="m24 7l-8 8h16l-8-8Z" />
+                      <path stroke="#000" stroke-linecap="round" d="M12 24h18m-18 8h8" />
+                    </g>
+                  </mask>
+                  <path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSAnnouncement0)" />
+                </svg>
+                ANNOUNCEMENT
+              </a>
             </li>
 
             <!-- EMAIL -->
@@ -443,6 +460,15 @@ if (
           </div>
 
 
+        </div>
+
+        <!-- NEWS AND UPDATE -->
+        <div id="newsAndUpdate-tab" class="p-5">
+          <h1 class="text-xl font-extrabold">NEWS AND UPDATE</h1>
+          <p class="text-grayish">Here you can make announcement that everyone can see, it can be news or events</p>
+          <div class="flex justify-end">
+            <button id="newsBtn" class="text-sm text-white rounded-md bg-accent p-2">Make announcement</button>
+          </div>
         </div>
 
         <!-- Email content -->
@@ -1802,6 +1828,43 @@ if (
       </div>
     </div>
 
+    <!-- news and update modal -->
+    <div id="newsUpdateModal" class="modal fixed inset-0 h-full w-full flex items-center justify-center hidden">
+      <!-- container -->
+      <div class=" w-2/6 h-max bg-white rounded-sm overflow-y-auto py-3 px-5 overflow-y-auto">
+        <!-- header -->
+        <div class="flex gap-2 items-center py-2">
+          <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
+          <span class="ml-2 text-xl font-bold">BulSU Update</span>
+        </div>
+
+        <div class="relative rounded-md h-48">
+          <img id="imgHeader" class="h-full w-full rounded-md border">
+          <input type="file" name="headerImg" id="headerImg" class="hidden" accept="image/*">
+          <label for="headerImg" class="headerLbl absolute top-1/2 w-full text-center cursor-pointer text-gray-400">Add Header Image</label>
+        </div>
+        <input class="text-center w-full outline-none text-lg font-bold text-greyish_black my-2" type="text" id="newsTitle" placeholder="Title for this announcement">
+        <textarea id="newstTxtArea" class=" w-full h-max resize-none p-2 text-sm text-gray-500 outline-none  overflow-y-hidden rounded-sm" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' name="" id="" placeholder="Add your description here"></textarea>
+
+        <p class="text-blue-400 text-sm my-2">Add more images ( Optional )</p>
+        <!-- image collection -->
+        <div id="collectionContainer" class="flex flex-wrap gap-2">
+          <!-- adding image -->
+          <div id="addImgCollection" class=" w-24 h-24 rounded-md border border-accent flex justify-center items-center">
+            <label for="collectionFile">
+              <iconify-icon icon="zondicons:add-outline" style="color: #991b1b;" width="32" height="32"></iconify-icon>
+            </label>
+            <input type="file" name="" id="collectionFile" accept="image/*" class="hidden">
+          </div>
+        </div>
+
+        <div class="flex justify-end items-center gap-2">
+          <button id="closeNewsModal" class="text-gray-400">Cancel</button>
+          <button id="postNewsBtn" class="text-gray-300  bg-red-300 font-semibold px-5 py-1 rounded-md" disabled>Post</button>
+        </div>
+      </div>
+
+    </div>
 
     <!-- post modal -->
     <div id="modalPost" class="modal fixed inset-0 h-full w-full p-3 hidden">
