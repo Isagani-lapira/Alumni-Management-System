@@ -481,6 +481,11 @@ if (
             </thead>
             <tbody id="announcementList" class="text-xs"></tbody>
           </table>
+          <p id="noAvailMsgAnnouncement" class="text-center text-blue-400 text-lg hidden">No available data</p>
+          <div class="flex flex-wrap gap-2 justify-end my-2">
+            <button id="prevAnnouncement" class="tex-sm px-3 py-1 rounded-md border border-accent">Previous</button>
+            <button id="nextAnnouncement" class="text-white bg-accent tex-sm px-4 py-1 rounded-md">Next</button>
+          </div>
         </div>
 
         <!-- Email content -->

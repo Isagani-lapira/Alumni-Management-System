@@ -1043,6 +1043,9 @@ $(document).ready(function () {
   $('#newsAndUpdate').on('click', retrievedAnnouncement)
 
   let offsetAnnouncement = 0;
+  let retrievedList = 0;
+  let startOfList = true;
+
   //retrieve the announcement data
   function retrievedAnnouncement() {
     let action = "readAdminPost"
@@ -1062,6 +1065,7 @@ $(document).ready(function () {
         if (response.result == 'Success') {
           const data = response
           $('#announcementList').empty() //remove the previously displayed
+          $('#noAvailMsgAnnouncement').addClass('hidden')
 
           //get all the data retrieved from the processing
           const length = data.title.length
@@ -1102,7 +1106,19 @@ $(document).ready(function () {
             $('#announcementList').append(row)
           }
 
+          offsetAnnouncement += length
+          retrievedList = length
+          //if the retrieved data is not get to 10 then it's because there's no more data left
+          if (retrievedList < 10) {
+            $('#nextAnnouncement').addClass('hidden')
+          }
+          else {
+            $('#nextAnnouncement').removeClass('hidden')
+            $('#prevAnnouncement').removeClass('hidden')
+          }
+
         }
+        else $('#noAvailMsgAnnouncement').removeClass('hidden')
       }
 
     })
@@ -1121,6 +1137,19 @@ $(document).ready(function () {
 
     return month + ' ' + day + ', ' + year
   }
+
+  $('#prevAnnouncement').on('click', function () {
+    offsetAnnouncement -= retrievedList
+    //check if the offset is already in 0
+    if (offsetAnnouncement !== 0 || offsetAnnouncement > 0) {
+      retrievedAnnouncement()
+    } else $(this).addClass('hidden')
+  })
+
+  //retrieve next sets of data
+  $('#nextAnnouncement').on('click', function () {
+    retrievedAnnouncement()
+  })
 });
 
 
