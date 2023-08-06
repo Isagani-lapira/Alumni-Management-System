@@ -946,9 +946,11 @@ $(document).ready(function () {
     }
   }
 
+  const imageCollection = [];
   $('#collectionFile').on('change', function () {
     let imgSrc = this.files[0];
 
+    imageCollection.push(imgSrc);
     //get image selected
     if (imgSrc) {
       var reader = new FileReader();
@@ -985,6 +987,8 @@ $(document).ready(function () {
     $('#newsTitle').val("")
     $('#newstTxtArea').val("")
     $('.imgWrapper').remove()
+
+    imageCollection = [];
   }
   //open announcement modal
   $('#newsBtn').on('click', function () {
@@ -1004,6 +1008,13 @@ $(document).ready(function () {
     formData.append('title', title)
     formData.append('description', description)
 
+    //send images when there's a collection added
+    if (imageCollection.length != 0) {
+      for (let i = 0; i < imageCollection.length; i++) {
+        formData.append('file[]', imageCollection[i])
+      }
+    }
+
     //process the insertion
     $.ajax({
       url: '../PHP_process/announcement.php',
@@ -1011,7 +1022,13 @@ $(document).ready(function () {
       data: formData,
       processData: false,
       contentType: false,
-      success: response => { console.log(response) },
+      success: response => {
+        if (response == "Success") {
+          //close the modal
+          $('#newsUpdateModal').addClass('hidden')
+          restartNewsModal()
+        }
+      },
       error: error => { console.log(error) },
     })
 

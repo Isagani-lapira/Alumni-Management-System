@@ -17,7 +17,8 @@ if (isset($_POST['action'])) {
         $headerImg = $_FILES['imgHeader'];
         $title = $_POST['title'];
         $description = $_POST['description'];
-        insertNews($title, $description, $univAdminID, $headerImg);
+        $imgCollection = (isset($_FILES['file'])) ? $_FILES['file'] : null;
+        insertNews($title, $description, $univAdminID, $headerImg, $imgCollection, $mysql_con);
     }
 }
 
@@ -103,7 +104,7 @@ function getAnnouncementImg($id, $con)
     echo json_encode($data);
 }
 
-function insertNews($title, $description, $univAdminID, $headerImg)
+function insertNews($title, $description, $univAdminID, $headerImg, $imgCollection, $con)
 {
     $random = rand(0, 4000);
     $announcementID = $title . '-' . substr(md5(uniqid()), 10) . '-' . $random;
@@ -115,7 +116,33 @@ function insertNews($title, $description, $univAdminID, $headerImg)
     $query = "INSERT INTO `university_announcement`(`announcementID`, `title`, `Descrip`, `univAdminID`,
      `date_posted`, `headline_img`, `date_end`) VALUES ('$announcementID','$title','$description',
      '$univAdminID','$datePosted','$fileContent','$date_end')";
+    $result = mysqli_query($con, $query);
 
-    if ($query) echo 'Success';
-    else echo 'Failed';
+    if ($imgCollection == null) {
+        if ($result) echo 'Success';
+        else echo 'Failed';
+    } else {
+        $isCompleted = false;
+        //add image collection
+        $imgLength = count($imgCollection['name']);
+        for ($i = 0; $i < $imgLength; $i++) {
+            $fileContent = addslashes(file_get_contents($imgCollection['tmp_name'][$i]));
+            $isCompleted = addAdittionalImg($announcementID, $fileContent, $con);
+        }
+
+        if ($isCompleted) echo 'Success';
+        else echo 'Failed';
+    }
+}
+
+function addAdittionalImg($announcementID, $image, $con)
+{
+    $random = rand(0, 4000);
+    $imgID = uniqid() . '-' . $random;
+    $query = "INSERT INTO `univ_announcement_images`(`imgID`, `announcementID`, `image`) 
+    VALUES ('$imgID','$announcementID','$image')";
+    $result = mysqli_query($con, $query);
+
+    if ($result) return true;
+    else return false;
 }
