@@ -13,9 +13,8 @@ if (isset($_POST['action'])) {
     $notificationObj = new Notification();
     switch ($action) {
         case 'readNotif':
-            $date = $actionJSON['retrievalDate'];
-            $maxLimit = $actionJSON['maxRetrieve'];
-            $notificationObj->ReadNotification($username, $date, $maxLimit, $mysql_con);
+            $offset = $_POST['offset'];
+            $notificationObj->ReadNotification($username, $offset, $mysql_con);
             break;
         case 'readUnreadNotif':
             $notificationObj->totalUnreadNotif($username, $mysql_con);

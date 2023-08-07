@@ -527,7 +527,7 @@ $(document).ready(function () {
             let eventWrapper = $('<div>').addClass('flex flex-wrap gap-2 items-center')
             let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
             let eventNameElement = $('<p>')
-              .addClass('font-bold italic text-greyish_black text-sm')
+              .addClass('font-bold italic text-greyish_black text-xs')
               .text(eventName)
             let eventDateElement = $('<p>')
               .addClass('text-xs text-gray-500')

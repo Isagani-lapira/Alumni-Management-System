@@ -43,18 +43,19 @@ $(document).ready(function () {
                 const eventDate = response.eventDate
                 const about_event = response.about_event
                 const contactLink = response.contactLink
-                const when_where = "sadfasd" // to be change
+                const eventPlace = response.eventPlace
+                const eventStartTime = response.eventPlace
                 const aboutImg = response.aboutImg
                 const images = response.images
                 const expectation = response.expectation
 
-                displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg, images, expectation)
+                displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, eventPlace, aboutImg, images, eventStartTime, expectation)
             },
             error: error => { console.log(error) }
         })
     }
 
-    function displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, when_where, aboutImg, images, expectation) {
+    function displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, eventPlace, aboutImg, images, eventStartTime, expectation) {
         //display it on the content of event
         $('#headerEvent').html(headerPhrase)
         $('#eventName').html(eventName)
@@ -65,7 +66,9 @@ $(document).ready(function () {
         //set image for about event
         const imgSrc = imgFormat + aboutImg
         $('#aboutImg').attr('src', imgSrc);
-        $('#whenWhere').html(when_where)
+        $('#eventDate').html(eventDate)
+        $('#eventPlace').html(eventPlace)
+        $('#eventStartTime').html(eventStartTime)
 
         // set up the carousel
         images.forEach(element => {

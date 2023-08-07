@@ -1044,7 +1044,6 @@ $(document).ready(function () {
 
   let offsetAnnouncement = 0;
   let retrievedList = 0;
-  let startOfList = true;
 
   //retrieve the announcement data
   function retrievedAnnouncement() {

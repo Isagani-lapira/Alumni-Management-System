@@ -5,7 +5,6 @@ session_start();
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
-    $univAdminID = $_SESSION['univAdminID'];
 
     if ($action == "readAnnouncement") {
         $currentDate = $_POST['currentDate'];
@@ -18,10 +17,12 @@ if (isset($_POST['action'])) {
         $headerImg = $_FILES['imgHeader'];
         $title = $_POST['title'];
         $description = $_POST['description'];
+        $univAdminID = $_SESSION['univAdminID'];
         $imgCollection = (isset($_FILES['file'])) ? $_FILES['file'] : null;
         insertNews($title, $description, $univAdminID, $headerImg, $imgCollection, $mysql_con);
     } else if ($action = 'readAdminPost') {
         $offset = $_POST['offset'];
+        $univAdminID = $_SESSION['univAdminID'];
         getAdminAnnouncement($univAdminID, $offset, $mysql_con);
     }
 }

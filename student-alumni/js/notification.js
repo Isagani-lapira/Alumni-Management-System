@@ -1,38 +1,16 @@
 $(document).ready(function () {
-    function getCurrentDate() {
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = String(today.getMonth() + 1).padStart(2, '0');
-        var day = String(today.getDate()).padStart(2, '0');
-        return year + '-' + month + '-' + day;
-    }
 
-    //for retrieving recent date
-    function getPreviousDate(daysToSubtract) {
-        var today = new Date();
-        today.setDate(today.getDate() - daysToSubtract);
-        var year = today.getFullYear();
-        var month = String(today.getMonth() + 1).padStart(2, '0');
-        var day = String(today.getDate()).padStart(2, '0');
-        return year + '-' + month + '-' + day;
-    }
-    var retrievalDate = getCurrentDate(); //to be change getCurrentDate()
-    var noOfDaySubtract = 1;
-    var countNone = 1;
-    var maxRetrieve = 10;
-    let dataRetrieved = 0;
-
+    let offset = 0;
+    let templength = 0;
     //retrieving notification
     function getNotification() {
         let action = {
             action: 'readNotif',
-            retrievalDate: retrievalDate,
-            maxRetrieve: maxRetrieve
         }
 
         let formData = new FormData();
         formData.append('action', JSON.stringify(action));
-
+        formData.append('offset', offset);
         //process the notification
         $.ajax({
             method: 'POST',
@@ -42,46 +20,30 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: (response) => {
-                //retrieve the previous date
-                if (response.result == "Nothing" && countNone <= 10 && maxRetrieve != 0) {
-                    console.log(retrievalDate)
-                    retrievalDate = getPreviousDate(noOfDaySubtract);
-                    getNotification()
-                    noOfDaySubtract++ //if no more the day will be increasing to get the previous date
-                    countNone++
-                }
-                else if (response != "Nothing") {
+                if (response.result == 'Success') {
+                    let length = response.notifID.length; //total length of the data retrieved
 
-                    if (response.result == 'Success') {
-                        let length = response.notifID.length; //total length of the data retrieved
+                    //store data that has been process
+                    for (let i = 0; i < length; i++) {
+                        const notifID = response.notifID[i];
+                        const added_by = response.added_by[i];
+                        const typeOfNotif = response.typeOfNotif[i];
+                        const content = response.content[i];
+                        const date_notification = response.date_notification[i];
+                        const is_read = response.is_read[i];
+                        const profile = response.profile[i];
 
-                        //store data that has been process
-                        for (let i = 0; i < length; i++) {
-                            const notifID = response.notifID[i];
-                            const added_by = response.added_by[i];
-                            const typeOfNotif = response.typeOfNotif[i];
-                            const content = response.content[i];
-                            const date_notification = response.date_notification[i];
-                            const timestamp = response.timestamp[i];
-                            const is_read = response.is_read[i];
-                            const profile = response.profile[i];
-
-                            displayNotification(profile, added_by, content, date_notification, is_read)
-                        }
-
-                        dataRetrieved = length; // get how many data has been retrieve for that day
-                        maxRetrieve = maxRetrieve - dataRetrieved;
-                        if (maxRetrieve != 0) {
-                            retrievalDate = getPreviousDate(noOfDaySubtract);
-                            noOfDaySubtract++
-                            countNone = 0;
-                            getNotification()
-                        } else maxRetrieve = 10;
+                        displayNotification(profile, added_by, content, date_notification, is_read)
                     }
+
+                    //increase the offset based on length so it can produce new sets of notification
+                    offset += length
+                    templength = length
                 }
                 else {
-                    let noNotification = $('<p>').addClass('text-center').text('No available notification')
-                    $('.notification-content').append(noNotification)
+                    templength = 0;
+                    $('#noNotifMsg').removeClass('hidden')
+                    $('#noNotifMsg').appendTo('.notification-content')
                 }
             },
             error: (error) => { console.log(error) }
@@ -91,7 +53,6 @@ $(document).ready(function () {
     const imgFormat = 'data:image/jpeg;base64,';
     function displayNotification(profile, added_by, content, date_notification, is_read) {
         const notifContainer = $('<div>').addClass('notifContainer flex items-center gap-3 border-b border-gray-300 p-2 bg-blue-200 rounded-md my-1')
-
         if (is_read == '1') notifContainer.removeClass("bg-blue-200")//check if the notification already read
 
         //image of the user
@@ -127,19 +88,20 @@ $(document).ready(function () {
 
     //get new sets of notification
     $('.notification-content').on('scroll', function () {
-        getNotification()
+        if (templength != 0) {
+            getNotification()
+        }
     })
 
     function getUnreadNotification() {
+
         let action = {
             action: 'readNotif',
-            retrievalDate: retrievalDate,
-            maxRetrieve: maxRetrieve
         }
 
         let formData = new FormData();
         formData.append('action', JSON.stringify(action));
-
+        formData.append('offset', offset);
         //process the notification
         $.ajax({
             method: 'POST',
@@ -149,51 +111,36 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: (response) => {
-                //retrieve the previous date
-                if (response.result == "Nothing" && countNone <= 10 && maxRetrieve != 0) {
-                    console.log(retrievalDate)
-                    retrievalDate = getPreviousDate(noOfDaySubtract);
-                    getUnreadNotification()
-                    noOfDaySubtract++ //if no more the day will be increasing to get the previous date
-                    countNone++
-                }
-                else if (response != "Nothing") {
+                if (response.result == 'Success') {
+                    let length = response.notifID.length; //total length of the data retrieved
 
-                    if (response.result == 'Success') {
-                        let length = response.notifID.length; //total length of the data retrieved
+                    //store data that has been process
+                    for (let i = 0; i < length; i++) {
+                        const notifID = response.notifID[i];
+                        const added_by = response.added_by[i];
+                        const typeOfNotif = response.typeOfNotif[i];
+                        const content = response.content[i];
+                        const date_notification = response.date_notification[i];
+                        const is_read = response.is_read[i];
+                        const profile = response.profile[i];
 
-                        //store data that has been process
-                        for (let i = 0; i < length; i++) {
-                            const notifID = response.notifID[i];
-                            const added_by = response.added_by[i];
-                            const typeOfNotif = response.typeOfNotif[i];
-                            const content = response.content[i];
-                            const date_notification = response.date_notification[i];
-                            const timestamp = response.timestamp[i];
-                            const is_read = response.is_read[i];
-                            const profile = response.profile[i];
-
-                            if (is_read == '0')
-                                displayNotification(profile, added_by, content, date_notification, is_read)
-                        }
-
-                        dataRetrieved = length; // get how many data has been retrieve for that day
-                        maxRetrieve = maxRetrieve - dataRetrieved;
-                        if (maxRetrieve != 0) {
-                            retrievalDate = getPreviousDate(noOfDaySubtract);
-                            noOfDaySubtract++
-                            countNone = 0;
-                            getUnreadNotification()
-                        } else maxRetrieve = 10;
+                        if (is_read == 0)
+                            displayNotification(profile, added_by, content, date_notification, is_read)
                     }
+
+                    //increase the offset based on length so it can produce new sets of notification
+                    offset += length
+                    templength = length
                 }
                 else {
-                    let noNotification = $('<p>').addClass('text-center').text('No available notification')
-                    $('.notification-content').append(noNotification)
+                    templength = 0;
+                    $('#noNotifMsg').removeClass('hidden')
+                    $('#noNotifMsg').appendTo('.notification-content') // to be placed at the very bottom
                 }
             },
             error: (error) => { console.log(error) }
         })
+
     }
 
     //show only unread notification
@@ -201,17 +148,16 @@ $(document).ready(function () {
         $(this).addClass('bg-accent text-white') //highlight the button unread
         $('#btnNotifAll').removeClass('bg-accent text-white') //remove highlighted button all 
 
+        //remove the previously displayed list
         $('.notifContainer').each(function () {
             $(this).remove()
         })
+        $('#noNotifMsg').addClass('hidden')
 
-        //restart everything
-        retrievalDate = getCurrentDate(); //to be change getCurrentDate()
-        noOfDaySubtract = 1;
-        countNone = 1;
-        maxRetrieve = 10;
-        dataRetrieved = 0;
-        getUnreadNotification()
+        //restart to 0 to make a fresh notification for switching tabs
+        offset = 0
+        templength = 0
+        getUnreadNotification() //display all the notification
     })
 
     //show all notification
@@ -223,15 +169,11 @@ $(document).ready(function () {
         $('.notifContainer').each(function () {
             $(this).remove()
         })
+        $('#noNotifMsg').addClass('hidden')
 
-        //restart everything
-        retrievalDate = getCurrentDate(); //to be change getCurrentDate()
-        noOfDaySubtract = 1;
-        countNone = 1;
-        maxRetrieve = 10;
-        dataRetrieved = 0;
-
-        //display all the notification
-        getNotification()
+        //restart to 0 to make a fresh notification for switching tabs
+        offset = 0
+        templength = 0
+        getNotification() //display all the notification
     })
 })

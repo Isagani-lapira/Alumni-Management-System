@@ -149,10 +149,8 @@ function dateInText($date)
         'July', 'August', 'September', 'October', 'November', 'December'
     ];
 
-    //2023-07-17
     //convert date month to text format
     $month = $months[$month];
-
     //return in a formatted date
     return $month . ' ' . $day . ', ' . $year;
 }

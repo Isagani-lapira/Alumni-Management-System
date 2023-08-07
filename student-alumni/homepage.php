@@ -210,7 +210,7 @@ function getAccDetails($con, $personID)
         <div id="mainFeedContainer" class="flex pt-48 z-10 w-full h-full scrollable-container">
 
           <!-- LEFT DIV -->
-          <div class="left-div fixed top-48 left-0 w-1/4 h-full px-8">
+          <div class="left-div fixed top-32 left-0 w-1/4 h-full px-8 z-50">
 
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
@@ -252,7 +252,7 @@ function getAccDetails($con, $personID)
             <!-- Upcoming Events -->
             <div class="py-4">
               <h3 class="text-lg font-bold text-grayish_black">Upcoming Events:</h3>
-              <div id="upcomingEventroot" class="px-3 flex flex-col gap-2 mt-2">
+              <div id="upcomingEventroot" class="px-3 flex flex-col gap-1 mt-2">
 
               </div>
             </div>
@@ -305,7 +305,7 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- RIGHT DIV -->
-          <div class="right-div fixed top-48 right-2 w-1/4 h-full px-8">
+          <div class="right-div fixed top-32 right-2 w-1/4 h-full px-8">
             <!-- Content for the right div -->
             <p class="font-medium border-b-2 border-grayish ml-auto block text-sm pb-2 mb-4 text-greyish_black">University News</p>
             <div class="h-1/3">
@@ -322,7 +322,7 @@ function getAccDetails($con, $personID)
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
           <!-- Notifications Tab -->
           <div id="notification-tab" class="notification-tab hidden fixed top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
-            <div class="notification-content bg-white center-shadow border-2 p-4 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
+            <div class="notification-content bg-white center-shadow border-2 px-4 pt-4 pb-20 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
               <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
 
               <div class="flex space-x-4 mb-4">
@@ -330,8 +330,8 @@ function getAccDetails($con, $personID)
                 <button id="btnNotifUnread" class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">Unread</button>
               </div>
 
+              <p id="noNotifMsg" class="text-center my-4 text-blue-400 hidden">No available notification</p>
             </div>
-
           </div>
 
 
@@ -675,7 +675,7 @@ function getAccDetails($con, $personID)
               <h1 id="headerEvent" class=" text-gray-800 text-5xl lg:text-6xl font-bold">Get Ready to Dance with</h1>
               <p id="eventNameHeader" class=" text-4xl font-bold mb-2">Rainbow Pop</p>
               <button class="text-white font-bold bg-blue-300 px-5 py-3 my-2">
-                <a id="connectURL">CONNECT WITH US</a>
+                <a id="connectURL" target="_blank">CONNECT WITH US</a>
               </button>
             </div>
 
@@ -695,24 +695,24 @@ function getAccDetails($con, $personID)
         <div class="flex flex-nowrap px-5">
           <!-- about image -->
           <div class="w-1/2 flex justify-center">
-            <img id="aboutImg" class="h-4/5 w-4/5 rounded-md center-shadow object-contain bg-black" src="../images/ye.jpg" alt="">
+            <img id="aboutImg" class="h-3/4 w-3/4 rounded-md center-shadow object-contain bg-black" src="../images/ye.jpg" alt="">
           </div>
 
           <!-- about the event -->
           <div class="flex flex-col p-5 w-1/2">
-            <h1 class=" w-4/5 text-end text-4xl text-greyish_black font-bold">About the Event</h1>
-            <p id="aboutEvent" class="text-lg  w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            <h1 class="w-4/5 text-end text-3xl text-greyish_black font-bold">About the Event</h1>
+            <p id="aboutEvent" class=" w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
               dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
               ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
               fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
               mollit anim id est laborum."</p>
 
-            <!-- where  and when -->
-            <div class="my-10  w-full text-end">
-              <h1 class="w-4/5 text-4xl text-greyish_black font-bold">When and Where?</h1>
-              <p id="whenWhere" class="w-4/5 text-lg text-gray-500">"Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
+            <!-- event details -->
+            <div class="my-10 w-full">
+              <h1 class="w-4/5 text-3xl text-greyish_black font-bold">Event Details</h1>
+              <p class="w-4/5 text-gray-500">Date: <span id="eventDate"></span></p>
+              <p class="w-4/5 text-gray-500">Place: <span id="eventPlace"></span></p>
+              <p class="w-4/5 text-gray-500">Start time: <span id="eventStartTime"></span></p>
             </div>
           </div>
 

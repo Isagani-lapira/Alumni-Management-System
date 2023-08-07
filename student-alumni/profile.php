@@ -38,7 +38,7 @@ if (
         $fullname = $personData['fname'] . ' ' . $personData['lname'];
         $age = $personData['age'];
         $address = $personData['address'];
-        $bday = $personData['bday'];
+        $bday = dateInText($personData['bday']);
         $gender = ucfirst($personData['gender']);
         $contactNo = $personData['contactNo'];
         $personal_email = $personData['personal_email'];
@@ -78,6 +78,21 @@ function getAccDetails($con, $personID)
     return json_encode($data);
 }
 
+function dateInText($date)
+{
+    $year = substr($date, 0, 4);
+    $month = intval(substr($date, 5, 2));
+    $day = substr($date, 8, 2);
+    $months = [
+        '', 'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    //convert date month to text format
+    $month = $months[$month];
+    //return in a formatted date
+    return $month . ' ' . $day . ', ' . $year;
+}
 ?>
 
 <head>

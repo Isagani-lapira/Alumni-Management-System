@@ -2,11 +2,11 @@
 
 class Notification
 {
-    public function ReadNotification($username, $date, $maxLimit, $con)
+    public function ReadNotification($username, $offset, $con)
     {
-        $query = "SELECT * FROM `notification` 
-        WHERE `username`= '$username' AND `date_notification` = '$date'
-        ORDER BY `date_notification` AND `timestamp` DESC LIMIT 0, $maxLimit";
+        $maxLimit = 10;
+        $query = "SELECT * FROM `notification` WHERE `username` = '$username' 
+        ORDER BY `date_notification`DESC LIMIT $offset, $maxLimit";
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
