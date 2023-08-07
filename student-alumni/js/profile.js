@@ -29,9 +29,9 @@ $(document).ready(function () {
     action: 'readUserPost',
     retrievalDate: retrievalDate,
   }
-  getPost(actionRetrieval)
-  function getPost(action) {
 
+  getPost(actionRetrieval, false)
+  function getPost(action, isDeleted) {
     const formData = new FormData();
     formData.append('action', JSON.stringify(action));
     $.ajax({
@@ -42,10 +42,9 @@ $(document).ready(function () {
       contentType: false,
       success: (response) => {
         if (response == "none" && stoppingPoint <= 20 && maxRetrieve != 0) {
-          console.log('pumasok dine')
           retrievalDate = getPreviousDate(noOfDaySubtract); //get the previous dates
           action.retrievalDate = retrievalDate;
-          getPost(action);
+          getPost(action, isDeleted);
           noOfDaySubtract++;
           stoppingPoint++;
         }
@@ -67,7 +66,7 @@ $(document).ready(function () {
               const comments = parsedResponse.comments[i];
               date = getFormattedDate(date) //formatted date for easy viewing of date
 
-              displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID); //display the post on the container
+              displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted); //display the post on the container
             }
             dataRetrieved += length; // get how many data has been retrieve for that day
             console.log(dataRetrieved)
@@ -75,7 +74,7 @@ $(document).ready(function () {
               retrievalDate = getPreviousDate(noOfDaySubtract);
               action.retrievalDate = retrievalDate;
               stoppingPostRetrieval = 0;
-              getPost(action)
+              getPost(action, isDeleted)
               noOfDaySubtract++;
             }
           }
@@ -114,7 +113,7 @@ $(document).ready(function () {
       action: 'readUserArchievedPost',
       retrievalDate: retrievalDate, // to be change
     }
-    getPost(actionAchieved)
+    getPost(actionAchieved, true)
   })
 
   $('#userPost').on('click', function () {
@@ -125,6 +124,13 @@ $(document).ready(function () {
     restartPost()
   })
 
+  $('.closeReportModal').each(function () {
+    $(this).on('click', closeReport)
+  })
+  // close the report modal
+  function closeReport() {
+    $('#delete-modal').addClass('hidden')
+  }
   function getFormattedDate(date) {
     //parts out the date
     let year = date.substring(0, 4);
@@ -139,7 +145,7 @@ $(document).ready(function () {
   }
 
 
-  function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID) {
+  function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted) {
     let postWrapper = $('<div>').addClass("postWrapper center-shadow w-full p-4 rounded-md mx-auto");
 
     let header = $('<div>');
@@ -237,39 +243,44 @@ $(document).ready(function () {
     let likesElement = $('<p>').addClass('text-xs text-gray-500').text(likes)
     let commentElement = $('<p>').addClass('text-xs text-gray-500 comment').text(comments)
     let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
+    let deletePost = $('<p>').addClass('text-sm  cursor-pointer ')
 
+    if (isDeleted) {
+      deletePost.addClass('text-green-400 ')
+        .text('Restore')
+    }
+    else {
+      deletePost.addClass('text-red-400 ')
+        .text('Delete')
+        .on('click', function () {
+          //update the status of the post into delete
+          //open the delete prompt
+          $('#delete-modal').removeClass('hidden')
+          //update the post status into deleted
+          $('#deletePostbtn').on('click', function () {
+            let action = { action: 'deletePost' };
+            const formdata = new FormData()
+            formdata.append('action', JSON.stringify(action));
+            formdata.append('postID', postID);
 
-    let deletePost = $('<p>')
-      .addClass('text-sm text-red-400 cursor-pointer ')
-      .text('Delete')
-      .on('click', function () {
-        //update the status of the post into delete
-        //open the delete prompt
-        $('#delete-modal').removeClass('hidden')
-        //update the post status into deleted
-        $('#deletePostbtn').on('click', function () {
-          let action = { action: 'deletePost' };
-          const formdata = new FormData()
-          formdata.append('action', JSON.stringify(action));
-          formdata.append('postID', postID);
-
-          //process the deletion
-          $.ajax({
-            url: '../PHP_process/postDB.php',
-            method: 'POST',
-            data: formdata,
-            processData: false,
-            contentType: false,
-            success: response => {
-              //close the modal
-              $('#delete-modal').addClass('hidden')
-              restartPost()
-              getPost(actionRetrieval) //reload the post again
-            },
-            error: error => { console.log(error) }
+            //process the deletion
+            $.ajax({
+              url: '../PHP_process/postDB.php',
+              method: 'POST',
+              data: formdata,
+              processData: false,
+              contentType: false,
+              success: response => {
+                //close the modal
+                $('#delete-modal').addClass('hidden')
+                restartPost()
+                getPost(actionRetrieval) //reload the post again
+              },
+              error: error => { console.log(error) }
+            })
           })
         })
-      })
+    }
     interactionContainer.append(leftContainer, deletePost)
 
     //set up the details of the post
@@ -517,7 +528,6 @@ $(document).ready(function () {
     $('#carousel-wrapper').empty()
     $("#carousel-indicators").empty();
   })
-
 
   //open the post modal
   $('#postButton').on('click', function () {
