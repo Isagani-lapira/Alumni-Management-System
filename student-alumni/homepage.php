@@ -756,7 +756,7 @@ function getAccDetails($con, $personID)
 
             <div class="scrollable-container mt-8 rounded-md ">
               <ul id="listOfJob" class="tab-links overflow-y-auto px-2 pb-4 flex flex-col gap-2 w-10/12" style="max-height: 440px;">
-                <p id="noJobMsg" class="hidden">No available job right now</p>
+                <p id="noJobMsg" class="hidden text-sm text-blue-400 text-center">No available job right now</p>
               </ul>
             </div>
 

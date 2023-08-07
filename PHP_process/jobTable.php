@@ -58,9 +58,8 @@ if (isset($_POST['action'])) {
             $readCareer->selectData($offset, $mysql_con);
         } else if ($action == 'readWithCol') {
             $colCode = $arrayData['colCode'];
-            $startDate = $_POST['startDate'];
-            $endDate = $_POST['endDate'];
-            $readCareer->selectDataForCollege($colCode, $startDate, $endDate, $mysql_con);
+            $offset = $_POST['offset'];
+            $readCareer->selectDataForCollege($colCode, $offset, $mysql_con);
         } else if ($action == 'readWithCareerID') {
             $careerID = $arrayData['careerID'];
             $readCareer->selectWithCareerID($mysql_con, $careerID);
@@ -69,9 +68,8 @@ if (isset($_POST['action'])) {
             $readCareer->selectSearchJob($jobTitle, $mysql_con);
         } else if ($action == 'readWithAuthor') {
             $colCode = $arrayData['colCode'];
-            $startDate = $_POST['startDate'];
-            $endDate = $_POST['endDate'];
-            $readCareer->selectCareerAdmin($colCode, $startDate, $endDate, $mysql_con);
+            $offset = $_POST['offset'];
+            $readCareer->selectCareerAdmin($colCode, $offset, $mysql_con);
         }
     } catch (Exception $e) {
         echo $e->getMessage();

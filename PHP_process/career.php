@@ -111,14 +111,12 @@ class Career
         if ($result) $this->getCareerDetail($result, $con);
         else echo 'something went wrong, please try again';
     }
-    public function selectDataForCollege($college, $startDate, $endDate, $con)
+    public function selectDataForCollege($college, $offset, $con)
     {
-
+        $maxLimit = 10; //default number of retrieval
         // Properly formatted SQL query
-        $query = 'SELECT * FROM `career`
-        WHERE `colCode` = "' . $college . '"
-        AND `date_posted` BETWEEN "' . $startDate . '" AND "' . $endDate . '"
-        AND `status` = "verified" ORDER BY `date_posted` DESC;';
+        $query = "SELECT * FROM `career` WHERE `colCode` = '$college' AND `status` ='verified' 
+        ORDER BY `date_posted` DESC LIMIT $offset,$maxLimit";
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
@@ -234,13 +232,12 @@ class Career
         return $month . ' ' . $day . ', ' . $year;
     }
 
-    public function selectCareerAdmin($college, $startDate, $endDate, $con)
+    public function selectCareerAdmin($college, $offset, $con)
     {
-
+        $maxLimit = 10;
         $query = "SELECT * FROM `career` WHERE `colCode` = '$college' AND 
-              `date_posted` BETWEEN '$startDate' AND '$endDate' AND 
-              `author` = 'University Admin'
-              ORDER BY `date_posted` DESC"; // as default
+        `author` = 'University Admin' OR `author` = 'colAdmin'
+        ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit";
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);

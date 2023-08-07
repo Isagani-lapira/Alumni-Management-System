@@ -59,28 +59,15 @@ $(document).ready(function () {
     return year + '-' + month + '-' + day;
   }
 
-  function getLastTwoWeeksFromStringDate(dateString) {
-    var currentDate = new Date(dateString); // Convert the string date to a Date object
-    var dates = "";
-
-    for (var i = 0; i < 14; i++) {
-      var date = new Date(currentDate.getTime() - i * 24 * 60 * 60 * 1000);
-      dates = formatDate(date);
-    }
-
-    return dates;
-  }
-
-  let endDate = getCurrentDate();
-  let startDate = getLastTwoWeeksFromStringDate(endDate)
 
   let action = {
     action: 'readWithCol',
     colCode: colCode,
   }
 
+  let offsetJob = 0;
   $('#JobHuntText').on('click', function () {
-    getWork(action, startDate, endDate) //load a list of work
+    getWork(action, offsetJob) //load a list of work
   })
 
 
@@ -88,11 +75,10 @@ $(document).ready(function () {
     $('#reportModal').addClass('hidden')
   })
 
-  function getWork(action, startDate, endDate) {
+  function getWork(action, offset) {
     let formData = new FormData();
     formData.append('action', JSON.stringify(action));
-    formData.append('startDate', startDate)
-    formData.append('endDate', endDate)
+    formData.append('offset', offset)
     $.ajax({
       method: 'POST',
       url: '../PHP_process/jobTable.php',
@@ -119,9 +105,13 @@ $(document).ready(function () {
               listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
             }
 
+            offsetJob += length //set new offset for job
           }
         }
-        else $('#noJobMsg').removeClass('hidden');
+        else {
+          $('#noJobMsg').removeClass('hidden')
+            .appendTo('#listOfJob')
+        }
       },
       error: (error) => { console.log(error) }
     })
@@ -245,8 +235,9 @@ $(document).ready(function () {
 
   //read all the bookmark
   function readBookMark() {
-    formData = new FormData();
+    let formData = new FormData();
     formData.append('action', 'readBookmark');
+    formData.append('offset', offsetJob)
 
     $.ajax({
       method: 'POST',
@@ -272,8 +263,13 @@ $(document).ready(function () {
             //display job with design
             listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
           })
+
+          offsetJob += length
         }
-        else $('#noJobMsg').removeClass('hidden');
+        else {
+          $('#noJobMsg').removeClass('hidden')
+            .appendTo('#listOfJob')
+        }
       },
       error: (error) => { console.log(error) }
     })
@@ -343,11 +339,9 @@ $(document).ready(function () {
 
   //change list to admin
   $('#jobSelection').on('change', function () {
+    offsetJob = 0 //restart the offset
     let jobVal = $(this).val();
 
-    //restart everything
-    endDate = getCurrentDate()
-    startDate = getLastTwoWeeksFromStringDate(endDate)
     $('#listOfJob').empty()
     if (jobVal == 'Admin') {
       let actionAdmin = {
@@ -355,23 +349,17 @@ $(document).ready(function () {
         colCode: colCode
       }
       //change list into admin's list
-      getWork(actionAdmin, startDate, endDate) //list of work
+      getWork(actionAdmin, offsetJob) //list of work
     }
-    else if (jobVal == 'Saved') {
-      readBookMark()
-    }
-    //back to all
-    else if (jobVal == 'all') {
-      getWork(action, startDate, endDate)
-    }
+    else if (jobVal == 'Saved') readBookMark() //display that is being saved
+    else if (jobVal == 'all') getWork(action, offsetJob) //back to all
+
   })
 
   //retrieve new data of post
   $('#listOfJob').on('scroll', function () {
     if ($('#listOfJob').scrollTop() + $('#listOfJob').innerHeight() >= $('#listOfJob')[0].scrollHeight) {
-      endDate = startDate
-      startDate = getLastTwoWeeksFromStringDate(endDate)
-      getWork(action, startDate, endDate) //list of work
+      getWork(action, offsetJob) //list of work
     }
   })
 

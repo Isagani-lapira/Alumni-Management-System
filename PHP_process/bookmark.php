@@ -70,7 +70,9 @@ function readBookmark($username, $careerID, $con)
 
 function readAllBookmark($username, $con)
 {
-    $query = "SELECT * FROM `saved_career` WHERE `username` = '$username'";
+    $query = "SELECT * FROM `saved_career` WHERE 
+    `username`= '$username' ORDER BY `date_mark`DESC";
+
     $result = mysqli_query($con, $query);
     $row = mysqli_num_rows($result);
 
