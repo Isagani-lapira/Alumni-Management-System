@@ -908,7 +908,10 @@ $(document).ready(function () {
 
 
     //community post
-    $('#communityLi').on('click', getCommunityPost)
+    $('#communityLi').on('click', function () {
+        getCommunityPost();
+        getReport()
+    })
 
     let offsetCommunity = 0
     //get community post
@@ -1118,37 +1121,73 @@ $(document).ready(function () {
     });
 
 
-    const chart = $('#reportChart');
+    function getReport() {
+        let action = {
+            action: 'displayReportData'
+        }
+        let formData = new FormData();
+        formData.append('action', JSON.stringify(action))
 
-    new Chart(chart, {
-        type: 'pie',
-        data: {
-            labels: [
-                'Nudity',
-                'Violence',
-                'Terrorism',
-                'Hate Speech',
-                'False Information',
-                'Suicide or self-injury',
-                'Harassment',
-            ],
-            datasets: [{
-                label: 'Report Graph',
-                data: [300, 50, 100, 10, 5, 1, 8],
-                backgroundColor: [
-                    '#FFDAB9',
-                    '#8B0000',
-                    '#555555',
-                    '#800080',
-                    '#D3D3D3',
-                    '#008080',
-                    '#FF8C00',
-                ],
-                hoverOffset: 4
-            }]
-        },
-    });
-    chart.addClass('h-96')
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                const nudity = response.nudity;
+                const violence = response.violence;
+                const Terrorism = response.Terrorism;
+                const HateSpeech = response.HateSpeech;
+                const FalseInformation = response.FalseInformation;
+                const SOS = response.SOS;
+                const harassment = response.harassment;
+
+                const chart = $('#reportChart');
+                new Chart(chart, {
+                    type: 'pie',
+                    data: {
+                        labels: [
+                            'Nudity',
+                            'Violence',
+                            'Terrorism',
+                            'Hate Speech',
+                            'False Information',
+                            'Suicide or self-injury',
+                            'Harassment',
+                        ],
+                        datasets: [{
+                            label: 'Report Graph',
+                            data: [
+                                nudity,
+                                violence,
+                                Terrorism,
+                                HateSpeech,
+                                FalseInformation,
+                                SOS,
+                                harassment
+                            ],
+                            backgroundColor: [
+                                '#FFDAB9',
+                                '#8B0000',
+                                '#555555',
+                                '#800080',
+                                '#D3D3D3',
+                                '#008080',
+                                '#FF8C00',
+                            ],
+                            hoverOffset: 4
+                        }]
+                    },
+                });
+
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+
 })
 
 function closeReport() {

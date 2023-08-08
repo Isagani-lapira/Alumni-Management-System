@@ -61,6 +61,9 @@ if (isset($_POST['action'])) {
             $offset = $_POST['offset'];
             $post->getAllPost($offset, $mysql_con);
             break;
+        case 'displayReportData':
+            getReportPost($mysql_con);
+            break;
     }
 }
 
@@ -90,4 +93,79 @@ function insertData($con)
 
     if ($insertion) echo 'successful';
     else echo 'unsuccessful';
+}
+
+function getReportPost($con)
+{
+    //retrieve every category
+    $nudity = 0;
+    $violence = 0;
+    $Terrorism = 0;
+    $HateSpeech = 0;
+    $FalseInformation = 0;
+    $SOS = 0;
+    $harassment = 0;
+
+
+    //nudity
+    $queryNudity = "SELECT * FROM report_post rp
+    JOIN post p ON rp.postID = p.postID
+    WHERE p.status = 'available' AND rp.report_category = 'Nudity'";
+    $result = mysqli_query($con, $queryNudity);
+    $nudity = mysqli_num_rows($result);
+
+    //violence
+    $queryViolence = "SELECT * FROM report_post rp
+    JOIN post p ON rp.postID = p.postID
+    WHERE p.status = 'available' AND rp.report_category = 'Violence'";
+    $resultViolence = mysqli_query($con, $queryViolence);
+    $violence = mysqli_num_rows($resultViolence);
+
+    // terrorism
+    $queryTerrorism = "SELECT * FROM report_post rp
+    JOIN post p ON rp.postID = p.postID
+    WHERE p.status = 'available' AND rp.report_category = 'Terrorism'";
+    $resultTerrorism = mysqli_query($con, $queryTerrorism);
+    $Terrorism = mysqli_num_rows($resultTerrorism);
+
+    //Hate Speech
+    $querySpeech = "SELECT * FROM report_post rp
+    JOIN post p ON rp.postID = p.postID
+    WHERE p.status = 'available' AND rp.report_category = 'Hate Speech'";
+    $resultSpeech = mysqli_query($con, $querySpeech);
+    $HateSpeech = mysqli_num_rows($resultSpeech);
+
+    // False Information
+    $queryFI = "SELECT * FROM report_post rp
+    JOIN post p ON rp.postID = p.postID
+    WHERE p.status = 'available' AND rp.report_category = 'False Information'";
+    $resultFI = mysqli_query($con, $queryFI);
+    $FalseInformation = mysqli_num_rows($resultFI);
+
+    // Suicide or self-injury
+    $querySOS = "SELECT * FROM report_post rp
+    JOIN post p ON rp.postID = p.postID
+    WHERE p.status = 'available' AND rp.report_category = 'Suicide or self-injury'";
+    $resultSOS = mysqli_query($con, $querySOS);
+    $SOS = mysqli_num_rows($resultSOS);
+
+
+    //harassment
+    $queryHarass = "SELECT * FROM report_post rp
+    JOIN post p ON rp.postID = p.postID
+    WHERE p.status = 'available' AND rp.report_category = 'Harassment'";
+    $resultHarass = mysqli_query($con, $queryHarass);
+    $harassment = mysqli_num_rows($resultHarass);
+
+    $categoryCounts = array(
+        'nudity' => $nudity,
+        'violence' => $violence,
+        'Terrorism' => $Terrorism,
+        'HateSpeech' => $HateSpeech,
+        'FalseInformation' => $FalseInformation,
+        'SOS' => $SOS,
+        'harassment' => $harassment
+    );
+
+    echo json_encode($categoryCounts);
 }

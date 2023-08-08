@@ -1341,6 +1341,7 @@ function dateInText($date)
             </div>
             <!-- report graph -->
             <div class=" w-2/5 border-l border-gray-300">
+              <p class="text-center font-bold text-xl">Report Graph</p>
               <canvas id="reportChart"></canvas>
             </div>
           </div>
