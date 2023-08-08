@@ -94,6 +94,12 @@ input {
   max-height: 4609.86px;
 }
 
+#communityContainer {
+  overflow-y: auto;
+  height: 90vh;
+  max-height: 700px;
+}
+
 .activeBtn {
   color: white;
   background: #991b1b;

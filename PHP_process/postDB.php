@@ -57,6 +57,10 @@ if (isset($_POST['action'])) {
             $postID = $_POST['postID'];
             $post->deletePost($postID, $mysql_con);
             break;
+        case 'readAllPost':
+            $offset = $_POST['offset'];
+            $post->getAllPost($offset, $mysql_con);
+            break;
     }
 }
 

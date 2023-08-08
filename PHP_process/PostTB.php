@@ -352,4 +352,18 @@ class PostData
         if ($result) echo 'Deleted';
         else echo 'Error';
     }
+
+    function getAllPost($offset, $con)
+    {
+        $maxLimit = 10;
+        $query = "SELECT * FROM `post` WHERE `status` = 'available'
+        ORDER BY `date` DESC LIMIT $offset, $maxLimit";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row) {
+            $postResult = $this->getPostData($result, $con);
+            echo $postResult;
+        } else echo 'failed';
+    }
 }

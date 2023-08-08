@@ -208,7 +208,7 @@ function dateInText($date)
             </li>
 
             <!-- Community Hub -->
-            <li class="rounded-lg p-2 "><a href="#community-tab">
+            <li id="communityLi" class="rounded-lg p-2 "><a href="#community-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
                   <path d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
                 </svg>
@@ -1307,83 +1307,12 @@ function dateInText($date)
             <input class="w-full focus:outline-none" type="text" id="communitySearch" placeholder="Search something...">
           </div>
 
-          <!-- Post -->
-          <div class="post p-3 w-4/6 mt-5">
-            <div class="center-shadow p-3 rounded-md">
-              <div class="flex justify-start items-center">
-                <div class="flex items-center">
-                  <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                  <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                </div>
-                <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-              </div>
-
-              <p class="text-sm mt-2">Newly elected CICT Local Student Council</p>
-              <img class="my-2 rounded-md" src="" alt="">
-              <div class="flex py-2 items-center">
-                <img class="h-5" src="../assets/icons/heart.png" alt="">
-                <span class="ms-2 text-sm">1,498</span>
-                <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                <span class="ms-2 text-sm">3,000</span>
-              </div>
+          <div class="flex">
+            <div id="communityContainer" class="w-4/6 p-3">
+              <p id="noPostMsgCommunity" class="text-blue-400 text-center hidden">No available post</p>
             </div>
-
-            <button id="btnDelPost" class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
-          </div>
-
-          <!-- Post -->
-          <div class="post p-3 w-4/6 mt-5">
-            <div class="center-shadow p-3 rounded-md">
-              <div class="flex justify-start items-center">
-                <div class="flex items-center">
-                  <img class="h-12 border-2 border-accent rounded-full" src="" alt="">
-                  <p class="text-start px-3 text-sm font-semibold">Samuel Loremonso</p>
-                </div>
-                <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-              </div>
-
-              <p class="text-sm mt-2">COVID-19 IS NOT YET OVER, LET'S RECOVER TOGETHER ❤️‍🩹
-
-                Sa opisyal na pag-anunsyo ng World Health Organization (WHO) sa pag-alis ng Global Health Status ng
-                COVID-19 matapos ang tatlong taon, ito ay tumutukoy sa kakayahan ng mga bansa na tugunan ang COVID-19
-                cases. Ngunit hindi ito nangangahulugang tapos na ang laban sa pandemya.
-
-                Matatandaang kabilang ang Bulacan sa mga lalawigang idineklara ng pamahalaan sa ilalim ng Alert Level 1,
-                ayon sa IATF Resolution No. 6-C. Ito ay dah…</p>
-              <img class="my-2 rounded-md" src="" alt="">
-              <div class="flex py-2 items-center">
-                <img class="h-5" src="../assets/icons/heart.png" alt="">
-                <span class="ms-2 text-sm">1,498</span>
-                <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                <span class="ms-2 text-sm">3,000</span>
-              </div>
-            </div>
-
-            <button id="btnDelPost" class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
-          </div>
-
-          <!-- Post -->
-          <div class="post p-3 w-4/6 mt-5">
-            <div class="center-shadow p-3 rounded-md">
-              <div class="flex justify-start items-center">
-                <div class="flex items-center">
-                  <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                  <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                </div>
-                <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-              </div>
-
-              <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
-              <img class="my-2 rounded-md" src="" alt="">
-              <div class="flex py-2 items-center">
-                <img class="h-5" src="../assets/icons/heart.png" alt="">
-                <span class="ms-2 text-sm">1,498</span>
-                <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                <span class="ms-2 text-sm">3,000</span>
-              </div>
-            </div>
-
-            <button id="btnDelPost" class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
+            <!-- report graph -->
+            <div class=" w-2/5"></div>
           </div>
 
         </div>

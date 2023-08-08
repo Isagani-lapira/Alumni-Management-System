@@ -780,16 +780,14 @@ $(document).ready(function () {
         })
     }
     //add retrieve new data
-    $('#feedContainer').on('scroll', function () {
+    $('#feedContainer',).on('scroll', function () {
         const containerHeight = $(this).height();
         const contentHeight = $(this)[0].scrollHeight;
         const scrollOffset = $(this).scrollTop();
 
         //once the bottom ends, it will reach another sets of data (post)
-        if (scrollOffset + containerHeight >= contentHeight) {
-            displayToProfile();
-            console.log('rar');
-        }
+        if (scrollOffset + containerHeight >= contentHeight) displayToProfile();
+
     })
 
 
@@ -907,6 +905,217 @@ $(document).ready(function () {
 
         displayToProfile(profileAction) //process the retrieval of post for archieved post
     })
+
+
+    //community post
+    $('#communityLi').on('click', getCommunityPost)
+
+    let offsetCommunity = 0
+    //get community post
+    function getCommunityPost() {
+        let action = {
+            action: 'readAllPost'
+        }
+        let formData = new FormData()
+        formData.append('action', JSON.stringify(action))
+        formData.append('offset', offsetCommunity)
+
+        //process retrieval
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response !== 'failed') {
+                    const data = JSON.parse(response)
+                    if (data.response == 'Success') {
+                        let length = data.colCode.length;
+                        for (let i = 0; i < length; i++) {
+                            let postID = data.postID[i]
+                            let profilePic = data.profilePic[i]
+                            let username = data.username[i]
+                            let fullname = data.fullname[i]
+                            let caption = data.caption[i]
+                            let date = data.date[i]
+                            let comment = data.comments[i];
+                            let likes = data.likes[i];
+                            let imagesObj = data.images[i];
+
+                            displayCommunityPost(postID, profilePic, fullname, username, imagesObj, caption, date, likes, comment)
+                        }
+                        offsetCommunity += length
+                    }
+                }
+                else {
+                    $("#noPostMsgCommunity").removeClass('hidden')
+                        .appendTo('#communityContainer')
+                }
+
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function displayCommunityPost(postID, imgProfile, fullname, username, images, caption, date, likes, comments) {
+        const feedContainer = $('#communityContainer')
+        const postWrapper = $('<div>').addClass('communityWrapper rounded-md center-shadow p-4 mx-auto');
+
+        //adding details for header
+        let header = $('<div>');
+        let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
+        let img = imgFormat + imgProfile;
+        let userProfile = $('<img>').addClass("h-10 w-10 rounded-full").attr('src', img);
+        let authorDetails = $('<div>').addClass("flex-1");
+        let fullnameElement = $('<p>').addClass("font-bold text-greyish_black").text(fullname);
+        let usernameElement = $('<p>').addClass("text-gray-400 text-xs").text(username);
+
+        //set up the header to be displayed
+        authorDetails.append(fullnameElement, usernameElement)
+        headerWrapper.append(userProfile, authorDetails)
+        header.append(headerWrapper)
+
+        //for body
+        let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption);
+        let swiperContainer = null;
+        //check if post is status only or with image
+        if (images.length > 0) {
+            //set up the swiper
+            swiperContainer = $("<div>").addClass("swiper communitySwiper relative  w-full h-80 bg-black rounded-md cursor-pointer overflow-x-hidden")
+            const swiperWrapper = $('<div>').addClass('swiper-wrapper h-full')
+
+            //carousel the image
+            images.forEach(value => {
+                let postImg = imgFormat + value;
+                //create slider
+                const swiperSlider = $('<div>').addClass('swiper-slide h-full flex justify-center')
+                const swiperImg = $('<img>')
+                    .addClass('object-contain h-full w-full bg-black')
+                    .attr('src', postImg)
+
+                //slider to wrapper
+                swiperSlider.append(swiperImg)
+                swiperWrapper.append(swiperSlider);
+            })
+            // Navigation buttons
+            let pagination = $('<div>').addClass("swiper-pagination");
+            let prevBtn = $('<div>').addClass("swiper-button-prev");
+            let nextBtn = $('<div>').addClass("swiper-button-next ");
+            swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
+
+            swiperContainer.on('click', function (event) {
+                // Check if the click event is coming from the navigation buttons
+                if (!$(event.target).hasClass('swiper-button-prev') && !$(event.target).hasClass('swiper-button-next')) {
+                    $('#modalPost').removeClass("hidden");
+                    viewingOfPost1(postID, fullname, username, caption, images, likes, img);
+                }
+            });
+
+            new Swiper('.communitySwiper', {
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+        } else { postWrapper.css('min-height', '155px') }
+
+
+        date = getFormattedDate(date)
+        date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
+
+        let newlyAddedLike = parseInt(likes);
+        //interaction buttons
+        let isLiked = false;
+        let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
+        let heartIcon = $('<span>').html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>')
+            .addClass('cursor-pointer flex items-center')
+            .on('click', function () {
+                //toggle like button
+                if (isLiked) {
+                    //decrease the current total number of likes by 1
+                    newlyAddedLike -= 1
+                    console.log(newlyAddedLike)
+                    likesElement.text(newlyAddedLike)
+                    heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>');
+                    removeLike(postID)
+                }
+                else {
+                    //increase the current total number of likes by 1
+                    newlyAddedLike += 1
+                    likesElement.text(newlyAddedLike)
+                    heartIcon.html('<iconify-icon icon="mdi:heart" style="color: #ed1d24;" width="20" height="20"></iconify-icon>');
+                    addLikes(postID)
+                }
+
+                isLiked = !isLiked;
+            });
+
+        let commentIcon = $('<span>').html('<iconify-icon icon="uil:comment" style="color: #626262;" width="20" height="20"></iconify-icon>')
+            .addClass('cursor-pointer flex items-center comment')
+        let likesElement = $('<p>').addClass('text-xs text-gray-500').text(likes)
+        let commentElement = $('<p>').addClass('text-xs text-gray-500 comment').text(comments)
+        let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
+        let deleteElement = $('<p>')
+            .addClass('text-xs text-red-400 cursor-pointer ')
+            .text('Delete post')
+            .on('click', function () {
+                //open the delete prompt
+                $('#delete-modal').removeClass('hidden')
+                //update the post status into deleted
+                $('#deletePostbtn').on('click', function () {
+                    let action = { action: 'deletePost' };
+                    const formdata = new FormData()
+                    formdata.append('action', JSON.stringify(action));
+                    formdata.append('postID', postID);
+
+                    //process the deletion
+                    $.ajax({
+                        url: '../PHP_process/postDB.php',
+                        method: 'POST',
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: response => {
+                            //close the modal
+                            $('#delete-modal').addClass('hidden')
+                            restartPost()
+                            displayToProfile() //reload the post again
+                        },
+                        error: error => { console.log(error) }
+                    })
+                })
+            })
+
+
+        //attach all details to a postwrapper and to the root
+        interactionContainer.append(leftContainer, deleteElement)
+        postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
+        feedContainer.append(postWrapper);
+
+        var percent = feedContainer.width() * 0.90;
+        postWrapper.width(percent);
+    }
+
+
+    $('#communityContainer').on('scroll', function () {
+        var container = $(this);
+        var scrollPosition = container.scrollTop();
+        var containerHeight = container.height();
+        var contentHeight = container[0].scrollHeight;
+        var scrollThreshold = 50; // Adjust this threshold as needed
+
+        if (scrollPosition + containerHeight >= contentHeight - scrollThreshold) {
+            getCommunityPost()
+        }
+    });
 })
 
 function closeReport() {
