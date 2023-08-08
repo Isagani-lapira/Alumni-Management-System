@@ -1116,6 +1116,39 @@ $(document).ready(function () {
             getCommunityPost()
         }
     });
+
+
+    const chart = $('#reportChart');
+
+    new Chart(chart, {
+        type: 'pie',
+        data: {
+            labels: [
+                'Nudity',
+                'Violence',
+                'Terrorism',
+                'Hate Speech',
+                'False Information',
+                'Suicide or self-injury',
+                'Harassment',
+            ],
+            datasets: [{
+                label: 'Report Graph',
+                data: [300, 50, 100, 10, 5, 1, 8],
+                backgroundColor: [
+                    '#FFDAB9',
+                    '#8B0000',
+                    '#555555',
+                    '#800080',
+                    '#D3D3D3',
+                    '#008080',
+                    '#FF8C00',
+                ],
+                hoverOffset: 4
+            }]
+        },
+    });
+    chart.addClass('h-96')
 })
 
 function closeReport() {
