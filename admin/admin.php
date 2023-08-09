@@ -1305,8 +1305,8 @@ function dateInText($date)
           <div class="flex">
             <div class="w-4/6">
               <!-- college -->
-              <select name="communityCollege" id="communityCollege" class="w-1/2 p-2 my-5 outline-none">
-                <option value="" selected disabled hidden>College</option>
+              <select id="communityCollege" class="w-1/2 p-2 my-5 outline-none">
+                <option value="" selected>College</option>
                 <?php
                 require_once '../PHP_process/connection.php';
                 $query = "SELECT * FROM `college`";
@@ -1325,8 +1325,8 @@ function dateInText($date)
               </select>
 
               <!-- report number -->
-              <select class=" outline-none w-1/3 p-2  my-5">
-                <option value="all" selected disabled>All</option>
+              <select id="communityReportFilter" class="outline-none w-1/3 p-2  my-5">
+                <option value="" selected>All</option>
                 <option value="Nudity">Nudity</option>
                 <option value="Violence">Violence</option>
                 <option value="Terrorism">Terrorism</option>

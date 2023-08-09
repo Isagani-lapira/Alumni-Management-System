@@ -909,6 +909,7 @@ $(document).ready(function () {
 
     //community post
     $('#communityLi').on('click', function () {
+        $('#communityContainer').empty();
         getCommunityPost();
         getReport()
     })
@@ -1187,7 +1188,73 @@ $(document).ready(function () {
         })
     }
 
+    let colCodeFilter = "";
+    let reportCatFilter = "";
 
+    $('#communityCollege').on('change', function () {
+        //restart again the display
+        $('#communityContainer').empty();
+        offsetCommunity = 0;
+
+        colCodeFilter = $(this).val()
+        getCommunityByFilter() //retrieve data with filter
+    })
+
+    $('#communityReportFilter').on('change', function () {
+        //restart again the display
+        $('#communityContainer').empty();
+        offsetCommunity = 0;
+
+        reportCatFilter = $(this).val()
+        getCommunityByFilter() //retrieve data with filter
+    })
+
+    function getCommunityByFilter() {
+        let action = {
+            action: 'readColReport'
+        }
+        let formData = new FormData()
+        formData.append('action', JSON.stringify(action))
+        formData.append('offset', offsetCommunity)
+        formData.append('college', colCodeFilter)
+        formData.append('report', reportCatFilter)
+
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response !== 'failed') {
+                    const data = JSON.parse(response)
+                    if (data.response == 'Success') {
+                        let length = data.colCode.length;
+                        for (let i = 0; i < length; i++) {
+                            let postID = data.postID[i]
+                            let profilePic = data.profilePic[i]
+                            let username = data.username[i]
+                            let fullname = data.fullname[i]
+                            let caption = data.caption[i]
+                            let date = data.date[i]
+                            let comment = data.comments[i];
+                            let likes = data.likes[i];
+                            let imagesObj = data.images[i];
+
+                            displayCommunityPost(postID, profilePic, fullname, username, imagesObj, caption, date, likes, comment)
+                        }
+                        offsetCommunity += length
+                    }
+                }
+                else {
+                    $("#noPostMsgCommunity").removeClass('hidden')
+                        .appendTo('#communityContainer')
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
 })
 
 function closeReport() {

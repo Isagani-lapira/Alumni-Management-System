@@ -366,4 +366,41 @@ class PostData
             echo $postResult;
         } else echo 'failed';
     }
+
+    function getCollege($college, $reportCat, $offset, $con)
+    {
+        $maxLimit = 10; //default number of max number of retrieval
+        $query = "";
+
+        //report category is available only
+        if ($college == null && $reportCat != null) {
+            $query = "SELECT p.*
+            FROM post p
+            JOIN report_post rp ON p.postID = rp.postID
+            WHERE rp.report_category = '$reportCat' AND
+             `status`='available' ORDER BY `date` DESC LIMIT $offset,$maxLimit ";
+        } else if ($reportCat == null && $college != null) {
+            //get college only
+            $query = "SELECT * FROM `post` WHERE `colCode` = '$college' 
+            AND `status`='available' ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+        } else if ($college != null && $reportCat != null) {
+            //get all with condition of report category and college
+            $query = "SELECT p.*
+            FROM post p
+            JOIN report_post rp ON p.postID = rp.postID
+            WHERE p.colCode = '$college' AND rp.report_category = '$reportCat' 
+            ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+        } else {
+            $query = "SELECT * FROM `post` WHERE `status` = 'available'
+            ORDER BY `date` DESC LIMIT $offset, $maxLimit";
+        }
+
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row > 0) {
+            $postResult = $this->getPostData($result, $con);
+            echo $postResult;
+        } else echo 'failed';
+    }
 }

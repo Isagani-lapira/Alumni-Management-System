@@ -64,6 +64,12 @@ if (isset($_POST['action'])) {
         case 'displayReportData':
             getReportPost($mysql_con);
             break;
+        case 'readColReport':
+            $college = $_POST['college'];
+            $report = $_POST['report'];
+            $offset = $_POST['offset'];
+            $post->getCollege($college, $report, $offset, $mysql_con);
+            break;
     }
 }
 
