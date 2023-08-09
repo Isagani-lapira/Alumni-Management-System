@@ -205,17 +205,18 @@ $(document).ready(function () {
     $('#nextPost').on('click', function () {
         postData.delete('offset')
         postData.append('offset', offsetPost);
-        getPostAdmin(postData)
+        getPostAdmin(postData, true)
     })
 
     //show prev set of post
     $('#prevPost').on('click', function () {
         //check if it still not 0
         if (tempCount != 0) {
-            offsetPost = tempCount
+            offsetPost -= tempCount
+            console.log(offsetPost)
             postData.delete('offset');
             postData.append('offset', offsetPost); //set new offset that is increase by 10
-            getPostAdmin(postData); //retrieve new sets of data
+            getPostAdmin(postData, true); //retrieve new sets of data
 
             //enable the next button
             $('#nextPost').removeAttr('disabled')
@@ -1121,8 +1122,11 @@ $(document).ready(function () {
         }
     });
 
-
+    let currentReportChart = null
     function getReport() {
+        if (currentReportChart) {
+            currentReportChart.destroy(); // Destroy the previous chart instance
+        }
         let action = {
             action: 'displayReportData'
         }
@@ -1146,7 +1150,7 @@ $(document).ready(function () {
                 const harassment = response.harassment;
 
                 const chart = $('#reportChart');
-                new Chart(chart, {
+                currentReportChart = new Chart(chart, {
                     type: 'pie',
                     data: {
                         labels: [
