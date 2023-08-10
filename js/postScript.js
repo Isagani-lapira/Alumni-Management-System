@@ -450,12 +450,9 @@ $(document).ready(function () {
         })
     }
     let actionTracker = "";
-    let typeTracker = "";
-    let isArchived = true
     let isAvailable = true
     $('#profileTabAdmin').on('click', function () {
         actionTracker = formDataAvailable
-        typeTracker = isAvailable
         displayToProfile(formDataAvailable, isAvailable)
     })
 
@@ -467,7 +464,7 @@ $(document).ready(function () {
     formDataAvailable.append('action', JSON.stringify(profileAction));
     formDataAvailable.append('status', 'available');
 
-    function displayToProfile(data, typePost) {
+    function displayToProfile(data, isAvailable) {
         data.append('offset', offsetProfile)
         //process retrieval
         $.ajax({
@@ -493,7 +490,7 @@ $(document).ready(function () {
                         const likes = parsedData.likes[i];
                         const comments = parsedData.comments[i];
 
-                        displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, typePost)
+                        displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isAvailable)
                     }
 
                     offsetProfile += length
@@ -516,7 +513,7 @@ $(document).ready(function () {
 
         return month + ' ' + day + ', ' + year
     }
-    function displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments) {
+    function displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isAvailable) {
         const feedContainer = $('#feedContainer')
         const postWrapper = $('<div>').addClass('postWrapper rounded-md center-shadow p-4 mx-auto');
 
@@ -639,36 +636,34 @@ $(document).ready(function () {
             })
 
         })
-        let deleteElement = $('<p>')
-            .addClass('text-xs text-red-400 cursor-pointer ')
-            .text('Delete post')
-            .on('click', function () {
-                //open the delete prompt
-                $('#delete-modal').removeClass('hidden')
-                //update the post status into deleted
-                $('#deletePostbtn').on('click', function () {
-                    let action = { action: 'deletePost' };
-                    const formdata = new FormData()
-                    formdata.append('action', JSON.stringify(action));
-                    formdata.append('postID', postID);
 
-                    //process the deletion
-                    $.ajax({
-                        url: '../PHP_process/postDB.php',
-                        method: 'POST',
-                        data: formdata,
-                        processData: false,
-                        contentType: false,
-                        success: response => {
-                            //close the modal
-                            $('#delete-modal').addClass('hidden')
-                            restartPost()
-                            displayToProfile() //reload the post again
-                        },
-                        error: error => { console.log(error) }
+        let status = ""
+        let deleteElement = $('<p>').addClass('text-xs cursor-pointer font-bold')
+        if (isAvailable) {
+            deleteElement.addClass('text-red-400')
+                .text('Delete')
+                .on('click', function () {
+                    //open the delete prompt
+                    $('#delete-modal').removeClass('hidden')
+                    //update the post status into deleted
+                    $('#deletePostbtn').on('click', function () {
+                        status = "deleted"
+                        updatePostStatus(status, postID)
                     })
                 })
-            })
+        }
+        else {
+            deleteElement.addClass('text-green-400')
+                .text('Restore')
+                .on('click', function () {
+                    $('#restoreModal').removeClass('hidden')
+                    $('#restorePost').on('click', function () {
+                        status = 'available'
+                        updatePostStatus(status, postID)
+                    })
+                })
+        }
+
 
 
         //attach all details to a postwrapper and to the root
@@ -681,6 +676,30 @@ $(document).ready(function () {
 
     }
 
+    function updatePostStatus(status, postID) {
+        let action = { action: 'updatePostStatus' };
+        const formdata = new FormData()
+        formdata.append('action', JSON.stringify(action));
+        formdata.append('postID', postID);
+        formdata.append('status', status);
+
+        //process the deletion
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: response => {
+                //close the modal
+                $('#delete-modal').addClass('hidden')
+                restartPost()
+                displayToProfile(actionTracker, isAvailable) //reload the post again
+                $('#restoreModal').addClass('hidden') //hide the modal again
+            },
+            error: error => { console.log(error) }
+        })
+    }
     function restartPost() {
         offsetProfile = 0
         //remove the currently displayed
@@ -737,7 +756,7 @@ $(document).ready(function () {
 
         //once the bottom ends, it will reach another sets of data (post)
         if (scrollOffset + containerHeight >= contentHeight) {
-            displayToProfile(actionTracker, typeTracker);
+            displayToProfile(actionTracker, isAvailable);
         }
 
     })
@@ -836,8 +855,8 @@ $(document).ready(function () {
         restartPost() //restart everything
 
         actionTracker = formDataArchived
-        typeTracker = isArchived
-        displayToProfile(formDataArchived, isArchived) //process the retrieval of post for archieved post
+        isAvailable = false
+        displayToProfile(formDataArchived, isAvailable) //process the retrieval of post for archieved post
     })
 
     $('#availablePostBtn').on('click', function () {
@@ -846,7 +865,7 @@ $(document).ready(function () {
         restartPost() //restart everything
 
         actionTracker = formDataAvailable
-        typeTracker = isAvailable
+        isAvailable = true
         displayToProfile(formDataAvailable, isAvailable) //process the retrieval of post for archieved post
     })
 

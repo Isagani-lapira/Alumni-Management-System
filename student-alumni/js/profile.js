@@ -217,7 +217,6 @@ $(document).ready(function () {
       deletePost.addClass('text-green-400 ')
         .text('Restore')
         .on('click', function () {
-          console.log('rar')
           $('#restoreModal').removeClass('hidden')
           //when click the restore button then process the restoration
           $('#restorePost').on('click', function () {
