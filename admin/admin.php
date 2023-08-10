@@ -1860,7 +1860,7 @@ function dateInText($date)
     </div>
 
     <!-- post modal -->
-    <div id="modalPost" class="modal fixed inset-0 h-full w-full p-3 hidden">
+    <div id="modalPost" class="modal fixed inset-0 z-50 h-full w-full p-3 hidden">
       <div class="modal-container w-full h-full bg-white rounded-lg flex relative">
         <span id="closePostModal" class="absolute top-0 right-0 text-center text-2xl cursor-pointer p-3 hover:scale-50 hover:font-bold">x</span>
         <div id="containerSection" class="w-8/12 h-full ">
@@ -2027,7 +2027,7 @@ function dateInText($date)
 
 
     <!-- log out -->
-    <div id="signOutPrompt" class="modal fixed inset-0 h-full w-full flex items-center justify-center 
+    <div id="signOutPrompt" class="modal fixed inset-0 z-50 h-full w-full flex items-center justify-center 
       text-grayish hidden">
       <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
         <p class="text-center font-medium text-greyish_black mb-7 mt-3">Are you sure you want to sign out?</p>
@@ -2080,11 +2080,37 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- announcement modal -->
+    <div id="announcementModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div id="announcementContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
+        <!-- header -->
+        <div class="flex gap-2 items-center py-2">
+          <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
+          <span class="ml-2 text-xl font-bold">BulSU Update</span>
+        </div>
+
+        <!-- headline image -->
+        <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" src="../images/bsu-header5.jpg" alt="">
+
+        <p class="text-sm text-gray-500">Date Posted: <span id="announceDatePosted"></span></p>
+        <p class="text-sm text-gray-500">By: <span id="announcementAuthor" class="text-accent"></span></p>
+
+        <p id="announcementTitle" class="text-2xl text-greyish_black font-black"></p>
+        <pre id="announcementDescript" class=" text-gray-500 text-justify w-full"></pre>
+
+        <!-- images container -->
+        <div id="imagesContainer" class="my-2">
+          <p class="font-semibold text-blue-400">More images available</p>
+          <div id="imagesWrapper" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

@@ -164,3 +164,9 @@ input {
     transform: scale(1);
   }
 }
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: justify;
+}

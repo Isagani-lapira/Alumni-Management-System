@@ -173,4 +173,5 @@ $(document).ready(function () {
             $('#announcementModal').addClass('hidden')
         }
     })
+
 })
