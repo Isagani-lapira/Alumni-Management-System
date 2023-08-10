@@ -664,6 +664,21 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <div id="restoreModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+          <div class="relative w-1/3 h-max p-3 bg-white rounded-md">
+            <h1 class="text-xl text-greyish_black font-bold text-center py-2 border-b border-gray-400">Restore to Profile</h1>
+            <p class="text-gray-500 text-sm">Items you restore to your profile can be seen by the audience that was selected
+              before they were moved to archive.</p>
+            <div class="flex justify-end gap-2 my-2">
+              <button id="closeRestoreModal" class="px-3 py-2 rounded-md text-blue-400 hover:bg-gray-300 text-sm">Cancel</button>
+              <button class="px-4 py-2 text-white bg-postButton hover:bg-postHoverButton rounded-md font-semibold text-sm">Restore</button>
+            </div>
+
+            <svg id="closeRestore" class="cursor-pointer absolute top-2 right-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
+              <path fill="#6b7280" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07zM11.4 10l2.83-2.83l-1.41-1.41L10 8.59L7.17 5.76L5.76 7.17L8.59 10l-2.83 2.83l1.41 1.41L10 11.41l2.83 2.83l1.41-1.41L11.41 10z" />
+            </svg>
+          </div>
+        </div>
       </div>
 
       <!-- TAB 2 -->

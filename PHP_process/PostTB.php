@@ -318,9 +318,9 @@ class PostData
         else echo 'Failed';
     }
 
-    function deletePost($postID, $con)
+    function updatePostStatus($postID, $status, $con)
     {
-        $query = "UPDATE `post` SET `status`= 'deleted' WHERE `postID`='$postID'";
+        $query = "UPDATE `post` SET `status`= '$status' WHERE `postID`='$postID'";
         $result = mysqli_query($con, $query);
 
         if ($result) echo 'Deleted';

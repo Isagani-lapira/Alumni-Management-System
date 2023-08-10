@@ -42,9 +42,10 @@ if (isset($_POST['action'])) {
             $status = $_POST['status'];
             $post->getProfilePost($username, $offset, $status, $mysql_con);
             break;
-        case 'deletePost':
+        case 'updatePostStatus':
             $postID = $_POST['postID'];
-            $post->deletePost($postID, $mysql_con);
+            $status = $_POST['status'];
+            $post->updatePostStatus($postID, $status, $mysql_con);
             break;
         case 'readAllPost':
             $offset = $_POST['offset'];

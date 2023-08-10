@@ -82,7 +82,6 @@ $(document).ready(function () {
   $('#userPost').on('click', function () {
     $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
     $('#archievedBtn').removeClass('text-white bg-accent font-bold').addClass('text-gray-400')
-    $('#feedContainer').scrollTop(0);
     //display the post available post again
     restartPost()
 
@@ -217,6 +216,15 @@ $(document).ready(function () {
     if (isDeleted) {
       deletePost.addClass('text-green-400 ')
         .text('Restore')
+        .on('click', function () {
+          console.log('rar')
+          $('#restoreModal').removeClass('hidden')
+          //when click the restore button then process the restoration
+          $('#restorePost').on('click', function () {
+            const status = 'available'
+            updatePostStatus(status, postID)
+          })
+        })
     }
     else {
       deletePost.addClass('text-red-400 ')
@@ -227,26 +235,8 @@ $(document).ready(function () {
           $('#delete-modal').removeClass('hidden')
           //update the post status into deleted
           $('#deletePostbtn').on('click', function () {
-            let action = { action: 'deletePost' };
-            const formdata = new FormData()
-            formdata.append('action', JSON.stringify(action));
-            formdata.append('postID', postID);
-
-            //process the deletion
-            $.ajax({
-              url: '../PHP_process/postDB.php',
-              method: 'POST',
-              data: formdata,
-              processData: false,
-              contentType: false,
-              success: response => {
-                //close the modal
-                $('#delete-modal').addClass('hidden')
-                restartPost()
-                getPost(actionRetrieval) //reload the post again
-              },
-              error: error => { console.log(error) }
-            })
+            const status = 'deleted'
+            updatePostStatus(status, postID)
           })
         })
     }
@@ -278,6 +268,32 @@ $(document).ready(function () {
       contentType: false,
       success: (response) => { console.log(response) },
       error: (error) => { console.log(error) }
+    })
+  }
+
+  function updatePostStatus(status, postID) {
+    let action = { action: 'updatePostStatus' };
+    const formdata = new FormData()
+    formdata.append('action', JSON.stringify(action));
+    formdata.append('postID', postID);
+    formdata.append('status', status);
+
+    //process the deletion
+    $.ajax({
+      url: '../PHP_process/postDB.php',
+      method: 'POST',
+      data: formdata,
+      processData: false,
+      contentType: false,
+      success: response => {
+        //close the modal
+        $('#delete-modal').addClass('hidden')
+        restartPost()
+        getPost(actionTracker, typeTracker) //reload the post again
+        $('#restoreModal').addClass('hidden') //hide the modal again
+        isScrolled = false
+      },
+      error: error => { console.log(error) }
     })
   }
 
@@ -314,7 +330,7 @@ $(document).ready(function () {
     if (scrollPosition + containerHeight >= contentHeight - scrollThreshold) {
       getPost(actionTracker, typeTracker)
       isScrolled = true
-    }
+    } else isScrolled = false
   })
 
 
@@ -909,4 +925,10 @@ $(document).ready(function () {
       $(this).addClass('hidden')
     }
   })
+
+
+  //close restore modal
+  $('#closeRestore, #closeRestoreModal').on('click', function () {
+    $('#restoreModal').addClass('hidden');
+  });
 })
