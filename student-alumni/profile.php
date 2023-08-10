@@ -316,7 +316,7 @@ function dateInText($date)
                         </div>
                     </div>
                 </div>
-
+                <p id="noProfPostMsg" class="text-blue-400 text-center hidden">No available post</p>
             </div>
         </div>
 

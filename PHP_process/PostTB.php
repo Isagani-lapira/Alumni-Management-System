@@ -286,38 +286,12 @@ class PostData
         return $accDetails;
     }
 
-    function getUserPost($username, $date, $con)
+    function getProfilePost($username, $offset, $status, $con)
     {
+        $maxLimit = 10;
         //query to get the post of user
-        $query = "SELECT * FROM `post` WHERE `username` = '$username' AND `date` = '$date' AND `status` = 'available'";
-        $result = mysqli_query($con, $query);
-        $row = mysqli_num_rows($result);
-
-        if ($result && $row > 0) {
-            //retrieve data for a specific day
-            $postResult = $this->getPostData($result, $con); //get all the data of the post
-            echo $postResult;
-        } else echo 'none';
-    }
-
-    function getAdminProfile($username, $date, $con)
-    {
-        //query to get the post of user
-        $query = "SELECT * FROM `post` WHERE `username` = '$username' AND `date` = '$date' AND `status` = 'available'";
-        $result = mysqli_query($con, $query);
-        $row = mysqli_num_rows($result);
-
-        if ($result && $row > 0) {
-            //retrieve data for a specific day
-            $postResult = $this->getPostData($result, $con); //get all the data of the post
-            echo $postResult;
-        } else echo 'none';
-    }
-
-    function getUserArchieved($username, $date, $con)
-    {
-        //query to get the post of user
-        $query = "SELECT * FROM `post` WHERE `username` = '$username' AND `date` = '$date' AND `status` = 'deleted'";
+        $query = "SELECT * FROM `post` WHERE `username` = '$username'  AND `status` = '$status'
+        ORDER BY `date` DESC LIMIT $offset, $maxLimit";
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 

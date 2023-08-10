@@ -331,8 +331,6 @@ $(document).ready(function () {
     }
 
 
-
-
     //close the post modal view
     $('#closePostModal').on('click', function () {
         $('#modalPost').addClass('hidden')
@@ -451,68 +449,38 @@ $(document).ready(function () {
             error: (error) => { console.log(error) }
         })
     }
-
-
+    let actionTracker = "";
+    let typeTracker = "";
+    let isArchived = true
+    let isAvailable = true
     $('#profileTabAdmin').on('click', function () {
-        displayToProfile(archievedAction)
+        actionTracker = formDataAvailable
+        typeTracker = isAvailable
+        displayToProfile(formDataAvailable, isAvailable)
     })
 
-    function getCurrentDate() {
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = String(today.getMonth() + 1).padStart(2, '0');
-        var day = String(today.getDate()).padStart(2, '0');
-        return year + '-' + month + '-' + day;
-    }
-
-    //for retrieving recent date
-    function getPreviousDate(daysToSubtract) {
-        var today = new Date();
-        today.setDate(today.getDate() - daysToSubtract);
-        var year = today.getFullYear();
-        var month = String(today.getMonth() + 1).padStart(2, '0');
-        var day = String(today.getDate()).padStart(2, '0');
-        return year + '-' + month + '-' + day;
-    }
-
-    let retrievalDate = getCurrentDate();
-    let maxRetrievalSet = 10;
-    let stoppingPoint = 0;
-    let daysToSubtract = 1;
-    let dataRetreived = 0;
-
+    let offsetProfile = 0;
     const profileAction = {
-        action: 'readAdminProfile',
+        action: 'readUserProfile',
     }
-    const formData = new FormData()
-    formData.append('action', JSON.stringify(profileAction));
-    formData.append('retrievalDate', retrievalDate);
+    const formDataAvailable = new FormData()
+    formDataAvailable.append('action', JSON.stringify(profileAction));
+    formDataAvailable.append('status', 'available');
 
-    function displayToProfile(action) {
-
+    function displayToProfile(data, typePost) {
+        data.append('offset', offsetProfile)
         //process retrieval
         $.ajax({
             method: 'POST',
             url: "../PHP_process/postDB.php",
-            data: formData,
+            data: data,
             contentType: false,
             processData: false,
             success: response => {
-                if (response == 'none' && stoppingPoint <= 20) {
-                    formData.delete('retrievalDate') //remove the current date set
-
-                    //set new date (previous) to be retrieve
-                    retrievalDate = getPreviousDate(daysToSubtract)
-                    formData.append('retrievalDate', retrievalDate);
-                    console.log(retrievalDate)
-                    displayToProfile(action) //process retrieval again
-                    daysToSubtract++
-                    stoppingPoint++
-                }
-                else if (response != 'none') {
+                console.log(response)
+                if (response != 'none') {
                     const parsedData = JSON.parse(response)
                     const length = parsedData.username.length
-
                     //get all the data that gather
                     for (let i = 0; i < length; i++) {
                         const imgProfile = parsedData.profilePic[i];
@@ -525,21 +493,10 @@ $(document).ready(function () {
                         const likes = parsedData.likes[i];
                         const comments = parsedData.comments[i];
 
-                        displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments)
+                        displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, typePost)
                     }
-                    dataRetreived = length
-                    maxRetrievalSet -= dataRetreived
 
-                    //check if the maximum retrieval has been reached
-                    if (maxRetrievalSet != 0 || maxRetrievalSet > 0) {
-                        //get another set of data
-                        daysToSubtract++
-                        retrievalDate = getPreviousDate(daysToSubtract)
-                        formData.append('retrievalDate', retrievalDate);
-                        displayToProfile(action)
-                        stoppingPoint = 0
-                    } else maxRetrievalSet = 10
-
+                    offsetProfile += length
                 }
                 else console.log('stopping point')
             },
@@ -725,12 +682,7 @@ $(document).ready(function () {
     }
 
     function restartPost() {
-        retrievalDate = getCurrentDate();
-        maxRetrievalSet = 10;
-        stoppingPoint = 0;
-        daysToSubtract = 1;
-        dataRetreived = 0;
-
+        offsetProfile = 0
         //remove the currently displayed
         $('.postWrapper').remove();
     }
@@ -784,7 +736,9 @@ $(document).ready(function () {
         const scrollOffset = $(this).scrollTop();
 
         //once the bottom ends, it will reach another sets of data (post)
-        if (scrollOffset + containerHeight >= contentHeight) displayToProfile();
+        if (scrollOffset + containerHeight >= contentHeight) {
+            displayToProfile(actionTracker, typeTracker);
+        }
 
     })
 
@@ -871,9 +825,9 @@ $(document).ready(function () {
         )
     }
 
-    let archievedAction = {
-        action: 'readAdminArchievedPost',
-    }
+    const formDataArchived = new FormData();
+    formDataArchived.append('action', JSON.stringify(profileAction))
+    formDataArchived.append('status', 'deleted');
 
     //show archieved post
     $('#archievedBtnProfile').on('click', function () {
@@ -881,13 +835,9 @@ $(document).ready(function () {
         $('#availablePostBtn').removeClass('activeBtn')
         restartPost() //restart everything
 
-        //delete the current data that set on formdata
-        formData.delete('action')
-        formData.delete('retrievalDate')
-        formData.append('action', JSON.stringify(archievedAction));
-        formData.append('retrievalDate', retrievalDate)
-
-        displayToProfile(archievedAction) //process the retrieval of post for archieved post
+        actionTracker = formDataArchived
+        typeTracker = isArchived
+        displayToProfile(formDataArchived, isArchived) //process the retrieval of post for archieved post
     })
 
     $('#availablePostBtn').on('click', function () {
@@ -895,13 +845,9 @@ $(document).ready(function () {
         $('#archievedBtnProfile').removeClass('activeBtn')
         restartPost() //restart everything
 
-        //delete the current data that set on formdata
-        formData.delete('action')
-        formData.delete('retrievalDate')
-        formData.append('action', JSON.stringify(profileAction));
-        formData.append('retrievalDate', retrievalDate)
-
-        displayToProfile(profileAction) //process the retrieval of post for archieved post
+        actionTracker = formDataAvailable
+        typeTracker = isAvailable
+        displayToProfile(formDataAvailable, isAvailable) //process the retrieval of post for archieved post
     })
 
     let offsetCommunity = 0

@@ -32,26 +32,15 @@ if (isset($_POST['action'])) {
             $timestamp = $data['timestamp'];
             $post->insertToPrevPost($username, $date, $timestamp, $mysql_con);
             break;
-        case 'readUserPost':
-            $date = $data['retrievalDate'];
-            $post->getUserPost($username, $date, $mysql_con);
-            break;
-        case 'readUserArchievedPost':
-            $date = $data['retrievalDate'];
-            $post->getUserArchieved($username, $date, $mysql_con);
-            break;
-        case 'readAdminArchievedPost':
-            $date = $_POST['retrievalDate'];
-            $post->getUserArchieved($username, $date, $mysql_con);
-            break;
         case 'reportPost':
             $postID = $_POST['postID'];
             $reportCateg = $_POST['category'];
             $post->reportPost($postID, $username, $reportCateg, $mysql_con);
             break;
-        case 'readAdminProfile':
-            $date = $_POST['retrievalDate'];
-            $post->getAdminProfile($username, $date, $mysql_con);
+        case 'readUserProfile':
+            $offset = $_POST['offset'];
+            $status = $_POST['status'];
+            $post->getProfilePost($username, $offset, $status, $mysql_con);
             break;
         case 'deletePost':
             $postID = $_POST['postID'];

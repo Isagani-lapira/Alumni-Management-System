@@ -145,11 +145,6 @@ body {
   scrollbar-color: #991b1b; /* Set the color of the thumb */
 }
 
-/* For Firefox */
-/* Note: Firefox does not support rounded scrollbars, so this is just a general styling */
-/* scrollbar-color: #888 #f1f1f1; */
-/* scrollbar-width: thin; */
-
 /* UI ACTIVE TAB */
 /* Default styles for inactive tabs */
 #tabs .icon,

@@ -1,90 +1,56 @@
 $(document).ready(function () {
 
   const imgFormat = 'data:image/jpeg;base64,'
-  function getCurrentDate() {
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = String(today.getMonth() + 1).padStart(2, '0');
-    var day = String(today.getDate()).padStart(2, '0');
-    return year + '-' + month + '-' + day;
+
+
+  const availablePost = 'available'
+  const deletedPost = 'deleted'
+  let offsetPost = 0;
+  var profileAction = {
+    action: 'readUserProfile',
   }
+  const formDataAvailable = new FormData()
+  formDataAvailable.append('action', JSON.stringify(profileAction));
+  formDataAvailable.append('status', availablePost);
 
-  //for retrieving recent date
-  function getPreviousDate(daysToSubtract) {
-    var today = new Date();
-    today.setDate(today.getDate() - daysToSubtract);
-    var year = today.getFullYear();
-    var month = String(today.getMonth() + 1).padStart(2, '0');
-    var day = String(today.getDate()).padStart(2, '0');
-    return year + '-' + month + '-' + day;
-  }
-
-  var retrievalDate = getCurrentDate(); //to be change getCurrentDate()
-  var noOfDaySubtract = 1;
-  let stoppingPoint = 0;
-  let maxRetrieve = 10;
-  let dataRetrieved = 0;
-
-  var actionRetrieval = {
-    action: 'readUserPost',
-    retrievalDate: retrievalDate,
-  }
-
-  getPost(actionRetrieval, false)
-  function getPost(action, isDeleted) {
-    const formData = new FormData();
-    formData.append('action', JSON.stringify(action));
+  let actionTracker = formDataAvailable
+  let typeTracker = false
+  getPost(formDataAvailable, false)
+  function getPost(data, isDeleted) {
+    data.append('offset', offsetPost)
+    console.log(offsetPost)
     $.ajax({
       url: '../PHP_process/postDB.php',
       method: 'POST',
-      data: formData,
+      data: data,
       processData: false,
       contentType: false,
       success: (response) => {
-        if (response == "none" && stoppingPoint <= 20 && maxRetrieve != 0) {
-          retrievalDate = getPreviousDate(noOfDaySubtract); //get the previous dates
-          action.retrievalDate = retrievalDate;
-          getPost(action, isDeleted);
-          noOfDaySubtract++;
-          stoppingPoint++;
-        }
-        else if (response != "none") {
+        if (response != "none") {
           const parsedResponse = JSON.parse(response); //parsed the json data
-          //check for response
-          if (parsedResponse.response == "Success") {
-            const length = parsedResponse.username.length;
-            for (let i = 0; i < length; i++) {
-              //store data that retrieve
-              const imgProfile = parsedResponse.profilePic[i];
-              const postID = parsedResponse.postID[i];
-              const fullname = parsedResponse.fullname[i];
-              const username = parsedResponse.username[i];
-              const images = parsedResponse.images[i];
-              const caption = parsedResponse.caption[i];
-              let date = parsedResponse.date[i];
-              const likes = parsedResponse.likes[i];
-              const comments = parsedResponse.comments[i];
-              date = getFormattedDate(date) //formatted date for easy viewing of date
+          const length = parsedResponse.username.length;
+          for (let i = 0; i < length; i++) {
+            //store data that retrieve
+            const imgProfile = parsedResponse.profilePic[i];
+            const postID = parsedResponse.postID[i];
+            const fullname = parsedResponse.fullname[i];
+            const username = parsedResponse.username[i];
+            const images = parsedResponse.images[i];
+            const caption = parsedResponse.caption[i];
+            let date = parsedResponse.date[i];
+            const likes = parsedResponse.likes[i];
+            const comments = parsedResponse.comments[i];
+            date = getFormattedDate(date) //formatted date for easy viewing of date
 
-              displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted); //display the post on the container
-            }
-            dataRetrieved += length; // get how many data has been retrieve for that day
-            console.log(dataRetrieved)
-            if (dataRetrieved < 10) {
-              retrievalDate = getPreviousDate(noOfDaySubtract);
-              action.retrievalDate = retrievalDate;
-              stoppingPostRetrieval = 0;
-              getPost(action, isDeleted)
-              noOfDaySubtract++;
-            }
+            displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted); //display the post on the container
           }
-          //display message with no more available post
-          else {
-            const noMsgPost = $('<p>').addClass("text-blue-400 text-center").text("No available post")
-            $('#feedContainer').append(noMsgPost);
-          }
+
+          offsetPost += length
+
+        } else {
+          $('#noProfPostMsg').removeClass('hidden')
+            .appendTo('#feedContainer')
         }
-        else console.log('stopping point');
       },
       error: (error) => { console.log(error) },
     })
@@ -92,36 +58,39 @@ $(document).ready(function () {
 
   function restartPost() {
     //reset everything
-    retrievalDate = getCurrentDate();
-    noOfDaySubtract = 1;
-    stoppingPoint = 0;
-    maxRetrieve = 10;
-    dataRetrieved = 0;
-
+    $('#noProfPostMsg').addClass('hidden')
     $('.postWrapper').remove() // remove the current displayed post
-    getPost(actionRetrieval)
+    offsetPost = 0
   }
 
+  let isScrolled = false
   //display achieved post
   $('#archievedBtn').on('click', function () {
     $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
     $('#userPost').removeClass('text-white bg-accent font-bold').addClass('text-gray-400')
-
     restartPost();
+
     //data to be change to be delivered to verify what action to be use
-    let actionAchieved = {
-      action: 'readUserArchievedPost',
-      retrievalDate: retrievalDate, // to be change
-    }
-    getPost(actionAchieved, true)
+    formDataAvailable.set('status', deletedPost);
+    actionTracker = formDataAvailable
+    typeTracker = true;
+
+    if (!isScrolled)
+      getPost(formDataAvailable, true)
   })
 
   $('#userPost').on('click', function () {
     $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
     $('#archievedBtn').removeClass('text-white bg-accent font-bold').addClass('text-gray-400')
-
+    $('#feedContainer').scrollTop(0);
     //display the post available post again
     restartPost()
+
+    formDataAvailable.set('status', availablePost);
+    actionTracker = formDataAvailable
+    typeTracker = false;
+    if (!isScrolled)
+      getPost(formDataAvailable, false)
   })
 
   $('.closeReportModal').each(function () {
@@ -336,13 +305,15 @@ $(document).ready(function () {
 
   //add retrieve new data
   $('#feedContainer').on('scroll', function () {
-    const containerHeight = $(this).height();
-    const contentHeight = $(this)[0].scrollHeight;
-    const scrollOffset = $(this).scrollTop();
+    var container = $(this);
+    var scrollPosition = container.scrollTop();
+    var containerHeight = container.height();
+    var contentHeight = container[0].scrollHeight;
+    var scrollThreshold = 40; // Adjust this threshold as needed
 
-    //once the bottom ends, it will reach another sets of data (post)
-    if (scrollOffset + containerHeight >= contentHeight) {
-      console.log('umabot na')
+    if (scrollPosition + containerHeight >= contentHeight - scrollThreshold) {
+      getPost(actionTracker, typeTracker)
+      isScrolled = true
     }
   })
 
