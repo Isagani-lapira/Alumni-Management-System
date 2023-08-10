@@ -138,7 +138,6 @@ $(document).ready(function () {
         action: 'read',
     }
     let offsetPost = 0;
-    let tempCount = 0;
     let postData = new FormData();
     postData.append('action', JSON.stringify(postAction));
     postData.append('startDate', "")
@@ -186,7 +185,6 @@ $(document).ready(function () {
                     }
                     toAddProfile = false //won't be affected by date range 
                     offsetPost += length
-                    tempCount = length
                 }
                 else {
                     $('#noPostMsg').show();
@@ -211,9 +209,8 @@ $(document).ready(function () {
     //show prev set of post
     $('#prevPost').on('click', function () {
         //check if it still not 0
-        if (tempCount != 0) {
-            offsetPost -= tempCount
-            console.log(offsetPost)
+        if (offsetPost != 0) {
+            offsetPost -= offsetPost
             postData.delete('offset');
             postData.append('offset', offsetPost); //set new offset that is increase by 10
             getPostAdmin(postData, true); //retrieve new sets of data
