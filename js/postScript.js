@@ -904,15 +904,17 @@ $(document).ready(function () {
         displayToProfile(profileAction) //process the retrieval of post for archieved post
     })
 
+    let offsetCommunity = 0
 
     //community post
     $('#communityLi').on('click', function () {
+        offsetCommunity = 0
         $('#communityContainer').empty();
         getCommunityPost();
         getReport()
     })
 
-    let offsetCommunity = 0
+
     //get community post
     function getCommunityPost() {
         let action = {
