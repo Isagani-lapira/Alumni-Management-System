@@ -28,11 +28,9 @@
 
          <div class="m-2 p-1">
              <p>Show post (from - to)</p>
-             <div class="w-full flex border border-grayish p-2 rounded-lg">
-                 <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" />
-                 <label class="" for="daterange">
-                     <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
-                 </label>
+             <div class="relative">
+                 <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" class="rounded " />
+                 <img class="h-5 w-5  absolute right-4 top-2" src="../assets/icons/calendar.svg" alt="">
              </div>
 
          </div>
@@ -95,3 +93,10 @@
 
 
  </section>
+
+
+ <script>
+     $(document).ready(function() {
+         $('#daterange').daterangepicker();
+     });
+ </script>

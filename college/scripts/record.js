@@ -27,6 +27,10 @@ function fetchResource(url = "", callback = null) {
   });
 }
 
+function setStudentTB(data) {}
+
+function setStudentInfo() {}
+
 function fetchStudentRecord() {
   let data = response;
   let length = data.studentNo.length; //length of the data has been retrieved

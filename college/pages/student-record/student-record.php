@@ -66,7 +66,7 @@
                 <th>DETAILS</th>
             </tr>
         </thead>
-        <tbody class="text-sm">
+        <tbody class="text-sm student-tb">
             <tr class="h-14">
                 <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>

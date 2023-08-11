@@ -1,6 +1,6 @@
 <?php
 
-require '../../../PHP_process/connection.php';
+require '../../PHP_process/connection.php';
 
 // class that fetches from student information
 class Student
@@ -40,9 +40,9 @@ class Student
         if ($result && $row > 0) {
             $response = "Success";
             //get data 
-            while ($data = mysqli_fetch_assoc($result)) {
-                $studentNo[] = $data['studNo'];
-                $personID  = $data['personID'];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $studentNo = $row['studNo'];
+                $personID  = $row['personID'];
                 $queryPerson = 'SELECT * FROM `person` WHERE `personID` = "' . $personID . '"';
 
                 $resultPerson = mysqli_query($con, $queryPerson);
@@ -53,13 +53,13 @@ class Student
             }
         } else $response = "Unsuccessful";
 
-        $data = array(
+        $json_result = array(
             "response" => $response,
             "studentNo" => $studentNo,
             "fullname" => $fullname,
             "contactNo" => $contactNo
         );
 
-        echo json_encode($data);
+        echo json_encode($json_result);
     }
 }

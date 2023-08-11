@@ -92,7 +92,7 @@ if (
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- End JS Plugins -->
     <!-- System Script -->
-    <script src="./assets/js/core.js" defer></script>
+    <script src="./scripts/core.js" defer></script>
     <!-- End JS Scripts -->
 
 </head>
@@ -166,7 +166,7 @@ if (
 
         <main class="flex-1 mx-auto mt-10">
             <div id="main-root">
-                <?php require 'pages/dashboard.php'; ?>
+                <?php require 'pages/dashboard/dashboard.php'; ?>
             </div>
 
         </main>

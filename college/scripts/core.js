@@ -29,8 +29,9 @@ $(document).ready(function () {
   function loadURL(url, container, title = "") {
     // change the root elem to page
 
-    const base_url = "pages/";
+    const base_url = `pages/${url}/`;
     title = title.length === 0 ? url : title;
+
     // set the title of the page
     document.title = capitalizeFirstLetter(title);
     $.ajax({

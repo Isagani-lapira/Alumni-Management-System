@@ -1,5 +1,5 @@
 <?php
-require_once '../../../PHP_process/connection.php';
+require_once '../../PHP_process/connection.php';
 require 'studentTB.php';
 
 

@@ -1243,6 +1243,18 @@ th,
   top: 2rem;
 }
 
+.top-4 {
+  top: 1rem;
+}
+
+.right-4 {
+  right: 1rem;
+}
+
+.top-2 {
+  top: 0.5rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -1321,6 +1333,10 @@ th,
 
 .m-2 {
   margin: 0.5rem;
+}
+
+.-m-4 {
+  margin: -1rem;
 }
 
 .mx-10 {
