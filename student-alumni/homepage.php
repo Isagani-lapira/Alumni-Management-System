@@ -293,6 +293,7 @@ function getAccDetails($con, $personID)
                     </div>
                   </div>
 
+                  <p id="noPostMsgFeed" class="text-blue-400 text-center hidden">No available post</p>
                 </div>
               </div>
 

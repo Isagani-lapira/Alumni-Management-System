@@ -82,8 +82,8 @@ $(document).ready(function () {
                     }
                 }
                 else {
-                    const noMsgPost = $('<p>').addClass("text-blue-400 text-center").text("No available post")
-                    $('#feedContainer').append(noMsgPost);
+                    $('#noPostMsgFeed').removeClass('hidden')
+                        .appendTo('#feedContainer');
                 }
 
             },
