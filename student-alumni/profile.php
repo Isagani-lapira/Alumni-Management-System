@@ -751,7 +751,7 @@ function dateInText($date)
         </div>
     </div>
 
-    <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+    <div id="editResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
         <div class="relative w-1/2 h-max p-3 bg-white rounded-md">
             <form>
                 <h1 class="text-lg text-greyish_black font-black text-center py-2 border-b border-gray-400">
@@ -808,17 +808,17 @@ function dateInText($date)
                     <div class="flex gap-2 text-sm text-gray-500 mt-2">
                         <div class="w-1/2">
                             <label for="" class="font-bold">Primary education</label>
-                            <input type="text" class="p-2 w-full border border-gray-400 rounded-md academicBgInput">
+                            <input type="text" class="p-2 w-full rounded-md academicBgInput">
                         </div>
 
                         <div class="w-1/4">
                             <label for="" class="font-bold">Start year</label>
-                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                         <div class="w-1/4">
                             <label for="" class="font-bold">End Year</label>
-                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                     </div>
@@ -827,17 +827,17 @@ function dateInText($date)
                     <div class="flex gap-2 text-sm text-gray-500">
                         <div class="w-1/2">
                             <label for="" class="font-bold">Secondary education</label>
-                            <input type="text" class="p-2 w-full border border-gray-400 rounded-md academicBgInput">
+                            <input type="text" class="p-2 w-full rounded-md academicBgInput">
                         </div>
 
                         <div class="w-1/4">
                             <label for="" class="font-bold">Start year</label>
-                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                         <div class="w-1/4">
                             <label for="" class="font-bold">End Year</label>
-                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                     </div>
@@ -846,17 +846,17 @@ function dateInText($date)
                     <div class="flex gap-2 text-sm text-gray-500">
                         <div class="w-1/2">
                             <label for="" class="font-bold">Tertiary education</label>
-                            <input type="text" class="p-2 w-full border border-gray-400 rounded-md academicBgInput">
+                            <input type="text" class="p-2 w-full rounded-md academicBgInput">
                         </div>
 
                         <div class="w-1/4">
                             <label for="" class="font-bold">Start year</label>
-                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                         <div class="w-1/4">
                             <label for="" class="font-bold">End Year</label>
-                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
                     </div>
                     <p class="text-gray-400 italic text-sm">Note: If you are still a student, please include your anticipated graduation year.</p>
@@ -864,14 +864,202 @@ function dateInText($date)
 
                 <!-- work experience-->
                 <div id="workExpPage" class="resumePages hidden">
-                    work expe
+                    <h1 class=" text-greyish_black font-black">Work Experience</h1>
+                    <div class="flex flex-wrap gap-2 text-sm text-gray-500 my-3">
+
+                        <input type="radio" name="workExp" id="withExp" checked>
+                        <label for="withExp">Have Experience</label>
+
+                        <input type="radio" name="workExp" id="noExp">
+                        <label for="noExp">No Experience</label>
+                    </div>
+
+                    <div id="workExpWrapper" class="text-sm text-gray-500">
+                        <p class="italic text-xs">Note: Maximum work experience you can add is 4</p>
+                        <div class="flex flex-col gap-2">
+
+                            <!-- first work experience -->
+                            <div class="flex flex-wrap gap-2 items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                    <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                        <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                        <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                        <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                    </g>
+                                </svg>
+
+                                <input class="flex-0 firstWork p-2 rounded-md" type="text" placeholder="Job Title">
+                                <input class="flex-1 firstWork p-2 rounded-md" type="text" placeholder="Company/Organization name">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput firstWork">
+                                    <option value="" disabled selected>Start Year</option>
+                                </select>
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput firstWork">
+                                    <option value="" disabled selected>End Year</option>
+                                </select>
+                            </div>
+
+                            <!-- second work experience -->
+                            <div class="flex flex-wrap gap-2 items-center">
+                                <svg id="addWorkExp2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                    <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                        <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                        <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                        <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                    </g>
+                                </svg>
+
+                                <input class="flex-0 secondWork invisible p-2 rounded-md" type="text" placeholder="Job Title">
+                                <input class="flex-1 secondWork invisible p-2 rounded-md" type="text" placeholder="Company/Organization name">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible secondWork">
+                                    <option value="" disabled selected>Start Year</option>
+                                </select>
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible secondWork">
+                                    <option value="" disabled selected>End Year</option>
+                                </select>
+                            </div>
+
+                            <!-- third work experience -->
+                            <div class="flex flex-wrap gap-2 items-center">
+                                <svg id="addWorkExp3" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                    <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                        <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                        <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                        <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                    </g>
+                                </svg>
+
+                                <input class="flex-0 thirdWork invisible p-2 rounded-md" type="text" placeholder="Job Title">
+                                <input class="flex-1 invisible p-2 rounded-md thirdWork" type="text" placeholder="Company/Organization name">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible thirdWork">
+                                    <option value="" disabled selected>Start Year</option>
+                                </select>
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible thirdWork">
+                                    <option value="" disabled selected>End Year</option>
+                                </select>
+                            </div>
+
+                            <!-- fourth work experience -->
+                            <div class="flex flex-wrap gap-2 items-center">
+                                <svg id="addWorkExp4" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                    <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                        <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                        <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                        <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                    </g>
+                                </svg>
+
+                                <input class="flex-0 fourthWork invisible p-2 rounded-md" type="text" placeholder="Job Title">
+                                <input class="flex-1 fourthWork invisible p-2 rounded-md" type="text" placeholder="Company/Organization name">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible fourthWork">
+                                    <option value="" disabled selected>Start Year</option>
+                                </select>
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible fourthWork">
+                                    <option value="" disabled selected>End Year</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- skills-->
                 <div id="skillPage" class="resumePages hidden">
-                    skill
+                    <h1 class=" text-greyish_black font-black">Skills you have</h1>
+                    <p class="text-sm text-gray-500">
+                        Provide only the skills that is related to what you are applying for you to stand out
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        Note: Provide minimum of 3 and maximum of 6 skills
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <!-- first skill -->
+                        <div class="flex gap-2 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                    <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                    <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                    <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                </g>
+                            </svg>
+                            <input type="text" placeholder="ex: Time management" class="skillInput">
+                        </div>
+
+                        <!-- second skill -->
+                        <div class="flex gap-2 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                    <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                    <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                    <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                </g>
+                            </svg>
+                            <input type="text" placeholder="ex: Time management" class="skillInput">
+                        </div>
+
+                        <!-- third skill -->
+                        <div class="flex gap-2 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                    <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                    <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                    <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                </g>
+                            </svg>
+                            <input type="text" placeholder="ex: Time management" class="skillInput">
+                        </div>
+
+                        <!-- fourth skill -->
+                        <div class="flex gap-2 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                    <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                    <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                    <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                </g>
+                            </svg>
+                            <input type="text" placeholder="ex: Time management" class="skillInput">
+                        </div>
+
+                        <!-- fifth skill -->
+                        <div class="flex gap-2 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                    <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                    <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                    <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                </g>
+                            </svg>
+                            <input type="text" placeholder="ex: Time management" class="skillInput">
+                        </div>
+
+                        <!-- sixth skill -->
+                        <div class="flex gap-2 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
+                                    <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                                    <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                                    <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+                                </g>
+                            </svg>
+                            <input type="text" placeholder="ex: Time management" class="skillInput">
+                        </div>
+
+                    </div>
                 </div>
 
+                <!-- resume summary -->
+                <div id="resumeSummary" class="resumePages hidden">
+                    <h1 class=" text-greyish_black font-black">Objective</h1>
+                    <p class="text-sm text-gray-500">
+                        A brief statement highlighting your career goals, skills,
+                        and what you can bring to the table for potential employers.
+                        A summary is typically used for those with some work experience,
+                        while an objective is more suitable for entry-level candidates.
+                    </p>
+                    <textarea id="objectiveInput" class="w-full h-40 p-3 border border-gray-300 mt-4 rounded-md text-gray-500 outline-none" placeholder="Add an amazing summary about you"></textarea>
+                </div>
 
                 <div class="mt-2 flex justify-end gap-2">
                     <button id="resumeBtnPrev" type="button" class="px-4 py-2 rounded-md hover:bg-gray-300 text-gray-500 hidden">Previous</button>
