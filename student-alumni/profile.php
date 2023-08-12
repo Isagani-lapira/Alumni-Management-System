@@ -36,6 +36,8 @@ if (
         $personData = json_decode($personDataJSON, true);
 
         $fullname = $personData['fname'] . ' ' . $personData['lname'];
+        $firstName = $personData['fname'];
+        $lastName = $personData['lname'];
         $age = $personData['age'];
         $address = $personData['address'];
         $bday = dateInText($personData['bday']);
@@ -749,8 +751,140 @@ function dateInText($date)
         </div>
     </div>
 
+    <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+        <div class="relative w-1/2 h-max p-3 bg-white rounded-md">
+            <form>
+                <h1 class="text-lg text-greyish_black font-black text-center py-2 border-b border-gray-400">
+                    Edit Resume
+                </h1>
+
+                <!-- personal information -->
+                <div id="personInfoPage" class="resumePages">
+                    <h1 class=" text-greyish_black font-black">Personal Details</h1>
+                    <p class="text-sm text-gray-500">Note: the information provided is dependent on the account's personal data.
+                        If there are any details that need to be changed, please edit your profile.</p>
+                    <?php
+                    echo '<div class="flex items-center gap-2 mt-4">
+                        <div class="flex-1 flex flex-col text-sm text-gray-500">
+                            <span class="font-bold">First name</span>
+                            <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $firstName . '"
+                            placeholder="' . $firstName . '"/>
+                        </div>
+                        <div class="flex-1 flex flex-col text-sm text-gray-500">
+                           <span class="font-bold">Last name</span>
+                           <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $lastName . '"
+                            placeholder="' . $lastName . '"/>
+                        </div>
+                    </div>';
+
+                    echo '<div class="flex items-center gap-2 mt-2">
+                        <div class="flex-1 flex flex-col text-sm text-gray-500">
+                            <span class="font-bold">Address</span>
+                            <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $address . '"
+                            placeholder="' . $address . '"/>
+                        </div>
+                        <div class="flex-1 flex flex-col text-sm text-gray-500">
+                           <span class="font-bold">Contact No.</span>
+                           <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $contactNo . '"
+                            placeholder="' . $contactNo . '"/>
+                        </div>
+                    </div>';
+
+                    echo '
+                        <div class="flex flex-col w-full text-sm text-gray-500 mt-2">
+                            <span class="font-bold">Email Address</span>
+                            <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md" value="' . $personal_email . '"
+                            placeholder="' . $personal_email . '"/>
+                        </div>
+                    '
+                    ?>
+                </div>
+
+                <!-- Academic background -->
+                <div id="academicInfoPage" class="resumePages hidden">
+                    <h1 class=" text-greyish_black font-black">Academic Background</h1>
+
+                    <!-- primary education -->
+                    <div class="flex gap-2 text-sm text-gray-500 mt-2">
+                        <div class="w-1/2">
+                            <label for="" class="font-bold">Primary education</label>
+                            <input type="text" class="p-2 w-full border border-gray-400 rounded-md academicBgInput">
+                        </div>
+
+                        <div class="w-1/4">
+                            <label for="" class="font-bold">Start year</label>
+                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                        </div>
+
+                        <div class="w-1/4">
+                            <label for="" class="font-bold">End Year</label>
+                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                        </div>
+
+                    </div>
+
+                    <!-- secondary education -->
+                    <div class="flex gap-2 text-sm text-gray-500">
+                        <div class="w-1/2">
+                            <label for="" class="font-bold">Secondary education</label>
+                            <input type="text" class="p-2 w-full border border-gray-400 rounded-md academicBgInput">
+                        </div>
+
+                        <div class="w-1/4">
+                            <label for="" class="font-bold">Start year</label>
+                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                        </div>
+
+                        <div class="w-1/4">
+                            <label for="" class="font-bold">End Year</label>
+                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                        </div>
+
+                    </div>
+
+                    <!-- tertiary education -->
+                    <div class="flex gap-2 text-sm text-gray-500">
+                        <div class="w-1/2">
+                            <label for="" class="font-bold">Tertiary education</label>
+                            <input type="text" class="p-2 w-full border border-gray-400 rounded-md academicBgInput">
+                        </div>
+
+                        <div class="w-1/4">
+                            <label for="" class="font-bold">Start year</label>
+                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                        </div>
+
+                        <div class="w-1/4">
+                            <label for="" class="font-bold">End Year</label>
+                            <select name="" id="" class="yearSelection p-2 w-full border border-gray-400 rounded-md academicBgInput"></select>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic text-sm">Note: If you are still a student, please include your anticipated graduation year.</p>
+                </div>
+
+                <!-- work experience-->
+                <div id="workExpPage" class="resumePages hidden">
+                    work expe
+                </div>
+
+                <!-- skills-->
+                <div id="skillPage" class="resumePages hidden">
+                    skill
+                </div>
+
+
+                <div class="mt-2 flex justify-end gap-2">
+                    <button id="resumeBtnPrev" type="button" class="px-4 py-2 rounded-md hover:bg-gray-300 text-gray-500 hidden">Previous</button>
+                    <button id="resumeBtnNext" type="button" class="px-4 py-2 rounded-md bg-blue-400 hover:bg-blue-500 text-white ">Next</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="../student-alumni/js/profile.js"></script>
+    <script src="../student-alumni/js/resumescript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </body>
 
