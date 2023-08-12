@@ -18,48 +18,57 @@ class Student
         else return false;
     }
 
-    function getStudenData($currentYear = '', $con = null)
+    function getStudents($currentYear = '', mysqli|null $con = null)
     {
-        if ($con == null) {
+
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if (is_null($con)) {
             $con = $GLOBALS['mysql_con'];
         }
-        $query = "";
-        if ($currentYear != "")
-            $query = 'SELECT * FROM `student` WHERE `currentYear` = "' . $currentYear . '"';
-        else
-            $query = 'SELECT * FROM `student`';
 
-        $result = mysqli_query($con, $query);
-        $row = mysqli_num_rows($result);
+        // Initialize the statement
+        $stmt = $con->stmt_init();
+        if ($currentYear != "") {
 
-        $response = "";
-        $studentNo = array();
-        $fullname = array();
-        $contactNo = array();
+            $stmt = $con->prepare('SELECT studNo,person.personID,contactNo, 
+            CONCAT(fname," ", lname) AS fullName
+               FROM `student`
+                INNER JOIN  `person` ON student.personID = person.personID
+                  WHERE `currentYear` = ?');
+            // *  Binds the variable to the '?', prevents sql injection
+            $stmt->bind_param('s', $currentYear);
+        } else {
+            $stmt = $con->prepare('SELECT studNo,person.personID,contactNo, CONCAT(fname," ", lname) AS fullName
+               FROM `student`
+                INNER JOIN  `person` ON student.personID = person.personID');
+        }
 
-        if ($result && $row > 0) {
-            $response = "Success";
-            //get data 
-            while ($row = mysqli_fetch_assoc($result)) {
-                $studentNo = $row['studNo'];
-                $personID  = $row['personID'];
-                $queryPerson = 'SELECT * FROM `person` WHERE `personID` = "' . $personID . '"';
+        // execute the query
+        $stmt->execute();
+        // gets the myql_result. Similar result to mysqli_query
+        $result = $stmt->get_result();
+        $num_row = mysqli_num_rows($result);
 
-                $resultPerson = mysqli_query($con, $queryPerson);
-                while ($personData = mysqli_fetch_assoc($resultPerson)) {
-                    $fullname[] = $personData['fname'] . $personData['lname'];
-                    $contactNo[] = $personData['contactNo'];
-                }
+        // the main assoc array to be return
+        $json_result = array();
+        // holds every row in the query
+        $resultArray = array();
+
+        if ($result && $num_row > 0) {
+            $json_result['response'] = 'Successful';
+            // Gets every row in the query
+            while ($record = mysqli_fetch_assoc($result)) {
+                $resultArray[] = $record;
             }
-        } else $response = "Unsuccessful";
-
-        $json_result = array(
-            "response" => $response,
-            "studentNo" => $studentNo,
-            "fullname" => $fullname,
-            "contactNo" => $contactNo
-        );
+            $json_result['result'] = $resultArray;
+        } else {
+            $json_result['response'] = 'Unsuccesful';
+        }
 
         echo json_encode($json_result);
+
+        $stmt->close();
+        $con->close();
     }
 }

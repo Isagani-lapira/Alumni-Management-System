@@ -1195,6 +1195,10 @@ th,
   right: 0.75rem;
 }
 
+.right-4 {
+  right: 1rem;
+}
+
 .right-5 {
   right: 1.25rem;
 }
@@ -1223,6 +1227,10 @@ th,
   top: 3rem;
 }
 
+.top-2 {
+  top: 0.5rem;
+}
+
 .top-24 {
   top: 6rem;
 }
@@ -1241,18 +1249,6 @@ th,
 
 .top-8 {
   top: 2rem;
-}
-
-.top-4 {
-  top: 1rem;
-}
-
-.right-4 {
-  right: 1rem;
-}
-
-.top-2 {
-  top: 0.5rem;
 }
 
 .isolate {
@@ -1333,10 +1329,6 @@ th,
 
 .m-2 {
   margin: 0.5rem;
-}
-
-.-m-4 {
-  margin: -1rem;
 }
 
 .mx-10 {

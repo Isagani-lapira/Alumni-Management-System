@@ -1,52 +1,57 @@
-const PHP_SERVER_URL = "../../PHP_process/";
+// function fetchResource(url = "", callback = null) {
+//   $.ajax({
+//     url: "php/studentData.php",
+//     method: "GET",
+//     dataType: "json",
+//     processData: false,
+//     contentType: false,
+//     success: (response) => {
+//       if (response.response == "Successful") {
+//         console.log("fetch " + url + " successs");
+//         if (!callback) {
+//           console.log(response);
+//           return response;
+//         } else callback(response);
+//       }
+//     },
+//     error: (error) => {
+//       console.error(error);
+//       console.log("i ran");
+//       if (!callback) {
+//         return null;
+//       } else callback(response);
+//     },
+//   });
+// }
 
-fetchResource();
-
-function fetchResource(url = "", callback = null) {
-  $.ajax({
-    url: "php/student-records/studentData.php",
-    method: "GET",
-    dataType: "json",
-    processData: false,
-    contentType: false,
-    success: (response) => {
-      if (response.response == "Success") {
-        console.log("fetch " + url + " successs");
-        if (!callback) {
-          console.log(response);
-          return response;
-        } else callback(response);
-      }
-    },
-    error: (error) => {
-      console.error(error);
-      if (!callback) {
-        return null;
-      } else callback(response);
-    },
-  });
+async function getJSONResource(url) {
+  const response = await fetch(url);
+  return await response.json();
 }
-
-function setStudentTB(data) {}
 
 function setStudentInfo() {}
 
-function fetchStudentRecord() {
-  let data = response;
-  let length = data.studentNo.length; //length of the data has been retrieved
+function setStudentTB(data) {
+  const tbody = $("#studentTB");
+  tbody.ht;
 
-  //display the student record on the table
-  let tbody = $("#studentTB");
-  for (let i = 0; i < length; i++) {
-    studentNo = data.studentNo[i];
-    fullname = data.fullname[i];
-    contactNo = data.contactNo[i];
+  // loops through and adds data to every row.
+  for (const student of data) {
     let tr = $("<tr>");
     let tdStudentNo = $("<td>")
       .addClass("text-center font-bold")
-      .text(studentNo);
-    let tdfullname = $("<td>").addClass("text-center").text(fullname);
-    let tdcontactNo = $("<td>").addClass("text-center").text(contactNo);
+      .text(student["studNo"]);
+    let tdfullname = $("<td>").append(
+      `                    <div class="flex items-center justify-start">
+                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        <span class="ml-2">${student["fullName"]}</span>
+                    </div>`
+    );
+    // .addClass("text-center")
+    // .text(student["fullName"]);
+    let tdcontactNo = $("<td>")
+      .addClass("text-center")
+      .text(student["contactNo"]);
     let viewProfile = $("<td>")
       .addClass(
         "text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue"
@@ -57,3 +62,13 @@ function fetchStudentRecord() {
     tbody.append(tr);
   }
 }
+
+// function fetchStudentRecord()
+
+$(document).ready(async function () {
+  const result = await getJSONResource("php/studentData.php");
+  console.log(result);
+  // remove loading
+  // sets the table
+  // setStudentTB(result.result);
+});

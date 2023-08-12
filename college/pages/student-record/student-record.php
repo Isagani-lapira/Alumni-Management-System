@@ -37,7 +37,8 @@
         <select name="college" id="college" class=" w-full border border-gray-400 bg-transparent rounded-md shadow-md px-4">
             <option value="" selected disabled hidden>Course</option>
             <?php
-            require_once '../../PHP_process/connection.php';
+
+            require_once '../../../PHP_process/connection.php';
             $query = "SELECT * FROM `college`";
             $result = mysqli_query($mysql_con, $query);
             $rows = mysqli_num_rows($result);
@@ -55,7 +56,6 @@
 
     </div>
 
-
     <!-- Record Table-->
     <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
         <thead class="bg-accent text-white rounded-t-lg">
@@ -66,8 +66,9 @@
                 <th>DETAILS</th>
             </tr>
         </thead>
-        <tbody class="text-sm student-tb">
-            <tr class="h-14">
+        <tbody class="text-sm " id="studentTB">
+            <!-- <tr class="h-14">
+                REMOVED FOR Dynamic Reloading
                 <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
@@ -77,10 +78,13 @@
                 </td>
                 <td class="text-center">09104905440</td>
                 <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-
-
-
-            </tr>
+            </tr> -->
+            <!-- <tr>
+                        TODO
+                <td colspan="4">
+                    <span class="loader"></span>
+                </td>
+            </tr> -->
         </tbody>
     </table>
     <!-- End Record Table -->
@@ -131,8 +135,14 @@
     </div>
 </div>
 
+
+
+
 <script>
-    // Date picker
-    $('#reportdaterange').daterangepicker();
+    $(document).ready(function() {
+        $.getScript('./scripts/record.js');
+        // Date picker
+        $('#reportdaterange').daterangepicker();
+
+    });
 </script>
-<script src="./assets/js/pages/record.js"></script>

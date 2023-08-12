@@ -37,6 +37,7 @@ $(document).ready(function () {
     $.ajax({
       type: "GET",
       url: base_url + url + ".php",
+      async: true,
       dataType: "html",
       // TODO check later if cache is good in changing data
       cache: true,
@@ -78,7 +79,6 @@ $(document).ready(function () {
         // No Page Found
         container.load("pages/missing-page.php");
       },
-      async: true,
     });
   }
 

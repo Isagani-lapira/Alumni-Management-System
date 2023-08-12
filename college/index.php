@@ -1,11 +1,12 @@
 <?php
 session_start();
 
+
 // Check if Logged In
 if (
     !isset($_SESSION['username']) ||
     $_SESSION['logged_in'] == false ||
-    // todo check later if they could use UnivAdmin
+    // TODO check later if they could use UnivAdmin
     $_SESSION['accountType'] != 'ColAdmin'
 ) {
     // session does not exist 
@@ -16,7 +17,7 @@ if (
     require_once '../PHP_process/connection.php';
     require '../PHP_process/personDB.php';
 
-    // todo validate and sanitize user input
+    // TODO and sanitize user input
     $username = $_SESSION['username'];
 
     //get the person ID of user
@@ -75,6 +76,7 @@ if (
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- System Tailwind stylesheet -->
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./assets/css/util.css">
     <!-- End Stylesheets -->
 
     <!-- Javascript Scripts -->
