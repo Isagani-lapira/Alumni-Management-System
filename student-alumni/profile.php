@@ -807,17 +807,17 @@ function dateInText($date)
                     <!-- primary education -->
                     <div class="flex gap-2 text-sm text-gray-500 mt-2">
                         <div class="w-1/2">
-                            <label for="" class="font-bold">Primary education</label>
-                            <input type="text" class="p-2 w-full rounded-md academicBgInput">
+                            <p class="font-bold px-2">Education Level</p>
+                            <input type="text" class="p-2 w-full rounded-md academicBgInput" placeholder="Primary education">
                         </div>
 
                         <div class="w-1/4">
-                            <label for="" class="font-bold">Start year</label>
+                            <p for="" class="font-bold text-center">Start year</p>
                             <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                         <div class="w-1/4">
-                            <label for="" class="font-bold">End Year</label>
+                            <p for="" class="font-bold text-center">End Year</p>
                             <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
@@ -826,17 +826,14 @@ function dateInText($date)
                     <!-- secondary education -->
                     <div class="flex gap-2 text-sm text-gray-500">
                         <div class="w-1/2">
-                            <label for="" class="font-bold">Secondary education</label>
-                            <input type="text" class="p-2 w-full rounded-md academicBgInput">
+                            <input type="text" class="p-2 w-full rounded-md academicBgInput" placeholder="Secondary education">
                         </div>
 
                         <div class="w-1/4">
-                            <label for="" class="font-bold">Start year</label>
                             <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                         <div class="w-1/4">
-                            <label for="" class="font-bold">End Year</label>
                             <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
@@ -845,17 +842,14 @@ function dateInText($date)
                     <!-- tertiary education -->
                     <div class="flex gap-2 text-sm text-gray-500">
                         <div class="w-1/2">
-                            <label for="" class="font-bold">Tertiary education</label>
-                            <input type="text" class="p-2 w-full rounded-md academicBgInput">
+                            <input type="text" class="p-2 w-full rounded-md academicBgInput" placeholder="Tertiary education">
                         </div>
 
                         <div class="w-1/4">
-                            <label for="" class="font-bold">Start year</label>
                             <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                         <div class="w-1/4">
-                            <label for="" class="font-bold">End Year</label>
                             <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
                     </div>
