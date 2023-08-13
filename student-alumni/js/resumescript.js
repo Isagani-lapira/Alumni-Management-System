@@ -18,6 +18,7 @@ $(document).ready(function () {
             .removeClass('bg-blue-400 hover:bg-blue-500')
     }
 
+    const skills = [];
     $('#resumeBtnNext').on('click', function () {
         if (currentPage == 1) {
             // personal information page
@@ -49,6 +50,7 @@ $(document).ready(function () {
 
                 if (value !== "") {
                     skillCount++
+                    skills.push(value) //add to the array
                 }
             })
             //check if it reach the minimum of 2 skill
@@ -267,6 +269,7 @@ $(document).ready(function () {
         formData.append('secondary', JSON.stringify(secondaryEduc))
         formData.append('tertiary', JSON.stringify(tertiaryEduc))
         formData.append('work', JSON.stringify(work));
+        formData.append('skills', JSON.stringify(skills));
 
         $.ajax({
             url: '../PHP_process/resume.php',

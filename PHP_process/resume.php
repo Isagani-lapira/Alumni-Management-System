@@ -53,7 +53,7 @@ function insertionOfData($con)
                         $count = count($work);
 
                         if ($count > 0) {
-                            echo $count;
+                            $checker = false;
                             //traverse the data of work
                             foreach ($work as $workEntry) {
                                 $jobTitle = $workEntry['jobTitle'];
@@ -63,7 +63,24 @@ function insertionOfData($con)
                                 // query the insertion
                                 $query = "INSERT INTO `work_exp`(`workID`, `resumeID`, `job_title`, `companyName`, `year`) 
                                 VALUES ('$workID','$resumeID','$jobTitle','$companyName','$year')";
-                                mysqli_query($con, $query);
+                                $workExp = mysqli_query($con, $query);
+
+                                if ($workExp) $checker = true;
+                            }
+                            if ($checker) {
+                                $skills = json_decode($_POST['skills'], true);
+
+                                $response = false;
+                                //traverse to insert every skill
+                                foreach ($skills as $skill) {
+                                    $skillID = substr(md5(uniqid()), 0, 10) . '-' . rand(0, 5000);
+                                    $query = "INSERT INTO `resume_skill`(`skillID`, `resumeID`, `skill`) 
+                                        VALUES ('$skillID','$resumeID','$skill')";
+                                    if (mysqli_query($con, $query))
+                                        $response = true;
+                                }
+                                if ($response) echo 'Successful';
+                                else echo 'Failed';
                             }
                         } else { //skip the work experience
                             echo 'ayaw';
