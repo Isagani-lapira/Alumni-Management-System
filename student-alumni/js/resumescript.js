@@ -61,10 +61,7 @@ $(document).ready(function () {
 
     $('#resumeBtnPrev').on('click', function () {
         currentPage--
-        $('#resumeBtnNext')
-            .addClass('bg-accent hover:bg-blue-500')
-            .removeClass('bg-green-400 hover:bg-green-500')
-            .text('Next')
+        $('#resumeBtnNext').removeClass('hidden') //show next button
         navigateToPage(currentPage)
 
     })
@@ -89,12 +86,9 @@ $(document).ready(function () {
                 break;
             case 5:
                 $('#resumeSummary').removeClass('hidden')
+                $('#resumeBtnNext').addClass('hidden')
                 //change the button to success button
-                $('#resumeBtnNext')
-                    .attr('disabled', true)
-                    .addClass('bg-green-300')
-                    .removeClass('bg-blue-400 hover:bg-blue-500')
-                    .text('Update resume')
+                $('#resumeBtnUpdate').removeClass('hidden')
                 break;
         }
 
@@ -140,11 +134,29 @@ $(document).ready(function () {
         }
     })
 
+    let work = [];
+
+    function getWork(selector) {
+        const jobTitleInput = $(selector + '.job-title').val();
+        const companyNameInput = $(selector + '.company-name').val();
+        const startYearSelect = $(selector + '.year:nth-child(4)').val();
+        const endYearSelect = $(selector + '.year:nth-child(5)').val();
+        const year = startYearSelect + '-' + endYearSelect;
+        // Create an object and push it to the work array
+        work.push({
+            jobTitle: jobTitleInput,
+            companyName: companyNameInput,
+            year: year
+        });
+
+    }
     $('#addWorkExp2').on('click', function () {
         let classPage = ".firstWork"
         if (isInputComplete(classPage)) {
             showWorkInputField($(this))
             $('#addWorkExp3').removeClass('hidden') //show the next add icon
+            //get the data
+            getWork(classPage)
             enabledTheNext()
         } else {
             disabledTheNext()
@@ -156,9 +168,10 @@ $(document).ready(function () {
     $('#addWorkExp3').on('click', function () {
         let classPage = ".secondWork"
         if (isInputComplete(classPage)) {
-            console.log('pumasok')
             showWorkInputField($(this))
             $('#addWorkExp4').removeClass('hidden') //show the next add icon
+            //get the data
+            getWork(classPage)
             enabledTheNext()
         } else disabledTheNext() //if the input is incomplete then it dont allow to be next
     })
@@ -167,6 +180,8 @@ $(document).ready(function () {
         if (isInputComplete(classPage)) {
             showWorkInputField($(this))
             $('#addWorkExp4').removeClass('hidden') //show the next add icon
+            //get the data
+            getWork(classPage)
             enabledTheNext()
         } else disabledTheNext()//if the input is incomplete then it dont allow to be next
     })
@@ -196,10 +211,71 @@ $(document).ready(function () {
         //allows the update resume button now
         if (value !== "") {
             //change button to update
-            $('#resumeBtnNext')
+            $('#resumeBtnUpdate')
                 .attr('disabled', false)
                 .addClass('bg-green-400 hover:bg-green-500')
                 .removeClass('bg-green-300')
         }
     })
+
+    let primaryEduc = [];
+    let secondaryEduc = [];
+    let tertiaryEduc = [];
+    $('#resumeBtnUpdate').on('click', function () {
+        //get primary education
+        $('.primary').each(function () {
+            var value = $(this).val()
+            primaryEduc.push(value)
+        })
+
+        //get secondary education
+        $('.secondary').each(function () {
+            var value = $(this).val()
+            secondaryEduc.push(value)
+        })
+
+        // get tertiary
+        $('.tertiary').each(function () {
+            var value = $(this).val()
+            tertiaryEduc.push(value)
+        })
+
+        setResume()
+    })
+    function setResume() {
+        let data = $('#formResume')[0];
+        var formData = new FormData(data);
+
+        //gather data that collected
+        const action = "insertData"
+        const firstname = $('#firstname').val()
+        const lastname = $('#lastname').val()
+        const address = $('#address').val()
+        const contactNo = $('#contactNo').val()
+        const emailAdd = $('#emailAdd').val()
+        const objective = $('#objectiveInput').val()
+
+        //data to be send
+        formData.append('action', action)
+        formData.append('firstname', firstname)
+        formData.append('lastname', lastname)
+        formData.append('address', address)
+        formData.append('contactNo', contactNo)
+        formData.append('emailAdd', emailAdd)
+        formData.append('objective', objective)
+        formData.append('primary', JSON.stringify(primaryEduc))
+        formData.append('secondary', JSON.stringify(secondaryEduc))
+        formData.append('tertiary', JSON.stringify(tertiaryEduc))
+        formData.append('work', JSON.stringify(work));
+
+        $.ajax({
+            url: '../PHP_process/resume.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) }
+        })
+    }
 })

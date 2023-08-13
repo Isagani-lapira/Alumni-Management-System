@@ -753,7 +753,7 @@ function dateInText($date)
 
     <div id="editResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
         <div class="relative w-1/2 h-max p-3 bg-white rounded-md">
-            <form>
+            <form id="formResume">
                 <h1 class="text-lg text-greyish_black font-black text-center py-2 border-b border-gray-400">
                     Edit Resume
                 </h1>
@@ -767,12 +767,12 @@ function dateInText($date)
                     echo '<div class="flex items-center gap-2 mt-4">
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                             <span class="font-bold">First name</span>
-                            <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $firstName . '"
+                            <input id="firstname" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $firstName . '"
                             placeholder="' . $firstName . '"/>
                         </div>
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                            <span class="font-bold">Last name</span>
-                           <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $lastName . '"
+                           <input id="lastname" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $lastName . '"
                             placeholder="' . $lastName . '"/>
                         </div>
                     </div>';
@@ -780,12 +780,12 @@ function dateInText($date)
                     echo '<div class="flex items-center gap-2 mt-2">
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                             <span class="font-bold">Address</span>
-                            <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $address . '"
+                            <input id="address" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $address . '"
                             placeholder="' . $address . '"/>
                         </div>
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                            <span class="font-bold">Contact No.</span>
-                           <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $contactNo . '"
+                           <input id="contactNo" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $contactNo . '"
                             placeholder="' . $contactNo . '"/>
                         </div>
                     </div>';
@@ -793,7 +793,7 @@ function dateInText($date)
                     echo '
                         <div class="flex flex-col w-full text-sm text-gray-500 mt-2">
                             <span class="font-bold">Email Address</span>
-                            <input type="text" disabled class="p-2 w-full bg-gray-300 rounded-md" value="' . $personal_email . '"
+                            <input id="emailAdd" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md" value="' . $personal_email . '"
                             placeholder="' . $personal_email . '"/>
                         </div>
                     '
@@ -808,17 +808,17 @@ function dateInText($date)
                     <div class="flex gap-2 text-sm text-gray-500 mt-2">
                         <div class="w-1/2">
                             <p class="font-bold px-2">Education Level</p>
-                            <input type="text" class="p-2 w-full rounded-md academicBgInput" placeholder="Primary education">
+                            <input type="text" class="primary p-2 w-full rounded-md academicBgInput" placeholder="Primary education">
                         </div>
 
                         <div class="w-1/4">
                             <p for="" class="font-bold text-center">Start year</p>
-                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
+                            <select name="" id="" class=" primary yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                         <div class="w-1/4">
                             <p for="" class="font-bold text-center">End Year</p>
-                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
+                            <select name="" id="" class="primary yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                     </div>
@@ -826,15 +826,15 @@ function dateInText($date)
                     <!-- secondary education -->
                     <div class="flex gap-2 text-sm text-gray-500">
                         <div class="w-1/2">
-                            <input type="text" class="p-2 w-full rounded-md academicBgInput" placeholder="Secondary education">
+                            <input type="text" class="secondary p-2 w-full rounded-md academicBgInput" placeholder="Secondary education">
                         </div>
 
                         <div class="w-1/4">
-                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
+                            <select name="" id="" class="secondary yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                         <div class="w-1/4">
-                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
+                            <select name="" id="" class="secondary yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                     </div>
@@ -842,15 +842,15 @@ function dateInText($date)
                     <!-- tertiary education -->
                     <div class="flex gap-2 text-sm text-gray-500">
                         <div class="w-1/2">
-                            <input type="text" class="p-2 w-full rounded-md academicBgInput" placeholder="Tertiary education">
+                            <input type="text" class="tertiary p-2 w-full rounded-md academicBgInput" placeholder="Tertiary education">
                         </div>
 
                         <div class="w-1/4">
-                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
+                            <select name="" id="" class=" tertiary yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
 
                         <div class="w-1/4">
-                            <select name="" id="" class="yearSelection p-2 w-full rounded-md academicBgInput"></select>
+                            <select name="" id="" class="tertiary yearSelection p-2 w-full rounded-md academicBgInput"></select>
                         </div>
                     </div>
                     <p class="text-gray-400 italic text-sm">Note: If you are still a student, please include your anticipated graduation year.</p>
@@ -882,12 +882,12 @@ function dateInText($date)
                                     </g>
                                 </svg>
 
-                                <input class="flex-0 firstWork p-2 rounded-md" type="text" placeholder="Job Title">
-                                <input class="flex-1 firstWork p-2 rounded-md" type="text" placeholder="Company/Organization name">
-                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput firstWork">
+                                <input class="flex-0 firstWork p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-1 firstWork p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput firstWork year">
                                     <option value="" disabled selected>Start Year</option>
                                 </select>
-                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput firstWork">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput firstWork year">
                                     <option value="" disabled selected>End Year</option>
                                 </select>
                             </div>
@@ -902,12 +902,12 @@ function dateInText($date)
                                     </g>
                                 </svg>
 
-                                <input class="flex-0 secondWork invisible p-2 rounded-md" type="text" placeholder="Job Title">
-                                <input class="flex-1 secondWork invisible p-2 rounded-md" type="text" placeholder="Company/Organization name">
-                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible secondWork">
+                                <input class="flex-0 secondWork invisible p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-1 secondWork invisible p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible secondWork year">
                                     <option value="" disabled selected>Start Year</option>
                                 </select>
-                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible secondWork">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible secondWork year">
                                     <option value="" disabled selected>End Year</option>
                                 </select>
                             </div>
@@ -922,12 +922,12 @@ function dateInText($date)
                                     </g>
                                 </svg>
 
-                                <input class="flex-0 thirdWork invisible p-2 rounded-md" type="text" placeholder="Job Title">
-                                <input class="flex-1 invisible p-2 rounded-md thirdWork" type="text" placeholder="Company/Organization name">
-                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible thirdWork">
+                                <input class="flex-0 thirdWork invisible p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-1 invisible p-2 rounded-md thirdWork company-name" type="text" placeholder="Company/Organization name">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible thirdWork year">
                                     <option value="" disabled selected>Start Year</option>
                                 </select>
-                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible thirdWork">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible thirdWork year">
                                     <option value="" disabled selected>End Year</option>
                                 </select>
                             </div>
@@ -942,12 +942,12 @@ function dateInText($date)
                                     </g>
                                 </svg>
 
-                                <input class="flex-0 fourthWork invisible p-2 rounded-md" type="text" placeholder="Job Title">
-                                <input class="flex-1 fourthWork invisible p-2 rounded-md" type="text" placeholder="Company/Organization name">
-                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible fourthWork">
+                                <input class="flex-0 fourthWork invisible p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-1 fourthWork invisible p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible fourthWork year">
                                     <option value="" disabled selected>Start Year</option>
                                 </select>
-                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible fourthWork">
+                                <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible fourthWork year">
                                     <option value="" disabled selected>End Year</option>
                                 </select>
                             </div>
@@ -1058,6 +1058,7 @@ function dateInText($date)
                 <div class="mt-2 flex justify-end gap-2">
                     <button id="resumeBtnPrev" type="button" class="px-4 py-2 rounded-md hover:bg-gray-300 text-gray-500 hidden">Previous</button>
                     <button id="resumeBtnNext" type="button" class="px-4 py-2 rounded-md bg-blue-400 hover:bg-blue-500 text-white ">Next</button>
+                    <button id="resumeBtnUpdate" type="button" class="px-4 py-2 rounded-md bg-green-300 text-white hidden" disabled>Update Resume</button>
                 </div>
 
             </form>
