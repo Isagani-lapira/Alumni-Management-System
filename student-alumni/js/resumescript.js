@@ -18,11 +18,12 @@ $(document).ready(function () {
             .removeClass('bg-blue-400 hover:bg-blue-500')
     }
 
-    const skills = [];
+    let skills = [];
     $('#resumeBtnNext').on('click', function () {
         if (currentPage == 1) {
             // personal information page
             const className = '.personalInput'
+            // check if all input are completed
             if (isInputComplete(className)) {
                 currentPage++
                 navigateToPage(currentPage)
@@ -31,6 +32,7 @@ $(document).ready(function () {
         else if (currentPage == 2) {
             //academic background page
             const className = '.academicBgInput'
+            // check if all input are completed
             if (isInputComplete(className)) {
                 currentPage++
                 enabledTheNext()
@@ -281,4 +283,31 @@ $(document).ready(function () {
             error: error => { console.log(error) }
         })
     }
+
+    //cancel the resume modal
+    $('#editResumeModal').on('click', function (e) {
+        const target = e.target
+        const wrapper = $('#resumeWrapper')
+
+        if (!wrapper.is(target) && !wrapper.has(target).length) {
+            restartResume()
+        }
+    })
+
+    function restartResume() {
+        $('#editResumeModal').addClass('hidden')
+
+        primaryEduc = [];
+        secondaryEduc = [];
+        tertiaryEduc = [];
+        work = []
+        skills = []
+        currentPage = 1;
+    }
+
+
+    //view resume
+    $('#viewResumeBtn').on('click', function () {
+
+    })
 })

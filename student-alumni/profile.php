@@ -216,7 +216,7 @@ function dateInText($date)
 
     <!-- Buttons -->
     <div class="flex justify-end mt-4 space-x-4 px-8 pt-8">
-        <button class="bg-accent hover:bg-darkAccent text-white px-4 py-2 rounded-lg"><a href="../student-alumni/resume.html">View Resum</a>e</button>
+        <button id="viewResumeBtn" class="bg-accent hover:bg-darkAccent text-white px-4 py-2 rounded-lg">View Resume</button>
         <button id="modal-openBtn" class="bg-gray-100 hover:bg-gray-200 text-accent border border-accent px-4 py-2 rounded-lg">Edit Profile</button>
     </div>
 
@@ -751,8 +751,8 @@ function dateInText($date)
         </div>
     </div>
 
-    <div id="editResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <div class="relative w-1/2 h-max p-3 bg-white rounded-md">
+    <div id="editResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div id="resumeWrapper" class="relative w-1/2 h-max p-3 bg-white rounded-md">
             <form id="formResume">
                 <h1 class="text-lg text-greyish_black font-black text-center py-2 border-b border-gray-400">
                     Edit Resume
@@ -1063,6 +1063,55 @@ function dateInText($date)
 
             </form>
 
+        </div>
+    </div>
+
+    <div id="editResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+        <div id="resumeWrapperModal" class="bg-white p-5">
+            <header class="text-5xl block text-center">Isagani Lapira Jr</header>
+            <aside class="w-2/6 text-greyish_black p-3 flex flex-col gap-4 mt-10">
+                <!-- contact Section -->
+                <section class="flex flex-col gap-2 z-50">
+                    <h1 class="font-bold">CONTACT</h1>
+
+                    <!-- contact number -->
+                    <span class="flex gap-4 items-center">
+                        <iconify-icon icon="subway:call" style="color: #555;" width="20" height="20"></iconify-icon>
+                        <span class=" font-thin">09104905440</span>
+                    </span>
+
+                    <!-- email address -->
+                    <span class="flex gap-4 items-center">
+                        <iconify-icon icon="dashicons:email-alt" style="color: #555;" width="20" height="20"></iconify-icon>
+                        <span class=" font-thin">lapiraisagani@gmail.com</span>
+                    </span>
+
+                    <!-- location -->
+                    <span class="flex gap-4 items-center">
+                        <iconify-icon icon="fluent:location-12-filled" style="color: #555;" width="20" height="20"></iconify-icon>
+                        <span class="font-thin">56 Vinta Street, Mabolo, Malolos Bulacan</span>
+                    </span>
+                </section>
+
+                <!-- education -->
+                <section class="flex flex-col gap-2 z-50">
+                    <h1 class="font-bold">EDUCATION</h1>
+
+                    <span class="font-thin">Bulacan State University (2018-2024)</span>
+                    <span class="font-thin">Marcelo H. Del Pilar National HighSchool (2014-2018)</span>
+                    <span class="font-thin">Caniogan Elementary School (2007-2014)</span>
+                </section>
+
+
+                <!-- skills -->
+                <section class="flex flex-col gap-2 z-50">
+                    <h1 class="font-bold">SKILLS</h1>
+
+                    <div class="skillWrapper">
+
+                    </div>
+                </section>
+            </aside>
         </div>
     </div>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
