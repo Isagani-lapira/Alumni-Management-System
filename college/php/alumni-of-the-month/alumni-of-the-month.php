@@ -7,42 +7,40 @@
     </button>
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
     <!-- Filter  -->
-    <div class="flex justify-evenly text-xs">
+    <div class="flex flex-wrap gap-4">
 
-        <div class="flex border border-grayish w-full rounded-md p-1">
-            <img class="inline " src="../images/search-icon.png" alt="">
-            <input class="outline-none" type="text" name="" id="aomSearch" placeholder="Typing!">
+        <div class="relative rounded">
+            <i class="fa-solid fa-magnifying-glass absolute top-3 left-3"></i>
+            <input class="pl-8" type="text" name="" id="aomSearch" placeholder="Search name">
         </div>
 
-        <!-- gender -->
-        <div class="flex items-center gap-2 ms-2">
-            <input type="radio" name="aomGender" id="aomAll" checked="">
-            <label for="aomAll">All</label>
-            <input type="radio" name="aomGender" id="aomMale">
-            <label for="aomMale">Male</label>
-            <input type="radio" name="aomGender" id="aomFemale">
-            <label for="aomFemale">Female</label>
-        </div>
+        <!-- Sex -->
+        <select name="" id="" class="rounded">
+            <option value="">All</option>
+            <option value="">Male</option>
+            <option value="">Female</option>
+        </select>
+
 
         <!-- range -->
-        <div class="w-full flex justify-evenly border p-2 mx-2">
-            <input type="text" name="aoydaterange" id="aoydaterange" value="01/01/2018 - 01/15/2018">
-            <label class="" for="aoydaterange">
-                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
+        <div class="relative">
+            <input class="pr-8 rounded" type="text" name="aoydaterange" id="aoydaterange" value="01/01/2018 - 01/15/2018">
+            <label class="absolute top-3 right-3" for="aoydaterange">
+                <i class="fa-solid fa-calendar"></i>
             </label>
         </div>
 
         <!-- batch -->
-        <select name="batch" id="aomBatch" class="w-full p-1">
+        <select name="batch rounded" id="aomBatch" class=" p-1 w-64">
             <option value="" selected="" disabled="" hidden="">Batch</option>
+            <option value="">2023</option>
         </select>
 
-        <!-- college -->
-        <select name="employment" id="aomCollege" class="w-full p-1">
-            <option value="" selected="" disabled="" hidden="">College</option>
-        </select>
+
 
     </div>
+
+
     <!-- End Filter Section -->
     <!-- Record Table-->
     <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
