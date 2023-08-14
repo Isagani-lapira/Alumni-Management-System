@@ -36,8 +36,8 @@
 
     <!-- End JS Plugins -->
     <!-- System Script -->
-    <script src="./assets/js/core.js" defer></script>
-    <script src="./assets/js/login.js" defer></script>
+    <script src="./scripts/core.js" defer></script>
+    <script src="./scripts/login.js" defer></script>
     <!-- End JS Scripts -->
 
 

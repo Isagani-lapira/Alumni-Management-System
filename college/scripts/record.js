@@ -70,5 +70,5 @@ $(document).ready(async function () {
   console.log(result);
   // remove loading
   // sets the table
-  // setStudentTB(result.result);
+  setStudentTB(result.result);
 });

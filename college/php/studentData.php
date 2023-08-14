@@ -1,13 +1,13 @@
 <?php
 require_once '../../PHP_process/connection.php';
-require 'studentTB.php';
+require 'model/Student.php';
 
 
-$student = new Student();
+$student = new Student($mysql_con);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $student->getStudents();
+    echo $student->getStudentsByYear('');
 } else {
     echo 'No accesss to student data';
     echo $_GET['test'];
