@@ -3898,6 +3898,10 @@ th,
   padding-top: 2rem;
 }
 
+.pl-3 {
+  padding-left: 0.75rem;
+}
+
 .text-left {
   text-align: left;
 }

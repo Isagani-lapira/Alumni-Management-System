@@ -156,9 +156,9 @@ if (
                     <li><a data-link="community" href="#community" class="flex rounded p-2">
                             <i class="mr-2 fa-xl fa-solid fa-users"></i>
                             Communitity</a></li>
-                    <li><a data-link="job-oppurtunities" href="#job-oppurtunities" class="flex rounded p-2">
+                    <li><a data-link="job-opportunities" href="#job-opportunities" class="flex rounded p-2">
                             <i class="fa-xl mr-2 fa-solid fa-briefcase"></i>
-                            Job Oppurtunities</a></li>
+                            Job Opportunities</a></li>
                 </ul>
 
             </nav>

@@ -29,7 +29,7 @@ $(document).ready(function () {
   function loadURL(url, container, title = "") {
     // change the root elem to page
 
-    const base_url = `pages/${url}/`;
+    const base_url = `php/${url}/`;
     title = title.length === 0 ? url : title;
 
     // set the title of the page
@@ -77,7 +77,7 @@ $(document).ready(function () {
       },
       error: function (xhr, ajaxOptions, thrownError) {
         // No Page Found
-        container.load("pages/missing-page.php");
+        container.load("php/missing-page.php");
       },
     });
   }
