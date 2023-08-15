@@ -352,7 +352,7 @@ $(document).ready(function () {
         $('#addressResume').text(address)
         $('#emailAddResume').text(emailadd)
         $('#objectiveResume').text(objective)
-        const bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #555;" width="20" height="20"></iconify-icon>';
+        const bulletIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 2048 2048"><path fill="#555" d="M1024 640q79 0 149 30t122 82t83 123t30 149q0 80-30 149t-82 122t-123 83t-149 30q-80 0-149-30t-122-82t-83-122t-30-150q0-79 30-149t82-122t122-83t150-30z"/></svg>';
 
         //display the skills
         skills.forEach(skill => {
@@ -441,14 +441,6 @@ $(document).ready(function () {
         else console.log('ala')
 
         //add references
-        /*
-        <div class="flex flex-col">
-                                    <header class="font-bold text-sm">Jennifer Smith</header>
-                                    <span>Job title</span>
-                                    <span>Contact: 09104905440</span>
-                                    <span>Email: lapiraisagani@gmail.com</span>
-                                </div>
-         */
         const refLength = references.jobTitle.length;
         for (let i = 0; i < refLength; i++) {
             //data received
@@ -480,7 +472,7 @@ $(document).ready(function () {
         $("#referenceContainer").append()
     }
 
-    $('#rar').on('click', function () {
+    $('#printResume').on('click', function () {
         const resumeWrapperModal = $('#resumeWrapperModal')
         const printWindow = window.open('', '_blank');
 
@@ -508,4 +500,24 @@ $(document).ready(function () {
         };
 
     })
+
+    $('#downloadResume').on('click', async () => {
+        const resumeContent = $('#resumeWrapperModal');
+
+        // Show the modal or make sure the content is visible (example code, actual implementation may vary)
+        resumeContent.show();
+
+
+        // Combine the custom styles and resume content
+        const contentWithStyles = resumeContent[0].outerHTML;
+
+        // Generate and save the PDF with specified A4 size
+        await html2pdf().set({
+            margin: 0, // Adjust margins as needed
+            filename: 'resume.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set A4 size
+        }).from(contentWithStyles).save();
+    });
 })
