@@ -38,8 +38,8 @@ function insertionOfData($con)
 
     } else {
         //perform insertion
-        $query = "INSERT INTO `resume`(`resumeID`, `personID`, `objective`, `fullname`, `contactNo`, 
-        `address`, `emailAdd`) VALUES ('$resumeID','$personID','$objective','$fullname','$contactNo','$address','$emailAdd')";
+        $query = "INSERT INTO `resume`(`resumeID`, `personID`, `objective`, `fullname`, `contactNo`, `address`, `emailAdd`)
+          VALUES (\"$resumeID\",\"$personID\",\"$objective\",\"$fullname\",\"$contactNo\",\"$address\",\"$emailAdd\")";
         $result = mysqli_query($con, $query);
 
         $educationLevel = "Primary education";
@@ -61,10 +61,11 @@ function insertionOfData($con)
                                 $jobTitle = $workEntry['jobTitle'];
                                 $companyName = $workEntry['companyName'];
                                 $year = $workEntry['year'];
+                                $responsibility = $workEntry['responsibility'];
                                 $workID = substr(md5(uniqid()), 0, 10) . '-' . rand(0, 5000);
                                 // query the insertion
-                                $query = "INSERT INTO `work_exp`(`workID`, `resumeID`, `job_title`, `companyName`, `year`) 
-                                VALUES ('$workID','$resumeID','$jobTitle','$companyName','$year')";
+                                $query = 'INSERT INTO `work_exp`(`workID`, `resumeID`, `job_title`, `companyName`, `work_description`, `year`) 
+                                VALUES ("' . $workID . '","' . $resumeID . '","' . $jobTitle . '","' . $companyName . '","' . $responsibility . '","' . $year . '")';
                                 $workExp = mysqli_query($con, $query);
 
                                 if ($workExp) $checker = true;
@@ -77,7 +78,7 @@ function insertionOfData($con)
                                 foreach ($skills as $skill) {
                                     $skillID = substr(md5(uniqid()), 0, 10) . '-' . rand(0, 5000);
                                     $query = "INSERT INTO `resume_skill`(`skillID`, `resumeID`, `skill`) 
-                                        VALUES ('$skillID','$resumeID','$skill')";
+                                        VALUES (\"$skillID\",\"$resumeID\",\"$skill\")";
                                     if (mysqli_query($con, $query))
                                         $response = true;
                                 }

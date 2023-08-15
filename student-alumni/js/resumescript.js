@@ -144,14 +144,16 @@ $(document).ready(function () {
     function getWork(selector) {
         const jobTitleInput = $(selector + '.job-title').val();
         const companyNameInput = $(selector + '.company-name').val();
-        const startYearSelect = $(selector + '.year:nth-child(4)').val();
-        const endYearSelect = $(selector + '.year:nth-child(5)').val();
+        const startYearSelect = $(selector + '.year:nth-child(5)').val();
+        const endYearSelect = $(selector + '.year:nth-child(6)').val();
         const year = startYearSelect + '-' + endYearSelect;
+        const responsibility = $(selector + '.responsibility').val();
         // Create an object and push it to the work array
         work.push({
             jobTitle: jobTitleInput,
             companyName: companyNameInput,
-            year: year
+            year: year,
+            responsibility: responsibility
         });
 
     }
@@ -246,6 +248,7 @@ $(document).ready(function () {
         })
 
         setResume()
+
     })
     function setResume() {
         let data = $('#formResume')[0];

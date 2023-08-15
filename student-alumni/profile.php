@@ -882,7 +882,8 @@ function dateInText($date)
                                     </g>
                                 </svg>
 
-                                <input class="flex-0 firstWork p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-0 w-2/12 firstWork p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-1 firstWork responsibility" type="text" placeholder="Brief discussion of your responsibilities">
                                 <input class="flex-1 firstWork p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
                                 <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput firstWork year">
                                     <option value="" disabled selected>Start Year</option>
@@ -890,6 +891,8 @@ function dateInText($date)
                                 <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput firstWork year">
                                     <option value="" disabled selected>End Year</option>
                                 </select>
+
+
                             </div>
 
                             <!-- second work experience -->
@@ -902,7 +905,8 @@ function dateInText($date)
                                     </g>
                                 </svg>
 
-                                <input class="flex-0 secondWork invisible p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-0 w-2/12 secondWork invisible p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-1 secondWork invisible responsibility" type="text" placeholder="Brief discussion of your responsibilities">
                                 <input class="flex-1 secondWork invisible p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
                                 <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible secondWork year">
                                     <option value="" disabled selected>Start Year</option>
@@ -922,7 +926,8 @@ function dateInText($date)
                                     </g>
                                 </svg>
 
-                                <input class="flex-0 thirdWork invisible p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-0 w-2/12 thirdWork invisible p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-1 thirdWork invisible responsibility" type="text" placeholder="Brief discussion of your responsibilities">
                                 <input class="flex-1 invisible p-2 rounded-md thirdWork company-name" type="text" placeholder="Company/Organization name">
                                 <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible thirdWork year">
                                     <option value="" disabled selected>Start Year</option>
@@ -942,7 +947,8 @@ function dateInText($date)
                                     </g>
                                 </svg>
 
-                                <input class="flex-0 fourthWork invisible p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-0 w-2/12 fourthWork invisible p-2 rounded-md job-title" type="text" placeholder="Job Title">
+                                <input class="flex-1 fourthWork invisible responsibility" type="text" placeholder="Brief discussion of your responsibilities">
                                 <input class="flex-1 fourthWork invisible p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
                                 <select name="" id="" class="yearSelection p-2 flex-0 rounded-md academicBgInput invisible fourthWork year">
                                     <option value="" disabled selected>Start Year</option>
