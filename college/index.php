@@ -168,7 +168,7 @@ if (
 
         <main class="flex-1 mx-auto mt-10">
             <div id="main-root">
-                <?php require 'pages/dashboard/dashboard.php'; ?>
+                <?php require 'php/dashboard/dashboard.php'; ?>
             </div>
 
         </main>
