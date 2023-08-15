@@ -140,6 +140,7 @@ function retrieveResume($con)
     $degree = array();
     $year = array();
     $workExpirience = null;
+    $referenceData = array();
 
     if ($result && $row > 0) {
         $response = "Success"; //meaning there's an existing resume
@@ -203,6 +204,30 @@ function retrieveResume($con)
                 "year" => $yearWork
             );
         }
+
+
+        //get references
+        $queryReferences = "SELECT * FROM `reference_resume` WHERE `resumeID` = '$resumeID'";
+        $resultReference = mysqli_query($con, $queryReferences);
+
+        $refFullname = array();
+        $refJobTitle = array();
+        $refContactNo = array();
+        $refEmailAdd = array();
+
+        while ($data = mysqli_fetch_assoc($resultReference)) {
+            $refFullname[] = $data['reference_name'];
+            $refJobTitle[] = $data['job_title'];
+            $refContactNo[] = $data['contactNo'];
+            $refEmailAdd[] = $data['emailAddress'];
+        }
+
+        $referenceData = array(
+            "fullname" => $refFullname,
+            "jobTitle" => $refJobTitle,
+            "contactNo" => $refContactNo,
+            "emailAdd" => $refEmailAdd,
+        );
     } else $response = "Failed";
 
     //send back the data as json
@@ -216,6 +241,7 @@ function retrieveResume($con)
         "skills" => $skills,
         "education" => $educations,
         "workExp" => $workExpirience,
+        "references" => $referenceData
     );
 
     echo json_encode($data);

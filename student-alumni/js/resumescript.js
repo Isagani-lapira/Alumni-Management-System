@@ -337,15 +337,16 @@ $(document).ready(function () {
                     const skills = response.skills
                     const education = response.education;
                     const workExp = response.workExp;
-
-                    setResumeDetails(objective, fullname, contactNo, address, emailAdd, skills, education, workExp);
+                    const references = response.references;
+                    setResumeDetails(objective, fullname, contactNo, address, emailAdd, skills, education, workExp, references);
                 }
             },
             error: error => { console.log(error) }
         })
     }
 
-    function setResumeDetails(objective, fullname, contactNo, address, emailadd, skills, educations, workExp) {
+    function setResumeDetails(objective, fullname, contactNo, address, emailadd,
+        skills, educations, workExp, references) {
         $('#fullnameResume').text(fullname)
         $('#contactNoResume').text(contactNo)
         $('#addressResume').text(address)
@@ -438,6 +439,45 @@ $(document).ready(function () {
 
         }
         else console.log('ala')
+
+        //add references
+        /*
+        <div class="flex flex-col">
+                                    <header class="font-bold text-sm">Jennifer Smith</header>
+                                    <span>Job title</span>
+                                    <span>Contact: 09104905440</span>
+                                    <span>Email: lapiraisagani@gmail.com</span>
+                                </div>
+         */
+        const refLength = references.jobTitle.length;
+        for (let i = 0; i < refLength; i++) {
+            //data received
+            const fullname = references.fullname[i];
+            const jobTitle = references.jobTitle[i];
+            const contactNo = references.contactNo[i];
+            const emailAdd = references.emailAdd[i];
+
+            //mark up for references
+            const fullnameElement = $('<header>')
+                .addClass('font-bold text-sm')
+                .text(fullname);
+            const jobTitleElement = $('<span>')
+                .text(jobTitle);
+            const contactNoElement = $('<span>')
+                .text(contactNo);
+            const emailElement = $('<span>')
+                .text(emailAdd);
+
+            //place in the wrapper then add it on the root
+            const refWrapper = $('<div>')
+                .addClass('flex flex-col')
+                .append(fullnameElement, jobTitleElement,
+                    contactNoElement, emailElement)
+
+            $('#referenceContainer').append(refWrapper) //root
+        }
+
+        $("#referenceContainer").append()
     }
 
     $('#rar').on('click', function () {

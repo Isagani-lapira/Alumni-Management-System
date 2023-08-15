@@ -1131,26 +1131,7 @@ function dateInText($date)
                         <section class="my-2">
                             <h1 class="font-bold text-base">REFERENCES</h1>
 
-                            <div class="flex flex-wrap gap-4 my-2">
-                                <div class="flex flex-col">
-                                    <header class="font-bold text-sm">Jennifer Smith</header>
-                                    <span>Job title</span>
-                                    <span>Contact: 09104905440</span>
-                                    <span>Email: lapiraisagani@gmail.com</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <header class="font-bold text-sm">Jennifer Smith</header>
-                                    <span>Job title</span>
-                                    <span>Contact: 09104905440</span>
-                                    <span>Email: lapiraisagani@gmail.com</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <header class="font-bold text-sm">Jennifer Smith</header>
-                                    <span>Job title</span>
-                                    <span>Contact: 09104905440</span>
-                                    <span>Email: lapiraisagani@gmail.com</span>
-                                </div>
-                            </div>
+                            <div id="referenceContainer" class="flex flex-wrap gap-4 my-2"></div>
                         </section>
                     </aside>
                 </main>
