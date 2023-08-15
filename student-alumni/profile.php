@@ -1066,54 +1066,101 @@ function dateInText($date)
         </div>
     </div>
 
-    <div id="editResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <div id="resumeWrapperModal" class="bg-white p-5">
-            <header class="text-5xl block text-center">Isagani Lapira Jr</header>
-            <aside class="w-2/6 text-greyish_black p-3 flex flex-col gap-4 mt-10">
-                <!-- contact Section -->
-                <section class="flex flex-col gap-2 z-50">
-                    <h1 class="font-bold">CONTACT</h1>
+    <div id="viewResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-5 h-full overflow-y-auto w-max">
+            <div id="resumeWrapperModal">
+                <header id="fullnameResume" class="text-3xl block font-bold text-end"></header>
+                <p class="text-end">Marketing Manager</p>
+                <main class="flex mt-10">
+                    <aside class="w-2/6 text-greyish_black p-3 flex flex-col gap-4 text-xs">
+                        <!-- contact Section -->
+                        <section class="flex flex-col gap-2">
+                            <h1 class="font-bold text-base">CONTACT</h1>
 
-                    <!-- contact number -->
-                    <span class="flex gap-4 items-center">
-                        <iconify-icon icon="subway:call" style="color: #555;" width="20" height="20"></iconify-icon>
-                        <span class=" font-thin">09104905440</span>
-                    </span>
+                            <!-- contact number -->
+                            <span class="flex gap-4 items-center">
+                                <iconify-icon icon="subway:call" style="color: #555;" width="20" height="20"></iconify-icon>
+                                <span id="contactNoResume" class="font-thin">09104905440</span>
+                            </span>
 
-                    <!-- email address -->
-                    <span class="flex gap-4 items-center">
-                        <iconify-icon icon="dashicons:email-alt" style="color: #555;" width="20" height="20"></iconify-icon>
-                        <span class=" font-thin">lapiraisagani@gmail.com</span>
-                    </span>
+                            <!-- email address -->
+                            <span class="flex gap-4 items-center">
+                                <iconify-icon icon="dashicons:email-alt" style="color: #555;" width="20" height="20"></iconify-icon>
+                                <span id="emailAddResume" class=" font-thin">lapiraisagani@gmail.com</span>
+                            </span>
 
-                    <!-- location -->
-                    <span class="flex gap-4 items-center">
-                        <iconify-icon icon="fluent:location-12-filled" style="color: #555;" width="20" height="20"></iconify-icon>
-                        <span class="font-thin">56 Vinta Street, Mabolo, Malolos Bulacan</span>
-                    </span>
-                </section>
+                            <!-- location -->
+                            <span class="flex gap-4 items-center">
+                                <iconify-icon icon="fluent:location-12-filled" style="color: #555;" width="20" height="20"></iconify-icon>
+                                <span id="addressResume" class="font-thin">56 Vinta Street, Mabolo, Malolos Bulacan</span>
+                            </span>
+                        </section>
 
-                <!-- education -->
-                <section class="flex flex-col gap-2 z-50">
-                    <h1 class="font-bold">EDUCATION</h1>
+                        <!-- education -->
+                        <section id="educationContainer" class="flex flex-col gap-2 z-50">
+                            <h1 class="font-bold text-base">EDUCATION</h1>
 
-                    <span class="font-thin">Bulacan State University (2018-2024)</span>
-                    <span class="font-thin">Marcelo H. Del Pilar National HighSchool (2014-2018)</span>
-                    <span class="font-thin">Caniogan Elementary School (2007-2014)</span>
-                </section>
+                            <div id="primaryLvl" class="font-thin"></div>
+                            <div id="secondaryLvl" class="font-thin"></div>
+                            <div id="tertiaryLvl" class="font-thin"></div>
+                        </section>
 
 
-                <!-- skills -->
-                <section class="flex flex-col gap-2 z-50">
-                    <h1 class="font-bold">SKILLS</h1>
+                        <!-- skills -->
+                        <section class="flex flex-col gap-2 z-50">
+                            <h1 class="font-bold text-base">SKILLS</h1>
 
-                    <div class="skillWrapper">
+                            <div id="skillWrapper"></div>
+                        </section>
+                    </aside>
 
-                    </div>
-                </section>
-            </aside>
+                    <aside class="w-4/6 text-greyish_black text-xs p-3">
+                        <!-- objective -->
+                        <section>
+                            <h1 class="font-bold text-base">OBJECTIVE</h1>
+                            <p id="objectiveResume" class="my-2"></p>
+                        </section>
+
+                        <!-- work experience -->
+                        <section class="my-2">
+                            <h1 class="font-bold text-base mt-5">WORK EXPERIENCE</h1>
+                            <ul id="workExpList" class="p-3 flex flex-col gap-2"></ul>
+                        </section>
+
+                        <!-- reference -->
+                        <section class="my-2">
+                            <h1 class="font-bold text-base">REFERENCES</h1>
+
+                            <div class="flex flex-wrap gap-4 my-2">
+                                <div class="flex flex-col">
+                                    <header class="font-bold text-sm">Jennifer Smith</header>
+                                    <span>Job title</span>
+                                    <span>Contact: 09104905440</span>
+                                    <span>Email: lapiraisagani@gmail.com</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <header class="font-bold text-sm">Jennifer Smith</header>
+                                    <span>Job title</span>
+                                    <span>Contact: 09104905440</span>
+                                    <span>Email: lapiraisagani@gmail.com</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <header class="font-bold text-sm">Jennifer Smith</header>
+                                    <span>Job title</span>
+                                    <span>Contact: 09104905440</span>
+                                    <span>Email: lapiraisagani@gmail.com</span>
+                                </div>
+                            </div>
+                        </section>
+                    </aside>
+                </main>
+
+                <button id="rar">rar</button>
+            </div>
+
         </div>
     </div>
+
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="../student-alumni/js/profile.js"></script>
     <script src="../student-alumni/js/resumescript.js"></script>

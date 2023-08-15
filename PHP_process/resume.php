@@ -7,6 +7,8 @@ if (isset($_POST['action'])) {
     $action = $_POST['action'];
     if ($action == 'insertData') {
         insertionOfData($mysql_con);
+    } else if ($action == 'retrievalData') {
+        retrieveResume($mysql_con);
     }
 } else echo 'ayaw';
 
@@ -116,4 +118,105 @@ function haveResume($personID, $con)
 
     if ($result && $row > 0) return true;
     else return false;
+}
+
+function retrieveResume($con)
+{
+    $personID = $_SESSION['personID'];
+    $query = "SELECT * FROM `resume` WHERE `personID` = '$personID'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_num_rows($result);
+
+    //data to be retrieve
+    $response = "";
+    $objective = "";
+    $fullname = "";
+    $contactNo = "";
+    $address = "";
+    $emailAdd = "";
+    $skills = array();
+    $educations = array();
+    $educLvl = array();
+    $degree = array();
+    $year = array();
+    $workExpirience = null;
+
+    if ($result && $row > 0) {
+        $response = "Success"; //meaning there's an existing resume
+        $data = mysqli_fetch_assoc($result);
+
+        $resumeID = $data['resumeID'];
+        $objective = $data['objective'];
+        $fullname = $data['fullname'];
+        $contactNo = $data['contactNo'];
+        $address = $data['address'];
+        $emailAdd = $data['emailAdd'];
+
+        //get the resume Skill
+        $querySkill = "SELECT * FROM `resume_skill` WHERE `resumeID` = '$resumeID'";
+        $resultSkill = mysqli_query($con, $querySkill);
+
+        //get all the skill that has this resume ID
+        while ($skill = mysqli_fetch_assoc($resultSkill)) {
+            $skills[] = $skill['skill'];
+        }
+
+        //get the resume education
+        $queryEducation = "SELECT * FROM `education` WHERE `resumeID` = '$resumeID'";
+        $resultEducation = mysqli_query($con, $queryEducation);
+
+        //get all the skill that has this resume ID
+        while ($education = mysqli_fetch_assoc($resultEducation)) {
+            $educLvl[] = $education['education_level'];
+            $degree[] = $education['degree'];
+            $year[] = $education['year'];
+        }
+
+        $educations =  array(
+            "educationLevel" => $educLvl,
+            "degree" => $degree,
+            'year' => $year
+        );
+
+        //get work experience
+        $queryWorkExp = "SELECT * FROM `work_exp` WHERE `resumeID` = '$resumeID'";
+        $resultWorkExp = mysqli_query($con, $queryWorkExp);
+        $rowWork = mysqli_num_rows($resultWorkExp);
+
+        $jobTitle = array();
+        $companyName = array();
+        $workDescript = array();
+        $yearWork = array();
+
+        if ($resultWorkExp && $rowWork > 0) {
+            while ($data = mysqli_fetch_assoc($resultWorkExp)) {
+                $jobTitle[] = $data['job_title'];
+                $companyName[] = $data['companyName'];
+                $workDescript[] = $data['work_description'];
+                $yearWork[] = $data['year'];
+            }
+
+            $workExpirience = array(
+                "jobTitle" => $jobTitle,
+                "companyName" => $companyName,
+                "workDescript" => $workDescript,
+                "year" => $yearWork
+            );
+        }
+    } else $response = "Failed";
+
+    //send back the data as json
+    $data = array(
+        "response" => $response,
+        "objective" => $objective,
+        "fullname" => $fullname,
+        "contactNo" => $contactNo,
+        "address" => $address,
+        "emailAdd" => $emailAdd,
+        "skills" => $skills,
+        "education" => $educations,
+        "workExp" => $workExpirience,
+    );
+
+    echo json_encode($data);
 }

@@ -66,6 +66,7 @@ $(document).ready(function () {
     $('#resumeBtnPrev').on('click', function () {
         currentPage--
         $('#resumeBtnNext').removeClass('hidden') //show next button
+        $('#resumeBtnUpdate').addClass('hidden') //hide the update button
         navigateToPage(currentPage)
 
     })
@@ -308,6 +309,163 @@ $(document).ready(function () {
 
     //view resume
     $('#viewResumeBtn').on('click', function () {
+        $('#viewResumeModal').removeClass('hidden')
+        //retrieve and set the resume details
+        getResumeData()
+    })
+
+    function getResumeData() {
+        const action = "retrievalData"; //action to be perform
+        const formData = new FormData();
+        formData.append('action', action);
+
+        $.ajax({
+            url: '../PHP_process/resume.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                if (response.response = "Success") {
+                    //store the data that has been respond by the server
+                    const objective = response.objective
+                    const fullname = response.fullname
+                    const contactNo = response.contactNo
+                    const address = response.address
+                    const emailAdd = response.emailAdd
+                    const skills = response.skills
+                    const education = response.education;
+                    const workExp = response.workExp;
+
+                    setResumeDetails(objective, fullname, contactNo, address, emailAdd, skills, education, workExp);
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function setResumeDetails(objective, fullname, contactNo, address, emailadd, skills, educations, workExp) {
+        $('#fullnameResume').text(fullname)
+        $('#contactNoResume').text(contactNo)
+        $('#addressResume').text(address)
+        $('#emailAddResume').text(emailadd)
+        $('#objectiveResume').text(objective)
+        const bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #555;" width="20" height="20"></iconify-icon>';
+
+        //display the skills
+        skills.forEach(skill => {
+            //mark up for resume skills
+            const skillElement = $('<span>')
+                .text(skill)
+
+            const container = $('<span>').addClass('flex gap-4 items-center')
+                .append(bulletIcon, skillElement)
+
+            $("#skillWrapper").append(container); // append to the root container
+        });
+
+        //display education
+        const educLength = educations.educationLevel.length
+        for (let i = 0; i < educLength; i++) {
+            //  <span class="font-thin">Bulacan State University (2018-2024)</span>\
+            const educationLvl = educations.educationLevel[i];
+            const university = educations.degree[i];
+            const year = educations.year[i];
+
+            //mark up for education
+            const univElement = $('<span>').text(university)
+            const yearElement = $('<span>').text(year);
+
+            //append to wrapper and to root
+            const primaryLvlWrapper = $('#primaryLvl')
+            const secondaryLvlWrapper = $('#secondaryLvl')
+            const tertiaryLvlWrapper = $('#tertiaryLvl')
+
+            //check what level the education is
+            if (educationLvl == "primary education") primaryLvlWrapper.append(univElement, yearElement)
+            else if (educationLvl == "secondary education") secondaryLvlWrapper.append(univElement, yearElement)
+            else if (educationLvl == "tertiary education") tertiaryLvlWrapper.append(univElement, yearElement)
+
+
+        }
+
+        // add work experience if there's any
+        //check first if there's a value
+        if (workExp !== null) {
+            //set up the work experience
+
+            const lengthWorkExp = workExp.jobTitle.length;
+            for (let i = 0; i < lengthWorkExp; i++) {
+
+                const jobTitle = workExp.jobTitle[i];
+                const companyName = workExp.companyName[i];
+                const workDescript = workExp.workDescript[i];
+                const year = workExp.year[i];
+
+                //mark up for work experience resume
+
+                // job title
+                const headerElement = $('<header>')
+                    .addClass('font-bold')
+                    .text(jobTitle);
+
+                // company name
+                const spanElement = $('<span>')
+                    .text(companyName);
+
+
+                // work description
+                const workDescElement = $('<p>')
+                    .addClass('text-justify')
+                    .text(workDescript);
+
+                // work year
+                const yearElement = $('<span>')
+                    .text('( ' + year + ' )')
+
+                const wrapper = $('<div>')
+                    .addClass('flex flex-col gap-1')
+                    .append(headerElement, spanElement, workDescElement, yearElement)
+
+                const liElement = $('<li>')
+                    .attr('type', 'disc')
+                    .append(wrapper)
+
+                $('#workExpList').append(liElement)
+            }
+
+
+        }
+        else console.log('ala')
+    }
+
+    $('#rar').on('click', function () {
+        const resumeWrapperModal = $('#resumeWrapperModal')
+        const printWindow = window.open('', '_blank');
+
+        const printContent = `
+                <html>
+                    <head>
+                        <title>Print Resume</title>
+                        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+                    </head>
+                    <body>
+                        ${resumeWrapperModal.html()}
+                        <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+                    </body>
+                </html>`;
+
+        // Set the content of the new window
+        printWindow.document.open();
+        printWindow.document.write(printContent);
+        printWindow.document.close();
+
+
+        // Wait for resources to load, then print
+        printWindow.onload = function () {
+            printWindow.print();
+        };
 
     })
 })

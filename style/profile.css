@@ -12,8 +12,22 @@
 }
 
 #resumeWrapperModal {
-  font-family: "Times New Roman", Times, serif;
-  width: 210mm; /* A4 width */
+  font-family: Arial, Helvetica, sans-serif;
   height: 297mm; /* A4 height */
+  width: 210mm; /* A4 width */
   margin: 0;
+  padding: 0;
+}
+
+@media print {
+  body {
+    margin: 10; /* No margins */
+  }
+
+  /* Hide header and footer */
+  @media print {
+    body::after {
+      content: none !important;
+    }
+  }
 }
