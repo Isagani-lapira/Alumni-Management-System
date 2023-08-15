@@ -2,7 +2,7 @@
  <section id="announcement-tab" class=" mx-auto lg:mx-8">
      <h1 class="text-xl font-extrabold">ANNOUNCEMENT</h1>
      <p class="text-grayish">Here you can check all shared messages with whole University</p>
-     <button id="btnAnnouncement" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE NEW POST
+     <button id="announcementBtn" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE NEW POST
      </button>
 
 
@@ -89,8 +89,55 @@
 
 
 
+     <!-- modal -->
+     <div id="createNewPostModal" class="fixed top-0 left-0 inset-0 h-full w-full bg-gray-700 bg-opacity-50 hidden">
+         <div class="h-full flex items-center justify-center 
+      text-grayish  ">
+             <!-- Modal Content -->
+             <div class="modal-container space-y-5 h-1/3 w-1/3  bg-white rounded-lg p-3">
+                 <div class="modal-header py-5">
+                     <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
+                 </div>
+                 <div class="modal-body px-3">
+                     <!-- header part -->
+                     <p class="font-semibold text-sm">College</p>
+                     <!-- <div class="w-full border border-gray-400 rounded flex px-5 py-2"> -->
+                     <select name="collegePost" id="collegePost" class="w-full outline-none">
+                         <option value="all" selected>All colleges</option>
+                         <?php
+                            // require_once '../PHP_process/connection.php';
+                            // $query = "SELECT * FROM `college`";
+                            // $result = mysqli_query($mysql_con, $query);
+                            // $rows = mysqli_num_rows($result);
+                            // if ($rows > 0) {
+                            //     while ($data = mysqli_fetch_assoc($result)) {
+                            //         $colCode = $data['colCode'];
+                            //         $colName = $data['colname'];
+                            //         echo '<option value="' . $colCode . '"class="w-full">' . $colName . '</option>';
+                            //     }
+                            // } else echo '<option>No college available</option>';
+                            ?>
+                     </select>
+                 </div>
+                 <!-- body part -->
+                 <label class="font-semibold text-sm mt-2" for="TxtAreaAnnouncement">Description</label>
+                 <div class="flex flex-col h-full pb-10">
+                     <textarea id="TxtAreaAnnouncement" class="text-black rar outline-none w-full h-5/6 p-1 pb-10" type="text" placeholder="Say something here..."></textarea>
+                 </div>
+                 <label for="fileGallery" class="block">
+                     <i id="galleryLogo" class="fa-regular fa-image fa-xl"></i>
+                     <input id="fileGallery" type="file" class="hidden" />
+                 </label>
+                 <!-- Footer -->
+                 <div class="modal-footer flex items-end flex-row-reverse px-3">
+                     <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+                     <button class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+                 </div>
+             </div>
+             <!-- End Modal Content -->
 
-
+         </div>
+     </div>
 
  </section>
 
@@ -99,4 +146,11 @@
      $(document).ready(function() {
          $('#daterange').daterangepicker();
      });
+     //  Handles button clicks
+     $('#announcementBtn').on("click", function() {
+         $('#createNewPostModal').removeClass("hidden");
+     })
+     $('.cancel').on("click", function() {
+         $('#createNewPostModal').addClass("hidden")
+     })
  </script>
