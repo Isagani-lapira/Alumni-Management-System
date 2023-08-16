@@ -1061,6 +1061,103 @@ function dateInText($date)
                     <textarea id="objectiveInput" class="w-full h-40 p-3 border border-gray-300 mt-4 rounded-md text-gray-500 outline-none" placeholder="Add an amazing summary about you"></textarea>
                 </div>
 
+                <!-- reference -->
+                <div id="references" class="resumePages hidden">
+                    <h1 class=" text-greyish_black font-black">References</h1>
+                    <p class="text-sm text-gray-500">
+                        You should make sure you have obtained permission from
+                        your references before listing their contact information
+                        on your resume. It's also a good practice to choose references
+                        who can speak positively about your professional abilities and
+                        work experiences.
+                    </p>
+
+                    <!-- first person -->
+                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2">
+                        <header class="font-bold text-blue-500">Person 1</header>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="refFN">Full name</label>
+                                <input class="referencesInput" type="text" id="refFN" placeholder="ex: Juan Dela Cruz">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="refJobTitle">Job Title</label>
+                                <input class="referencesInput" type="text" id="refJobTitle" placeholder="ex: Software Engineer">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="refContactNo">Contact No.</label>
+                                <input class="referencesInput" type="text" id="refContactNo" placeholder="ex: 09104938530">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="refEmailAdd">Email Address</label>
+                                <input class="referencesInput" type="text" id="refEmailAdd" placeholder="ex: juandelacruz@gmail.com">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- second person -->
+                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2">
+                        <header class="font-bold text-blue-500">Person 2</header>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="refFNSecond">Full name</label>
+                                <input class="referencesInput" type="text" id="refFNSecond" placeholder="ex: Juan Dela Cruz">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="refJobTitleSecond">Job Title</label>
+                                <input class="referencesInput" type="text" id="refJobTitleSecond" placeholder="ex: Software Engineer">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="refContactSecond">Contact No.</label>
+                                <input class="referencesInput" type="text" id="refContactSecond" placeholder="ex: 09104938530">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="refEmailThird">Email Address</label>
+                                <input class="referencesInput" type="text" id="refEmailThird" placeholder="ex: juandelacruz@gmail.com">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- add one more -->
+                    <button type="button" id="referenceBtn" class="text-xs text-blue-400 flex items-center gap-2">
+                        <iconify-icon icon="zondicons:add-outline" style="color: #60a5fa;" width="20" height="20"></iconify-icon>
+                        Add 1 more</button>
+                    <div id="extraReference" class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 hidden">
+                        <header class="font-bold text-blue-500">Person 3</header>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="">Full name</label>
+                                <input type="text" placeholder="ex: Juan Dela Cruz">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="">Job Title</label>
+                                <input type="text" placeholder="ex: Software Engineer">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="">Contact No.</label>
+                                <input type="text" placeholder="ex: 09104938530">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="font-bold" for="">Email Address</label>
+                                <input type="text" placeholder="ex: juandelacruz@gmail.com">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="mt-2 flex justify-end gap-2">
                     <button id="resumeBtnPrev" type="button" class="px-4 py-2 rounded-md hover:bg-gray-300 text-gray-500 hidden">Previous</button>
                     <button id="resumeBtnNext" type="button" class="px-4 py-2 rounded-md bg-blue-400 hover:bg-blue-500 text-white ">Next</button>
@@ -1073,19 +1170,26 @@ function dateInText($date)
     </div>
 
     <div id="viewResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div class="fixed h-max w-full bg-black bg-opacity-50  flex justify-center p-5 top-0 gap-2">
-            <button id="downloadResume" class="px-3 py-2 rounded-md bg-white flex items-center gap-1">
-                <iconify-icon icon="teenyicons:download-solid" style="color: black;" width="24" height="24"></iconify-icon>
-                Download
+        <div class="fixed h-max w-full bg-black bg-opacity-50  flex justify-between p-5 top-0 gap-2">
+            <button id="closeViewResume" class="flex items-center gap-2 text-white text-lg font-bold">
+                <iconify-icon icon="fluent-mdl2:back" style="color: white;" width="24" height="24"></iconify-icon>
+                Back
             </button>
-            <button id="printResume" class="px-4 py-2 rounded-md text-white bg-accent flex items-center gap-1">
-                <iconify-icon icon="fluent:print-32-regular" style="color: white;" width="24" height="24"></iconify-icon>
-                Print Resume
-            </button>
+            <div class="flex gap-2">
+                <button id="downloadResume" class="px-3 py-2 rounded-md bg-white flex items-center gap-1">
+                    <iconify-icon icon="teenyicons:download-solid" style="color: black;" width="24" height="24"></iconify-icon>
+                    Download
+                </button>
+                <button id="printResume" class="px-4 py-2 rounded-md text-white bg-accent flex items-center gap-1">
+                    <iconify-icon icon="fluent:print-32-regular" style="color: white;" width="24" height="24"></iconify-icon>
+                    Print Resume
+                </button>
+            </div>
+
         </div>
         <div class="bg-white p-5 h-full overflow-y-auto w-max">
             <div id="resumeWrapperModal">
-                <main class="flex mt-10">
+                <main class="flex">
                     <aside class="w-2/6 text-greyish_black p-3 flex flex-col gap-4 text-xs">
                         <header id="fullnameResume" class="text-3xl block font-bold"></header>
                         <p>Marketing Manager</p>
@@ -1132,10 +1236,10 @@ function dateInText($date)
 
 
                         <!-- skills -->
-                        <section class="flex flex-col gap-2 z-50">
+                        <section>
                             <h1 class="font-bold text-base">SKILLS</h1>
 
-                            <div id="skillWrapper"></div>
+                            <div id="skillWrapper" class="flex flex-col gap-2 z-50"></div>
                         </section>
                     </aside>
 
@@ -1163,6 +1267,22 @@ function dateInText($date)
 
             </div>
 
+        </div>
+    </div>
+
+    <!-- success prompt -->
+    <div id="successModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+        <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+            <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <circle id="filled-circle" fill="#47CF73" cx="66.5" cy="66.5" r="54.5" />
+                    <circle id="white-circle" fill="#FFFFFF" cx="66.5" cy="66.5" r="55.5" />
+                    <circle id="outline" stroke="#47CF73" stroke-width="4" cx="66.5" cy="66.5" r="54.5" />
+                    <polyline id="check" stroke="#FFFFFF" stroke-width="5.5" points="41 70 56 85 92 49" />
+                </g>
+            </svg>
+            <h1 class=" text-3xl font-bold text-green-500 text-center">Resume done!</h1>
+            <p class=" text-lg text-center text-gray-500">"Your resume is a powerful tool that will help you stand out in the competitive job market."</p>
         </div>
     </div>
 

@@ -71,19 +71,13 @@ function insertionOfData($con)
                                 if ($workExp) $checker = true;
                             }
                             if ($checker) {
-                                $skills = json_decode($_POST['skills'], true);
 
-                                $response = false;
-                                //traverse to insert every skill
-                                foreach ($skills as $skill) {
-                                    $skillID = substr(md5(uniqid()), 0, 10) . '-' . rand(0, 5000);
-                                    $query = "INSERT INTO `resume_skill`(`skillID`, `resumeID`, `skill`) 
-                                        VALUES (\"$skillID\",\"$resumeID\",\"$skill\")";
-                                    if (mysqli_query($con, $query))
-                                        $response = true;
-                                }
-                                if ($response) echo 'Successful';
-                                else echo 'Failed';
+                                if (insertSkill($con, $resumeID)) {
+                                    $resultQuery = insertReference($con, $resumeID);
+
+                                    if ($resultQuery) echo 'Successful';
+                                    else echo 'Failed';
+                                } else echo 'Failed';
                             }
                         } else { //skip the work experience
                             echo 'ayaw';
@@ -95,6 +89,49 @@ function insertionOfData($con)
     }
 }
 
+
+function insertSkill($con, $resumeID)
+{
+    $skills = json_decode($_POST['skills'], true);
+
+    $response = false;
+    //traverse to insert every skill
+    foreach ($skills as $skill) {
+        $skillID = substr(md5(uniqid()), 0, 10) . '-' . rand(0, 5000);
+        $query = "INSERT INTO `resume_skill`(`skillID`, `resumeID`, `skill`) 
+                                        VALUES (\"$skillID\",\"$resumeID\",\"$skill\")";
+        if (mysqli_query($con, $query)) $response = true;
+        else $response = false;
+    }
+
+    return $response;
+}
+
+function insertReference($con, $resumeID)
+{
+    $resultQuery = false;
+    //for reference table
+    $references = json_decode($_POST['references'], true);
+    //insert the reference details
+
+    foreach ($references as $reference) {
+        $fullname = $reference['fullname'];
+        $jobTitle = $reference['jobTitle'];
+        $contactNo = $reference['contactNo'];
+        $emailAdd = $reference['emailAdd'];
+
+        $referenceID = substr(md5(uniqid()), 0, 10) . '-' . rand(0, 5000);
+        //insertion of reference
+        $queryReferences = "INSERT INTO `reference_resume`(`referenceID`, `resumeID`, `reference_name`, 
+            `job_title`, `contactNo`, `emailAddress`) VALUES ('$referenceID','$resumeID','$fullname',
+            '$jobTitle','$contactNo','$emailAdd')";
+
+        if (mysqli_query($con, $queryReferences)) $resultQuery = true;
+        else $resultQuery = false;
+    }
+
+    return $resultQuery;
+}
 function educationResume($resumeID, $school, $educationLevel, $con)
 {
     $random = rand(0, 5000);

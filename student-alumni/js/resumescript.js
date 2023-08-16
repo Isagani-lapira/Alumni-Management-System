@@ -61,6 +61,12 @@ $(document).ready(function () {
                 navigateToPage(currentPage)
             }
         }
+        else if (currentPage == 5) {
+            //reference
+            currentPage++
+            disabledTheNext()
+            navigateToPage(currentPage)
+        }
     })
 
     $('#resumeBtnPrev').on('click', function () {
@@ -90,6 +96,10 @@ $(document).ready(function () {
                 enabledTheNext()
                 break;
             case 5:
+                $('#references').removeClass('hidden');
+                disabledTheNext()
+                break;
+            case 6:
                 $('#resumeSummary').removeClass('hidden')
                 $('#resumeBtnNext').addClass('hidden')
                 //change the button to success button
@@ -228,6 +238,7 @@ $(document).ready(function () {
     let primaryEduc = [];
     let secondaryEduc = [];
     let tertiaryEduc = [];
+    let referenceData = [];
     $('#resumeBtnUpdate').on('click', function () {
         //get primary education
         $('.primary').each(function () {
@@ -246,6 +257,20 @@ $(document).ready(function () {
             var value = $(this).val()
             tertiaryEduc.push(value)
         })
+
+        //get first reference data
+        const firstFN = '#refFN'
+        const firstJT = '#refJobTitle'
+        const firstContact = '#refContactNo'
+        const firstEmail = '#refEmailAdd'
+        getReferences(firstFN, firstJT, firstContact, firstEmail)
+
+        //get second reference data
+        const secondFN = '#refFNSecond'
+        const secondJT = '#refJobTitleSecond'
+        const secondContact = '#refContactSecond'
+        const secondEmail = '#refEmailThird'
+        getReferences(secondFN, secondJT, secondContact, secondEmail)
 
         setResume()
 
@@ -276,6 +301,7 @@ $(document).ready(function () {
         formData.append('tertiary', JSON.stringify(tertiaryEduc))
         formData.append('work', JSON.stringify(work));
         formData.append('skills', JSON.stringify(skills));
+        formData.append('references', JSON.stringify(referenceData));
 
         $.ajax({
             url: '../PHP_process/resume.php',
@@ -283,8 +309,34 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: response => { console.log(response) },
+            success: response => {
+                if (response == "Successful") {
+                    //display the successful modal
+                    $('#editResumeModal').addClass('hidden')
+                    $('#successModal').removeClass('hidden')
+                    //hide the success modal
+                    setTimeout(function () {
+                        $('#successModal').addClass('hidden')
+                    }, 7000)
+                } else { console.log("dito") }
+            },
             error: error => { console.log(error) }
+        })
+    }
+
+    //get reference
+    function getReferences(refFNID, refJobID, refContactID, refEmailID) {
+        const selector = ".referencesInput"
+        const refFname = $(selector + refFNID).val()
+        const refJobTitle = $(selector + refJobID).val()
+        const refContactNo = $(selector + refContactID).val()
+        const refEmailAdd = $(selector + refEmailID).val()
+
+        referenceData.push({
+            fullname: refFname,
+            jobTitle: refJobTitle,
+            contactNo: refContactNo,
+            emailAdd: refEmailAdd
         })
     }
 
@@ -523,4 +575,30 @@ $(document).ready(function () {
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set A4 size
         }).from(contentWithStyles).save();
     });
+
+    //open the extra reference
+    $('#referenceBtn').on('click', function () {
+        $('#extraReference').removeClass('hidden') //show the hidden reference
+        $(this).hide()
+    })
+
+    $('#refFN, #refJobTitle,#refContactNo,#refEmailAdd,#refFNSecond, #refJobTitleSecond, #refContactSecond, #refEmailThird')
+        .on('input', function () {
+            let isRefComplete = false;
+            //check if all input have value
+            let referencesInput = $('.referencesInput')
+            referencesInput.each(function () {
+                let value = $(this).val();
+                if (value == "") isRefComplete = false
+                else isRefComplete = true
+            })
+
+            if (isRefComplete) enabledTheNext()
+            else disabledTheNext()
+
+        })
+
+    $('#closeViewResume').on('click', function () {
+        $('#viewResumeModal').addClass('hidden')
+    })
 })
