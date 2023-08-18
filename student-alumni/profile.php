@@ -1170,19 +1170,16 @@ function dateInText($date)
     </div>
 
     <div id="viewResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div class="fixed h-max w-full bg-black bg-opacity-50  flex justify-between p-5 top-0 gap-2">
-            <button id="closeViewResume" class="flex items-center gap-2 text-white text-lg font-bold">
+        <div class="fixed h-max w-full bg-black bg-opacity-50  flex justify-between p-3 top-0 gap-2">
+            <button id="closeViewResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
                 <iconify-icon icon="fluent-mdl2:back" style="color: white;" width="24" height="24"></iconify-icon>
-                Back
             </button>
             <div class="flex gap-2">
-                <button id="downloadResume" class="px-3 py-2 rounded-md bg-white flex items-center gap-1">
-                    <iconify-icon icon="teenyicons:download-solid" style="color: black;" width="24" height="24"></iconify-icon>
-                    Download
+                <button id="downloadResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+                    <iconify-icon icon="teenyicons:download-outline" style="color: white;" width="24" height="24"></iconify-icon>
                 </button>
-                <button id="printResume" class="px-4 py-2 rounded-md text-white bg-accent flex items-center gap-1">
+                <button id="printResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
                     <iconify-icon icon="fluent:print-32-regular" style="color: white;" width="24" height="24"></iconify-icon>
-                    Print Resume
                 </button>
             </div>
 
