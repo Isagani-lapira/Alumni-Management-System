@@ -60,6 +60,10 @@ if (isset($_POST['action'])) {
             $offset = $_POST['offset'];
             $post->getCollege($college, $report, $offset, $mysql_con);
             break;
+        case 'readWithPostID':
+            $postID = $_POST['postID'];
+            $post->checkPost($postID, $mysql_con);
+            break;
     }
 }
 

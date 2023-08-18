@@ -377,4 +377,17 @@ class PostData
             echo $postResult;
         } else echo 'failed';
     }
+
+    function checkPost($postID, $con)
+    {
+        $query = "SELECT * FROM `post` WHERE `postID` = '$postID'";
+        $result = mysqli_query($con, $query);
+
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row) {
+            $postResult = $this->getPostData($result, $con);
+            echo $postResult;
+        } else echo 'failed';
+    }
 }

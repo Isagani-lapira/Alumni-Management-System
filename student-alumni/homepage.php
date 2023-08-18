@@ -105,7 +105,8 @@ function getAccDetails($con, $personID)
   <!--CONTENT PAGE -->
   <div class="fixed top-0 w-full z-50">
     <?php
-    echo '<p id="colCode" class="hidden">' . $colCode . '</p>'
+    echo '<p id="colCode" class="hidden">' . $colCode . '</p>';
+    echo '<p id="accUsername" class="hidden">' . $username . '</p>'
     ?>
     <div id="tabs" class="h-screen overflow-y-scroll hide-scrollbar">
       <!-- Navbar -->
@@ -134,7 +135,7 @@ function getAccDetails($con, $personID)
             }
 
             ?>
-            <p class="mr-4 text-sm font-medium text-greyish_black p-4">
+            <p id="accFN" class="mr-4 text-sm font-medium text-greyish_black p-4">
               <?php
               echo $fullname;
               ?>
@@ -452,9 +453,7 @@ function getAccDetails($con, $personID)
               </div>
 
               <!-- comments -->
-              <div id="commentContainer" class=" h-3/4 p-2 overflow-auto">
-
-              </div>
+              <div id="commentContainer" class=" h-3/4 p-2 overflow-auto"></div>
             </div>
           </div>
         </div>
