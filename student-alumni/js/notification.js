@@ -20,18 +20,24 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: (response) => {
+                console.log(response)
                 if (response.result == 'Success') {
                     let length = response.notifID.length; //total length of the data retrieved
 
                     //store data that has been process
                     for (let i = 0; i < length; i++) {
                         const notifID = response.notifID[i];
+                        const postID = response.postID[i];
                         const added_by = response.added_by[i];
                         const typeOfNotif = response.typeOfNotif[i];
-                        const content = response.content[i];
                         const date_notification = response.date_notification[i];
                         const is_read = response.is_read[i];
                         const profile = response.profile[i];
+                        let content = "";
+
+                        if (typeOfNotif == "comment") content = "Commented on your post"
+                        else if (typeOfNotif == "like") content = "Liked on your post"
+                        else if (typeOfNotif == "added post") content = "added a post"
 
                         displayNotification(profile, added_by, content, date_notification, is_read)
                     }
@@ -56,9 +62,11 @@ $(document).ready(function () {
         if (is_read == '1') notifContainer.removeClass("bg-blue-200")//check if the notification already read
 
         //image of the user
-        const src = imgFormat + profile;
+        const defaultProfile = "../assets/icons/person.png"
+        const dbProfile = imgFormat + profile
+        const src = (profile != '') ? dbProfile : defaultProfile
         const imgProfile = $('<img>')
-            .addClass('h-12 w-12 rounded-full')
+            .addClass('h-12 w-12 rounded-full border border-accent')
             .attr('src', src);
 
         //description content
@@ -119,10 +127,14 @@ $(document).ready(function () {
                         const notifID = response.notifID[i];
                         const added_by = response.added_by[i];
                         const typeOfNotif = response.typeOfNotif[i];
-                        const content = response.content[i];
                         const date_notification = response.date_notification[i];
                         const is_read = response.is_read[i];
                         const profile = response.profile[i];
+                        let content = "";
+
+                        if (typeOfNotif == "comment") content = "Commented on your post"
+                        else if (typeOfNotif == "like") content = "Liked on your post"
+                        else if (typeOfNotif == "added post") content = "added a post"
 
                         if (is_read == 0)
                             displayNotification(profile, added_by, content, date_notification, is_read)

@@ -1,5 +1,6 @@
 <?php
 
+require '../PHP_process/personDB.php';
 class Notification
 {
     public function ReadNotification($username, $offset, $con)
@@ -14,9 +15,9 @@ class Notification
         //data that will retrieve
         $response = "";
         $notifID = array();
+        $postID = array();
         $added_by = array();
         $typeOfNotif = array();
-        $content = array();
         $date_notification = array();
         $timestamp = array();
         $is_read = array();
@@ -27,22 +28,58 @@ class Notification
             $response = 'Success';
             while ($data = mysqli_fetch_assoc($result)) {
                 $notifID[] = $data['notifID'];
-                $added_by[] = $data['added_by'];
+                $postID[] = $data['postID'];
+                $addBy = $data['added_by'];
                 $typeOfNotif[] = $data['typeOfNotif'];
-                $content[] = $data['content'];
                 $date_notification[] = $this->dateInText($data['date_notification']);
                 $timestamp[] = $data['timestamp'];
                 $is_read[] = $data['is_read'];
-                $profile[] = base64_encode($data['profile']);
+
+                //get user personID
+                //get the person ID of that user
+                $query = "
+                SELECT 'student' AS user_details, student.personID
+                FROM student
+                WHERE student.username = '$addBy'
+                
+                UNION
+                
+                SELECT 'alumni' AS user_details, alumni.personID
+                FROM alumni
+                WHERE alumni.username = '$addBy'
+                
+                UNION
+                
+                SELECT 'univadmin' AS user_details, univadmin.personID
+                FROM univadmin
+                WHERE univadmin.username = '$addBy'
+                
+                UNION
+                
+                SELECT 'coladmin' AS user_details, coladmin.personID
+                FROM coladmin
+                WHERE coladmin.username = '$addBy' ";
+
+                $resultPersonId = mysqli_query($con, $query);
+                $dataID = mysqli_fetch_assoc($resultPersonId);
+                $personID = $dataID['personID'];
+
+                //get person details
+                $personObj = new personDB();
+                $personDataJSON = $personObj->readPerson($personID, $con);
+                $personData = json_decode($personDataJSON, true);
+
+                $added_by[] = $personData['fname'] . ' ' . $personData['lname'];
+                $profile[] = base64_encode($personData['profilepicture']);
             }
         } else $response = "Nothing";
 
         $notification = array(
             'result' => $response,
             "notifID" => $notifID,
+            "postID" => $postID,
             "added_by" => $added_by,
             "typeOfNotif" => $typeOfNotif,
-            "content" => $content,
             "date_notification" => $date_notification,
             "timestamp" => $timestamp,
             "is_read" => $is_read,
