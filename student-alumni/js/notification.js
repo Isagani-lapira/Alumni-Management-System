@@ -38,7 +38,7 @@ $(document).ready(function () {
                         else if (typeOfNotif == "like") content = "Liked on your post"
                         else if (typeOfNotif == "added post") content = "added a post"
 
-                        displayNotification(profile, added_by, content, date_notification, is_read, postID)
+                        displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID)
                     }
 
                     //increase the offset based on length so it can produce new sets of notification
@@ -56,7 +56,7 @@ $(document).ready(function () {
     }
 
     const imgFormat = 'data:image/jpeg;base64,';
-    function displayNotification(profile, added_by, content, date_notification, is_read, postID) {
+    function displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID) {
         const notifContainer = $('<div>').addClass('notifContainer flex items-center ' +
             'gap-3 border-b border-gray-300 p-2 bg-blue-200 rounded-md my-1 cursor-pointer')
         if (is_read == '1') notifContainer.removeClass("bg-blue-200")//check if the notification already read
@@ -94,10 +94,33 @@ $(document).ready(function () {
                 //get the details of post
                 getPostDetails(postID, name, accUN, src);
 
+                //update the total number of unread notification
+                updateStatusNotification(notifID);
             })
         $('.notification-content').append(notifContainer)
     }
 
+    function updateStatusNotification(notifID) {
+        let action = {
+            action: 'updateNotifStat'
+        };
+        const formdata = new FormData();
+        formdata.append('action', JSON.stringify(action));
+        formdata.append('notifID', notifID);
+
+        //ajax update
+        $.ajax({
+            url: '../PHP_process/notificationData.php',
+            method: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response == 'Success') badgeNotification()
+            },
+            error: error => { console.log(error) },
+        })
+    }
 
     function getPostDetails(postID, name, accUN, imgProfile) {
         let action = {
@@ -238,6 +261,27 @@ $(document).ready(function () {
     })
 
 
+    function badgeNotification() {
+        let action = {
+            action: 'readUnreadNotif'
+        }
+        let formatData = new FormData()
+        formatData.append('action', JSON.stringify(action));
+
+        $.ajax({
+            url: '../PHP_process/notificationData.php',
+            method: 'POST',
+            data: formatData,
+            processData: false,
+            contentType: false,
+            success: (success) => {
+                //display a notification badge
+                if (success != 'none') $('#notifBadge').removeClass('hidden').html(success);
+                else $('#notifBadge').addClass('hidden')
+            },
+            error: (error) => { console.log(error) }
+        })
+    }
     function viewingOfPost(postID, name, accUN, description, images, likes, imgProfile) {
         $('#profilePic').attr('src', imgProfile);
         $('#postFullName').text(name);

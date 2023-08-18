@@ -19,6 +19,10 @@ if (isset($_POST['action'])) {
         case 'readUnreadNotif':
             $notificationObj->totalUnreadNotif($username, $mysql_con);
             break;
+        case 'updateNotifStat':
+            $notifID = $_POST['notifID'];
+            $notificationObj->updateStat($notifID, $mysql_con);
+            break;
         default:
             echo 'nothing';
             break;

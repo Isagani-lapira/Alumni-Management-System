@@ -116,4 +116,13 @@ class Notification
         if ($result && $row > 0) echo $row;
         else echo 'none';
     }
+
+    public function updateStat($notifID, $con)
+    {
+        $query = "UPDATE `notification` SET `is_read` ='1' WHERE `notifID` = '$notifID'";
+        $result = mysqli_query($con, $query);
+
+        if ($result) echo 'Success';
+        else echo 'Failed';
+    }
 }
