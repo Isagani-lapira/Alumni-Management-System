@@ -409,7 +409,7 @@ $(document).ready(function () {
                         $('#commentContainer').append(commentContainer);
                     }
                 } else {
-                    let noCommentMsg = $('<p>').addClass('text-gray-500').text('No available comment')
+                    let noCommentMsg = $('<p>').addClass('text-gray-500 text-center').text('No available comment')
                     $('#commentContainer').append(noCommentMsg) //show no comment
                 }
             },
@@ -876,9 +876,9 @@ $(document).ready(function () {
     })
 
     let offsetCommunity = 0
-
-    //community post
+    //community post tab
     $('#communityLi').on('click', function () {
+        //load the data for community after the click
         offsetCommunity = 0
         $('#communityContainer').empty();
         getCommunityPost();
@@ -894,7 +894,7 @@ $(document).ready(function () {
         let formData = new FormData()
         formData.append('action', JSON.stringify(action))
         formData.append('offset', offsetCommunity)
-
+        console.log(offsetCommunity)
         //process retrieval
         $.ajax({
             url: '../PHP_process/postDB.php',
@@ -903,7 +903,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
-                if (response !== 'failed') {
+                if (response != 'failed') {
                     const data = JSON.parse(response)
                     if (data.response == 'Success') {
                         const length = data.colCode.length;
@@ -922,6 +922,10 @@ $(document).ready(function () {
                             displayCommunityPost(postID, profilePic, fullname, username, imagesObj, caption, date, likes, comment, isLiked)
                         }
                         offsetCommunity += length
+                    }
+                    else {
+                        $("#noPostMsgCommunity").removeClass('hidden')
+                            .appendTo('#communityContainer')
                     }
                 }
                 else {
@@ -1093,7 +1097,7 @@ $(document).ready(function () {
         var contentHeight = container[0].scrollHeight;
         var scrollThreshold = 50; // Adjust this threshold as needed
 
-        if (scrollPosition + containerHeight >= contentHeight - scrollThreshold) {
+        if (scrollPosition + containerHeight >= contentHeight - scrollThreshold && offsetCommunity == 10) {
             getCommunityPost()
         }
     });
@@ -1191,6 +1195,7 @@ $(document).ready(function () {
         getCommunityByFilter() //retrieve data with filter
     })
 
+    //filtering community post based on college and report
     function getCommunityByFilter() {
         let action = {
             action: 'readColReport'
@@ -1200,7 +1205,6 @@ $(document).ready(function () {
         formData.append('offset', offsetCommunity)
         formData.append('college', colCodeFilter)
         formData.append('report', reportCatFilter)
-
 
         $.ajax({
             url: '../PHP_process/postDB.php',
@@ -1227,6 +1231,10 @@ $(document).ready(function () {
                             displayCommunityPost(postID, profilePic, fullname, username, imagesObj, caption, date, likes, comment)
                         }
                         offsetCommunity += length
+                    }
+                    else {
+                        $("#noPostMsgCommunity").removeClass('hidden')
+                            .appendTo('#communityContainer')
                     }
                 }
                 else {
