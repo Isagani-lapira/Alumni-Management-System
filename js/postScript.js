@@ -474,7 +474,6 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: response => {
-                console.log(response)
                 if (response != 'none') {
                     const parsedData = JSON.parse(response)
                     const length = parsedData.username.length
@@ -482,6 +481,7 @@ $(document).ready(function () {
                     for (let i = 0; i < length; i++) {
                         const imgProfile = parsedData.profilePic[i];
                         const postID = parsedData.postID[i];
+                        const isLiked = parsedData.isLiked[i];
                         const fullname = parsedData.fullname[i];
                         const username = parsedData.username[i];
                         const images = parsedData.images[i];
@@ -490,7 +490,7 @@ $(document).ready(function () {
                         const likes = parsedData.likes[i];
                         const comments = parsedData.comments[i];
 
-                        displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isAvailable)
+                        displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isAvailable, isLiked)
                     }
 
                     offsetProfile += length
@@ -513,7 +513,7 @@ $(document).ready(function () {
 
         return month + ' ' + day + ', ' + year
     }
-    function displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isAvailable) {
+    function displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isAvailable, isLikedByUser) {
         const feedContainer = $('#feedContainer')
         const postWrapper = $('<div>').addClass('postWrapper rounded-md center-shadow p-4 mx-auto');
 
@@ -588,9 +588,15 @@ $(document).ready(function () {
 
         let newlyAddedLike = parseInt(likes);
         //interaction buttons
-        let isLiked = false;
+        let isLiked = isLikedByUser;
+        let heartIcon = $('<span>')
+        if (isLiked)
+            heartIcon = heartIcon.html('<iconify-icon icon="mdi:heart" style="color: #ed1d24;" width="20" height="20"></iconify-icon>');
+        else
+            heartIcon = heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>')
+
         let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
-        let heartIcon = $('<span>').html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>')
+        heartIcon.addClass('cursor-pointer flex items-center')
             .addClass('cursor-pointer flex items-center')
             .on('click', function () {
                 //toggle like button
@@ -900,19 +906,20 @@ $(document).ready(function () {
                 if (response !== 'failed') {
                     const data = JSON.parse(response)
                     if (data.response == 'Success') {
-                        let length = data.colCode.length;
+                        const length = data.colCode.length;
                         for (let i = 0; i < length; i++) {
-                            let postID = data.postID[i]
-                            let profilePic = data.profilePic[i]
-                            let username = data.username[i]
-                            let fullname = data.fullname[i]
-                            let caption = data.caption[i]
-                            let date = data.date[i]
-                            let comment = data.comments[i];
-                            let likes = data.likes[i];
-                            let imagesObj = data.images[i];
+                            const postID = data.postID[i]
+                            const profilePic = data.profilePic[i]
+                            const username = data.username[i]
+                            const isLiked = data.isLiked[i];
+                            const fullname = data.fullname[i]
+                            const caption = data.caption[i]
+                            const date = data.date[i]
+                            const comment = data.comments[i];
+                            const likes = data.likes[i];
+                            const imagesObj = data.images[i];
 
-                            displayCommunityPost(postID, profilePic, fullname, username, imagesObj, caption, date, likes, comment)
+                            displayCommunityPost(postID, profilePic, fullname, username, imagesObj, caption, date, likes, comment, isLiked)
                         }
                         offsetCommunity += length
                     }
@@ -927,7 +934,7 @@ $(document).ready(function () {
         })
     }
 
-    function displayCommunityPost(postID, imgProfile, fullname, username, images, caption, date, likes, comments) {
+    function displayCommunityPost(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isLikedByUser) {
         const feedContainer = $('#communityContainer')
         const postWrapper = $('<div>').addClass('communityWrapper rounded-md center-shadow p-4 mx-auto');
 
@@ -1002,10 +1009,15 @@ $(document).ready(function () {
 
         let newlyAddedLike = parseInt(likes);
         //interaction buttons
-        let isLiked = false;
+        let isLiked = isLikedByUser;
+        let heartIcon = $('<span>')
+        if (isLiked)
+            heartIcon = heartIcon.html('<iconify-icon icon="mdi:heart" style="color: #ed1d24;" width="20" height="20"></iconify-icon>');
+        else
+            heartIcon = heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>')
+
         let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
-        let heartIcon = $('<span>').html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>')
-            .addClass('cursor-pointer flex items-center')
+        heartIcon.addClass('cursor-pointer flex items-center')
             .on('click', function () {
                 //toggle like button
                 if (isLiked) {
@@ -1087,6 +1099,7 @@ $(document).ready(function () {
     });
 
     let currentReportChart = null
+    //get report graph
     function getReport() {
         if (currentReportChart) {
             currentReportChart.destroy(); // Destroy the previous chart instance
@@ -1113,6 +1126,7 @@ $(document).ready(function () {
                 const SOS = response.SOS;
                 const harassment = response.harassment;
 
+                //show data in pie chart format
                 const chart = $('#reportChart');
                 currentReportChart = new Chart(chart, {
                     type: 'pie',
