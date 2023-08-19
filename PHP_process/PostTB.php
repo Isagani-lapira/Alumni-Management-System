@@ -3,6 +3,7 @@
 class PostData
 {
     private $postTimeStamp = "";
+
     public function insertPostData($postID, $username, $colCode, $caption, $date, $img, $con)
     {
         $imgFileLength = ($img != null) ? count($img['name']) : 0;
@@ -149,7 +150,8 @@ class PostData
             $timestamp = $prevTimeStamp['timestamp'];
 
             //retrieve first the data left from day post
-            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `status` = 'available' AND `timestamp`>'$timestamp' LIMIT 0, $maxLimit";
+            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND 
+            `status` = 'available' AND `timestamp`>'$timestamp' LIMIT 0, $maxLimit";
             $result = mysqli_query($con, $queryRetrievePost);
             $row = mysqli_num_rows($result);
 
@@ -198,11 +200,13 @@ class PostData
         $images = array();
         $comments = array();
         $likes = array();
+        $likedByCurrentUser = array();
 
         if ($result && $row > 0) {
             $response = 'Success';
             while ($data = mysqli_fetch_assoc($result)) {
-                $postID[] = $data['postID'];
+                $tempPostID = $data['postID'];
+                $postID[] = $tempPostID;
                 $username[] = $data['username'];
                 $user = $data['username'];
                 $colCode[] = $data['colCode'];
@@ -218,6 +222,9 @@ class PostData
                 $user = $this->getUserDetails($user, $con);
                 $fullname[] = $user['fullname'];
                 $imgProfile[] = $user['profilePic'];
+
+                //check if the user already liked a certain post
+                $likedByCurrentUser[] = $this->checkedByUser($tempPostID, $con);
             }
         } else return false;
 
@@ -228,6 +235,7 @@ class PostData
             'colCode' => $colCode,
             'caption' => $caption,
             'date' => $date,
+            "isLiked" => $likedByCurrentUser,
             'images' => $images,
             'comments' => $comments,
             'likes' => $likes,
@@ -249,7 +257,17 @@ class PostData
         else echo 'ayaw';
     }
 
+    //check if the user is already like the post
+    function checkedByUser($postID, $con)
+    {
+        $username = $_SESSION['username']; //current user
+        $query = "SELECT * FROM `postlike` WHERE `username` = '$username' AND `postID` = '$postID'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
 
+        if ($result && $row > 0) return true;
+        else return false;
+    }
 
     function getUserDetails($username, $con)
     {

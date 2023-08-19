@@ -35,6 +35,7 @@ $(document).ready(function () {
             const postID = parsedResponse.postID[i];
             const fullname = parsedResponse.fullname[i];
             const username = parsedResponse.username[i];
+            const isLiked = parsedResponse.isLiked[i];
             const images = parsedResponse.images[i];
             const caption = parsedResponse.caption[i];
             let date = parsedResponse.date[i];
@@ -42,7 +43,7 @@ $(document).ready(function () {
             const comments = parsedResponse.comments[i];
             date = getFormattedDate(date) //formatted date for easy viewing of date
 
-            displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted); //display the post on the container
+            displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted, isLiked); //display the post on the container
           }
 
           offsetPost += length
@@ -113,7 +114,7 @@ $(document).ready(function () {
   }
 
 
-  function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted) {
+  function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted, isLikedByUser) {
     let postWrapper = $('<div>').addClass("postWrapper center-shadow w-full p-4 rounded-md mx-auto");
 
     let header = $('<div>');
@@ -181,16 +182,20 @@ $(document).ready(function () {
 
     let newlyAddedLike = parseInt(likes);
     //interaction buttons
-    let isLiked = false;
+    let isLiked = isLikedByUser;
+    let heartIcon = $('<span>')
+    if (isLiked)
+      heartIcon = heartIcon.html('<iconify-icon icon="mdi:heart" style="color: #ed1d24;" width="20" height="20"></iconify-icon>');
+    else
+      heartIcon = heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>')
+
     let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
-    let heartIcon = $('<span>').html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>')
-      .addClass('cursor-pointer flex items-center')
+    heartIcon.addClass('cursor-pointer flex items-center')
       .on('click', function () {
         //toggle like button
         if (isLiked) {
           //decrease the current total number of likes by 1
           newlyAddedLike -= 1
-          console.log(newlyAddedLike)
           likesElement.text(newlyAddedLike)
           heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>');
           removeLike(postID)
