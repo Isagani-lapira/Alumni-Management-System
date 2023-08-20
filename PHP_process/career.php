@@ -254,4 +254,19 @@ class Career
         if ($result && $row > 0) $this->getCareerDetail($result, $con);
         else echo 'none';
     }
+
+    public function appliedJob($offset, $con)
+    {
+        $maxLimit = 10;
+        $username = $_SESSION['username'];
+        $query = "SELECT c.*
+        FROM career c
+        JOIN applicant a ON c.careerID = a.careerID
+        WHERE a.username = '$username' ORDER BY`date_posted` LIMIT $offset,$maxLimit";
+
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+        if ($result && $row > 0) $this->getCareerDetail($result, $con);
+        else echo 'none';
+    }
 }

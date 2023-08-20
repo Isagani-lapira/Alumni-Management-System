@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'career.php';
 require_once 'applicant.php';
 require_once 'connection.php';
@@ -80,6 +81,9 @@ if (isset($_POST['action'])) {
             $careerID = $_POST['careerID'];
             $username = $_SESSION['username'];
             $apply->deleteApplication($username, $careerID, $mysql_con);
+        } else if ($action == "retrievedApplied") {
+            $offset = $_POST['offset'];
+            $readCareer->appliedJob($offset, $mysql_con);
         }
     } catch (Exception $e) {
         echo $e->getMessage();

@@ -18,7 +18,8 @@ if (isset($_POST['action'])) {
             break;
         case 'checkBookmark':
             $careerID = $_POST['careerID'];
-            readBookmark($username, $careerID, $mysql_con);
+            $offset = $_POST['offset'];
+            readBookmark($username, $careerID, $offset, $mysql_con);
             break;
         case 'readBookmark':
             $username;
@@ -58,9 +59,11 @@ function removeBookmark($username, $careerID, $con)
 }
 
 //read bookmark
-function readBookmark($username, $careerID, $con)
+function readBookmark($username, $careerID, $offset, $con)
 {
-    $query = "SELECT * FROM `saved_career` WHERE `username`= '$username' AND `careerID`='$careerID'";
+    $maxLimit = 10;
+    $query = "SELECT * FROM `saved_career` WHERE `username`= '$username' AND `careerID`='$careerID'
+    ORDER BY`date_posted` LIMIT $offset,$maxLimit";
     $result = mysqli_query($con, $query);
     $row = mysqli_num_rows($result);
 

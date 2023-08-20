@@ -59,7 +59,9 @@ $(document).ready(function () {
   }
 
   let offsetJob = 0;
+  let checkerFilter = ""
   $('#JobHuntText').on('click', function () {
+    checkerFilter = 'getWork';
     getWork(action, offsetJob) //load a list of work
   })
 
@@ -268,6 +270,48 @@ $(document).ready(function () {
     })
   }
 
+  function appliedWork() {
+    let formData = new FormData();
+    const action = {
+      action: 'retrievedApplied'
+    }
+    formData.append('action', JSON.stringify(action));
+    formData.append('offset', offsetJob)
+
+    $.ajax({
+      method: 'POST',
+      url: '../PHP_process/jobTable.php',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response != 'none') {
+          const parsedResponse = JSON.parse(response);
+          const length = parsedResponse.careerID.length;
+          if (length > 0) {
+            for (let i = 0; i < length; i++) {
+              const careerID = parsedResponse.careerID[i];
+              const companyLogo = imgFormat + parsedResponse.companyLogo[i];
+              const jobTitle = parsedResponse.jobTitle[i];
+              const company = parsedResponse.companyName[i];
+              const author = parsedResponse.author[i];
+              const skill = parsedResponse.skills[i];
+              const location = parsedResponse.location[i];
+
+              //display job with design
+              listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
+            }
+            offsetJob += length
+          }
+        }
+        else {
+          $('#noJobMsg').removeClass('hidden')
+            .appendTo('#listOfJob')
+        }
+      },
+      error: (error) => { console.log(error) }
+    })
+  }
   //checking if the career is already in saved
   function checkCareerMarked(careerID) {
     return new Promise((resolve, reject) => {
@@ -343,16 +387,48 @@ $(document).ready(function () {
       }
       //change list into admin's list
       getWork(actionAdmin, offsetJob) //list of work
+      checkerFilter = 'admin';
     }
-    else if (jobVal == 'Saved') readBookMark() //display that is being saved
-    else if (jobVal == 'all') getWork(action, offsetJob) //back to all
+    else if (jobVal == 'Saved') {
+      checkerFilter = 'saved';
+      readBookMark() //display that is being saved
+    }
+    else if (jobVal == 'all') {
+      checkerFilter = 'getWork';
+      getWork(action, offsetJob) //back to all
+    }
+    else if (jobVal == 'Applied') {
+      checkerFilter = 'applied';
+      appliedWork()
+    }
 
   })
 
   //retrieve new data of post
   $('#listOfJob').on('scroll', function () {
     if ($('#listOfJob').scrollTop() + $('#listOfJob').innerHeight() >= $('#listOfJob')[0].scrollHeight) {
-      getWork(action, offsetJob) //list of work
+      //check the filter active
+      if (checkerFilter == 'saved') {
+        readBookMark()
+        console.log('first')
+      }
+      else if (checkerFilter == 'applied') {
+        appliedWork()
+        console.log('second')
+      }
+      else if (checkerFilter == 'getWork') {
+        getWork(action, offsetJob)  //list of work
+        console.log('third');
+      }
+      else if (checkerFilter == 'admin') {
+        let actionAdmin = {
+          action: 'readWithAuthor',
+          colCode: colCode
+        }
+        //change list into admin's list
+        getWork(actionAdmin, offsetJob)
+        console.log('fourth')
+      }
     }
   })
 
