@@ -743,12 +743,12 @@ function getAccDetails($con, $personID)
       </div>
 
       <!-- TAB 3 -->
-      <div id="tabs-3">
+      <div id="tabs-3" class="h-full">
         <!-- Job Offer Tabs -->
-        <div id="job-offer-tabs" class="flex flex-col md:flex-row pt-48 z-10">
+        <div id="job-offer-tabs" class="flex md:flex-row pt-44 z-10 h-full">
 
           <!-- LEFT DIV -->
-          <div class="fixed left-div w-5/12 md:w-5/12 p-10 relative">
+          <div class="left-div w-5/12 md:w-5/12 relative px-10">
 
             <!-- Upper Part -->
             <div class="flex flex-col md:flex-row items-center w-10/12">
@@ -784,74 +784,70 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- CENTER DIV -->
-          <div class="center-div w-1/2 md:w-1/2  p-10">
-            <div class="content-div center-shadow rounded-md text-sm h-auto">
-              <div class="tab-content">
-                <div id="job-offer1" class="job-offer-content">
-
-                  <!-- JOB DESC. -->
-                  <div class="job-des" id="job-description">
-                    <!-- Company Name and Image -->
-                    <div class="flex py-10 px-16">
-                      <div>
-                        <img id="viewJobLogo" class="w-24 h-24 object-contain rounded-full">
+          <div class="center-div w-1/2 md:w-1/2  overflow-y-auto jobDescript">
+            <div class="content-div rounded-md text-sm h-full">
+              <div class="tab-content p-3">
+                <!-- JOB DESC. -->
+                <div class="job-des h-full center-shadow" id="job-description">
+                  <!-- Company Name and Image -->
+                  <div class="flex py-10 px-16">
+                    <div>
+                      <img id="viewJobLogo" class="w-24 h-24 object-contain rounded-full">
+                    </div>
+                    <div class="pl-4">
+                      <h2 id="viewJobTitle" class="text-lg font-bold"></h2>
+                      <p id="viewJobCompany" class="text-sm"></p>
+                      <div class="flex items-center pt-2">
+                        <!-- <i class="fa-solid fa-location-dot text-sm pr-1 text-gray-400"></i> -->
+                        <p class="text-sm text-gray-400"></p>
                       </div>
-                      <div class="pl-4">
-                        <h2 id="viewJobTitle" class="text-lg font-bold"></h2>
-                        <p id="viewJobCompany" class="text-sm"></p>
-                        <div class="flex items-center pt-2">
-                          <!-- <i class="fa-solid fa-location-dot text-sm pr-1 text-gray-400"></i> -->
-                          <p class="text-sm text-gray-400"></p>
-                        </div>
-                        <div class="flex items-center">
-                          <!-- <p class="text-sm text-gray-400 pr-1">Posted by:</p> -->
-                          <p id="viewJobAuthor" class="text-sm text-green-500 font-bold"></p>
-                        </div>
-                        <div class="flex items-center">
-                          <p class="text-sm text-gray-400 pr-1">Posted
-                            <span class="font-semibold" style="font-size: 1rem">·</span>
-                            <span id="viewJobDatePosted"></span>
-                          </p>
-                        </div>
-
-                        <!-- Buttons -->
-                        <div id="applicationBtn" class="flex items-center space-x-4 mt-4"></div>
+                      <div class="flex items-center">
+                        <!-- <p class="text-sm text-gray-400 pr-1">Posted by:</p> -->
+                        <p id="viewJobAuthor" class="text-sm text-green-500 font-bold"></p>
                       </div>
-                    </div>
-
-                    <!-- Horizontal Line -->
-                    <div class="flex justify-center px-10">
-                      <hr class="w-full h-2 border-black">
-                    </div>
-
-                    <!-- Project Overview -->
-                    <div class="px-10 py-2">
-                      <h3 class="font-semibold">Job Description</h3>
-                      <p id="jobDescript" class="indented text-justify text-sm text-dirtyWhite"></p>
-                    </div>
-
-                    <!-- location -->
-                    <div class="px-10 py-2">
-                      <h3 class="font-semibold">Location</h3>
-                      <div class="flex items-center gap-2">
-                        <iconify-icon icon="fluent:location-12-filled" style="color: #6c6c6c;"></iconify-icon>
-                        <span id="locationContainer" class="text-justify text-sm text-dirtyWhite"></span>
+                      <div class="flex items-center">
+                        <p class="text-sm text-gray-400 pr-1">Posted
+                          <span class="font-semibold" style="font-size: 1rem">·</span>
+                          <span id="viewJobDatePosted"></span>
+                        </p>
                       </div>
 
+                      <!-- Buttons -->
+                      <div id="applicationBtn" class="flex items-center space-x-4 mt-4"></div>
+                    </div>
+                  </div>
+
+                  <!-- Horizontal Line -->
+                  <div class="flex justify-center px-10">
+                    <hr class="w-full h-2 border-black">
+                  </div>
+
+                  <!-- Project Overview -->
+                  <div class="px-10 py-2">
+                    <h3 class="font-semibold">Job Description</h3>
+                    <p id="jobDescript" class="indented text-justify text-sm text-dirtyWhite"></p>
+                  </div>
+
+                  <!-- location -->
+                  <div class="px-10 py-2">
+                    <h3 class="font-semibold">Location</h3>
+                    <div class="flex items-center gap-2">
+                      <iconify-icon icon="fluent:location-12-filled" style="color: #6c6c6c;"></iconify-icon>
+                      <span id="locationContainer" class="text-justify text-sm text-dirtyWhite"></span>
                     </div>
 
-                    <!-- Skills -->
-                    <div class="px-10 py-2">
-                      <h3 class="font-semibold">Tags</h3>
-                      <div id="skillsContainer" class="flex flex-wrap gap-3 indented"></div>
-                    </div>
+                  </div>
 
-                    <!-- Qualifications -->
-                    <div class="px-10 py-2">
-                      <h3 class="font-semibold">Qualifications:</h3>
-                      <p id="viewJobQuali" class="indented text-justify text-dirtyWhite"></p>
-                    </div>
+                  <!-- Skills -->
+                  <div class="px-10 py-2">
+                    <h3 class="font-semibold">Tags</h3>
+                    <div id="skillsContainer" class="flex flex-wrap gap-3 indented"></div>
+                  </div>
 
+                  <!-- Qualifications -->
+                  <div class="px-10 py-2">
+                    <h3 class="font-semibold">Qualifications:</h3>
+                    <p id="viewJobQuali" class="indented text-justify text-dirtyWhite"></p>
                   </div>
 
                 </div>

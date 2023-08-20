@@ -408,18 +408,9 @@ $(document).ready(function () {
   $('#listOfJob').on('scroll', function () {
     if ($('#listOfJob').scrollTop() + $('#listOfJob').innerHeight() >= $('#listOfJob')[0].scrollHeight) {
       //check the filter active
-      if (checkerFilter == 'saved') {
-        readBookMark()
-        console.log('first')
-      }
-      else if (checkerFilter == 'applied') {
-        appliedWork()
-        console.log('second')
-      }
-      else if (checkerFilter == 'getWork') {
-        getWork(action, offsetJob)  //list of work
-        console.log('third');
-      }
+      if (checkerFilter == 'saved') readBookMark()
+      else if (checkerFilter == 'applied') appliedWork()
+      else if (checkerFilter == 'getWork') getWork(action, offsetJob)  //list of work
       else if (checkerFilter == 'admin') {
         let actionAdmin = {
           action: 'readWithAuthor',
@@ -427,7 +418,7 @@ $(document).ready(function () {
         }
         //change list into admin's list
         getWork(actionAdmin, offsetJob)
-        console.log('fourth')
+
       }
     }
   })
