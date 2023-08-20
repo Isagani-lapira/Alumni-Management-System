@@ -331,10 +331,10 @@ $(document).ready(function () {
     var contentHeight = container[0].scrollHeight;
     var scrollThreshold = 40; // Adjust this threshold as needed
 
+    isScrolled = true
     if (scrollPosition + containerHeight >= contentHeight - scrollThreshold) {
       getPost(actionTracker, typeTracker)
-      isScrolled = true
-    } else isScrolled = false
+    }
   })
 
 
