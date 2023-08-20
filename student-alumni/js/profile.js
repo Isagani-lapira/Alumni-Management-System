@@ -151,12 +151,15 @@ $(document).ready(function () {
         swiperWrapper.append(slide);
       });
 
-      // Navigation buttons
-      let pagination = $('<div>').addClass("swiper-pagination");
-      let prevBtn = $('<div>').addClass("swiper-button-prev");
-      let nextBtn = $('<div>').addClass("swiper-button-next");
+      swiperContainer.append(swiperWrapper);
 
-      swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
+      // Navigation buttons
+      if (images.length > 1) {
+        let pagination = $('<div>').addClass("swiper-pagination");
+        let prevBtn = $('<div>').addClass("swiper-button-prev");
+        let nextBtn = $('<div>').addClass("swiper-button-next");
+        swiperContainer.append(pagination, prevBtn, nextBtn);
+      }
 
       new Swiper('.swiper', {
         // If we need pagination
@@ -227,6 +230,7 @@ $(document).ready(function () {
           $('#restorePost').on('click', function () {
             const status = 'available'
             updatePostStatus(status, postID)
+            isScrolled = false;
           })
         })
     }
@@ -241,6 +245,7 @@ $(document).ready(function () {
           $('#deletePostbtn').on('click', function () {
             const status = 'deleted'
             updatePostStatus(status, postID)
+            isScrolled = false;
           })
         })
     }
@@ -295,7 +300,6 @@ $(document).ready(function () {
         restartPost()
         getPost(actionTracker, typeTracker) //reload the post again
         $('#restoreModal').addClass('hidden') //hide the modal again
-        isScrolled = false
       },
       error: error => { console.log(error) }
     })

@@ -144,12 +144,15 @@ $(document).ready(function () {
                 swiperWrapper.append(slide);
             });
 
-            // Navigation buttons
-            let pagination = $('<div>').addClass("swiper-pagination");
-            let prevBtn = $('<div>').addClass("swiper-button-prev");
-            let nextBtn = $('<div>').addClass("swiper-button-next ");
+            swiperContainer.append(swiperWrapper);
 
-            swiperContainer.append(swiperWrapper, pagination, prevBtn, nextBtn);
+            // Navigation buttons
+            if (images.length > 1) {
+                let pagination = $('<div>').addClass("swiper-pagination");
+                let prevBtn = $('<div>').addClass("swiper-button-prev");
+                let nextBtn = $('<div>').addClass("swiper-button-next");
+                swiperContainer.append(pagination, prevBtn, nextBtn);
+            }
 
             new Swiper('.swiper', {
                 // If we need pagination
@@ -544,7 +547,7 @@ $(document).ready(function () {
                         $('#commentContainer').append(commentContainer);
                     }
                 } else {
-                    let noCommentMsg = $('<p>').addClass('text-gray-500').text('No available comment')
+                    let noCommentMsg = $('<p>').addClass('text-gray-500 text-center').text('No available comment')
                     $('#commentContainer').append(noCommentMsg) //show no comment
                 }
             },
