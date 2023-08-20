@@ -36,4 +36,13 @@ class Applicant
         if ($result && $row > 0) return true;
         else return false;
     }
+
+    public function deleteApplication($username, $careerID, $con)
+    {
+        $query = "DELETE FROM `applicant` WHERE `username`= '$username' AND `careerID` = '$careerID'";
+        $result = mysqli_query($con, $query);
+
+        if ($result) echo 'Success';
+        else echo 'Failed';
+    }
 }

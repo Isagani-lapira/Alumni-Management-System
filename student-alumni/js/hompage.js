@@ -382,37 +382,65 @@ $(document).ready(function () {
       $('#skillsContainer').append(bulletIcon, skillVal);
     })
 
-    console.log(isApplied)
+    // button
+    $('#applicationBtn').empty()
+    applicationIcon = '<i id="iconApply" class="fas fa-check-circle pl-2 hidden"></i>';
+    applicationText = '<span id="appTxt">Apply Now</span>';
+    applicationBtn = $('<button>')
+      .addClass('bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded')
+      .append(applicationIcon, applicationText)
+
+    $('#applicationBtn').append(applicationBtn)
     //already applied
     if (isApplied) {
-      console.log('pumasok')
       //applied button
       $('#iconApply').removeClass('hidden')
       $('#appTxt').addClass('font-bold')
+        .text('Applied')
 
       //delete teh application
+      applicationBtn.on('click', function () {
+        deleteApplication(careerID) //delete the application
+      })
     }
     else { //not yet applied
       $('#iconApply').addClass('hidden')
       $('#appTxt').removeClass('font-bold')
-    }
 
-    //make apply process
-    $('#applyBtn').on('click', function () {
-      if (isApplied) {
-        //delete the application
-        deleteApplication()
-      }
-      else {
-        //application
-        applyJob(careerID);
-      }
-    })
+      applicationBtn.on('click', function () {
+        applyJob(careerID);  //application
+      })
+    }
 
   }
 
-  function deleteApplication() {
+  function deleteApplication(careerID) {
+    const action = {
+      action: 'deleteApplication'
+    }
 
+    //data to be send
+    const formatData = new FormData();
+    formatData.append('action', JSON.stringify(action))
+    formatData.append('careerID', careerID);
+
+    //process deletion
+    $.ajax({
+      url: '../PHP_process/jobTable.php',
+      method: 'POST',
+      data: formatData,
+      processData: false,
+      contentType: false,
+      success: response => {
+        if (response == 'Success') {
+          //change the application button
+          $('#iconApply').addClass('hidden')
+          $('#appTxt').removeClass('font-bold')
+            .text('Apply Now')
+        }
+      },
+      error: error => { console.log(error) },
+    })
   }
   function applyJob(careerID) {
     const action = {
@@ -435,6 +463,7 @@ $(document).ready(function () {
         if (response == 'Success') {
           $('#iconApply').removeClass('hidden')
           $('#appTxt').addClass('font-bold')
+            .text('Applied')
         }
         else {
           //not yet set up

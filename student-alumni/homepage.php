@@ -815,12 +815,12 @@ function getAccDetails($con, $personID)
                         </div>
 
                         <!-- Buttons -->
-                        <div class="flex items-center space-x-4 mt-4">
-                          <button id="applyBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded">
+                        <div id="applicationBtn" class="flex items-center space-x-4 mt-4">
+                          <!-- <button id="applyBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded">
                             <i id="iconApply" class="fas fa-check-circle pl-2 hidden"></i>
                             <span id="appTxt">Apply Now</span>
-                          </button>
-                          <button class="bg-white hover:bg-blue-600 hover:text-white border-2 border-blue-500 text-blue-500 px-4 py-3 rounded">Save</button>
+                          </button> -->
+                          <!-- <button class="bg-white hover:bg-blue-600 hover:text-white border-2 border-blue-500 text-blue-500 px-4 py-3 rounded">Save</button> -->
                         </div>
                       </div>
                     </div>

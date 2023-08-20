@@ -9,6 +9,8 @@ if (isset($_POST['action'])) {
         $arrayData = json_decode($data, true);
         $action = $arrayData['action'];
         $readCareer = new Career();
+        $apply = new Applicant();
+
         if ($action == 'create') {
             $author = $_POST['author'];
 
@@ -73,8 +75,11 @@ if (isset($_POST['action'])) {
             $readCareer->selectCareerAdmin($colCode, $offset, $mysql_con);
         } else if ($action == "applyJob") {
             $careerID = $_POST['careerID'];
-            $apply = new Applicant();
             $apply->resumeApplication($careerID, $mysql_con);
+        } else if ($action == 'deleteApplication') {
+            $careerID = $_POST['careerID'];
+            $username = $_SESSION['username'];
+            $apply->deleteApplication($username, $careerID, $mysql_con);
         }
     } catch (Exception $e) {
         echo $e->getMessage();
