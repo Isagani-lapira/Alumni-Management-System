@@ -27,7 +27,6 @@ class PostData
             return false;
         }
     }
-
     //insert images
     function insertImgPost($postID, $img, $con)
     {

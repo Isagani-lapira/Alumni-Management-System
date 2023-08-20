@@ -1,5 +1,6 @@
 <?php
 
+require_once 'notificationTable.php';
 class Likes
 {
     public function getLikes($postID, $con)
@@ -42,11 +43,25 @@ class Likes
 
         $query = "INSERT INTO `postlike`(`likeID`, `username`, `postID`) 
         VALUES ('$postLike','$username','$postID')";
-
         $result =  mysqli_query($con, $query);
 
-        if ($result) echo 'Success';
-        else echo 'Unsuccess';
+        if ($result) {
+            //add to notification
+            $typeOfNotif = 'like';
+            $notifObj = new Notification();
+
+            //get the username of the one who post
+            $queryUN = "SELECT `username` FROM `post` WHERE `postID`= '$postID'";
+            $postUNResult = mysqli_query($con, $queryUN);
+            $data = mysqli_fetch_assoc($postUNResult);
+            $postUsername = $data['username'];
+
+
+            //perform insertion
+            $insertNotif = $notifObj->insertNotif($postID, $postUsername, $typeOfNotif, $con);
+            if ($insertNotif) echo 'Success';
+            else 'Unsuccess';
+        } else echo 'Unsuccess';
     }
 
     public function removeLike($username, $postID, $con)

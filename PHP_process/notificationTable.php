@@ -125,4 +125,25 @@ class Notification
         if ($result) echo 'Success';
         else echo 'Failed';
     }
+
+    public function insertNotif($postID, $username, $typeOfNotif, $con)
+    {
+        $random = rand(0, 5000);
+        $uniqID = md5(uniqid());
+        $added_by = $_SESSION['username'];
+        $notifID = substr($uniqID, 0, 10) . '-' . $random;
+        $date = date('Y-m-d');
+        $timestamp = date('Y-m-d H:i:s');
+        $is_read = 0; //default
+
+        $query = "INSERT INTO `notification`(`notifID`, `postID`, `username`, 
+        `added_by`, `typeOfNotif`, `date_notification`, `timestamp`, `is_read`) 
+        VALUES ('$notifID','$postID','$username','$added_by','$typeOfNotif',
+        '$date','$timestamp','$is_read')";
+
+        $result = mysqli_query($con, $query);
+
+        if ($result) return true;
+        else return false;
+    }
 }
