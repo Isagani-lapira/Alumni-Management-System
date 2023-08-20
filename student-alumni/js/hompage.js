@@ -358,7 +358,7 @@ $(document).ready(function () {
 
 
   function displaySelectedCareer(careerID, jobTitle, companyName, author, datePosted, companyLogo,
-    description, skills, qualification, location) {
+    description, skills, qualification, location, isApplied) {
     let logo = imgFormat + companyLogo;
 
     //remove the past display
@@ -382,19 +382,38 @@ $(document).ready(function () {
       $('#skillsContainer').append(bulletIcon, skillVal);
     })
 
-    //make apply process
-    let isApplied = false;
-    $('#applyBtn').on('click', function () {
-      //perform the delete application
-      if (isApplied) {
+    console.log(isApplied)
+    //already applied
+    if (isApplied) {
+      console.log('pumasok')
+      //applied button
+      $('#iconApply').removeClass('hidden')
+      $('#appTxt').addClass('font-bold')
 
+      //delete teh application
+    }
+    else { //not yet applied
+      $('#iconApply').addClass('hidden')
+      $('#appTxt').removeClass('font-bold')
+    }
+
+    //make apply process
+    $('#applyBtn').on('click', function () {
+      if (isApplied) {
+        //delete the application
+        deleteApplication()
       }
-      else
+      else {
+        //application
         applyJob(careerID);
+      }
     })
 
   }
 
+  function deleteApplication() {
+
+  }
   function applyJob(careerID) {
     const action = {
       action: 'applyJob'
@@ -460,9 +479,10 @@ $(document).ready(function () {
           const skills = parsedResponse.skills[0];
           const qualification = parsedResponse.jobQuali[0];
           const location = parsedResponse.location[0];
+          const isApplied = parsedResponse.isApplied[0];
 
           displaySelectedCareer(careerID, jobTitle, companyName, author, datePosted,
-            companyLogo, description, skills, qualification, location)
+            companyLogo, description, skills, qualification, location, isApplied)
         }
       },
       error: (error) => { console.log(error) }

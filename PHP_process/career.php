@@ -1,4 +1,6 @@
 <?php
+require_once 'applicant.php';
+
 class Career
 {
     //job insertion
@@ -157,11 +159,13 @@ class Career
         $skills = array();
         $location = array();
         $personIDEncrypted = array();
+        $isApplied = array();
 
         if (mysqli_num_rows($result) > 0) {
             $response = "Success";
             while ($row_data = mysqli_fetch_assoc($result)) {
                 $careerID[] = $row_data['careerID'];
+                $tempCareerID = $row_data['careerID'];
                 $jobTitle[] = $row_data['jobTitle'];
                 $companyName[] = $row_data['companyName'];
                 $jobDescript[] = $row_data['jobDescript'];
@@ -189,6 +193,11 @@ class Career
                 }
 
                 $skills[] = $skillNames;
+
+                //check if current user is already applied to a post
+                $username = $_SESSION['username'];
+                $applicant = new Applicant();
+                $isApplied[] = $applicant->isApplied($tempCareerID, $username, $con);
             }
         } else $response = "none";
 
@@ -208,7 +217,8 @@ class Career
             'author' => $author,
             'date_posted' => $date_posted,
             'personID' => $personIDEncrypted,
-            'location' => $location
+            'location' => $location,
+            "isApplied" => $isApplied
         );
 
         echo json_encode($data); //return data as json

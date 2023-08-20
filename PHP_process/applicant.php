@@ -25,4 +25,15 @@ class Applicant
             else echo 'Failed';
         }
     }
+
+    public function isApplied($careerID, $username, $con)
+    {
+        $query = "SELECT * FROM `applicant` WHERE `careerID` = '$careerID'
+        AND `username` = '$username'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row > 0) return true;
+        else return false;
+    }
 }
