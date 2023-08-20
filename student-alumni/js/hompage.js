@@ -95,9 +95,10 @@ $(document).ready(function () {
               const author = parsedResponse.author[i];
               const skill = parsedResponse.skills[i];
               const location = parsedResponse.location[i];
+              const isSaved = parsedResponse.isSaved[i];
 
               //display job with design
-              listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
+              listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location, isSaved)
             }
 
             offsetJob += length //set new offset for job
@@ -112,7 +113,7 @@ $(document).ready(function () {
     })
   }
 
-  function listOfJobDisplay(jobTitle, company, author, skills, companyLogo, careerID, location) {
+  function listOfJobDisplay(jobTitle, company, author, skills, companyLogo, careerID, location, isSaved) {
 
     //creating elements
     let containerJob = $('<div>').addClass('rounded-md px-2 py-3 text-sm center-shadow flex gap-2 text-gray-500 cursor-pointer')
@@ -133,13 +134,12 @@ $(document).ready(function () {
     let skillContainer = $('<div>').addClass('text-xs flex gap-1 flex-wrap')
 
     //bookmark
-    let isSave = false;
     let outlineBookmark = '<iconify-icon id="bookmark" icon="iconamoon:bookmark-light" style="color: gray;" width="24" height="24"></iconify-icon>'
     let solidBookmark = '<iconify-icon icon="iconamoon:bookmark-fill" style="color: #991b1b;" width="24" height="24"></iconify-icon>'
     let bookmarkCont = $('<span>').html(outlineBookmark)
       .on('click', function () {
         //remove the saved career
-        if (isSave) {
+        if (isSaved) {
           $(this).html(outlineBookmark)
           removeBookmark(careerID)
         }
@@ -148,17 +148,13 @@ $(document).ready(function () {
           $(this).html(solidBookmark)
           saveCareer(careerID);
         }
-        isSave = !isSave
+        isSaved = !isSaved
       })
 
-    //check if the career is bookedmark
-    checkCareerMarked(careerID)
-      .then((result) => {
-        if (result === 'exist') {
-          bookmarkCont.html(solidBookmark) //change the bookmark from outline to solid
-          isSave = true;
-        }
-      })
+    if (isSaved) {
+      bookmarkCont.html(solidBookmark) //change the bookmark from outline to solid
+      isSaved = true;
+    }
 
     //retrieve all the skill and display in on a div to be included on the container
     skills.forEach(skill => {
@@ -254,9 +250,10 @@ $(document).ready(function () {
             const author = value.author;
             const skill = value.skills;
             const location = value.location;
+            const isSaved = parsedResponse.isSaved;
 
             //display job with design
-            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
+            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location, isSaved)
           })
 
           offsetJob += length
@@ -628,9 +625,10 @@ $(document).ready(function () {
             const company = parsedResponse.companyName[i];
             const author = parsedResponse.author[i];
             const skill = parsedResponse.skills[i];
+            const isSaved = parsedResponse.isSaved[i];
 
             //display job with design
-            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID)
+            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, isSaved)
           }
 
         }

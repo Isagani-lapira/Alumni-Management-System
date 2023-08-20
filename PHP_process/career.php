@@ -160,6 +160,7 @@ class Career
         $location = array();
         $personIDEncrypted = array();
         $isApplied = array();
+        $isSaved = array();
 
         if (mysqli_num_rows($result) > 0) {
             $response = "Success";
@@ -198,6 +199,9 @@ class Career
                 $username = $_SESSION['username'];
                 $applicant = new Applicant();
                 $isApplied[] = $applicant->isApplied($tempCareerID, $username, $con);
+
+                //check if the current user saved the job post
+                $isSaved[] = $this->isJobSaved($tempCareerID, $username, $con);
             }
         } else $response = "none";
 
@@ -218,12 +222,23 @@ class Career
             'date_posted' => $date_posted,
             'personID' => $personIDEncrypted,
             'location' => $location,
-            "isApplied" => $isApplied
+            "isApplied" => $isApplied,
+            'isSaved' => $isSaved
         );
 
         echo json_encode($data); //return data as json
     }
 
+    function isJobSaved($careerID, $username, $con)
+    {
+        $query = "SELECT * FROM `saved_career` WHERE 
+        `careerID` = '$careerID' AND `username` = '$username'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row > 0) return true;
+        else return false;
+    }
     function dateInText($date)
     {
         $year = substr($date, 0, 4);
