@@ -357,7 +357,7 @@ $(document).ready(function () {
   })
 
 
-  function displaySelectedCareer(jobTitle, companyName, author, datePosted, companyLogo,
+  function displaySelectedCareer(careerID, jobTitle, companyName, author, datePosted, companyLogo,
     description, skills, qualification, location) {
     let logo = imgFormat + companyLogo;
 
@@ -381,6 +381,54 @@ $(document).ready(function () {
       //add it on the container
       $('#skillsContainer').append(bulletIcon, skillVal);
     })
+
+    //make apply process
+    let isApplied = false;
+    $('#applyBtn').on('click', function () {
+      //perform the delete application
+      if (isApplied) {
+
+      }
+      else
+        applyJob(careerID);
+    })
+
+  }
+
+  function applyJob(careerID) {
+    const action = {
+      action: 'applyJob'
+    }
+
+    //data to be send
+    const formatData = new FormData();
+    formatData.append('action', JSON.stringify(action));
+    formatData.append('careerID', careerID);
+
+    //perform ajax operation
+    $.ajax({
+      url: '../PHP_process/jobTable.php',
+      method: 'POST',
+      data: formatData,
+      processData: false,
+      contentType: false,
+      success: response => {
+        if (response == 'Success') {
+          $('#iconApply').removeClass('hidden')
+          $('#appTxt').addClass('font-bold')
+        }
+        else {
+          //not yet set up
+          $('#errorResumeModal').removeClass('hidden')
+
+          //hide the error message after 3 seconds
+          setTimeout(function () {
+            $('#errorResumeModal').addClass('hidden')
+          }, 3500)
+        }
+      },
+      error: error => { console.log(error) }
+    })
   }
 
   function viewOfCareer(careerID) {
@@ -402,6 +450,7 @@ $(document).ready(function () {
         //if the process is successful
         const parsedResponse = JSON.parse(result);
         if (parsedResponse.result == 'Success') {
+          const careerID = parsedResponse.careerID[0];
           const companyName = parsedResponse.companyName[0];
           const jobTitle = parsedResponse.jobTitle[0];
           const companyLogo = parsedResponse.companyLogo[0];
@@ -412,7 +461,7 @@ $(document).ready(function () {
           const qualification = parsedResponse.jobQuali[0];
           const location = parsedResponse.location[0];
 
-          displaySelectedCareer(jobTitle, companyName, author, datePosted,
+          displaySelectedCareer(careerID, jobTitle, companyName, author, datePosted,
             companyLogo, description, skills, qualification, location)
         }
       },

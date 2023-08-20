@@ -313,8 +313,6 @@ function getAccDetails($con, $personID)
             <div class="h-1/3">
               <div class="swiper announcementSwiper">
                 <div id="announcementWrapper" class="swiper-wrapper"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
                 <div class="swiper-pagination"></div>
               </div>
             </div>
@@ -818,9 +816,9 @@ function getAccDetails($con, $personID)
 
                         <!-- Buttons -->
                         <div class="flex items-center space-x-4 mt-4">
-                          <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded">
-                            Apply Now
-                            <i class="fas fa-check-circle pl-2"></i>
+                          <button id="applyBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded">
+                            <i id="iconApply" class="fas fa-check-circle pl-2 hidden"></i>
+                            <span id="appTxt">Apply Now</span>
                           </button>
                           <button class="bg-white hover:bg-blue-600 hover:text-white border-2 border-blue-500 text-blue-500 px-4 py-3 rounded">Save</button>
                         </div>
@@ -871,9 +869,22 @@ function getAccDetails($con, $personID)
           </div>
 
         </div>
+
+        <!-- error prompt -->
+        <div id="errorResumeModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+          <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-1">
+            <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
+            </lord-icon>
+            <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
+            <p class=" text-center text-gray-500">Your resume appears to not have been set up yet. Set it first before applying.</p>
+          </div>
+
+        </div>
       </div>
 
     </div>
+
+  </div>
 
 
   </div>
@@ -886,6 +897,7 @@ function getAccDetails($con, $personID)
   <script src="../student-alumni/js/post.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
 </body>
 
 </html>

@@ -284,3 +284,15 @@ function retrieveResume($con)
 
     echo json_encode($data);
 }
+
+function getResumeID($con)
+{
+    $personID = $_SESSION['personID'];
+    $query = "SELECT * FROM `resume` WHERE `personID` = '$personID'";
+    $result = mysqli_query($con, $query);
+
+    $data = mysqli_fetch_assoc($result);
+    $resumeID = $data['resumeID'];
+
+    return $resumeID;
+}

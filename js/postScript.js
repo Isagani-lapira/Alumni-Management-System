@@ -347,21 +347,25 @@ $(document).ready(function () {
     let defaultStart = thismonth + '/' + thisday + '/' + thisyear
     let defaultEnd = thismonth + 1 + '/' + thisday + '/' + thisyear
 
-
+    //filter the post using date picker
     $(function () {
         $('input[name="daterange"]').daterangepicker({
             opens: 'left',
             startDate: defaultStart,
             endDate: defaultEnd
         }, function (start, end, label) {
+            //get the start date and end date
             let startDate = start.format('YYYY-MM-DD')
             let endDate = end.format('YYYY-MM-DD')
+
+            offsetPost = 0; //restart the offset
+            //set data to be sent in the back end for filtering
             let formData = new FormData();
             formData.append('action', JSON.stringify(postAction))
             formData.append('startDate', startDate)
             formData.append('endDate', endDate)
             formData.append('offset', offsetPost)
-            getPostAdmin(formData)
+            getPostAdmin(formData, true)
             $('#paginationBtnPost').addClass('hidden')
         });
     });
@@ -451,6 +455,8 @@ $(document).ready(function () {
     }
     let actionTracker = "";
     let isAvailable = true
+
+    //retrieve the post after clicking the profile tab
     $('#profileTabAdmin').on('click', function () {
         actionTracker = formDataAvailable
         displayToProfile(formDataAvailable, isAvailable)
@@ -501,6 +507,7 @@ $(document).ready(function () {
         })
     }
 
+    //get the date in a text format
     function getFormattedDate(date) {
         //parts out the date
         let year = date.substring(0, 4);
@@ -513,6 +520,8 @@ $(document).ready(function () {
 
         return month + ' ' + day + ', ' + year
     }
+
+    //display for in the profile tab
     function displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isAvailable, isLikedByUser) {
         const feedContainer = $('#feedContainer')
         const postWrapper = $('<div>').addClass('postWrapper rounded-md center-shadow p-4 mx-auto');

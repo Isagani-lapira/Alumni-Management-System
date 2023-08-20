@@ -1,5 +1,6 @@
 <?php
 require_once 'career.php';
+require_once 'applicant.php';
 require_once 'connection.php';
 
 if (isset($_POST['action'])) {
@@ -70,6 +71,10 @@ if (isset($_POST['action'])) {
             $colCode = $arrayData['colCode'];
             $offset = $_POST['offset'];
             $readCareer->selectCareerAdmin($colCode, $offset, $mysql_con);
+        } else if ($action == "applyJob") {
+            $careerID = $_POST['careerID'];
+            $apply = new Applicant();
+            $apply->resumeApplication($careerID, $mysql_con);
         }
     } catch (Exception $e) {
         echo $e->getMessage();
