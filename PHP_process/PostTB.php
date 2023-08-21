@@ -369,11 +369,13 @@ class PostData
 
         //report category is available only
         if ($college == null && $reportCat != null) {
-            $query = "SELECT p.*
+            $query = "SELECT p.*, COUNT(rp.postID) AS num_reports
             FROM post p
-            JOIN report_post rp ON p.postID = rp.postID
-            WHERE rp.report_category = '$reportCat' AND
-             `status`='available' ORDER BY `date` DESC LIMIT $offset,$maxLimit ";
+            LEFT JOIN report_post rp ON p.postID = rp.postID
+            WHERE p.status = 'available' AND rp.report_category = '$reportCat'
+            GROUP BY p.postID
+            ORDER BY num_reports DESC, p.date DESC 
+            LIMIT $offset, $maxLimit";
         } else if ($reportCat == null && $college != null) {
             //get college only
             $query = "SELECT * FROM `post` WHERE `colCode` = '$college' 

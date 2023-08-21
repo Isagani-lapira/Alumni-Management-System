@@ -1280,20 +1280,29 @@ $(document).ready(function () {
                     const data = JSON.parse(response)
                     if (data.response == 'Success') {
                         let length = data.colCode.length;
+                        console.log(length)
                         for (let i = 0; i < length; i++) {
-                            let postID = data.postID[i]
-                            let profilePic = data.profilePic[i]
-                            let username = data.username[i]
-                            let fullname = data.fullname[i]
-                            let caption = data.caption[i]
-                            let date = data.date[i]
-                            let comment = data.comments[i];
-                            let likes = data.likes[i];
-                            let imagesObj = data.images[i];
 
-                            displayCommunityPost(postID, profilePic, fullname, username, imagesObj, caption, date, likes, comment)
+                            //data retrieved
+                            const postID = data.postID[i]
+                            const profilePic = data.profilePic[i]
+                            const username = data.username[i]
+                            const isLiked = data.isLiked[i];
+                            const fullname = data.fullname[i]
+                            const caption = data.caption[i]
+                            const date = data.date[i]
+                            const comment = data.comments[i];
+                            const likes = data.likes[i];
+                            const imagesObj = data.images[i];
+                            const report = data.report[i];
+
+                            //display the mark up for post and report
+                            displayCommunityPost(postID, profilePic, fullname,
+                                username, imagesObj, caption, date, likes, comment,
+                                isLiked, report)
                         }
                         offsetCommunity += length
+                        lengthRetrieved = length
                     }
                     else {
                         $("#noPostMsgCommunity").removeClass('hidden')
