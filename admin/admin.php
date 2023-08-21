@@ -145,7 +145,7 @@ function dateInText($date)
             </li>
 
             <!-- student record -->
-            <li class="rounded-lg p-2"><a href="#student-tab">
+            <li id="studenLi" class="rounded-lg p-2"><a href="#student-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
                   <path d="M4 2H2v26a2 2 0 0 0 2 2h26v-2H4Z" />
                   <path d="M30 9h-7v2h3.59L19 18.59l-4.29-4.3a1 1 0 0 0-1.42 0L6 21.59L7.41 23L14 16.41l4.29 4.3a1 1 0 0 0 1.42 0l8.29-8.3V16h2Z" />
@@ -638,23 +638,20 @@ function dateInText($date)
               <input class="focus:outline-none w-full" type="text" name="" id="searchPerson" placeholder="Typing!">
             </div>
 
-            <!-- range -->
-            <!-- <div class="w-full flex border p-2 mx-2">
-              <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018" />
-              <label class="" for="reportdaterange">
-                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
-              </label>
-            </div> -->
-
             <!-- batch selection -->
             <select name="" id="batch" class="w-full p-1">
               <option selected disabled hidden>Batch</option>
-              <!-- php function on batch -->
+              <option value="">All</option>
+              <option value="4th Year">4th Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="1st Year">1st Year</option>
             </select>
 
             <!-- college selection -->
             <select name="college" id="college" class="w-full p-1">
-              <option value="" selected disabled hidden>Course</option>
+              <option selected disabled hidden>Course</option>
+              <option value="">All</option>
               <?php
               require_once '../PHP_process/connection.php';
               $query = "SELECT * FROM `college`";

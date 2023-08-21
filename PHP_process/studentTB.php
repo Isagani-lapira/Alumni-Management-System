@@ -2,6 +2,7 @@
 
 class Student
 {
+    private $MAX_LIMIT = 10;
     function insertStudent($studNo, $colCode, $personID, $username, $currentYear, $con)
     {
         $query = "INSERT INTO `student`(`studNo`, `colCode`, `personID`, `username`, `currentYear`)
@@ -13,15 +14,34 @@ class Student
         else return false;
     }
 
-    function getStudenData($currentYear, $con)
+    function getAllStudent($offset, $currentYear, $colCode, $search, $con)
     {
         $query = "";
-        if ($currentYear != "")
-            $query = 'SELECT * FROM `student` WHERE `currentYear` = "' . $currentYear . '"';
-        else
-            $query = 'SELECT * FROM `student`';
+        if ($currentYear != "" && $colCode == '') //current year is only selected
+            $query = "SELECT * FROM `student` WHERE `currentYear` = '$currentYear'";
+        else if ($colCode != "" && $currentYear == '')
+            $query = "SELECT * FROM `student` WHERE `colCode` = '$colCode'"; //filter only a course
+        else if ($colCode != "" && $currentYear != "")
+            $query = "SELECT * FROM `student` WHERE `colCode` = '$colCode' AND `currentYear` = '$currentYear'"; //filter both course and currentYear
+        else if ($currentYear == '' && $colCode == '' && $search != '') {
+            $query = "SELECT *
+            FROM student
+            WHERE personID IN (
+                SELECT s.personID
+                FROM student s
+                JOIN person p ON s.personID = p.personID
+                WHERE CONCAT(p.`fname`, ' ', p.`lname`) LIKE '%$search%')";
+        } else
+            $query = "SELECT * FROM `student`"; //select all
 
+        $query .= "LIMIT $offset,$this->MAX_LIMIT";
         $result = mysqli_query($con, $query);
+
+        $this->retrievedDetails($result, $con);
+    }
+
+    function retrievedDetails($result, $con)
+    {
         $row = mysqli_num_rows($result);
 
         $response = "";

@@ -600,15 +600,24 @@ $(document).ready(function () {
     }
   })
 
-  getStudentRecord()
+  let studentDataOffset = 0;
+  let studentCurrentYear = '';
+  let studentColCode = '';
+  let studentSearch = '';
+  $('#studenLi').on('click', function () {
+    //load the student record
+    getStudentRecord()
+  })
   //get student record
   function getStudentRecord() {
 
     let action = {
       action: 'read',
-      currentYear: ''
+      currentYear: studentCurrentYear,
+      colCode: studentColCode,
+      offset: studentDataOffset,
+      search: studentSearch
     }
-
     let studentData = new FormData();
     studentData.append('action', JSON.stringify(action));
     $.ajax({
@@ -619,17 +628,19 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: (response) => {
+        let tbody = $('#studentTB')
+        tbody.find('tr').remove();
         if (response.response == "Success") {
           let data = response
           let length = data.studentNo.length; //length of the data has been retrieved
 
           //display the student record on the table 
-          let tbody = $('#studentTB')
           for (let i = 0; i < length; i++) {
-            studentNo = data.studentNo[i];
-            fullname = data.fullname[i];
-            contactNo = data.contactNo[i];
-            let tr = $('<tr>');
+            //retrieve data from response
+            const studentNo = data.studentNo[i];
+            const fullname = data.fullname[i];
+            const contactNo = data.contactNo[i];
+            let tr = $('<tr>').addClass('student-data');
             let tdStudentNo = $('<td>').addClass('text-center font-bold').text(studentNo)
             let tdfullname = $('<td>').addClass('text-center').text(fullname)
             let tdcontactNo = $('<td>').addClass('text-center').text(contactNo)
@@ -640,13 +651,40 @@ $(document).ready(function () {
             tr.append(tdStudentNo, tdfullname, tdcontactNo, viewProfile);
             tbody.append(tr);
           }
+          studentDataOffset += length;
         }
       },
       error: (error) => { console.log(error) }
     });
   }
 
+  //filtering process for student record
+  $('#college').on('change', function () {
+    studentDataOffset = 0;
+    //restart the student search
+    studentSearch = '';
+    $('#searchPerson').val('');
+    studentColCode = $(this).val();
+    getStudentRecord(); //retrieve data based on filtered college
+  })
+  //batch filtering
+  $('#batch').on('change', function () {
+    studentDataOffset = 0;
+    //restart the student search
+    studentSearch = '';
+    $('#searchPerson').val('');
+    studentCurrentYear = $(this).val();
+    getStudentRecord(); //retrieve data based on filtered college
+  })
 
+  //search a specific student
+  $('#searchPerson').on('input', function () {
+    studentDataOffset = 0;
+    studentColCode = '';
+    studentCurrentYear = '';
+    studentSearch = $(this).val();
+    getStudentRecord();
+  })
 
 
   getAlumniRecord();
