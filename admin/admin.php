@@ -1392,7 +1392,7 @@ function dateInText($date)
 
               <tbody class="text-sm" id="jobTBContent"></tbody>
             </table>
-            <div class="flex justify-end gap-2 px-2 mt-2">
+            <div id="jobNavigation" class="flex justify-end gap-2 px-2 mt-2">
               <button id="prevJob" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
               <button id="nextJob" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
             </div>

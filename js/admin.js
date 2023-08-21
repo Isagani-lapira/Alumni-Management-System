@@ -289,13 +289,6 @@ $(document).ready(function () {
         success: function (success) {
           $('#promptMessage').removeClass('hidden');
           $('#insertionMsg').html(success);
-
-          //remove the current data that has been adden
-          $('#adminJobPostCont').empty()
-          $('#jobTBContent').empty();
-
-          //retrieve the data to be display all
-          jobList()
         },
         error: function (error) {
           $('#promptMessage').removeClass('hidden');
@@ -306,20 +299,21 @@ $(document).ready(function () {
   })
 
 
-  var jobData = new FormData();
   let offset = 0;
-  var jobAction = {
-    action: 'read', //read the data
-  }
-
-  jobData.append('action', JSON.stringify(jobAction));
-  jobData.append('offset', offset);
+  let tempOffsetJob = 0;
+  let countNext = 0;
   //job table listing
   $('#jobLI').on('click', function () {
-    jobList()
+    jobList(offset)
   })
 
-  function jobList() {
+  function jobList(offset) {
+    let jobAction = {
+      action: 'read', //read the data
+    }
+    const jobData = new FormData();
+    jobData.append('action', JSON.stringify(jobAction));
+    jobData.append('offset', offset);
     $.ajax({
       url: '../PHP_process/jobTable.php',
       type: 'POST',
@@ -330,7 +324,7 @@ $(document).ready(function () {
       success: function (response) {
         //check if there's a value
         if (response.result === 'Success') {
-          $('#jobTBContent').empty();
+          $('#jobNavigation').find('button').remove();
           $('.jobErrorMsg').addClass('hidden'); //hide the message
           let data = response;
           let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
@@ -346,17 +340,7 @@ $(document).ready(function () {
             let datePosted = data.date_posted[i];
             let companyLogo = data.companyLogo[i];
             let skills = data.skills[i];
-            let personID = data.personID[i];
             let logo = imgFormat + companyLogo;
-
-            //encrypt the personID to be compare on the personID return that is also encrypted
-            let desiredValue = decodedPersonID;
-            let desiredValueEncrypted = md5(desiredValue);
-
-            //check if there's a similar person ID and produce a my joblist
-            if (personID === desiredValueEncrypted) {
-              myJobPostList(jobTitle, logo)
-            }
 
             //add data to a table data
             let row = $('<tr>').addClass('text-xs');
@@ -366,7 +350,7 @@ $(document).ready(function () {
             let tdDatePosted = $('<td>').text(datePosted);
             let tdLogo = $('<td>').append($('<img>')
               .attr('src', logo)
-              .addClass('w-20 mx-auto rounded-full'));
+              .addClass('w-20 h-20 mx-auto rounded-full'));
 
 
             //set up the value if th button view was clicked to view the details of the job
@@ -400,6 +384,32 @@ $(document).ready(function () {
             row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted, btnView);
             $('#jobTBContent').append(row);
           }
+          offset += jobTitles.length
+          tempOffsetJob = jobTitles.length
+          const nextBtn = $('<button>')
+            .addClass('bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md')
+            .text('Next')
+            .on('click', function () {
+              $('#jobTBContent').find('tr').remove()
+              jobList(offset);
+              countNext += tempOffsetJob
+            })
+          const prevBtn = $('<button>')
+            .addClass('border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md')
+            .text('Previous')
+            .on('click', function () {
+              countNext -= tempOffsetJob
+
+              console.log(countNext)
+              //check if there are still to be back
+              if (countNext >= 0) {
+                $('#jobTBContent').find('tr').remove()
+                jobList(countNext);
+              } else prevBtn.addClass('hidden')
+
+            })
+
+          $('#jobNavigation').append(prevBtn, nextBtn)
         } else {
           $('.jobErrorMsg').removeClass('hidden'); //add message to the user
           $('#nextJob').attr('disabled', true)
@@ -414,46 +424,11 @@ $(document).ready(function () {
     })
   }
 
-  //next sets of data
-  $('#nextJob').on('click', function () {
 
-    offset += 10
-    jobData.delete('offset');
-    jobData.append('offset', offset); //set new offset that is increase by 10
-    $('#jobTBContent').empty(); //remove the currently display list
-    jobList(); //retrieve new sets of data
-
+  //admin job list post
+  $('#jobMyPost').on('click', function () {
+    console.log('napindot')
   })
-
-  //previous sets of data
-  $('#prevJob').on('click', function () {
-    if (offset != 0) {
-      offset -= 10
-      jobData.delete('offset');
-      jobData.append('offset', offset); //set new offset that is increase by 10
-      $('#jobTBContent').empty(); //remove the currently display list
-      jobList(); //retrieve new sets of data
-
-      //enable the next button
-      $('#nextJob').removeAttr('disabled')
-        .removeClass('hidden')
-    }
-
-  })
-
-  function myJobPostList(careerTitle, companyLogo) {
-
-    let container = $('<div>').addClass("college center-shadow col-span-1 flex flex-col justify-center rounded-lg border");
-    let imgLogo = $('<img>').addClass("flex-auto h-20 w-20 block mx-auto")
-    imgLogo.attr('src', companyLogo)
-
-    let titlePart = $('<p>').addClass("text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium");
-    titlePart.text(careerTitle);
-    container.append(imgLogo, titlePart);
-    $('#adminJobPostCont').append(container);
-
-  }
-
   //retrieve all the skills have been written
   function skillArray() {
     var skills = [];

@@ -99,7 +99,7 @@ class Career
     public function selectData($offset, $con)
     {
         $maxLimit = 5;
-        $query = "SELECT * FROM `career` WHERE `status` = 'verified' ORDER BY`date_posted`DESC LIMIT $offset, $maxLimit"; //as defult
+        $query = "SELECT * FROM `career` WHERE `status` = 'verified' ORDER BY`date_posted` DESC LIMIT $offset, $maxLimit"; //as defult
         $result = mysqli_query($con, $query);
 
         if ($result) $this->getCareerDetail($result, $con);
