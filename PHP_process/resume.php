@@ -1,8 +1,6 @@
 <?php
 
-
 require_once 'connection.php';
-
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
     if ($action == 'insertData') {
@@ -160,6 +158,7 @@ function haveResume($personID, $con)
 
 function retrieveResume($con)
 {
+    session_start();
     $personID = $_SESSION['personID'];
     $query = "SELECT * FROM `resume` WHERE `personID` = '$personID'";
     $result = mysqli_query($con, $query);

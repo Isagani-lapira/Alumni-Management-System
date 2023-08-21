@@ -1,6 +1,5 @@
 <?php
-require_once 'resume.php';
-
+require 'resume.php';
 class Applicant
 {
     public function resumeApplication($careerID, $con)
