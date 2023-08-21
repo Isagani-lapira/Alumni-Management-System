@@ -673,7 +673,7 @@ function dateInText($date)
 
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin">
+          <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
             <thead>
               <tr class="bg-accent text-white">
                 <th class="text-start rounded-tl-lg">Student Number</th>
@@ -685,6 +685,10 @@ function dateInText($date)
             <tbody id="studentTB" class="text-sm">
             </tbody>
           </table>
+          <div class="flex justify-end items-center gap-2 font-bold my-2">
+            <button id="prevBtnStudent" class="border border-accent text-accent hover:bg-accent hover:text-white py-2 px-3 rounded-md">Previous</button>
+            <button id="nextBtnStudent" class="bg-accent text-white hover:bg-darkAccent py-2 px-4 rounded-md">Next</button>
+          </div>
         </div>
 
         <!-- alumni record content -->

@@ -604,6 +604,7 @@ $(document).ready(function () {
   let studentCurrentYear = '';
   let studentColCode = '';
   let studentSearch = '';
+  let studentRetrieved = 0;
   $('#studenLi').on('click', function () {
     //load the student record
     getStudentRecord()
@@ -652,6 +653,9 @@ $(document).ready(function () {
             tbody.append(tr);
           }
           studentDataOffset += length;
+          studentRetrieved = length;
+          if (length < 10)
+            $('#nextBtnStudent').addClass('hidden')
         }
       },
       error: (error) => { console.log(error) }
@@ -686,7 +690,22 @@ $(document).ready(function () {
     getStudentRecord();
   })
 
+  //pagination for student record
+  $('#nextBtnStudent').on('click', getStudentRecord)
 
+  $('#prevBtnStudent').on('click', function () {
+    studentDataOffset -= studentRetrieved
+    //check first if there's more to be previous
+    if (studentDataOffset !== 0) {
+      getStudentRecord();
+      //show the next 
+      $('#nextBtnStudent').removeClass('hidden')
+    }
+    else {
+      $(this).addClass('hidden')
+      $('#nextBtnStudent').addClass('hidden')
+    }
+  })
   getAlumniRecord();
   function getAlumniRecord() {
     let actionAlumni = {
