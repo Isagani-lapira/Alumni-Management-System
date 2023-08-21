@@ -200,7 +200,7 @@ class PostData
         $comments = array();
         $likes = array();
         $likedByCurrentUser = array();
-
+        $report = array();
         if ($result && $row > 0) {
             $response = 'Success';
             while ($data = mysqli_fetch_assoc($result)) {
@@ -224,6 +224,9 @@ class PostData
 
                 //check if the user already liked a certain post
                 $likedByCurrentUser[] = $this->checkedByUser($tempPostID, $con);
+
+                //get post report
+                $report[] = $this->postReport($tempPostID, $con);
             }
         } else return false;
 
@@ -241,6 +244,7 @@ class PostData
             'fullname' => $fullname,
             'profilePic' => $imgProfile,
             'timestamp' => $timestamp,
+            'report' => $report
         );
 
         return json_encode($data);
@@ -406,5 +410,29 @@ class PostData
             $postResult = $this->getPostData($result, $con);
             echo $postResult;
         } else echo 'failed';
+    }
+
+    function postReport($postID, $con)
+    {
+        //get all the report
+        $report = array();
+        $query = "SELECT `report_category` FROM `report_post` WHERE `postID`='$postID'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        $response = "";
+        //retrieve the report
+        if ($result && $row > 0) {
+            $response = "Success";
+            while ($data = mysqli_fetch_assoc($result)) {
+                $report[] = $data['report_category'];
+            }
+        } else $response = "Nothing";
+
+        $data = array(
+            "response" => $response,
+            "report" => $report
+        );
+        return json_encode($data);
     }
 }

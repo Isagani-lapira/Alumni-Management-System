@@ -1336,7 +1336,7 @@ function dateInText($date)
                 <option value="Harassment">Harassment</option>
               </select>
 
-              <div id="communityContainer" class="p-5 no-scrollbar"></div>
+              <div id="communityContainer" class="p-5 flex flex-col gap-3 no-scrollbar"></div>
               <p id="noPostMsgCommunity" class="text-blue-400 text-center hidden">No available post</p>
             </div>
             <!-- report graph -->

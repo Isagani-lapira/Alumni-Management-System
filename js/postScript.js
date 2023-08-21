@@ -885,6 +885,7 @@ $(document).ready(function () {
     })
 
     let offsetCommunity = 0
+    let lengthRetrieved = 0;
     //community post tab
     $('#communityLi').on('click', function () {
         //load the data for community after the click
@@ -903,7 +904,6 @@ $(document).ready(function () {
         let formData = new FormData()
         formData.append('action', JSON.stringify(action))
         formData.append('offset', offsetCommunity)
-        console.log(offsetCommunity)
         //process retrieval
         $.ajax({
             url: '../PHP_process/postDB.php',
@@ -927,10 +927,12 @@ $(document).ready(function () {
                             const comment = data.comments[i];
                             const likes = data.likes[i];
                             const imagesObj = data.images[i];
+                            const report = data.report[i];
 
-                            displayCommunityPost(postID, profilePic, fullname, username, imagesObj, caption, date, likes, comment, isLiked)
+                            displayCommunityPost(postID, profilePic, fullname, username, imagesObj, caption, date, likes, comment, isLiked, report)
                         }
                         offsetCommunity += length
+                        lengthRetrieved = length;
                     }
                     else {
                         $("#noPostMsgCommunity").removeClass('hidden')
@@ -947,9 +949,10 @@ $(document).ready(function () {
         })
     }
 
-    function displayCommunityPost(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isLikedByUser) {
+    function displayCommunityPost(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isLikedByUser, report) {
         const feedContainer = $('#communityContainer')
-        const postWrapper = $('<div>').addClass('communityWrapper rounded-md center-shadow p-4 mx-auto');
+        const container = $('<div>').addClass('flex gap-1')
+        const postWrapper = $('<div>').addClass('communityWrapper rounded-md center-shadow p-4');
 
         //adding details for header
         let header = $('<div>');
@@ -1091,10 +1094,61 @@ $(document).ready(function () {
 
         //attach all details to a postwrapper and to the root
         interactionContainer.append(leftContainer, deleteElement)
-        postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
-        feedContainer.append(postWrapper);
 
-        var percent = feedContainer.width() * 0.90;
+        //report
+        reportWrapper = $('<div>').addClass('flex flex-col gap-2 text-xs flex-wrap text-gray-400 py-2 text-end')
+        let nudityCount = 0
+        let violenceCount = 0
+        let terrorismCount = 0
+        let speechCount = 0
+        let falseInfoCount = 0
+        let suicideCount = 0
+        let harassmentCount = 0
+
+        if (report.response !== "Nothing") {
+            const data = JSON.parse(report);
+            data.report.forEach(function (value, index) {
+                switch (value) {
+                    case 'Nudity':
+                        nudityCount++;
+                        break;
+                    case 'Violence':
+                        violenceCount++;
+                        break;
+                    case 'Terrorism':
+                        terrorismCount++;
+                        break;
+                    case 'Hate Speech':
+                        speechCount++;
+                        break;
+                    case 'False Information':
+                        falseInfoCount++;
+                        break;
+                    case 'Suicide or self-injury':
+                        suicideCount++;
+                        break;
+                    case 'Harassment':
+                        harassmentCount++;
+                        break;
+                }
+            });
+
+            spanNudity = $('<span>').text(nudityCount + ' Nudity')
+            spanViolence = $('<span>').text(violenceCount + ' Violence')
+            spanTerror = $('<span>').text(terrorismCount + ' Terrorism')
+            spanHS = $('<span>').text(falseInfoCount + ' Hate Speech')
+            spanFalseInfo = $('<span>').text(suicideCount + ' False Info')
+            spanHrass = $('<span>').text(harassmentCount + ' Harassment')
+            spanSOS = $('<span>').text(speechCount + ' SOS')
+
+            reportWrapper.append(spanNudity, spanViolence, spanTerror
+                , spanHS, spanFalseInfo, spanHrass, spanSOS);
+        }
+        postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
+        container.append(postWrapper, reportWrapper)
+        feedContainer.append(container);
+
+        var percent = feedContainer.width() * 0.80;
         postWrapper.width(percent);
     }
 
@@ -1104,9 +1158,9 @@ $(document).ready(function () {
         var scrollPosition = container.scrollTop();
         var containerHeight = container.height();
         var contentHeight = container[0].scrollHeight;
-        var scrollThreshold = 50; // Adjust this threshold as needed
+        var scrollThreshold = 70; // Adjust this threshold as needed
 
-        if (scrollPosition + containerHeight >= contentHeight - scrollThreshold && offsetCommunity == 10) {
+        if (scrollPosition + containerHeight >= contentHeight - scrollThreshold && lengthRetrieved == 10) {
             getCommunityPost()
         }
     });
