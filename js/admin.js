@@ -581,6 +581,10 @@ $(document).ready(function () {
   let studentSearch = '';
   let studentRetrieved = 0;
   $('#studenLi').on('click', function () {
+    studentDataOffset = 0;
+    studentCurrentYear = '';
+    studentColCode = '';
+    studentSearch = '';
     //load the student record
     getStudentRecord()
   })

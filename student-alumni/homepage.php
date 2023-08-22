@@ -247,6 +247,18 @@ function getAccDetails($con, $personID)
               </button>
             </div>
 
+            <!-- profile -->
+            <div class="flex items-center h-10 p-2 mt-1">
+              <a href="profile.php">
+                <button>
+                  <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="black" d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2S7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z" />
+                  </svg>
+                </button>
+                <span class="ps-3 text-sm text-greyish_black font-medium">Profile</span>
+              </a>
+            </div>
+
             <!-- Make Post Button -->
             <button id="postButton" class="bg-postButton hover:bg-postHoverButton rounded-md w-full lg:w-3/4 py-2 text-white mt-3">Make a post</button>
 
@@ -755,7 +767,7 @@ function getAccDetails($con, $personID)
               <!-- Dropdown List -->
               <select id="jobSelection" class="py-2 p-3 outline-none border-black center-shadow rounded-md shadow text-sm appearance-none cursor-pointer">
                 <option value="all">All</option>
-                <option value="Saved">Saved</option>
+                <option value="Saved">Bookmark</option>
                 <option value="Applied">Applied</option>
                 <option value="Admin">Admin post</option>
               </select>

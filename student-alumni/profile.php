@@ -141,7 +141,7 @@ function dateInText($date)
 <body class="bg-gray-100 scrollable-container">
 
     <!-- Navbar -->
-    <nav class="navbar grid grid-cols-3 gap-4 p-3 bg-white text-black shadow-lg">
+    <nav class=" z-50 w-full fixed top-0 grid grid-cols-3 gap-4 p-3 bg-white text-black shadow-lg">
         <!-- Logo -->
         <a href="homepage.php" class="col-span-1 flex items-center">
             <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
@@ -151,7 +151,7 @@ function dateInText($date)
         <!-- Search Bar -->
         <div class="col-span-1 flex items-center justify-center">
             <div class="relative w-full">
-                <input type="text" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-accent text-sm border-2 outline-none border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none transparent-search-bar" />
+                <input type="text" placeholder="Search" class="pl-10 pr-4 py-3 w-full border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none transparent-search-bar" />
                 <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
             </div>
         </div>
@@ -159,29 +159,11 @@ function dateInText($date)
         <!-- Menu Items -->
         <ul class="col-span-1 flex items-center justify-end space-x-8 px-4">
             <li>
-                <a href="../student-alumni/homepage.php" class="text-gray-800 hover:text-gray-600 font-bold">Home</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-800 hover:text-gray-600 font-bold">Jobs</a>
-            </li>
-            <li class="relative">
-                <a href="#" class="text-gray-800 hover:text-gray-600 font-bold" id="notificationsLink">Notifications</a>
-                <div id="notificationsDropdown" class="absolute right-0 mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold">Notifications</h3>
-                        <div class="mt-4">
-                            <button id="allNotificationsBtn" class="mr-2 text-gray-600 hover:text-gray-800">All</button>
-                            <button id="unreadNotificationsBtn" class="text-gray-600 hover:text-gray-800">Unread</button>
-                        </div>
-                        <div class="mt-4">
-                            <!-- add notif -->
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <a href="#" class="text-blue-600 hover:text-blue-800">
+                <a href="#" class="text-blue-600 hover:text-blue-800 items-center flex gap-2">
                     <img src="../images/ye.jpg" alt="Profile Picture" class="w-12 h-12 rounded-full border-2 border-accentBlue" />
+                    <?php
+                    echo '<p class="mt-1 font-bold text-greyish_black">' . $fullname . '</p>';
+                    ?>
                 </a>
             </li>
         </ul>
@@ -192,17 +174,17 @@ function dateInText($date)
         <?php
         if ($coverPhoto == "") {
             // Use the default image as the background of the container
-            echo '<div class="h-full bg-black rounded-md" style="background-image: url(../images/bganim.jpg); background-size: cover; background-position: center;"></div>';
+            echo '<div class="h-full bg-black w-3/4 mx-auto rounded-md" style="background-image: url(../images/bganim.jpg); background-size: cover; background-position: center;"></div>';
         } else {
             // Use the uploaded image as the background of the container
             $srcFormat = 'data:image/jpeg;base64,' . $coverPhoto;
-            echo '<div class="h-full bg-no-repeat rounded-md bg-black bg-opacity-50" style="background-image: url(' . $srcFormat . '); background-size: cover; background-position: center top;">
-            <img id="profilePhoto" src="' . $srcFormat . '" alt="Profile Icon" class="w-full h-full object-contain" />
+            echo '<div class="h-full w-3/4 mx-auto bg-no-repeat rounded-md bg-black bg-opacity-50" style="background-image: url(' . $srcFormat . '); 
+            background-size: cover; background-position: center bottom;">
             </div>';
         }
         ?>
         <!-- Profile Photo (Intersecting with the Cover Photo) -->
-        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-full border-4 border-accentBlue overflow-hidden w-56 h-56">
+        <div class="profileWrapper absolute bottom-0 flex transform -translate-x-1/4 translate-y-1/2 rounded-full border-4 border-accentBlue overflow-hidden w-44 h-44">
             <?php
             if ($profilepicture == "") {
                 echo '<img id="profilePhoto" src="../assets/icons/person.png" alt="Profile Icon" class="w-full h-full object-cover" />';
@@ -215,27 +197,26 @@ function dateInText($date)
     </div>
 
     <!-- Buttons -->
-    <div class="flex justify-end mt-4 space-x-4 px-8 pt-8">
-        <button id="viewResumeBtn" class="bg-accent hover:bg-darkAccent text-white px-4 py-2 rounded-lg">View Resume</button>
-        <button id="modal-openBtn" class="bg-gray-100 hover:bg-gray-200 text-accent border border-accent px-4 py-2 rounded-lg">Edit Profile</button>
-    </div>
+    <div class="flex items-center justify-between w-3/4 mx-auto my-4">
+        <div class="w-1/4"></div>
+        <div class="w-3/4 flex items-center">
+            <!-- Profile Info -->
+            <div class=" w-1/2">
+                <!-- Student's name and user handle -->
+                <?php
+                echo '<p class="font-bold text-3xl text-blue-900">' . $fullname . '</p>';
+                echo '<p class="text-gray-600 text-lg">' . $username . '</p>';
+                ?>
 
-    <!-- Profile Info -->
-    <div class="mt-8 mx-auto max-w-md text-center">
-        <!-- Green circle and "Student" label beside each other -->
-        <div class="flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" class="text-green-500 mr-2">
-                <path fill="currentColor" d="M12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z" />
-            </svg>
-            <p class="text-sm text-green-500 font-semibold">Student</p>
+            </div>
+            <div class="flex justify-end gap-2 w-1/2">
+                <button id="viewResumeBtn" class="bg-accent hover:bg-darkAccent text-white px-4 py-2 rounded-lg">View Resume</button>
+                <button id="modal-openBtn" class="bg-gray-100 hover:bg-gray-200 text-accent border border-accent px-4 py-2 rounded-lg">Edit Profile</button>
+            </div>
         </div>
-        <!-- Student's name and user handle -->
-        <?php
-        echo '<p class="mt-1 text-3xl font-bold text-blue-900">' . $fullname . '</p>';
-        echo '<p class="mt-1 text-gray-600">' . $username . '</p>';
-        ?>
 
     </div>
+
 
     <!-- Content -->
     <div class="content flex mt-8">
