@@ -60,9 +60,11 @@ $(document).ready(function () {
 
   let offsetJob = 0;
   let checkerFilter = ""
+  let isCardView = true;
   $('#JobHuntText').on('click', function () {
     checkerFilter = 'getWork';
-    getWork(action, offsetJob) //load a list of work
+    getWork(action, offsetJob, !isCardView) //load a list of work
+    getWork(action, offsetJob, isCardView);
   })
 
 
@@ -70,7 +72,7 @@ $(document).ready(function () {
     $('#reportModal').addClass('hidden')
   })
 
-  function getWork(action, offset) {
+  function getWork(action, offset, isCardView) {
     let formData = new FormData();
     formData.append('action', JSON.stringify(action));
     formData.append('offset', offset)
@@ -96,9 +98,13 @@ $(document).ready(function () {
               const skill = parsedResponse.skills[i];
               const location = parsedResponse.location[i];
               const isSaved = parsedResponse.isSaved[i];
+              const jobDescript = parsedResponse.jobDescript[i];
 
               //display job with design
-              listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location, isSaved)
+              if (!isCardView)
+                listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location, isSaved)
+              else
+                cardViewJobDisplay(jobTitle, jobDescript, companyLogo, skill);
             }
 
             offsetJob += length //set new offset for job
@@ -113,6 +119,67 @@ $(document).ready(function () {
     })
   }
 
+  function cardViewJobDisplay(jobTitle, description, companyLogo, skills) {
+    description = description.substring(0, 103) //slice the description to make small description
+
+    //mark up for card job
+    const cardWrapper = $('<div>').addClass('max-w-sm p-3 bg-white border border-gray-200 rounded-lg' +
+      ' bg-accent card-job');
+
+    //company logo
+    const imgContainer = $('<div>')
+      .addClass('w-full h-40 bg-white flex justify-center')
+    const companyLogoElement = $('<img>')
+      .addClass('w-32 h-32 rounded-full')
+      .attr('src', companyLogo) //add image
+
+    imgContainer.append(companyLogoElement);
+
+    const title = $('<h5>')
+      .addClass('mb-2 text-lg font-bold tracking-tight text-gray-900')
+      .text(jobTitle)
+
+    const details = $('<p>')
+      .addClass('mb-3 font-normal text-gray-700 dark:text-gray-400 text-sm')
+      .text(description)
+
+    //skills
+    const skillsWrapper = $('<ul>')
+      .addClass('text-xs text-gray-500 flex flex-wrap gap-2')
+
+    skills.forEach(function (skill, index) {
+      const bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" width="10" height="10"></iconify-icon>'
+      list = $('<li>')
+        .html(bulletIcon + ' ' + skill)
+      skillsWrapper.append(list)
+    })
+    const arrowIcon = '<svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">' +
+      '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />' +
+      '</svg>'
+
+    const navigationBtn = $('<button>')
+      .addClass('inline-flex items-center px-3 py-2 text-sm font-medium ' +
+        'text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none ' +
+        'focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800')
+      .html('Read more' + arrowIcon)
+
+    cardWrapper.append(imgContainer, title, details, skillsWrapper, navigationBtn);
+    $('#jobCard').append(cardWrapper); //display it on the root
+  }
+
+  $('#jobCard').on('scroll', function () {
+    const containerHeight = $(this).height();
+    const contentHeight = $(this)[0].scrollHeight;
+    const scrollOffset = $(this).scrollTop();
+    const threshold = 50; // Define the threshold in pixels
+
+    //once the bottom ends, it will reach another sets of data (post)
+    if (scrollOffset + containerHeight + threshold >= contentHeight) {
+      //get another set of post
+      // getPost();
+      console.log('good sheesh')
+    }
+  })
   function listOfJobDisplay(jobTitle, company, author, skills, companyLogo, careerID, location, isSaved) {
 
     //creating elements
@@ -383,7 +450,7 @@ $(document).ready(function () {
         colCode: colCode
       }
       //change list into admin's list
-      getWork(actionAdmin, offsetJob) //list of work
+      getWork(actionAdmin, offsetJob, !isCardView) //list of work
       checkerFilter = 'admin';
     }
     else if (jobVal == 'Saved') {
@@ -392,7 +459,7 @@ $(document).ready(function () {
     }
     else if (jobVal == 'all') {
       checkerFilter = 'getWork';
-      getWork(action, offsetJob) //back to all
+      getWork(action, offsetJob, !isCardView) //back to all
     }
     else if (jobVal == 'Applied') {
       checkerFilter = 'applied';

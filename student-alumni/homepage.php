@@ -760,7 +760,7 @@ function getAccDetails($con, $personID)
         <div id="job-offer-tabs" class="flex md:flex-row pt-44 z-10 h-full">
 
           <!-- LEFT DIV -->
-          <div class="left-div w-5/12 md:w-5/12 relative px-10">
+          <div class="left-div w-1/3 md:w-5/12 relative p-3">
 
             <!-- Upper Part -->
             <div class="flex flex-col md:flex-row items-center w-10/12">
@@ -779,7 +779,7 @@ function getAccDetails($con, $personID)
               </div>
             </div>
 
-            <div class="scrollable-container mt-8 rounded-md ">
+            <div class="scrollable-container mt-8 rounded-md">
               <ul id="listOfJob" class="tab-links overflow-y-auto px-2 pb-4 flex flex-col gap-2 w-10/12" style="max-height: 440px;">
                 <p id="noJobMsg" class="hidden text-sm text-blue-400 text-center">No available job right now</p>
               </ul>
@@ -796,9 +796,9 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- CENTER DIV -->
-          <div class="center-div w-1/2 md:w-1/2  overflow-y-auto jobDescript">
+          <div class="center-div w-full  overflow-y-auto jobDescript">
             <div class="content-div rounded-md text-sm h-full">
-              <div class="tab-content p-3">
+              <div class="tab-content p-3 w-1/2 mx-auto hidden h-full bg-blue-500">
                 <!-- JOB DESC. -->
                 <div class="job-des h-full center-shadow" id="job-description">
                   <!-- Company Name and Image -->
@@ -865,7 +865,8 @@ function getAccDetails($con, $personID)
                 </div>
 
               </div>
-
+              <ul class=" list-disc"></ul>
+              <div id="jobCard" class="w-full h-full grid grid-cols-3 gap-2 p-5 overflow-y-auto"></div>
             </div>
 
           </div>
