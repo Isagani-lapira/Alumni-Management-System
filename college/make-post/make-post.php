@@ -105,6 +105,7 @@
      </div>
  </section>
 
+ <!-- TODO Ask Isagani for clarification in this part -->
 
  <script>
      //  $(document).ready(function() {
