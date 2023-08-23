@@ -30,12 +30,12 @@ if (isset($_SESSION['personID'])) {
     </div>
     <div class="flex text-grayish">
 
-        <!-- about section -->
-        <section class="w-1/4 text-sm m-2 p-4 mr-5 border">
+        <!-- Profile Information section -->
+        <section class="w-1/4 text-sm m-2 p-4 mr-5 border text-gray-800">
             <p class="font-bold text-accent">About</p>
             <div class="flex mt-3 justify-start">
                 <img src="/assets/icons/person.png" alt="">
-                <span class="px-2"><?= $alumniData['gender'] ?></span>
+                <span class="px-2"><?= ucfirst($alumniData['gender']) ?></span>
             </div>
 
             <div class="flex mt-3">
@@ -57,63 +57,34 @@ if (isset($_SESSION['personID'])) {
                 <img class="ps-1" src="/assets/icons/Call.png" alt="">
                 <span class="px-4"><?= $alumniData['contactNo'] ?></span>
             </div>
+
         </section>
 
         <!-- Posts Section -->
         <section class="w-full space-y-2">
-            <p class="font-bold text-accent">Posts</p>
-            <!-- Content Post -->
-            <div class="post p-3 w-4/5 border shadow-md rounded-md">
-                <div class="center-shadow p-3 rounded-md">
-                    <!-- Header -->
-                    <div class="flex justify-start items-center">
-                        <div class="flex items-center">
-                            <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
-                            <p class="text-start px-3 text-sm font-semibold">
-
-                            </p>
-                        </div>
-                        <img class="ml-auto" src="/assets/more_horiz.png" alt="">
-                    </div>
-                    <!-- Header End -->
-
-                    <!-- Content Start -->
-                    <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                    <img class="my-2 rounded-md" src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9" alt="">
-
-                    <!-- Icons Row -->
-                    <div class="flex py-2 items-center">
-                        <img class="h-5" src="/assets/icons/heart.png" alt="">
-                        <span class="ms-2 text-sm">1,498</span>
-                        <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
-                        <span class="ms-2 text-sm">3,000</span>
-                    </div>
-                    <!-- Content End -->
+            <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar z-0">
+                <div class="flex gap-2 text-greyish_black text-sm my-2 border-b border-gray-300 p-3">
+                    <button id="availablePostBtn" class="invert-accent rounded-md px-5 py-1">Post</button>
+                    <button id="archievedBtnProfile" class="rounded-md px-5 py-1">Archived</button>
                 </div>
+
             </div>
 
-            <!-- Content Post -->
-            <div class="post p-3 w-4/5 border shadow-md rounded-md">
-                <div class="center-shadow p-3 rounded-md">
-                    <div class="flex justify-start items-center">
-                        <div class="flex items-center">
-                            <img class="h-12 border-2 border-accent rounded-full" src="/images/Mr.Jayson.png" alt="">
-                            <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                        </div>
-                        <img class="ml-auto" src="/assets/more_horiz.png" alt="">
-                    </div>
-
-                    <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                    <img class="my-2 rounded-md" src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t39.30808-6/352064679_1285904378707838_5719382148640526209_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHnRZVjp7zAFSLAEEPdwXhGWEEpEsjJzj1YQSkSyMnOPbTTuBqDc8XWfvndaONsQL0HkDcQPearCmMQ02NxbJWN&_nc_ohc=exQ99ipSsfIAX81JXVe&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfCY2SobuwAZw1wtoYq2gvXZzbOQ-1mG8g87CnLQv46-sw&oe=648340C9" alt="">
-                    <div class="flex py-2 items-center">
-                        <img class="h-5" src="/assets/icons/heart.png" alt="">
-                        <span class="ms-2 text-sm">1,498</span>
-                        <img class="ms-2 h-5" src="/assets/icons/comment.png" alt="">
-                        <span class="ms-2 text-sm">3,000</span>
-                    </div>
+            <!-- Shows only when there is no data yet -->
+            <div class="flex align-middle justify-center ">
+                <div class="bg-accent rounded p-3 text-white hidden no-data-class">
+                    <h2>No Post Available Yet</h2>
                 </div>
+
             </div>
         </section>
     </div>
 
 </section>
+
+
+<script>
+    $(document).ready(function() {
+        $.getScript("./profile/postScript.js");
+    });
+</script>

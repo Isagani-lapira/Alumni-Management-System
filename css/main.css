@@ -646,6 +646,13 @@ th,
   text-align: center;
 }
 
+/* Invert btn  */
+
+.invert-accent {
+  color: white;
+  background: #991b1b;
+}
+
 /* shortcut for sub-headings */
 
 .text-subheading {
@@ -2633,6 +2640,10 @@ th,
 
 .text-end {
   text-align: end;
+}
+
+.align-middle {
+  vertical-align: middle;
 }
 
 .text-2xl {

@@ -45,6 +45,12 @@ body {
     @apply p-2 mx-auto text-center;
   }
 
+  /* Invert btn  */
+  .invert-accent {
+    color: white;
+    background: #991b1b;
+  }
+
   /* shortcut for sub-headings */
   .text-subheading {
     @apply font-bold uppercase text-accent;
