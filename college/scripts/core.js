@@ -29,7 +29,7 @@ $(document).ready(function () {
   function loadURL(url, container, title = "") {
     // change the root elem to page
 
-    const base_url = `php/${url}/`;
+    const base_url = `./${url}/`;
     title = title.length === 0 ? url : title;
 
     // set the title of the page

@@ -1,16 +1,15 @@
  <!-- ANNOUNCEMENT CONTENT -->
  <section id="announcement-tab" class=" mx-auto lg:mx-8">
-     <h1 class="text-xl font-extrabold">ANNOUNCEMENT</h1>
-     <p class="text-grayish">Here you can check all shared messages with whole University</p>
+     <h1 class="text-xl font-extrabold">NEWS AND UPDATE</h1>
+     <p class="text-grayish">
+         Here you can make announcement that everyone can see, it can be news or events
+     </p>
      <button id="announcementBtn" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE NEW POST
      </button>
 
 
-     <!-- Announcement content -->
-     <div id="announcement-content">
-     </div>
-
-     <div class="flex items-center border-t-2 border-gray-400 mt-10">
+     <!-- Total Post Content -->
+     <section class="flex items-center border-t-2 border-gray-400 mt-10">
 
          <div class="m-2 p-1">
              <span class="font-semibold">Total Post</span>
@@ -35,58 +34,26 @@
 
          </div>
 
+     </section>
+
+     <!-- Table for the announcement -->
+     <table class="w-full text-sm mt-5 center-shadow">
+         <thead>
+             <tr class="bg-accent text-white">
+                 <th class=" rounded-tl-lg">Title</th>
+                 <th>Description</th>
+                 <th>Date Posted</th>
+                 <th class=" rounded-tr-lg">Action</th>
+             </tr>
+         </thead>
+         <tbody id="announcementList" class="text-xs"></tbody>
+     </table>
+     <p id="noAvailMsgAnnouncement" class="text-center text-blue-400 text-lg hidden">No available data</p>
+     <div class="flex flex-wrap gap-2 justify-end my-2">
+         <button id="prevAnnouncement" class="tex-sm px-3 py-1 rounded-md border border-accent">Previous</button>
+         <button id="nextAnnouncement" class="text-white bg-accent tex-sm px-4 py-1 rounded-md">Next</button>
      </div>
-
-
-
-
-     <!-- recent post -->
-     <div class="w-full">
-         <!-- Post -->
-         <div class="post p-3 w-2/3">
-             <div class="border shadow-lg center-shadow p-3 rounded-md">
-                 <div class="flex justify-start items-center">
-                     <div class="flex items-center">
-                         <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                         <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                     </div>
-                     <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-                 </div>
-
-                 <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                 <img class="my-2 rounded-md" src="" alt="">
-                 <div class="flex py-2 items-center">
-                     <img class="h-5" src="../assets/icons/heart.png" alt="">
-                     <span class="ms-2 text-sm">1,498</span>
-                     <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                     <span class="ms-2 text-sm">3,000</span>
-                 </div>
-             </div>
-         </div>
-
-         <!-- Post -->
-         <div class="post p-3 w-2/3">
-             <div class="border shadow-lg  center-shadow p-3 rounded-md">
-                 <div class="flex justify-start items-center">
-                     <div class="flex items-center">
-                         <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                         <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                     </div>
-                     <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-                 </div>
-
-                 <p class="text-sm mt-2">BulSU Laboratory High School Moving Up Ceremony | June 1, 2023</p>
-                 <img class="my-2 rounded-md" src="" alt="">
-                 <div class="flex py-2 items-center">
-                     <img class="h-5" src="../assets/icons/heart.png" alt="">
-                     <span class="ms-2 text-sm">1,498</span>
-                     <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                     <span class="ms-2 text-sm">3,000</span>
-                 </div>
-             </div>
-         </div>
-     </div>
-
+     <!-- End table for the announcement  -->
 
 
      <!-- modal -->
@@ -143,4 +110,5 @@
      $('.cancel').on("click", function() {
          $('#createNewPostModal').addClass("hidden")
      })
+     $.getScript('./php/announcements/announcement.js');
  </script>
