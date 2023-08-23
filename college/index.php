@@ -92,6 +92,10 @@ if (
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- Swiper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
     <!-- End JS Plugins -->
     <!-- System Script -->
     <script src="./scripts/core.js" defer></script>
@@ -158,7 +162,7 @@ if (
                             Alumni of the Month</a></li>
                     <li><a data-link="community" href="#community" class="flex rounded p-2">
                             <i class="mr-2 fa-xl fa-solid fa-users"></i>
-                            Communitity</a></li>
+                            Community Hub</a></li>
                     <li><a data-link="job-opportunities" href="#job-opportunities" class="flex rounded p-2">
                             <i class="fa-xl mr-2 fa-solid fa-briefcase"></i>
                             Job Opportunities</a></li>
