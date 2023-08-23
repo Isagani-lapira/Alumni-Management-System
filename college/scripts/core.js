@@ -29,13 +29,15 @@ $(document).ready(function () {
   function loadURL(url, container, title = "") {
     // change the root elem to page
 
-    const base_url = "pages/";
+    const base_url = `./${url}/`;
     title = title.length === 0 ? url : title;
+
     // set the title of the page
     document.title = capitalizeFirstLetter(title);
     $.ajax({
       type: "GET",
       url: base_url + url + ".php",
+      async: true,
       dataType: "html",
       // TODO check later if cache is good in changing data
       cache: true,
@@ -75,9 +77,41 @@ $(document).ready(function () {
       },
       error: function (xhr, ajaxOptions, thrownError) {
         // No Page Found
-        container.load("pages/missing-page.php");
+        container.load("php/missing-page.php");
       },
-      async: false,
     });
   }
+
+  // Sign Out functionality
+  (function () {
+    //sign out
+    $("#signOutPromptBtn").on("click", function () {
+      $("#sign-out-prompt").removeClass("hidden");
+
+      // remove signout prompt
+      $("#cancelSignoutBtn").on("click", function () {
+        $("#sign-out-prompt").addClass("hidden");
+      });
+      // $("#sign-out-prompt").on("click", function () {
+
+      //   $(this).addClass("hidden");
+      // });
+
+      // Signout
+      $("#signoutBtn").on("click", function () {
+        $.ajax({
+          url: "./php/process/signout.php",
+          type: "GET",
+          success: (response) => {
+            window.location.href = "./login.php";
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+      });
+      //end
+    });
+  })();
+  // End
 });

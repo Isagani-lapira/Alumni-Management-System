@@ -1,6 +1,6 @@
 <!-- report content -->
 <section id="report-tab" class=" mx-auto lg:mx-8">
-    <h1 class="text-xl font-extrabold uppercase">Student Record</h1>
+    <h1 class="text-xl font-extrabold uppercase">Alumni Record</h1>
 
     <div class="flex justify-end text-sm text-greyish_black">
         <!-- HISTORY LOGS -->
@@ -18,35 +18,33 @@
 
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-    <div class="grid  grid-flow-row grid-cols-5 gap-4">
+    <div class="flex flex-wrap gap-4">
 
         <!-- search-bar -->
-        <div class="flex border border-greyish_black w-full rounded-md p-1">
-            <img class="inline " src="/images/search-icon.png" alt="">
-            <input class="focus:outline-none" type="text" name="" id="" placeholder="Typing!">
+        <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-2 top-0 mt-3 text-gray-400 "></i>
+            <input class="border border-greyish_black w-full rounded-md p-2 pl-7" type="text" name="" id="" placeholder="Typing!">
         </div>
         <!-- end search-bar -->
         <!-- daterangepicker input -->
-        <div class="w-full flex border p-2 mx-2">
-            <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018">
-            <label class="" for="reportdaterange">
-                <i class="fa-solid fa-calendar"></i>
-            </label>
+        <div class="relative">
+            <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018" class="input-text py-2 px-2">
+            <i class="fa-solid fa-calendar  absolute mr-2 right-0 top-3"></i>
         </div>
         <!-- end daterangepicker input -->
         <!-- batch selection -->
-        <select name="" id="batch" class="w-full p-1 border">
+        <select name="" id="batch" class="input-text">
             <option value="" selected disabled hidden>Batch</option>
             <!-- php function on batch -->
         </select>
 
         <!-- college selection -->
-        <select name="college" id="college" class="w-full p-1 border">
+        <select name="college" id="college" class="input-text">
             <option value="" selected disabled hidden>Course</option>
         </select>
 
         <!-- employment status selection -->
-        <select name="employment" id="employment" class="w-full p-1 border">
+        <select name="employment" id="employment" class="input-text">
             <option value="" selected disabled hidden>Employment Status</option>
             <option value="">Employed</option>
             <option value="">Unemployed</option>
@@ -58,8 +56,8 @@
     </div>
 
 
-    <!-- Record Table-->
-    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
+    <!-- OLD Record Table-->
+    <!-- <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
         <thead class="bg-accent text-white rounded-t-lg">
             <tr class=" rounded-t-lg">
                 <th class="text-start uppercase">Student Number</th>
@@ -225,8 +223,31 @@
             </tr>
 
         </tbody>
-    </table>
+    </table> -->
+
     <!-- End Record Table -->
+
+    <!-- Start Record Table -->
+    <!-- record of name-->
+    <table class="table-auto w-full mt-10 text-xs font-thin center-shadow ">
+        <thead class="">
+            <tr class="bg-accent text-white ">
+                <th class="rounded-tl-lg">Student Number</th>
+                <th>NAME</th>
+                <th>COLLEGE</th>
+                <th>BATCH</th>
+                <th class="rounded-tr-lg">Employment Status</th>
+            </tr>
+        </thead>
+        <!-- To be filled later -->
+        <tbody id="alumniTB" class="text-sm">
+        </tbody>
+    </table>
+    <p id="alumniNoRecMsg" class="text-center text-blue-500">No available data</p>
+    <!-- End Record Table -->
+
+
+
 </section>
 
 
@@ -277,4 +298,5 @@
 <script>
     // Date picker
     $('#reportdaterange').daterangepicker();
+    $.getScript("record.js");
 </script>

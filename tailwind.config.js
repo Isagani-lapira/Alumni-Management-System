@@ -2,9 +2,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  content: [
-    "./**/*.{html,js,php}",
-  ],
+  content: ["!./**/node_modules/**", "./**/*.{html,js,php}"],
   theme: {
     fontFamily: {
       sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
@@ -18,17 +16,17 @@ module.exports = {
         darkAccent: "#601010",
         greyish_black: "#333030",
         accentBlue: "#1746A2",
-        postButton: '#60A5FA',
-        postHoverButton: '#3B82F6',
-        licorice: '#1A1110',
-        dirtyWhite: '#6C6C6C',
+        postButton: "#60A5FA",
+        postHoverButton: "#3B82F6",
+        licorice: "#1A1110",
+        dirtyWhite: "#6C6C6C",
         lightDirtyWhite: "#6A6A6A",
       },
       fontWeight: {
-        medium: '510',
+        medium: "510",
       },
-      outline: ['none'],
+      outline: ["none"],
     },
   },
-  plugins: [],
+  // plugins: [require("@tailwindcss/forms")],
 };

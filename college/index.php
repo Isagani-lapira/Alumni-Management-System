@@ -1,3 +1,60 @@
+<?php
+session_start();
+
+
+// Check if Logged In
+if (
+    !isset($_SESSION['username']) ||
+    $_SESSION['logged_in'] == false ||
+    // TODO check later if they could use UnivAdmin
+    $_SESSION['accountType'] != 'ColAdmin'
+) {
+    // session does not exist 
+    header("location: login.php");
+    exit();
+} else {
+    // fetch details and proceed
+    require_once '../PHP_process/connection.php';
+    require '../PHP_process/personDB.php';
+
+    // TODO and sanitize user input
+    $username = $_SESSION['username'];
+
+    //get the person ID of user
+    $query = "SELECT coladmin.personID
+            FROM coladmin
+            JOIN user ON coladmin.username = user.username
+            WHERE user.username = '$username'";
+
+    $result = mysqli_query($mysql_con, $query);
+    if ($result) {
+        $data = mysqli_fetch_assoc($result);
+        $personID = $data['personID'];
+
+        //get person details
+        $personObj = new personDB();
+        $personDataJSON = $personObj->readPerson($personID, $mysql_con);
+        $personData = json_decode($personDataJSON, true);
+
+        $fullname = $personData['fname'] . ' ' . $personData['lname'];
+        $age = $personData['age'];
+        $address = $personData['address'];
+        $bday = $personData['bday'];
+        $gender = ucfirst($personData['gender']);
+        $contactNo = $personData['contactNo'];
+        $personal_email = $personData['personal_email'];
+        $bulsu_email = $personData['bulsu_email'];
+        $profilepicture = $personData['profilepicture'];
+
+        $_SESSION['personID'] = $personID;
+    }
+}
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +76,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- System Tailwind stylesheet -->
     <link rel="stylesheet" href="../css/main.css">
+    <!-- Utilities stylesheet -->
+    <link rel="stylesheet" href="./assets/css/util.css">
     <!-- End Stylesheets -->
 
     <!-- Javascript Scripts -->
@@ -34,9 +93,13 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- Swiper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
     <!-- End JS Plugins -->
     <!-- System Script -->
-    <script src="./assets/scripts/core.js" defer></script>
+    <script src="./scripts/core.js" defer></script>
     <!-- End JS Scripts -->
 
 </head>
@@ -63,16 +126,23 @@
                                 <path d="M14 3.5v5.5a1 1 0 0 0 1 1h5.5a1 1 0 0 0 .943 -1.332a10 10 0 0 0 -6.11 -6.111a1 1 0 0 0 -1.333 .943z" stroke-width="0" fill="currentColor" />
                             </svg>
                             Dashboard</a></li>
-                    <li><a data-link="announcements" href="#announcements" class="flex rounded-lg p-2">
+                    <li><a data-link="make-post" href="#make-post" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-bullhorn mr-2 fa-xl"></i>
+                            Make Post</a></li>
+                    <li><a data-link="announcements" href="#announcements" class="flex rounded-lg p-2">
+                            <i class="fa-solid fa-message mr-2 fa-xl"></i>
                             Announcements</a></li>
                     <li><a data-link="email" href="#email" class="flex rounded p-2 ">
                             <i class="fa-solid fa-envelope fa-xl mr-2"></i> Email
                         </a></li>
-                    <li><a data-link="reports" href="#reports" class="flex rounded-lg p-2">
+                    <li><a data-link="student-record" href="#student-record" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
 
                             Student Records</a></li>
+                    <li><a data-link="alumni-record" href="#alumni-record" class="flex rounded-lg p-2">
+                            <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
+
+                            Alumni Records</a></li>
                     <li><a data-link="event" href="#event" class="flex rounded p-2 ">
                             <i class="fa-solid fa-calendar-check mr-2 fa-xl"></i>
                             Event</a></li>
@@ -93,20 +163,37 @@
                             Alumni of the Month</a></li>
                     <li><a data-link="community" href="#community" class="flex rounded p-2">
                             <i class="mr-2 fa-xl fa-solid fa-users"></i>
-                            Communitity</a></li>
-                    <li><a data-link="job-oppurtunities" href="#job-oppurtunities" class="flex rounded p-2">
+                            Community Hub</a></li>
+                    <li><a data-link="job-opportunities" href="#job-opportunities" class="flex rounded p-2">
                             <i class="fa-xl mr-2 fa-solid fa-briefcase"></i>
-                            Job Oppurtunities</a></li>
+                            Job Opportunities</a></li>
                 </ul>
+
             </nav>
+            <!-- Sign out Button -->
+            <button class="btn-accent absolute bottom-2" id="signOutPromptBtn"><i class="px-2 fa-solid fa-right-from-bracket"></i>Sign Out</button>
         </aside>
 
         <main class="flex-1 mx-auto mt-10">
             <div id="main-root">
-                <?php require 'pages/dashboard.php'; ?>
+                <?php require './dashboard/dashboard.php'; ?>
             </div>
 
         </main>
+    </div>
+    <!-- Modals -->
+    <div id="sign-out-prompt" class="modal-bg fixed inset-0 h-full w-full flex items-center justify-center 
+      text-grayish hidden ">
+
+        <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
+            <p class="text-center font-medium text-greyish_black mb-7 mt-3">Are you sure you want to sign out?</p>
+            <div class="flex gap-2 justify-end">
+                <button id="cancelSignoutBtn" class="btn-tertiary text-gray-800 ">Cancel</button>
+                <button id="signoutBtn" class="btn-primary">Sign out</button>
+
+            </div>
+        </div>
+
     </div>
 
 
