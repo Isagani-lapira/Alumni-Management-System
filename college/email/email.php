@@ -1,3 +1,5 @@
+<?php session_start()
+?>
 <section id="email-section" class=" mx-auto lg:mx-8">
     <!-- Email content -->
     <h1 class="text-xl font-extrabold">EMAIL</h1>
@@ -13,18 +15,27 @@
     <div class="flex items-center">
 
         <div class="m-2 p-1">
-            <span class="font-semibold">Total Message</span>
-            <p class="text-5xl font-bold">12</p>
+            <span class="font-semibold">Total Emailed</span>
+            <?php
+            require_once '../php/connection.php';
+
+            $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ';
+            $result = mysqli_query($mysql_con, $query);
+            $row = mysqli_num_rows($result);
+            echo '<p class="text-5xl font-bold">' . $row . '</p>';
+            ?>
         </div>
 
         <div class="m-2 p-1">
             <p class="text-sm font-thin">Course</p>
             <!-- college selection -->
             <select name="college" id="emCol" class="w-full border border-grayish p-2 rounded-lg">
-                <option value="" selected disabled hidden>BS Computer Science</option>
+                <option value="">Dummy Data</option>
+                <option value="">BS Information Technology</option>
             </select>
         </div>
 
+        <!-- Date Picker -->
         <div class="m-2 p-1">
             <p>Show post (from - to)</p>
             <div class="relative">
@@ -37,7 +48,7 @@
     </div>
 
 
-    <!-- recent email -->
+    <!--Start Email Table  -->
     <p class="mt-10 font-semibold">Recent Email</p>
     <table class="table-auto w-8/12  font-normal text-gray-600">
         <thead class="bg-accent text-white">
@@ -45,26 +56,41 @@
                 <th class="text-start">EMAIL ADDRESS</th>
                 <th class="text-start">COLLEGE</th>
                 <th class="text-start">DATE</th>
+                <th class="text-start">ACTION</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="text-start">To All</td>
-                <td class="text-start">CICT</td>
-                <td class="text-start">03/02/2020</td>
-            </tr>
-            <tr>
-                <td class="text-start">lapiraisagani@gmail.com</td>
-                <td class="text-start">CICT</td>
-                <td class="text-start">03/02/2020</td>
-            </tr>
-            <tr>
-                <td class="text-start">patrickpronuevo@gmail.com</td>
-                <td class="text-start">COED</td>
-                <td class="text-start">03/02/2020</td>
-            </tr>
+            <?php
+            require_once '../php/connection.php';
+            $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION["personID"] . '" ORDER BY `dateSent` DESC LIMIT 12';
+            $result = mysqli_query($mysql_con, $query);
+            $row = mysqli_num_rows($result);
+            if ($result && $row > 0) {
+                while ($data = mysqli_fetch_assoc($result)) {
+                    $recipient = $data['recipient'];
+                    $colCode  = $data['colCode'];
+                    $dateSent  = $data['dateSent'];
+
+                    echo '
+                    <tr>
+                      <td class="text-start">' . $recipient . '</td>
+                      <td class="text-start">' . $colCode . '</td>
+                      <td class="text-start">' . $dateSent . '</td>
+                      <td class="flex justify-center gap-2">
+                        <button class="text-red-400 hover:bg-red-400 hover:text-white px-3 py-1 rounded-md text-xs">Delete</button>
+                        <button class="bg-blue-400 text-white hover:bg-blue-500 rounded-md text-xs px-3 py-1">View</button>
+                      </td>
+                    </tr>';
+                }
+            } else {
+                echo '<tr>
+                      <td class="text-blue-400 text-lg text-center w-full">No available email sent</td>
+                    </tr>';
+            }
+            ?>
         </tbody>
     </table>
+    <!-- End Email Table -->
 
 
     <!-- modal add email message -->
@@ -93,19 +119,19 @@
                             <select name="selectColToEmail" id="selectColToEmail" class="w-full outline-none">
                                 <option value="all" selected>All colleges</option>
                                 <?php
-                                // require_once '../PHP_process/connection.php';
-                                // $query = "SELECT * FROM `college`";
-                                // $result = mysqli_query($mysql_con, $query);
-                                // $rows = mysqli_num_rows($result);
+                                require_once '../php/connection.php';
+                                $query = "SELECT * FROM `college`";
+                                $result = mysqli_query($mysql_con, $query);
+                                $rows = mysqli_num_rows($result);
 
-                                // if ($rows > 0) {
-                                //     while ($data = mysqli_fetch_assoc($result)) {
-                                //         $colCode = $data['colCode'];
-                                //         $colName = $data['colname'];
+                                if ($rows > 0) {
+                                    while ($data = mysqli_fetch_assoc($result)) {
+                                        $colCode = $data['colCode'];
+                                        $colName = $data['colname'];
 
-                                //         echo '<option value="' . $colCode . '">' . $colName . '</option>';
-                                //     }
-                                // } else echo '<option>No college available</option>';
+                                        echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                                    }
+                                } else echo '<option>No college available</option>';
                                 ?>
                             </select>
                         </div>
@@ -183,4 +209,5 @@
         console.log('hello')
         $('#modalEmail').addClass("hidden");
     })
+    $.getScript("./email/sendMail.js");
 </script>
