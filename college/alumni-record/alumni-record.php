@@ -18,7 +18,7 @@
 
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-    <div class="grid  grid-flow-row grid-cols-5 gap-4">
+    <div class="flex flex-wrap gap-4">
 
         <!-- search-bar -->
         <div class="relative">
@@ -56,8 +56,8 @@
     </div>
 
 
-    <!-- Record Table-->
-    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
+    <!-- OLD Record Table-->
+    <!-- <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
         <thead class="bg-accent text-white rounded-t-lg">
             <tr class=" rounded-t-lg">
                 <th class="text-start uppercase">Student Number</th>
@@ -223,8 +223,31 @@
             </tr>
 
         </tbody>
-    </table>
+    </table> -->
+
     <!-- End Record Table -->
+
+    <!-- Start Record Table -->
+    <!-- record of name-->
+    <table class="table-auto w-full mt-10 text-xs font-thin center-shadow ">
+        <thead class="">
+            <tr class="bg-accent text-white ">
+                <th class="rounded-tl-lg">Student Number</th>
+                <th>NAME</th>
+                <th>COLLEGE</th>
+                <th>BATCH</th>
+                <th class="rounded-tr-lg">Employment Status</th>
+            </tr>
+        </thead>
+        <!-- To be filled later -->
+        <tbody id="alumniTB" class="text-sm">
+        </tbody>
+    </table>
+    <p id="alumniNoRecMsg" class="text-center text-blue-500">No available data</p>
+    <!-- End Record Table -->
+
+
+
 </section>
 
 
@@ -275,4 +298,5 @@
 <script>
     // Date picker
     $('#reportdaterange').daterangepicker();
+    $.getScript("record.js");
 </script>
