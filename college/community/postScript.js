@@ -1,5 +1,6 @@
-const imgContPost = document.getElementById("imgContPost");
 $(document).ready(function () {
+  const imgContPost = document.getElementById("imgContPost");
+
   let validExtension = ["jpeg", "jpg", "png"]; //only allowed extension
   let fileExtension;
   const imgFormat = "data:image/jpeg;base64,";
