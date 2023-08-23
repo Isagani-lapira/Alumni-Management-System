@@ -14,7 +14,7 @@
 
          <div class="m-2 p-1">
              <span class="font-semibold">Total Post</span>
-             <p class="text-5xl font-bold">12</p>
+             <p id="totalPost" class="totalPost text-5xl font-bold">0</p>
          </div>
 
          <div class="m-2 p-1">
@@ -28,9 +28,9 @@
 
          <div class="m-2 p-1">
              <p>Show post (from - to)</p>
-             <div class="relative">
-                 <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" class="rounded " />
-                 <img class="h-5 w-5  absolute right-4 top-2" src="../assets/icons/calendar.svg" alt="">
+             <div class="relative border-black">
+                 <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" class="rounded  w-full p-2" />
+                 <i class="fa-solid fa-calendar-days absolute right-4 top-3"></i>
              </div>
 
          </div>
@@ -90,50 +90,40 @@
 
 
      <!-- modal -->
-     <div id="createNewPostModal" class="fixed top-0 left-0 inset-0 h-full w-full bg-gray-700 bg-opacity-50 hidden">
+     <div id="createNewPostModal" class="fixed top-0 left-0 inset-0 h-full w-full bg-gray-700 bg-opacity-50 hidden 
+     ">
          <div class="h-full flex items-center justify-center 
       text-grayish  ">
              <!-- Modal Content -->
-             <div class="modal-container space-y-5 h-1/3 w-1/3  bg-white rounded-lg p-3">
+             <div class="modal-container space-y-5    modal-container w-1/3 h-2/3 bg-white rounded-lg p-3">
                  <div class="modal-header py-5">
                      <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
                  </div>
-                 <div class="modal-body px-3">
-                     <!-- header part -->
-                     <p class="font-semibold text-sm">College</p>
-                     <!-- <div class="w-full border border-gray-400 rounded flex px-5 py-2"> -->
-                     <select name="collegePost" id="collegePost" class="w-full outline-none">
-                         <option value="all" selected>All colleges</option>
-                         <?php
-                            // require_once '../PHP_process/connection.php';
-                            // $query = "SELECT * FROM `college`";
-                            // $result = mysqli_query($mysql_con, $query);
-                            // $rows = mysqli_num_rows($result);
-                            // if ($rows > 0) {
-                            //     while ($data = mysqli_fetch_assoc($result)) {
-                            //         $colCode = $data['colCode'];
-                            //         $colName = $data['colname'];
-                            //         echo '<option value="' . $colCode . '"class="w-full">' . $colName . '</option>';
-                            //     }
-                            // } else echo '<option>No college available</option>';
-                            ?>
-                     </select>
-                 </div>
-                 <!-- body part -->
-                 <label class="font-semibold text-sm mt-2" for="TxtAreaAnnouncement">Description</label>
-                 <div class="flex flex-col h-full pb-10">
-                     <textarea id="TxtAreaAnnouncement" class="text-black rar outline-none w-full h-5/6 p-1 pb-10" type="text" placeholder="Say something here..."></textarea>
-                 </div>
-                 <label for="fileGallery" class="block">
-                     <i id="galleryLogo" class="fa-regular fa-image fa-xl"></i>
+                 <!-- Copied Description -->
+                 <p class="font-semibold text-sm mt-2">Description</p>
+                 <div class="modal-descript relative w-full h-2/3 border border-gray-400 rounded p-3">
+                     <div class="flex flex-col h-full">
+                         <textarea id="TxtAreaAnnouncement" class="rar outline-none w-full h-5/6 p-1" type="text" placeholder="Say something here..."></textarea>
+                         <div id="imgContPost" class=" hidden flex overflow-x-scroll w-full"></div>
+                         <p class="text-sm text-red-400 hidden" id="errorMsg">Sorry we only allow images that has file extension of
+                             jpg,jpeg,png</p>
+                     </div>
+
+                     <label for="fileGallery">
+                         <span id="galleryLogo" class="absolute bottom-1 left-1">
+                             <i id="galleryLogo" class="fa-regular fa-image fa-xl"></i>
+                         </span>
+                     </label>
                      <input id="fileGallery" type="file" class="hidden" />
-                 </label>
+                 </div>
+                 <!-- End Description -->
                  <!-- Footer -->
                  <div class="modal-footer flex items-end flex-row-reverse px-3">
                      <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
                      <button class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
                  </div>
              </div>
+
              <!-- End Modal Content -->
 
          </div>

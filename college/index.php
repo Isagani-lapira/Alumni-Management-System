@@ -121,8 +121,11 @@ if (
                                 <path d="M14 3.5v5.5a1 1 0 0 0 1 1h5.5a1 1 0 0 0 .943 -1.332a10 10 0 0 0 -6.11 -6.111a1 1 0 0 0 -1.333 .943z" stroke-width="0" fill="currentColor" />
                             </svg>
                             Dashboard</a></li>
-                    <li><a data-link="announcements" href="#announcements" class="flex rounded-lg p-2">
+                    <li><a data-link="make-post" href="#make-post" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-bullhorn mr-2 fa-xl"></i>
+                            Make Post</a></li>
+                    <li><a data-link="announcements" href="#announcements" class="flex rounded-lg p-2">
+                            <i class="fa-solid fa-message mr-2 fa-xl"></i>
                             Announcements</a></li>
                     <li><a data-link="email" href="#email" class="flex rounded p-2 ">
                             <i class="fa-solid fa-envelope fa-xl mr-2"></i> Email
