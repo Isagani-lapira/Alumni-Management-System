@@ -1,9 +1,11 @@
 <section>
     <!--community content -->
     <div id="community-tab" class="p-5">
-        <div class="flex p-1 ms-3 rounded-md border border-accent w-1/2">
-            <img src="/images/search-icon.png" alt="">
-            <input class="w-full focus:outline-none" type="text" id="communitySearch" placeholder="Search something...">
+        <div class="relative">
+            <!-- flex p-1 ms-3 rounded-md border border-accent w-1/2 -->
+            <!-- <img src="/images/search-icon.png" alt=""> -->
+            <i class="fa-solid fa-magnifying-glass absolute top-3 left-3"></i>
+            <input class="pl-8 w-1/2 rounded " type="text" id="communitySearch" placeholder="Search something...">
         </div>
 
         <!-- Post -->

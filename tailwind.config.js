@@ -2,7 +2,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  content: ["./**/*.{html,js,php}"],
+  content: ["./**/*.{html,js,php}", "!./**/node_modules/**"],
   theme: {
     fontFamily: {
       sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
@@ -25,5 +25,5 @@ module.exports = {
       outline: ["none"],
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  // plugins: [require("@tailwindcss/forms")],
 };
