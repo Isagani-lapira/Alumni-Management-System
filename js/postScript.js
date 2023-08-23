@@ -248,7 +248,7 @@ $(document).ready(function () {
         let postdateData = $('<td>').text(postdate);
         let action = $('<td>').addClass('flex justify-center gap-2')
 
-        let delBtn = $('<button>').addClass(' text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white').text('Delete')
+        let delBtn = $('<button>').addClass(' text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white').text('Archive')
         let viewBtn = $('<button>').addClass('bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500').text('View')
         viewBtn.on('click', function () {
             $('#modalPost').removeClass('hidden')
@@ -656,7 +656,7 @@ $(document).ready(function () {
         let deleteElement = $('<p>').addClass('text-xs cursor-pointer font-bold')
         if (isAvailable) {
             deleteElement.addClass('text-red-400')
-                .text('Delete')
+                .text('Archive')
                 .on('click', function () {
                     //open the delete prompt
                     $('#delete-modal').removeClass('hidden')
@@ -1062,7 +1062,7 @@ $(document).ready(function () {
         let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
         let deleteElement = $('<p>')
             .addClass('text-xs text-red-400 cursor-pointer ')
-            .text('Delete post')
+            .text('Archive post')
             .on('click', function () {
                 //open the delete prompt
                 $('#delete-modal').removeClass('hidden')

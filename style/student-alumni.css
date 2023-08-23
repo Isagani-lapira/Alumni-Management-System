@@ -91,11 +91,6 @@ body {
   background-color: #991b1b;
 }
 
-.center-shadow {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  cursor: pointer;
-}
-
 .tags-con {
   padding: 4px;
 }
@@ -320,12 +315,11 @@ pre {
   height: 95%;
 }
 
-.card-job {
+.card-job,
+.center-shadow {
   -webkit-box-shadow: 0px 0px 4px 0px rgba(107, 107, 107, 1);
   -moz-box-shadow: 0px 0px 4px 0px rgba(107, 107, 107, 1);
   box-shadow: 0px 0px 4px 0px rgba(107, 107, 107, 1);
-}
 
-/* #jobCard{
-  height: 400px;
-} */
+  cursor: pointer;
+}

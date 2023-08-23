@@ -8,7 +8,9 @@ svg {
 }
 
 .center-shadow {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  -webkit-box-shadow: 0px 0px 2px 0px rgba(107, 107, 107, 1);
+  -moz-box-shadow: 0px 0px 2px 0px rgba(107, 107, 107, 1);
+  box-shadow: 0px 0px 2px 0px rgba(107, 107, 107, 1);
   cursor: pointer;
 }
 
@@ -169,4 +171,8 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
   text-align: justify;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #cececeb0;
 }

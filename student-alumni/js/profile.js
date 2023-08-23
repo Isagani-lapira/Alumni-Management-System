@@ -115,7 +115,7 @@ $(document).ready(function () {
 
 
   function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted, isLikedByUser) {
-    let postWrapper = $('<div>').addClass("postWrapper center-shadow w-full p-4 rounded-md mx-auto");
+    let postWrapper = $('<div>').addClass("postWrapper mb-2 center-shadow w-full p-4 rounded-md mx-auto");
 
     let header = $('<div>');
     let headerWrapper = $('<div>').addClass("flex gap-2 items-center");

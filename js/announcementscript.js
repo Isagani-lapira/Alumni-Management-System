@@ -48,8 +48,8 @@ $(document).ready(function () {
                         const datePostedTD = $('<td>').text(date_posted);
 
                         const delBtn = $('<button>')
-                            .addClass("bg-red-400 hover:bg-red-500 rounded-sm text-white px-3 py-1 text-xs")
-                            .text('Delete')
+                            .addClass("border border-red-400 text-red-400 hover:text-white hover:bg-red-500 rounded-sm text-white px-3 py-1 text-xs")
+                            .text('Archive')
 
                         const viewBtn = $('<button>')
                             .addClass('bg-postButton hover:bg-postHoverButton rounded-sm text-white px-3 py-1 text-xs')

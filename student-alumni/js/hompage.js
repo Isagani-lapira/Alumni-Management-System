@@ -59,12 +59,13 @@ $(document).ready(function () {
   }
 
   let offsetJob = 0;
+  let offsetCardJob = 0;
   let checkerFilter = ""
   let isCardView = true;
   $('#JobHuntText').on('click', function () {
     checkerFilter = 'getWork';
     getWork(action, offsetJob, !isCardView) //load a list of work
-    getWork(action, offsetJob, isCardView);
+    getWork(action, offsetCardJob, isCardView);
   })
 
 
@@ -107,7 +108,10 @@ $(document).ready(function () {
                 cardViewJobDisplay(jobTitle, jobDescript, companyLogo, skill);
             }
 
-            offsetJob += length //set new offset for job
+            if (!isCardView)
+              offsetJob += length //set new offset for job
+            else
+              offsetCardJob += length
           }
         }
         else {
@@ -136,11 +140,11 @@ $(document).ready(function () {
     imgContainer.append(companyLogoElement);
 
     const title = $('<h5>')
-      .addClass('mb-2 text-lg font-bold tracking-tight text-gray-900')
+      .addClass('text-lg font-bold tracking-tight text-gray-900')
       .text(jobTitle)
 
     const details = $('<p>')
-      .addClass('mb-3 font-normal text-gray-700 dark:text-gray-400 text-sm')
+      .addClass('font-normal text-gray-700 dark:text-gray-400 text-sm')
       .text(description)
 
     //skills
@@ -158,9 +162,8 @@ $(document).ready(function () {
       '</svg>'
 
     const navigationBtn = $('<button>')
-      .addClass('inline-flex items-center px-3 py-2 text-sm font-medium ' +
-        'text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none ' +
-        'focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800')
+      .addClass('inline-flex items-center px-3 py-2 mt-2 text-sm font-medium ' +
+        'text-center text-white bg-postButton rounded-lg bg-postButton hover:bg-postHoverButton')
       .html('Read more' + arrowIcon)
 
     cardWrapper.append(imgContainer, title, details, skillsWrapper, navigationBtn);
@@ -239,7 +242,8 @@ $(document).ready(function () {
 
 
     containerJob.on('click', function () {
-
+      $('#jobDescWrapper').removeClass('hidden');
+      $('#jobCard').addClass('hidden')
       //remove the the last one has been selected
       $('.selectedJob').each((index, element) => {
         $(element).removeClass('selectedJob')
@@ -252,9 +256,15 @@ $(document).ready(function () {
     // Automatically select the first job listing and trigger the click event
     if ($('#listOfJob li').length === 1) {
       containerJob.trigger('click');
+      $('#jobDescWrapper').addClass('hidden');
+      $('#jobCard').removeClass('hidden')
     }
   }
 
+  $('#backToCard').on('click', function () {
+    $('#jobDescWrapper').addClass('hidden');
+    $('#jobCard').removeClass('hidden')
+  })
   //saving career to bookmark
   function saveCareer(careerID) {
     //data to be send
@@ -491,10 +501,8 @@ $(document).ready(function () {
   function displaySelectedCareer(careerID, jobTitle, companyName, author, datePosted, companyLogo,
     description, skills, qualification, location, isApplied) {
     let logo = imgFormat + companyLogo;
-
     //remove the past display
     $('#skillsContainer').empty();
-
     //displaying a particular job data
     $('#viewJobLogo').attr('src', logo)
     $('#viewJobTitle').text(jobTitle)

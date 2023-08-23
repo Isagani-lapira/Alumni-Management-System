@@ -569,7 +569,7 @@ function dateInText($date)
 
           <!-- recent email -->
           <p class="mt-5 font-semibold text-greyish_black">Recent Email</p>
-          <table class="table-auto w-full text-xs font-thin text-greyish_black">
+          <table class="table-auto w-full text-xs font-thin text-greyish_black center-shadow">
             <thead class="bg-accent text-white">
               <tr>
                 <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
@@ -676,7 +676,7 @@ function dateInText($date)
           <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
             <thead>
               <tr class="bg-accent text-white">
-                <th class="text-start rounded-tl-lg">Student Number</th>
+                <th class="text-center rounded-tl-lg">Student Number</th>
                 <th>NAME</th>
                 <th>CONTACT NUMBER</th>
                 <th class="rounded-tr-lg">DETAILS</th>
@@ -765,7 +765,7 @@ function dateInText($date)
 
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin">
+          <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
             <thead>
               <tr class="bg-accent text-white">
                 <th class="rounded-tl-lg">Student Number</th>
@@ -916,8 +916,8 @@ function dateInText($date)
         </div>
 
         <!-- profile content -->
-        <div id="profile-tab" class="p-5">
-          <div class="p-3 rounded-md bg-accent flex items-center my-3">
+        <div id="profile-tab">
+          <div class="p-3 rounded-md bg-accent flex items-center">
             <img class="profilePic h-36 w-36 rounded-full border-2 border-white" alt="">
             <div class="ms-6">
               <p class="text-lg text-white font-bold">
@@ -977,7 +977,7 @@ function dateInText($date)
             <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar z-0">
               <div class="flex gap-2 text-greyish_black text-sm my-2 border-b border-gray-300 p-3">
                 <button id="availablePostBtn" class="activeBtn rounded-md px-5 py-1">Post</button>
-                <button id="archievedBtnProfile" class="rounded-md px-5 py-1">Archieved</button>
+                <button id="archievedBtnProfile" class="rounded-md px-5 py-1">Archived</button>
               </div>
 
             </div>
@@ -1099,7 +1099,7 @@ function dateInText($date)
             </div>
 
             <!-- record of name-->
-            <table class="table-auto w-full mt-10 text-xs font-thin">
+            <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
               <thead>
                 <tr class="bg-accent text-white">
                   <th class="text-start rounded-tl-lg">Student Number</th>
@@ -1228,7 +1228,7 @@ function dateInText($date)
           </div>
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin text-greyish_black">
+          <table class="table-auto w-full mt-10 text-xs font-thin text-greyish_black center-shadow">
             <thead>
               <tr class="bg-accent text-white">
                 <th class="text-start rounded-tl-lg">NAME</th>

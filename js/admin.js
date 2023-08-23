@@ -304,6 +304,8 @@ $(document).ready(function () {
   let countNext = 0;
   //job table listing
   $('#jobLI').on('click', function () {
+    offset = 0;
+    $('#jobTBContent').find('tr').remove()
     jobList(offset)
   })
 
@@ -350,7 +352,7 @@ $(document).ready(function () {
             let tdDatePosted = $('<td>').text(datePosted);
             let tdLogo = $('<td>').append($('<img>')
               .attr('src', logo)
-              .addClass('w-20 h-20 mx-auto rounded-full'));
+              .addClass('w-16 h-16 mx-auto rounded-full'));
 
 
             //set up the value if th button view was clicked to view the details of the job

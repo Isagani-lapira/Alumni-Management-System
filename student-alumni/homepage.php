@@ -276,13 +276,11 @@ function getAccDetails($con, $personID)
             <div id="centerDiv" class="border-l border-r border-grayish px-4 mt-2 h-full">
 
               <!-- Content for the center div -->
-
               <!-- Main Feed -->
               <div id="mainFeed" class="mainFeed h-full">
                 <!-- Content for the main feed -->
-
                 <!-- POST -->
-                <div id="feedContainer" class="post w-5/6 mx-auto post-width h-full no-scrollbar">
+                <div id="feedContainer" class="post w-5/6 mx-auto post-width p-3 h-full no-scrollbar">
                   <!-- Make Post && Profile -->
                   <div id="makePostProfile" class="post p-3 input-post-width mx-auto rounded-md center-shadow w-full my-2">
                     <div class="flex items-center">
@@ -779,13 +777,13 @@ function getAccDetails($con, $personID)
               </div>
             </div>
 
-            <div class="scrollable-container mt-8 rounded-md">
-              <ul id="listOfJob" class="tab-links overflow-y-auto px-2 pb-4 flex flex-col gap-2 w-10/12" style="max-height: 440px;">
+            <div class="scrollable-container mt-8 rounded-md  w-10/12">
+              <ul id="listOfJob" class="tab-links overflow-y-auto px-2 pb-4 flex flex-col gap-2 w-full" style="max-height: 440px;">
                 <p id="noJobMsg" class="hidden text-sm text-blue-400 text-center">No available job right now</p>
               </ul>
             </div>
 
-            <div class="mt-3 flex justify-center items-center w-10/12">
+            <div class="absolute bottom-7 mt-3 flex justify-center items-center w-10/12">
               <button class="bg-blue-400 rounded-md text-white w-full py-3 hover:bg-blue-500">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-2 -2 24 24">
                   <path fill="white" d="m5.72 14.456l1.761-.508l10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635l-.52 1.82zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.901.901 0 0 1-1.11-.623a.915.915 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635h3.592z" />
@@ -798,9 +796,10 @@ function getAccDetails($con, $personID)
           <!-- CENTER DIV -->
           <div class="center-div w-full  overflow-y-auto jobDescript">
             <div class="content-div rounded-md text-sm h-full">
-              <div class="tab-content p-3 w-1/2 mx-auto hidden h-full bg-blue-500">
+              <div id="jobDescWrapper" class="tab-content p-3 w-full mx-auto hidden h-full">
                 <!-- JOB DESC. -->
-                <div class="job-des h-full center-shadow" id="job-description">
+                <div class="job-des h-full center-shadow overflow-y-auto p-5" id="job-description">
+                  <iconify-icon id="backToCard" icon="ep:back" style="color: #a0a0a0;" width="40" height="40"></iconify-icon>
                   <!-- Company Name and Image -->
                   <div class="flex py-10 px-16">
                     <div>
@@ -840,6 +839,12 @@ function getAccDetails($con, $personID)
                     <p id="jobDescript" class="indented text-justify text-sm text-dirtyWhite"></p>
                   </div>
 
+                  <!-- Qualifications -->
+                  <div class="px-10 py-2">
+                    <h3 class="font-semibold">Qualifications:</h3>
+                    <p id="viewJobQuali" class="indented text-justify text-dirtyWhite"></p>
+                  </div>
+
                   <!-- location -->
                   <div class="px-10 py-2">
                     <h3 class="font-semibold">Location</h3>
@@ -856,17 +861,13 @@ function getAccDetails($con, $personID)
                     <div id="skillsContainer" class="flex flex-wrap gap-3 indented"></div>
                   </div>
 
-                  <!-- Qualifications -->
-                  <div class="px-10 py-2">
-                    <h3 class="font-semibold">Qualifications:</h3>
-                    <p id="viewJobQuali" class="indented text-justify text-dirtyWhite"></p>
-                  </div>
-
                 </div>
 
               </div>
-              <ul class=" list-disc"></ul>
-              <div id="jobCard" class="w-full h-full grid grid-cols-3 gap-2 p-5 overflow-y-auto"></div>
+              <div>
+                <div id="jobCard" class="w-full h-full grid grid-cols-3 gap-2 overflow-y-auto p-5"></div>
+              </div>
+
             </div>
 
           </div>

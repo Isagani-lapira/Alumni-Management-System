@@ -276,7 +276,7 @@ function dateInText($date)
             <button id="userPost" class="text-white bg-accent px-3 rounded-lg py-1 font-bold">Posts</button>
             <button id="archievedBtn" class="text-gray-400 hover:bg-gray-300 px-3 rounded-lg py-1 ">Archived</button>
             <hr class=" mt-2 border-gray-300">
-            <div id="feedContainer" class="post w-5/6 mx-auto post-width h-full no-scrollbar">
+            <div id="feedContainer" class="post w-5/6 mx-auto post-width p-3 h-full no-scrollbar">
                 <!-- Make Post && Profile -->
                 <div id="makePostProfile" class="post p-3 input-post-width mx-auto rounded-md center-shadow w-full my-2">
                     <div class="flex items-center">
