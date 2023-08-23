@@ -157,7 +157,11 @@ $(document).ready(function () {
                 //success sending
                 else {
                     $('#userNotExist').hide()
-                    console.log(response)
+                    $('#promptMsg').removeClass('hidden')
+                    $('#message').text('Sending email..')
+                    setTimeout(() => {
+                        $('#promptMsg').addClass('hidden')
+                    }, 4000)
                 }
             },
             error: (error) => console.log(error)

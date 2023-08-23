@@ -2,10 +2,10 @@
 
 class Alumni
 {
-    function insertAlumni($studNo, $personID, $colCode, $username, $batchYr, $con)
+    function insertAlumni($studNo, $personID, $colCode, $username, $batchYr, $employmentStatus, $con)
     {
         $query =  "INSERT INTO `alumni`(`studNo`, `personID`, `colCode`, `username`, `batchYr`) 
-        VALUES ('$studNo','$personID','$colCode','$username','$batchYr')";
+        VALUES ('$studNo','$personID','$colCode','$username','$batchYr' '$employmentStatus')";
 
         $result = mysqli_query($con, $query);
 
@@ -37,12 +37,10 @@ class Alumni
 
                 //query the personID for person table
                 $queryPerson = 'SELECT * FROM `person` WHERE `personID` = "' . $personID . '"';
-                $resultPerson = mysqli_query($con, $queryPerson);
 
-                //get the alumni full name
-                if ($resultPerson) {
-                    $data = mysqli_fetch_assoc($result);
-                    $fullname[] = $data['fname'] . ' ' . $data['lname'];
+                $resultPerson = mysqli_query($con, $queryPerson);
+                while ($personData = mysqli_fetch_assoc($resultPerson)) {
+                    $fullname[] = $personData['fname'] . $personData['lname'];
                 }
             }
         } else $response = "Unsuccess";

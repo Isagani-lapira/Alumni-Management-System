@@ -1,3 +1,6 @@
+
+let usernameAvailable = true;
+let personalEmailAvailable = true;
 $(document).ready(function () {
 
   //go registration button
@@ -30,7 +33,7 @@ $(document).ready(function () {
         if (response == 'unsuccessful') $('#errorMsg').show();
         else {
           $('#errorMsg').hide()
-          window.location.href = "../student-alumni/homepage.html"
+          window.location.href = "../student-alumni/homepage.php"
         }
       },
       error: (error) => console.log(error)
@@ -58,6 +61,84 @@ $(document).ready(function () {
     })
   })
 
+  //check if the username already existing
+  $('#usernameReg').on('change', function () {
+    checkUsername()
+  })
+
+  //checking username
+  function checkUsername() {
+    let username = $('#usernameReg').val();
+
+    let form = new FormData();
+    var data = {
+      action: 'read',
+      query: false,
+    };
+    form.append('username', username);
+    form.append('action', JSON.stringify(data))
+    $.ajax({
+      url: '../PHP_process/userData.php',
+      type: 'POST',
+      data: form,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response == 'exist') {
+          $('#usernameReg').addClass('border-accent').removeClass('border-gray-400');
+          $('#usernameWarning').show();
+          usernameAvailable = false;
+        }
+        else {
+          $('#usernameField').removeClass('border-accent').addClass('border-gray-400');
+          $('#usernameWarning').hide();
+          usernameAvailable = true;
+        }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+
+  }
+
+  //check if the email already existing
+  $('#personalEmail').on('change', function () {
+    checkEmailAddress()
+  })
+
+  function checkEmailAddress() {
+    let personalEmail = $('#personalEmail').val();
+
+    let form = new FormData();
+    var data = {
+      action: 'read',
+    };
+    form.append('personalEmail', personalEmail);
+    form.append('action', JSON.stringify(data))
+    $.ajax({
+      url: '../PHP_process/person.php',
+      type: 'POST',
+      data: form,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response == 'Exist') {
+          $('#personalEmail').addClass('border-accent').removeClass('border-gray-400');
+          $('#emailExist').show();
+          personalEmailAvailable = false;
+        }
+        else {
+          $('#personalEmail').removeClass('border-accent').addClass('border-gray-400');
+          $('#emailExist').hide();
+          personalEmailAvailable = true;
+        }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+  }
 });
 
 // Get the necessary elements
@@ -150,7 +231,7 @@ nextButton.addEventListener("click", function () {
   }
 
   // Check if any field is empty
-  if (hasError) {
+  if (hasError || !personalEmailAvailable) {
     return;
   }
 
@@ -219,6 +300,7 @@ const backButton = document.getElementById("backButton");
 nextButtonPage2.addEventListener("click", function () {
   // Perform form validation
   const college1 = document.getElementById("college");
+  const username = document.getElementById("usernameReg");
   const batch = document.getElementById("batch");
   const statusOptions = document.querySelectorAll('input[name="status"]');
   const emailBSU = document.getElementById("email");
@@ -228,9 +310,16 @@ nextButtonPage2.addEventListener("click", function () {
   const reqInputAns = document.getElementById("reqInputAns");
   const passDetailsDiv = document.getElementById("passDetailsDiv");
   const confirmPassDetailsDiv = document.getElementById("confirmPassDetailsDiv");
+  const employmentStatus = document.getElementById("employment-status");
+  const employmentStatusDiv = document.getElementById("employment-status-div");
 
   let hasError = false;
-
+  if (username.value.trim() === "") {
+    username.style.borderColor = "#991B1B"; // Set accent color for empty field
+    hasError = true;
+  } else {
+    username.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  }
   if (college1.value.trim() === "") {
     college1.style.borderColor = "#991B1B"; // Set accent color for empty field
     hasError = true;
@@ -238,11 +327,23 @@ nextButtonPage2.addEventListener("click", function () {
     college1.style.borderColor = "#9CA3AF"; // Set default color for filled field
   }
 
-  if (batch.value.trim() === "") {
-    batch.style.borderColor = "#991B1B"; // Set accent color for empty field
-    hasError = true;
-  } else {
-    batch.style.borderColor = "#9CA3AF"; // Set default color for filled field
+  // Check if the selected status is "Student"
+  let isStudent = false;
+  for (let i = 0; i < statusOptions.length; i++) {
+    if (statusOptions[i].checked && statusOptions[i].value === "Student") {
+      isStudent = true;
+      break;
+    }
+  }
+
+  if (!isStudent) {
+    // If the selected status is not "Student," perform validation for the employmentStatus field
+    if (employmentStatus.value.trim() === "") {
+      employmentStatusDiv.classList.add("validation-border"); // Add validation class to show red border
+      hasError = true;
+    } else {
+      employmentStatusDiv.classList.remove("validation-border"); // Remove validation class to reset border
+    }
   }
 
   let statusSelected = false;
@@ -268,8 +369,6 @@ nextButtonPage2.addEventListener("click", function () {
     }
   }
 
-
-
   // Check if password1 field is empty or does not meet the condition
   if (!password1.checkValidity() || !isPasswordValid(password1.value)) {
     passDetailsDiv.style.borderColor = "#991B1B"; // Set accent color for empty field or invalid password
@@ -291,7 +390,7 @@ nextButtonPage2.addEventListener("click", function () {
   }
 
   // Check if any fields have errors
-  if (hasError) {
+  if (hasError || !usernameAvailable) {
     reqInputAns.classList.remove("hidden"); // Show error message
     return; // Exit the function if there are errors
   } else {
@@ -402,4 +501,27 @@ document.getElementById('toggleLoginPassword').addEventListener('click', functio
     this.classList.add('fa-eye-slash');
   }
 });
+
+//Hide and Show Employement Status
+// Get the radio buttons and the employment status div
+const alumniRadioButton = document.getElementById("alumni");
+const studentRadioButton = document.getElementById("student");
+const employmentStatusDiv = document.getElementById("employment-status-div");
+
+// Add event listeners to the radio buttons
+alumniRadioButton.addEventListener("change", toggleEmploymentStatus);
+studentRadioButton.addEventListener("change", toggleEmploymentStatus);
+
+// Function to toggle the display of the employment status div based on the selected radio button
+function toggleEmploymentStatus() {
+  if (alumniRadioButton.checked) {
+    employmentStatusDiv.style.display = "block";
+  } else if (studentRadioButton.checked) {
+    employmentStatusDiv.style.display = "none";
+  }
+}
+
+// Call the function on page load to set the initial state based on the default checked radio button
+
+
 

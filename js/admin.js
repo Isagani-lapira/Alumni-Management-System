@@ -105,9 +105,6 @@ $(document).ready(function () {
   $('.inputSkill').on('input', function () {
     addNewField(skillDiv, holderSkill, true)
   })
-  $('.inputReq').on('input', function () {
-    addNewField(reqDiv, holderReq, false)
-  })
 
 
   //error handling for logo
@@ -269,7 +266,6 @@ $(document).ready(function () {
     e.preventDefault()
 
     var skills = skillArray()
-    var requirements = reqArray();
 
     //check first if all input field are complete
     if (jobField()) {
@@ -282,7 +278,6 @@ $(document).ready(function () {
       data.append('action', JSON.stringify(action))
       data.append('author', 'University Admin');
       data.append('skills', JSON.stringify(skills));
-      data.append('requirements', JSON.stringify(requirements));
       data.append('personID', decodedPersonID);
 
       $.ajax({
@@ -294,13 +289,6 @@ $(document).ready(function () {
         success: function (success) {
           $('#promptMessage').removeClass('hidden');
           $('#insertionMsg').html(success);
-
-          //remove the current data that has been adden
-          $('#adminJobPostCont').empty()
-          $('#jobTBContent').empty();
-
-          //retrieve the data to be display all
-          jobList()
         },
         error: function (error) {
           $('#promptMessage').removeClass('hidden');
@@ -311,15 +299,23 @@ $(document).ready(function () {
   })
 
 
-  var jobData = new FormData();
-  var jobAction = {
-    action: 'read', //read the data
-  }
-  jobData.append('action', JSON.stringify(jobAction));
-
+  let offset = 0;
+  let tempOffsetJob = 0;
+  let countNext = 0;
   //job table listing
-  jobList()
-  function jobList() {
+  $('#jobLI').on('click', function () {
+    offset = 0;
+    $('#jobTBContent').find('tr').remove()
+    jobList(offset)
+  })
+
+  function jobList(offset) {
+    let jobAction = {
+      action: 'read', //read the data
+    }
+    const jobData = new FormData();
+    jobData.append('action', JSON.stringify(jobAction));
+    jobData.append('offset', offset);
     $.ajax({
       url: '../PHP_process/jobTable.php',
       type: 'POST',
@@ -330,11 +326,11 @@ $(document).ready(function () {
       success: function (response) {
         //check if there's a value
         if (response.result === 'Success') {
+          $('#jobNavigation').find('button').remove();
           $('.jobErrorMsg').addClass('hidden'); //hide the message
           let data = response;
           let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
 
-          noPostedJob = 0;
           for (let i = 0; i < jobTitles.length; i++) {
             //fetch all the data
             let jobTitle = jobTitles[i];
@@ -346,28 +342,17 @@ $(document).ready(function () {
             let datePosted = data.date_posted[i];
             let companyLogo = data.companyLogo[i];
             let skills = data.skills[i];
-            let requirements = data.requirements[i];
-            let personID = data.personID[i];
             let logo = imgFormat + companyLogo;
 
-            //encrypt the personID to be compare on the personID return that is also encrypted
-            let desiredValue = decodedPersonID;
-            let desiredValueEncrypted = md5(desiredValue);
-
-            //check if there's a similar person ID and produce a my joblist
-            if (personID === desiredValueEncrypted) {
-              myJobPostList(jobTitle, logo)
-              noPostedJob++
-            }
-
-            $('#noPostedJob').text(noPostedJob);
             //add data to a table data
             let row = $('<tr>').addClass('text-xs');
             let tdTitle = $('<td>').text(jobTitle);
             let tdAuthor = $('<td>').text(author);
             let tdCollege = $('<td>').text(college);
             let tdDatePosted = $('<td>').text(datePosted);
-            let tdLogo = $('<td>').append($('<img>').attr('src', logo).addClass('w-20 mx-auto'));
+            let tdLogo = $('<td>').append($('<img>')
+              .attr('src', logo)
+              .addClass('w-16 h-16 mx-auto rounded-full'));
 
 
             //set up the value if th button view was clicked to view the details of the job
@@ -376,7 +361,6 @@ $(document).ready(function () {
               .on('click', function () {
                 //remove the recent added skill and requirements
                 $('#skillSets').empty()
-                $('#reqCont').empty()
 
                 //set value to the view modal
                 $('#viewJob').removeClass('hidden');
@@ -396,26 +380,42 @@ $(document).ready(function () {
                   $('#skillSets').append(spSkill)
                 })
 
-                //retrieve the requirements
-                requirements.forEach(requirement => {
-                  // <p><span class="font-bold text-lg">&#x2022</span> Resume</p>
-                  pTag = $('<p>')
-                  spanTag = $('<span>').addClass('font-bold text-lg mx-2')
-                    .html('&#x2022');
-
-                  pTag.text(requirement)
-                  pTag.prepend(spanTag)
-                  $('#reqCont').append(pTag);
-                })
-
               }));
 
             //display every data inside the table
             row.append(tdLogo, tdTitle, tdAuthor, tdCollege, tdDatePosted, btnView);
             $('#jobTBContent').append(row);
           }
+          offset += jobTitles.length
+          tempOffsetJob = jobTitles.length
+          const nextBtn = $('<button>')
+            .addClass('bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md')
+            .text('Next')
+            .on('click', function () {
+              $('#jobTBContent').find('tr').remove()
+              jobList(offset);
+              countNext += tempOffsetJob
+            })
+          const prevBtn = $('<button>')
+            .addClass('border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md')
+            .text('Previous')
+            .on('click', function () {
+              countNext -= tempOffsetJob
+
+              console.log(countNext)
+              //check if there are still to be back
+              if (countNext >= 0) {
+                $('#jobTBContent').find('tr').remove()
+                jobList(countNext);
+              } else prevBtn.addClass('hidden')
+
+            })
+
+          $('#jobNavigation').append(prevBtn, nextBtn)
         } else {
           $('.jobErrorMsg').removeClass('hidden'); //add message to the user
+          $('#nextJob').attr('disabled', true)
+            .addClass('hidden')
         }
 
       },
@@ -426,19 +426,11 @@ $(document).ready(function () {
     })
   }
 
-  function myJobPostList(careerTitle, companyLogo) {
 
-    let container = $('<div>').addClass("college center-shadow col-span-1 flex flex-col justify-center rounded-lg border");
-    let imgLogo = $('<img>').addClass("flex-auto h-20 w-20 block mx-auto")
-    imgLogo.attr('src', companyLogo)
-
-    let titlePart = $('<p>').addClass("text-xs text-center mt-5 w-full bg-accent rounded-b-lg p-2 text-white font-medium");
-    titlePart.text(careerTitle);
-    container.append(imgLogo, titlePart);
-    $('#adminJobPostCont').append(container);
-
-  }
-
+  //admin job list post
+  $('#jobMyPost').on('click', function () {
+    console.log('napindot')
+  })
   //retrieve all the skills have been written
   function skillArray() {
     var skills = [];
@@ -447,17 +439,6 @@ $(document).ready(function () {
     })
 
     return skills
-
-  }
-
-  //retrieve all the requirements have been written
-  function reqArray() {
-    var requirement = [];
-    $('.reqInput').each(function () {
-      requirement.push($(this).val());
-    })
-
-    return requirement;
 
   }
 
@@ -596,15 +577,29 @@ $(document).ready(function () {
     }
   })
 
-  getStudentRecord()
+  let studentDataOffset = 0;
+  let studentCurrentYear = '';
+  let studentColCode = '';
+  let studentSearch = '';
+  let studentRetrieved = 0;
+  $('#studenLi').on('click', function () {
+    studentDataOffset = 0;
+    studentCurrentYear = '';
+    studentColCode = '';
+    studentSearch = '';
+    //load the student record
+    getStudentRecord()
+  })
   //get student record
   function getStudentRecord() {
 
     let action = {
       action: 'read',
-      currentYear: ''
+      currentYear: studentCurrentYear,
+      colCode: studentColCode,
+      offset: studentDataOffset,
+      search: studentSearch
     }
-
     let studentData = new FormData();
     studentData.append('action', JSON.stringify(action));
     $.ajax({
@@ -615,17 +610,19 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: (response) => {
+        let tbody = $('#studentTB')
+        tbody.find('tr').remove();
         if (response.response == "Success") {
           let data = response
           let length = data.studentNo.length; //length of the data has been retrieved
 
           //display the student record on the table 
-          let tbody = $('#studentTB')
           for (let i = 0; i < length; i++) {
-            studentNo = data.studentNo[i];
-            fullname = data.fullname[i];
-            contactNo = data.contactNo[i];
-            let tr = $('<tr>');
+            //retrieve data from response
+            const studentNo = data.studentNo[i];
+            const fullname = data.fullname[i];
+            const contactNo = data.contactNo[i];
+            let tr = $('<tr>').addClass('student-data');
             let tdStudentNo = $('<td>').addClass('text-center font-bold').text(studentNo)
             let tdfullname = $('<td>').addClass('text-center').text(fullname)
             let tdcontactNo = $('<td>').addClass('text-center').text(contactNo)
@@ -636,15 +633,60 @@ $(document).ready(function () {
             tr.append(tdStudentNo, tdfullname, tdcontactNo, viewProfile);
             tbody.append(tr);
           }
+          studentDataOffset += length;
+          studentRetrieved = length;
+          if (length < 10)
+            $('#nextBtnStudent').addClass('hidden')
         }
       },
       error: (error) => { console.log(error) }
     });
   }
 
+  //filtering process for student record
+  $('#college').on('change', function () {
+    studentDataOffset = 0;
+    //restart the student search
+    studentSearch = '';
+    $('#searchPerson').val('');
+    studentColCode = $(this).val();
+    getStudentRecord(); //retrieve data based on filtered college
+  })
+  //batch filtering
+  $('#batch').on('change', function () {
+    studentDataOffset = 0;
+    //restart the student search
+    studentSearch = '';
+    $('#searchPerson').val('');
+    studentCurrentYear = $(this).val();
+    getStudentRecord(); //retrieve data based on filtered college
+  })
 
+  //search a specific student
+  $('#searchPerson').on('input', function () {
+    studentDataOffset = 0;
+    studentColCode = '';
+    studentCurrentYear = '';
+    studentSearch = $(this).val();
+    getStudentRecord();
+  })
 
+  //pagination for student record
+  $('#nextBtnStudent').on('click', getStudentRecord)
 
+  $('#prevBtnStudent').on('click', function () {
+    studentDataOffset -= studentRetrieved
+    //check first if there's more to be previous
+    if (studentDataOffset !== 0) {
+      getStudentRecord();
+      //show the next 
+      $('#nextBtnStudent').removeClass('hidden')
+    }
+    else {
+      $(this).addClass('hidden')
+      $('#nextBtnStudent').addClass('hidden')
+    }
+  })
   getAlumniRecord();
   function getAlumniRecord() {
     let actionAlumni = {
@@ -654,13 +696,43 @@ $(document).ready(function () {
     let alumniData = new FormData();
     alumniData.append('action', JSON.stringify(actionAlumni));
 
+    let alumniTB = $('#alumniTB');
+    let prompt = $('#alumniNoRecMsg')
     $.ajax({
       url: '../PHP_process/alumniData.php',
       method: "POST",
       data: alumniData,
       processData: false,
       contentType: false,
-      success: (response) => { console.log(response) },
+      success: (response) => {
+        const parsedResponse = JSON.parse(response);
+        if (parsedResponse.result == "Unsuccess") //no available data
+          prompt.removeClass('hidden');
+        else {
+          prompt.addClass('hidden');
+          //display the data
+          let dataLength = parsedResponse.studentNo.length
+          for (let i = 0; i < dataLength; i++) {
+            //retrieve data from json
+            let studNo = parsedResponse.studentNo[i];
+            let fullname = parsedResponse.fullname[i];
+            let colCode = parsedResponse.colCode[i];
+            let batchYr = parsedResponse.batchYr[i];
+            let employmentStatus = parsedResponse.employmentStat[i];
+
+            //creation of table data
+            let tr = $('<tr>')
+            let tdStudentNo = $('<td>').text(studNo)
+            let tdfullname = $('<td>').text(fullname)
+            let tdcolCode = $('<td>').text(colCode)
+            let tdbatchYr = $('<td>').text(batchYr)
+            let tdemploymentStatus = $('<td>').text(employmentStatus)
+
+            tr.append(tdStudentNo, tdfullname, tdcolCode, tdbatchYr, tdemploymentStatus)
+            alumniTB.append(tr)//display to the table
+          }
+        }
+      },
       error: (error) => { console.log(error) }
     })
   }
@@ -681,13 +753,332 @@ $(document).ready(function () {
       $.ajax({
         url: '../PHP_process/signout.php',
         type: 'GET',
-        success: (response) => {
+        success: () => {
           window.location.href = 'loginAdmin.php'
         },
         error: (error) => { console.log(error) }
       })
     })
   })
+
+
+  //displaying image
+  let imgProfileVal = $('.profilePicVal').html();
+  let profilePic = imgFormat + imgProfileVal;
+
+  //set all the profile with a user picture
+  $('.profilePic').each(function () {
+    var imgElement = $(this);
+    imgElement.attr('src', profilePic)
+  })
+
+
+  //edit admin details
+  $('#editProf').on('click', function () {
+    $('#profileModal').removeClass('hidden')
+  })
+  //profile
+  let profileLbl = "";
+  let profileBtn = "";
+
+  let profileImg = $('#profileImgEdit')
+
+  //change the current profile displayed to new selected profile
+  $('#profileFile').on('change', function () {
+    let selectedFile = $(this).prop("files")[0];
+    profileLbl = $('#profileLbl')
+    profileBtn = $('#profileBtn')
+
+    if (selectedFile) {
+      var reader = new FileReader();
+      reader.onload = (e) => {
+        profileImg.attr('src', e.target.result)
+        profileBtn.removeClass('hidden')
+        profileLbl.addClass('hidden');
+      }
+      reader.readAsDataURL(selectedFile)
+    }
+  })
+
+  $('#saveProfile').on('click', function () {
+    let newProfile = $('#profileFile').prop('files')[0];
+
+    let action = {
+      action: 'updateProfile',
+      dataUpdate: 'profilepicture'
+    }
+    let profileBtn = $('#profileBtn')
+    let label = $('#profileLbl')
+    processImgUpdate(action, newProfile, profileBtn, label)
+  })
+
+  function processImgUpdate(action, img, confirmationCont, editIcon) {
+    let formData = new FormData()
+    formData.append('action', JSON.stringify(action))
+    formData.append('imgSrc', img);
+
+    $.ajax({
+      url: '../PHP_process/person.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response == 'success') {
+          confirmationCont.addClass('hidden')
+          editIcon.removeClass('hidden');
+        }
+      },
+      error: (error) => { console.log(error) }
+    })
+  }
+
+  //edit location
+  $('#editAddLabel').on('click', function () {
+    $('#editAddress').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#locBtn').removeClass('hidden') //show the save button
+    $('#editAddLabel').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveLocation').on('click', function () {
+    let newAddress = $('#editAddress').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'address'
+    }
+    let btnCont = $('#locBtn')
+    let label = $('#editAddLabel')
+    processPersonalInfo(action, newAddress, btnCont, label)
+
+  })
+
+  //edit email address
+  $('#editEmailLbl').on('click', function () {
+    $('#editEmail').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#emailBtn').removeClass('hidden') //show the save button
+    $('#editEmailLbl').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveEmail').on('click', function () {
+    let newEmail = $('#editEmail').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'personal_email'
+    }
+    let btnCont = $('#emailBtn')
+    let label = $('#editEmailLbl')
+    processPersonalInfo(action, newEmail, btnCont, label)
+
+  })
+
+
+  //edit contact Number
+  $('#editContactLbl').on('click', function () {
+    $('#editContact').removeAttr('disabled') //allows to be edit
+      .addClass('border-b border-gray-400')
+
+    $('#contactBtn').removeClass('hidden') //show the save button
+    $('#editContactLbl').addClass('hidden'); //remove the edit label
+  })
+
+  $('#saveContact').on('click', function () {
+    let newEmail = $('#editContact').val();
+
+    let action = {
+      action: 'updatePersonDetails',
+      dataUpdate: 'contactNo'
+    }
+    let btnCont = $('#contactBtn')
+    let label = $('#editContactLbl')
+    processPersonalInfo(action, newEmail, btnCont, label)
+
+  })
+
+  function processPersonalInfo(action, value, confirmationCont, editIcon) {
+    let formData = new FormData()
+    formData.append('action', JSON.stringify(action))
+    formData.append('value', value);
+
+    $.ajax({
+      url: '../PHP_process/person.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response == 'success') {
+          confirmationCont.addClass('hidden')
+          editIcon.removeClass('hidden');
+        }
+      },
+      error: (error) => { console.log(error) }
+    })
+  }
+  //close the modal
+  $('#profileModal').on('click', function (event) {
+    const target = event.target
+    const formUpdate = $('.formUpdate')
+
+    //clicked outside the edit modal
+    if (!formUpdate.is(target) && !formUpdate.has(target).length) {
+      $(this).addClass('hidden')
+    }
+  })
+
+
+  // make news and announcement
+  $('#headerImg').on('change', function () {
+    const file = this.files[0]; //get the first file selected
+
+    if (file) {
+      const reader = new FileReader();
+
+      //display the file on image element
+      reader.onload = (e) => {
+        $('#imgHeader').attr('src', e.target.result);
+
+        //hide the label
+        $('.headerLbl').addClass('hidden')
+      }
+
+      //read the selected file to trigger onload
+      reader.readAsDataURL(file)
+    }
+  })
+
+  $('#newsTitle, #newstTxtArea').on('input', enableAnnouncementBtn);
+  $('#headerImg').on('change', enableAnnouncementBtn)
+
+  function enableAnnouncementBtn() {
+
+    const fieldToTest = ['#newsTitle', '#newstTxtArea', '#headerImg'];
+    let isComplete = false;
+    $.each(fieldToTest, function (index, field) {
+      let value = $(field).val().trim();
+      if (value === '') {
+        isComplete = false; // If any field is empty, set isComplete to false
+        return false; // Exit the loop early if we find an empty field
+      }
+      else isComplete = true
+    });
+
+    const enabledBtn = 'text-white bg-accent'
+    const disabledBnt = 'text-gray-300  bg-red-300'
+    //if everything is added then remove the disabled in button
+    if (isComplete) {
+      $('#postNewsBtn').prop('disabled', false)
+        .addClass(enabledBtn)
+        .removeClass(disabledBnt)
+    }
+    else {
+      //disable again the button
+      $('#postNewsBtn').prop('disabled', true)
+        .addClass(disabledBnt)
+        .removeClass(enabledBtn)
+    }
+  }
+
+  let imageCollection = [];
+  $('#collectionFile').on('change', function () {
+    let imgSrc = this.files[0];
+
+    imageCollection.push(imgSrc);
+    //get image selected
+    if (imgSrc) {
+      var reader = new FileReader();
+
+      //load the selected file
+      reader.onload = (e) => {
+
+        //create a new container
+        const imgWrapper = $('<div>')
+          .addClass('imgWrapper w-24 h-24 rounded-md')
+        const imgElement = $('<img>')
+          .addClass('h-full w-full rounded-md')
+          .attr('src', e.target.result);
+
+        //attach everything
+        imgWrapper.append(imgElement)
+        $('#collectionContainer').append(imgWrapper) //attach to the root
+      }
+
+      //read the file for onload to be trigger
+      reader.readAsDataURL(imgSrc)
+    }
+  })
+
+  $('#closeNewsModal').on('click', function () {
+    $('#newsUpdateModal').addClass('hidden')
+    restartNewsModal()
+  })
+
+  //restart the news modal
+  function restartNewsModal() {
+    $('#imgHeader').attr('src', '')
+    $('.headerLbl').removeClass('hidden')
+    $('#newsTitle').val("")
+    $('#newstTxtArea').val("")
+    $('.imgWrapper').remove()
+
+    imageCollection = [];
+  }
+  //open announcement modal
+  $('#newsBtn').on('click', function () {
+    $('#newsUpdateModal').removeClass('hidden')
+  })
+
+  $('#postNewsBtn').on('click', function () {
+    let imgHeader = $('#headerImg').prop('files')[0]; //get the header
+    let action = "insertData";
+    let title = $('#newsTitle').val()
+    let description = $('#newstTxtArea').val()
+
+    //data to be send
+    const formData = new FormData();
+    formData.append('action', action);
+    formData.append('imgHeader', imgHeader)
+    formData.append('title', title)
+    formData.append('description', description)
+
+    //send images when there's a collection added
+    if (imageCollection.length != 0) {
+      for (let i = 0; i < imageCollection.length; i++) {
+        formData.append('file[]', imageCollection[i])
+      }
+    }
+
+    //process the insertion
+    $.ajax({
+      url: '../PHP_process/announcement.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: response => {
+        //close the modal
+        $('#newsUpdateModal').addClass('hidden')
+        restartNewsModal()
+        if (response == "Success") {
+          setTimeout(function () {
+            $('#successModal').removeClass('hidden')
+
+            setTimeout(function () {
+              $('#successModal').addClass('hidden')
+            }, 5000)
+          }, 1000)
+        }
+      },
+      error: error => { console.log(error) },
+    })
+
+  })
+
 
 });
 

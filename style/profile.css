@@ -1,0 +1,46 @@
+#feedContainer {
+  overflow-y: auto;
+  max-height: 4609.86px;
+}
+
+.bgCover {
+  height: 500px;
+  background: rgb(0, 42, 126);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 42, 126, 1) -42%,
+    rgba(228, 228, 228, 1) 0%,
+    rgba(242, 187, 203, 1) 29%,
+    rgba(221, 179, 179, 1) 63%,
+    rgba(231, 149, 149, 1) 95%
+  );
+}
+
+.bg-opacity-50 {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#resumeWrapperModal {
+  font-family: Arial, Helvetica, sans-serif;
+  height: 297mm; /* A4 height */
+  width: 210mm; /* A4 width */
+  margin: 0;
+  padding: 0;
+}
+
+@media print {
+  body {
+    margin: 10; /* No margins */
+  }
+
+  /* Hide header and footer */
+  @media print {
+    body::after {
+      content: none !important;
+    }
+  }
+}
+
+.profileWrapper {
+  left: 20%;
+}

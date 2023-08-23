@@ -1,11 +1,11 @@
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .search-input-focused {
   outline: none;
-  border-color: #991B1B;
-  box-shadow: 0 0 0 2px #991B1B;
+  border-color: #991b1b;
+  box-shadow: 0 0 0 2px #991b1b;
 }
 
 .text-black {
@@ -16,7 +16,7 @@ body {
   border-radius: 50%;
   border: 2px solid #113782;
 }
-.sub-navbar{
+.sub-navbar {
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
 }
@@ -31,7 +31,7 @@ body {
 }
 
 .bg-cover {
-  margin-top: 95px; 
+  margin-top: 95px;
   width: auto;
   height: auto;
 }
@@ -78,8 +78,8 @@ body {
   max-width: 500px;
 }
 
-#galleryLogo:hover >svg path{
-  fill: #1746A2;
+#galleryLogo:hover > svg path {
+  fill: #1746a2;
   cursor: pointer;
 }
 
@@ -88,18 +88,14 @@ body {
 }
 
 .red-color {
-  background-color: #991B1B;
-}
-
-.center-shadow{
-  box-shadow: rgba(87, 87, 87, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  background-color: #991b1b;
 }
 
 .tags-con {
   padding: 4px;
 }
 
-.job-offer.selected{
+.job-offer.selected {
   background-color: rgba(153, 27, 27, 0.25);
   color: #000000;
 }
@@ -136,16 +132,194 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #991B1B;
+  background-color: #991b1b;
   border-radius: 10px;
 }
 
 :root {
-  scrollbar-color: #991B1B; /* Set the color of the thumb */
+  scrollbar-color: #991b1b; /* Set the color of the thumb */
 }
 
+/* UI ACTIVE TAB */
+/* Default styles for inactive tabs */
+#tabs .icon,
+#tabs .text {
+  fill: rgb(202, 152, 152);
+  color: rgb(202, 152, 152);
+}
 
-/* For Firefox */
-/* Note: Firefox does not support rounded scrollbars, so this is just a general styling */
-/* scrollbar-color: #888 #f1f1f1; */
-/* scrollbar-width: thin; */
+/* Styles for active tabs */
+#tabs .ui-tabs-active #feedLink .icon,
+#tabs .ui-tabs-active #feedLink .text {
+  fill: white;
+  color: white;
+}
+
+#tabs .ui-tabs-active .icon,
+#tabs .ui-tabs-active .text {
+  fill: white;
+  color: white;
+}
+
+#tabs .ui-tabs-active {
+  border-bottom: 3px solid #ffffff;
+}
+
+.selectedJob {
+  background-color: #c90505;
+  opacity: 0.6;
+}
+
+.selectedJob p,
+.selectedJob span,
+.selectedJob iconify-icon {
+  color: white !important;
+}
+
+.liked path {
+  fill: #df5050;
+}
+
+.heart {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  transform: rotate(-45deg);
+  background-color: red;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+.heart::before {
+  border-radius: 50%;
+  top: -50px;
+  left: 0;
+}
+
+.heart::after {
+  border-radius: 50%;
+  top: 0;
+  left: 50px;
+}
+
+.heart-outline {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 110px;
+  height: 110px;
+  border: 5px solid black;
+  border-radius: 50%;
+}
+
+#feedContainer {
+  /* height: 460.986px; */
+  overflow-y: auto;
+  max-height: 4609.86px;
+}
+
+#check-group {
+  animation: 0.32s ease-in-out 1.03s check-group;
+  transform-origin: center;
+}
+
+#check-group #check {
+  animation: 0.34s cubic-bezier(0.65, 0, 1, 1) 0.8s forwards check;
+  stroke-dasharray: 0, 75px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#check-group #outline {
+  animation: 0.38s ease-in outline;
+  transform: rotate(0deg);
+  transform-origin: center;
+}
+
+#check-group #white-circle {
+  animation: 0.35s ease-in 0.35s forwards circle;
+  transform: none;
+  transform-origin: center;
+}
+
+@keyframes outline {
+  from {
+    stroke-dasharray: 0, 345.576px;
+  }
+  to {
+    stroke-dasharray: 345.576px, 345.576px;
+  }
+}
+@keyframes circle {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+@keyframes check {
+  from {
+    stroke-dasharray: 0, 75px;
+  }
+  to {
+    stroke-dasharray: 75px, 75px;
+  }
+}
+@keyframes check-group {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.09);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+#image-header-con {
+  background-image: url("../images/event_header.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.event-carousel img {
+  box-shadow: rgba(7, 185, 255, 0.3) 0px 19px 38px,
+    rgba(57, 199, 255, 0.22) 0px 15px 12px;
+}
+
+#eventNameHeader,
+#eventName {
+  background: #ff6f9a;
+  background: linear-gradient(to right, #ff6f9a 7%, #e33a19 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+.jobDescript {
+  height: 95%;
+}
+
+.card-job,
+.center-shadow {
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(107, 107, 107, 1);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(107, 107, 107, 1);
+  box-shadow: 0px 0px 4px 0px rgba(107, 107, 107, 1);
+
+  cursor: pointer;
+}

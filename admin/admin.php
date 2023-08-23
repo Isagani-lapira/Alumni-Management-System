@@ -14,7 +14,7 @@ if (
   $username = $_SESSION['username'];
 
   //get the person ID of that user
-  $query = "SELECT univadmin.personID
+  $query = "SELECT univadmin.personID, univadmin.adminID
             FROM univadmin
             JOIN user ON univadmin.username = user.username
             WHERE user.username = '$username'";
@@ -31,15 +31,31 @@ if (
     $fullname = $personData['fname'] . ' ' . $personData['lname'];
     $age = $personData['age'];
     $address = $personData['address'];
-    $bday = $personData['bday'];
+    $bday = dateInText($personData['bday']);
     $gender = ucfirst($personData['gender']);
     $contactNo = $personData['contactNo'];
     $personal_email = $personData['personal_email'];
     $bulsu_email = $personData['bulsu_email'];
     $profilepicture = $personData['profilepicture'];
-
     $_SESSION['personID'] = $personID;
+    $_SESSION['univAdminID'] = $data['adminID'];
   }
+}
+
+function dateInText($date)
+{
+  $year = substr($date, 0, 4);
+  $month = intval(substr($date, 5, 2));
+  $day = substr($date, 8, 2);
+  $months = [
+    '', 'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  //convert date month to text format
+  $month = $months[$month];
+  //return in a formatted date
+  return $month . ' ' . $day . ', ' . $year;
 }
 ?>
 <!DOCTYPE html>
@@ -55,9 +71,8 @@ if (
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Corinthia&family=Dancing+Script:wght@500&family=Exo+2:wght@700&family=Fasthand&family=Freehand&family=Montserrat:ital,wght@0,400;0,700;1,400;1,600;1,700;1,800&family=Poppins:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&family=Source+Sans+Pro:ital@1&display=swap" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
@@ -73,14 +88,15 @@ if (
   <div class="relative">
     <div id="promptMsg" class="w-full absolute top-1 hidden">
       <div class="promptMsg mx-auto shadow-lg rounded-md w-1/4 p-5 mt-2">
-        <p class="text-accent font-semibold text-center">Announcement successfully added!</p>
+        <p id="message" class="text-accent font-semibold text-center text-sm "></p>
       </div>
     </div>
     <?php
+    echo '<p class="profilePicVal hidden">' . $profilepicture . '</p>';
     echo '<input type="hidden" id="accPersonID" value="' .  rawurlencode($personID) . '">';
     ?>
     <div id="tabs" class="flex font-Montserrat text-greyish_black">
-      <aside class="w-3/12 top-0 h-screen p-5 border border-r-gray-300 fixed">
+      <aside class="w-3/12 top-0 h-screen p-5 border border-r-gray-300">
         <div class="h-full relative">
           <h1 class="font-extrabold text-18sm my-5">
             Alumni <span class="font-normal">System</span>
@@ -95,12 +111,29 @@ if (
                 DASHBOARD</a>
             </li>
 
-            <!-- ANNOUNCEMENT -->
-            <li class="rounded-lg p-2"><a href="#announcement-tab">
+            <!-- MAKE POST -->
+            <li id="announcementLI" class="rounded-lg p-2"><a href="#announcement-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z" />
                 </svg>
                 MAKE POST</a>
+            </li>
+
+            <!-- announcement -->
+            <li id="newsAndUpdate" class="rounded-lg p-2">
+              <a href="#newsAndUpdate-tab">
+                <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
+                  <mask id="ipSAnnouncement0">
+                    <g fill="none" stroke-linejoin="round" stroke-width="4">
+                      <rect width="40" height="26" x="4" y="15" fill="#fff" stroke="#fff" rx="2" />
+                      <path fill="#fff" stroke="#fff" stroke-linecap="round" d="m24 7l-8 8h16l-8-8Z" />
+                      <path stroke="#000" stroke-linecap="round" d="M12 24h18m-18 8h8" />
+                    </g>
+                  </mask>
+                  <path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSAnnouncement0)" />
+                </svg>
+                ANNOUNCEMENT
+              </a>
             </li>
 
             <!-- EMAIL -->
@@ -112,7 +145,7 @@ if (
             </li>
 
             <!-- student record -->
-            <li class="rounded-lg p-2"><a href="#student-tab">
+            <li id="studenLi" class="rounded-lg p-2"><a href="#student-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
                   <path d="M4 2H2v26a2 2 0 0 0 2 2h26v-2H4Z" />
                   <path d="M30 9h-7v2h3.59L19 18.59l-4.29-4.3a1 1 0 0 0-1.42 0L6 21.59L7.41 23L14 16.41l4.29 4.3a1 1 0 0 0 1.42 0l8.29-8.3V16h2Z" />
@@ -145,7 +178,7 @@ if (
             </li>
 
             <!-- PROFILE -->
-            <li class="rounded-lg p-2 "><a href="#profile-tab">
+            <li id="profileTabAdmin" class="rounded-lg p-2 "><a href="#profile-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <g fill-rule="evenodd" clip-rule="evenodd">
                     <path d="M16 9a4 4 0 1 1-8 0a4 4 0 0 1 8 0Zm-2 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z" />
@@ -175,7 +208,7 @@ if (
             </li>
 
             <!-- Community Hub -->
-            <li class="rounded-lg p-2 "><a href="#community-tab">
+            <li id="communityLi" class="rounded-lg p-2 "><a href="#community-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
                   <path d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
                 </svg>
@@ -183,7 +216,7 @@ if (
             </li>
 
             <!-- Job Opportunities -->
-            <li class="rounded-lg p-2 "><a href="#jobOpportunities-tab">
+            <li id="jobLI" class="rounded-lg p-2 "><a href="#jobOpportunities-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M4 21q-.825 0-1.413-.588T2 19V8q0-.825.588-1.413T4 6h4V4q0-.825.588-1.413T10 2h4q.825 0 1.413.588T16 4v2h4q.825 0 1.413.588T22 8v11q0 .825-.588 1.413T20 21H4Zm6-15h4V4h-4v2Z" />
                 </svg>
@@ -191,7 +224,7 @@ if (
             </li>
           </ul>
 
-          <p id="signout" class="text-center absolute bottom-2 cursor-pointer px-3">
+          <p id="signout" class="text-center absolute bottom-0 cursor-pointer px-3">
             <i class="fa-solid fa-right-from-bracket"></i>
             Sign out
           </p>
@@ -199,8 +232,8 @@ if (
 
       </aside>
 
-      <div class="w-3/12 top-0 h-screen p-5 border border-r-gray-300"></div>
-      <main id="mainDiv" class="mt-10 flex-1 p-3">
+      <!-- <div class="w-3/12 top-0 h-screen p-5 border border-r-gray-300"></div> -->
+      <main id="mainDiv" class=" flex-1 p-3">
 
         <!-- dashboard content -->
         <div id="dashboard-tab">
@@ -209,13 +242,13 @@ if (
               <div class="flex-1">
                 <!-- welcome part -->
                 <div class="relative rounded-lg h-max p-10 bg-gradient-to-r from-accent to-darkAccent">
-                  <img class="absolute -left-2 -top-20" src="../images/standing-2.png" alt="" srcset="" />
+                  <img class="absolute -left-2 " src="../images/standing-2.png" style="top: -55px;" alt="" srcset="" />
                   <span class="block text-lg text-white text-right">
                     Welcome Back <br />
                     <span class="font-semibold text-lg">
                       Mr.
                       <?php
-                      echo $fullname;
+                      echo '<span id="userFullname">' . $fullname . '</span>';
                       ?>
                     </span>
                   </span>
@@ -339,7 +372,13 @@ if (
                     <p class="text-accent font-semibold">Personal Logs</p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of posted announcement</p>
-                      <span class="totalPost text-accent"></span>
+                      <?php
+                      require_once '../PHP_process/connection.php';
+                      $query = "SELECT * FROM `post` WHERE `username`= '$username' AND `status` = 'available'";
+                      $result = mysqli_query($mysql_con, $query);
+                      $row = mysqli_num_rows($result);
+                      echo '<span id="totalPosted" class="text-accent">' . $row . '</span>';
+                      ?>
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of email sent</p>
@@ -355,7 +394,13 @@ if (
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Total no. of posted job</p>
-                      <span id="noPostedJob" class="text-accent"></span>
+                      <?php
+                      require_once '../PHP_process/connection.php';
+                      $query = "SELECT * FROM `career` WHERE `personID` = '" . $_SESSION["personID"] . "'";
+                      $result = mysqli_query($mysql_con, $query);
+                      $row = mysqli_num_rows($result);
+                      echo '<span class="text-accent">' . $row . '</span>';
+                      ?>
                     </div>
                   </div>
                 </div>
@@ -375,7 +420,7 @@ if (
               NEW
               POST
             </button>
-            <span class="text-sm text-greyish_black hover:font-medium py-3 cursor-pointer">DELETE POST</span>
+
           </div>
           <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
 
@@ -410,10 +455,11 @@ if (
 
           <!-- recent post -->
           <div id="announcementContainer" class="w-full text-xs ">
-            <table id="postTable" class="w-full">
+            <table id="postTable" class="w-full center-shadow">
               <thead>
                 <tr class="bg-accent text-white">
                   <th class="rounded-tl-lg">College code</th>
+                  <th>No. of likes</th>
                   <th>No. of comments</th>
                   <th>Date posted</th>
                   <th class="rounded-tr-lg">Action</th>
@@ -424,9 +470,38 @@ if (
               </tbody>
             </table>
             <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
+            <div id="paginationBtnPost" class="flex justify-end gap-2 px-2 mt-2">
+              <button id="prevPost" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
+              <button id="nextPost" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
+            </div>
           </div>
 
 
+        </div>
+
+        <!-- NEWS AND UPDATE -->
+        <div id="newsAndUpdate-tab" class="p-5">
+          <h1 class="text-xl font-extrabold">NEWS AND UPDATE</h1>
+          <p class="text-grayish">Here you can make announcement that everyone can see, it can be news or events</p>
+          <div class="flex justify-end py-2 border-b border-gray-300">
+            <button id="newsBtn" class="text-sm text-white rounded-md bg-accent p-2">Make announcement</button>
+          </div>
+          <table class="w-full text-sm mt-5 center-shadow">
+            <thead>
+              <tr class="bg-accent text-white">
+                <th class=" rounded-tl-lg">Title</th>
+                <th>Description</th>
+                <th>Date Posted</th>
+                <th class=" rounded-tr-lg">Action</th>
+              </tr>
+            </thead>
+            <tbody id="announcementList" class="text-xs"></tbody>
+          </table>
+          <p id="noAvailMsgAnnouncement" class="text-center text-blue-400 text-lg hidden">No available data</p>
+          <div class="flex flex-wrap gap-2 justify-end my-2">
+            <button id="prevAnnouncement" class="tex-sm px-3 py-1 rounded-md border border-accent">Previous</button>
+            <button id="nextAnnouncement" class="text-white bg-accent tex-sm px-4 py-1 rounded-md">Next</button>
+          </div>
         </div>
 
         <!-- Email content -->
@@ -494,7 +569,7 @@ if (
 
           <!-- recent email -->
           <p class="mt-5 font-semibold text-greyish_black">Recent Email</p>
-          <table class="table-auto w-full text-xs font-thin text-greyish_black">
+          <table class="table-auto w-full text-xs font-thin text-greyish_black center-shadow">
             <thead class="bg-accent text-white">
               <tr>
                 <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
@@ -563,23 +638,20 @@ if (
               <input class="focus:outline-none w-full" type="text" name="" id="searchPerson" placeholder="Typing!">
             </div>
 
-            <!-- range -->
-            <!-- <div class="w-full flex border p-2 mx-2">
-              <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018" />
-              <label class="" for="reportdaterange">
-                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
-              </label>
-            </div> -->
-
             <!-- batch selection -->
             <select name="" id="batch" class="w-full p-1">
               <option selected disabled hidden>Batch</option>
-              <!-- php function on batch -->
+              <option value="">All</option>
+              <option value="4th Year">4th Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="1st Year">1st Year</option>
             </select>
 
             <!-- college selection -->
             <select name="college" id="college" class="w-full p-1">
-              <option value="" selected disabled hidden>Course</option>
+              <option selected disabled hidden>Course</option>
+              <option value="">All</option>
               <?php
               require_once '../PHP_process/connection.php';
               $query = "SELECT * FROM `college`";
@@ -601,10 +673,10 @@ if (
 
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin">
+          <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
             <thead>
               <tr class="bg-accent text-white">
-                <th class="text-start rounded-tl-lg">Student Number</th>
+                <th class="text-center rounded-tl-lg">Student Number</th>
                 <th>NAME</th>
                 <th>CONTACT NUMBER</th>
                 <th class="rounded-tr-lg">DETAILS</th>
@@ -613,6 +685,10 @@ if (
             <tbody id="studentTB" class="text-sm">
             </tbody>
           </table>
+          <div class="flex justify-end items-center gap-2 font-bold my-2">
+            <button id="prevBtnStudent" class="border border-accent text-accent hover:bg-accent hover:text-white py-2 px-3 rounded-md">Previous</button>
+            <button id="nextBtnStudent" class="bg-accent text-white hover:bg-darkAccent py-2 px-4 rounded-md">Next</button>
+          </div>
         </div>
 
         <!-- alumni record content -->
@@ -689,19 +765,20 @@ if (
 
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin">
+          <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
             <thead>
               <tr class="bg-accent text-white">
-                <th class="text-start rounded-tl-lg">Student Number</th>
+                <th class="rounded-tl-lg">Student Number</th>
                 <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th>Employment Status</th>
-                <th class="rounded-tr-lg">DETAILS</th>
+                <th>COLLEGE</th>
+                <th>BATCH</th>
+                <th class="rounded-tr-lg">Employment Status</th>
               </tr>
             </thead>
             <tbody id="alumniTB" class="text-sm">
             </tbody>
           </table>
+          <p id="alumniNoRecMsg" class="text-center text-blue-500">No available data</p>
         </div>
 
         <!-- college content -->
@@ -839,75 +916,73 @@ if (
         </div>
 
         <!-- profile content -->
-        <div id="profile-tab" class="p-5 h-screen">
-          <div class="p-3 rounded-md bg-accent flex items-center my-3">
-            <img class="h-36 w-36 rounded-full border-2 border-white" src="../images/Mr.Jayson.png" alt="">
+        <div id="profile-tab">
+          <div class="p-3 rounded-md bg-accent flex items-center">
+            <img class="profilePic h-36 w-36 rounded-full border-2 border-white" alt="">
             <div class="ms-6">
               <p class="text-lg text-white font-bold">
                 <?php
                 echo $fullname;
                 ?>
               </p>
-              <p class="text-blue-300 hover:cursor-pointer hover:text-blue-500">Edit Profile</p>
+              <p id="editProf" class="text-blue-300 hover:cursor-pointer hover:text-blue-500">Edit Profile</p>
             </div>
           </div>
-          <div class="flex text-greyish_black h-full">
-            <!-- about section -->
-            <div class="w-1/4 text-xs p-2 mr-5">
-              <p class="font-bold text-accent text-base">About</p>
-              <div class="flex mt-3 justify-start">
-                <img src="../assets/icons/person.png" alt="">
-                <span class="px-2">
+          <div class="flex text-greyish_black">
+            <div class="w-1/3 my-2">
+              <p class="font-bold text-accent text-base my-3">About</p>
+              <div class="flex flex-col gap-2">
+                <!-- gender -->
+                <span class="flex items-center text-sm gap-2">
+                  <img src="../assets/icons/person.png" alt="">
                   <?php
                   echo $gender;
                   ?>
                 </span>
-              </div>
 
-              <div class="flex mt-3">
-                <img src="../assets/icons/cake.png" alt="">
-                <span class="px-2">Born
+                <!-- birthday -->
+                <span class="flex items-center text-sm gap-2">
+                  <img src="../assets/icons/cake.png" alt="">
                   <?php
                   echo $bday;
                   ?>
                 </span>
-              </div>
 
-              <div class="flex mt-3">
-                <img class="ps-1 messageIcon" src="../assets/icons/Location.png" alt="">
-                <span class="px-3">
+                <!-- location -->
+                <span class="flex items-center text-sm gap-2">
+                  <img class="ps-1 messageIcon" src="../assets/icons/Location.png" alt="">
                   <?php
                   echo $address;
                   ?>
                 </span>
-              </div>
 
-              <div class="flex mt-3">
-                <img class="ps-1 " src="../assets/icons/Message.png" alt="">
-                <span class="px-4">
+                <!-- email -->
+                <span class="flex items-center text-sm gap-2">
+                  <img class="ps-1 " src="../assets/icons/Message.png" alt="">
                   <?php
                   echo $personal_email;
                   ?>
                 </span>
-              </div>
 
-              <div class="flex mt-3">
-                <img class="ps-1" src="../assets/icons/Call.png" alt="">
-                <span class="px-4">
+                <!-- contact -->
+                <span class="flex items-center text-sm gap-2">
+                  <img class="ps-1" src="../assets/icons/Call.png" alt="">
                   <?php
-                  echo $contactNo
+                  echo $contactNo;
                   ?>
                 </span>
               </div>
             </div>
 
-            <div class="w-full h-full">
-              <p class="font-bold text-accent">Posts</p>
-              <div id="profileContainer" class="h-full overflow-y-scroll no-scrollbar py-3">
-
+            <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar z-0">
+              <div class="flex gap-2 text-greyish_black text-sm my-2 border-b border-gray-300 p-3">
+                <button id="availablePostBtn" class="activeBtn rounded-md px-5 py-1">Post</button>
+                <button id="archievedBtnProfile" class="rounded-md px-5 py-1">Archived</button>
               </div>
+
             </div>
           </div>
+
         </div>
 
         <!-- alumni of the year content -->
@@ -1024,7 +1099,7 @@ if (
             </div>
 
             <!-- record of name-->
-            <table class="table-auto w-full mt-10 text-xs font-thin">
+            <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
               <thead>
                 <tr class="bg-accent text-white">
                   <th class="text-start rounded-tl-lg">Student Number</th>
@@ -1153,7 +1228,7 @@ if (
           </div>
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin text-greyish_black">
+          <table class="table-auto w-full mt-10 text-xs font-thin text-greyish_black center-shadow">
             <thead>
               <tr class="bg-accent text-white">
                 <th class="text-start rounded-tl-lg">NAME</th>
@@ -1228,88 +1303,48 @@ if (
 
         <!--community content -->
         <div id="community-tab" class="p-5">
-          <div class="flex p-1 ms-3 rounded-md border border-accent w-1/2">
-            <img src="../images/search-icon.png" alt="">
-            <input class="w-full focus:outline-none" type="text" id="communitySearch" placeholder="Search something...">
-          </div>
+          <div class="flex">
+            <div class="w-4/6">
+              <!-- college -->
+              <select id="communityCollege" class="w-1/2 p-2 my-5 outline-none">
+                <option value="" selected>College</option>
+                <?php
+                require_once '../PHP_process/connection.php';
+                $query = "SELECT * FROM `college`";
+                $result = mysqli_query($mysql_con, $query);
+                $rows = mysqli_num_rows($result);
 
-          <!-- Post -->
-          <div class="post p-3 w-4/6 mt-5">
-            <div class="center-shadow p-3 rounded-md">
-              <div class="flex justify-start items-center">
-                <div class="flex items-center">
-                  <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                  <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                </div>
-                <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-              </div>
+                if ($rows > 0) {
+                  while ($data = mysqli_fetch_assoc($result)) {
+                    $colCode = $data['colCode'];
+                    $colName = $data['colname'];
 
-              <p class="text-sm mt-2">Newly elected CICT Local Student Council</p>
-              <img class="my-2 rounded-md" src="" alt="">
-              <div class="flex py-2 items-center">
-                <img class="h-5" src="../assets/icons/heart.png" alt="">
-                <span class="ms-2 text-sm">1,498</span>
-                <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                <span class="ms-2 text-sm">3,000</span>
-              </div>
+                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                  }
+                } else echo '<option>No college available</option>';
+                ?>
+              </select>
+
+              <!-- report number -->
+              <select id="communityReportFilter" class="outline-none w-1/3 p-2  my-5">
+                <option value="" selected>All</option>
+                <option value="Nudity">Nudity</option>
+                <option value="Violence">Violence</option>
+                <option value="Terrorism">Terrorism</option>
+                <option value="Hate Speech">Hate Speech</option>
+                <option value="False Information">False Information</option>
+                <option value="Suicide or Self-injury">Suicide or Self-injury</option>
+                <option value="Harassment">Harassment</option>
+              </select>
+
+              <div id="communityContainer" class="p-5 flex flex-col gap-3 no-scrollbar"></div>
+              <p id="noPostMsgCommunity" class="text-blue-400 text-center hidden">No available post</p>
             </div>
-
-            <button id="btnDelPost" class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
-          </div>
-
-          <!-- Post -->
-          <div class="post p-3 w-4/6 mt-5">
-            <div class="center-shadow p-3 rounded-md">
-              <div class="flex justify-start items-center">
-                <div class="flex items-center">
-                  <img class="h-12 border-2 border-accent rounded-full" src="" alt="">
-                  <p class="text-start px-3 text-sm font-semibold">Samuel Loremonso</p>
-                </div>
-                <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-              </div>
-
-              <p class="text-sm mt-2">COVID-19 IS NOT YET OVER, LET'S RECOVER TOGETHER ❤️‍🩹
-
-                Sa opisyal na pag-anunsyo ng World Health Organization (WHO) sa pag-alis ng Global Health Status ng
-                COVID-19 matapos ang tatlong taon, ito ay tumutukoy sa kakayahan ng mga bansa na tugunan ang COVID-19
-                cases. Ngunit hindi ito nangangahulugang tapos na ang laban sa pandemya.
-
-                Matatandaang kabilang ang Bulacan sa mga lalawigang idineklara ng pamahalaan sa ilalim ng Alert Level 1,
-                ayon sa IATF Resolution No. 6-C. Ito ay dah…</p>
-              <img class="my-2 rounded-md" src="" alt="">
-              <div class="flex py-2 items-center">
-                <img class="h-5" src="../assets/icons/heart.png" alt="">
-                <span class="ms-2 text-sm">1,498</span>
-                <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                <span class="ms-2 text-sm">3,000</span>
-              </div>
+            <!-- report graph -->
+            <div class=" w-2/5 border-l border-gray-300">
+              <p class="text-center font-bold text-xl">Report Graph</p>
+              <canvas id="reportChart"></canvas>
             </div>
-
-            <button id="btnDelPost" class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
-          </div>
-
-          <!-- Post -->
-          <div class="post p-3 w-4/6 mt-5">
-            <div class="center-shadow p-3 rounded-md">
-              <div class="flex justify-start items-center">
-                <div class="flex items-center">
-                  <img class="h-12 border-2 border-accent rounded-full" src="../images/Mr.Jayson.png" alt="">
-                  <p class="text-start px-3 text-sm font-semibold">Jayson Batoon</p>
-                </div>
-                <img class="ml-auto" src="../assets/more_horiz.png" alt="">
-              </div>
-
-              <p class="text-sm mt-2">Best in capstone || Group: Ctrl+alt+Elite</p>
-              <img class="my-2 rounded-md" src="" alt="">
-              <div class="flex py-2 items-center">
-                <img class="h-5" src="../assets/icons/heart.png" alt="">
-                <span class="ms-2 text-sm">1,498</span>
-                <img class="ms-2 h-5" src="../assets/icons/comment.png" alt="">
-                <span class="ms-2 text-sm">3,000</span>
-              </div>
-            </div>
-
-            <button id="btnDelPost" class="block ml-auto bg-accent rounded-md text-white my-2 py-2 px-4 cursor-pointer hover:bg-darkAccent">Delete</button>
           </div>
 
         </div>
@@ -1343,7 +1378,7 @@ if (
 
             </div>
 
-            <table class="w-full mt-10">
+            <table class="w-full mt-10 center-shadow">
               <thead class="bg-accent text-sm text-white p-3">
                 <tr>
                   <th class="rounded-tl-lg">Company</th>
@@ -1357,75 +1392,125 @@ if (
 
               <tbody class="text-sm" id="jobTBContent"></tbody>
             </table>
-            <p class="hidden jobErrorMsg text-center mt-5 text-accent">No available data yet</p>
+            <div id="jobNavigation" class="flex justify-end gap-2 px-2 mt-2">
+              <button id="prevJob" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
+              <button id="nextJob" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
+            </div>
+            <p class="hidden jobErrorMsg text-center mt-5 text-accent ">No available data yet</p>
           </div>
 
           <!-- job posting -->
           <div id="jobPosting" class="mt-10 w-full hidden">
             <form id="jobForm" enctype="multipart/form-data">
-              <div class="flex">
+              <div class="flex text-greyish_black">
                 <!-- left side -->
                 <div class="w-1/2">
-                  <label class="font-bold text-greyish_black text-sm" for="jobTitle">Job Title</label>
-                  <input id="jobTitle" name="jobTitle" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Software Engineer">
 
-                  <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
-                  <input id="jobCompany" name="companyName" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Accenture">
+                  <!-- college -->
+                  <div class="mb-3">
+                    <label for="collegeJob" class="font-bold text-greyish_black block">College</label>
+                    <!-- college selection -->
+                    <select name="collegeJob" id="collegeJob" class=" border border-grayish p-2 rounded-lg w-4/5 outline-none text-gray-400">
+                      <option value="" selected disabled hidden>All</option>
+                      <?php
+                      require_once '../PHP_process/connection.php';
+                      $query = "SELECT * FROM `college`";
+                      $result = mysqli_query($mysql_con, $query);
+                      $rows = mysqli_num_rows($result);
 
-                  <label class="font-bold text-greyish_black text-sm mt-5" for="projOverviewTxt">Project
-                    Description</label>
-                  <textarea class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  rounded-lg p-3 focus:outline-none text-greyish_black text-sm" name="projDescriptTxt" id="projOverviewTxt"></textarea>
+                      if ($rows > 0) {
+                        while ($data = mysqli_fetch_assoc($result)) {
+                          $colCode = $data['colCode'];
+                          $colName = $data['colname'];
 
-                  <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
-                    Choose logo
-                    <input id="jobLogoInput" name="jobLogoInput" class="jobField hidden" type="file">
-                  </label>
-                  <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
+                          echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                        }
+                      } else echo '<option>No college available</option>';
+                      ?>
+                    </select>
+                  </div>
 
-                  <!-- salary -->
-                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="minSalary">Salary Range</label>
-                  <div class="flex gap-2 mt-2 items-center">
-                    <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
-                      <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                      <input class="jobField w-full" type="number" name="minSalary" id="minSalary" value="0">
-                    </div>
-                    -
-                    <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
-                      <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                      <input class="jobField w-full" type="number" name="maxSalary" id="maxSalary" value="0">
-                    </div>
+                  <!-- job title -->
+                  <div>
+                    <label class="font-bold text-greyish_black" for="jobTitle">Job Title</label>
+                    <input id="jobTitle" name="jobTitle" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Software Engineer">
+                  </div>
+
+                  <!-- job description -->
+                  <div>
+                    <label class="font-bold text-greyish_black mt-5" for="projOverviewTxt">Project Description</label>
+                    <textarea class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  
+                      rounded-lg focus:outline-none text-greyish_black text-sm p-3" name="projDescriptTxt" id="projOverviewTxt" placeholder="Describe the person or provide other information you want to share to other people...."></textarea>
+                  </div>
+
+                  <!-- company logo -->
+                  <div>
+                    <label class="font-bold text-greyish_black mt-5 block my-2" for="projOverviewTxt">Company Logo</label>
+                    <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
+                      Choose logo
+                      <input id="jobLogoInput" name="jobLogoInput" class="jobField hidden" type="file">
+                    </label>
+                    <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
                   </div>
 
                 </div>
 
                 <!-- right side -->
                 <div class="w-1/2">
-                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Skills</label>
-                  <div id="skillDiv" class="flex flex-col">
-                    <div>
-                      <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                      <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
-                    </div>
-                  </div>
 
-                  <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
-                  <textarea class="jobField block message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5
-                      resize-none p-3 focus:outline-none text-greyish_black text-sm" name="qualificationTxt" id="qualificationTxt"></textarea>
-
-                  <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputReq">Requirements</label>
-                  <div id="reqDiv" class="flex flex-col">
-                    <div>
-                      <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png" alt="">
-                      <input id="inputReq" class="inputReq reqInput" type="text" placeholder="Add things that an applicants needed">
-                    </div>
-                  </div>
-
+                  <!-- company name -->
                   <div>
-                    <button type="submit" class="bg-postButton w-4/5 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
-                      a post</button>
+                    <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
+                    <input id="jobCompany" name="companyName" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Accenture">
                   </div>
+
+                  <!-- location -->
+                  <div>
+                    <label class="font-bold text-greyish_black text-sm mt-5" for="jobLocation">Location</label>
+                    <input id="jobLocation" name="jobLocation" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Accenture">
+                  </div>
+
+                  <!-- job qualification -->
+                  <div>
+                    <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
+                    <textarea class="jobField block message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5
+                      resize-none p-3 focus:outline-none text-greyish_black text-sm" name="qualificationTxt" id="qualificationTxt"></textarea>
+                  </div>
+
+                  <!-- salary -->
+                  <div>
+                    <label class="font-bold text-greyish_black text-sm mt-5 block" for="minSalary">Salary Range</label>
+                    <div class="flex gap-2 mt-2 items-center">
+                      <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
+                        <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
+                        <input class="jobField w-full" type="number" name="minSalary" id="minSalary" value="0">
+                      </div>
+                      -
+                      <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
+                        <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
+                        <input class="jobField w-full" type="number" name="maxSalary" id="maxSalary" value="0">
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
 
+              </div>
+
+              <!-- tags -->
+              <div>
+                <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Tags</label>
+                <div id="skillDiv" class="flex flex-wrap">
+                  <div>
+                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
+                    <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-start">
+                <button type="submit" class="bg-postButton px-4 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
+                  a post</button>
               </div>
             </form>
           </div>
@@ -1584,12 +1669,12 @@ if (
             <div class="modal-descript relative w-full h-max border border-gray-400 rounded p-3">
               <div class="flex flex-col h-full">
                 <textarea id="TxtAreaEmail" class="rar outline-none w-full h-48 p-1 border-b border-gray-300" type="text" placeholder="Say something here..."></textarea>
-                <div id="imgContEmail" class=" hidden flex overflow-x-scroll w-full"></div>
-                <div id="fileContEmail" class="hidden"></div>
-                <p class="text-sm text-red-400 hidden" id="errorMsgEM">Sorry we only allow images that has file extension of
-                  jpg,jpeg,png</p>
               </div>
             </div>
+            <div id="imgContEmail" class=" hidden flex overflow-x-auto w-full"></div>
+            <div id="fileContEmail" class="hidden"></div>
+            <p class="text-sm text-red-400 hidden" id="errorMsgEM">Sorry we only allow images that has file extension of
+              jpg,jpeg,png</p>
             <label class="flex justify-start items-center gap-3 mt-1">
               <i id="galleryIcon" class="fa-solid fa-image"></i>
               <i id="fileIcon" class="fa-solid fa-paperclip"></i>
@@ -1737,32 +1822,69 @@ if (
       </div>
     </div>
 
+    <!-- news and update modal -->
+    <div id="newsUpdateModal" class="modal fixed inset-0 h-full w-full flex items-center justify-center hidden p-10">
+      <!-- container -->
+      <div id="newsContainer" class="w-2/6 h-max bg-white rounded-sm overflow-y-auto py-3 px-5 max-h-full">
+        <!-- header -->
+        <div class="flex gap-2 items-center py-2">
+          <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
+          <span class="ml-2 text-xl font-bold">BulSU Update</span>
+        </div>
+
+        <div class="relative rounded-md h-48">
+          <img id="imgHeader" class="h-full w-full rounded-md border">
+          <input type="file" name="headerImg" id="headerImg" class="hidden" accept="image/*">
+          <label for="headerImg" class="headerLbl absolute top-1/2 w-full text-center cursor-pointer text-gray-400">Add Header Image</label>
+        </div>
+        <input class="text-center w-full outline-none text-lg font-bold text-greyish_black my-2" type="text" id="newsTitle" placeholder="Title for this announcement">
+        <textarea id="newstTxtArea" class=" w-full h-max resize-none p-2 text-sm text-gray-500 outline-none  overflow-y-hidden rounded-sm" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' name="" id="" placeholder="Add your description here"></textarea>
+
+        <p class="text-blue-400 text-sm my-2">Add more images ( Optional )</p>
+        <!-- image collection -->
+        <div id="collectionContainer" class="flex flex-wrap gap-2">
+          <!-- adding image -->
+          <div id="addImgCollection" class=" w-24 h-24 rounded-md border border-accent flex justify-center items-center">
+            <label for="collectionFile">
+              <iconify-icon icon="zondicons:add-outline" style="color: #991b1b;" width="32" height="32"></iconify-icon>
+            </label>
+            <input type="file" name="" id="collectionFile" accept="image/*" class="hidden">
+          </div>
+        </div>
+
+        <div class="flex justify-end items-center gap-2">
+          <button id="closeNewsModal" class="text-gray-400">Cancel</button>
+          <button id="postNewsBtn" class="text-gray-300  bg-red-300 font-semibold px-5 py-1 rounded-md" disabled>Post</button>
+        </div>
+      </div>
+
+    </div>
 
     <!-- post modal -->
-    <div id="modalPost" class="modal fixed inset-0 h-full w-full flex items-center justify-center hidden">
-      <div class="modal-container w-10/12 h-2/3 bg-white rounded-lg p-3 flex relative">
-        <span id="closePostModal" class="absolute -top-16 -right-1 py-2 px-4 rounded-full text-center text-2xl hover:bg-gray-400 cursor-pointer">x</span>
-        <div id="containerSection" class="w-8/12 h-full p-3 ">
+    <div id="modalPost" class="modal fixed inset-0 z-50 h-full w-full p-3 hidden">
+      <div class="modal-container w-full h-full bg-white rounded-lg flex relative">
+        <span id="closePostModal" class="absolute top-0 right-0 text-center text-2xl cursor-pointer p-3 hover:scale-50 hover:font-bold">x</span>
+        <div id="containerSection" class="w-8/12 h-full ">
 
-          <div id="default-carousel" class="relative w-full h-full" data-carousel="slide">
+          <div id="default-carousel" class="relative w-full h-full bg-black" data-carousel="slide">
             <!-- Carousel wrapper -->
-            <div class="relative overflow-hidden rounded-lg h-full" id="carousel-wrapper"></div>
+            <div class="overflow-hidden rounded-lg h-full" id="carousel-wrapper"></div>
             <!-- Slider indicators -->
             <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2" id="carousel-indicators">
             </div>
             <!-- Slider controls -->
-            <button id="btnPrev" type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
+            <button id="btnPrev" type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20" data-carousel-prev>
+              <span class="inline-flex items-center justify-center w-10 h-10 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                  <path fill="white" d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z" />
                 </svg>
                 <span class="sr-only">Previous</span>
               </span>
             </button>
-            <button id="btnNext" type="button" class="text-white absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 6 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+            <button id="btnNext" type="button" class="text-white absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20">
+              <span class="inline-flex items-center justify-center w-10 h-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="none" stroke="currentColor" stroke-width="2" d="m7 2l10 10L7 22" />
                 </svg>
                 <span class="sr-only">Next</span>
               </span>
@@ -1773,29 +1895,140 @@ if (
         </div>
 
         <!-- description -->
-        <div id="descriptionInfo" class="w-4/12 h-full p-2 border-l border-gray-400">
+        <div id="descriptionInfo" class="w-4/12 h-full p-2 border-l p-3 border-gray-400">
           <div class="flex justify-start gap-2">
-            <img class="rounded-full border-2 border-accent h-10 w-10" src="" alt="">
+            <img id="profilePic" class="rounded-full border-2 border-accent h-10 w-10" src="" alt="">
             <div class="flex flex-col">
-              <span id="postFullName" class=" text-greyish_black font-bold">Firstname and Last name</span>
-              <span id="postUN" class=" text-gray-400">username</span>
+              <span id="postFullName" class=" text-greyish_black font-bold"></span>
+              <span id="postUN" class=" text-gray-400 text-xs">username</span>
             </div>
           </div>
           <p id="postDescript" class=" text-greyish_black font-light text-sm">Description</p>
-          <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2">
 
-            <span id="noOfLikes">32</span>
-            <img src="../assets/icons/emptyheart.png" alt="">
-            <span id="noOfComment">0</span>
-            <img src="../assets/icons/comment.png" alt="">
+          <div class="relative">
+
+            <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2 px-3">
+              <img src="../assets/icons/emptyheart.png" alt="">
+              <span id="noOfLikes" class="cursor-pointer w-10 text-center"></span>
+              <img src="../assets/icons/comment.png" alt="">
+              <span id="noOfComment">0</span>
+            </div>
+            <div id="namesOfUser" class="absolute -bottom-2 right-0 bg-black opacity-25 text-gray-300 w-1/3 text-xs p-2 rounded-md hidden"></div>
+          </div>
+
+          <!-- comments -->
+          <div id="commentContainer" class=" h-3/4 p-2 overflow-auto">
 
           </div>
         </div>
       </div>
     </div>
 
+    <!-- EDIT PROFILE -->
+    <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+      <div class="formUpdate bg-white rounded-md w-2/6 h-max p-5 flex flex-col gap-3">
+        <!-- profile picture -->
+        <div class="flex justify-between text-greyish_black items-center">
+          <p class="text-lg font-bold">Profile Picture</p>
+          <label id="profileLbl" for="profileFile">
+            <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+          </label>
+          <input type="file" name="profilePic" id="profileFile" class="hidden" accept="image/*">
+        </div>
+        <!-- Profile Photo (Intersecting with the Cover Photo) -->
+        <div class="h-48 w-full flex justify-center">
+          <?php
+          if ($profilepicture == "") {
+            echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-48 h-48 rounded-full" id="profileImgEdit" />';
+          } else {
+            $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+            echo '<img src="' . $srcFormat . '" alt="Profile Icon" class=" w-48 h-48 rounded-full " id="profileImgEdit"/>';
+          }
+          ?>
+        </div>
+
+        <div id="profileBtn" class="flex justify-end gap-2 hidden">
+          <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+          <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveProfile">Save</button>
+        </div>
+
+        <p class="text-lg font-bold">Customize Your Information</p>
+
+        <!-- location -->
+        <div class="flex justify-between text-greyish_black items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-thin flex items-center">
+              <iconify-icon icon="fluent:location-20-regular" style="color: #474645;" width="20" height="20"></iconify-icon>
+              Lives in
+            </span>
+
+            <?php
+            echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editAddress" value="' . $address . '" placeholder = "' . $address . '" >';
+            ?>
+
+          </div>
+          <label id="editAddLabel" for="editAddress">
+            <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+          </label>
+          <div id="locBtn" class="text-sm hidden">
+            <button class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLocation">Save</button>
+          </div>
+
+        </div>
+
+        <!-- email address -->
+        <div class="flex justify-between text-greyish_black items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-thin flex items-center gap-1">
+              <iconify-icon icon="formkit:email" style="color: #474645;" width="20" height="20"></iconify-icon>
+              Email
+            </span>
+
+            <?php
+            echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editEmail" value="' . $personal_email . '" placeholder = "' . $address . '" >';
+            ?>
+
+          </div>
+          <label id="editEmailLbl" for="editEmail">
+            <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+          </label>
+          <div id="emailBtn" class="text-sm hidden">
+            <button class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveEmail">Save</button>
+          </div>
+
+        </div>
+
+        <!-- contact No -->
+        <div class="flex justify-between text-greyish_black items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-thin flex items-center gap-1">
+              <iconify-icon icon="fluent:call-24-regular" style="color: #474645;" width="20" height="20"></iconify-icon>
+              Contact No.
+            </span>
+
+            <?php
+            echo '<input class="font-bold text-sm flex items-center" disabled type="text" id="editContact" value="' . $contactNo . '" placeholder = "' . $address . '" >';
+            ?>
+
+          </div>
+          <label id="editContactLbl" for="editContact">
+            <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+          </label>
+          <div id="contactBtn" class="text-sm hidden">
+            <button class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveContact">Save</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
     <!-- log out -->
-    <div id="signOutPrompt" class="modal fixed inset-0 h-full w-full flex items-center justify-center 
+    <div id="signOutPrompt" class="modal fixed inset-0 z-50 h-full w-full flex items-center justify-center 
       text-grayish hidden">
       <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
         <p class="text-center font-medium text-greyish_black mb-7 mt-3">Are you sure you want to sign out?</p>
@@ -1806,12 +2039,99 @@ if (
         </div>
       </div>
     </div>
+
+
+    <!-- deletion modal -->
+    <div id="delete-modal" class="modal hidden fixed inset-0 h-full w-full flex items-center justify-center ">
+      <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow">
+          <button onclick="closeReport()" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <div class="p-6 text-center">
+            <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
+            <button id="deletePostbtn" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+              Yes, I'm sure
+            </button>
+            <button type="button" class="text-gray-400" onclick="closeReport()">No, cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- success prompt -->
+    <div id="successModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+        <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <circle id="filled-circle" fill="#47CF73" cx="66.5" cy="66.5" r="54.5" />
+            <circle id="white-circle" fill="#FFFFFF" cx="66.5" cy="66.5" r="55.5" />
+            <circle id="outline" stroke="#47CF73" stroke-width="4" cx="66.5" cy="66.5" r="54.5" />
+            <polyline id="check" stroke="#FFFFFF" stroke-width="5.5" points="41 70 56 85 92 49" />
+          </g>
+        </svg>
+        <h1 class=" text-xl font-bold text-green-500 text-center">Successfully Posted</h1>
+        <p class="text-lg text-center text-gray-500">"Post successfully posted! 🎉 Happy sharing!</p>
+      </div>
+    </div>
+
+    <!-- announcement modal -->
+    <div id="announcementModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div id="announcementContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
+        <!-- header -->
+        <div class="flex gap-2 items-center py-2">
+          <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
+          <span class="ml-2 text-xl font-bold">BulSU Update</span>
+        </div>
+
+        <!-- headline image -->
+        <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" src="../images/bsu-header5.jpg" alt="">
+
+        <p class="text-sm text-gray-500">Date Posted: <span id="announceDatePosted"></span></p>
+        <p class="text-sm text-gray-500">By: <span id="announcementAuthor" class="text-accent"></span></p>
+
+        <p id="announcementTitle" class="text-2xl text-greyish_black font-black"></p>
+        <pre id="announcementDescript" class=" text-gray-500 text-justify w-full"></pre>
+
+        <!-- images container -->
+        <div id="imagesContainer" class="my-2">
+          <p class="font-semibold text-blue-400">More images available</p>
+          <div id="imagesWrapper" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="restoreModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div class="relative w-1/3 h-max p-3 bg-white rounded-md">
+        <h1 class="text-xl text-greyish_black font-bold text-center py-2 border-b border-gray-400">Restore to Profile</h1>
+        <p class="text-gray-500 text-sm">Items you restore to your profile can be seen by the audience that was selected
+          before they were moved to archive.</p>
+        <div class="flex justify-end gap-2 my-2">
+          <button id="closeRestoreModal" class="px-3 py-2 rounded-md text-blue-400 hover:bg-gray-300 text-sm">Cancel</button>
+          <button id="restorePost" class="px-4 py-2 text-white bg-postButton hover:bg-postHoverButton rounded-md font-semibold text-sm">Restore</button>
+        </div>
+
+        <svg id="closeRestore" class="cursor-pointer absolute top-2 right-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
+          <path fill="#6b7280" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07zM11.4 10l2.83-2.83l-1.41-1.41L10 8.59L7.17 5.76L5.76 7.17L8.59 10l-2.83 2.83l1.41 1.41L10 11.41l2.83 2.83l1.41-1.41L11.41 10z" />
+        </svg>
+      </div>
+    </div>
   </div>
 
 
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
 </body>
 
 </html>

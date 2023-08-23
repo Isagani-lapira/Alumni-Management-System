@@ -41,6 +41,11 @@
     .error {
       border-color: #991B1B !important;
     }
+
+    .validation-border select:invalid {
+      border-color: #991B1B;
+      /* Set red border color for invalid dropdown */
+    }
   </style>
 </head>
 
@@ -132,9 +137,10 @@
               <div class="mt-4">
                 <label for="personalEmail" class="block text-sm font-medium text-gray-700">Email Address (Personal)</label>
                 <input name="personalEmail" type="text" id="personalEmail" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: juanDelaCruz@gmail.com" required>
+                <p id="emailExist" class="hidden text-xs text-red-500 italic">The email address you entered is already associated with an existing account.</p>
               </div>
 
-              <!-- Email Address Personal -->
+              <!-- Address -->
               <div class="mt-4">
                 <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
                 <input name="address" type="text" id="address" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: Mabolo, malolos, bulacan" required>
@@ -146,6 +152,7 @@
                   <label for="contactNumber" class="block text-sm font-medium text-gray-700">Contact Number</label>
                   <input name="contactNo" type="text" id="contactNumber" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="ex: 09062943968" required>
                 </div>
+
                 <!-- Student Number -->
                 <div class="w-1/2">
                   <label for="studentNumber" class="block text-sm font-medium text-gray-700">Student No.</label>
@@ -270,10 +277,23 @@
 
               </div>
 
-              <!-- Email BulSU -->
+              <!-- Employement Status -->
+              <div id="employment-status-div" class="mt-4">
+                <!-- Dropdown -->
+                <select id="employment-status" name="empStatus" class="text-sm border w-full rounded-md font-semibold" required>
+                  <option value="" selected disabled>Select Employment Status</option>
+                  <option value="employed">Employed</option>
+                  <option value="unemployed">Unemployed</option>
+                  <option value="self-employed">Self-Employed</option>
+                  <option value="retired">Retired</option>
+                </select>
+              </div>
+
+              <!-- Username -->
               <div class="mt-4">
-                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                <input name="username" type="text" id="username" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="Enter your username" required>
+                <label for="usernameReg" class="block text-sm font-medium text-gray-700">Username</label>
+                <input name="username" type="text" id="usernameReg" class="mt-1 focus:ring-accent focus:border-accent block w-full h-10 px-2 text-sm border border-gray-300 rounded-md italic-placeholder" placeholder="Enter your username" required>
+                <p id="usernameWarning" class="hidden text-xs italic text-accent">Username already exist</p>
               </div>
 
               <!-- Email BulSU -->

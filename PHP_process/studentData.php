@@ -10,8 +10,11 @@ if (isset($_POST['action'])) {
     switch ($action) {
         case 'read':
             $currentYear = $actionJSON['currentYear'];
+            $offset = $actionJSON['offset'];
+            $colCode = $actionJSON['colCode'];
+            $search = $actionJSON['search'];
             $student = new Student();
-            $student->getStudenData($currentYear, $mysql_con);
+            $student->getAllStudent($offset, $currentYear, $colCode, $search, $mysql_con);
             break;
     }
 } else {
