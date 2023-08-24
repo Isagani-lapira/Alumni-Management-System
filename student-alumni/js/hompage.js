@@ -165,6 +165,14 @@ $(document).ready(function () {
       .addClass('inline-flex items-center px-3 py-2 mt-2 text-sm font-medium ' +
         'text-center text-white bg-postButton rounded-lg bg-postButton hover:bg-postHoverButton')
       .html('Read more' + arrowIcon)
+      .on('click', function () {
+        $('#jobDescWrapper').removeClass('hidden');
+        $('#jobCard').addClass('hidden')
+        containerJob.addClass('selectedJob');//set the container that has been clicked as selected container
+        //viewing of particular job
+        viewOfCareer(careerID);
+      })
+
 
     cardWrapper.append(imgContainer, title, details, skillsWrapper, navigationBtn);
     $('#jobCard').append(cardWrapper); //display it on the root

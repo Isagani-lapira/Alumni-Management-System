@@ -248,7 +248,19 @@ $(document).ready(function () {
         let postdateData = $('<td>').text(postdate);
         let action = $('<td>').addClass('flex justify-center gap-2')
 
-        let delBtn = $('<button>').addClass(' text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white').text('Archive')
+        let delBtn = $('<button>')
+            .addClass(' text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white')
+            .text('Archive')
+            .on('click', function () {
+                //show delete prompt
+                $('#delete-modal').removeClass('hidden')
+
+                //update the post status into deleted
+                $('#deletePostbtn').on('click', function () {
+                    const status = "deleted"
+                    updatePostStatus(status, postID, false)
+                })
+            })
         let viewBtn = $('<button>').addClass('bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500').text('View')
         viewBtn.on('click', function () {
             $('#modalPost').removeClass('hidden')
@@ -663,7 +675,7 @@ $(document).ready(function () {
                     //update the post status into deleted
                     $('#deletePostbtn').on('click', function () {
                         status = "deleted"
-                        updatePostStatus(status, postID)
+                        updatePostStatus(status, postID, true)
                     })
                 })
         }
@@ -674,7 +686,7 @@ $(document).ready(function () {
                     $('#restoreModal').removeClass('hidden')
                     $('#restorePost').on('click', function () {
                         status = 'available'
-                        updatePostStatus(status, postID)
+                        updatePostStatus(status, postID, true)
                     })
                 })
         }
@@ -691,7 +703,7 @@ $(document).ready(function () {
 
     }
 
-    function updatePostStatus(status, postID) {
+    function updatePostStatus(status, postID, isProfile) {
         let action = { action: 'updatePostStatus' };
         const formdata = new FormData()
         formdata.append('action', JSON.stringify(action));
@@ -708,9 +720,20 @@ $(document).ready(function () {
             success: response => {
                 //close the modal
                 $('#delete-modal').addClass('hidden')
-                restartPost()
-                displayToProfile(actionTracker, isAvailable) //reload the post again
-                $('#restoreModal').addClass('hidden') //hide the modal again
+                if (isProfile) {
+                    restartPost()
+                    displayToProfile(actionTracker, isAvailable) //reload the post again
+                    $('#restoreModal').addClass('hidden') //hide the modal again
+                }
+                else {
+                    offsetPost = 0;
+                    postData.append('action', JSON.stringify(postAction));
+                    postData.set('startDate', "")
+                    postData.set('endDate', "")
+                    postData.set('offset', offsetPost)
+                    getPostAdmin(postData, true)
+                }
+
             },
             error: error => { console.log(error) }
         })
@@ -951,7 +974,7 @@ $(document).ready(function () {
 
     function displayCommunityPost(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isLikedByUser, report) {
         const feedContainer = $('#communityContainer')
-        const container = $('<div>').addClass('flex gap-1')
+        const container = $('<div>').addClass('communityPost flex gap-1')
         const postWrapper = $('<div>').addClass('communityWrapper rounded-md center-shadow p-4');
 
         //adding details for header
@@ -1068,10 +1091,12 @@ $(document).ready(function () {
                 $('#delete-modal').removeClass('hidden')
                 //update the post status into deleted
                 $('#deletePostbtn').on('click', function () {
-                    let action = { action: 'deletePost' };
+                    let action = { action: 'updatePostStatus' };
                     const formdata = new FormData()
+                    const status = 'deleted'
                     formdata.append('action', JSON.stringify(action));
                     formdata.append('postID', postID);
+                    formdata.append('status', status);
 
                     //process the deletion
                     $.ajax({
@@ -1081,10 +1106,16 @@ $(document).ready(function () {
                         processData: false,
                         contentType: false,
                         success: response => {
-                            //close the modal
-                            $('#delete-modal').addClass('hidden')
-                            restartPost()
-                            displayToProfile() //reload the post again
+                            if (response == 'Deleted') {
+                                //close the modal
+                                $('#delete-modal').addClass('hidden')
+                                offsetCommunity = 0
+                                lengthRetrieved = 0;
+                                const feedContainer = $('#communityContainer')
+                                feedContainer.find('.communityPost').remove()
+                                getCommunityPost()
+                            }
+
                         },
                         error: error => { console.log(error) }
                     })
