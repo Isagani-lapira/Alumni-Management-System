@@ -76,7 +76,7 @@
 
         <!-- Copied Table -->
 
-        <table class="table-auto w-full mt-10 text-xs font-normal center-shadow">
+        <table class="table-auto w-full mt-10 text-xs font-normal center-shadow table-alternate-color">
             <thead>
                 <tr class="bg-accent text-white">
                     <th class="text-center rounded-tl-lg">Student Number</th>
