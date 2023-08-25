@@ -35,48 +35,51 @@ $(document).ready(function () {
         fileExtension = file.name.split('.').pop().toLowerCase() //getting the extension of the selected file
         //checking if the file is based on the extension we looking for
         if (validExtension.includes(fileExtension)) {
-            var reader = new FileReader()
-            selectedImgEM.push(file); // Store the selected file in the array
-            //new image element to be place on the  image container div
-            const imageElement = document.createElement('img')
+            if (file.size <= 1024 * 1024) { //check file size if the image is 1mb
+                var reader = new FileReader()
+                selectedImgEM.push(file); // Store the selected file in the array
+                //new image element to be place on the  image container div
+                const imageElement = document.createElement('img')
 
-            const imgPlaceHolder = document.createElement('div')
-            imgPlaceHolder.className = "relative"
+                const imgPlaceHolder = document.createElement('div')
+                imgPlaceHolder.className = "relative"
 
-            //for button x
-            const xBtn = document.createElement('button')
-            xBtn.innerHTML = 'X'
-            xBtn.className = 'xBtn absolute h-5 w-5 top-0 text-center right-0 cursor-pointer rounded-full hover:bg-accent hover:text-white hover:font-bold'
-            //remove the image
-            xBtn.addEventListener('click', function (e) {
-                var parent = e.target.parentNode
-                var index = Array.from(parent.parentNode.children).indexOf(parent); //get a specific index which picture has been remove
-                selectedImgEM.splice(index, 1); // Remove the file from the selectedImgEM array
-                parent.parentNode.removeChild(parent)
-            })
+                //for button x
+                const xBtn = document.createElement('button')
+                xBtn.innerHTML = 'X'
+                xBtn.className = 'xBtn absolute h-5 w-5 top-0 text-center right-0 cursor-pointer rounded-full hover:bg-accent hover:text-white hover:font-bold'
+                //remove the image
+                xBtn.addEventListener('click', function (e) {
+                    var parent = e.target.parentNode
+                    var index = Array.from(parent.parentNode.children).indexOf(parent); //get a specific index which picture has been remove
+                    selectedImgEM.splice(index, 1); // Remove the file from the selectedImgEM array
+                    parent.parentNode.removeChild(parent)
+                })
 
-            // img element
-            imageElement.className = 'flex-shrink-0 h-20 w-20 rounded-md m-2'
-            imageElement.setAttribute('id', 'reservedPicture' + imageSequenceEM) //to make sure every id is unique
+                // img element
+                imageElement.className = 'flex-shrink-0 h-20 w-20 rounded-md m-2'
+                imageElement.setAttribute('id', 'reservedPicture' + imageSequenceEM) //to make sure every id is unique
 
-            //add to its corresponding container
-            imgPlaceHolder.appendChild(imageElement)
-            imgPlaceHolder.appendChild(xBtn)
-            imgConEmail.appendChild(imgPlaceHolder)
+                //add to its corresponding container
+                imgPlaceHolder.appendChild(imageElement)
+                imgPlaceHolder.appendChild(xBtn)
+                imgConEmail.appendChild(imgPlaceHolder)
 
-            //assign the image path to the img element
-            reader.onload = function (e) {
-                $('#reservedPicture' + imageSequenceEM).attr('src', e.target.result)
-                $('#imgContEmail').removeClass('hidden')
-                $('#TxtAreaEmail').addClass('h-3/6').removeClass('h-5/6') //make the text area smaller in height
-                imageSequenceEM++
+                //assign the image path to the img element
+                reader.onload = function (e) {
+                    $('#reservedPicture' + imageSequenceEM).attr('src', e.target.result)
+                    $('#imgContEmail').removeClass('hidden')
+                    $('#TxtAreaEmail').addClass('h-3/6').removeClass('h-5/6') //make the text area smaller in height
+                    imageSequenceEM++
+                }
+
+                reader.readAsDataURL(file)
             }
+            else $('#errorMsgEM').removeClass('hidden').text('File size maximum of 1mb')
+        }
+        else
+            $('#errorMsgEM').removeClass('hidden').text('Sorry we only allow images that has file extension of jpg, jpeg, png') //if the file is not based on the img extension we looking for
 
-            reader.readAsDataURL(file)
-        }
-        else {
-            $('#errorMsgEM').removeClass('hidden') //if the file is not based on the img extension we looking for
-        }
 
     })
 
@@ -86,20 +89,25 @@ $(document).ready(function () {
         var fileInput = $('#fileSelection')
         var file = fileInput[0].files[0] //get the first file that being select
 
-        selectedFileEM.push(file);
-        //preview of the file
-        fileContainerPrev = $('<div>').addClass('flex justify-evenly item-center')
-        fileName = $('<p>').addClass('p-1 w-full text-xs').text(file.name)
-        xBtn = $('<span>').text('x').addClass('cursor-pointer')
-            .on('click', function (e) {
-                var parent = e.target.parentNode
-                var index = Array.from(parent.parentNode.children).indexOf(parent); //get a specific index which picture has been remove
-                selectedFileEM.splice(index, 1); // Remove the file from the selectedImgEM array
-                parent.parentNode.removeChild(parent)
-            })
+        if (file.size <= 5 * 1024 * 1024) {
+            $('#errorMsgEM').addClass('hidden') // hide the message
+            selectedFileEM.push(file);
+            //preview of the file
+            fileContainerPrev = $('<div>').addClass('flex justify-evenly item-center')
+            fileName = $('<p>').addClass('p-1 w-full text-xs').text(file.name)
+            xBtn = $('<span>').text('x').addClass('cursor-pointer')
+                .on('click', function (e) {
+                    var parent = e.target.parentNode
+                    var index = Array.from(parent.parentNode.children).indexOf(parent); //get a specific index which picture has been remove
+                    selectedFileEM.splice(index, 1); // Remove the file from the selectedImgEM array
+                    parent.parentNode.removeChild(parent)
+                })
 
-        fileContainerPrev.append(fileName, xBtn)
-        $('#fileContEmail').show().append(fileContainerPrev)
+            fileContainerPrev.append(fileName, xBtn)
+            $('#fileContEmail').show().append(fileContainerPrev)
+        }
+        else $('#errorMsgEM').removeClass('hidden').text('File size maximum of 5mb')
+
     })
 
     //clicked the gallery icon
@@ -153,12 +161,15 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
-                if (response == 'user is not existing') $('#userNotExist').show()
-                //success sending
+                $('#promptMsg').removeClass('hidden')
+                $('#message').text('Sending email..')
+                if (response == 'user is not existing')
+                    $('#userNotExist').show()
                 else {
+                    //success sending
+                    $('#message').text('Email sent!')
                     $('#userNotExist').hide()
-                    $('#promptMsg').removeClass('hidden')
-                    $('#message').text('Sending email..')
+                    $('#modalEmail').hide()
                     setTimeout(() => {
                         $('#promptMsg').addClass('hidden')
                     }, 4000)

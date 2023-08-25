@@ -778,7 +778,7 @@ function dateInText($date)
             <tbody id="alumniTB" class="text-sm">
             </tbody>
           </table>
-          <p id="alumniNoRecMsg" class="text-center text-blue-500">No available data</p>
+          <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
         </div>
 
         <!-- college content -->
@@ -1680,7 +1680,7 @@ function dateInText($date)
               <i id="fileIcon" class="fa-solid fa-paperclip"></i>
             </label>
             <input id="imageSelection" type="file" class="hidden">
-            <input id="fileSelection" type="file" class="hidden">
+            <input id="fileSelection" type="file" class="hidden" accept="application/pdf">
           </div>
 
           <!-- Footer -->
