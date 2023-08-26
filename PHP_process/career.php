@@ -18,81 +18,78 @@ class Career
         $skill,
         $personID,
         $location,
+        $status = "verified", //default for admins
         $con
     ) {
-
-        $status = "verified"; //default for admins
-        $date_posted  = date('y-m-d');
+        $date_posted = date('y-m-d');
         $query = "INSERT INTO `career`(`careerID`, `jobTitle`, `companyName`, `jobDescript`,`jobqualification`,
             `companyLogo`, `minSalary`, `maxSalary`, `colCode`, `author`, `date_posted`, `personID`, `location`, `status`) 
-            VALUES ('$careerID','$jobTitle','$companyName','$descript','$qualification','$logo','$minSalary',
-            '$maxSalary','$colCode','$author','$date_posted','$personID','$location','$status')";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        $result = mysqli_query($con, $query);
+        $stmt = mysqli_prepare($con, $query);
 
-        //check if the result if success
-        if ($result) {
-            $skillLength = count($skill) - 1; //there's always a one extra due to automatic creation of input field
-            $index = 0;
-            while ($index < $skillLength) {
-                $random = rand(0, 5000);
-                $skillID = $careerID . '-' . $random;
+        if ($stmt) {
+            mysqli_stmt_bind_param(
+                $stmt,
+                "ssssssddssssss",
+                $careerID,
+                $jobTitle,
+                $companyName,
+                $descript,
+                $qualification,
+                $logo,
+                $minSalary,
+                $maxSalary,
+                $colCode,
+                $author,
+                $date_posted,
+                $personID,
+                $location,
+                $status
+            );
 
-                $this->insertSkill($skillID, $careerID, $skill[$index], $con);
-                $index++;
+            $result = mysqli_stmt_execute($stmt);
+
+            if ($result) {
+                $skillLength = count($skill); //there's always one extra due to automatic creation of input field
+                $index = 0;
+                while ($index < $skillLength) {
+                    $random = rand(0, 5000);
+                    $skillID = $careerID . '-' . $random;
+
+                    $this->insertSkill($skillID, $careerID, $skill[$index], $con);
+                    $index++;
+                }
+                return true;
+            } else {
+                return false;
             }
-            return true;
-        } else return false;
-    }
-
-    public function userInsertionJob(
-        $careerID,
-        $jobTitle,
-        $companyName,
-        $descript,
-        $qualification,
-        $logo,
-        $minSalary,
-        $maxSalary,
-        $colCode,
-        $author,
-        $skill,
-        $personID,
-        $location,
-        $con
-    ) {
-
-        $status = "unverified"; //default for admins
-        $date_posted  = date('y-m-d');
-        $query = "INSERT INTO `career`(`careerID`, `jobTitle`, `companyName`, `jobDescript`,`jobqualification`,
-            `companyLogo`, `minSalary`, `maxSalary`, `colCode`, `author`, `date_posted`, `personID`, `location`, `status`) 
-            VALUES ('$careerID','$jobTitle','$companyName','$descript','$qualification','$logo','$minSalary',
-            '$maxSalary','$colCode','$author','$date_posted','$personID','$location','$status')";
-
-        $result = mysqli_query($con, $query);
-
-        //check if the result if success
-        if ($result) {
-            $skillLength = count($skill) - 1; //there's always a one extra due to automatic creation of input field
-            $index = 0;
-            while ($index < $skillLength) {
-                $random = rand(0, 5000);
-                $skillID = $careerID . '-' . $random;
-
-                $this->insertSkill($skillID, $careerID, $skill[$index], $con);
-                $index++;
-            }
-            return true;
-        } else return false;
+            mysqli_stmt_close($stmt);
+        } else {
+            return false;
+        }
     }
 
     function insertSkill($skillID, $careerID, $skill, $con)
     {
-        $query = "INSERT INTO `skill`(`skillID`, `careerID`, `skill`) 
-            VALUES ('$skillID','$careerID','$skill')";
+        $query = "INSERT INTO `skill` (`skillID`, `careerID`, `skill`) 
+              VALUES (?, ?, ?)";
 
-        if (mysqli_query($con, $query)) return true;
-        else echo 'Unexpected error, try again later!';
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "sss", $skillID, $careerID, $skill);
+
+            if (mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_close($stmt);
+                return true;
+            } else {
+                mysqli_stmt_close($stmt);
+                echo 'Unexpected error, try again later!';
+            }
+        } else {
+            echo 'Prepared statement error!';
+        }
     }
 
 
@@ -107,12 +104,22 @@ class Career
     }
     public function selectWithCareerID($con, $careerID)
     {
-        $query = 'SELECT * FROM `career` WHERE `careerID` = "' . $careerID . '"  ORDER BY`date_posted`DESC'; //as defult
-        $result = mysqli_query($con, $query);
+        $query = 'SELECT * FROM `career` WHERE `careerID` = ? ORDER BY `date_posted` DESC';
+        $stmt = mysqli_prepare($con, $query);
 
-        if ($result) $this->getCareerDetail($result, $con);
-        else echo 'something went wrong, please try again';
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "s", $careerID);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            if ($result)
+                $this->getCareerDetail($result, $con);
+            else
+                echo 'something went wrong, please try again';
+
+            mysqli_stmt_close($stmt);
+        } else echo 'error';
     }
+
     public function selectDataForCollege($college, $offset, $con)
     {
         $maxLimit = 10; //default number of retrieval
@@ -231,14 +238,24 @@ class Career
 
     function isJobSaved($careerID, $username, $con)
     {
-        $query = "SELECT * FROM `saved_career` WHERE 
-        `careerID` = '$careerID' AND `username` = '$username'";
-        $result = mysqli_query($con, $query);
-        $row = mysqli_num_rows($result);
+        $query = "SELECT * FROM `saved_career` WHERE `careerID` = ? AND `username` = ?";
+        $stmt = mysqli_prepare($con, $query);
 
-        if ($result && $row > 0) return true;
-        else return false;
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ss", $careerID, $username);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_num_rows($result);
+
+            mysqli_stmt_close($stmt);
+
+            return ($row > 0);
+        } else {
+            // Handle error if preparation fails
+            return false;
+        }
     }
+
     function dateInText($date)
     {
         $year = substr($date, 0, 4);
@@ -260,15 +277,28 @@ class Career
     public function selectCareerAdmin($college, $offset, $con)
     {
         $maxLimit = 10;
-        $query = "SELECT * FROM `career` WHERE `colCode` = '$college' AND 
-        `author` = 'University Admin' OR `author` = 'colAdmin'
-        ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit";
+        $query = "SELECT * FROM `career` WHERE `colCode` = ? AND (`author` = 'University Admin' OR `author` = 'colAdmin')
+              ORDER BY `date_posted` DESC LIMIT ?, ?";
 
-        $result = mysqli_query($con, $query);
-        $row = mysqli_num_rows($result);
-        if ($result && $row > 0) $this->getCareerDetail($result, $con);
-        else echo 'none';
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "sii", $college, $offset, $maxLimit);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_num_rows($result);
+
+            if ($result && $row > 0)
+                $this->getCareerDetail($result, $con);
+            else echo 'none';
+
+            mysqli_stmt_close($stmt);
+        } else {
+            // Handle error if preparation fails
+            echo 'error';
+        }
     }
+
 
     public function appliedJob($offset, $con)
     {
@@ -277,11 +307,23 @@ class Career
         $query = "SELECT c.*
         FROM career c
         JOIN applicant a ON c.careerID = a.careerID
-        WHERE a.username = '$username' ORDER BY`date_posted` LIMIT $offset,$maxLimit";
+        WHERE a.username = ? ORDER BY `date_posted` LIMIT ?, ?";
+        $stmt = mysqli_prepare($con, $query);
 
-        $result = mysqli_query($con, $query);
-        $row = mysqli_num_rows($result);
-        if ($result && $row > 0) $this->getCareerDetail($result, $con);
-        else echo 'none';
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "sii", $username, $offset, $maxLimit);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_num_rows($result);
+
+            if ($result && $row > 0)
+                $this->getCareerDetail($result, $con);
+            else echo 'none';
+
+            mysqli_stmt_close($stmt);
+        } else {
+            // Handle error if preparation fails
+            echo 'error';
+        }
     }
 }

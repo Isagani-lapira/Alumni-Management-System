@@ -784,7 +784,7 @@ function getAccDetails($con, $personID)
             </div>
 
             <div class="absolute bottom-7 mt-3 flex justify-center items-center w-10/12">
-              <button class="bg-blue-400 rounded-md text-white w-full py-3 hover:bg-blue-500">
+              <button id="createJobPost" class="bg-blue-400 rounded-md text-white w-full py-3 hover:bg-blue-500">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-2 -2 24 24">
                   <path fill="white" d="m5.72 14.456l1.761-.508l10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635l-.52 1.82zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.901.901 0 0 1-1.11-.623a.915.915 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635h3.592z" />
                 </svg>
@@ -884,6 +884,125 @@ function getAccDetails($con, $personID)
           </div>
 
         </div>
+
+        <div id="createJobModal" class="post modal fixed inset-0 z-50 flex justify-center p-3 hidden">
+          <div id="jobContainer" class="relative w-1/3 no-scrollbar py-3 px-4 bg-white rounded-md h-3/4 overflow-y-auto">
+            <h5 class="text-center font-bold text-xl text-greyish_black py-2 border-b border-gray-300">Career Posting</h5>
+
+            <form id="jobPostingForm">
+              <!-- job title -->
+              <div>
+                <label for="job_title" class="block my-2 text-sm  text-gray-500">Job Title</label>
+                <input type="text" id="job_title" name="job_title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-3 outline-none" placeholder="ex: Software Engineer" required>
+              </div>
+
+              <!-- company name -->
+              <div>
+                <label for="companyName" class="block my-2 text-sm  text-gray-500">Company Name</label>
+                <input type="text" id="companyName" name="companyName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-3 outline-none" placeholder="ex: Accenture" required>
+              </div>
+
+              <!-- job description -->
+              <div>
+                <label for="jobDesc" class="block my-2 text-sm  text-gray-500">Job Description</label>
+                <textarea id="jobDesc" name="jobDesc" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-3 outline-none h-32" placeholder="Please provide a detailed job description including responsibilities, qualifications, and any other relevant information that will help potential candidates understand the role." required></textarea>
+              </div>
+
+              <!-- job qualification -->
+              <div>
+                <label for="job_quali" class="block my-2 text-sm  text-gray-500">Job Qualification</label>
+                <textarea name="job_quali" id="job_quali" class="bg-gray-50 h-32 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-3 outline-none" placeholder="List the required qualifications, skills, and experience candidates need to succeed in this role. Include education level, technical proficiencies, certifications, and any other relevant criteria." required></textarea>
+              </div>
+
+              <!-- company name -->
+              <div>
+                <label for="jobLocation" class="block my-2 text-sm  text-gray-500">Location</label>
+                <input type="text" id="jobLocation" name="jobLocation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-3 outline-none" placeholder="ex: San Jose Del monte Bulacan" required>
+              </div>
+
+              <!-- salary range -->
+              <div>
+                <label for="job_title" class="block my-2 text-sm  text-gray-500">Salary Range</label>
+                <div class="flex flex-wrap gap-2">
+
+                  <!-- minimum -->
+                  <div class="border border-gray-300 text-gray-900 text-sm rounded-lg flex-1 py-3 outline-none flex items-center">
+                    <span>
+                      <iconify-icon icon="tabler:currency-peso" style="color: #626262;" width="24" height="24"></iconify-icon>
+                    </span>
+                    <input type="number" name="minSalary" id="minSalary" class="outline-none" placeholder="Minimum" required>
+                  </div>
+
+                  <!-- maximum -->
+                  <div class="border border-gray-300 text-gray-900 text-sm rounded-lg flex-1 py-3 outline-none flex items-center">
+                    <span>
+                      <iconify-icon icon="tabler:currency-peso" style="color: #626262;" width="24" height="24"></iconify-icon>
+                    </span>
+                    <input type="number" name="maxSalary" id="maxSalary" class="outline-none" placeholder="Maximum" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- company logo -->
+              <div class="text-sm my-2 py-3">
+                <span for="companyLogo" class="block my-2 text-sm text-gray-500">Company Logo</span>
+                <input id="companyLogo" name="companyLogo" type="file" accept="image/jpeg" maxlength="1048576" required>
+              </div>
+
+              <!-- tags -->
+              <div>
+                <label class="block my-2 text-sm  text-gray-500">Tags</label>
+                <div class="flex flex-wrap gap-2">
+                  <!-- tag 1 -->
+                  <div class="flex items-center gap-1">
+                    <iconify-icon icon="gala:add" style="color: #60a5fa;" width="24" height="24"></iconify-icon>
+                    <input id="tag1" name="tag1" type="text" class="jobTag bg-gray-50 border border-gray-300 text-gray-900 
+                    text-sm rounded-lg w-full p-2 outline-none" placeholder="ex: Design" required>
+                  </div>
+
+                  <!-- tag 2 -->
+                  <div class="flex items-center gap-1">
+                    <iconify-icon icon="gala:add" style="color: #60a5fa;" width="24" height="24"></iconify-icon>
+                    <input id="tag2" name="tag2" type="text" class="jobTag bg-gray-50 border border-gray-300 text-gray-900 
+                    text-sm rounded-lg w-full p-2 outline-none" placeholder="ex: Content Creation" required>
+                  </div>
+
+                  <!-- tag 3 -->
+                  <div class="flex items-center gap-1">
+                    <iconify-icon icon="gala:add" style="color: #60a5fa;" width="24" height="24"></iconify-icon>
+                    <input id="tag3" name="tag3" type="text" class="jobTag bg-gray-50 border border-gray-300 text-gray-900 
+                    text-sm rounded-lg w-full p-2 outline-none" placeholder="ex: Python" required>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="flex justify-end items-center gap-2">
+                <button id="cancelJobPosting" type="button" class="text-gray-400 px-3 py-2">Cancel</button>
+                <button type="submit" class="px-3 py-2 text-white bg-postButton hover:bg-postHoverButton rounded-md">Post Job</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- success prompt -->
+        <div id="successJobModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+          <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+            <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <circle id="filled-circle" fill="#47CF73" cx="66.5" cy="66.5" r="54.5" />
+                <circle id="white-circle" fill="#FFFFFF" cx="66.5" cy="66.5" r="55.5" />
+                <circle id="outline" stroke="#47CF73" stroke-width="4" cx="66.5" cy="66.5" r="54.5" />
+                <polyline id="check" stroke="#FFFFFF" stroke-width="5.5" points="41 70 56 85 92 49" />
+              </g>
+            </svg>
+            <h1 class=" text-3xl font-bold text-green-500 text-center">Thank you</h1>
+            <p class=" text-lg text-center text-gray-500">"Your Job Post is Being Reviewed!"</p>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -897,6 +1016,7 @@ function getAccDetails($con, $personID)
   <script src="../student-alumni/js/hompage.js"></script>
   <script src="../student-alumni/js/announcementscript.js"></script>
   <script src="../student-alumni/js/eventscript.js"></script>
+  <script src="../student-alumni/js/jobposting.js"></script>
   <script src="../student-alumni/js/notification.js"></script>
   <script src="../student-alumni/js/post.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

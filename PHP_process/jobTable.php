@@ -84,6 +84,57 @@ if (isset($_POST['action'])) {
         } else if ($action == "retrievedApplied") {
             $offset = $_POST['offset'];
             $readCareer->appliedJob($offset, $mysql_con);
+        } else if ($action == 'createjobuser') {
+            $author = $_SESSION['username'];
+
+            //skills
+            $tag1 = $_POST['tag1'];
+            $tag2 = $_POST['tag2'];
+            $tag3 = $_POST['tag3'];
+            $skillData = [$tag1, $tag2, $tag3];
+            // Encode the array as JSON
+            $skillDataJson = json_encode($skillData);
+            $skillArray = json_decode($skillDataJson, true);
+
+            //logo
+            $image = addslashes(file_get_contents($_FILES['companyLogo']['tmp_name']));
+
+            //retrieve the value 
+            $jobTitle = $_POST['job_title'];
+            $companyName = $_POST['companyName'];
+            $projectDescript = $_POST['jobDesc'];
+            $minSalary = $_POST['minSalary'];
+            $maxSalary = $_POST['maxSalary'];
+            $qualification = $_POST['job_quali'];
+            $personID = $_SESSION['personID'];
+            $college = $_SESSION['colCode'];
+            $location = $_POST['jobLocation'];
+            //for career ID
+            $uniqueId = substr(md5(uniqid()), 0, 7); //unique id with length of 7
+            $careerID = 'career' . $uniqueId;
+
+            $status = "unverified";
+            $career = new Career();
+            $career->insertionJob(
+                $careerID,
+                $jobTitle,
+                $companyName,
+                $projectDescript,
+                $qualification,
+                $image,
+                $minSalary,
+                $maxSalary,
+                $college,
+                $author,
+                $skillArray,
+                $personID,
+                $location,
+                $status,
+                $mysql_con
+            );
+
+            if ($career) echo 'Successful';
+            else echo 'Unexpected issue: Try again later';
         }
     } catch (Exception $e) {
         echo $e->getMessage();
