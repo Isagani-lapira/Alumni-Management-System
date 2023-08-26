@@ -135,6 +135,10 @@ if (isset($_POST['action'])) {
 
             if ($career) echo 'Successful';
             else echo 'Unexpected issue: Try again later';
+        } else if ($action == 'currentUserJobPost') {
+            $username = $_SESSION['username'];
+            $offset = $_POST['offset'];
+            $readCareer->userPost($username, $offset, $mysql_con);
         }
     } catch (Exception $e) {
         echo $e->getMessage();

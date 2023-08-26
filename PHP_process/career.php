@@ -168,6 +168,7 @@ class Career
         $personIDEncrypted = array();
         $isApplied = array();
         $isSaved = array();
+        $status = array();
 
         if (mysqli_num_rows($result) > 0) {
             $response = "Success";
@@ -186,6 +187,8 @@ class Career
                 $date = $row_data['date_posted'];
                 $date_posted[] = $this->dateInText($date);
                 $location[] = $row_data['location'];
+                $status[] = $row_data['status'];
+
                 // Pseudonymize the personID
                 $personIDEncrypted[] = $this->generatePseudonym($row_data['personID']);
 
@@ -230,7 +233,8 @@ class Career
             'personID' => $personIDEncrypted,
             'location' => $location,
             "isApplied" => $isApplied,
-            'isSaved' => $isSaved
+            'isSaved' => $isSaved,
+            "status" => $status,
         );
 
         echo json_encode($data); //return data as json
@@ -321,9 +325,28 @@ class Career
             else echo 'none';
 
             mysqli_stmt_close($stmt);
-        } else {
-            // Handle error if preparation fails
+        } else
             echo 'error';
-        }
+    }
+
+    public function userPost($username, $offset, $con)
+    {
+        $maxLimit = 10;
+        $query = "SELECT * FROM `career` WHERE `author` = ? LIMIT $offset, $maxLimit";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, 's', $username);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_num_rows($result);
+
+            if ($result && $row > 0)
+                $this->getCareerDetail($result, $con);
+            else echo 'none';
+
+            mysqli_stmt_close($stmt);
+        } else
+            echo 'error';
     }
 }
