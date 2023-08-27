@@ -92,13 +92,13 @@ if (isset($_POST['action'])) {
             $tag2 = $_POST['tag2'];
             $tag3 = $_POST['tag3'];
             $skillData = [$tag1, $tag2, $tag3];
+
             // Encode the array as JSON
             $skillDataJson = json_encode($skillData);
             $skillArray = json_decode($skillDataJson, true);
 
             //logo
-            $image = addslashes(file_get_contents($_FILES['companyLogo']['tmp_name']));
-
+            $image = file_get_contents($_FILES['companyLogo']['tmp_name']);
             //retrieve the value 
             $jobTitle = $_POST['job_title'];
             $companyName = $_POST['companyName'];

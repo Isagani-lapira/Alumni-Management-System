@@ -410,7 +410,7 @@ function getAccDetails($con, $personID)
           <div id="viewingJobModal" class="w-2/5 bg-white rounded-lg h-4/5 slide-bottom">
 
             <div class="flex flex-col justify-between h-full">
-              <div class=" overflow-y-auto">
+              <div class=" overflow-y-auto no-scrollbar">
                 <!-- content -->
                 <div class="headerJob flex rounded-t-lg p-5">
                   <div class="w-3/5 ps-3">
@@ -936,10 +936,10 @@ function getAccDetails($con, $personID)
         </div>
 
         <div id="createJobModal" class="post modal fixed inset-0 z-50 flex justify-center p-3 hidden">
-          <div id="jobContainer" class="relative w-1/3 no-scrollbar py-3 px-4 bg-white rounded-md h-3/4 overflow-y-auto">
+          <div id="jobContainer" class="relative w-1/3 no-scrollbar py-3 px-4 bg-white rounded-md h-3/4 overflow-y-auto slide-bottom">
             <h5 class="text-center font-bold text-xl text-greyish_black py-2 border-b border-gray-300">Career Posting</h5>
 
-            <form id="jobPostingForm">
+            <form id="jobPostingForm" enctype="multipart/form-data">
               <!-- job title -->
               <div>
                 <label for="job_title" class="block my-2 text-sm  text-gray-500">Job Title</label>

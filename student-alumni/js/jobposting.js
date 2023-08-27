@@ -19,10 +19,10 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
-                console.log(response)
                 if (response == 'Successful') {
                     $('#successJobModal').removeClass('hidden')
 
+                    //close modal in 4seconds
                     setTimeout(() => {
                         $('#successJobModal').addClass('hidden')
                         $('#createJobModal').addClass('hidden')
@@ -82,14 +82,10 @@ $(document).ready(function () {
                         const jobTitle = response.jobTitle[i];
                         const skills = response.skills[i];
                         const status = response.status[i];
-                        const author = response.author[i];
                         const companyName = response.companyName[i];
                         const jobDescript = response.jobDescript[i];
                         const jobQuali = response.jobQuali[i];
-                        const datePosted = response.date_posted[i];
-                        let companyLogo = response.companyLogo[i];
                         const location = response.location[i];
-                        let logo = imgFormat + companyLogo
 
                         displayJobRepo(jobTitle, skills, status, companyName,
                             jobDescript, jobQuali, location);
@@ -146,13 +142,19 @@ $(document).ready(function () {
                 'Applicant:'
             )
 
-        status = (status == 'unverified') ? 'Not yet verified' : status
         const verifiedElement = $('<span>')
             .addClass('flex items-center gap-2')
             .html(
                 '<iconify-icon icon="ri:verified-badge-line" style="color: #868e96;" width="14" height="14"></iconify-icon>' +
                 status
             )
+
+        if (status == 'unverified') {
+            status = 'Not yet verified'
+        } else {
+            verifiedElement.addClass('text-blue-400')
+                .html('<iconify-icon icon="ri:verified-badge-fill" style="color: #60a5fa;"></iconify-icon>' + status)
+        }
         const leftSide = $('<div>').append(applicant, verifiedElement)
         const proceedBtn = $('<button>')
             .html('<iconify-icon icon="maki:arrow" style="color: #868e96;" width="24" height="24"></iconify-icon>')

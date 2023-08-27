@@ -47,10 +47,6 @@ $(document).ready(function () {
     window.location.href = "../admin/NewCollege.php";
   });
 
-  // $('.college').click(() => {
-  //   $('.individual-col').removeClass('hidden')
-  //   $('.college-content').addClass('hidden')
-  // })
 
   $(".back-icon").click(() => {
     $(".individual-col").addClass("hidden");
@@ -201,9 +197,9 @@ $(document).ready(function () {
       function (start, end, label) {
         console.log(
           "A new date selection was made: " +
-            start.format("YYYY-MM-DD") +
-            " to " +
-            end.format("YYYY-MM-DD")
+          start.format("YYYY-MM-DD") +
+          " to " +
+          end.format("YYYY-MM-DD")
         );
       }
     );
@@ -219,9 +215,9 @@ $(document).ready(function () {
       function (start, end, label) {
         console.log(
           "A new date selection was made: " +
-            start.format("YYYY-MM-DD") +
-            " to " +
-            end.format("YYYY-MM-DD")
+          start.format("YYYY-MM-DD") +
+          " to " +
+          end.format("YYYY-MM-DD")
         );
       }
     );

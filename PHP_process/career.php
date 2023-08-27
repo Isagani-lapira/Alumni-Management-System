@@ -331,7 +331,7 @@ class Career
     public function userPost($username, $offset, $con)
     {
         $maxLimit = 10;
-        $query = "SELECT * FROM `career` WHERE `author` = ? LIMIT $offset, $maxLimit";
+        $query = "SELECT * FROM `career` WHERE `author` = ? ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit ";
         $stmt = mysqli_prepare($con, $query);
 
         if ($stmt) {
