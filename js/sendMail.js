@@ -178,4 +178,84 @@ $(document).ready(function () {
             error: (error) => console.log(error)
         })
     })
+
+
+    let emailOffset = 0;
+    let tempOffsetEmail = 0;
+    let countNextEmail = 0;
+    $('#emailLi').on('click', function () {
+        emailOffset = 0;
+        $('#emailTBody').empty();
+        //retrieve emails
+        getEmailSent()
+    })
+
+    function getEmailSent() {
+        //perform ajax operation 
+        const action = { action: 'retrieveEmails' };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('offset', emailOffset);
+
+        $.ajax({
+            url: '../PHP_process/emailDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'JSON',
+            success: response => {
+                //check for the data retrieved
+                if (response.result == "Success") {
+                    const length = response.recipient.length;
+
+                    for (let i = 0; i < length; i++) {
+                        const recipient = response.recipient[i];
+                        const colCode = response.colCode[i];
+                        const dateSent = response.dateSent[i];
+
+                        //row data
+                        const row = $('<tr>')
+                        const recip = $("<td>").text(recipient)
+                            .addClass('text-start')
+                        const college = $("<td>").text(colCode)
+                            .addClass('text-start')
+                        const date = $("<td>").text(dateSent)
+                            .addClass('text-start')
+
+                        row.append(recip, college, date);
+
+                        $('#emailTBody').append(row)
+                    }
+                    emailOffset += length
+                    tempOffsetEmail = length
+                    //disable next if the length didn't rich 10
+                    if (length < 10) $('#nextEmail').addClass('hidden')
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+
+    //previous sets of email
+    $('#prevEmail').on('click', function () {
+        countNextEmail -= countNextEmail
+        emailOffset = countNextEmail
+        if (countNextEmail >= 0) {
+            countNextEmail -= tempOffsetEmail
+            $('#emailTBody').empty();
+            $('#nextEmail').removeClass('hidden')
+            getEmailSent()
+        }
+    })
+
+    //retrieve new sets of emails
+    $('#nextEmail').on('click', function () {
+        countNextEmail += tempOffsetEmail
+        console.log(countNextEmail)
+        $('#emailTBody').empty();
+        getEmailSent()
+        $('#prevEmail').removeClass('hidden')
+    })
 })

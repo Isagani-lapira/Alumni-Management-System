@@ -404,9 +404,7 @@ $(document).ready(function () {
           offset += jobTitles.length;
           tempOffsetJob = jobTitles.length;
           const nextBtn = $("<button>")
-            .addClass(
-              "bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md"
-            )
+            .addClass("bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md")
             .text("Next")
             .on("click", function () {
               $("#jobTBContent").find("tr").remove();
@@ -414,14 +412,10 @@ $(document).ready(function () {
               countNext += tempOffsetJob;
             });
           const prevBtn = $("<button>")
-            .addClass(
-              "border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md"
-            )
+            .addClass("border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md")
             .text("Previous")
             .on("click", function () {
               countNext -= tempOffsetJob;
-
-              console.log(countNext);
               //check if there are still to be back
               if (countNext >= 0) {
                 $("#jobTBContent").find("tr").remove();
@@ -552,22 +546,27 @@ $(document).ready(function () {
         $("#suggestionContainer").show();
         $("#suggestionContainer").empty(); //remove the data first
         if (data.response == "success") {
-          let length = data.suggestions.length;
+          let length = data.fullname.length;
           //show all the suggested email
           for (let i = 0; i < length; i++) {
-            suggestedEmail = data.suggestions[i];
-            email = $("<p>")
-              .text(suggestedEmail)
-              .addClass(
-                "hover:bg-gray-200 cursor-pointer border-b border-gray-300 py-1"
-              )
+            const fullname = data.fullname[i];
+            const email = data.email[i];
+
+            fullnameElement = $('<p>')
+              .text(fullname)
+            emailElement = $('<p>')
+              .addClass('text-xs font-bold italic text-blue-400')
+              .text(email)
+            suggestionWrapper = $("<div>")
+              .addClass("hover:bg-gray-200 cursor-pointer border-b border-gray-300 py-1")
+              .append(fullnameElement, emailElement)
               .on("click", function () {
-                let emailVal = $(this).text();
-                $("#searchEmail").val(emailVal);
+                //add the selected name to the input box
+                $("#searchEmail").val(email);
                 $("#suggestionContainer").hide();
               });
 
-            $("#suggestionContainer").append(email).addClass("bg-white");
+            $("#suggestionContainer").append(suggestionWrapper).addClass("bg-white");
           }
         }
       },

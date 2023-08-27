@@ -137,7 +137,7 @@ function dateInText($date)
             </li>
 
             <!-- EMAIL -->
-            <li class="rounded-lg p-2"><a href="#email-tab">
+            <li id="emailLi" class="rounded-lg p-2"><a href="#email-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16" width="24" height="24">
                   <path d="M 18 0 H 2 C 0.9 0 0.00999999 0.9 0.00999999 2 L 0 14 C 0 15.1 0.9 16 2 16 H 18 C 19.1 16 20 15.1 20 14 V 2 C 20 0.9 19.1 0 18 0 Z M 18 4 L 10 9 L 2 4 V 2 L 10 7 L 18 2 V 4 Z" />
                 </svg>
@@ -574,41 +574,15 @@ function dateInText($date)
               <tr>
                 <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
                 <th class="text-start">COLLEGE</th>
-                <th class="text-start">DATE</th>
-                <th class="text-center rounded-tr-md">ACTION</th>
+                <th class="text-start rounded-tr-md">DATE</th>
               </tr>
             </thead>
-            <tbody id="emailTBody">
-              <?php
-              require_once '../PHP_process/connection.php';
-              $query = 'SELECT * FROM `email` WHERE `personID` = "' . $personID . '" ORDER BY `dateSent` DESC LIMIT 12';
-              $result = mysqli_query($mysql_con, $query);
-              $row = mysqli_num_rows($result);
-              if ($result && $row > 0) {
-                while ($data = mysqli_fetch_assoc($result)) {
-                  $recipient = $data['recipient'];
-                  $colCode  = $data['colCode'];
-                  $dateSent  = $data['dateSent'];
-
-                  echo '
-                    <tr>
-                      <td class="text-start">' . $recipient . '</td>
-                      <td class="text-start">' . $colCode . '</td>
-                      <td class="text-start">' . $dateSent . '</td>
-                      <td class="flex justify-center gap-2">
-                        <button class="text-red-400 hover:bg-red-400 hover:text-white px-3 py-1 rounded-md text-xs">Delete</button>
-                        <button class="bg-blue-400 text-white hover:bg-blue-500 rounded-md text-xs px-3 py-1">View</button>
-                      </td>
-                    </tr>';
-                }
-              } else {
-                echo '<tr>
-                      <td class="text-blue-400 text-lg text-center w-full">No available email sent</td>
-                    </tr>';
-              }
-              ?>
-            </tbody>
+            <tbody id="emailTBody"></tbody>
           </table>
+          <div class="flex justify-end items-center gap-2 mt-2">
+            <button id="prevEmail" class="rounded-md border border-accent text-accent hover:bg-darkAccent hover:text-white px-4 py-2">Previous</button>
+            <button id="nextEmail" class="rounded-md bg-accent hover:bg-darkAccent text-white px-4 py-2">Next</button>
+          </div>
         </div>
 
         <!-- student record content -->
@@ -1658,7 +1632,7 @@ function dateInText($date)
                 <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Search email!">
               </div>
               <p id="userNotExist" class="text-sm italic text-accent hidden">User not exist</p>
-              <div id="suggestionContainer" class="absolute p-2 w-full rounded-md z-10"></div>
+              <div id="suggestionContainer" class="absolute p-2 w-full rounded-md z-10 h-56 overflow-y-auto"></div>
             </div>
 
             <p class="font-semibold text-sm mt-2">Subject</p>

@@ -28,64 +28,67 @@ $(document).ready(function () {
 
                     //get all the data retrieved from the processing
                     const length = data.title.length
-                    for (let i = 0; i < length; i++) {
-                        const announcementID = data.announcementID[i];
-                        const title = data.title[i];
-                        const tempDescription = data.Descrip[i].substring(0, 50);
-                        const description = data.Descrip[i];
-                        const date_posted = getFormattedDate(data.date_posted[i]); //format the date as well
-                        const headline_img = response.headline_img[i];
-                        const fullname = response.fullname[i];
+                    if (length > 0) {
 
-                        // create markup for table
-                        const row = $('<tr>')
-                            .addClass('border-b border-gray-300')
-                        const titleTD = $('<td>')
-                            .addClass('font-semibold')
-                            .text(title);
-                        const descriptTD = $('<td>')
-                            .text(tempDescription);
-                        const datePostedTD = $('<td>').text(date_posted);
+                        for (let i = 0; i < length; i++) {
+                            const announcementID = data.announcementID[i];
+                            const title = data.title[i];
+                            const tempDescription = data.Descrip[i].substring(0, 50);
+                            const description = data.Descrip[i];
+                            const date_posted = getFormattedDate(data.date_posted[i]); //format the date as well
+                            const headline_img = response.headline_img[i];
+                            const fullname = response.fullname[i];
 
-                        const delBtn = $('<button>')
-                            .addClass("border border-red-400 text-red-400 hover:text-white hover:bg-red-500 rounded-sm text-white px-3 py-1 text-xs")
-                            .text('Archive')
+                            // create markup for table
+                            const row = $('<tr>')
+                                .addClass('border-b border-gray-300')
+                            const titleTD = $('<td>')
+                                .addClass('font-semibold')
+                                .text(title);
+                            const descriptTD = $('<td>')
+                                .text(tempDescription);
+                            const datePostedTD = $('<td>').text(date_posted);
 
-                        const viewBtn = $('<button>')
-                            .addClass('bg-postButton hover:bg-postHoverButton rounded-sm text-white px-3 py-1 text-xs')
-                            .text('View')
-                            .on('click', function () {
-                                $('#announcementModal').removeClass('hidden')
-                                const imgSrc = imgFormat + headline_img
-                                displayAnnouncementDetails(announcementID, imgSrc, date_posted, fullname, title, description)
-                            })
+                            const delBtn = $('<button>')
+                                .addClass("border border-red-400 text-red-400 hover:text-white hover:bg-red-500 rounded-sm hover:text-white px-3 py-1 text-xs")
+                                .text('Archive')
 
-                        const actionContainer = $('<div>')
-                            .addClass('flex flex-wrap justify-center gap-2')
-                            .append(delBtn, viewBtn)
+                            const viewBtn = $('<button>')
+                                .addClass('bg-postButton hover:bg-postHoverButton rounded-sm text-white px-3 py-1 text-xs')
+                                .text('View')
+                                .on('click', function () {
+                                    $('#announcementModal').removeClass('hidden')
+                                    const imgSrc = imgFormat + headline_img
+                                    displayAnnouncementDetails(announcementID, imgSrc, date_posted, fullname, title, description)
+                                })
 
-                        //action data
-                        const actionTD = $('<td>')
-                            .append(actionContainer)
+                            const actionContainer = $('<div>')
+                                .addClass('flex flex-wrap justify-center gap-2')
+                                .append(delBtn, viewBtn)
 
-                        //attach every data to the table
-                        row.append(titleTD, descriptTD, datePostedTD, actionTD);
-                        $('#announcementList').append(row)
+                            //action data
+                            const actionTD = $('<td>')
+                                .append(actionContainer)
+
+                            //attach every data to the table
+                            row.append(titleTD, descriptTD, datePostedTD, actionTD);
+                            $('#announcementList').append(row)
+                        }
+
+                        offsetAnnouncement += length
+                        retrievedList = length
+                        //if the retrieved data is not get to 10 then it's because there's no more data left
+                        if (retrievedList < 10) {
+                            $('#nextAnnouncement').addClass('hidden')
+                        }
+                        else {
+                            $('#nextAnnouncement').removeClass('hidden')
+                            $('#prevAnnouncement').removeClass('hidden')
+                        }
                     }
-
-                    offsetAnnouncement += length
-                    retrievedList = length
-                    //if the retrieved data is not get to 10 then it's because there's no more data left
-                    if (retrievedList < 10) {
-                        $('#nextAnnouncement').addClass('hidden')
-                    }
-                    else {
-                        $('#nextAnnouncement').removeClass('hidden')
-                        $('#prevAnnouncement').removeClass('hidden')
-                    }
-
+                    else $('#noAvailMsgAnnouncement').removeClass('hidden')
                 }
-                else $('#noAvailMsgAnnouncement').removeClass('hidden')
+
             }
 
         })
