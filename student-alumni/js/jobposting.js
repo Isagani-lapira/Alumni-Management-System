@@ -1,5 +1,5 @@
+const imgFormat = "data:image/jpeg;base64,";
 $(document).ready(function () {
-
     //post a job
     $('#jobPostingForm').on('submit', function (e) {
         e.preventDefault();
@@ -79,12 +79,20 @@ $(document).ready(function () {
                     const length = response.jobTitle.length;
                     //data that has been retrieved
                     for (let i = 0; i < length; i++) {
-                        const careerID = response.careerID[i];
                         const jobTitle = response.jobTitle[i];
                         const skills = response.skills[i];
                         const status = response.status[i];
+                        const author = response.author[i];
+                        const companyName = response.companyName[i];
+                        const jobDescript = response.jobDescript[i];
+                        const jobQuali = response.jobQuali[i];
+                        const datePosted = response.date_posted[i];
+                        let companyLogo = response.companyLogo[i];
+                        const location = response.location[i];
+                        let logo = imgFormat + companyLogo
 
-                        displayJobRepo(careerID, jobTitle, skills, status);
+                        displayJobRepo(jobTitle, skills, status, companyName,
+                            jobDescript, jobQuali, location);
                     }
                 }
             },
@@ -92,13 +100,14 @@ $(document).ready(function () {
         })
     }
     //mark up for job repository in verified post
-    function displayJobRepo(careerID, jobTitle, skills, status) {
+    function displayJobRepo(jobTitle, skills, status, companyName,
+        jobDescript, jobQuali, location) {
 
         //sets of color
         const colorSet = ["#A9FBC3", "#979DED", "#ACBDBA", "#6DA17C", "#CDDDDD", "#9DB5B2", "#F9B4ED",
-            "#06908F", "#D7B49E", "#736F72", "#CEB992", "#947BD3", "#EFA9AE", "#F9ADA0", "#F4F1BB",
-            "#DBF4AD", "#809BCE", "#D6EADF", "#D3D4D9", "#FFE19C", "#ADBCA5",
-            "#E8B9AB", "#EDDEA4", "#7C9885", "#CED0CE", "#58A4B0", "#BBC2E2", "#CFCCD6", "#364156", "#AC80A0"]
+            "#06908F", "#D7B49E", "#CEB992", "#947BD3", "#EFA9AE", "#F9ADA0", "#F4F1BB", "#809BCE",
+            "#D6EADF", "#D3D4D9", "#FFE19C", "#ADBCA5", "#E8B9AB", "#EDDEA4", "#7C9885", "#CED0CE",
+            "#58A4B0", "#BBC2E2", "#CFCCD6", "#364156", "#AC80A0"];
 
         //access random color to be use for header
         const randomIndex = Math.floor(Math.random() * colorSet.length);
@@ -145,7 +154,32 @@ $(document).ready(function () {
                 status
             )
         const leftSide = $('<div>').append(applicant, verifiedElement)
-        const proceedBtn = $('<button>').html('<iconify-icon icon="maki:arrow" style="color: #868e96;" width="24" height="24"></iconify-icon>')
+        const proceedBtn = $('<button>')
+            .html('<iconify-icon icon="maki:arrow" style="color: #868e96;" width="24" height="24"></iconify-icon>')
+            .on('click', function () {
+                $("#skillSets").empty(); //remove the recent added skill and requirements
+                $("#viewJob").removeClass("hidden");
+
+                //set value to the view modal
+                $("#viewJob").removeClass("hidden");
+                $("#viewJobColText").text(jobTitle);
+                $("#viewJobColCompany").text(companyName);
+                $("#jobOverview").text(jobDescript);
+                $("#jobQualification").text(jobQuali);
+                $("#statusJob").text(status);
+                $("#jobApplicant").text('Applicant: ' + '');
+
+                $('.headerJob').css({ 'background-color': color })
+                //retrieve the skills
+                skills.forEach((skill) => {
+                    //create a span and append it in the div
+                    spSkill = $("<span>").html("&#x2022; " + skill);
+                    $("#skillSets").append(spSkill);
+                });
+
+                $('#locationJobModal').text(location)
+
+            })
 
         footer.append(leftSide, proceedBtn)
         headerPart.append(jobTitleElement, list);
@@ -153,4 +187,16 @@ $(document).ready(function () {
 
         $('#jobRepo').append(wrapper)
     }
+
+    //allows modal to be close when Click else where
+    $("#viewJob").on("click", function (e) {
+        const target = e.target
+        const modal = $('#viewingJobModal')
+
+        if (!modal.is(target) && modal.has(target).length == 0) {
+            $('#viewJob').addClass('hidden')
+        }
+
+    });
+
 })

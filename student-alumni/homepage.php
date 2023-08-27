@@ -403,6 +403,57 @@ function getAccDetails($con, $personID)
 
         </div>
 
+        <!-- View job post modal -->
+        <div id="viewJob" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
+          top-0 left-0 p-5 hidden overflow-y-auto">
+          <!-- modal body -->
+          <div id="viewingJobModal" class="w-2/5 bg-white rounded-lg h-4/5 slide-bottom">
+
+            <div class="flex flex-col justify-between h-full">
+              <div class=" overflow-y-auto">
+                <!-- content -->
+                <div class="headerJob flex rounded-t-lg p-5">
+                  <div class="w-3/5 ps-3">
+                    <span id="viewJobColText" class="text-2xl font-bold text-gray-200"></span>
+                    <div class="flex gap-2 items-center">
+                      <p class="text-sm text-white">Company Name: </p>
+                      <p id="viewJobColCompany" class="text-sm font-bold text-white">Admin</p>
+                    </div>
+                    <div id="skillSets" class="flex flex-wrap gap-2 text-white text-xs my-1 "></div>
+                  </div>
+
+
+                </div>
+
+                <div class="p-5">
+                  <p class="text-gray-500 font-bold text-xl">Project Overview</p>
+                  <pre id="jobOverview" class="text-sm h-max w-full indented text-gray-500 mb-2 mt-1"></pre>
+
+                  <p class="text-gray-500 font-bold text-xl">Qualification</p>
+                  <pre id="jobQualification" class="text-sm h-max indented text-gray-500 mb-2 mt-1"></pre>
+
+                  <p class="text-gray-500 font-bold text-xl">LOCATION</p>
+                  <span id="locationJobModal" class="text-gray-500 text-sm my-1"></span>
+                </div>
+              </div>
+
+              <div class="p-3 text-gray-400 border-t border-gray-400 flex justify-between">
+                <div class="flex items-center gap-2">
+                  <iconify-icon icon="uiw:user" style="color: #868e96;" width="18" height="18"></iconify-icon>
+                  <span id="jobApplicant"></span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <iconify-icon icon="ri:verified-badge-line" style="color: #868e96;" width="18" height="18"></iconify-icon>
+                  <span id="statusJob"></span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- viewing of post -->
         <div id="viewingPost" class="post modal fixed hidden inset-0 flex items-center justify-center p-3">
           <div class="modal-container w-full h-full bg-white rounded-lg flex relative">

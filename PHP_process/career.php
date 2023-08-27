@@ -92,7 +92,6 @@ class Career
         }
     }
 
-
     public function selectData($offset, $con)
     {
         $maxLimit = 5;
