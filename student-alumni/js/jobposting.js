@@ -27,6 +27,8 @@ $(document).ready(function () {
                         $('#successJobModal').addClass('hidden')
                         $('#createJobModal').addClass('hidden')
                     }, 4000);
+
+                    $('#jobPostingForm')[0].reset() //reset the data in the form
                 }
             },
             error: error => { console.log(error) }
@@ -53,6 +55,7 @@ $(document).ready(function () {
     })
 
     let offsetUserJob = 0;
+    let lengthChecker = 0;
     // current user job post
     $('#verif-btn').on('click', function () {
         offsetUserJob = 0;
@@ -90,6 +93,9 @@ $(document).ready(function () {
                         displayJobRepo(jobTitle, skills, status, companyName,
                             jobDescript, jobQuali, location);
                     }
+
+                    offsetUserJob += length
+                    lengthChecker = length;
                 }
             },
             error: error => { console.log(error) }
@@ -108,7 +114,7 @@ $(document).ready(function () {
         //access random color to be use for header
         const randomIndex = Math.floor(Math.random() * colorSet.length);
         const color = colorSet[randomIndex];
-        console.log(color)
+
         const wrapper = $('<div>')
             .addClass('rounded-md max-w-sm flex flex-col center-shadow')
 
@@ -200,5 +206,16 @@ $(document).ready(function () {
         }
 
     });
+
+    $('#jobRepo').on('scroll', function () {
+        const containerHeight = $(this).height();
+        const contentHeight = $(this)[0].scrollHeight;
+        const scrollOffset = $(this).scrollTop();
+
+        //once the bottom ends, it will reach another sets of data (post)
+        if (scrollOffset + containerHeight >= contentHeight && lengthChecker >= 10)
+            retrieveUserPost()//get another set of post
+
+    })
 
 })

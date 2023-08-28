@@ -565,7 +565,7 @@ $(document).ready(function () {
                 $("#searchEmail").val(email);
                 $("#suggestionContainer").hide();
               });
-
+            $('#suggestionContainer').removeClass('hidden')
             $("#suggestionContainer").append(suggestionWrapper).addClass("bg-white");
           }
         }
@@ -702,7 +702,9 @@ $(document).ready(function () {
       $("#nextBtnStudent").addClass("hidden");
     }
   });
-  getAlumniRecord();
+
+  $('#alumniLi').on('click', getAlumniRecord)
+
   function getAlumniRecord() {
     let actionAlumni = {
       action: "readAll",

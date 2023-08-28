@@ -884,7 +884,7 @@ function toggleColorJob() {
 
 function toggleJobPost() {
   $("#mainFeed").toggleClass("hidden");
-  $("#jobPostFeed").toggleClass("hidden");
+  $("#jobRepo").toggleClass("hidden");
 }
 
 //Yearbook
