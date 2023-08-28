@@ -89,9 +89,10 @@ $(document).ready(function () {
                         const jobDescript = response.jobDescript[i];
                         const jobQuali = response.jobQuali[i];
                         const location = response.location[i];
+                        const applicantcount = response.applicantCount[i];
 
                         displayJobRepo(jobTitle, skills, status, companyName,
-                            jobDescript, jobQuali, location);
+                            jobDescript, jobQuali, location, applicantcount);
                     }
 
                     offsetUserJob += length
@@ -103,7 +104,7 @@ $(document).ready(function () {
     }
     //mark up for job repository in verified post
     function displayJobRepo(jobTitle, skills, status, companyName,
-        jobDescript, jobQuali, location) {
+        jobDescript, jobQuali, location, applicantcount) {
 
         //sets of color
         const colorSet = ["#A9FBC3", "#979DED", "#ACBDBA", "#6DA17C", "#CDDDDD", "#9DB5B2", "#F9B4ED",
@@ -145,7 +146,7 @@ $(document).ready(function () {
             .addClass('flex items-center gap-2')
             .html(
                 '<iconify-icon icon="uiw:user" style="color: #868e96;" width="14" height="14"></iconify-icon>' +
-                'Applicant:'
+                'Applicant: ' + applicantcount
             )
 
         const verifiedElement = $('<span>')
@@ -175,7 +176,7 @@ $(document).ready(function () {
                 $("#jobOverview").text(jobDescript);
                 $("#jobQualification").text(jobQuali);
                 $("#statusJob").text(status);
-                $("#jobApplicant").text('Applicant: ' + '');
+                $("#jobApplicant").text('Applicant: ' + applicantcount);
 
                 $('.headerJob').css({ 'background-color': color })
                 //retrieve the skills

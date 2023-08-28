@@ -44,7 +44,7 @@ $(document).ready(function () {
             contentType: false,
             success: (response) => {
                 //no data available for the day
-                if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 30) {
+                if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 50) {
                     retrievalDate = getPreviousDate(noOfDaySubtract);
                     getPost()
                     noOfDaySubtract++ //if no more the day will be increasing to get the previous date
@@ -58,12 +58,12 @@ $(document).ready(function () {
                         const length = parsedResponse.username.length;
                         for (let i = 0; i < length; i++) {
                             //store data that retrieve
-                            const imgProfile = parsedResponse.profilePic[i];
                             const postID = parsedResponse.postID[i];
                             const fullname = parsedResponse.fullname[i];
                             const username = parsedResponse.username[i];
                             const isLiked = parsedResponse.isLiked[i];
                             const images = parsedResponse.images[i];
+                            const imgProfile = (parsedResponse.profilePic[i] == '') ? '../assets/icons/person.png' : imgFormat + parsedResponse.profilePic[i]
                             const caption = parsedResponse.caption[i];
                             let date = parsedResponse.date[i];
                             const likes = parsedResponse.likes[i];
@@ -112,8 +112,7 @@ $(document).ready(function () {
 
         let header = $('<div>');
         let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
-        let img = imgFormat + imgProfile;
-        let userProfile = $('<img>').addClass("h-10 w-10 rounded-full").attr('src', img);
+        let userProfile = $('<img>').addClass("h-10 w-10 rounded-full").attr('src', imgProfile);
         let authorDetails = $('<div>').addClass("flex-1");
         let fullnameElement = $('<p>').addClass("font-bold text-greyish_black").text(fullname);
         let usernameElement = $('<p>').addClass("text-gray-400 text-xs").text(username);
@@ -171,7 +170,7 @@ $(document).ready(function () {
                 // Check if the click event is coming from the navigation buttons
                 if (!$(event.target).hasClass('swiper-button-prev') && !$(event.target).hasClass('swiper-button-next')) {
                     $('#viewingPost').removeClass("hidden");
-                    viewingOfPost(postID, fullname, username, caption, images, likes, img);
+                    viewingOfPost(postID, fullname, username, caption, images, likes, imgProfile);
                 }
             });
 
@@ -351,12 +350,25 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: (response) => {
-                console.log(response)
+                if (response === 'Success') {
+                    $('#commentPost').addClass('hidden') //hide modal
+                    displayPostPrompt('Comment successfully added')
+                }
             },
             error: error => {
                 console.log(error)
             }
         })
+    }
+
+    function displayPostPrompt(message) {
+        $('#promptMsg').removeClass('hidden')//display the prompt
+            .text(message)
+
+        //hide again after 4 seconds
+        setTimeout(() => {
+            $('#promptMsg').addClass('hidden')
+        }, 4000)
     }
     //add the likes to a post
     function addLikes(postID) {
@@ -407,9 +419,10 @@ $(document).ready(function () {
         const containerHeight = $(this).height();
         const contentHeight = $(this)[0].scrollHeight;
         const scrollOffset = $(this).scrollTop();
-
+        const threshold = 50;
         //once the bottom ends, it will reach another sets of data (post)
-        if (scrollOffset + containerHeight >= contentHeight) {
+        if (scrollOffset + containerHeight + threshold >= contentHeight) {
+            console.log('rar')
             getPost();
         }
     })
@@ -533,7 +546,7 @@ $(document).ready(function () {
                         const commentID = parsedResponse.commentID[i];
                         const fullname = parsedResponse.fullname[i];
                         const comment = parsedResponse.comment[i];
-                        const img = imgFormat + parsedResponse.profile[i];
+                        let img = (parsedResponse.profile[i] == '') ? '../assets/icons/person.png' : imgFormat + parsedResponse.profile[i]
 
                         let commentContainer = $('<div>').addClass("flex gap-2 my-2")
                         let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full").attr('src', img);
@@ -697,14 +710,13 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
-                console.log(response)
-                $('#modal').hide();
-                $('#promptMsg').removeClass('hidden')
-                $('#message').text('Announcement successfully posted!')
-                setTimeout(() => {
-                    $('#promptMsg').addClass('hidden')
-                }, 4000)
-                selectedFiles = [];
+
+                if (response == 'successful') {
+                    $('#modal').hide();
+                    displayPostPrompt('Post successfully added')
+                    selectedFiles = [];
+                }
+
             },
             error: (error) => { console.log(error) }
         })

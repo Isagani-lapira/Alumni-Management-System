@@ -8,25 +8,38 @@ class PostData
     {
         $imgFileLength = ($img != null) ? count($img['name']) : 0;
         $timestamp = date('Y-m-d H:i:s');
-        $status = 'available'; //default status
-        $query = "INSERT INTO `post`(`postID`, `username`, `colCode`, `caption`, `date`, `timestamp`, `status`) 
-        VALUES ('$postID','$username','$colCode','$caption','$date','$timestamp','$status')";
-        $result = mysqli_query($con, $query);
+        $status = 'available'; // Default status
 
-        if ($result) {
-            //if the post has an image/s included
-            if ($imgFileLength) {
-                //store all images one by one
-                for ($i = 0; $i < $imgFileLength; $i++) {
-                    $fileContent = addslashes(file_get_contents($img['tmp_name'][$i]));
-                    $this->insertImgPost($postID, $fileContent, $con);
+        $query = "INSERT INTO `post`(`postID`, `username`, `colCode`, `caption`, `date`, `timestamp`, `status`) 
+              VALUES (?,?,?,?,?,?,?)";
+
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            // Bind data
+            mysqli_stmt_bind_param($stmt, 'sssssss', $postID, $username, $colCode, $caption, $date, $timestamp, $status);
+            $result = mysqli_stmt_execute($stmt);
+
+            if ($result) {
+                // If the post has an image/s included
+                if ($imgFileLength) {
+                    // Store all images one by one
+                    for ($i = 0; $i < $imgFileLength; $i++) {
+                        $fileContent = addslashes(file_get_contents($img['tmp_name'][$i]));
+                        $this->insertImgPost($postID, $fileContent, $con);
+                    }
                 }
+                mysqli_stmt_close($stmt);
+                return true;
+            } else {
+                mysqli_stmt_close($stmt);
+                return false;
             }
-            return true;
         } else {
             return false;
         }
     }
+
     //insert images
     function insertImgPost($postID, $img, $con)
     {

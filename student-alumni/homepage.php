@@ -206,10 +206,8 @@ function getAccDetails($con, $personID)
 
       <!-- TAB 1 -->
       <div id="tabs-1">
-
         <!-- Container for MAIN FEED -->
         <div id="mainFeedContainer" class="flex pt-48 z-10 w-full h-full scrollable-container">
-
           <!-- LEFT DIV -->
           <div class="left-div fixed top-32 left-0 w-1/4 h-full px-8 z-50">
 
@@ -270,7 +268,7 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- CENTER DIV -->
-          <div class="flex-1 flex justify-center items-center h-screen">
+          <div class="flex-1 flex justify-center items-center h-screen relative">
             <div id="centerDiv" class="border-l border-r border-grayish px-4 mt-2 h-full">
 
               <!-- Content for the center div -->
@@ -310,6 +308,8 @@ function getAccDetails($con, $personID)
               <div id="jobRepo" class="hidden h-full grid grid-cols-3 gap-2 overflow-y-auto no-scrollbar py-3"></div>
 
             </div>
+
+            <span id="promptMsg" class=" slide-bottom fixed bottom-28 px-4 py-2 z-50 bg-accent text-white rounded-sm hidden font-bold">Comment successfully added</span>
           </div>
 
           <!-- RIGHT DIV -->
@@ -529,7 +529,7 @@ function getAccDetails($con, $personID)
               </div>
             </div>
 
-            <div class="border-l-2 border-gray-400 w-max ml-5 p-3">
+            <div id="replacementComment" class="border-l-2 border-gray-400 w-max ml-5 p-3">
               <p class="text-center text-sm italic text-gray-400">Reply to
                 <span id="replyToUsername" class=" font-semibold text-blue-500">username</span>
               </p>
@@ -734,6 +734,7 @@ function getAccDetails($con, $personID)
             </svg>
           </div>
         </div>
+
       </div>
 
       <!-- TAB 2 -->
@@ -765,7 +766,7 @@ function getAccDetails($con, $personID)
         <div class="flex flex-nowrap px-5">
           <!-- about image -->
           <div class="w-1/2 flex justify-center">
-            <img id="aboutImg" class="h-3/4 w-3/4 rounded-md center-shadow object-contain bg-black" src="../images/ye.jpg" alt="">
+            <img id="aboutImg" class="h-3/4 w-3/4 rounded-md center-shadow object-contain bg-black">
           </div>
 
           <!-- about the event -->

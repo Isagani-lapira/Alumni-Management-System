@@ -160,7 +160,14 @@ function dateInText($date)
         <ul class="col-span-1 flex items-center justify-end space-x-8 px-4">
             <li>
                 <a href="#" class="text-blue-600 hover:text-blue-800 items-center flex gap-2">
-                    <img src="../images/ye.jpg" alt="Profile Picture" class="w-12 h-12 rounded-full border-2 border-accentBlue" />
+                    <?php
+                    if ($profilepicture == "") {
+                        echo '<img id="profilePhoto" src="../assets/icons/person.png" alt="Profile Icon" class="w-12 h-12 object-contain bg-white" />';
+                    } else {
+                        $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                        echo '<img id="profilePhoto" src="' . $srcFormat . '" alt="Profile Icon" class="w-12 h-12 object-cover bg-white" />';
+                    }
+                    ?>
                     <?php
                     echo '<p class="mt-1 font-bold text-greyish_black">' . $fullname . '</p>';
                     ?>
@@ -187,10 +194,10 @@ function dateInText($date)
         <div class="profileWrapper absolute bottom-0 flex transform -translate-x-1/4 translate-y-1/2 rounded-full border-4 border-accentBlue overflow-hidden w-44 h-44">
             <?php
             if ($profilepicture == "") {
-                echo '<img id="profilePhoto" src="../assets/icons/person.png" alt="Profile Icon" class="w-full h-full object-cover" />';
+                echo '<img id="profilePhoto" src="../assets/icons/person.png" alt="Profile Icon" class="w-full h-full object-contain bg-white" />';
             } else {
                 $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-                echo '<img id="profilePhoto" src="' . $srcFormat . '" alt="Profile Icon" class="w-full h-full object-cover" />';
+                echo '<img id="profilePhoto" src="' . $srcFormat . '" alt="Profile Icon" class="w-full h-full object-cover bg-white" />';
             }
             ?>
         </div>

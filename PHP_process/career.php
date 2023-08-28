@@ -168,6 +168,7 @@ class Career
         $isApplied = array();
         $isSaved = array();
         $status = array();
+        $applicantNo = array();
 
         if (mysqli_num_rows($result) > 0) {
             $response = "Success";
@@ -209,6 +210,7 @@ class Career
                 $applicant = new Applicant();
                 $isApplied[] = $applicant->isApplied($tempCareerID, $username, $con);
 
+                $applicantNo[] = $applicant->getApplicantCount($username, $con);
                 //check if the current user saved the job post
                 $isSaved[] = $this->isJobSaved($tempCareerID, $username, $con);
             }
@@ -234,6 +236,7 @@ class Career
             "isApplied" => $isApplied,
             'isSaved' => $isSaved,
             "status" => $status,
+            "applicantCount" => $applicantNo
         );
 
         echo json_encode($data); //return data as json

@@ -459,7 +459,7 @@ $(document).ready(function () {
             const commentID = parsedResponse.commentID[i];
             const fullname = parsedResponse.fullname[i];
             const comment = parsedResponse.comment[i];
-            const img = imgFormat + parsedResponse.profile[i];
+            const img = (parsedResponse.profile[i] == '') ? '../assets/icons/person.png' : imgFormat + parsedResponse.profile[i]
 
             let commentContainer = $('<div>').addClass("flex gap-2 my-2")
             let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full").attr('src', img);
