@@ -536,7 +536,8 @@ $(document).ready(function () {
     //display for in the profile tab
     function displayPostToProfile(postID, imgProfile, fullname, username, images, caption, date, likes, comments, isAvailable, isLikedByUser) {
         const feedContainer = $('#feedContainer')
-        const postWrapper = $('<div>').addClass('postWrapper rounded-md center-shadow p-4 mx-auto');
+        const container = $('<div>').addClass('containerPostProfile flex gap-1 justify-center p-4')
+        const postWrapper = $('<div>').addClass('postWrapper rounded-md center-shadow p-4');
 
         //adding details for header
         let header = $('<div>');
@@ -553,7 +554,11 @@ $(document).ready(function () {
         header.append(headerWrapper)
 
         //for body
-        let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption);
+        let description = $('<pre>')
+            .addClass('text-sm text-gray-500 my-2 w-full outline-none')
+            .attr('contenteditable', false)
+            .text(caption);
+
         let swiperContainer = null;
         //check if post is status only or with image
         if (images.length > 0) {
@@ -663,7 +668,8 @@ $(document).ready(function () {
             })
 
         })
-
+        const editIcon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
+        const exitEdit = $('<iconify-icon class="hidden cursor-pointer" icon="mdi:cancel-bold" style="color: #d0342c;" width="24" height="24"></iconify-icon>')
         let status = ""
         let deleteElement = $('<p>').addClass('text-xs cursor-pointer font-bold')
         if (isAvailable) {
@@ -680,6 +686,7 @@ $(document).ready(function () {
                 })
         }
         else {
+            $('.editIcon').addClass('hidden')
             deleteElement.addClass('text-green-400')
                 .text('Restore')
                 .on('click', function () {
@@ -691,12 +698,55 @@ $(document).ready(function () {
                 })
         }
 
+        //approve update
+        const approvedIcon = $('<iconify-icon class="cursor-pointer" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
+            .on('click', function () {
+                //data to be sent
+                const action = { action: 'updatePost' }
+                const formdata = new FormData();
+                formdata.append('action', JSON.stringify(action))
+                formdata.append('postID', postID)
+                formdata.append('caption', description.text())
 
-
+                $.ajax({
+                    url: '../PHP_process/postDB.php',
+                    method: 'POST',
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: response => {
+                        if (response == 'Successful') {
+                            //go back to normal
+                            description.attr('contenteditable', false)
+                            const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
+                            approvedIcon.replaceWith(icon)
+                            exitEdit.addClass('hidden')
+                        }
+                    },
+                    error: error => { console.log(error) }
+                })
+            })
+        //update description
+        editIcon.on('click', function () {
+            $(this).replaceWith(approvedIcon)
+            description.attr('contenteditable', true)
+                .focus()
+            exitEdit.removeClass('hidden')
+        })
+        const editingWrapper = $('<div>').addClass('flex gap-2 flex-col')
         //attach all details to a postwrapper and to the root
         interactionContainer.append(leftContainer, deleteElement)
         postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
-        feedContainer.append(postWrapper);
+
+        exitEdit.on('click', function () {
+            const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
+            approvedIcon.replaceWith(icon)
+            $(this).addClass('hidden')
+            description.attr('contenteditable', false)
+        })
+        editingWrapper.append(editIcon, exitEdit)
+        container.append(postWrapper, editingWrapper)
+        feedContainer.append(container);
 
         var percent = feedContainer.width() * 0.80;
         postWrapper.width(percent);
@@ -741,7 +791,7 @@ $(document).ready(function () {
     function restartPost() {
         offsetProfile = 0
         //remove the currently displayed
-        $('.postWrapper').remove();
+        $('.containerPostProfile').remove();
     }
     //add the likes to a post
     function addLikes(postID) {
@@ -941,7 +991,7 @@ $(document).ready(function () {
                         const length = data.colCode.length;
                         for (let i = 0; i < length; i++) {
                             const postID = data.postID[i]
-                            const profilePic = data.profilePic[i]
+                            const profilePic = (data.profilePic[i] == '') ? '../assets/icons/person.png' : imgFormat + data.profilePic[i]
                             const username = data.username[i]
                             const isLiked = data.isLiked[i];
                             const fullname = data.fullname[i]
@@ -980,7 +1030,7 @@ $(document).ready(function () {
         //adding details for header
         let header = $('<div>');
         let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
-        let img = imgFormat + imgProfile;
+        let img = imgProfile;
         let userProfile = $('<img>').addClass("h-10 w-10 rounded-full").attr('src', img);
         let authorDetails = $('<div>').addClass("flex-1");
         let fullnameElement = $('<p>').addClass("font-bold text-greyish_black").text(fullname);

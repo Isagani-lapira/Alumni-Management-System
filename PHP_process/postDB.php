@@ -64,6 +64,11 @@ if (isset($_POST['action'])) {
             $postID = $_POST['postID'];
             $post->checkPost($postID, $mysql_con);
             break;
+        case 'updatePost':
+            $postID = $_POST['postID'];
+            $newCaption = $_POST['caption'];
+            $post->postUpdate($postID, $newCaption, $mysql_con);
+            break;
     }
 }
 

@@ -60,7 +60,7 @@ $(document).ready(function () {
   function restartPost() {
     //reset everything
     $('#noProfPostMsg').addClass('hidden')
-    $('.postWrapper').remove() // remove the current displayed post
+    $('.containerPostProfile').remove() // remove the current displayed post
     offsetPost = 0
   }
 
@@ -115,7 +115,8 @@ $(document).ready(function () {
 
 
   function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted, isLikedByUser) {
-    let postWrapper = $('<div>').addClass("postWrapper mb-2 center-shadow w-full p-4 rounded-md mx-auto");
+    const container = $('<div>').addClass('containerPostProfile flex gap-1 justify-center p-4')
+    let postWrapper = $('<div>').addClass("postWrapper mb-2 center-shadow w-full p-4 rounded-md");
 
     let header = $('<div>');
     let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
@@ -131,7 +132,7 @@ $(document).ready(function () {
     header.append(headerWrapper);
 
     // Markup for body
-    let description = $('<p>').addClass('text-sm text-gray-500 my-2').text(caption);
+    let description = $('<p>').addClass('text-sm text-gray-500 my-2 outline-none').text(caption);
     let swiperContainer = null;
 
     // Check if there are images to display
@@ -221,6 +222,9 @@ $(document).ready(function () {
     let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
     let deletePost = $('<p>').addClass('text-sm  cursor-pointer ')
 
+    const editIcon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
+    const exitEdit = $('<iconify-icon class="hidden cursor-pointer" icon="mdi:cancel-bold" style="color: #d0342c;" width="24" height="24"></iconify-icon>')
+
     if (isDeleted) {
       deletePost.addClass('text-green-400 ')
         .text('Restore')
@@ -249,12 +253,55 @@ $(document).ready(function () {
           })
         })
     }
+    //approve update
+    const approvedIcon = $('<iconify-icon class="cursor-pointer" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
+      .on('click', function () {
+        //data to be sent
+        const action = { action: 'updatePost' }
+        const formdata = new FormData();
+        formdata.append('action', JSON.stringify(action))
+        formdata.append('postID', postID)
+        formdata.append('caption', description.text())
+
+        $.ajax({
+          url: '../PHP_process/postDB.php',
+          method: 'POST',
+          data: formdata,
+          processData: false,
+          contentType: false,
+          success: response => {
+            if (response == 'Successful') {
+              //go back to normal
+              description.attr('contenteditable', false)
+              const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
+              approvedIcon.replaceWith(icon)
+              exitEdit.addClass('hidden')
+            }
+          },
+          error: error => { console.log(error) }
+        })
+      })
+    //update description
+    editIcon.on('click', function () {
+      $(this).replaceWith(approvedIcon)
+      description.attr('contenteditable', true)
+        .focus()
+      exitEdit.removeClass('hidden')
+    })
+    const editingWrapper = $('<div>').addClass('flex gap-2 flex-col')
     interactionContainer.append(leftContainer, deletePost)
 
+    exitEdit.on('click', function () {
+      const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
+      approvedIcon.replaceWith(icon)
+      $(this).addClass('hidden')
+      description.attr('contenteditable', false)
+    })
+    editingWrapper.append(editIcon, exitEdit)
     //set up the details of the post
     postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
-
-    $('#feedContainer').append(postWrapper);
+    container.append(postWrapper, editingWrapper)
+    $('#feedContainer').append(container);
 
   }
 

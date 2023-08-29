@@ -1700,7 +1700,7 @@ function dateInText($date)
 
           <div class="relative">
             <div class="flex">
-              <img class="rounded-full ml-5 border-2 border-accent h-24 w-24 absolute -top-10" src="../images/Mr.Jayson.png" alt="">
+              <img class="rounded-full ml-5 border-2 border-accent h-24 w-24 absolute -top-10" alt="">
               <div class="flex justify-start items-center w-full">
 
                 <div class="ml-28">

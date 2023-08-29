@@ -162,10 +162,10 @@ function dateInText($date)
                 <a href="#" class="text-blue-600 hover:text-blue-800 items-center flex gap-2">
                     <?php
                     if ($profilepicture == "") {
-                        echo '<img id="profilePhoto" src="../assets/icons/person.png" alt="Profile Icon" class="w-12 h-12 object-contain bg-white" />';
+                        echo '<img id="profilePhoto" src="../assets/icons/person.png" alt="Profile Icon" class="w-12 h-12 rounded-full object-contain bg-white" />';
                     } else {
                         $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-                        echo '<img id="profilePhoto" src="' . $srcFormat . '" alt="Profile Icon" class="w-12 h-12 object-cover bg-white" />';
+                        echo '<img id="profilePhoto" src="' . $srcFormat . '" alt="Profile Icon" class="w-12 h-12 rounded-full object-cover bg-white" />';
                     }
                     ?>
                     <?php

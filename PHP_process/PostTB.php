@@ -450,4 +450,20 @@ class PostData
         );
         return json_encode($data);
     }
+
+    function postUpdate($postID, $caption, $con)
+    {
+        $query = "UPDATE `post` SET `caption`= ? WHERE `postID` = ?";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, 'ss', $caption, $postID);
+            if (mysqli_stmt_execute($stmt))
+                echo 'Successful';
+            else
+                echo 'Failed: ' . mysqli_error($con);
+
+            mysqli_stmt_close($stmt);
+        } else echo 'Error';
+    }
 }
