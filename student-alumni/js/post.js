@@ -220,7 +220,7 @@ $(document).ready(function () {
             $('#commentPost').removeClass('hidden') //open the comment modal
 
             //set up the details for comment to be display
-            $('#postProfile').attr('src', img)
+            $('#postProfile').attr('src', imgProfile)
             $('#postFullname').text(fullname)
             $('#postUsername').text(username)
             $('#replyToUsername').text(username)

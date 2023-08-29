@@ -60,7 +60,7 @@ class Comment
         echo json_encode($data);
     }
 
-    public function insertComment($username, $postID, $comment, $con)
+    public function insertComment($username, $postID, $comment, $con, $colAdmin = false)
     {
         $random = rand(0, 4000);
         $timestamp = date('Y-m-d H:i:s');
@@ -84,8 +84,19 @@ class Comment
 
             //perform insertion
             $insertNotif = $notifObj->insertNotif($postID, $postUsername, $typeOfNotif, $con);
-            if ($insertNotif) echo 'Success';
-            else 'Unsuccess';
+            if ($insertNotif) {
+
+                //if the comment is admin then log it
+                if ($colAdmin) {
+
+                    $logObj = new CollegeLog();
+                    $action = 'commented';
+                    $details = 'Commented on a post of ' . $postUsername;
+                    $resultLog = $logObj->insertLog($action, $details, $con);
+                    if ($resultLog) echo 'Success';
+                    else echo 'Unsuccess';
+                } else echo 'Success';
+            } else 'Unsuccess';
         } else echo 'Unsuccess';
     }
 }

@@ -67,7 +67,7 @@ if (isset($_POST['action'])) {
         case 'updatePost':
             $postID = $_POST['postID'];
             $newCaption = $_POST['caption'];
-            $post->postUpdate($postID, $newCaption, $mysql_con);
+            $post->postCaptionUpdate($postID, $newCaption, $mysql_con);
             break;
     }
 }

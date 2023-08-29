@@ -7,7 +7,8 @@ class Notification
     {
         $maxLimit = 10;
         $query = "SELECT * FROM `notification` WHERE `username` = '$username' 
-        ORDER BY `date_notification`DESC LIMIT $offset, $maxLimit";
+        AND`added_by`!='$username' ORDER BY `date_notification`DESC LIMIT 
+        $offset, $maxLimit";
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
@@ -109,7 +110,8 @@ class Notification
 
     public function totalUnreadNotif($username, $con)
     {
-        $query = "SELECT * FROM `notification` WHERE `username` = '$username' AND `is_read`= 0";
+        $query = "SELECT * FROM `notification` WHERE `username` = '$username' AND`added_by`!='$username'
+        AND `is_read`= 0";
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 

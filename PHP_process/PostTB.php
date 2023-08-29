@@ -1,10 +1,12 @@
 <?php
 
+require 'collegeAdminLog.php';
+
 class PostData
 {
     private $postTimeStamp = "";
 
-    public function insertPostData($postID, $username, $colCode, $caption, $date, $img, $con)
+    public function insertPostData($postID, $username, $colCode, $caption, $date, $img, $con, $colAdmin = false)
     {
         $imgFileLength = ($img != null) ? count($img['name']) : 0;
         $timestamp = date('Y-m-d H:i:s');
@@ -29,6 +31,17 @@ class PostData
                         $this->insertImgPost($postID, $fileContent, $con);
                     }
                 }
+
+                //if the query is based on college admin then log it
+                if ($colAdmin) {
+                    $logObj = new CollegeLog();
+                    $action = 'posted';
+                    $details = 'Created a new post';
+                    $resultLog = $logObj->insertLog($action, $details, $con);
+                    if ($resultLog) return true;
+                    else return false;
+                }
+
                 mysqli_stmt_close($stmt);
                 return true;
             } else {
@@ -352,13 +365,24 @@ class PostData
         else echo 'Failed';
     }
 
-    function updatePostStatus($postID, $status, $con)
+    function updatePostStatus($postID, $status, $con, $colAdmin = false)
     {
         $query = "UPDATE `post` SET `status`= '$status' WHERE `postID`='$postID'";
         $result = mysqli_query($con, $query);
 
-        if ($result) echo 'Deleted';
-        else echo 'Error';
+        //if the query is based on college admin then log it
+        if ($colAdmin) {
+            $logObj = new CollegeLog();
+            $action = 'deleted';
+            $details = $status . ' post';
+            $resultLog = $logObj->insertLog($action, $details, $con);
+
+            if ($resultLog) echo 'Deleted';
+            else echo 'Error';
+        } else {
+            if ($result) echo 'Deleted';
+            else echo 'Error';
+        }
     }
 
     function getAllPost($offset, $con)
@@ -451,16 +475,25 @@ class PostData
         return json_encode($data);
     }
 
-    function postUpdate($postID, $caption, $con)
+    function postCaptionUpdate($postID, $caption, $con, $colAdmin = false)
     {
         $query = "UPDATE `post` SET `caption`= ? WHERE `postID` = ?";
         $stmt = mysqli_prepare($con, $query);
 
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, 'ss', $caption, $postID);
-            if (mysqli_stmt_execute($stmt))
-                echo 'Successful';
-            else
+            if (mysqli_stmt_execute($stmt)) {
+                //if the query is based on college admin then log it
+                if ($colAdmin) {
+                    $logObj = new CollegeLog();
+                    $action = 'updated';
+                    $details = 'Updated a post';
+                    $resultLog = $logObj->insertLog($action, $details, $con);
+                    if ($resultLog) echo 'Successful';
+                    else 'Failed: ' . mysqli_error($con);
+                } else
+                    echo 'Successful';
+            } else
                 echo 'Failed: ' . mysqli_error($con);
 
             mysqli_stmt_close($stmt);
