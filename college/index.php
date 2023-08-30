@@ -101,7 +101,8 @@ if (
     <!-- Swiper -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
+    <!-- Moment JS (For better date parsing) -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
     <!-- End JS Plugins -->
     <!-- System Script -->
     <script src="./scripts/core.js" defer></script>
@@ -136,7 +137,7 @@ if (
                             <i class="fa-solid fa-message mr-2 fa-xl"></i>
                             ANNOUNCEMENTS</a></li>
                     <li><a data-link="email" href="#email" class="flex rounded p-2 ">
-                            <i class="fa-solid fa-envelope fa-xl mr-2"></i> Email
+                            <i class="fa-solid fa-envelope fa-xl mr-2"></i> EMAIl
                         </a></li>
                     <li><a data-link="student-record" href="#student-record" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl mr-2"></i>

@@ -72,34 +72,51 @@ class Event
         // end
     }
 
-    function getEvents($currentYear = ''): string
+    function getTotalEvents(string $colCode)
+    {
+        // Initialize the statement
+        $stmt = $this->conn->prepare('SELECT COUNT(*) AS count FROM `event` WHERE `colCode` = ?');
+        $stmt->bind_param('s', $colCode);
+
+        try {
+            // execute the query
+            $stmt->execute();
+            // gets the myql_result. Similar result to mysqli_query
+            $result = $stmt->get_result();
+            $count = $result->fetch_assoc();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        return $count['count'];
+    }
+
+
+    function getNewPartialEventsByOffset(int $offset = 0, string $colCode): array
     {
 
-        header("Content-Type: application/json; charset=UTF-8");
 
         // Initialize the statement
-        $stmt = $this->conn->stmt_init();
-        if ($currentYear != "") {
+        $stmt = $this->conn->prepare('SELECT eventID, eventName, eventDate, 
+        date_posted, aboutImg, headerPhrase, eventStartTime
+            FROM `event`
+              WHERE `colCode` = ?
+              LIMIT  5  OFFSET  ? 
+              ');
 
-            $stmt = $this->conn->prepare('SELECT studNo,person.personID,contactNo, 
-            
-            CONCAT(fname," ", lname) AS fullName
-               FROM `student`
-                INNER JOIN  `person` ON student.personID = person.personID
-                  WHERE `currentYear` = ?');
-            // *  Binds the variable to the '?', prevents sql injection
-            $stmt->bind_param('s', $currentYear);
-        } else {
-            $stmt = $this->conn->prepare('SELECT studNo,person.personID,contactNo, CONCAT(fname," ", lname) AS fullName
-               FROM `student`
-                INNER JOIN  `person` ON student.personID = person.personID');
+
+        $stmt->bind_param('si', $colCode, $offset);
+
+
+        try {
+            // execute the query
+            $stmt->execute();
+            // gets the myql_result. Similar result to mysqli_query
+            $result = $stmt->get_result();
+            $num_row = mysqli_num_rows($result);
+        } catch (\Throwable $th) {
+            throw $th;
         }
 
-        // execute the query
-        $stmt->execute();
-        // gets the myql_result. Similar result to mysqli_query
-        $result = $stmt->get_result();
-        $num_row = mysqli_num_rows($result);
 
         // the main assoc array to be return
         $json_result = array();
@@ -110,6 +127,7 @@ class Event
             $json_result['response'] = 'Successful';
             // Gets every row in the query
             while ($record = mysqli_fetch_assoc($result)) {
+                $record['aboutImg'] = base64_encode($record['aboutImg']);
                 $resultArray[] = $record;
             }
             $json_result['result'] = $resultArray;
@@ -117,7 +135,7 @@ class Event
             $json_result['response'] = 'Unsuccesful';
         }
 
-
-        return json_encode($json_result);
+        $json_result['offset'] = $offset;
+        return $json_result;
     }
 }

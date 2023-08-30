@@ -1,39 +1,59 @@
-<section class="container mx-auto">
+<?php
+session_start();
+?>
+<section class="container mx-auto px-8">
     <h1 class="text-2xl font-bold">Events</h1>
 
-    <button class="btn-primary ">Add New</button>
+
+    <div class="flex flex-wrap justify-end my-4"><button class="btn-primary ">Add New Event</button></div>
+
+
+    <hr>
+    <h2>Total Posts</h2>
+    <p class="text-5xl">
+        <?php
+        require '../php/connection.php';
+        require '../model/Event.php';
+        $event = new Event($mysql_con);
+        echo $event->getTotalEvents($_SESSION['colCode']);
+
+        ?>
+    </p>
 
 
     <!-- Table Start -->
-    <div class="  mx-auto max-w-6xl shadow-lg   rounded-lg overflow-clip  border">
-        <table class="  px-2 overflow-y-scroll py-2  table-auto ">
-            <thead class="p  bg-accent text-white rounded-t-md">
+    <section id="event-table-record-section" class="mx-12 2xl:mx-auto md:max-w-6xl shadow-lg  rounded-lg overflow-clip  border ">
+        <table class="overflow-y-scroll py-2  table-auto table-alternate-color w-full">
+            <thead class="  bg-accent text-white rounded-t-md">
                 <tr>
-                    <th class="py-4 ">Checkbox</th>
-                    <th>Picture</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Description</th>
+                    <th>Header Image</th>
+                    <th>Name</th>
+                    <th>Header</th>
+                    <th>Event Date & Time</th>
                     <th>Date Posted</th>
+                    <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox" value="test" class=" "></td>
-                    <td class="w-64 border "><img class="object-cover " src="../assets/event-images/02.png" alt=""></td>
-                    <td class="font-bold text-lg">Upcoming Alumni Festival</td>
-                    <td class="font-bold text-lg">Admin</td>
-                    <td class="max-w-prose">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione quae, commodi repudiandae sed accusantium optio omnis qui beatae sit voluptatem, laboriosam rerum. Consequatur nostrum </td>
+
+            <tbody id="event-record-tbody" class="">
+
+                <!-- <tr>
+                    <td class="w-48 border "><img class="object-cover block" src="../assets/event-images/02.png" alt=""></td>
+                    <td class="font-bold text-gray-600 hover:text-blue-500 cursor-pointer">Upcoming Alumni Festival</td>
+                    <td class="font-medium ">We are the world</td>
+                    <td class="max-w-prose">10 PM august 23 2023 </td>
                     <td>04/10/24</td>
-                </tr>
+                    <td><button class="btn-tertiary">Archive</button></td>
+                </tr> -->
 
             </tbody>
 
         </table>
-        <div class="py-4 px-2 flex justify-between">
-            <button class="btn-secondary bg-gray-200 border border-gray-400 hover:bg-accent py-2 px-5 text-gray-900 hover:text-white font-normal rounded-md">Select All</button>
+
+        <div class="py-4 px-2 flex justify-end">
+            <!-- <button class="btn-secondary bg-gray-200 border border-gray-400 hover:bg-accent py-2 px-5 text-gray-900 hover:text-white font-normal rounded-md">Select All</button> -->
             <!-- Pagination Start -->
-            <div>
+            <!-- <div>
                 <div class="pagination space-x-2">
                     <a href="#">&lt;</a>
                     <a href="#" class="underline font-bold text-lg">1</a>
@@ -44,9 +64,18 @@
                     <a href="#" class="  text-lg">last</a>
                     <a href="#" class="  text-lg">&gt;</a>
                 </div>
+            </div> -->
+            <!-- Button Pagination -->
+            <div class="inline-flex">
+                <button id="prevPostsBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+                    Prev
+                </button>
+                <button id="nextPostsBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                    Next
+                </button>
             </div>
         </div>
-    </div>
+    </section>
 
 
     <!-- Pagination End -->
@@ -59,13 +88,10 @@
  * date_posted, adminID,  
  * 
  * what's needed is : -->
-    <!-- TODO add ui later -->
-    <section class="add-event-section">
+    <!-- TODO add modal later -->
+    <section class="add-event-section hidden">
         <form action="./event/addEvent.php" method="POST" enctype="multipart/form-data">
             <h2>Create new event</h2>
-
-
-
             <div class="input-container">
                 <label class="block" for="eventName">
                     Event Name
