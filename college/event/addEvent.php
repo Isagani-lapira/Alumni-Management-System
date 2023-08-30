@@ -77,12 +77,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $event->setNewEvent($eventInformation, $colCode, $adminID);
     header("Content-Type: application/json; charset=UTF-8");
     if ($result === TRUE) {
-        echo json_encode(
-            array(
-                'response' => 'Successful',
-                'message' => 'Event added successfully'
-            )
-        );
+        //todo modify later to use ajax
+        // echo json_encode(
+        //     array(
+        //         'response' => 'Successful',
+        //         'message' => 'Event added successfully'
+        //     )
+        // );
+
+        // redirect to event page
+        header("Location: ../event/event.php");
     } else {
         echo json_encode(
             array(

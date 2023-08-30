@@ -1,4 +1,9 @@
 $(document).ready(async function () {
+  // Form
+  $("#createNewEventForm").on("submit", function (e) {
+    // e.preventDefault();
+    //  todo later
+  });
   const API_URL = "./event/getEvent.php";
   let offset = 0;
   //   get the event details
@@ -90,4 +95,24 @@ $(document).ready(async function () {
   });
 
   //   end
+
+  //   Handles the Modal
+  //close the announcement modal
+  $("#announcementModal").on("click", function (e) {
+    const target = e.target;
+    let container = $("#announcementContainer");
+
+    //check if the clicked is outside the container
+    if (!container.is(target) && !container.has(target).length) {
+      $("#announcementModal").addClass("hidden");
+    }
+  });
+
+  //  Handles button clicks
+  $("#addNewEventBtn").on("click", function () {
+    $("#createNewPostModal").removeClass("hidden");
+  });
+  $(".cancel").on("click", function () {
+    $("#createNewPostModal").addClass("hidden");
+  });
 });

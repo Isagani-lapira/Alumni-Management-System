@@ -5,7 +5,7 @@ session_start();
     <h1 class="text-2xl font-bold">Events</h1>
 
 
-    <div class="flex flex-wrap justify-end my-4"><button class="btn-primary ">Add New Event</button></div>
+    <div class="flex flex-wrap justify-end my-4"><button id="addNewEventBtn" class="btn-primary ">Add New Event</button></div>
 
 
     <hr>
@@ -19,6 +19,7 @@ session_start();
 
         ?>
     </p>
+
 
 
     <!-- Table Start -->
@@ -90,13 +91,13 @@ session_start();
  * what's needed is : -->
     <!-- TODO add modal later -->
     <section class="add-event-section hidden">
-        <form action="./event/addEvent.php" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data">
             <h2>Create new event</h2>
             <div class="input-container">
                 <label class="block" for="eventName">
                     Event Name
                 </label>
-                <input type="text" id="eventName" name="eventName">
+                <input type="text" id="eventName" name="eventName" required>
 
             </div>
 
@@ -104,14 +105,14 @@ session_start();
                 <label class="block" for="eventDate">
                     Event Date
                 </label>
-                <input type="date" id="eventDate" name="eventDate">
+                <input required type="date" id="eventDate" name="eventDate">
 
             </div>
 
 
             <div class="input-container">
                 <label class="block" for="about_event" class="block">
-                    About Event
+                    Description
                 </label>
                 <textarea name="about_event" id="about_event" cols="30" rows="10" class="input-textarea"></textarea>
 
@@ -121,42 +122,37 @@ session_start();
                 <label class="block" for="contactLink">
                     Contact Link
                 </label>
-                <input type="text" id="contactLink" name="contactLink">
+                <input required type="text" id="contactLink" name="contactLink">
 
             </div>
-            <div class="input-container">
-
-                <label class="block" for="aboutImg">
-                    About Image
-                </label>
-                <input type="file" id="aboutImg" accept=".jpg" name="aboutImg">
-
-            </div>
-
             <div class="input-container">
 
                 <label class="block" for="headerPhrase">
-                    Header Phrase
+                    Phrase for the Header
                 </label>
-                <input type="text" id="headerPhrase" name="headerPhrase">
+                <input required type="text" id="headerPhrase" name="headerPhrase">
 
             </div>
+
+            <div class="input-container">
+
+                <label class="block" for="aboutImg">
+                    Image Header
+                </label>
+                <input required type="file" id="aboutImg" accept=".jpg" name="aboutImg">
+
+            </div>
+
             <div class="input-container">
 
                 <label class="block" for="eventPlace">
-                    Event Place
+                    Venue
                 </label>
-                <input type="text" id="eventPlace" name="eventPlace">
+                <input required type="text" id="eventPlace" name="eventPlace">
 
             </div>
 
-            <div class="input-container">
-                <label class="block" for="eventStartTime">
-                    Event Start Time
-                </label>
-                <input type="time" id="eventStartTime" name="eventStartTime">
 
-            </div>
 
 
             <button class="btn-primary" type="submit">Submit</button>
@@ -165,6 +161,103 @@ session_start();
         </form>
 
     </section>
+
+    <!-- modal -->
+    <div id="createNewPostModal" class="fixed top-0 left-0 inset-0 h-full w-full bg-gray-700 bg-opacity-50 hidden 
+     ">
+        <div class="h-full flex items-center justify-center 
+       ">
+            <!-- Modal Content -->
+            <div class="modal-container space-y-5  modal-container w-1/3 h-2/3 bg-white rounded-lg p-3 overflow-y-auto">
+                <div class="modal-header py-5">
+                    <h1 class="text-accent text-2xl text-center font-bold">Create New Event</h1>
+                </div>
+                <!-- Copied Description -->
+                <form action="./event/addEvent.php" method="POST" enctype="multipart/form-data" id="createNewEventForm">
+                    <div class="input-container">
+                        <label class="block" for="eventName">
+                            Event Name
+                        </label>
+                        <input required type="text" id="eventName" name="eventName">
+
+                    </div>
+
+                    <div class="flex gap-2">
+                        <div class="input-container">
+                            <label class="block" for="eventDate">
+                                Event Date
+                            </label>
+                            <input required type="date" id="eventDate" name="eventDate">
+                        </div>
+                        <div class="input-container">
+                            <label class="block" for="eventStartTime">
+                                Event Start Time
+                            </label>
+                            <input required type="time" id="eventStartTime" name="eventStartTime">
+                        </div>
+                    </div>
+
+
+                    <div class="input-container">
+                        <label class="block" for="about_event" class="block">
+                            About Event
+                        </label>
+                        <textarea name="about_event" id="about_event" cols="30" rows="10" class="input-textarea"></textarea>
+
+                    </div>
+
+                    <div class="input-container">
+                        <label class="block" for="contactLink">
+                            Contact Link
+                        </label>
+                        <input required type="text" id="contactLink" name="contactLink">
+
+                    </div>
+                    <div class="input-container">
+
+                        <label class="block" for="aboutImg">
+                            About Image
+                        </label>
+                        <input required type="file" id="aboutImg" accept=".jpg" name="aboutImg">
+
+                    </div>
+
+                    <div class="input-container">
+
+                        <label class="block" for="headerPhrase">
+                            Header Phrase
+                        </label>
+                        <input required type="text" id="headerPhrase" name="headerPhrase">
+
+                    </div>
+                    <div class="input-container">
+
+                        <label class="block" for="eventPlace">
+                            Event Place
+                        </label>
+                        <input required type="text" id="eventPlace" name="eventPlace">
+
+                    </div>
+
+
+
+
+
+
+                    <!-- End Description -->
+                    <!-- Footer -->
+                    <div class="modal-footer flex items-end flex-row-reverse px-3">
+                        <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+                        <button type="button" class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- End Modal Content -->
+
+        </div>
+    </div>
 
 </section>
 
