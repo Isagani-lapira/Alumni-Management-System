@@ -81,14 +81,7 @@
                 <input type="date" id="eventDate" name="eventDate">
 
             </div>
-            <div class="input-container">
 
-                <label class="block" for="colCode">
-                    College Code
-                </label>
-                <input type="text" id="colCode" name="colCode">
-
-            </div>
 
             <div class="input-container">
                 <label class="block" for="about_event" class="block">

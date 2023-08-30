@@ -24,11 +24,6 @@ if (!isset($_SESSION['college_admin']) && !isset($_SESSION['adminID'])) {
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-
-
-
-    // ty copilot :)
     // Get the form data
     $eventName = $_POST['eventName'];
     $eventDate = $_POST['eventDate'];
@@ -40,9 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // image data
     $aboutImg = $_FILES['aboutImg'];
 
-    // TODO validate the form data
-
-
     // Create an instance of the Event class
     $event = new Event($mysql_con);
 
@@ -50,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_FILES["aboutImg"]["size"] > 2000000) {
         echo "Sorry, your file is too large. Make it 2mb or less";
     }
+
+
     // check if image file is jpg
     $imageMimeType = $_FILES["aboutImg"]["type"];
-
-
     if ($imageMimeType != "image/jpg" && $imageMimeType != "image/jpeg") {
         echo "Sorry, only JPG files are allowed.";
         die();
@@ -99,4 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             )
         );
     };
+} else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    // TODO redirect to error page.
+    echo "GET request not allowed";
+    // time for 5 seconds and redirect to index page
+    header("refresh:5;url=../index.php");
+    exit();
 }
