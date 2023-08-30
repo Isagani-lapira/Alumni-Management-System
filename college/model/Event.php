@@ -34,29 +34,30 @@ class Event
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
 
-        $query = $stmt->prepare('INSERT INTO `event`(`eventID`, `eventName`, `eventDate`, 
+        $stmt->prepare('INSERT INTO `event`(`eventID`, `eventName`, `eventDate`, 
         `about_event`, `contactLink`,  `headerPhrase`, `eventPlace`, `eventStartTime`, 
         `colCode`, `adminID`,`aboutImg`,`date_posted`)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,CURDATE() )');
 
         $eventId = uniqid('event-',);
+        // Blobed image
+        $aboutImg = addslashes(file_get_contents($eventInformation['aboutImg']));
+
         // bind the parameters
         $stmt->bind_param(
-            'ssssssssssb',
+            'sssssssssss',
             $eventId,
             $eventInformation['eventName'],
+            $eventInformation['eventDate'],
             $eventInformation['about_event'],
             $eventInformation['contactLink'],
             $eventInformation['headerPhrase'],
-            $eventInformation['eventDate'],
             $eventInformation['eventPlace'],
             $eventInformation['eventStartTime'],
             $colCode,
             $adminID,
-            $eventInformation['aboutImg'],
+            $aboutImg,
         );
-
-
 
         // setup to return json data
         try {

@@ -30,10 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // ty copilot :)
     // Get the form data
-    $eventId = $_POST['eventId'];
     $eventName = $_POST['eventName'];
     $eventDate = $_POST['eventDate'];
-    $colCode = $_POST['colCode'];
     $about_event = $_POST['about_event'];
     $contactLink = $_POST['contactLink'];
     $headerPhrase = $_POST['headerPhrase'];
@@ -70,10 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $eventInformation = array(
         'eventName' => $eventName,
         'eventDate' => $eventDate,
-        'colCode' => $colCode,
         'about_event' => $about_event,
         'contactLink' => $contactLink,
-        'aboutImg' => file_get_contents($aboutImgTmpName),
+        'aboutImg' => $aboutImgTmpName,
         'headerPhrase' => $headerPhrase,
         'eventPlace' => $eventPlace,
         'eventStartTime' => $eventStartTime,
