@@ -48,4 +48,111 @@
         </div>
     </div>
 
+
+    <!-- Pagination End -->
+
+    <!-- Form for new event -->
+
+    <!-- * eventID, eventName, eventDate, colCode, about_event, 
+ * contactLink, aboutImg, headerPhrase, eventPlace,eventStartTime
+ * 
+ * date_posted, adminID,  
+ * 
+ * what's needed is : -->
+    <!-- TODO add ui later -->
+    <section class="add-event-section">
+        <form action="./event/addEvent.php" method="POST" enctype="multipart/form-data">
+            <h2>Create new event</h2>
+
+
+
+            <div class="input-container">
+                <label class="block" for="eventName">
+                    Event Name
+                </label>
+                <input type="text" id="eventName" name="eventName">
+
+            </div>
+
+            <div class="input-container">
+                <label class="block" for="eventDate">
+                    Event Date
+                </label>
+                <input type="date" id="eventDate" name="eventDate">
+
+            </div>
+            <div class="input-container">
+
+                <label class="block" for="colCode">
+                    College Code
+                </label>
+                <input type="text" id="colCode" name="colCode">
+
+            </div>
+
+            <div class="input-container">
+                <label class="block" for="about_event" class="block">
+                    About Event
+                </label>
+                <textarea name="about_event" id="about_event" cols="30" rows="10" class="input-textarea"></textarea>
+
+            </div>
+
+            <div class="input-container">
+                <label class="block" for="contactLink">
+                    Contact Link
+                </label>
+                <input type="text" id="contactLink" name="contactLink">
+
+            </div>
+            <div class="input-container">
+
+                <label class="block" for="aboutImg">
+                    About Image
+                </label>
+                <input type="file" id="aboutImg" accept=".jpg" name="aboutImg">
+
+            </div>
+
+            <div class="input-container">
+
+                <label class="block" for="headerPhrase">
+                    Header Phrase
+                </label>
+                <input type="text" id="headerPhrase" name="headerPhrase">
+
+            </div>
+            <div class="input-container">
+
+                <label class="block" for="eventPlace">
+                    Event Place
+                </label>
+                <input type="text" id="eventPlace" name="eventPlace">
+
+            </div>
+
+            <div class="input-container">
+                <label class="block" for="eventStartTime">
+                    Event Start Time
+                </label>
+                <input type="time" id="eventStartTime" name="eventStartTime">
+
+            </div>
+
+
+            <button class="btn-primary" type="submit">Submit</button>
+            <button class="btn-tertiary" type="reset">Clear</button>
+
+        </form>
+
+    </section>
+
 </section>
+
+
+<script>
+    $(document).ready(function() {
+        $.getScript("./event/event.js");
+        // resize text area jquery
+    });
+</script>

@@ -17,11 +17,11 @@ if (
     require_once '../PHP_process/connection.php';
     require '../PHP_process/personDB.php';
 
-    // TODO and sanitize user input
     $username = $_SESSION['username'];
 
+    // TODO and sanitize user input
     //get the person ID of user
-    $query = "SELECT coladmin.personID
+    $query = "SELECT coladmin.*
             FROM coladmin
             JOIN user ON coladmin.username = user.username
             WHERE user.username = '$username'";
@@ -29,7 +29,9 @@ if (
     $result = mysqli_query($mysql_con, $query);
     if ($result) {
         $data = mysqli_fetch_assoc($result);
+        $colCode = $data['colCode'];
         $personID = $data['personID'];
+        $adminID = $data['adminID'];
 
         //get person details
         $personObj = new personDB();
@@ -46,7 +48,10 @@ if (
         $bulsu_email = $personData['bulsu_email'];
         $profilepicture = $personData['profilepicture'];
 
+        // store the id in session
         $_SESSION['personID'] = $personID;
+        $_SESSION['adminID'] = $adminID;
+        $_SESSION['colCode'] = $colCode;
     }
 }
 ?>

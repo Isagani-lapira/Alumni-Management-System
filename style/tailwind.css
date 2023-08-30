@@ -60,6 +60,12 @@ body {
   .input-text {
     @apply border border-gray-400 rounded-sm py-2 px-4  shadow-md;
   }
+
+  div.input-container input[type="text"],
+  input[type="date"] {
+    @apply border border-gray-400 rounded-sm py-2 px-4  shadow-md;
+  }
+
   .add-focus {
     @apply focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-blue-600;
   }
@@ -80,6 +86,11 @@ body {
   }
   .input-msg.invalid {
     @apply visible text-red-500;
+  }
+
+  /* Text area */
+  .input-textarea {
+    @apply border border-gray-400 rounded-sm py-2 px-4  shadow-md;
   }
 }
 
