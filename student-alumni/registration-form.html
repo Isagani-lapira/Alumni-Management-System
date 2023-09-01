@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <!-- Include Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .option {
+            display: none;
+        }
+
+        .option-label {
+            cursor: pointer;
+            border: 2px solid transparent;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background-color: #d1d5db;
+            color: white;
+        }
+
+        .option:checked + .option-label {
+            background-color: #991B1B;
+            border-color: #991B1B;
+        }
+
+        .registration-form {
+            display: none;
+        }
+
+        .registration-form.active {
+            display: block; /* Display as a flex container */
+            flex-direction: column; /* Arrange children vertically */
+            align-items: center; /* Center horizontally */
+            height: 100vh; /* 100% of the viewport height */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-10 py-6 px-20">
+        <!-- Logo and Website Name -->
+        <div class="flex items-center">
+            <img src="../images/BSU-logo.png" alt="Logo" class="w-16 h-16">
+            <div class="ml-4">
+                <h1 class="l-2 text-3xl font-bold text-gray-800">BulSU Connect</h1>
+            </div>
+        </div>
+
+        <!-- Registration Form Container -->
+        <div class="mt-6 flex flex-col items-center"> <!-- Use flex utilities to align items -->
+            <!-- Label for Status -->
+            <div class="text-center">
+                <label class="text-xl text-gray-800 font-bold">PLEASE SPECIFY YOUR STATUS</label>
+            </div>
+
+            <!-- Status -->
+            <div class="mt-4 flex justify-center">
+                <input type="radio" name="status" value="alumni" id="alumni" class="option" checked>
+                <label for="alumni" class="relative cursor-pointer option-label w-80 h-60 rounded-lg flex flex-col justify-end shadow-md">
+                    <span class="text-xl font-bold text-center">Alumni</span>
+                </label>
+
+                <!-- Add space between the two options -->
+                <div class="px-2"></div>
+
+                <input type="radio" name="status" value="student" id="student" class="option">
+                <label for="student" class="relative cursor-pointer option-label w-80 h-60 rounded-lg flex flex-col justify-end shadow-md">
+                    <span class="text-xl font-bold text-center">Student</span>
+                </label>
+            </div>
+
+            <!-- Alumni Registration Form - Page 1 -->
+            <div class="registration-form py-10 px-4 justify-center w-6/12" id="alumniForm">
+                <!-- Alumni registration form fields - Page 1 -->
+                <form>
+                   <!-- First Name and Last Name (Side by Side) -->
+                    <div class="mb-4 flex w-full">
+                        <div class="w-1/2 mr-2">
+                            <label class="block text-gray-700 font-bold mb-2" for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+                        <div class="w-1/2">
+                            <label class="block text-gray-700 font-bold mb-2" for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+                    </div>
+
+
+                    <!-- Contact Number and Student Number -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="contactNumber">Contact Number</label>
+                        <input type="text" id="contactNumber" name="contactNumber" class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="studentNumber">Student Number</label>
+                        <input type="text" id="studentNumber" name="studentNumber" class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+
+                    <!-- Birthday (Date picker) and Gender -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="birthday">Birthday</label>
+                        <input type="date" id="birthday" name="birthday" class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2">Gender</label>
+                        <div class="flex items-center">
+                            <input type="radio" id="male" name="gender" value="male" class="mr-2">
+                            <label for="male" class="mr-4">Male</label>
+                            <input type="radio" id="female" name="gender" value="female" class="mr-2">
+                            <label for="female">Female</label>
+                        </div>
+                    </div>
+
+                    <!-- Street Number and City/Town/Village -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="streetNumber">Street Number</label>
+                        <input type="text" id="streetNumber" name="streetNumber" class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="cityTownVillage">City/Town/Village</label>
+                        <input type="text" id="cityTownVillage" name="cityTownVillage" class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+
+                    <!-- State/Province/Region and Postal Code/Zip Code -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="stateProvinceRegion">State/Province/Region</label>
+                        <input type="text" id="stateProvinceRegion" name="stateProvinceRegion" class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="postalCode">Postal Code/Zip Code</label>
+                        <input type="text" id="postalCode" name="postalCode" class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+
+                    <!-- Employment Status (Dropdown) -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="employmentStatus">Employment Status</label>
+                        <select id="employmentStatus" name="employmentStatus" class="w-full p-2 border border-gray-300 rounded">
+                            <option value="employed">Employed</option>
+                            <option value="unemployed">Unemployed</option>
+                            <option value="self-employed">Self-Employed</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+
+                    <!-- Email Address (Personal) and Email Address (BulSU) -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="personalEmail">Email Address (Personal)</label>
+                        <input type="email" id="personalEmail" name="personalEmail" class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="bulsuEmail">Email Address (BulSU)</label>
+                        <input type="email" id="bulsuEmail" name="bulsuEmail" class="w-full p-2 border border-gray-300 rounded">
+                        <p class="text-gray-500 text-sm mt-2">Type "n/a" if you don't have a BulSU email.</p>
+                    </div>
+
+                    <!-- Next Button -->
+                    <div class="mb-4">
+                        <button type="button" id="nextButton" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                            Next
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+            <!-- Student Registration Form -->
+            <div class="registration-form py-10 px-4 justify-center w-6/12" id="studentForm">
+                <!-- Student registration form fields go here -->
+                <p>This is the Student registration form.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const alumniRadio = document.getElementById('alumni');
+        const studentRadio = document.getElementById('student');
+        const alumniForm = document.getElementById('alumniForm');
+        const studentForm = document.getElementById('studentForm');
+
+        alumniRadio.addEventListener('click', () => {
+            alumniForm.classList.add('active');
+            studentForm.classList.remove('active');
+        });
+
+        studentRadio.addEventListener('click', () => {
+            studentForm.classList.add('active');
+            alumniForm.classList.remove('active');
+        });
+
+        // Initially, show the Alumni registration form since it's checked by default
+        alumniForm.classList.add('active');
+    </script>
+</body>
+</html>
