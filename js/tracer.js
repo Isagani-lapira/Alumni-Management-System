@@ -164,6 +164,8 @@ $(document).ready(function () {
                 categoryIndex++
                 changeView(categories[categoryIndex])
             });
+
+        //create new form
         const submitBtn = $('<button>')
             .addClass('text-white bg-blue-400 hover:bg-blue-500 px-4 py-2 rounded-md')
             .text('Create')
@@ -173,9 +175,10 @@ $(document).ready(function () {
                 const title = $('#formTitle').val();
                 const collectionData = {
                     title: title,
+                    category: categories,
                     data: questionnaireData
                 }
-                console.log(collectionData)
+                addNewGradTracer(collectionData);
             })
 
         //hide the next when there's no more category
@@ -205,8 +208,6 @@ $(document).ready(function () {
     }
 
     function addQuestionData(idKey) {
-        console.log(idKey)
-
         const data = []
         let value = $('#' + 'questionID' + idKey).val()
         choicesArr = []
@@ -231,10 +232,27 @@ $(document).ready(function () {
 
         //object to compile both category and data (question,choices)
         categQuestion = {
-            Category: categories[categoryIndex],
             Data: data
         }
         questionnaireData.push(categQuestion)
+    }
+
+    function addNewGradTracer(data) {
+        const action = "insertionForm";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('data', JSON.stringify(data));
+
+        //processing insertion in ajax
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) }
+        })
     }
 
 })
