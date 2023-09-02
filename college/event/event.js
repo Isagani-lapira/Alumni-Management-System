@@ -1,6 +1,6 @@
 $(document).ready(async function () {
   // Form
-  $("#createNewEventForm").on("submit", function (e) {
+  $("#crud-event-form").on("submit", function (e) {
     // e.preventDefault();
     //  todo later
   });
@@ -37,11 +37,15 @@ $(document).ready(async function () {
       const parsedEventDateTime = moment(
         event.eventDate + " " + event.eventStartTime
       ).format("MMMM Do YYYY [at] h:mm a");
+
+      //  append the data to the table
       eventRecordTBody.append(`
                 <tr>
                         <td class="w-48 border "><img loading="lazy" 
                         class="object-cover block" src="data:image/jpeg;base64,${event.aboutImg}" alt=""></td>
-                        <td class="font-bold text-gray-600 hover:text-blue-500 cursor-pointer">${event.eventName}</td>
+                        <td class="td-eventID-holder font-bold text-gray-600 hover:text-blue-500 cursor-pointer" data-event-id="${event.eventID}">
+                          ${event.eventName}
+                        </td>
                         <td class="font-medium ">${event.headerPhrase}</td>
                         <td class="max-w-prose">${parsedEventDateTime}</td>
                         <td>${parsedDatePosted}</td>
@@ -110,9 +114,47 @@ $(document).ready(async function () {
 
   //  Handles button clicks
   $("#addNewEventBtn").on("click", function () {
-    $("#createNewPostModal").removeClass("hidden");
+    $("#crud-event-modal").removeClass("hidden");
   });
   $(".cancel").on("click", function () {
-    $("#createNewPostModal").addClass("hidden");
+    $("#crud-event-modal").addClass("hidden");
   });
+
+  // Handles the individual event detail
+
+  // make a dummy data first, then make a function that will get the data from the database
+  const dummyData = {
+    eventName: "Event Name",
+    eventDate: "2021-05-20",
+    eventStartTime: "12:00",
+    eventEndTime: "13:00",
+    eventLocation: "Event Location",
+    eventDescription: "Event Description",
+    eventImg: "https://picsum.photos/200/300",
+    eventHeaderPhrase: "Event Header Phrase",
+    eventAboutImg: "https://picsum.photos/200/300",
+    eventAbout: "Event About",
+    eventAboutHeader: "Event About Header",
+    eventAboutSubHeader: "Event About Sub Header",
+  };
+
+  // fetch the data from the database
+  function getEventDetails(id) {
+    return dummyData;
+  }
+
+  // handles the click to show more details
+  function handlePreviewClick() {
+    const eventID = $(this).data("event-id");
+    console.log(eventID);
+    // get the event details
+    const eventDetails = getEventDetails(eventID);
+    console.log(eventDetails);
+    // replace the contents of the event.php with the event details
+    replaceContentWithEventDetail(eventDetails);
+  }
+
+  $(".td-eventID-holder").on("click", handlePreviewClick);
+
+  // Handlers for edit and archive button
 });

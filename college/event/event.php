@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<section class="container mx-auto px-8">
+<section class="container mx-auto px-8" id="events-page hidden">
     <h1 class="text-2xl font-bold">Events</h1>
 
 
@@ -52,21 +52,7 @@ session_start();
         </table>
 
         <div class="py-4 px-2 flex justify-end">
-            <!-- <button class="btn-secondary bg-gray-200 border border-gray-400 hover:bg-accent py-2 px-5 text-gray-900 hover:text-white font-normal rounded-md">Select All</button> -->
-            <!-- Pagination Start -->
-            <!-- <div>
-                <div class="pagination space-x-2">
-                    <a href="#">&lt;</a>
-                    <a href="#" class="underline font-bold text-lg">1</a>
-                    <a href="#" class="  text-lg">2</a>
-                    <a href="#" class="  text-lg">3</a>
-                    <a href="#" class="  text-lg">4</a>
-                    <a href="#" class="  text-lg">..</a>
-                    <a href="#" class="  text-lg">last</a>
-                    <a href="#" class="  text-lg">&gt;</a>
-                </div>
-            </div> -->
-            <!-- Button Pagination -->
+            <!-- Pagination -->
             <div class="inline-flex">
                 <button id="prevPostsBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
                     Prev
@@ -79,101 +65,32 @@ session_start();
     </section>
 
 
-    <!-- Pagination End -->
 
-    <!-- Form for new event -->
-
-    <!-- * eventID, eventName, eventDate, colCode, about_event, 
- * contactLink, aboutImg, headerPhrase, eventPlace,eventStartTime
- * 
- * date_posted, adminID,  
- * 
- * what's needed is : -->
-    <!-- TODO add modal later -->
-    <section class="add-event-section hidden">
-        <form action="" method="POST" enctype="multipart/form-data">
-            <h2>Create new event</h2>
-            <div class="input-container">
-                <label class="block" for="eventName">
-                    Event Name
-                </label>
-                <input type="text" id="eventName" name="eventName" required>
-
-            </div>
-
-            <div class="input-container">
-                <label class="block" for="eventDate">
-                    Event Date
-                </label>
-                <input required type="date" id="eventDate" name="eventDate">
-
-            </div>
-
-
-            <div class="input-container">
-                <label class="block" for="about_event" class="block">
-                    Description
-                </label>
-                <textarea name="about_event" id="about_event" cols="30" rows="10" class="input-textarea"></textarea>
-
-            </div>
-
-            <div class="input-container">
-                <label class="block" for="contactLink">
-                    Contact Link
-                </label>
-                <input required type="text" id="contactLink" name="contactLink">
-
-            </div>
-            <div class="input-container">
-
-                <label class="block" for="headerPhrase">
-                    Phrase for the Header
-                </label>
-                <input required type="text" id="headerPhrase" name="headerPhrase">
-
-            </div>
-
-            <div class="input-container">
-
-                <label class="block" for="aboutImg">
-                    Image Header
-                </label>
-                <input required type="file" id="aboutImg" accept=".jpg" name="aboutImg">
-
-            </div>
-
-            <div class="input-container">
-
-                <label class="block" for="eventPlace">
-                    Venue
-                </label>
-                <input required type="text" id="eventPlace" name="eventPlace">
-
-            </div>
-
-
-
-
-            <button class="btn-primary" type="submit">Submit</button>
-            <button class="btn-tertiary" type="reset">Clear</button>
-
-        </form>
-
-    </section>
-
-    <!-- modal -->
-    <div id="createNewPostModal" class="fixed top-0 left-0 inset-0 h-full w-full bg-gray-700 bg-opacity-50 hidden 
+    <!-- Modal -->
+    <div id="crud-event-modal" class="fixed top-0 left-0 inset-0 h-full w-full bg-gray-700 bg-opacity-50 hidden 
      ">
         <div class="h-full flex items-center justify-center 
        ">
             <!-- Modal Content -->
             <div class="modal-container space-y-5  modal-container w-1/3 h-2/3 bg-white rounded-lg p-3 overflow-y-auto">
                 <div class="modal-header py-5">
-                    <h1 class="text-accent text-2xl text-center font-bold">Create New Event</h1>
+                    <h1 class="text-accent text-2xl text-center font-bold modal-title">
+                        Event > <span id="event-title-modal">Add New Event</span>
+                    </h1>
                 </div>
-                <!-- Copied Description -->
-                <form action="./event/addEvent.php" method="POST" enctype="multipart/form-data" id="createNewEventForm">
+                <!-- Event Form -->
+                <form method="POST" enctype="multipart/form-data" id="crud-event-form">
+
+                    <div class="input-container">
+                        <label class="block" for="category">
+                            Category
+                        </label>
+                        <select name="category" id="category">
+                            <option value="">Alumni</option>
+                            <option value="">All</option>
+                        </select>
+                    </div>
+
                     <div class="input-container">
                         <label class="block" for="eventName">
                             Event Name
@@ -181,6 +98,50 @@ session_start();
                         <input required type="text" id="eventName" name="eventName">
 
                     </div>
+
+
+                    <div class="input-container">
+
+                        <label class="block" for="headerPhrase">
+                            Header Phrase
+                        </label>
+                        <input required type="text" id="headerPhrase" name="headerPhrase">
+
+                    </div>
+
+                    <div class="input-container">
+                        <label class="block" for="contactLink">
+                            Contact Link
+                        </label>
+                        <input required type="text" id="contactLink" name="contactLink">
+
+                    </div>
+                    <div class="input-container">
+
+                        <label class="block" for="eventPlace">
+                            Event Place
+                        </label>
+                        <input required type="text" id="eventPlace" name="eventPlace">
+
+                    </div>
+
+                    <div class="input-container">
+                        <label class="block" for="about_event" class="block">
+                            About Event
+                        </label>
+                        <textarea name="about_event" id="about_event" cols="30" rows="10" class="input-textarea"></textarea>
+
+                    </div>
+
+
+                    <div class="input-container">
+
+                        <label class="block" for="aboutImg">
+                            About Image
+                        </label>
+                        <input required type="file" id="aboutImg" accept=".jpg" name="aboutImg">
+                    </div>
+
 
                     <div class="flex gap-2">
                         <div class="input-container">
@@ -198,50 +159,6 @@ session_start();
                     </div>
 
 
-                    <div class="input-container">
-                        <label class="block" for="about_event" class="block">
-                            About Event
-                        </label>
-                        <textarea name="about_event" id="about_event" cols="30" rows="10" class="input-textarea"></textarea>
-
-                    </div>
-
-                    <div class="input-container">
-                        <label class="block" for="contactLink">
-                            Contact Link
-                        </label>
-                        <input required type="text" id="contactLink" name="contactLink">
-
-                    </div>
-                    <div class="input-container">
-
-                        <label class="block" for="aboutImg">
-                            About Image
-                        </label>
-                        <input required type="file" id="aboutImg" accept=".jpg" name="aboutImg">
-
-                    </div>
-
-                    <div class="input-container">
-
-                        <label class="block" for="headerPhrase">
-                            Header Phrase
-                        </label>
-                        <input required type="text" id="headerPhrase" name="headerPhrase">
-
-                    </div>
-                    <div class="input-container">
-
-                        <label class="block" for="eventPlace">
-                            Event Place
-                        </label>
-                        <input required type="text" id="eventPlace" name="eventPlace">
-
-                    </div>
-
-
-
-
 
 
                     <!-- End Description -->
@@ -249,9 +166,12 @@ session_start();
                     <div class="modal-footer flex items-end flex-row-reverse px-3">
                         <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
                         <button type="button" class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
-                    </div>
-                </form>
+                        <!-- <button class="btn-tertiary block" type="reset">Clear</button> -->
 
+
+                    </div>
+
+                </form>
             </div>
 
             <!-- End Modal Content -->
@@ -259,8 +179,26 @@ session_start();
         </div>
     </div>
 
+
+
 </section>
 
+
+
+
+<!-- Edit Event -->
+<!-- TODO make the section floating from the main events and refresh the event after the event is updated. -->
+<section id="section-edit-event">
+
+    <h2>Events > Edit <span id="edit-event-title"></span></h2>
+
+    <form action="">
+        <label for="title">Title: </label>
+    </form>
+
+</section>
+
+<!-- End Edit Event -->
 
 <script>
     $(document).ready(function() {
