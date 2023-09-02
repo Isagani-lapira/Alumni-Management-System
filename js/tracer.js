@@ -40,6 +40,7 @@ $(document).ready(function () {
         }
     })
 
+    let idKey = 0
     function changeView(category) {
         $('#subBar').text(category) //change text based on the currently working category
         pageNo += 1
@@ -48,6 +49,7 @@ $(document).ready(function () {
             .addClass('h-max')
             .attr('id', "pageNo" + pageNo)
         $('#categorySection').append(page)
+        idKey += 1
         addQuestionnaire(pageNo)
         //hide the last page
         // console.log(pageNo)
@@ -57,9 +59,7 @@ $(document).ready(function () {
     }
 
     const questionnaireData = [];
-    let idKey = 0
     function addQuestionnaire(pageNoElement) {
-        idKey += 1
         //mark up for q uestions
         const container = $('<div>')
             .addClass('flex gap-2 justify-center mb-2 relative w-full')
@@ -79,12 +79,14 @@ $(document).ready(function () {
             .attr('id', 'questionID' + idKey)
 
         //question type
+        inputClass = 'inputType' + idKey
         const optInput = $('<option>').val('Input').text('Input type')
-        const optRadio = $('<option>').val('Radio').text('Radio type').attr('selected', true)
+        const optRadio = $('<option>').val('Radio').text('Multiple Choice').attr('selected', true)
         const optDropDown = $('<option>').val('DropDown').text('DropDown type')
+        const optCheckBox = $('<option>').val('Checkbox').text('Checkbox Type')
         const questionType = $('<select>')
-            .append(optRadio, optInput, optDropDown)
-            .addClass('text-gray-400 py-2 outline-none')
+            .append(optRadio, optInput, optDropDown, optCheckBox)
+            .addClass('text-gray-400 py-2 outline-none ' + inputClass)
 
 
         const navigationWrapper = $('<div>')
@@ -158,46 +160,81 @@ $(document).ready(function () {
             .addClass('text-white bg-accent px-4 py-2 rounded-md')
             .text('Next')
             .on('click', function () {
-                const data = []
-                for (let i = 1; i <= idKey; i++) {
-                    let value = $('#' + 'questionID' + i).val()
-
-                    choicesArr = []
-                    $('.' + 'choices' + i).each(function () {
-                        choiceVal = $(this).val()
-                        choicesArr.push(choiceVal)
-                    })
-                    //data in question
-                    const questionData = {
-                        Question: value,
-                        choices: choicesArr
-                    }
-
-                    data.push(questionData) //store the data in question
-                }
-
-                //object to compile both category and data (question,choices)
-                categQuestion = {
-                    Category: categories[categoryIndex],
-                    Data: data
-                }
-                questionnaireData.push(categQuestion)
+                addQuestionData(idKey)
                 categoryIndex++
                 changeView(categories[categoryIndex])
             });
+        const submitBtn = $('<button>')
+            .addClass('text-white bg-blue-400 hover:bg-blue-500 px-4 py-2 rounded-md')
+            .text('Create')
+            .on('click', function () {
+                addQuestionData(idKey) // collect the last data
+
+                const title = $('#formTitle').val();
+                const collectionData = {
+                    title: title,
+                    data: questionnaireData
+                }
+                console.log(collectionData)
+            })
 
         //hide the next when there's no more category
-        if (categoryIndex + 1 == categories.length) nextBtn.addClass('hidden')
+        if (categoryIndex + 1 == categories.length) {
+            nextBtn.addClass('hidden')
+        }
 
-
+        questionType.on('change', function () {
+            const inputType = $(this).val()
+            if (inputType == "Input") {
+                //hide the fields
+                fieldWrapper.addClass('hidden')
+                addChoices.addClass('hidden')
+            } else {
+                fieldWrapper.removeClass('hidden')
+                addChoices.removeClass('hidden')
+            }
+        })
         //append all element to their respective container
         fieldWrapper.append(iconRadio, inputField)
         choices.append(questionType, fieldWrapper)
         questionWrapper.append(question, choices, addChoices)
         containerQuestion.append(questionWrapper)
         container.append(containerQuestion, addQuestion, nextBtn)
-        navigationWrapper.append(prevBtn, nextBtn)
+        navigationWrapper.append(prevBtn, nextBtn, submitBtn)
         $('#pageNo' + pageNoElement).append(container, navigationWrapper) //to root
+    }
+
+    function addQuestionData(idKey) {
+        console.log(idKey)
+
+        const data = []
+        let value = $('#' + 'questionID' + idKey).val()
+        choicesArr = []
+        let inputType = ""
+        $('.' + 'choices' + idKey).each(function () {
+            const choiceVal = $(this).val()
+            choicesArr.push(choiceVal)
+        })
+
+        $('.' + 'inputType' + idKey).each(function () {
+            const inputVal = $(this).val();
+            inputType = inputVal
+        })
+        //data in question
+        const questionData = {
+            Question: value,
+            inputType: inputType,
+            choices: choicesArr
+        }
+
+        data.push(questionData) //store the data in question
+
+        //object to compile both category and data (question,choices)
+        categQuestion = {
+            Category: categories[categoryIndex],
+            Data: data
+        }
+        questionnaireData.push(categQuestion)
     }
 
 })
