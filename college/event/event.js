@@ -9,7 +9,7 @@ $(document).ready(async function () {
   //   get the event details
   const results = await getPartialEventDetails(0);
 
-  appendTable(results.result);
+  appendContent(results.result);
 
   //   get the event details
   async function getPartialEventDetails(offset) {
@@ -28,30 +28,58 @@ $(document).ready(async function () {
     return result;
   }
 
+  function limit(string, length, end = "...") {
+    return string.length < length ? string : string.substring(0, length) + end;
+  }
+
   //   set the data into the table
-  function appendTable(jsonData) {
-    const eventRecordTBody = $("#event-record-tbody");
+  function appendContent(jsonData) {
+    const eventList = $("#event-list");
     jsonData.forEach((event) => {
       // moment js parsing
       const parsedDatePosted = moment(event.date_posted).format("MMMM Do YYYY");
       const parsedEventDateTime = moment(
         event.eventDate + " " + event.eventStartTime
-      ).format("MMMM Do YYYY [at] h:mm a");
+      ).format("MMMM Do YYYY [|] h:mm a");
 
       //  append the data to the table
-      eventRecordTBody.append(`
-                <tr>
-                        <td class="w-48 border "><img loading="lazy" 
-                        class="object-cover block" src="data:image/jpeg;base64,${event.aboutImg}" alt=""></td>
-                        <td class="td-eventID-holder font-bold text-gray-600 hover:text-blue-500 cursor-pointer" data-event-id="${event.eventID}">
-                          ${event.eventName}
-                        </td>
-                        <td class="font-medium ">${event.headerPhrase}</td>
-                        <td class="max-w-prose">${parsedEventDateTime}</td>
-                        <td>${parsedDatePosted}</td>
-                        <td class="text-sm inline-flex flex-nowrap items-center align-middle"><button class="btn-tertiary">Edit</button>
-                        <button class="btn-tertiary">Archive</button></td>
-                    </tr>
+      eventList.append(`
+
+                    <li  data-event-id="${
+                      event.eventID
+                    }" class="border border-gray-400 rounded-lg p-2">
+                    <!-- image -->
+                    <div class="grid grid-cols-3 ">
+                        <img src="data:image/jpeg;base64,${
+                          event.aboutImg
+                        }" alt="event image" class="w-32 object-cover" loading="lazy">
+                        <div>
+                            <h3 class="font-bold text-lg text-gray-800 "> ${
+                              event.eventName
+                            }</h3>
+                            <p class="font-normal  text-gray-400">${
+                              event.headerPhrase
+                            }</p>
+                            <p class="text-gray-400 text-sm ">${limit(
+                              event.about_event,
+                              60
+                            )}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm  uppercase tracking-wider text-gray-800 opacity-50 ">Event Date and Time</p>
+                            <p class="font-medium text-lg text-gray-800">${parsedEventDateTime}</p>
+                            <p class="text-sm  uppercase tracking-wider text-gray-800 opacity-50 ">Date Posted</p>
+                            <p class=" font-medium text-lg text-gray-800">${parsedDatePosted}</p>
+                            
+                            <div class="">
+                            <button class="btn-tertiary">Edit Details</button>
+                            <i class="fa-solid fa-ellipsis fa-xl"></i>
+                        </div>
+                        </div>
+                  
+                    </div>
+    
+                </li>
             `);
     });
   }
@@ -60,14 +88,14 @@ $(document).ready(async function () {
   $("#nextPostsBtn").on("click", async function () {
     $("#prevPostsbtn").attr("disabled", false);
 
-    const eventRecordTBody = $("#event-record-tbody");
+    const eventDOMContent = $("#event-list");
     offset += 5;
-    eventRecordTBody.empty();
+    eventDOMContent.empty();
     const results = await getPartialEventDetails(offset);
     if (results.response !== "Successful") {
       // show no more posts
-      eventRecordTBody.empty();
-      eventRecordTBody.append(`
+      eventDOMContent.empty();
+      eventDOMContent.append(`
           <tr>
               <td colspan="6" class="text-center">No more posts</td>
           </tr>
@@ -76,7 +104,7 @@ $(document).ready(async function () {
       $("#nextPostsBtn").attr("disabled", true);
       return;
     } else {
-      appendTable(results.result);
+      appendContent(results.result);
     }
   });
 
@@ -90,12 +118,12 @@ $(document).ready(async function () {
       return;
     }
 
-    const eventRecordTBody = $("#event-record-tbody");
-    eventRecordTBody.empty();
+    const eventDOMContent = $("#event-list");
+    eventDOMContent.empty();
     offset -= 5;
 
     const results = await getPartialEventDetails(offset);
-    appendTable(results.result);
+    appendContent(results.result);
   });
 
   //   end

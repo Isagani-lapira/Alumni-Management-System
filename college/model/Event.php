@@ -97,7 +97,7 @@ class Event
 
         // Initialize the statement
         $stmt = $this->conn->prepare('SELECT eventID, eventName, eventDate, 
-        date_posted, aboutImg, headerPhrase, eventStartTime
+        date_posted, aboutImg, headerPhrase, eventStartTime,about_event
             FROM `event`
               WHERE `colCode` = ?
               LIMIT  5  OFFSET  ? 

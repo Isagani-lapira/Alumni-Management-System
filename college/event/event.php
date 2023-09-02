@@ -21,36 +21,34 @@ session_start();
     </p>
 
 
+    <!-- Refactor to use list -->
+    <section id="event-record-section" class="mx-12 2xl:mx-auto md:max-w-6xl shadow-lg  rounded-lg overflow-clip  border ">
+        <ul class="list-none border space-y-4  " id="event-list">
+            <!-- Dummy data -->
 
-    <!-- Table Start -->
-    <section id="event-table-record-section" class="mx-12 2xl:mx-auto md:max-w-6xl shadow-lg  rounded-lg overflow-clip  border ">
-        <table class="overflow-y-scroll py-2  table-auto table-alternate-color w-full">
-            <thead class="  bg-accent text-white rounded-t-md">
-                <tr>
-                    <th>Header Image</th>
-                    <th>Name</th>
-                    <th>Header</th>
-                    <th>Event Date & Time</th>
-                    <th>Date Posted</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+            <!-- <li class="border border-gray-500 rounded-lg p-2 ">
+                 <div class="grid grid-cols-3   ">
+                    <img src="https://picsum.photos/200" alt="event image" class="w-48 object-cover">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-800 ">Upcoming Alumni Festival</h3>
+                        <p class="font-normal  text-gray-400">Event Header</p>
+                        <p class="text-gray-400 text-sm ">lorem ipsum...</p>
+                    </div>
+                    <div>
+                        <p class="text-sm  uppercase tracking-wider text-gray-800 opacity-50 ">Event Date and Time</p>
+                        <p class="font-medium text-lg text-gray-800">August 10 2023 | 9 PM</p>
+                        <p class="text-sm  uppercase tracking-wider text-gray-800 opacity-50 ">Date Posted</p>
+                        <p class=" font-medium text-lg text-gray-800">August 10 2023</p>
+                        <div class="">
+                            <button class="btn-tertiary">Edit Details</button>
+                            <i class="fa-solid fa-ellipsis fa-xl"></i>
+                        </div>
+                    </div>
 
-            <tbody id="event-record-tbody" class="">
+                </div>
 
-                <!-- <tr>
-                    <td class="w-48 border "><img class="object-cover block" src="../assets/event-images/02.png" alt=""></td>
-                    <td class="font-bold text-gray-600 hover:text-blue-500 cursor-pointer">Upcoming Alumni Festival</td>
-                    <td class="font-medium ">We are the world</td>
-                    <td class="max-w-prose">10 PM august 23 2023 </td>
-                    <td>04/10/24</td>
-                    <td><button class="btn-tertiary">Archive</button></td>
-                </tr> -->
-
-            </tbody>
-
-        </table>
-
+            </li> -->
+        </ul>
         <div class="py-4 px-2 flex justify-end">
             <!-- Pagination -->
             <div class="inline-flex">
@@ -61,8 +59,8 @@ session_start();
                     Next
                 </button>
             </div>
-        </div>
     </section>
+
 
 
 
