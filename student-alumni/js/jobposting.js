@@ -212,11 +212,13 @@ $(document).ready(function () {
         const containerHeight = $(this).height();
         const contentHeight = $(this)[0].scrollHeight;
         const scrollOffset = $(this).scrollTop();
+        const threshold = 50; // Define the threshold in pixels
 
         //once the bottom ends, it will reach another sets of data (post)
-        if (scrollOffset + containerHeight >= contentHeight && lengthChecker >= 10)
+        if (scrollOffset + containerHeight + threshold >= contentHeight)
             retrieveUserPost()//get another set of post
 
     })
+
 
 })

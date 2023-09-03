@@ -105,7 +105,7 @@ $(document).ready(function () {
               if (!isCardView)
                 listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location, isSaved)
               else
-                cardViewJobDisplay(jobTitle, jobDescript, companyLogo, skill);
+                cardViewJobDisplay(careerID, jobTitle, jobDescript, companyLogo, skill);
             }
 
             if (!isCardView)
@@ -123,7 +123,7 @@ $(document).ready(function () {
     })
   }
 
-  function cardViewJobDisplay(jobTitle, description, companyLogo, skills) {
+  function cardViewJobDisplay(careerID, jobTitle, description, companyLogo, skills) {
     description = description.substring(0, 103) //slice the description to make small description
 
     //mark up for card job
@@ -168,7 +168,7 @@ $(document).ready(function () {
       .on('click', function () {
         $('#jobDescWrapper').removeClass('hidden');
         $('#jobCard').addClass('hidden')
-        containerJob.addClass('selectedJob');//set the container that has been clicked as selected container
+        // containerJob.addClass('selectedJob');//set the container that has been clicked as selected container
         //viewing of particular job
         viewOfCareer(careerID);
       })
@@ -268,6 +268,7 @@ $(document).ready(function () {
       $('#jobCard').removeClass('hidden')
     }
   }
+
 
   $('#backToCard').on('click', function () {
     $('#jobDescWrapper').addClass('hidden');
