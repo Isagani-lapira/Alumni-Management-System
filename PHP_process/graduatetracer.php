@@ -10,7 +10,6 @@ if (isset($_POST['action'])) {
         //creating new graduate tracer form
         $data = $_POST['data'];
         $datajson = json_decode($data, true);
-
         insertDataTracer($datajson, $mysql_con);
     }
 }
@@ -32,10 +31,12 @@ function insertDataTracer($datajson, $con)
         if ($result) {
             //adding category to the table
             $categoryCollection = $datajson['category'];
-
+            $dataArr = $datajson['data'];
             $checker = false;
+            $count = 0;
             foreach ($categoryCollection as $category) {
-                $categoryInsertion = insertCategory($category, $formID, $con);
+                $categoryInsertion = insertCategory($count, $dataArr, $category, $formID, $con);
+                $count++;
                 if ($categoryInsertion) $checker = true;
                 else {
                     $checker = false;
@@ -50,13 +51,58 @@ function insertDataTracer($datajson, $con)
     }
 }
 
-function insertCategory($categoryName, $formID, $con)
+function insertCategory($count, $data, $categoryName, $formID, $con)
 {
-    $query = "INSERT INTO `question_category`(`category_name`, `formID`) VALUES (?,?)";
+    $query = "INSERT INTO `question_category`(`categoryID`, `category_name`, `formID`) 
+    VALUES (?,?,?)";
+    $stmt = mysqli_prepare($con, $query);
+    if ($stmt) {
+        $categoryID = substr(md5(uniqid()), 0, 29);
+        $stmt->bind_param("sss", $categoryID, $categoryName, $formID);
+        $result = $stmt->execute();
+
+        if ($result) {
+            // //add the questions
+            $question = $data[$count]['Data'][0]['Question'];
+            $inputType = $data[$count]['Data'][0]['inputType'];
+            $choices = $data[$count]['Data'][0]['choices'];
+
+            $result = insertQuestion($categoryID, $question, $inputType, $formID, $choices, $con);
+            if ($result) return true;
+        } else return false;
+    }
+}
+
+function insertQuestion($categoryID, $question, $inputType, $formID, $choices, $con)
+{
+    $query = "INSERT INTO `tracer_question`(`questionID`, `categoryID`, `formID`, 
+    `question_text`, `inputType`) VALUES (?,?,?,?,?)";
+
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt) {
-        $stmt->bind_param("ss", $categoryName, $formID);
+        $questionID = substr(md5(uniqid()), 0, 29);
+        $stmt->bind_param('sssss', $questionID, $categoryID, $formID, $question, $inputType);
+        $result = $stmt->execute();
+
+        if ($result) {
+            //insert choices
+            foreach ($choices as $choice) {
+                insertChoices($questionID, $choice, $con);
+            }
+            return true;
+        } else return false;
+    }
+}
+
+function insertChoices($questionID, $choiceText, $con)
+{
+    $query = "INSERT INTO `questionnaire_choice`(`choiceID`, `questionID`, `choice_text`) VALUES (?,?,?)";
+    $stmt = mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $choiceID = substr(md5(uniqid()), 0, 29);
+        $stmt->bind_param('sss', $choiceID, $questionID, $choiceText);
         $result = $stmt->execute();
 
         if ($result) return true;

@@ -59,10 +59,13 @@ $(document).ready(function () {
     }
 
     const questionnaireData = [];
+    let containerCount = 0
     function addQuestionnaire(pageNoElement) {
+        containerCount++
         //mark up for q uestions
         const container = $('<div>')
             .addClass('flex gap-2 justify-center mb-2 relative w-full')
+            .attr('id', "container" + containerCount)
         const containerQuestion = $('<div>')
             .addClass('rounded-lg border-t-8 border-accent p-5 center-shadow w-full')
         const questionWrapper = $('<div>')
@@ -155,12 +158,13 @@ $(document).ready(function () {
 
         const prevBtn = $('<button>')
             .addClass('text-gray-500 hover:bg-gray-300 py-2 px-4 rounded-md')
-            .text('Previous')
+            .text('Cancel')
         const nextBtn = $('<button>')
             .addClass('text-white bg-accent px-4 py-2 rounded-md')
             .text('Next')
             .on('click', function () {
                 addQuestionData(idKey)
+                containerCount = 0
                 categoryIndex++
                 changeView(categories[categoryIndex])
             });
@@ -170,15 +174,15 @@ $(document).ready(function () {
             .addClass('text-white bg-blue-400 hover:bg-blue-500 px-4 py-2 rounded-md')
             .text('Create')
             .on('click', function () {
-                addQuestionData(idKey) // collect the last data
-
+                addQuestionData(idKey)
                 const title = $('#formTitle').val();
                 const collectionData = {
                     title: title,
                     category: categories,
                     data: questionnaireData
                 }
-                addNewGradTracer(collectionData);
+                console.log(collectionData)
+                // addNewGradTracer(collectionData);
             })
 
         //hide the next when there's no more category
@@ -209,32 +213,30 @@ $(document).ready(function () {
 
     function addQuestionData(idKey) {
         const data = []
-        let value = $('#' + 'questionID' + idKey).val()
-        choicesArr = []
-        let inputType = ""
-        $('.' + 'choices' + idKey).each(function () {
-            const choiceVal = $(this).val()
-            choicesArr.push(choiceVal)
-        })
+        //retrieve all the questions set
+        for (let i = 1; i <= containerCount; i++) {
+            let parent = "#container" + i;
 
-        $('.' + 'inputType' + idKey).each(function () {
-            const inputVal = $(this).val();
-            inputType = inputVal
-        })
-        //data in question
-        const questionData = {
-            Question: value,
-            inputType: inputType,
-            choices: choicesArr
+            const questionTitle = $(parent + ' #questionID' + idKey).val(); //question 
+            const questionInputType = $(parent + ' .inputType' + idKey).val();
+            const choicesArr = [];
+            // choices in a particular question
+            let choicesElements = $(parent + " .choices" + idKey);
+            $(choicesElements).each(function () {
+                let choiceVal = $(this).val()
+                choicesArr.push(choiceVal)
+            })
+
+            //object for collection of questionnaire
+            const questionnaireSet = {
+                Question: questionTitle,
+                InputType: questionInputType,
+                choices: choicesArr
+            }
+            data.push(questionnaireSet)
         }
 
-        data.push(questionData) //store the data in question
-
-        //object to compile both category and data (question,choices)
-        categQuestion = {
-            Data: data
-        }
-        questionnaireData.push(categQuestion)
+        questionnaireData.push(data) // add to the root container 
     }
 
     function addNewGradTracer(data) {
