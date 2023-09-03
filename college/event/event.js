@@ -126,26 +126,41 @@ $(document).ready(async function () {
     appendContent(results.result);
   });
 
-  //   end
+  function toggleDisplay(hide = "", show = "") {
+    // add transition
+    $(show)
+      .css({
+        opacity: "0.0",
+      })
+      .removeClass("hidden")
+      .delay(50)
+      .animate(
+        {
+          opacity: "1.0",
+        },
+        300
+      );
 
-  //   Handles the Modal
-  //close the announcement modal
-  $("#announcementModal").on("click", function (e) {
-    const target = e.target;
-    let container = $("#announcementContainer");
-
-    //check if the clicked is outside the container
-    if (!container.is(target) && !container.has(target).length) {
-      $("#announcementModal").addClass("hidden");
-    }
-  });
+    $(hide)
+      .css({
+        opacity: "1.0",
+      })
+      .addClass("hidden")
+      .delay(50)
+      .animate(
+        {
+          opacity: "0.0",
+        },
+        300
+      );
+  }
 
   //  Handles button clicks
   $("#addNewEventBtn").on("click", function () {
-    $("#crud-event-modal").removeClass("hidden");
+    toggleDisplay("#event-record-list-section", "#crud-event");
   });
   $(".cancel").on("click", function () {
-    $("#crud-event-modal").addClass("hidden");
+    toggleDisplay("#crud-event", "#event-record-list-section");
   });
 
   // Handles the individual event detail

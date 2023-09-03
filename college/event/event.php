@@ -1,29 +1,35 @@
 <?php
 session_start();
 ?>
-<section class="container mx-auto px-8" id="events-page hidden">
+<section class="container mx-auto px-8" id="events-page">
 
 
 
     <!-- Refactor to use list -->
-    <section id="event-record-list-section" class="hidden">
+    <section id="event-record-list-section" class="transition-all">
         <h1 class="text-2xl font-bold">Events</h1>
 
 
-        <div class="flex flex-wrap justify-end my-4"><button id="addNewEventBtn" class="btn-primary ">Add New Event</button></div>
+
+        <div class="flex flex-wrap justify-between my-4 items-center">
+            <div>
+                <h2>Total Posts</h2>
+
+                <p class="text-5xl">
+                    <?php
+                    require '../php/connection.php';
+                    require '../model/Event.php';
+                    $event = new Event($mysql_con);
+                    echo $event->getTotalEvents($_SESSION['colCode']);
+
+                    ?>
+                </p>
+            </div>
+            <button id="addNewEventBtn" class="btn-primary ">Add New Event</button>
+        </div>
 
 
-        <hr>
-        <h2>Total Posts</h2>
-        <p class="text-5xl">
-            <?php
-            require '../php/connection.php';
-            require '../model/Event.php';
-            $event = new Event($mysql_con);
-            echo $event->getTotalEvents($_SESSION['colCode']);
 
-            ?>
-        </p>
         <section class=".mx-12 2xl:mx-auto md:max-w-6xl shadow-lg  rounded-lg overflow-clip  border">
             <ul class="list-none border space-y-4  " id="event-list">
                 <!-- Dummy data -->
@@ -66,8 +72,8 @@ session_start();
 
 
 
-    <!-- Modal -->
-    <section id="crud-event">
+    <!-- CRUD Event Section -->
+    <section id="crud-event" class="hidden transition-all">
         <div class="header py-5">
             <h1 class=" text-2xl tex-left font-bold modal-title">
                 Event > <span id="event-title" class="text-accent">Add New Event</span>
@@ -162,7 +168,7 @@ session_start();
 
 
     </section>
-
+    <!-- End CRUD Event Section -->
 
 
 </section>
