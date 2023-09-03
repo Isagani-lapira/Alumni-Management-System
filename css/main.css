@@ -1795,10 +1795,6 @@ div.input-container input[type="text"],
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.grid-rows-3 {
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-}
-
 .flex-row {
   flex-direction: row;
 }
@@ -2786,18 +2782,6 @@ div.input-container input[type="text"],
   line-height: 1rem;
 }
 
-.text-\[10px\] {
-  font-size: 10px;
-}
-
-.text-\[5px\] {
-  font-size: 5px;
-}
-
-.text-\[12px\] {
-  font-size: 12px;
-}
-
 .font-black {
   font-weight: 900;
 }
@@ -3037,10 +3021,6 @@ div.input-container input[type="text"],
 
 .opacity-50 {
   opacity: 0.5;
-}
-
-.opacity-80 {
-  opacity: 0.8;
 }
 
 .shadow {
