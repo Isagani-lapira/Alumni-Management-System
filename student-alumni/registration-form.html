@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
-    <!-- Include Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-j5zlGVkPE3xQCAo5mz7/NPiDjAx6RCeVfIfK3gH9d4pM7p2T4p8BjjQ/kdX5+0mBXbXqYEymdxj4iwfTf5zKvpw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        body {
+            overflow: hidden;
+        }
+        .registration-form-container {
+            max-height: 400px; /* Adjust the max height as needed */
+            overflow-y: auto;
+        }
         .option {
             display: none;
         }
@@ -31,7 +38,7 @@
         }
 
         .registration-form.active {
-            display: block; /* Display as a flex container */
+            display: block; /* Display as a block container */
             flex-direction: column; /* Arrange children vertically */
             align-items: center; /* Center horizontally */
             height: 100vh; /* 100% of the viewport height */
@@ -47,10 +54,15 @@
         .error-border {
             border-color: #991B1B;
         }
+
+        .registration-form-container {
+            max-height: 400px; /* Adjust the max height as needed */
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body >
-    <div class="container mx-auto mt-10 py-6 px-20">
+    <div class="container mx-auto mt-10 py-2 px-20">
         <!-- Logo and Website Name -->
         <div class="flex items-center">
             <img src="../images/BSU-logo.png" alt="Logo" class="w-16 h-16">
@@ -67,23 +79,29 @@
             </div>
 
             <!-- Status -->
-            <div class="mt-4 flex justify-center">
-                <input type="radio" name="status" value="alumni" id="alumni" class="option" >
-                <label for="alumni" class="relative cursor-pointer option-label w-80 h-60 rounded-lg flex flex-col justify-end shadow-md">
-                    <span class="text-xl font-bold text-center">Alumni</span>
-                </label>
-
+            <div class="mt-4 mb-4 flex flex-col md:flex-row justify-center">
+                <div class="mb-4 md:mb-0">
+                    <input type="radio" name="status" value="alumni" id="alumni" class="option">
+                    <label for="alumni" class="relative cursor-pointer option-label w-full md:w-80 h-40 md:h-60 rounded-lg flex flex-col justify-end shadow-md">
+                        <i class="fas fa-user-graduate text-xl mb-2"></i>
+                        <span class="text-xl font-bold text-center">Alumni</span>
+                    </label>
+                </div>
+            
                 <!-- Add space between the two options -->
-                <div class="px-2"></div>
-
-                <input type="radio" name="status" value="student" id="student" class="option">
-                <label for="student" class="relative cursor-pointer option-label w-80 h-60 rounded-lg flex flex-col justify-end shadow-md">
-                    <span class="text-xl font-bold text-center">Student</span>
-                </label>
+                <div class="px-2 hidden md:block"></div>
+            
+                <div class="mb-4 md:mb-0">
+                    <input type="radio" name="status" value="student" id="student" class="option">
+                    <label for="student" class="relative cursor-pointer option-label w-full md:w-80 h-40 md:h-60 rounded-lg flex flex-col justify-end shadow-md">
+                        <i class="fas fa-user-graduate text-xl mb-2"></i>
+                        <span class="text-xl font-bold text-center">Student</span>
+                    </label>
+                </div>
             </div>
-
+             
             <!-- Alumni Registration Form -->
-            <div class="registration-form py-10 px-4 justify-center w-6/12" id="alumniForm">
+            <div class="registration-form registration-form-container pb-20 px-4 justify-center w-6/12 overflow-y-auto" id="alumniForm">
                 <!-- Alumni registration form fields - Page 1 -->
                 <form>
                     <!-- First Name and Last Name -->
@@ -187,7 +205,7 @@
             </div>
 
             <!-- Alumni Registration Form - Page 2 -->
-            <div class="registration-form py-10 px-4 justify-center w-6/12" id="alumniFormPage2" style="display: none;">
+            <div class="registration-form registration-form-container py-16 px-4 justify-center w-6/12" id="alumniFormPage2 overflow-y-auto" style="display: none;">
                 <!-- Alumni registration form fields - Page 2 -->
                 <form>
                     <!-- Next Button for Page 2 -->
@@ -200,7 +218,7 @@
             </div>
 
             <!-- Student Registration Form -->
-            <div class="registration-form py-10 px-4 justify-center w-6/12" id="studentForm">
+            <div class="registration-form registration-form-container py-16 px-4 justify-center w-6/12 overflow-y-auto" id="studentForm">
                 <!-- Student registration form fields go here -->
                 <p>This is the Student registration form.</p>
             </div>
