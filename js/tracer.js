@@ -51,8 +51,8 @@ $(document).ready(function () {
         $('#categorySection').append(page)
         idKey += 1
         addQuestionnaire(pageNo)
+
         //hide the last page
-        // console.log(pageNo)
         if (pageNo > 2) {
             $("#pageNo" + (pageNo - 1)).addClass('hidden');
         }
@@ -60,6 +60,7 @@ $(document).ready(function () {
 
     const questionnaireData = [];
     let containerCount = 0
+    let questionCount = 0
     function addQuestionnaire(pageNoElement) {
         containerCount++
         //mark up for q uestions
@@ -102,17 +103,46 @@ $(document).ready(function () {
             .addClass('py-2 px-2 outline-none w-4/5 ' + fieldClass)
             .attr('placeholder', 'choice')
 
-        const addQuestion = $('<iconify-icon class="p-3 rounded-md center-shadow h-max my-2 absolute -right-16" icon="gala:add" style="color: #347cb5;" width="24" height="24"></iconify-icon>')
+        const addQuestion = $('<iconify-icon class="p-3 rounded-md center-shadow h-max" icon="gala:add" style="color: #347cb5;" width="24" height="24"></iconify-icon>')
             .on('click', function () {
                 const value = question.val()
                 //add new question
                 if (value != "") {
+                    questionCount++
                     navigationWrapper.remove()
                     addQuestionnaire(pageNoElement)
                     question.removeClass('border-accent').addClass('border-gray-400 ')
                 }
                 else question.addClass('border-accent').removeClass('border-gray-400 ')
             })
+
+        const removeQuestion = $('<iconify-icon icon="octicon:trash-24" class="p-3 rounded-md center-shadow h-max remove-question" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+            .on('click', function () {
+                containerCount--
+                container.remove()
+                navigationWrapper.remove()
+
+                // Adjust the id attribute of remaining containers
+                $('.flex[id^="container"]').each(function (index) {
+                    $(this).attr('id', 'container' + (index + 1));
+                });
+            })
+        // Add a hover event handler to change the color to red
+        removeQuestion.hover(
+            function () {
+                // Mouse over
+                $(this).css('color', 'red');
+            },
+            function () {
+                // Mouse out
+                $(this).css('color', '#afafaf');
+            }
+        );
+
+
+        const optionContainer = $('<div>')
+            .addClass('absolute -right-16 flex flex-col gap-2')
+            .append(addQuestion, removeQuestion);
 
 
         const addChoices = $('<button>')
@@ -171,7 +201,7 @@ $(document).ready(function () {
 
         //create new form
         const submitBtn = $('<button>')
-            .addClass('text-white bg-blue-400 hover:bg-blue-500 px-4 py-2 rounded-md')
+            .addClass('text-white bg-blue-400 hover:bg-blue-500 px-4 py-2 rounded-md hidden')
             .text('Create')
             .on('click', function () {
                 addQuestionData(idKey)
@@ -181,13 +211,19 @@ $(document).ready(function () {
                     category: categories,
                     data: questionnaireData
                 }
-                console.log(collectionData)
-                // addNewGradTracer(collectionData);
+
+                $('#loadingModal').removeClass('hidden')
+                addNewGradTracer(collectionData); //perform insertion
             })
 
         //hide the next when there's no more category
         if (categoryIndex + 1 == categories.length) {
             nextBtn.addClass('hidden')
+            submitBtn.removeClass('hidden')
+        }
+
+        if (questionCount < 1) {
+            removeQuestion.addClass('hidden') //open the delete button
         }
 
         questionType.on('change', function () {
@@ -201,12 +237,13 @@ $(document).ready(function () {
                 addChoices.removeClass('hidden')
             }
         })
+
         //append all element to their respective container
         fieldWrapper.append(iconRadio, inputField)
         choices.append(questionType, fieldWrapper)
         questionWrapper.append(question, choices, addChoices)
         containerQuestion.append(questionWrapper)
-        container.append(containerQuestion, addQuestion, nextBtn)
+        container.append(containerQuestion, optionContainer, nextBtn)
         navigationWrapper.append(prevBtn, nextBtn, submitBtn)
         $('#pageNo' + pageNoElement).append(container, navigationWrapper) //to root
     }
@@ -252,7 +289,18 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: response => { console.log(response) },
+            success: response => {
+                console.log(response)
+                if (response == 'Successful') {
+                    $('#loadingModal').addClass('hidden') //hide the loading
+                    $('#successModal').removeClass('hidden') //show the success modal
+
+                    //hide the modal again
+                    setTimeout(() => {
+                        $('#successModal').addClass('hidden')
+                    }, 3000)
+                }
+            },
             error: error => { console.log(error) }
         })
     }

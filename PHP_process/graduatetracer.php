@@ -53,8 +53,9 @@ function insertDataTracer($datajson, $con)
 
 function insertCategory($count, $data, $categoryName, $formID, $con)
 {
-    $query = "INSERT INTO `question_category`(`categoryID`, `category_name`, `formID`) 
-    VALUES (?,?,?)";
+    $query = "INSERT INTO `question_category`(`categoryID`, `category_name`, 
+    `formID`) VALUES (?, ?, ?)";
+
     $stmt = mysqli_prepare($con, $query);
     if ($stmt) {
         $categoryID = substr(md5(uniqid()), 0, 29);
@@ -63,12 +64,17 @@ function insertCategory($count, $data, $categoryName, $formID, $con)
 
         if ($result) {
             // //add the questions
-            $question = $data[$count]['Data'][0]['Question'];
-            $inputType = $data[$count]['Data'][0]['inputType'];
-            $choices = $data[$count]['Data'][0]['choices'];
+            foreach ($data[$count] as $questionData) {
+                $question = $questionData['Question'];
+                $inputType = $questionData['InputType'];
+                $choices = $questionData['choices'];
+                // $choices = implode(', ', $questionData['choices']); // Convert choices array to a string if needed
 
-            $result = insertQuestion($categoryID, $question, $inputType, $formID, $choices, $con);
-            if ($result) return true;
+                $result = insertQuestion($categoryID, $question, $inputType, $formID, $choices, $con);
+                if (!$result) return false; // Uncomment this line if you want to handle question insertion failures
+            }
+
+            return true;
         } else return false;
     }
 }

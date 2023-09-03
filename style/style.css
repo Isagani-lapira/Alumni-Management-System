@@ -176,3 +176,42 @@ pre {
 tbody tr:nth-child(odd) {
   background-color: #cececeb0;
 }
+
+.loading-spinner {
+  width: 150px;
+  height: 150px;
+  border: 2px solid rgb(142, 184, 240);
+  border-radius: 50%;
+  border-top-color: #0001;
+  animation: loadingspinner 0.7s linear infinite;
+}
+@keyframes loadingspinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.remove-question:hover {
+  animation: tilt-shaking 0.3s linear infinite;
+}
+
+@keyframes tilt-shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
