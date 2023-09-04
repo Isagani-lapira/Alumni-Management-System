@@ -91,6 +91,23 @@ class Event
         return $count['count'];
     }
 
+    function getEventById(string $eventID,  string $colCode)
+    {
+        // Initialize the statement
+        $stmt = $this->conn->prepare('SELECT * FROM  `event` WHERE `colCode` = ? AND `eventID` = ?');
+        $stmt->bind_param('ss', $colCode, $eventID);
+
+        try {
+            // execute the query
+            $stmt->execute();
+            // gets the myql_result. Similar result to mysqli_query
+            $result = $stmt->get_result();
+            return mysqli_fetch_assoc($result);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
 
     function getNewPartialEventsByOffset(int $offset = 0, string $colCode): array
     {

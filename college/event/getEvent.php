@@ -24,18 +24,27 @@ if (!isset($_SESSION['college_admin']) && !isset($_SESSION['adminID'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    // get the offset from the url
-    $offset = $_GET['offset'];
-    //convert to int
-    $offset = (int) $offset;
-
-    header("Content-Type: application/json; charset=UTF-8");
-
+    $result = null;
     $event = new Event($mysql_con);
 
-    $results = $event->getNewPartialEventsByOffset($offset, $_SESSION['colCode']);
 
-    echo json_encode($results);
+    if (isset($_GET['partial']) &&   $_GET['partial'] === 'true') {
+        // get the offset from the url
+        $offset = $_GET['offset'];
+        //convert to int
+        $offset = (int) $offset;
+
+        $results = $event->getNewPartialEventsByOffset($offset, $_SESSION['colCode']);
+        header("Content-Type: application/json; charset=UTF-8");
+        echo json_encode($results);
+    } else {
+        // todo validate event id
+        $results = $event->getEventById($eventID = $_GET['eventID'],  $colCode = $_SESSION['colCode']);
+
+        $results['aboutImg'] = base64_encode($results['aboutImg']);
+        header("Content-Type: application/json; charset=UTF-8");
+        echo json_encode($results);
+    }
 } else {
     echo "You are not supposed to be here.";
     header("refresh:5; url=../index.php");
@@ -58,6 +67,7 @@ function getDetail($result, $con)
     $eventPlace = $data['eventPlace'];
     $eventStartTime = $data['eventStartTime'];
     $aboutImg = $data['aboutImg'];
+    $aboutImg = $data['event_category'];
     $images = array();
 
     //retrieve images for carousel
