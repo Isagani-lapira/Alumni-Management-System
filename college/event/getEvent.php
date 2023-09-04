@@ -18,8 +18,6 @@ if ($_SESSION['accountType'] !== 'ColAdmin') {
 if (!isset($_SESSION['college_admin']) && !isset($_SESSION['adminID'])) {
     // TODO redirect to error page.
     header("Location: ../index.php");
-
-
     exit();
 }
 

@@ -1,9 +1,42 @@
 $(document).ready(async function () {
-  // Form
-  $("#crud-event-form").on("submit", function (e) {
-    // e.preventDefault();
-    //  todo later
+  // Set the image preview
+
+  $("#event-img").on("change", function () {
+    console.log("did it ?");
+
+    const file = $(this)[0].files[0];
+    if (file) {
+      console.log("did it work?");
+      $("#aboutImgPreview").attr("src", URL.createObjectURL(file));
+    }
   });
+
+  // Form
+  $("#crud-event-form").on("submit", async function (e) {
+    console.log("submitting form");
+
+    e.preventDefault();
+
+    // get the form data
+    const formData = new FormData(this);
+    // send the data to the server using fetch await
+    const API_URL = "./event/addEvent.php";
+    const response = await fetch(API_URL, {
+      method: "POST",
+      body: formData,
+    });
+    const result = await response.json();
+    console.log(result);
+    if (result.response === "Successful") {
+      console.log("success");
+      // remove the form data
+      $("#crud-event-form")[0].reset();
+      // show the success message
+    } else {
+      console.log("failed");
+    }
+  });
+
   const API_URL = "./event/getEvent.php";
   let offset = 0;
   //   get the event details
@@ -50,7 +83,7 @@ $(document).ready(async function () {
                     }" class="border border-gray-400 rounded-lg p-2">
                     <!-- image -->
                     <div class="grid grid-cols-3 ">
-                        <img src="data:image/jpeg;base64,${
+                        <img src="data:image/jpg;base64,${
                           event.aboutImg
                         }" alt="event image" class="w-32 object-cover" loading="lazy">
                         <div>

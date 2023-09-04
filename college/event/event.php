@@ -135,9 +135,9 @@ session_start();
                             <!-- image block in order to display the image -->
                             <div class="image-block">
                                 <img src="" alt="" id="aboutImgPreview" class="border
-                             border-gray-400 object-cover" width="400" height="200">
+                             border-gray-400 object-cover w-40 h-auto">
                             </div>
-                            <input required type="file" id="aboutImg" accept=".jpg" name="aboutImg">
+                            <input required type="file" id="event-img" accept=".jpg" name="aboutImg">
                         </div>
                         <div class="input-container">
                             <label class="block font-semibold text-gray-800" for="eventDate">
@@ -153,7 +153,8 @@ session_start();
                         </div>
                     </div>
                     <!-- End Description -->
-                    <div class="down"> <!-- Footer -->
+                    <div class="down">
+                        <!-- Footer -->
                         <div class="modal-footer flex gap-4">
                             <button type="button" class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
                             <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>

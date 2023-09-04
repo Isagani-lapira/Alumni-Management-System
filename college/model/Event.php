@@ -35,17 +35,17 @@ class Event
         $stmt = $this->conn->stmt_init();
 
         $stmt->prepare('INSERT INTO `event`(`eventID`, `eventName`, `eventDate`, 
-        `about_event`, `contactLink`,  `headerPhrase`, `eventPlace`, `eventStartTime`, 
+        `about_event`, `contactLink`,  `headerPhrase`, `eventPlace`, `eventStartTime`, `event_category`,
         `colCode`, `adminID`,`aboutImg`,`date_posted`)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,CURDATE() )');
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,CURDATE() )');
 
         $eventId = uniqid('event-',);
-        // Blobed image
-        $aboutImg = addslashes(file_get_contents($eventInformation['aboutImg']));
+        // Blobed image. add_slashes() breaks the image when using prepared statement
+        $aboutImg = file_get_contents($eventInformation['aboutImg']);
 
         // bind the parameters
         $stmt->bind_param(
-            'sssssssssss',
+            'ssssssssssss',
             $eventId,
             $eventInformation['eventName'],
             $eventInformation['eventDate'],
@@ -54,6 +54,7 @@ class Event
             $eventInformation['headerPhrase'],
             $eventInformation['eventPlace'],
             $eventInformation['eventStartTime'],
+            $eventInformation['event_category'],
             $colCode,
             $adminID,
             $aboutImg,

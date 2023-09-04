@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $headerPhrase = $_POST['headerPhrase'];
     $eventPlace = $_POST['eventPlace'];
     $eventStartTime = $_POST['eventStartTime'];
+    $event_category = $_POST['category'];
     // image data
     $aboutImg = $_FILES['aboutImg'];
 
@@ -55,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Image data
     $aboutImgTmpName = $_FILES['aboutImg']['tmp_name'];
 
+
     // make array of event information
     // TODO make the id auto increment
     $eventInformation = array(
@@ -66,7 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'headerPhrase' => $headerPhrase,
         'eventPlace' => $eventPlace,
         'eventStartTime' => $eventStartTime,
+        'event_category' => $event_category
     );
+
 
     // get session id
     $adminID = $_SESSION['adminID'];
