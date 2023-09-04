@@ -1,48 +1,80 @@
 $(document).ready(async function () {
+  const CONFIRM_COLOR = "#991B1B";
+  const CANCEL_COLOR = "#6A6A6A";
+
   // Set the image preview
 
   $("#event-img").on("change", function () {
-    console.log("did it ?");
-
     const file = $(this)[0].files[0];
     if (file) {
-      console.log("did it work?");
       $("#aboutImgPreview").attr("src", URL.createObjectURL(file));
     }
   });
 
   // Form
   $("#crud-event-form").on("submit", async function (e) {
-    console.log("submitting form");
-
     e.preventDefault();
+    const confirmation = await Swal.fire({
+      title: "Confirm?",
+      text: "Are you sure with the details?",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: CONFIRM_COLOR,
+      cancelButtonColor: CANCEL_COLOR,
+      confirmButtonText: "Yes, Add it!",
+    });
 
+    if (confirmation.isConfirmed) {
+      console.log("submitting form");
+
+      const isSuccessful = await setNewEvent(this);
+      console.log(isSuccessful);
+      if (isSuccessful.response === "Successful") {
+        // show the success message
+        Swal.fire("Success!", "Your event has been added.", "success");
+        // remove the form data
+        $("#crud-event-form")[0].reset();
+        $("#aboutImgPreview").attr("src", "");
+        // hide the form
+        toggleDisplay("#crud-event", "#event-record-list-section");
+        // refresh the list
+        refreshList();
+      } else {
+        Swal.fire("Cancelled", "Form submit cancelled.", "info");
+      }
+    }
+  });
+
+  // set new event
+  async function setNewEvent(form) {
     // get the form data
-    const formData = new FormData(this);
+    const formData = new FormData(form);
     // send the data to the server using fetch await
     const API_URL = "./event/addEvent.php";
     const response = await fetch(API_URL, {
       method: "POST",
       body: formData,
     });
-    const result = await response.json();
-    console.log(result);
-    if (result.response === "Successful") {
-      console.log("success");
-      // remove the form data
-      $("#crud-event-form")[0].reset();
-      // show the success message
-    } else {
-      console.log("failed");
-    }
-  });
+    return response.json();
+  }
 
   const API_URL = "./event/getEvent.php";
   let offset = 0;
   //   get the event details
-  const results = await getPartialEventDetails(0);
+  // const results = await getPartialEventDetails(0);
 
-  appendContent(results.result);
+  // appendContent(results.result);
+
+  refreshList();
+
+  // refresh the list
+  async function refreshList() {
+    //   get the event details
+    const results = await getPartialEventDetails(0);
+
+    $("#event-list").empty();
+    appendContent(results.result);
+  }
 
   //   get the event details
   async function getPartialEventDetails(offset) {

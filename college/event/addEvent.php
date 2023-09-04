@@ -82,15 +82,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Content-Type: application/json; charset=UTF-8");
     if ($result === TRUE) {
         //todo modify later to use ajax
-        // echo json_encode(
-        //     array(
-        //         'response' => 'Successful',
-        //         'message' => 'Event added successfully'
-        //     )
-        // );
+        echo json_encode(
+            array(
+                'response' => 'Successful',
+                'message' => 'Event added successfully'
+            )
+        );
 
         // redirect to event page
-        header("Location: ../event/event.php");
+        // header("Location: ../event/event.php");
     } else {
         echo json_encode(
             array(

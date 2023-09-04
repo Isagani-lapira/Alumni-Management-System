@@ -80,7 +80,7 @@ session_start();
             </h1>
         </div>
         <!-- Event Form -->
-        <form method="POST" enctype="multipart/form-data" id="crud-event-form">
+        <form action="javascript:void(0)" enctype="multipart/form-data" id="crud-event-form">
             <div class=" flex flex-row flex-wrap">
 
                 <div class=" left-section flex-1 space-y-4">
@@ -133,9 +133,9 @@ session_start();
                                 Heading Image
                             </label>
                             <!-- image block in order to display the image -->
-                            <div class="image-block">
-                                <img src="" alt="" id="aboutImgPreview" class="border
-                             border-gray-400 object-cover w-40 h-auto">
+                            <div class="image-block border border-gray-400 w-40 h-40">
+                                <img src="" alt="" id="aboutImgPreview" class="
+                              object-cover ">
                             </div>
                             <input required type="file" id="event-img" accept=".jpg" name="aboutImg">
                         </div>
