@@ -100,9 +100,11 @@ class Event
         try {
             // execute the query
             $stmt->execute();
-            // gets the myql_result. Similar result to mysqli_query
             $result = $stmt->get_result();
-            return mysqli_fetch_assoc($result);
+            $result = $result->fetch_assoc();
+            // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
+            $result['aboutImg'] = base64_encode($result['aboutImg']);
+            return $result;
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -145,6 +147,7 @@ class Event
             $json_result['response'] = 'Successful';
             // Gets every row in the query
             while ($record = mysqli_fetch_assoc($result)) {
+                // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
                 $record['aboutImg'] = base64_encode($record['aboutImg']);
                 $resultArray[] = $record;
             }

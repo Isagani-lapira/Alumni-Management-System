@@ -40,8 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     } else {
         // todo validate event id
         $results = $event->getEventById($eventID = $_GET['eventID'],  $colCode = $_SESSION['colCode']);
-
-        $results['aboutImg'] = base64_encode($results['aboutImg']);
         header("Content-Type: application/json; charset=UTF-8");
         echo json_encode($results);
     }
