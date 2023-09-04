@@ -59,13 +59,18 @@
             max-height: 400px; /* Adjust the max height as needed */
             overflow-y: auto;
         }
-        
 
+        ::-webkit-scrollbar {
+            width: 6px; /* Width of the scrollbar */
+        }
+
+        /* Track */
         ::-webkit-scrollbar-track {
         background: #f1f1f1;
         /* Grey background */
         }
 
+        /* Handle */
         ::-webkit-scrollbar-thumb {
         background: #991B1B;
         /* Red scrollbar handle */
@@ -114,7 +119,7 @@
             </div>
              
             <!-- Alumni Registration Form -->
-            <div class="registration-form registration-form-container pb-20 px-4 justify-center w-full md:w-7/12 lg:h-full overflow-y-auto" id="alumniForm">
+            <div class="registration-form registration-form-container pb-20 px-4 justify-center w-full md:w-7/12 lg:h-full  overflow-y-auto" id="alumniForm">
                 <!-- Alumni registration form fields - Page 1 -->
                 <form>
                     <!-- First Name and Last Name -->
