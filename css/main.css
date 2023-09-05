@@ -1439,6 +1439,14 @@ th,
   max-height: 100vh;
 }
 
+.max-h-64 {
+  max-height: 16rem;
+}
+
+.max-h-96 {
+  max-height: 24rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1587,6 +1595,10 @@ th,
   width: 1.5rem;
 }
 
+.w-6\/12 {
+  width: 50%;
+}
+
 .w-64 {
   width: 16rem;
 }
@@ -1638,18 +1650,6 @@ th,
 
 .w-screen {
   width: 100vw;
-}
-
-.w-6\/12 {
-  width: 50%;
-}
-
-.w-5\/12 {
-  width: 41.666667%;
-}
-
-.w-7\/12 {
-  width: 58.333333%;
 }
 
 .max-w-6xl {
@@ -2539,6 +2539,11 @@ th,
   padding-bottom: 3rem;
 }
 
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -2691,6 +2696,14 @@ th,
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pb-16 {
+  padding-bottom: 4rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
 }
 
 .text-left {
@@ -3420,6 +3433,10 @@ body {
     justify-content: center;
   }
 
+  .sm\:pb-32 {
+    padding-bottom: 8rem;
+  }
+
   .sm\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -3440,12 +3457,28 @@ body {
     margin-top: -5rem;
   }
 
+  .md\:mb-0 {
+    margin-bottom: 0px;
+  }
+
+  .md\:mb-4 {
+    margin-bottom: 1rem;
+  }
+
   .md\:ml-auto {
     margin-left: auto;
   }
 
+  .md\:mr-2 {
+    margin-right: 0.5rem;
+  }
+
   .md\:mt-0 {
     margin-top: 0px;
+  }
+
+  .md\:block {
+    display: block;
   }
 
   .md\:grid {
@@ -3460,6 +3493,10 @@ body {
     height: 14rem;
   }
 
+  .md\:h-60 {
+    height: 15rem;
+  }
+
   .md\:h-max {
     height: -moz-max-content;
     height: max-content;
@@ -3467,6 +3504,14 @@ body {
 
   .md\:max-h-64 {
     max-height: 16rem;
+  }
+
+  .md\:max-h-96 {
+    max-height: 24rem;
+  }
+
+  .md\:w-1\/2 {
+    width: 50%;
   }
 
   .md\:w-2\/6 {
@@ -3483,6 +3528,14 @@ body {
 
   .md\:w-5\/12 {
     width: 41.666667%;
+  }
+
+  .md\:w-7\/12 {
+    width: 58.333333%;
+  }
+
+  .md\:w-96 {
+    width: 24rem;
   }
 
   .md\:max-w-5xl {
@@ -3532,6 +3585,10 @@ body {
     padding-bottom: 0px;
   }
 
+  .md\:pb-32 {
+    padding-bottom: 8rem;
+  }
+
   .md\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
@@ -3556,6 +3613,10 @@ body {
 
   .lg\:flex {
     display: flex;
+  }
+
+  .lg\:h-full {
+    height: 100%;
   }
 
   .lg\:w-3\/4 {
