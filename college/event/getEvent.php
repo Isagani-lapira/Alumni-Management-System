@@ -65,7 +65,9 @@ function getDetail($result, $con)
     $eventPlace = $data['eventPlace'];
     $eventStartTime = $data['eventStartTime'];
     $aboutImg = $data['aboutImg'];
-    $aboutImg = $data['event_category'];
+    $category = $data['event_category'];
+    // Event ID for the event editing
+    $eventID = $data['eventID'];
     $images = array();
 
     //retrieve images for carousel
@@ -89,6 +91,7 @@ function getDetail($result, $con)
         "about_event" => $about_event,
         "contactLink" => $contactLink,
         "eventPlace" => $eventPlace,
+        "event_category" => $category,
         "eventStartTime" => $eventStartTime,
         "aboutImg" => base64_encode($aboutImg),
         "images" => $images,

@@ -36,44 +36,100 @@ $(document).ready(async function () {
   // Form
   $("#crud-event-form").on("submit", async function (e) {
     e.preventDefault();
-    const confirmation = await Swal.fire({
-      title: "Confirm?",
-      text: "Are you sure with the details?",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonColor: CONFIRM_COLOR,
-      cancelButtonColor: CANCEL_COLOR,
-      confirmButtonText: "Yes, Add it!",
-    });
 
-    if (confirmation.isConfirmed) {
-      console.log("submitting form");
+    // check if it will be edit or not
+    const isEdit = $("#postBtn").data("post-type") === "edit" ? true : false;
+    let api_url = "";
 
-      const isSuccessful = await setNewEvent(this);
-      console.log(isSuccessful);
-      if (isSuccessful.response === "Successful") {
-        // show the success message
-        Swal.fire("Success!", "Your event has been added.", "success");
-        // remove the form data
-        $("#crud-event-form")[0].reset();
-        $("#aboutImgPreview").attr("src", "");
-        // hide the form
-        toggleDisplay("#crud-event", "#event-record-list-section");
-        // refresh the list
-        refreshList();
-      } else {
-        Swal.fire("Cancelled", "Form submit cancelled.", "info");
+    if (isEdit) {
+      // will edit the event
+      api_url = "./event/editEvent.php";
+      const confirmation = await Swal.fire({
+        title: "Confirm?",
+        text: "Are you sure to edit event with these details?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: CONFIRM_COLOR,
+        cancelButtonColor: CANCEL_COLOR,
+        confirmButtonText: "Yes, Add it!",
+      });
+
+      if (confirmation.isConfirmed) {
+        console.log("submitting edit form");
+
+        const isSuccessful = await setEditEvent(this, api_url);
+        console.log(isSuccessful);
+        if (isSuccessful.response === "Successful") {
+          // show the success message
+          Swal.fire("Success!", "Your event has been edited.", "success");
+          // remove the form data
+          $("#crud-event-form")[0].reset();
+          $("#aboutImgPreview").attr("src", "");
+          // hide the form
+          toggleDisplay("#crud-event", "#event-record-list-section");
+          // refresh the list
+          refreshList();
+        } else {
+          Swal.fire("Cancelled", "Edit form cancelled.", "info");
+        }
+      }
+    } else {
+      // will add new event
+      api_url = "./event/addEvent.php";
+
+      const confirmation = await Swal.fire({
+        title: "Confirm?",
+        text: "Are you sure with the details?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: CONFIRM_COLOR,
+        cancelButtonColor: CANCEL_COLOR,
+        confirmButtonText: "Yes, Add it!",
+      });
+
+      if (confirmation.isConfirmed) {
+        console.log("submitting form");
+        const isSuccessful = await setNewEvent(this, api_url);
+        console.log(isSuccessful);
+        if (isSuccessful.response === "Successful") {
+          // show the success message
+          Swal.fire("Success!", "Your event has been added.", "success");
+          // remove the form data
+          $("#crud-event-form")[0].reset();
+          $("#aboutImgPreview").attr("src", "");
+          // hide the form
+          toggleDisplay("#crud-event", "#event-record-list-section");
+          // refresh the list
+          refreshList();
+        } else {
+          Swal.fire("Cancelled", "Form submit cancelled.", "info");
+        }
       }
     }
   });
 
   // set new event
-  async function setNewEvent(form) {
+  async function setNewEvent(form, url) {
     // get the form data
     const formData = new FormData(form);
     // send the data to the server using fetch await
-    const API_URL = "./event/addEvent.php";
-    const response = await fetch(API_URL, {
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+    return response.json();
+  }
+
+  // set edit event
+  async function setEditEvent(form, url) {
+    // get the form data
+    const formData = new FormData(form);
+    console.log(formData.get("eventID"));
+    console.log(formData);
+    // send the data to the server using fetch await
+
+    const response = await fetch(url, {
       method: "POST",
       body: formData,
     });
@@ -131,9 +187,12 @@ $(document).ready(async function () {
                     }" class="event-list-item border border-gray-400 rounded-lg p-2">
                     <!-- image -->
                     <div class="grid grid-cols-3 ">
-                        <img src="data:image/jpg;base64,${
-                          event.aboutImg
-                        }" alt="event image" class="w-32 object-cover" loading="lazy">
+                      
+                        <div class="img-container h-56 w-full p-4 rounded hover:scale-110">
+                          <img src="data:image/jpg;base64,${
+                            event.aboutImg
+                          }" alt="event image" class="  object-cover rounded  object-center max-w-full h-auto max-h-full w-full" loading="lazy">
+                        </div>
                         <div>
                             <h3 class="event-list-item__name font-bold text-lg text-gray-800 "> ${
                               event.eventName
@@ -240,10 +299,20 @@ $(document).ready(async function () {
 
   //  Handles button clicks
   $("#addNewEventBtn").on("click", function () {
+    $("#postBtn").data("post-type", "create");
     toggleDisplay("#event-record-list-section", "#crud-event");
+    $("#event-img").attr("required", true);
+    replaceFormForEdit("Add New Event", "");
   });
+
   $(".cancel").on("click", function () {
     toggleDisplay("#crud-event", "#event-record-list-section");
+    // remove the form data
+    $("#crud-event-form")[0].reset();
+    $("#aboutImgPreview").attr("src", "");
+    $("#postBtn").data("post-type", "");
+    $("#event-img").attr("required", true);
+    $("#eventID").val("");
   });
 
   // fetch the data from the database
@@ -260,30 +329,46 @@ $(document).ready(async function () {
     return response.json();
   }
 
-  // handles the click to show more details
-  function handlePreviewClick() {
-    const eventID = $(this).data("event-id");
-    console.log(eventID);
-    // get the event details
-    const eventDetails = getEventDetails(eventID);
-    console.log(eventDetails);
-    // replace the contents of the event.php with the event details
-    replaceContentWithEventDetail(eventDetails);
-  }
-
-  $(".event-list-item__name").on("click", handlePreviewClick);
-
   // Handlers for edit and archive button
   $("#event-list").on("click", ".event-list-item__edit-btn", async function () {
     const eventID = $(this).data("event-id");
+    $("#postBtn").data("post-type", "edit");
+    $("#postBtn").text("Edit Event");
+
     console.log(eventID);
     // get the event details
     const eventDetails = await getEventDetails(eventID);
     console.log(eventDetails);
+    // replace the contents of the form with the event details
+    replaceFormWithEventDetail(eventDetails, eventID);
+    toggleDisplay("#event-record-list-section", "#crud-event");
+    replaceFormForEdit(`Edit '${eventDetails.eventName}' Event`);
   });
 
+  function replaceFormWithEventDetail(eventDetails, eventID) {
+    console.log(eventDetails.event_category);
+    $("#eventName").val(eventDetails.eventName);
+    $("#headerPhrase").val(eventDetails.headerPhrase);
+    $("#category").val(eventDetails.event_category).prop("selected", true);
+    $("#eventDate").val(eventDetails.eventDate);
+    $("#contactLink").val(eventDetails.contactLink);
+    $("#eventStartTime").val(eventDetails.eventStartTime);
+    $("#eventEndTime").val(eventDetails.eventEndTime);
+    $("#eventPlace").val(eventDetails.eventPlace);
+    $("#about_event").val(eventDetails.about_event);
+    $("#aboutImgPreview").attr(
+      "src",
+      "data:image/jpg;base64," + eventDetails.aboutImg
+    );
+    $("#event-img").attr("required", false);
+    // change the eventID
+    $("#eventID").val(eventID);
+
+    // change the url when the form is submitted
+  }
+
   // replaces some of the content in the form for edit content
-  function replaceFormForEdit() {
-    $("#event-title").text("Edit Event");
+  function replaceFormForEdit(name) {
+    $("#event-title").text(name);
   }
 });

@@ -110,6 +110,78 @@ class Event
         }
     }
 
+    function setEditEvent($eventInformation, $colCode, $adminID): bool
+    {
+        var_dump($eventInformation);
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+        if (!isset($eventInformation['aboutImg'])) {
+            $stmt->prepare('UPDATE `event` SET  `eventName` = ?, `eventDate` = ?, 
+            `about_event` = ?, `contactLink` = ?,  `headerPhrase` = ?, `eventPlace` = ?, `eventStartTime` = ?, `event_category` = ?,
+            `colCode`  = ?, `adminID` = ?
+            WHERE `eventID` = ? 
+            ');
+
+            // bind the parameters
+            $stmt->bind_param(
+                'sssssssssss',
+                $eventInformation['eventName'],
+                $eventInformation['eventDate'],
+                $eventInformation['about_event'],
+                $eventInformation['contactLink'],
+                $eventInformation['headerPhrase'],
+                $eventInformation['eventPlace'],
+                $eventInformation['eventStartTime'],
+                $eventInformation['event_category'],
+                $colCode,
+                $adminID,
+                $eventInformation['eventID'],
+            );
+        } else {
+            $stmt->prepare('UPDATE `event` SET  `eventName` = ?, `eventDate` = ?, 
+            `about_event` = ?, `contactLink` = ?,  `headerPhrase` = ?, `eventPlace` = ?, `eventStartTime` = ?, `event_category` = ?,
+            `colCode`  = ?, `adminID` = ?, `aboutImg` = ? 
+            WHERE `eventID` = ? 
+            ');
+
+            // Blobed image. add_slashes() breaks the image when using prepared statement
+            $aboutImg = file_get_contents($eventInformation['aboutImg']);
+            // bind the parameters
+            $stmt->bind_param(
+                'ssssssssssss',
+                $eventInformation['eventName'],
+                $eventInformation['eventDate'],
+                $eventInformation['about_event'],
+                $eventInformation['contactLink'],
+                $eventInformation['headerPhrase'],
+                $eventInformation['eventPlace'],
+                $eventInformation['eventStartTime'],
+                $eventInformation['event_category'],
+                $colCode,
+                $adminID,
+                $aboutImg,
+                $eventInformation['eventID'],
+            );
+        }
+
+        // setup to return json data
+        try {
+            //code...
+            $status = $stmt->execute();
+            // check if the query is successful
+            if ($status === false) {
+                trigger_error($stmt->error, E_USER_ERROR);
+            }
+            return $stmt->affected_rows;
+            // execute the query
+        } catch (\Throwable $th) {
+            //throw $th;
+            echo  $th->getMessage();
+        }
+
+        // end
+    }
+
 
     function getNewPartialEventsByOffset(int $offset = 0, string $colCode): array
     {

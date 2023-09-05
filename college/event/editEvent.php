@@ -33,28 +33,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $eventPlace = $_POST['eventPlace'];
     $eventStartTime = $_POST['eventStartTime'];
     $event_category = $_POST['category'];
+    // Event ID for the event editing
+    $eventID = $_POST['eventID'];
+
+
+
     // image data
-    $aboutImg = $_FILES['aboutImg'];
+    $aboutImg = isset($_FILES['aboutImg']) ? $_FILES['aboutImg'] : null;
 
     // Create an instance of the Event class
     $event = new Event($mysql_con);
 
-    // Check if image file is larger than 2MB
-    if ($_FILES["aboutImg"]["size"] > 2000000) {
-        echo "Sorry, your file is too large. Make it 2mb or less";
+    $aboutImgTmpName = null;
+    if ($aboutImg === null) {
+        // Check if image file is larger than 2MB
+        if ($_FILES["aboutImg"]["size"] > 2000000) {
+            echo "Sorry, your file is too large. Make it 2mb or less";
+        }
+
+
+        // check if image file is jpg
+        $imageMimeType = $_FILES["aboutImg"]["type"];
+        if ($imageMimeType != "image/jpg" && $imageMimeType != "image/jpeg") {
+            echo "Sorry, only JPG files are allowed.";
+            die();
+        }
+        // Image data
+
+        $aboutImgTmpName = $_FILES['aboutImg']['tmp_name'];
     }
 
 
-    // check if image file is jpg
-    $imageMimeType = $_FILES["aboutImg"]["type"];
-    if ($imageMimeType != "image/jpg" && $imageMimeType != "image/jpeg") {
-        echo "Sorry, only JPG files are allowed.";
-        die();
-    }
-
-
-    // Image data
-    $aboutImgTmpName = $_FILES['aboutImg']['tmp_name'];
 
 
     // make array of event information
@@ -68,7 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'headerPhrase' => $headerPhrase,
         'eventPlace' => $eventPlace,
         'eventStartTime' => $eventStartTime,
-        'event_category' => $event_category
+        'event_category' => $event_category,
+        'eventID' => $eventID
     );
 
 
@@ -78,14 +88,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     // set new event
-    $result = $event->setNewEvent($eventInformation, $colCode, $adminID);
+    $result = $event->setEditEvent($eventInformation, $colCode, $adminID);
     header("Content-Type: application/json; charset=UTF-8");
     if ($result === TRUE) {
         //todo modify later to use ajax
         echo json_encode(
             array(
                 'response' => 'Successful',
-                'message' => 'Event added successfully'
+                'message' => 'Event updated successfully',
+                'eventID' => $eventID
             )
         );
 

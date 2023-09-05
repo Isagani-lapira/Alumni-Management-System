@@ -81,6 +81,7 @@ session_start();
         </div>
         <!-- Event Form -->
         <form action="javascript:void(0)" enctype="multipart/form-data" id="crud-event-form">
+            <input type="hidden" name="eventID" id="eventID">
             <div class=" flex flex-row flex-wrap">
 
                 <div class=" left-section flex-1 space-y-4">
@@ -101,8 +102,8 @@ session_start();
                             Category
                         </label>
                         <select name="category" id="category" class="p-2 px-4 bg-white text-gray-800 border rounded ">
-                            <option value="">Alumni</option>
-                            <option value="">All</option>
+                            <option value="col_event_alumni">Alumni</option>
+                            <option value="col_event">All</option>
                         </select>
                     </div>
                     <div class="input-container">
@@ -135,7 +136,7 @@ session_start();
                             <!-- image block in order to display the image -->
                             <div class="image-block border border-gray-400 w-40 h-40">
                                 <img src="" alt="" id="aboutImgPreview" class="
-                              object-cover ">
+                              object-cover  object-center max-w-full h-auto max-h-full w-full">
                             </div>
                             <input required type="file" id="event-img" accept=".jpg" name="aboutImg">
                         </div>
@@ -157,7 +158,7 @@ session_start();
                         <!-- Footer -->
                         <div class="modal-footer flex gap-4">
                             <button type="button" class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
-                            <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+                            <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent" data-post-type="create">Create Event</button>
                             <!-- <button class="btn-tertiary block" type="reset">Clear</button> -->
 
                         </div>
