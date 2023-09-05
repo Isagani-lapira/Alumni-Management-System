@@ -26,6 +26,13 @@ if (isset($_POST['action'])) {
         $formID = $_POST['formID'];
         $formTitle = $_POST['formName'];
         updateTitleForm($formID, $formTitle, $mysql_con);
+    } else if ($action == 'insertNewCategory') {
+        $categoryName = $_POST['categoryName'];
+        $formID = $_POST['formID'];
+        addNewCategory($categoryName, $formID, $mysql_con);
+    } else if ($action == "readQuestions") {
+        $formID = $_POST['formID'];
+        retrievedQuestions($formID, $mysql_con);
     }
 }
 
@@ -220,5 +227,104 @@ function updateTitleForm($formID, $formTitle, $con)
 
         if ($result) echo 'Success';
         else echo 'Unsucess';
+    }
+}
+
+function addNewCategory($categoryName, $formID, $con)
+{
+    $query = "INSERT INTO `question_category`(`categoryID`, `category_name`, 
+    `formID`,`status`) VALUES (?, ?, ?, ?)";
+
+    $stmt = mysqli_prepare($con, $query);
+
+    $response = "";
+    $categID = "";
+    if ($stmt) {
+        $categoryID = substr(md5(uniqid()), 0, 29);
+        $status = 'available';
+        $stmt->bind_param("ssss", $categoryID, $categoryName, $formID, $status);
+        $result = $stmt->execute();
+
+        if ($result) {
+            $response =  'Success';
+            $categID = $categoryID;
+        } else $response =  'Unsuccess';
+    }
+
+    $data = array(
+        "result" => $response,
+        "categoryID" => $categID
+    );
+
+    echo json_encode($data);
+}
+
+function retrievedQuestions($formID, $con)
+{
+    $queryCat = "SELECT `categoryID`,`category_name` FROM `question_category` 
+    WHERE `formID` = ? AND `status` = 'available'";
+    $stmtCat = mysqli_prepare($con, $queryCat);
+
+    if ($stmtCat) {
+        $stmtCat->bind_param('s', $formID);
+        $stmtCat->execute();
+        $result = $stmtCat->get_result();
+
+        $data = array();
+        while ($row = $result->fetch_assoc()) {
+            $categoryID = $row['categoryID'];
+            $categoryName =  $row['category_name'];
+
+            $questionSet = "SELECT `questionID`, `question_text`,`inputType`
+            FROM `tracer_question` WHERE `categoryID` = ? AND `formID`= ? AND `status` = 'available' ";
+
+            $stmtQuestion = mysqli_prepare($con, $questionSet);
+
+            $questions = array();
+            $choices = array();
+            if ($stmtQuestion) {
+                $stmtQuestion->bind_param('ss', $categoryID, $formID);
+                $stmtQuestion->execute();
+                $resultQuestion = $stmtQuestion->get_result();
+
+                while ($rowQuestion = $resultQuestion->fetch_assoc()) {
+                    $questionID = $rowQuestion['questionID'];
+
+                    $queryChoices = "SELECT `choiceID`,`questionID`,`choice_text` FROM `questionnaire_choice` 
+                    WHERE `status` = 'available' AND `questionID` = ?";
+
+                    $stmtChoices = mysqli_prepare($con, $queryChoices);
+
+                    if ($stmtChoices) {
+                        $stmtChoices->bind_param('s', $questionID);
+                        $stmtChoices->execute();
+                        $resultChoices = $stmtChoices->get_result();
+
+                        while ($rowChoices = $resultChoices->fetch_assoc()) {
+                            $choices[] = array(
+                                "choiceID" => $rowChoices['choiceID'],
+                                "questionID" => $rowChoices['questionID'],
+                                "choice_text" => $rowChoices['choice_text']
+                            );
+                        }
+                    }
+                    $questions[] = array(
+                        "questionID" => $rowQuestion['questionID'],
+                        "questionTxt" => $rowQuestion['question_text'],
+                        "inputType" => $rowQuestion['inputType'],
+                        "choices" => $choices
+                    );
+                }
+            }
+            $categorySet = array(
+                "categoryID" => $categoryID,
+                "categoryName" => $categoryName,
+                "questionSet" => $questions
+            );
+
+            $data[] = $categorySet;
+        }
+
+        echo json_encode($data);
     }
 }

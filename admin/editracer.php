@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/main.css" rel="stylesheet" />
     <link href="../style/style.css" rel="stylesheet" />
+    <link href="../style/tracer.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <link href="../style/style.css" rel="stylesheet" />
 
-    <title>Document</title>
+    <title>Edit Tracer</title>
 </head>
 
 <body>
@@ -28,26 +29,27 @@
             <span id="subBar" class="text-white bg-accent rounded-b-lg w-1/4 text-center py-3 text-lg font-bold">Question
                 Categorization</span>
         </section>
-        <p class="text-gray-500 italic text-center w-2/5 mx-auto">This section allows you to set a categorization for
+        <p id="noteCategory" class="text-gray-500 italic text-center w-2/5 mx-auto">This section allows you to set a categorization for
             different sets of question to be easily distinguish by the one answering</p>
 
-        <section id="questionnaire" class="w-2/5 block mx-auto my-5">
-
-            <div>
+        <section id="questionnaire" class="w-2/5 h-3/4 block mx-auto my-5">
+            <div class="h-full">
                 <div id="categoryContainer" class=" rounded-lg border-t-8 border-accent p-5 justify-between center-shadow">
                     <div id="categoryWrapper" class="flex flex-col gap-2"></div>
                     <button id="btnAddCat" class="text-white px-4 py-2 bg-blue-400 hover:bg-blue-500 my-3 rounded-md">Add
                         category</button>
                 </div>
+
+                <div id="questions" class="hidden h-full"></div>
+
+                <div id="paginationWrapper" class="flex justify-end my-3 gap-2">
+                    <button class="text-gray-500 hover:bg-gray-300 py-2 px-4 rounded-md">Cancel</button>
+                    <button id="nextpage" class="text-white bg-accent px-4 py-2 font-bold rounded-md hover:bg-darkAccent">Next</button>
+                </div>
+
             </div>
 
-            <div id="categorySection"></div>
-
         </section>
-        <footer id="paginationWrapper" class="w-2/5 flex justify-end mx-auto my-3 gap-2">
-            <button class="text-gray-500 hover:bg-gray-300 py-2 px-4 rounded-md">Cancel</button>
-            <button id="nextpage" class="text-white bg-accent px-4 py-2 font-bold rounded-md hover:bg-darkAccent">Next</button>
-        </footer>
 
     </main>
 

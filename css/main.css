@@ -1439,14 +1439,6 @@ th,
   max-height: 100vh;
 }
 
-.max-h-64 {
-  max-height: 16rem;
-}
-
-.max-h-96 {
-  max-height: 24rem;
-}
-
 .min-h-screen {
   min-height: 100vh;
 }
@@ -2589,6 +2581,10 @@ th,
   padding-bottom: 2rem;
 }
 
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -2696,14 +2692,6 @@ th,
 
 .pt-8 {
   padding-top: 2rem;
-}
-
-.pb-16 {
-  padding-bottom: 4rem;
-}
-
-.pb-10 {
-  padding-bottom: 2.5rem;
 }
 
 .text-left {
@@ -3433,10 +3421,6 @@ body {
     justify-content: center;
   }
 
-  .sm\:pb-32 {
-    padding-bottom: 8rem;
-  }
-
   .sm\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -3583,10 +3567,6 @@ body {
 
   .md\:pb-0 {
     padding-bottom: 0px;
-  }
-
-  .md\:pb-32 {
-    padding-bottom: 8rem;
   }
 
   .md\:text-base {
