@@ -112,7 +112,6 @@ class Event
 
     function setEditEvent($eventInformation, $colCode, $adminID): bool
     {
-        var_dump($eventInformation);
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
         if (!isset($eventInformation['aboutImg'])) {
@@ -167,6 +166,41 @@ class Event
         // setup to return json data
         try {
             //code...
+            $status = $stmt->execute();
+            // check if the query is successful
+            if ($status === false) {
+                trigger_error($stmt->error, E_USER_ERROR);
+            }
+            return $stmt->affected_rows;
+            // execute the query
+        } catch (\Throwable $th) {
+            //throw $th;
+            echo  $th->getMessage();
+        }
+
+        // end
+    }
+
+    // Delete an event entry
+    function deleteEventByID($eventInformation, $colCode): bool
+    {
+        // Initialize the statement
+
+        $stmt = $this->conn->stmt_init();
+
+        $stmt->prepare(
+            ' DELETE FROM event WHERE eventID = ? AND colCode  = ? ; '
+        );
+
+        // bind the parameters
+        $stmt->bind_param(
+            'ss',
+            $eventInformation['eventID'],
+            $colCode,
+
+        );
+
+        try {
             $status = $stmt->execute();
             // check if the query is successful
             if ($status === false) {

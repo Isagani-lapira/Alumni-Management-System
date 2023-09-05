@@ -6,24 +6,6 @@ $(document).ready(async function () {
   let offset = 0;
   refreshList();
 
-  // Handles the individual event detail
-
-  // make a dummy data first, then make a function that will get the data from the database
-  const dummyData = {
-    eventName: "Event Name",
-    eventDate: "2021-05-20",
-    eventStartTime: "12:00",
-    eventEndTime: "13:00",
-    eventLocation: "Event Location",
-    eventDescription: "Event Description",
-    eventImg: "https://picsum.photos/200/300",
-    eventHeaderPhrase: "Event Header Phrase",
-    eventAboutImg: "https://picsum.photos/200/300",
-    eventAbout: "Event About",
-    eventAboutHeader: "Event About Header",
-    eventAboutSubHeader: "Event About Sub Header",
-  };
-
   // Set the image preview
 
   $("#event-img").on("change", function () {
@@ -214,8 +196,12 @@ $(document).ready(async function () {
                             <div class="">
                             <button class="btn-tertiary event-list-item__edit-btn" data-event-id="${
                               event.eventID
-                            }">Edit Details</button>
-                            <i class="fa-solid fa-ellipsis fa-xl"></i>
+                            }">Edit</button>
+                            <button class="btn-tertiary border-red-400  event-list-item__delete-btn" data-event-id="${
+                              event.eventID
+                            }" data-event-name="${
+        event.eventName
+      }">Delete</button>
                         </div>
                         </div>
                   
@@ -224,6 +210,8 @@ $(document).ready(async function () {
                 </li>
             `);
     });
+    // <i class="fa-solid fa-ellipsis fa-xl"></i>
+    //
   }
 
   //   event handlers
@@ -328,6 +316,18 @@ $(document).ready(async function () {
 
     return response.json();
   }
+  // deletes the event entry to the database
+  async function deleteEventFromDB(id) {
+    const API_URL = "./event/deleteEvent.php" + "?eventID=" + id;
+
+    // send the data to the server using fetch await
+    const response = await fetch(url, {
+      headers: {
+        method: "DELETE",
+      },
+    });
+    return response.json();
+  }
 
   // Handlers for edit and archive button
   $("#event-list").on("click", ".event-list-item__edit-btn", async function () {
@@ -371,4 +371,52 @@ $(document).ready(async function () {
   function replaceFormForEdit(name) {
     $("#event-title").text(name);
   }
+
+  //   handles the delete button
+  $("#event-list").on(
+    "click",
+    ".event-list-item__delete-btn",
+    async function () {
+      // get the name of the event
+      const eventName = $(this).data("event-name");
+      console.log(eventName);
+      const confirmation = await Swal.fire({
+        title: "Confirm?",
+        text: `Are you sure to delete '${eventName}' event?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: CONFIRM_COLOR,
+        cancelButtonColor: CANCEL_COLOR,
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (confirmation.isConfirmed) {
+        const eventID = $(this).data("event-id");
+        console.log(eventID);
+        const formData = new FormData();
+        formData.append("eventID", eventID);
+
+        // send the data to the server using fetch await
+        const response = await fetch("./event/deleteEvent.php", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.response === "Successful") {
+          await Swal.fire(
+            "Deleted!",
+            "Your event has been deleted.",
+            "success"
+          );
+          // refresh the list
+          offset = 0;
+          refreshList();
+        }
+      } else {
+        Swal.fire("Cancelled", "Delete cancelled.", "info");
+      }
+    }
+  );
 });
