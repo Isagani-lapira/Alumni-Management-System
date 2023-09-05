@@ -11,6 +11,21 @@ if (isset($_POST['action'])) {
         $data = $_POST['data'];
         $datajson = json_decode($data, true);
         insertDataTracer($datajson, $mysql_con);
+    } else if ($action == 'retrievedCategory') {
+        $formID = $_POST['formID'];
+        retrieveCategory($formID, $mysql_con);
+    } else if ($action == 'updateCategory') {
+        $catStatus = $_POST['categoryStatus'];
+        $catID = $_POST['categoryID'];
+        updateCategoryStatus($catStatus, $catID, $mysql_con);
+    } else if ($action == 'updateCategoryName') {
+        $categoryName = $_POST['categoryName'];
+        $categoryID = $_POST['categoryID'];
+        updateCategoryName($categoryID, $categoryName, $mysql_con);
+    } else if ($action == 'updateTitleForm') {
+        $formID = $_POST['formID'];
+        $formTitle = $_POST['formName'];
+        updateTitleForm($formID, $formTitle, $mysql_con);
     }
 }
 
@@ -18,14 +33,15 @@ if (isset($_POST['action'])) {
 function insertDataTracer($datajson, $con)
 {
     $formTitle = $datajson['title'];
-    $query = "INSERT INTO `tracer_form`(`formID`, `formName`, `year_created`) VALUES (?,?,?)"; //query for insertion
+    $query = "INSERT INTO `tracer_form`(`formID`, `formName`, `year_created`,`status`) VALUES (?,?,?,?)"; //query for insertion
     $stmt = mysqli_prepare($con, $query);
 
     $formID = substr(md5(uniqid()), 0, 29);
     if ($stmt) {
         $year = date('Y-m-d');
+        $status = 'available';
         //bind data
-        $stmt->bind_param('sss', $formID, $formTitle, $year);
+        $stmt->bind_param('ssss', $formID, $formTitle, $year, $status);
         $result = $stmt->execute();
 
         if ($result) {
@@ -54,12 +70,13 @@ function insertDataTracer($datajson, $con)
 function insertCategory($count, $data, $categoryName, $formID, $con)
 {
     $query = "INSERT INTO `question_category`(`categoryID`, `category_name`, 
-    `formID`) VALUES (?, ?, ?)";
+    `formID`,`status`) VALUES (?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($con, $query);
     if ($stmt) {
         $categoryID = substr(md5(uniqid()), 0, 29);
-        $stmt->bind_param("sss", $categoryID, $categoryName, $formID);
+        $status = 'available';
+        $stmt->bind_param("ssss", $categoryID, $categoryName, $formID, $status);
         $result = $stmt->execute();
 
         if ($result) {
@@ -68,10 +85,9 @@ function insertCategory($count, $data, $categoryName, $formID, $con)
                 $question = $questionData['Question'];
                 $inputType = $questionData['InputType'];
                 $choices = $questionData['choices'];
-                // $choices = implode(', ', $questionData['choices']); // Convert choices array to a string if needed
 
                 $result = insertQuestion($categoryID, $question, $inputType, $formID, $choices, $con);
-                if (!$result) return false; // Uncomment this line if you want to handle question insertion failures
+                if (!$result) return false;
             }
 
             return true;
@@ -82,13 +98,14 @@ function insertCategory($count, $data, $categoryName, $formID, $con)
 function insertQuestion($categoryID, $question, $inputType, $formID, $choices, $con)
 {
     $query = "INSERT INTO `tracer_question`(`questionID`, `categoryID`, `formID`, 
-    `question_text`, `inputType`) VALUES (?,?,?,?,?)";
+    `question_text`, `inputType`,`status`) VALUES (?,?,?,?,?,?)";
 
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt) {
         $questionID = substr(md5(uniqid()), 0, 29);
-        $stmt->bind_param('sssss', $questionID, $categoryID, $formID, $question, $inputType);
+        $status = 'available';
+        $stmt->bind_param('ssssss', $questionID, $categoryID, $formID, $question, $inputType, $status);
         $result = $stmt->execute();
 
         if ($result) {
@@ -103,15 +120,105 @@ function insertQuestion($categoryID, $question, $inputType, $formID, $choices, $
 
 function insertChoices($questionID, $choiceText, $con)
 {
-    $query = "INSERT INTO `questionnaire_choice`(`choiceID`, `questionID`, `choice_text`) VALUES (?,?,?)";
+    $query = "INSERT INTO `questionnaire_choice`(`choiceID`, `questionID`, `choice_text`,`status`) VALUES (?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt) {
         $choiceID = substr(md5(uniqid()), 0, 29);
-        $stmt->bind_param('sss', $choiceID, $questionID, $choiceText);
+        $status = "available";
+        $stmt->bind_param('ssss', $choiceID, $questionID, $choiceText, $status);
         $result = $stmt->execute();
 
         if ($result) return true;
         else return false;
+    }
+}
+
+
+function retrieveCategory($tracerID, $con)
+{
+    $queryCategory = "SELECT `categoryID`,`category_name` FROM `question_category` WHERE `formID` = ? AND `status` = 'available'";
+    $stmt = mysqli_prepare($con, $queryCategory);
+
+    $result = "Unsuccess";
+    $categoryID = array();
+    $categoryName = array();
+    $tracerTitle = "";
+    if ($stmt) {
+
+        $stmt->bind_param('s', $tracerID);
+        $stmt->execute();
+        $stmt->bind_result($catID, $catName);
+
+        while ($stmt->fetch()) {
+            $result = "Success";
+            $categoryID[] = $catID;
+            $categoryName[] = $catName;
+        }
+
+        $tracerTitle = getFormTitle($tracerID, $con);
+        // Close the statement
+        $stmt->close();
+    }
+
+    $data = array(
+        "result" => $result,
+        "tracerTitle" => $tracerTitle,
+        "categoryID" => $categoryID,
+        "categoryName" => $categoryName
+    );
+
+    echo json_encode($data);
+}
+
+function getFormTitle($formID, $con)
+{
+    $query = "SELECT `formName` FROM `tracer_form` WHERE `formID` = '$formID'";
+    $result = mysqli_query($con, $query);
+
+    if ($result) {
+        $tracerTitle = mysqli_fetch_assoc($result);
+        return $tracerTitle['formName'];
+    }
+}
+function updateCategoryStatus($catStatus, $categoryID, $con)
+{
+    $query = "UPDATE `question_category` SET `status`=? WHERE `categoryID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $stmt->bind_param('ss', $catStatus, $categoryID); //bind data
+        $result = $stmt->execute();
+
+        if ($result) echo 'Success'; //succesfully update
+        else echo 'Unsuccess';
+    }
+}
+
+function updateCategoryName($categoryID, $categoryName, $con)
+{
+    $query = "UPDATE `question_category` SET `category_name`= ? WHERE `categoryID` = ?";
+    $stmt =  mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $stmt->bind_param('ss', $categoryName, $categoryID);
+        $result = $stmt->execute();
+
+        if ($result) echo 'Success';
+        else echo 'Unsuccess';
+    }
+}
+
+function updateTitleForm($formID, $formTitle, $con)
+{
+    $query = "UPDATE `tracer_form` SET `formName`= ? WHERE `formID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $stmt->bind_param('ss', $formTitle, $formID);
+        $result = $stmt->execute();
+
+        if ($result) echo 'Success';
+        else echo 'Unsucess';
     }
 }
