@@ -98,6 +98,9 @@ function getAccDetails($con, $personID)
   <link href="../css/main.css" rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+
+  <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
   <title>BulSU Connect</title>
 </head>
 
@@ -113,8 +116,7 @@ function getAccDetails($con, $personID)
       <div class="Navbar fixed top-0 left-0 right-0 z-30">
         <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
           <a href="homepage.php" class="col-span-1 flex items-center">
-            <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
-            <span class="ml-2 text-xl font-bold">BulSU Connect</span>
+            <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class=" w-32 h-16" />
           </a>
 
           <div class="col-span-3 md:col-span-1 flex items-center justify-center mt-4 md:mt-0">

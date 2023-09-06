@@ -144,8 +144,7 @@ function dateInText($date)
     <nav class=" z-50 w-full fixed top-0 grid grid-cols-3 gap-4 p-3 bg-white text-black shadow-lg">
         <!-- Logo -->
         <a href="homepage.php" class="col-span-1 flex items-center">
-            <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
-            <span class="ml-2 text-xl font-bold text-gray-800">BulSU Connect</span>
+            <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class=" w-32 h-16" />
         </a>
 
         <!-- Search Bar -->
