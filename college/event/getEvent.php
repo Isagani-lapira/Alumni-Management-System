@@ -28,13 +28,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $event = new Event($mysql_con);
 
 
+
+
+
+
     if (isset($_GET['partial']) &&   $_GET['partial'] === 'true') {
         // get the offset from the url
         $offset = $_GET['offset'];
+
+        $category = $_GET['category'];
+
+        if ($category === 'all') {
+            $category = null;
+        }
+
         //convert to int
         $offset = (int) $offset;
 
-        $results = $event->getNewPartialEventsByOffset($offset, $_SESSION['colCode']);
+        $results = $event->getNewPartialEventsByOffset($offset,  $_SESSION['colCode'], $category,);
         header("Content-Type: application/json; charset=UTF-8");
         echo json_encode($results);
     } else {

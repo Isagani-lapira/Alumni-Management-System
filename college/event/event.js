@@ -119,18 +119,20 @@ $(document).ready(async function () {
   }
 
   // refresh the list
-  async function refreshList() {
+  async function refreshList(category = "all") {
     //   get the event details
-    const results = await getPartialEventDetails(0);
+    const results = await getPartialEventDetails(0, category);
 
     $("#event-list").empty();
     appendContent(results.result);
   }
 
   //   get the event details
-  async function getPartialEventDetails(offset) {
+  async function getPartialEventDetails(offset, category = "all") {
+    console.log(category);
+
     const response = await fetch(
-      API_URL + "?offset=" + offset + "&partial=true",
+      API_URL + "?offset=" + offset + "&partial=true" + "&category=" + category,
       {
         headers: {
           method: "GET",
@@ -434,7 +436,7 @@ $(document).ready(async function () {
     $("#preview-category").text(
       eventDetails.event_category === "col_event"
         ? "College Event"
-        : "University Event"
+        : "Alumni Event"
     );
     $("#preview-eventDate").text(eventDetails.eventDate);
     $("#preview-contactLink").text(eventDetails.contactLink);
@@ -455,4 +457,28 @@ $(document).ready(async function () {
   $("#return-event-btn").on("click", function () {
     toggleDisplay("#preview-event", "#event-record-list-section");
   });
+
+  // Category filter
+  $("#filterByCategory").on("change", async function () {
+    const category = $(this).val();
+    console.log(category);
+    offset = 0;
+    refreshList(category);
+  });
+
+  // // handles the total posts
+  // TODO configure later
+  // async function getTotalPosts() {
+  //   const response = await fetch(API_URL + "?total=true", {
+  //     headers: {
+  //       method: "GET",
+  //       "Content-Type": "application/json",
+  //       cache: "no-cache",
+  //     },
+  //   });
+
+  //   const result = await response.json();
+
+  //   return result;
+  // }
 });

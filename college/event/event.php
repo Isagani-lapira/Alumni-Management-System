@@ -3,19 +3,14 @@ session_start();
 ?>
 <section class="container mx-auto px-8" id="events-page">
 
-
-
-    <!-- Refactor to use list -->
-    <section id="event-record-list-section" class="transition-all hidden">
+    <section id="event-record-list-section" class="transition-all ">
         <h1 class="text-2xl font-bold">Events</h1>
-
-
 
         <div class="flex flex-wrap justify-between my-4 items-center">
             <div>
                 <h2>Total Posts</h2>
 
-                <p class="text-5xl">
+                <p class="text-5xl" id="totalPosts">
                     <?php
                     require '../php/connection.php';
                     require '../model/Event.php';
@@ -25,13 +20,22 @@ session_start();
                     ?>
                 </p>
             </div>
+
             <button id="addNewEventBtn" class="btn-primary ">Add New Event</button>
         </div>
 
 
 
-        <section class=".mx-12 2xl:mx-auto md:max-w-6xl shadow-lg  rounded-lg overflow-clip  border ">
-            <ul class="list-none border space-y-4  " id="event-list">
+        <section class=".mx-12 2xl:mx-auto md:max-w-6xl   rounded-lg overflow-clip space-y-4  ">
+            <div class="input-container">
+                <label for="filterByCategory" class="block">Filter:</label>
+                <select name="filterByCategory" id="filterByCategory" class="py-2 px-4 border bg-zinc-100     rounded">
+                    <option value="all">All</option>
+                    <option value="col_event">College Event</option>
+                    <option value="col_event_alumni">Alumni Event</option>
+                </select>
+            </div>
+            <ul class="list-none  space-y-4 shadow-lg " id="event-list">
                 <!-- Dummy data -->
                 <!-- <li class="border border-gray-500 rounded-lg p-2 ">
                      <div class="grid grid-cols-3   ">
@@ -179,7 +183,7 @@ session_start();
 
 
 <!-- Preview Event -->
-<section id="preview-event" class=" block transition-all">
+<section id="preview-event" class=" hidden transition-all">
     <div class="header py-5">
         <h1 class=" text-2xl tex-left font-bold modal-title">
             Event > <span id="event-title" class="text-accent">Preview Event</span>

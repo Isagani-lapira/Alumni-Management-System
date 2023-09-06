@@ -217,20 +217,31 @@ class Event
     }
 
 
-    function getNewPartialEventsByOffset(int $offset = 0, string $colCode): array
+    function getNewPartialEventsByOffset(int $offset = 0, string $colCode, string|null $category): array
     {
-
-
-        // Initialize the statement
-        $stmt = $this->conn->prepare('SELECT eventID, eventName, eventDate, 
+        // fetch all events regardless of category  
+        if ($category === null) {
+            // Initialize the statement
+            $stmt = $this->conn->prepare('SELECT eventID, eventName, eventDate, 
         date_posted, aboutImg, headerPhrase, eventStartTime,about_event
             FROM `event`
-              WHERE `colCode` = ?
+              WHERE `colCode` = ? 
               LIMIT  5  OFFSET  ? 
               ');
+            $stmt->bind_param('si', $colCode, $offset);
+        } else {
+            // Initialize the statement
+            $stmt = $this->conn->prepare('SELECT eventID, eventName, eventDate, 
+        date_posted, aboutImg, headerPhrase, eventStartTime,about_event
+            FROM `event`
+              WHERE `colCode` = ? AND `event_category` = ?
+              LIMIT  5  OFFSET  ? 
+              ');
+            $stmt->bind_param('ssi', $colCode, $category, $offset);
+        }
 
 
-        $stmt->bind_param('si', $colCode, $offset);
+
 
 
         try {
