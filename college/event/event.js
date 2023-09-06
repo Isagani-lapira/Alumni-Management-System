@@ -168,44 +168,36 @@ $(document).ready(async function () {
 
                     <li  data-event-id="${
                       event.eventID
-                    }" class="event-list-item border border-gray-400 rounded-lg p-2">
-                    <!-- image -->
-                    <div class="grid grid-cols-3 ">
+                    }" class="event-list-item shadow-md border border-gray-200  rounded-lg">
+                    <div class="grid grid-cols-2">
                       
-                        <div class="img-container h-56 w-full p-4 rounded hover:scale-110">
+                        <div class="img-container h-60 w-full rounded-sm hover:scale-90 transition-all cursor-pointer">
                           <img src="data:image/jpg;base64,${
                             event.aboutImg
-                          }" alt="event image" class="  object-cover rounded  object-center max-w-full h-auto max-h-full w-full" loading="lazy">
+                          }" alt="event image" class="object-cover rounded-sm  object-center max-w-full h-auto max-h-full w-full" loading="lazy">
                         </div>
-                        <div>
-                            <h3 class="event-list-item__name font-bold text-lg text-gray-800 "> ${
-                              event.eventName
-                            }</h3>
-                            <p class="font-normal  text-gray-400">${
-                              event.headerPhrase
-                            }</p>
-                            <p class="text-gray-400 text-sm ">${limit(
-                              event.about_event,
-                              60
-                            )}</p>
-                        </div>
-                        <div>
-                            <p class="text-sm  uppercase tracking-wider text-gray-800 opacity-50 ">Event Date and Time</p>
-                            <p class="font-medium text-lg text-gray-800">${parsedEventDateTime}</p>
-                            <p class="text-sm  uppercase tracking-wider text-gray-800 opacity-50 ">Date Posted</p>
-                            <p class=" font-medium text-lg text-gray-800">${parsedDatePosted}</p>
+                        <div class="flex justify-between flex-col  p-2 pl-4 ">
+                            <div>
+                              <h3 class="event-list-item__name font-bold text-xl text-gray-800 cursor-pointer  "> ${
+                                event.eventName
+                              }</h3>
+                              <p class=" text-slate-500">${parsedDatePosted}</p>
+                              <!-- <p class="font-medium text-lg text-gray-800">${parsedEventDateTime}</p> -->
+                              <p class=" ">${limit(event.about_event, 60)}</p>
+                            </div>
                             
-                            <div class="">
+                            <div class="text-end">
                             <button class="btn-tertiary event-list-item__edit-btn" data-event-id="${
                               event.eventID
                             }">Edit</button>
-                            <button class="btn-tertiary border-red-400  event-list-item__delete-btn" data-event-id="${
+                            <button class="btn-tertiary bg-transparent border-none  event-list-item__delete-btn" data-event-id="${
                               event.eventID
                             }" data-event-name="${
         event.eventName
       }">Delete</button>
                         </div>
                         </div>
+     
                   
                     </div>
     
@@ -438,16 +430,23 @@ $(document).ready(async function () {
         ? "College Event"
         : "Alumni Event"
     );
-    $("#preview-eventDate").text(eventDetails.eventDate);
     $("#preview-contactLink").text(eventDetails.contactLink);
-    $("#preview-eventStartTime").text(eventDetails.eventStartTime);
     $("#preview-eventPlace").text(eventDetails.eventPlace);
     $("#preview-about_event").text(eventDetails.about_event);
     $("#preview-aboutImg").attr(
       "src",
       "data:image/jpg;base64," + eventDetails.aboutImg
     );
-    $("#preview-datePosted").text(eventDetails.datePosted);
+    const parsedDatePosted = moment(eventDetails.date_posted).format(
+      "MMMM Do YYYY"
+    );
+    const parsedEventDateTime = moment(
+      eventDetails.eventDate + " " + eventDetails.eventStartTime
+    ).format("MMMM Do YYYY [|] h:mm a");
+    $("#preview-eventDate").text(parsedEventDateTime);
+    $("#preview-datePosted").text(
+      moment(eventDetails.date_posted).format("MMMM Do YYYY")
+    );
     // toggle the view with preview event details
 
     toggleDisplay("#event-record-list-section", "#preview-event");

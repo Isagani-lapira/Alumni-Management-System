@@ -26,6 +26,7 @@ session_start();
 
 
 
+
         <section class=".mx-12 2xl:mx-auto md:max-w-6xl   rounded-lg overflow-clip space-y-4  ">
             <div class="input-container">
                 <label for="filterByCategory" class="block">Filter:</label>
@@ -35,28 +36,32 @@ session_start();
                     <option value="col_event_alumni">Alumni Event</option>
                 </select>
             </div>
+
             <ul class="list-none  space-y-4 shadow-lg " id="event-list">
+
                 <!-- Dummy data -->
                 <!-- <li class="border border-gray-500 rounded-lg p-2 ">
-                     <div class="grid grid-cols-3   ">
-                        <img src="https://picsum.photos/200" alt="event image" class="w-48 object-cover">
+                    <div class="grid grid-cols-2   ">
+                        <img src="https://picsum.photos/400" alt="event image" class="w-48 object-cover">
                         <div>
                             <h3 class="font-bold text-lg text-gray-800 ">Upcoming Alumni Festival</h3>
-                            <p class="font-normal  text-gray-400">Event Header</p>
-                            <p class="text-gray-400 text-sm ">lorem ipsum...</p>
-                        </div>
-                        <div>
-                            <p class="text-sm  uppercase tracking-wider text-gray-800 opacity-50 ">Event Date and Time</p>
-                            <p class="font-medium text-lg text-gray-800">August 10 2023 | 9 PM</p>
-                            <p class="text-sm  uppercase tracking-wider text-gray-800 opacity-50 ">Date Posted</p>
-                            <p class=" font-medium text-lg text-gray-800">August 10 2023</p>
+                            <div class="text-slate-500">
+                                <p class=" ">August 10 2023</p>
+
+                            </div>
+                            <p class=" ">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ratione consectetur totam minima provident, maiores repellendus facere hic minus illum illo doloribus...
+                            </p>
                             <div class="">
                                 <button class="btn-tertiary">Edit Details</button>
                                 <i class="fa-solid fa-ellipsis fa-xl"></i>
                             </div>
+
                         </div>
+
                     </div>
                 </li> -->
+
             </ul>
             <div class="py-4 px-2 flex justify-end">
                 <!-- Pagination -->
@@ -176,91 +181,83 @@ session_start();
     </section>
     <!-- End CRUD Event Section -->
 
-
-</section>
-
-
-
-
-<!-- Preview Event -->
-<section id="preview-event" class=" hidden transition-all">
-    <div class="header py-5">
-        <h1 class=" text-2xl tex-left font-bold modal-title">
-            Event > <span id="event-title" class="text-accent">Preview Event</span>
-        </h1>
-    </div>
-    <div class=" flex flex-row flex-wrap">
-
-        <div class=" left-section flex-1 space-y-4">
-            <span id="preview-eventName"> </span>
-            <div class="input-container">
-                <span class="font-medium ">Date Posted: </span>
-
-                <span id="preview-eventPosted"></span>
-            </div>
-            <div class="input-container">
-                <span>Date Date</span>
-                <p>
-                    <span id="preview-eventStartTime"> </span>
-                    |
-                    <span id="preview-eventDate"></span>
-                </p>
-            </div>
-            <div class="input-container">
-
-                <span id="preview-headerPhrase" name="headerPhrase"></span>
-            </div>
-            <div class="input-container">
-
-                <span>Category</span>
-                <span id="preview-category"></span>
-
-            </div>
-            <div class="input-container">
-                <span>Contact Link</span>
-
-                <span id="preview-contactLink">
-            </div>
-            <div class="input-container">
-                <span>Venue: </span>
-
-                <span id="preview-eventPlace"></span>
-            </div>
-            <div class="input-container">
-                <span>Description:</span>
-
-                <p id="preview-about_event"></p>
-            </div>
+    <!-- Preview Event -->
+    <section id="preview-event" class="p-4 hidden transition-all">
+        <div class="header py-5">
+            <h1 class=" text-2xl tex-left font-bold modal-title">
+                Event > <span id="event-title" class="text-accent">Preview Event</span>
+            </h1>
         </div>
+        <div class=" flex flex-row flex-wrap">
 
+            <div class=" left-section flex-1 space-y-4 ">
+                <span id="preview-eventName" class="font-bold text-2xl "> </span>
 
-        <div class="right-section flex-1 flex justify-between flex-col  ">
-            <div class="up space-y-4">
-                <div class="input-container">
-
-                    <span>Image Header</span>
-
-                    <div class="image-block border border-gray-400 w-40 h-40">
-                        <img src="" alt="" id="preview-aboutImg" class="
-                              object-cover  object-center max-w-full h-auto max-h-full w-full">
+                <div class="mb-12">
+                    <div class="input-container">
+                        <span class="font-medium ">Date Posted: </span>
+                        <span id="preview-datePosted"></span>
+                    </div>
+                    <div class="input-container ">
+                        <span class="font-medium ">Category: </span>
+                        <span id="preview-category" class="text-blue-500"></span>
                     </div>
                 </div>
 
 
-            </div>
-            <div class="down">
-                <!-- Footer -->
-                <div class="modal-footer flex gap-4">
-                    <button id="return-event-btn" type="button" class=" py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Return</button>
+                <div class="input-container">
+                    <span class="font-medium ">Event Date</span>
+                    <p>
+                        <span id="preview-eventDate"></span>
+                    </p>
+                </div>
+                <div class="input-container">
+                    <p class="block font-medium">Header Phrase:</p>
+                    <span id="preview-headerPhrase" name="headerPhrase"></span>
+                </div>
 
+                <div class="input-container">
+                    <p class="font-medium  ">Contact Link</p>
+
+                    <span id="preview-contactLink">
+                </div>
+                <div class="input-container">
+                    <p class="font-medium block ">Venue: </p>
+
+                    <span id="preview-eventPlace"></span>
+                </div>
+                <div class="input-container">
+                    <span class="font-medium ">Description:</span>
+
+                    <p id="preview-about_event"></p>
                 </div>
             </div>
+
+
+            <div class="right-section flex-1   ">
+                <div class="image-block border border-gray-400  h-auto max-h-20 max-w-xs">
+                    <img src="" alt="" id="preview-aboutImg" class="
+                              object-contain  object-center max-w-full h-auto max-h-full ">
+                </div>
+
+            </div>
+
+
         </div>
-    </div>
+        <div class="modal-footer flex gap-4 justify-end px-8">
+            <button id="return-event-btn" type="button" class=" py-2 rounded px-5 btn-primary">Return</button>
+
+        </div>
 
 
+
+    </section>
 
 </section>
+
+
+
+
 
 <!-- END Preview Event -->
 
