@@ -6,7 +6,7 @@ session_start();
 
 
     <!-- Refactor to use list -->
-    <section id="event-record-list-section" class="transition-all">
+    <section id="event-record-list-section" class="transition-all hidden">
         <h1 class="text-2xl font-bold">Events</h1>
 
 
@@ -30,7 +30,7 @@ session_start();
 
 
 
-        <section class=".mx-12 2xl:mx-auto md:max-w-6xl shadow-lg  rounded-lg overflow-clip  border">
+        <section class=".mx-12 2xl:mx-auto md:max-w-6xl shadow-lg  rounded-lg overflow-clip  border ">
             <ul class="list-none border space-y-4  " id="event-list">
                 <!-- Dummy data -->
                 <!-- <li class="border border-gray-500 rounded-lg p-2 ">
@@ -178,19 +178,87 @@ session_start();
 
 
 
-<!-- Edit Event -->
-<!-- TODO make the section floating from the main events and refresh the event after the event is updated. -->
-<section id="section-edit-event" class="hidden">
+<!-- Preview Event -->
+<section id="preview-event" class=" block transition-all">
+    <div class="header py-5">
+        <h1 class=" text-2xl tex-left font-bold modal-title">
+            Event > <span id="event-title" class="text-accent">Preview Event</span>
+        </h1>
+    </div>
+    <div class=" flex flex-row flex-wrap">
 
-    <h2>Events > Edit <span id="edit-event-title"></span></h2>
+        <div class=" left-section flex-1 space-y-4">
+            <span id="preview-eventName"> </span>
+            <div class="input-container">
+                <span class="font-medium ">Date Posted: </span>
 
-    <form action="">
-        <label for="title">Title: </label>
-    </form>
+                <span id="preview-eventPosted"></span>
+            </div>
+            <div class="input-container">
+                <span>Date Date</span>
+                <p>
+                    <span id="preview-eventStartTime"> </span>
+                    |
+                    <span id="preview-eventDate"></span>
+                </p>
+            </div>
+            <div class="input-container">
+
+                <span id="preview-headerPhrase" name="headerPhrase"></span>
+            </div>
+            <div class="input-container">
+
+                <span>Category</span>
+                <span id="preview-category"></span>
+
+            </div>
+            <div class="input-container">
+                <span>Contact Link</span>
+
+                <span id="preview-contactLink">
+            </div>
+            <div class="input-container">
+                <span>Venue: </span>
+
+                <span id="preview-eventPlace"></span>
+            </div>
+            <div class="input-container">
+                <span>Description:</span>
+
+                <p id="preview-about_event"></p>
+            </div>
+        </div>
+
+
+        <div class="right-section flex-1 flex justify-between flex-col  ">
+            <div class="up space-y-4">
+                <div class="input-container">
+
+                    <span>Image Header</span>
+
+                    <div class="image-block border border-gray-400 w-40 h-40">
+                        <img src="" alt="" id="preview-aboutImg" class="
+                              object-cover  object-center max-w-full h-auto max-h-full w-full">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="down">
+                <!-- Footer -->
+                <div class="modal-footer flex gap-4">
+                    <button id="return-event-btn" type="button" class=" py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Return</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 </section>
 
-<!-- End Edit Event -->
+<!-- END Preview Event -->
 
 <script>
     $(document).ready(function() {

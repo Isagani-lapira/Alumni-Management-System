@@ -316,7 +316,9 @@ $(document).ready(async function () {
 
     return response.json();
   }
+
   // deletes the event entry to the database
+  // TODO no read yet
   async function deleteEventFromDB(id) {
     const API_URL = "./event/deleteEvent.php" + "?eventID=" + id;
 
@@ -419,4 +421,38 @@ $(document).ready(async function () {
       }
     }
   );
+
+  // handles the preview clicks
+  $("#event-list").on("click", ".img-container", async function () {
+    const eventID = $(this).closest("li").data("event-id");
+    console.log(eventID);
+    const eventDetails = await getEventDetails(eventID);
+    console.log(eventDetails);
+    // replace the contents of the form with the event details
+    $("#preview-eventName").text(eventDetails.eventName);
+    $("#preview-headerPhrase").text(eventDetails.headerPhrase);
+    $("#preview-category").text(
+      eventDetails.event_category === "col_event"
+        ? "College Event"
+        : "University Event"
+    );
+    $("#preview-eventDate").text(eventDetails.eventDate);
+    $("#preview-contactLink").text(eventDetails.contactLink);
+    $("#preview-eventStartTime").text(eventDetails.eventStartTime);
+    $("#preview-eventPlace").text(eventDetails.eventPlace);
+    $("#preview-about_event").text(eventDetails.about_event);
+    $("#preview-aboutImg").attr(
+      "src",
+      "data:image/jpg;base64," + eventDetails.aboutImg
+    );
+    $("#preview-datePosted").text(eventDetails.datePosted);
+    // toggle the view with preview event details
+
+    toggleDisplay("#event-record-list-section", "#preview-event");
+  });
+
+  // handles the return button
+  $("#return-event-btn").on("click", function () {
+    toggleDisplay("#preview-event", "#event-record-list-section");
+  });
 });
