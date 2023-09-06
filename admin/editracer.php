@@ -40,7 +40,7 @@
                         category</button>
                 </div>
 
-                <div id="questions" class="hidden h-full"></div>
+                <div id="questions" class="hidden h-full overflow-y-auto no-scrollbar"></div>
 
                 <div id="paginationWrapper" class="flex justify-end my-3 gap-2">
                     <button class="text-gray-500 hover:bg-gray-300 py-2 px-4 rounded-md">Cancel</button>

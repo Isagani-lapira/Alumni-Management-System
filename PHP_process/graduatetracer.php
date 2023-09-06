@@ -264,6 +264,7 @@ function retrievedQuestions($formID, $con)
     $queryCat = "SELECT `categoryID`,`category_name` FROM `question_category` 
     WHERE `formID` = ? AND `status` = 'available'";
     $stmtCat = mysqli_prepare($con, $queryCat);
+    $response = "Unsuccess";
 
     if ($stmtCat) {
         $stmtCat->bind_param('s', $formID);
@@ -272,6 +273,7 @@ function retrievedQuestions($formID, $con)
 
         $data = array();
         while ($row = $result->fetch_assoc()) {
+            $response = "Success";
             $categoryID = $row['categoryID'];
             $categoryName =  $row['category_name'];
 
@@ -314,6 +316,7 @@ function retrievedQuestions($formID, $con)
                         "inputType" => $rowQuestion['inputType'],
                         "choices" => $choices
                     );
+                    $choices = array();
                 }
             }
             $categorySet = array(
@@ -325,6 +328,11 @@ function retrievedQuestions($formID, $con)
             $data[] = $categorySet;
         }
 
-        echo json_encode($data);
+        $questionSet = array(
+            "response" => $response,
+            "dataSet" => $data,
+        );
+
+        echo json_encode($questionSet);
     }
 }

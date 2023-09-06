@@ -220,9 +220,77 @@ $(document).ready(function () {
             data: formData,
             contentType: false,
             processData: false,
-            success: response => { console.log(response) },
+            dataType: 'json',
+            success: response => {
+                if (response.response == 'Success') {
+                    response.dataSet.forEach(element => {
+                        const categoryID = element.categoryID;
+                        const categoryName = element.categoryName
+                        const questionSets = element.questionSet;
+
+                        displayQuestion(categoryID, categoryName, questionSets)
+                    })
+                }
+            },
             error: error => { console.log(error) }
         })
+    }
+
+    function displayQuestion(categoryID, categoryName, questionSets) {
+        const categoryWrapper = $('<div>')
+            .addClass('center-shadow rounded-lg w-full mb-6 p-1')
+
+        const headerCategory = $('<header>')
+            .addClass('w-full text-center py-5 font-bold text-lg text-white bg-darkAccent rounded-t-lg')
+            .text(categoryName)
+
+        const bodyCategory = $('<div>')
+            .addClass('p-3 flex flex-col gap-2 center-shadow')
+
+        //get all the question for every category they belong
+        questionSets.forEach(questionData => {
+            const questionID = questionData.questionID
+            const questionTxt = questionData.questionTxt
+            const questionType = questionData.inputType
+            const choices = questionData.choices
+
+            const questionName = $('<input>')
+                .addClass('text-center font-bold center-shadow py-2 w-full bg-accent text-white rounded-t-md')
+                .val(questionTxt)
+
+            const questionBody = $('<div>')
+                .addClass('flex flex-col gap-2 center-shadow p-3 rounded-b-lg')
+
+            //get all the available choices for every questions
+            choices.forEach(choice => {
+                const choiceID = choice.choiceID
+                const choice_text = choice.choice_text
+                const choicequestionID = choice.questionID
+
+                const inputField = $('<input>')
+                    .addClass('border-b border-gray-400 py-2 px-2 outline-none w-full categoryField text-gray-500')
+                    .val(choice_text)
+                const removeBtn = $('<span>')
+                    .html('<iconify-icon icon="ant-design:close-outlined" style="color: #626262;" width="20" height="20"></iconify-icon>')
+
+
+                const wrapper = $('<div>')
+                    .addClass('flex items-center justify-between mb-2')
+                    .append(inputField, removeBtn)
+
+                questionBody.append(wrapper)
+
+            })
+
+            const questionWrapper = $('<div>')
+                .append(questionName, questionBody)
+
+            bodyCategory.append(questionWrapper)
+        })
+
+        //display on root container
+        categoryWrapper.append(headerCategory, bodyCategory)
+        $('#questions').append(categoryWrapper)
     }
 })
 
