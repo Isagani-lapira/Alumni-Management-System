@@ -6,7 +6,7 @@
         <button class="btn-tertiary">
             Export List
         </button>
-        <button class="btn-primary">
+        <button class="btn-primary" id="addAlumniBtn">
             Add Alumni
         </button>
     </div>
@@ -220,9 +220,52 @@
         </tbody>
     </table>
     <!-- End Record Table -->
+
+
+    <!-- Modal for adding new email -->
+    <!-- modal add email message -->
+    <div id="modalAlumni" class="bg-gray-800 bg-opacity-80 fixed inset-0 h-full w-full flex items-center justify-center 
+      text-grayish  top-0 left-0 ">
+        <form id="add-alumni-month-form" class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
+            <div class="w-full h-full">
+                <div class="modal-header py-5">
+                    <h1 class="text-accent text-2xl text-center font-bold">Add New Alumni</h1>
+                </div>
+                <div class="modal-body px-3 h-1/2">
+
+
+
+                    <div class="relative">
+                        <div id="individualEmail" class="flex border border-gray-400 w-full rounded-md p-1 hidden">
+                            <img class="inline" src="../images/search-icon.png" alt="">
+                            <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Search email!">
+                        </div>
+                        <p id="userNotExist" class="text-sm italic text-accent hidden">User not exist</p>
+                        <div id="suggestionContainer" class="absolute p-2 w-full rounded-md z-10"></div>
+                    </div>
+
+                    <p class="font-semibold text-sm mt-2">Name</p>
+                    <input class="focus:outline-none w-full border border-gray-400 rounded-md py-2 px-1" type="text" name="emailSubj" id="emailSubj" placeholder="Introduce something great!">
+
+
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer flex items-end flex-row-reverse px-3 mt-2">
+                    <button type="submit" id="sendEmail" class="bg-accent h-full py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
+                    <button type="button" class="cancelModal py-2 rounded px-5  hover:bg-slate-400 hover:text-white">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
 </section>
 
 <script>
     // Date picker
     $('#aoydaterange').daterangepicker();
+
+    // get the script for alumni.js
+    $.getScript("./alumni-of-the-month/alumni.js");
 </script>
