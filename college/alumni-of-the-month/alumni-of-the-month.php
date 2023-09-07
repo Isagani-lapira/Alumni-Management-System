@@ -2,20 +2,25 @@
     <h1 class="font-bold text-2xl">Alumni of the Month</h1>
     <p class="text-gray-400 font-bold text-sm">Make post for alumni of the month</p>
 
-    <button class="block bg-accent py-1 px-3 text-white ml-auto rounded-md">
-        Export List
-    </button>
+    <div class="flex flex-wrap justify-end gap-4">
+        <button class="btn-tertiary">
+            Export List
+        </button>
+        <button class="btn-primary">
+            Add Alumni
+        </button>
+    </div>
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
     <!-- Filter  -->
     <div class="flex flex-wrap gap-4">
 
         <div class="relative rounded">
             <i class="fa-solid fa-magnifying-glass absolute top-3 left-3"></i>
-            <input class="pl-8" type="text" name="" id="aomSearch" placeholder="Search name">
+            <input class="pl-8 py-2 px-4 rounded border border-zinc-500" type="text" name="" id="aomSearch" placeholder="Search name">
         </div>
 
         <!-- Sex -->
-        <select name="" id="" class="rounded">
+        <select name="sex-option" id="" class="rounded border bg-transparent px-2 border-zinc-500">
             <option value="">All</option>
             <option value="">Male</option>
             <option value="">Female</option>
@@ -24,14 +29,18 @@
 
         <!-- range -->
         <div class="relative">
-            <input class="pr-8 rounded" type="text" name="aoydaterange" id="aoydaterange" value="01/01/2018 - 01/15/2018">
-            <label class="absolute top-3 right-3" for="aoydaterange">
+            <input class="pr-8 rounded px-4 py-2
+            border  border-zinc-500
+            
+            " type="text" name="aoydaterange" id="aoydaterange" value="01/01/2018 - 01/15/2018">
+            <label class="absolute top-2 right-3" for="aoydaterange">
                 <i class="fa-solid fa-calendar"></i>
             </label>
         </div>
 
         <!-- batch -->
-        <select name="batch rounded" id="aomBatch" class=" p-1 w-64">
+        <select name="batch" id="aomBatch" class="p-1 w-64 rounded px-4 py-2 bg-transparent
+            border  border-zinc-500">
             <option value="" selected="" disabled="" hidden="">Batch</option>
             <option value="">2023</option>
         </select>
