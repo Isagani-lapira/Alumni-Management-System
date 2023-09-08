@@ -1,4 +1,5 @@
 
+
 $(document).ready(function () {
 
     retrieveCategory() //get the category
@@ -91,9 +92,8 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: response => {
-                    if (response == "Success") {
-                        container.remove() //remove the field of the removed item
-                    }
+                    if (response == "Success") container.remove() //remove the field of the removed item
+
                 },
                 error: error => { console.log(error) }
             })
@@ -254,12 +254,49 @@ $(document).ready(function () {
             const questionType = questionData.inputType
             const choices = questionData.choices
 
+            const questionWrapper = $('<div>')
+                .addClass('relative')
+
             const questionName = $('<input>')
                 .addClass('text-center font-bold center-shadow py-2 w-full bg-accent text-white rounded-t-md')
                 .val(questionTxt)
 
+            const choiceInput = $('<option>')
+                .attr('value', "Input")
+                .text('Input type')
+            const choiceRadio = $('<option>')
+                .attr('value', "Radio")
+                .text('Radio type')
+            const choiceDropDown = $('<option>')
+                .attr('value', "DropDown")
+                .text('DropDown type')
+            const choiceCheckbox = $('<option>')
+                .attr('value', "Checkbox")
+                .text('Checkbox type')
+
+            // Set the selected option based on questionType
+            if (questionType === 'Input') {
+                choiceInput.prop('selected', true);
+            } else if (questionType === 'Radio') {
+                choiceRadio.prop('selected', true);
+            } else if (questionType === 'DropDown') {
+                choiceDropDown.prop('selected', true);
+            } else if (questionType === 'Checkbox') {
+                choiceCheckbox.prop('selected', true);
+            }
+
+            //drop down selection of input type
+            const questionTypeDropDown = $('<select>')
+                .addClass('p-2 w-full text-gray-500 outline-none')
+                .append(choiceInput, choiceRadio, choiceDropDown, choiceCheckbox)
+                .on('change', function () {
+                    const newInputType = $(this).val();
+                    changeInputType(newInputType, questionID, questionBody)
+                })
+
             const questionBody = $('<div>')
                 .addClass('flex flex-col gap-2 center-shadow p-3 rounded-b-lg')
+                .append(questionTypeDropDown)
 
             //get all the available choices for every questions
             choices.forEach(choice => {
@@ -267,23 +304,55 @@ $(document).ready(function () {
                 const choice_text = choice.choice_text
                 const choicequestionID = choice.questionID
 
+                const wrapper = $('<div>')
+                    .addClass('flex items-center justify-between mb-2 wrapperChoices')
+
+                //mark up for input field with remove button
                 const inputField = $('<input>')
                     .addClass('border-b border-gray-400 py-2 px-2 outline-none w-full categoryField text-gray-500')
                     .val(choice_text)
+                    .on('change', function () {
+                        displaySavedChanges()
+                        const newTextVal = $(this).val()
+                        changeOption(choiceID, newTextVal)
+                    })
+
                 const removeBtn = $('<span>')
                     .html('<iconify-icon icon="ant-design:close-outlined" style="color: #626262;" width="20" height="20"></iconify-icon>')
+                    .on('click', function () {
+                        displaySavedChanges()
+                        removeChoice(choiceID, wrapper)
+                    })
 
 
-                const wrapper = $('<div>')
-                    .addClass('flex items-center justify-between mb-2')
-                    .append(inputField, removeBtn)
 
-                questionBody.append(wrapper)
+                wrapper.append(inputField, removeBtn)
+
+                if (questionType != "Input")
+                    questionBody.append(wrapper)
 
             })
 
-            const questionWrapper = $('<div>')
-                .append(questionName, questionBody)
+            const removeQuestion = $('<iconify-icon icon="octicon:trash-24" class="p-2 rounded-md center-shadow h-max remove-question absolute top-0 right-0" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+                .on("click", function () {
+                    //change the status of the question to archived
+                    displaySavedChanges()
+                    removeQuestions(questionID, questionWrapper)
+                })
+            // Add a animation
+            removeQuestion.hover(
+                function () {
+                    // Mouse over
+                    $(this).css('color', 'white');
+                },
+                function () {
+                    // Mouse out
+                    $(this).css('color', '#afafaf');
+                }
+            );
+
+
+            questionWrapper.append(questionName, questionBody, removeQuestion)
 
             bodyCategory.append(questionWrapper)
         })
@@ -292,5 +361,86 @@ $(document).ready(function () {
         categoryWrapper.append(headerCategory, bodyCategory)
         $('#questions').append(categoryWrapper)
     }
+
+    function removeChoice(choiceID, wrapper) {
+        const action = "removeChoice";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('choiceID', choiceID);
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response == "Success") wrapper.remove() // remove the button
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function changeOption(choiceID, choiceText) {
+        const action = "changeChoiceText";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('choiceText', choiceText)
+        formData.append('choiceID', choiceID)
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+        })
+    }
+
+    function removeQuestions(questionID, container) {
+        const action = "removeQuestion";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('questionID', questionID);
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                if (response == 'Success') {
+                    //remove the display of the question
+                    container.remove()
+                }
+            }
+        })
+    }
+
+    function changeInputType(inputType, questionID, container) {
+        const action = "changeTypeOfInput"
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('inputType', inputType);
+        formData.append('questionID', questionID);
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                if (response == 'Success') {
+                    if (inputType == "Input") {
+                        $(container).find('.wrapperChoices').addClass('hidden')
+                    }
+                    else $(container).find('.wrapperChoices').removeClass('hidden')
+                }
+            }
+        })
+    }
+
 })
 

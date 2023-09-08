@@ -4,7 +4,6 @@ require_once 'connection.php';
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
-
     //perform necessary action
     if ($action == 'insertionForm') {
         //creating new graduate tracer form
@@ -33,6 +32,20 @@ if (isset($_POST['action'])) {
     } else if ($action == "readQuestions") {
         $formID = $_POST['formID'];
         retrievedQuestions($formID, $mysql_con);
+    } else if ($action == 'removeChoice') {
+        $choiceID = $_POST['choiceID'];
+        removeChoice($choiceID, $mysql_con);
+    } else if ($action == 'changeChoiceText') {
+        $choiceText = $_POST['choiceText'];
+        $choiceID = $_POST['choiceID'];
+        changeChoicetext($choiceText, $choiceID, $mysql_con);
+    } else if ($action == "removeQuestion") {
+        $questionID = $_POST['questionID'];
+        removeQuestion($questionID, $mysql_con);
+    } else if ($action == 'changeTypeOfInput') {
+        $inputType = $_POST['inputType'];
+        $questionID = $_POST['questionID'];
+        changeInputType($inputType, $questionID, $mysql_con);
     }
 }
 
@@ -334,5 +347,63 @@ function retrievedQuestions($formID, $con)
         );
 
         echo json_encode($questionSet);
+    }
+}
+
+
+function removeChoice($choiceID, $con)
+{
+    $query = "UPDATE `questionnaire_choice` SET `status`= 'archived' WHERE `choiceID`= ? ";
+    $stmt = mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $stmt->bind_param('s', $choiceID);
+        $result = $stmt->execute();
+
+        if ($result) echo 'Success';
+        else echo 'Unsuccess';
+    }
+}
+
+
+function changeChoicetext($choiceText, $choiceID, $con)
+{
+    $query = "UPDATE `questionnaire_choice` SET `choice_text`= ? WHERE `choiceID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $stmt->bind_param('ss', $choiceText, $choiceID);
+        $result = $stmt->execute();
+
+        if ($result) echo 'Success';
+        else echo 'Unsuccess';
+    }
+}
+
+function removeQuestion($questionID, $con)
+{
+    $query = "UPDATE `tracer_question` SET `status`='archived' WHERE `questionID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $stmt->bind_param('s', $questionID);
+        $result = $stmt->execute();
+
+        if ($result) echo 'Success';
+        else echo 'Unsuccess';
+    }
+}
+
+function changeInputType($inputType, $questionID, $con)
+{
+    $query = "UPDATE `tracer_question` SET `inputType`= ? WHERE `questionID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $stmt->bind_param('ss', $inputType, $questionID);
+        $result = $stmt->execute();
+
+        if ($result) echo 'Success';
+        else echo 'Unsuccess';
     }
 }
