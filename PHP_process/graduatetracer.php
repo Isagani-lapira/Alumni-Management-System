@@ -70,9 +70,11 @@ function insertDataTracer($datajson, $con)
             $dataArr = $datajson['data'];
             $checker = false;
             $count = 0;
+            $sequence = 1;
             foreach ($categoryCollection as $category) {
-                $categoryInsertion = insertCategory($count, $dataArr, $category, $formID, $con);
+                $categoryInsertion = insertCategory($count, $dataArr, $category, $formID, $sequence, $con);
                 $count++;
+                $sequence++;
                 if ($categoryInsertion) $checker = true;
                 else {
                     $checker = false;
@@ -87,16 +89,16 @@ function insertDataTracer($datajson, $con)
     }
 }
 
-function insertCategory($count, $data, $categoryName, $formID, $con)
+function insertCategory($count, $data, $categoryName, $formID, $sequence, $con)
 {
     $query = "INSERT INTO `question_category`(`categoryID`, `category_name`, 
-    `formID`,`status`) VALUES (?, ?, ?, ?)";
+    `formID`,`status`,`sequence`) VALUES (?, ?, ?, ?,?)";
 
     $stmt = mysqli_prepare($con, $query);
     if ($stmt) {
         $categoryID = substr(md5(uniqid()), 0, 29);
         $status = 'available';
-        $stmt->bind_param("ssss", $categoryID, $categoryName, $formID, $status);
+        $stmt->bind_param("sssss", $categoryID, $categoryName, $formID, $status, $sequence);
         $result = $stmt->execute();
 
         if ($result) {
@@ -157,7 +159,7 @@ function insertChoices($questionID, $choiceText, $con)
 
 function retrieveCategory($tracerID, $con)
 {
-    $queryCategory = "SELECT `categoryID`,`category_name` FROM `question_category` WHERE `formID` = ? AND `status` = 'available'";
+    $queryCategory = "SELECT `categoryID`,`category_name` FROM `question_category` WHERE `formID` = ? AND `status` = 'available' ORDER by `sequence` ASC";
     $stmt = mysqli_prepare($con, $queryCategory);
 
     $result = "Unsuccess";
@@ -275,7 +277,7 @@ function addNewCategory($categoryName, $formID, $con)
 function retrievedQuestions($formID, $con)
 {
     $queryCat = "SELECT `categoryID`,`category_name` FROM `question_category` 
-    WHERE `formID` = ? AND `status` = 'available'";
+    WHERE `formID` = ? AND `status` = 'available' ORDER by `sequence` ASC";
     $stmtCat = mysqli_prepare($con, $queryCat);
     $response = "Unsuccess";
 

@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     retrieveCategory() //get the category
     function retrieveCategory() {
-        const formID = "78b1f3dc4af9cef8b6841e8cd0200"; //to be replaced
+        const formID = "6569811a8d7bea55f82e729acb229"; //to be replaced
         const action = "retrievedCategory";
         const formData = new FormData();
         formData.append('action', action);

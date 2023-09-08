@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/main.css" rel="stylesheet" />
     <link href="../style/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../style/tracer.css">
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <link href="../style/style.css" rel="stylesheet" />
 
@@ -27,7 +28,7 @@
         <p class="text-gray-500 italic text-center w-2/5 mx-auto">This section allows you to set a categorization for
             different sets of question to be easily distinguish by the one answering</p>
 
-        <section id="questionnaire" class="w-2/5 block mx-auto my-5">
+        <section id="questionnaire" class="w-2/5 block mx-auto mt-5">
 
             <div>
                 <div id="categoryContainer" class=" rounded-lg border-t-8 border-accent p-5 justify-between center-shadow">
@@ -41,15 +42,16 @@
                     <button id="btnAddCat" class="text-white px-4 py-2 bg-blue-400 hover:bg-blue-500 my-3 rounded-md">Add
                         category</button>
                 </div>
+
+                <footer id="paginationWrapper" class="w-full flex justify-end my-2 gap-2">
+                    <button class="text-gray-500 hover:bg-gray-300 py-2 px-4 rounded-md">Cancel</button>
+                    <button id="nextpage" class="text-white bg-accent px-4 py-2 font-bold rounded-md hover:bg-darkAccent">Next</button>
+                </footer>
             </div>
 
-            <div id="categorySection"></div>
+            <div id="categorySection" class=""></div>
 
         </section>
-        <footer id="paginationWrapper" class="w-2/5 flex justify-end mx-auto my-3 gap-2">
-            <button class="text-gray-500 hover:bg-gray-300 py-2 px-4 rounded-md">Cancel</button>
-            <button id="nextpage" class="text-white bg-accent px-4 py-2 font-bold rounded-md hover:bg-darkAccent">Next</button>
-        </footer>
 
     </main>
 
