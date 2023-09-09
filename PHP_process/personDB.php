@@ -126,4 +126,56 @@ class personDB
         if ($result) echo 'success';
         else echo 'error';
     }
+
+    public function searchPerson($personName, $con)
+    {
+        $query = "SELECT
+        p.`personID`,
+        CONCAT(p.`fname`, ' ', p.`lname`) AS 'Fullname',
+        `profilepicture`,
+        CASE
+            WHEN a.`personID` IS NOT NULL THEN 'Alumni'
+            WHEN s.`personID` IS NOT NULL THEN 'Student'
+        END AS 'Status'
+        FROM `person` p
+        LEFT JOIN `alumni` a ON p.`personID` = a.`personID`
+        LEFT JOIN `student` s ON p.`personID` = s.`personID`
+        WHERE (a.`personID` IS NOT NULL OR s.`personID` IS NOT NULL)
+        AND CONCAT(`fname`, ' ', `lname`) LIKE CONCAT('%', ?, '%')";
+
+
+        $stmt = mysqli_prepare($con, $query);
+
+        $response = "Unsuccess";
+        $personID = array();
+        $fullname = array();
+        $profilePic = array();
+        $status = array();
+
+        if ($stmt) {
+            $stmt->bind_param('s', $personName);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $response = "Success";
+
+            // fetch all the names retrieve
+            while ($row = $result->fetch_assoc()) {
+                $personID[] = $row['personID'];
+                $fullname[] = $row['Fullname'];
+                $status[] = $row['Status'];
+                $profilePic[] = base64_encode($row['profilepicture']);
+            }
+        }
+
+        $data = array(
+            "response" => $response,
+            "personID" => $personID,
+            "profilePic" => $profilePic,
+            "fullname" => $fullname,
+            "status" => $status,
+        );
+
+        echo json_encode($data);
+    }
 }

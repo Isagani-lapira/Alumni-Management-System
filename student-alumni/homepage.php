@@ -111,7 +111,7 @@ function getAccDetails($con, $personID)
     echo '<p id="colCode" class="hidden">' . $colCode . '</p>';
     echo '<p id="accUsername" class="hidden">' . $username . '</p>'
     ?>
-    <div id="tabs" class="h-screen overflow-y-scroll hide-scrollbar">
+    <div id="tabs" class="h-screen overflow-y-scroll hide-scrollbar relative">
       <!-- Navbar -->
       <div class="Navbar fixed top-0 left-0 right-0 z-30">
         <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
@@ -119,11 +119,12 @@ function getAccDetails($con, $personID)
             <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class=" w-32 h-16" />
           </a>
 
-          <div class="col-span-3 md:col-span-1 flex items-center justify-center mt-4 md:mt-0">
+          <div class="col-span-3 md:col-span-1 flex items-center justify-center mt-4 md:mt-0 relative">
             <div class="relative w-full">
-              <input type="text" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-black border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none" />
+              <input type="text" id="searchUser" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-black border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none" />
               <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
             </div>
+            <div id="searchProfile" class="absolute top-16 bg-white rounded-b-lg p-3 z-50 w-full hidden"></div>
           </div>
 
           <div class="col-span-2 md:col-span-1 flex items-center justify-end">
@@ -1069,6 +1070,7 @@ function getAccDetails($con, $personID)
   <script src="../student-alumni/js/jobposting.js"></script>
   <script src="../student-alumni/js/notification.js"></script>
   <script src="../student-alumni/js/post.js"></script>
+  <script src="../student-alumni/js/searchProfile.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>

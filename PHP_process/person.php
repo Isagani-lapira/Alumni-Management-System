@@ -30,6 +30,10 @@ if (isset($_POST['action'])) {
             $query = $actionArray['dataUpdate'];
             $personObj->updateInfo($personID, $query, $val, $mysql_con);
             break;
+        case 'searchPerson':
+            $personName = $_POST['personName'];
+            $personObj->searchPerson($personName, $mysql_con);
+            break;
     }
 } else echo 'ayaw pumasok';
 
