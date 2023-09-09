@@ -53,6 +53,7 @@
 
     </main>
 
+    <span id="promptMsgSection" class=" block mx-auto slide-bottom fixed top-0 px-4 py-2 z-50 bg-green-400 hidden text-white rounded-sm font-bold">Section successfully created!</span>
     <!-- success prompt -->
     <div id="successModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
         <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">

@@ -46,6 +46,9 @@ if (isset($_POST['action'])) {
         $inputType = $_POST['inputType'];
         $questionID = $_POST['questionID'];
         changeInputType($inputType, $questionID, $mysql_con);
+    } else if ($action == 'addSectionData') {
+        $sectionData = json_decode($_POST['sectionData'], true);
+        insertSection($sectionData, $mysql_con);
     }
 }
 
@@ -108,7 +111,8 @@ function insertCategory($count, $data, $categoryName, $formID, $sequence, $con)
                 $inputType = $questionData['InputType'];
                 $choices = $questionData['choices'];
 
-                $result = insertQuestion($categoryID, $question, $inputType, $formID, $choices, $con);
+                $questionID = substr(md5(uniqid()), 0, 29);
+                $result = insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $con);
                 if (!$result) return false;
             }
 
@@ -117,7 +121,7 @@ function insertCategory($count, $data, $categoryName, $formID, $sequence, $con)
     }
 }
 
-function insertQuestion($categoryID, $question, $inputType, $formID, $choices, $con)
+function insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $con, $isSectionQuestion = 0)
 {
     $query = "INSERT INTO `tracer_question`(`questionID`, `categoryID`, `formID`, 
     `question_text`, `inputType`,`status`) VALUES (?,?,?,?,?,?)";
@@ -125,7 +129,6 @@ function insertQuestion($categoryID, $question, $inputType, $formID, $choices, $
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt) {
-        $questionID = substr(md5(uniqid()), 0, 29);
         $status = 'available';
         $stmt->bind_param('ssssss', $questionID, $categoryID, $formID, $question, $inputType, $status);
         $result = $stmt->execute();
@@ -133,22 +136,22 @@ function insertQuestion($categoryID, $question, $inputType, $formID, $choices, $
         if ($result) {
             //insert choices
             foreach ($choices as $choice) {
-                insertChoices($questionID, $choice, $con);
+                insertChoices($questionID, $choice, $isSectionQuestion, $con);
             }
             return true;
         } else return false;
     }
 }
 
-function insertChoices($questionID, $choiceText, $con)
+function insertChoices($questionID, $choiceText, $isSectionQuestion, $con)
 {
-    $query = "INSERT INTO `questionnaire_choice`(`choiceID`, `questionID`, `choice_text`,`status`) VALUES (?,?,?,?)";
+    $query = "INSERT INTO `questionnaire_choice`(`choiceID`, `questionID`, `choice_text`,`status`,`sectionQuestion`) VALUES (?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt) {
         $choiceID = substr(md5(uniqid()), 0, 29);
         $status = "available";
-        $stmt->bind_param('ssss', $choiceID, $questionID, $choiceText, $status);
+        $stmt->bind_param('ssssd', $choiceID, $questionID, $choiceText, $status, $isSectionQuestion);
         $result = $stmt->execute();
 
         if ($result) return true;
@@ -276,6 +279,7 @@ function addNewCategory($categoryName, $formID, $con)
 
 function retrievedQuestions($formID, $con)
 {
+    //retrieve category first
     $queryCat = "SELECT `categoryID`,`category_name` FROM `question_category` 
     WHERE `formID` = ? AND `status` = 'available' ORDER by `sequence` ASC";
     $stmtCat = mysqli_prepare($con, $queryCat);
@@ -292,6 +296,7 @@ function retrievedQuestions($formID, $con)
             $categoryID = $row['categoryID'];
             $categoryName =  $row['category_name'];
 
+            //retrieve questions
             $questionSet = "SELECT `questionID`, `question_text`,`inputType`
             FROM `tracer_question` WHERE `categoryID` = ? AND `formID`= ? AND `status` = 'available' ";
 
@@ -307,8 +312,9 @@ function retrievedQuestions($formID, $con)
                 while ($rowQuestion = $resultQuestion->fetch_assoc()) {
                     $questionID = $rowQuestion['questionID'];
 
+                    //retrieve choices
                     $queryChoices = "SELECT `choiceID`,`questionID`,`choice_text` FROM `questionnaire_choice` 
-                    WHERE `status` = 'available' AND `questionID` = ?";
+                    WHERE `status` = 'available' AND `questionID` = ? AND `sectionQuestion`= 0  ";
 
                     $stmtChoices = mysqli_prepare($con, $queryChoices);
 
@@ -408,4 +414,41 @@ function changeInputType($inputType, $questionID, $con)
         if ($result) echo 'Success';
         else echo 'Unsuccess';
     }
+}
+
+function insertSection($sectionData, $con)
+{
+    $isComplete = false;
+    //parts out the data
+    foreach ($sectionData as $data) {
+        $categoryID = $data['CategoryID'];
+        $choiceID = $data['ChoiceID'];
+        $formID = $data['FormID'];
+        $questionSet = $data['QuestionSet'];
+
+        //add question to the database
+        foreach ($questionSet as $set) {
+            $question = $set['Question'];
+            $inputType = $set['InputType'];
+            $choices = $set['choice'];
+
+            $questionID = substr(md5(uniqid()), 0, 29);
+            insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $con, 1); // perform insertion of question first 
+
+            //insert a section info
+            $query = "INSERT INTO `section_question`(`sectionID`, `choicesSectionID`, `questionID`) VALUES (?,?,?)";
+            $stmt = mysqli_prepare($con, $query);
+
+            $sectionID = substr(md5(uniqid()), 0, 29);
+            if ($stmt) {
+                $stmt->bind_param('sss', $sectionID, $choiceID, $questionID);
+                $result = $stmt->execute();
+
+                if ($result) $isComplete = true;
+            }
+        }
+    }
+
+    if ($isComplete) echo 'Success';
+    else echo 'Unsuccess';
 }

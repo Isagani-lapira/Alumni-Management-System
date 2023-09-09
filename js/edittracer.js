@@ -228,7 +228,7 @@ $(document).ready(function () {
                         const categoryName = element.categoryName
                         const questionSets = element.questionSet;
 
-                        displayQuestion(categoryID, categoryName, questionSets)
+                        displayQuestion(categoryID, categoryName, questionSets, formID)
                     })
                 }
             },
@@ -236,7 +236,7 @@ $(document).ready(function () {
         })
     }
 
-    function displayQuestion(categoryID, categoryName, questionSets) {
+    function displayQuestion(categoryID, categoryName, questionSets, formID) {
         const categoryWrapper = $('<div>')
             .addClass('center-shadow rounded-lg w-full mb-6 p-1')
 
@@ -321,7 +321,7 @@ $(document).ready(function () {
                     .attr('title', 'Add section for this choice')
                     .on('click', function () {
                         //add section per category
-                        createSection()
+                        createSection(categoryID, choiceID, formID)
                     })
 
                 sectionBtn.hover(
@@ -459,7 +459,7 @@ $(document).ready(function () {
         })
     }
 
-    function createSection() {
+    function createSection(categoryID, choiceID, formID) {
         const container = $('<div>')
             .addClass('post modal fixed inset-0 z-50 flex items-center justify-center p-3')
 
@@ -487,6 +487,9 @@ $(document).ready(function () {
         const saveBtn = $('<button>')
             .addClass('text-white px-4 py-2 rounded-md bg-green-400 hover:bg-green-500')
             .text('Save Section')
+            .on('click', function () {
+                insertSectionData(categoryID, choiceID, formID, container);
+            })
         const footer = $('<div>')
             .addClass('flex justify-end gap-2')
             .append(cancelBtn, saveBtn)
@@ -499,10 +502,10 @@ $(document).ready(function () {
 
     function createSecQuestion(body, isFirst = false) {
         const container = $('<div>')
-            .addClass('center-shadow w-4/5 rounded-md border-t-4 border-gray-400 p-3 mx-auto flex flex-col relative mb-2')
+            .addClass('center-shadow w-4/5 rounded-md border-t-4 border-gray-400 p-3 mx-auto flex flex-col relative mb-2 questionnaireSection ')
 
         const question = $('<input>')
-            .addClass('border-b border-gray-400 py-2 px-2 outline-none w-full categoryField text-center text-lg font-bold')
+            .addClass('border-b border-gray-400 py-2 px-2 outline-none w-full categoryField text-center text-lg font-bold sectionQuestion')
             .attr('type', 'text')
             .attr('placeholder', 'Untitled Question')
 
@@ -524,7 +527,7 @@ $(document).ready(function () {
             .addClass('flex items-center mb-2')
         const iconRadio = $('<iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
         const inputField = $('<input>')
-            .addClass('py-2 px-2 outline-none w-4/5 ')
+            .addClass('py-2 px-2 outline-none w-4/5 choices')
             .attr('placeholder', 'option')
         inputWrapper.append(iconRadio, inputField)
         optionContainer.append(inputWrapper)
@@ -549,7 +552,7 @@ $(document).ready(function () {
                     .addClass('flex items-center mb-2')
                 const newiconRadio = $('<iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
                 const newinputField = $('<input>')
-                    .addClass('py-2 px-2 outline-none w-4/5 flex-1')
+                    .addClass('py-2 px-2 outline-none w-4/5 flex-1 choices')
                     .attr('placeholder', 'option')
                 const removeOption = $('<iconify-icon icon="ei:close" style="color: #afafaf;" width="20" height="20"></iconify-icon>')
                     .on('click', function () {
@@ -561,6 +564,9 @@ $(document).ready(function () {
 
         //remove question
         const removeQuestion = $('<iconify-icon icon="octicon:trash-24" class="p-3 rounded-md center-shadow h-max" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+            .on('click', function () {
+                container.remove()
+            })
             .hover(function () {
                 // over
                 $(this).css('color', 'red');
@@ -595,6 +601,61 @@ $(document).ready(function () {
         body.append(container)
     }
 
+    sectionQuestion = []
+    function insertSectionData(categoryID, choiceID, formID, modal) {
+        const questionSet = []
+        $('.questionnaireSection').each(function () {
+            const question = $(this).find('.sectionQuestion').val();
+            const inputType = $(this).find('select').val();
 
+            const choicesArray = [];
+            $(this).find('.choices').each(function () {
+                const choiceVal = $(this).val();
+                choicesArray.push(choiceVal)
+            });
+
+            const questionObj = {
+                'Question': question,
+                'InputType': inputType,
+                'choice': choicesArray,
+            }
+            questionSet.push(questionObj)
+        })
+        const data = {
+            'FormID': formID,
+            'CategoryID': categoryID,
+            'ChoiceID': choiceID,
+            'QuestionSet': questionSet
+        }
+
+        sectionQuestion.push(data)
+        processInsertionOfSection(sectionQuestion, modal);
+    }
+
+    function processInsertionOfSection(sectionData, modal) {
+        const action = 'addSectionData';
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('sectionData', JSON.stringify(sectionData))
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                if (response == 'Success') {
+                    modal.remove()
+                    $('#promptMsgSection').removeClass('hidden') //display the message
+
+                    setTimeout(() => {
+                        $('#promptMsgSection').addClass('hidden') //hide the message
+                    }, 3000);
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
 })
 
