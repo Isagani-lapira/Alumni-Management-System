@@ -3,6 +3,7 @@ session_start();
 
 require "../model/Event.php";
 require "../php/connection.php";
+require "../php/logging.php";
 
 
 
@@ -82,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Content-Type: application/json; charset=UTF-8");
     if ($result === TRUE) {
         //todo modify later to use ajax
+        logEventActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
         echo json_encode(
             array(
                 'response' => 'Successful',

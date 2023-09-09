@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 <section class="container mx-auto px-8" id="events-page">
 

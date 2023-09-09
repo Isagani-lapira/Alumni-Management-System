@@ -1,7 +1,12 @@
 <?php
-
 session_start();
-session_destroy();
 
-header("location: /college/login.php");
-exit();
+
+require "./logging.php";
+require "./connection.php";
+
+logSignoutActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
+
+// Unset all of the session variables.
+$_SESSION = array();
+session_destroy();

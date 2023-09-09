@@ -2,6 +2,7 @@
 session_start();
 
 
+
 // Check if Logged In
 if (
     !isset($_SESSION['username']) ||
@@ -48,12 +49,23 @@ if (
         $bulsu_email = $personData['bulsu_email'];
         $profilepicture = $personData['profilepicture'];
 
-        // store the id in session
-        $_SESSION['personID'] = $personID;
-        $_SESSION['adminID'] = $adminID;
-        $_SESSION['colCode'] = $colCode;
+
+        if (!isset($_SESSION['adminID'])) {
+            // Setup the activity log
+            require_once './php/logging.php';
+            // store the id in session
+            $_SESSION['personID'] = $personID;
+            $_SESSION['adminID'] = $adminID;
+            $_SESSION['colCode'] = $colCode;
+            logSigninActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
+        }
     }
 }
+
+
+
+
+
 ?>
 
 

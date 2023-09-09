@@ -1,5 +1,6 @@
 // constant variables
 const successLogin = "/college/index.php";
+const SIGN_IN_URL = "./php/userData.php";
 
 function toggleInvalidClass(element) {
   element.removeClass("valid");
@@ -77,7 +78,7 @@ $(document).ready(function () {
       //perform ajax operation
       $.ajax({
         type: "POST",
-        url: "../PHP_process/userData.php",
+        url: SIGN_IN_URL,
         data: data,
         processData: false,
         contentType: false,

@@ -226,6 +226,7 @@ class Event
         date_posted, aboutImg, headerPhrase, eventStartTime,about_event
             FROM `event`
               WHERE `colCode` = ? 
+              ORDER BY date_posted DESC
               LIMIT  5  OFFSET  ? 
               ');
             $stmt->bind_param('si', $colCode, $offset);
