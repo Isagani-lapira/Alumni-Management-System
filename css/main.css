@@ -782,6 +782,10 @@ th,
   left: -0.5rem;
 }
 
+.-right-11 {
+  right: -2.75rem;
+}
+
 .-right-16 {
   right: -4rem;
 }
@@ -926,12 +930,8 @@ th,
   top: 2rem;
 }
 
-.-right-9 {
-  right: -2.25rem;
-}
-
-.-right-12 {
-  right: -3rem;
+.-right-14 {
+  right: -3.5rem;
 }
 
 .z-0 {
@@ -1220,18 +1220,6 @@ th,
 
 .mt-auto {
   margin-top: auto;
-}
-
-.mt-20 {
-  margin-top: 5rem;
-}
-
-.mt-28 {
-  margin-top: 7rem;
-}
-
-.mt-24 {
-  margin-top: 6rem;
 }
 
 .block {

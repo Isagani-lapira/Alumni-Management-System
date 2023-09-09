@@ -85,7 +85,7 @@ $(document).ready(function () {
         //question type
         inputClass = 'inputType' + idKey
         const optInput = $('<option>').val('Input').text('Input type')
-        const optRadio = $('<option>').val('Radio').text('Multiple Choice').attr('selected', true)
+        const optRadio = $('<option>').val('Radio').text('Radio Choice').attr('selected', true)
         const optDropDown = $('<option>').val('DropDown').text('DropDown type')
         const optCheckBox = $('<option>').val('Checkbox').text('Checkbox Type')
         const questionType = $('<select>')

@@ -317,6 +317,23 @@ $(document).ready(function () {
                         changeOption(choiceID, newTextVal)
                     })
 
+                const sectionBtn = $('<iconify-icon icon="uit:web-section-alt" class="p-2" style="color: #afafaf;" width="20" height="20"></iconify-icon>')
+                    .attr('title', 'Add section for this choice')
+                    .on('click', function () {
+                        //add section per category
+                        createSection()
+                    })
+
+                sectionBtn.hover(
+                    function () {
+                        // Change the icon to the solid version on hover-in
+                        $(this).attr("icon", "uis:web-section-alt");
+                    },
+                    function () {
+                        // Change the icon back to the original version on hover-out
+                        $(this).attr("icon", "uit:web-section-alt");
+                    }
+                );
                 const removeBtn = $('<span>')
                     .html('<iconify-icon icon="ant-design:close-outlined" style="color: #626262;" width="20" height="20"></iconify-icon>')
                     .on('click', function () {
@@ -326,7 +343,7 @@ $(document).ready(function () {
 
 
 
-                wrapper.append(inputField, removeBtn)
+                wrapper.append(inputField, sectionBtn, removeBtn)
 
                 if (questionType != "Input")
                     questionBody.append(wrapper)
@@ -441,6 +458,143 @@ $(document).ready(function () {
             }
         })
     }
+
+    function createSection() {
+        const container = $('<div>')
+            .addClass('post modal fixed inset-0 z-50 flex items-center justify-center p-3')
+
+        const modalContainer = $('<div>')
+            .addClass('modal-container w-1/2 h-4/5 bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2 border-t-8 border-blue-400')
+
+        const header = $('<header>')
+            .addClass('font-bold text-4xl text-center text-blue-400 py-2 border-b border-gray-300')
+            .text('Section')
+
+        // body of modal
+        const body = $('<div>')
+            .addClass('h-full overflow-y-auto')
+        createSecQuestion(body)
+
+        // footer part
+        const cancelBtn = $('<button>')
+            .addClass('text-gray-400 hover:text-gray-500 text-sm')
+            .text('Cancel')
+            .on('click', function () {
+                //close the modal
+                container.remove()
+            })
+
+        const saveBtn = $('<button>')
+            .addClass('text-white px-4 py-2 rounded-md bg-green-400 hover:bg-green-500')
+            .text('Save Section')
+        const footer = $('<div>')
+            .addClass('flex justify-end gap-2')
+            .append(cancelBtn, saveBtn)
+
+        // append to their corresponding container
+        modalContainer.append(header, body, footer)
+        container.append(modalContainer)
+        $('body').append(container)
+    }
+
+    function createSecQuestion(body, isFirst = false) {
+        const container = $('<div>')
+            .addClass('center-shadow w-4/5 rounded-md border-t-4 border-gray-400 p-3 mx-auto flex flex-col relative mb-2')
+
+        const question = $('<input>')
+            .addClass('border-b border-gray-400 py-2 px-2 outline-none w-full categoryField text-center text-lg font-bold')
+            .attr('type', 'text')
+            .attr('placeholder', 'Untitled Question')
+
+        // body part
+        const bodyPart = $('<div>')
+
+        //input type option
+        const optInput = $('<option>').val('Input').text('Input type')
+        const optRadio = $('<option>').val('Radio').text('Radio Choice').attr('selected', true)
+        const optDropDown = $('<option>').val('DropDown').text('DropDown type')
+        const optCheckBox = $('<option>').val('Checkbox').text('Checkbox Type')
+        const questionType = $('<select>')
+            .append(optRadio, optInput, optDropDown, optCheckBox)
+            .addClass('text-gray-400 py-3 outline-none w-full')
+
+        // input field
+        const optionContainer = $('<div>')
+        const inputWrapper = $('<div>')
+            .addClass('flex items-center mb-2')
+        const iconRadio = $('<iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+        const inputField = $('<input>')
+            .addClass('py-2 px-2 outline-none w-4/5 ')
+            .attr('placeholder', 'option')
+        inputWrapper.append(iconRadio, inputField)
+        optionContainer.append(inputWrapper)
+
+        //add choice button
+        const addOption = $('<button>')
+            .addClass('flex items-center gap-2 text-gray-400 my-2')
+            .html('<iconify-icon icon="gala:add" style="color: #afafaf;" width="20" height="20"></iconify-icon>' + 'Add option')
+            .hover(function () {
+                // over
+                $(this).css({ 'color': '#1769AA' }) //for text
+                $(this).find('iconify-icon').css({ 'color': '#1769AA' }) //for icon
+            }, function () {
+                // out
+                $(this).find('iconify-icon').css({ 'color': '#afafaf' })
+                $(this).css({ 'color': '#afafaf' })
+            }
+            )
+            .on('click', function () {
+                //add new option
+                const newinputWrapper = $('<div>')
+                    .addClass('flex items-center mb-2')
+                const newiconRadio = $('<iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+                const newinputField = $('<input>')
+                    .addClass('py-2 px-2 outline-none w-4/5 flex-1')
+                    .attr('placeholder', 'option')
+                const removeOption = $('<iconify-icon icon="ei:close" style="color: #afafaf;" width="20" height="20"></iconify-icon>')
+                    .on('click', function () {
+                        newinputWrapper.remove()
+                    })
+                newinputWrapper.append(newiconRadio, newinputField, removeOption)
+                optionContainer.append(newinputWrapper)
+            })
+
+        //remove question
+        const removeQuestion = $('<iconify-icon icon="octicon:trash-24" class="p-3 rounded-md center-shadow h-max" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+            .hover(function () {
+                // over
+                $(this).css('color', 'red');
+            }, function () {
+                // out
+                $(this).css('color', '#afafaf');
+            })
+
+        //check if the question is first
+        if (!isFirst) removeQuestion.addClass('hidden')
+
+        const addQuestion = $('<iconify-icon class="p-3 rounded-md center-shadow h-max" icon="gala:add" style="color: #347cb5;" width="24" height="24"></iconify-icon>')
+            .on('click', function () {
+                //add new question to the section
+
+                //check first if the question before create new is have value
+                if (question.val() !== "") {
+                    question.addClass('border-gray-400').removeClass('border-red-400') //back to default
+                    createSecQuestion(body, true)
+                }
+                else question.removeClass('border-gray-400').addClass('border-red-400') //add warning color
+
+            })
+
+        const additionalChoices = $('<div>')
+            .addClass('flex flex-col absolute top-0 -right-14 gap-2')
+            .append(addQuestion, removeQuestion)
+
+        //add to their corresponding container
+        bodyPart.append(questionType, optionContainer, addOption)
+        container.append(question, additionalChoices, bodyPart)
+        body.append(container)
+    }
+
 
 })
 
