@@ -334,8 +334,8 @@ pre {
     transform: translateY(0);
   }
   100% {
-    -webkit-transform: translateY(100px);
-    transform: translateY(100px);
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px);
   }
 }
 @keyframes slide-bottom {
@@ -344,7 +344,18 @@ pre {
     transform: translateY(0);
   }
   100% {
-    -webkit-transform: translateY(100px);
-    transform: translateY(100px);
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px);
   }
+}
+
+.coverPhotoContainer {
+  background: linear-gradient(
+    0deg,
+    rgba(0, 42, 126, 1) -42%,
+    rgba(228, 228, 228, 1) 0%,
+    rgba(242, 187, 203, 1) 29%,
+    rgba(221, 179, 179, 1) 63%,
+    rgba(231, 149, 149, 1) 95%
+  );
 }

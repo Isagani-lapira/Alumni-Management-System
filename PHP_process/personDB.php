@@ -178,4 +178,67 @@ class personDB
 
         echo json_encode($data);
     }
+
+
+    public function getUserProfile($personID, $con)
+    {
+        $query = "SELECT 
+        CONCAT(p.fname, ' ', p.lname) AS full_name,
+        p.profilepicture,
+        p.cover_photo,
+        p.facebookUN,
+        p.instagramUN,
+        p.twitterUN,
+        p.linkedInUN,
+        COALESCE(a.username, s.username) AS username
+        FROM person AS p
+        LEFT JOIN alumni AS a ON p.personID = a.personID
+        LEFT JOIN student AS s ON p.personID = s.personID
+        WHERE p.personID = ? ";
+
+        $stmt = mysqli_prepare($con, $query);
+
+        $response = "Unsuccess";
+        $fullname = "";
+        $profilepicture = "";
+        $cover_photo = "";
+        $facebookUN = "";
+        $instagramUN = "";
+        $twitterUN = "";
+        $linkedInUN = "";
+        $username = "";
+
+        if ($stmt) {
+            $stmt->bind_param('s', $personID);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // fetch all the names retrieve
+            while ($row = $result->fetch_assoc()) {
+                $response = "Success";
+                $fullname = $row['full_name'];
+                $facebookUN = $row['facebookUN'];
+                $instagramUN = $row['instagramUN'];
+                $twitterUN = $row['twitterUN'];
+                $linkedInUN = $row['linkedInUN'];
+                $username = $row['username'];
+                $profilepicture = base64_encode($row['profilepicture']);
+                $cover_photo = base64_encode($row['cover_photo']);
+            }
+        }
+
+        $data = array(
+            "response" => $response,
+            "profilePic" => $profilepicture,
+            "coverPhoto" => $cover_photo,
+            "fullname" => $fullname,
+            "facebookUN" => $facebookUN,
+            "instagramUN" => $instagramUN,
+            "twitterUN" => $twitterUN,
+            "linkedInUN" => $linkedInUN,
+            "username" => $username,
+        );
+
+        echo json_encode($data);
+    }
 }

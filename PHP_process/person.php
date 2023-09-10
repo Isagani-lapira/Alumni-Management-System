@@ -34,6 +34,10 @@ if (isset($_POST['action'])) {
             $personName = $_POST['personName'];
             $personObj->searchPerson($personName, $mysql_con);
             break;
+        case 'userProfile':
+            $personID = $_POST['personID'];
+            $personObj->getUserProfile($personID, $mysql_con);
+            break;
     }
 } else echo 'ayaw pumasok';
 

@@ -69,6 +69,12 @@ if (isset($_POST['action'])) {
             $newCaption = $_POST['caption'];
             $post->postCaptionUpdate($postID, $newCaption, $mysql_con);
             break;
+        case 'readOtherUserPost':
+            $offset = $_POST['offset'];
+            $status = $_POST['status'];
+            $username = $_POST['username'];
+            $post->getProfilePost($username, $offset, $status, $mysql_con);
+            break;
     }
 }
 
