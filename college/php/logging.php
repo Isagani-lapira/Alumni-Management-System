@@ -69,10 +69,11 @@ function logSignoutActivity(mysqli $mysql_con, $colAdmin, $colCode)
 //     $details = "$colCode created the college";
 //     setNewActivity($mysql_con, $colAdmin, $action, $details);
 // }
+// deleted an activity
 function logDeleteActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
     $action = "delete";
-    $details = "$colCode deleted a post.";
+    $details = "$colCode deleted an event.";
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 

@@ -44,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $event->deleteEventByID($eventInformation, $colCode);
     // send json result
     if ($result) {
+        logDeleteActivity($mysql_con, $_SESSION['adminID'], $colCode);
+
         echo json_encode(
             array(
                 'response' => 'Successful',
