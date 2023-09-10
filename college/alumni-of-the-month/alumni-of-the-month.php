@@ -78,144 +78,6 @@
                 <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
             </tr>
 
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Leslie Alexander</span>
-                    </div>
-                </td>
-                <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Floyd Miles</span>
-                    </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Wade Warren</span>
-                    </div>
-                </td>
-                <td class="text-center">09104905440</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Leslie Alexander</span>
-                    </div>
-                </td>
-                <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Floyd Miles</span>
-                    </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Floyd Miles</span>
-                    </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
 
         </tbody>
     </table>
@@ -225,15 +87,13 @@
     <!-- Modal for adding new email -->
     <!-- modal add email message -->
     <div id="modalAlumni" class="bg-gray-800 bg-opacity-80 fixed inset-0 h-full w-full flex items-center justify-center 
-      text-grayish  top-0 left-0 ">
+      text-grayish  top-0 left-0 hidden">
         <form id="add-alumni-month-form" class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
             <div class="w-full h-full">
                 <div class="modal-header py-5">
                     <h1 class="text-accent text-2xl text-center font-bold">Add New Alumni</h1>
                 </div>
                 <div class="modal-body px-3 h-1/2">
-
-
 
                     <div class="relative">
                         <div id="individualEmail" class="flex border border-gray-400 w-full rounded-md p-1 hidden">
@@ -245,7 +105,8 @@
                     </div>
 
                     <p class="font-semibold text-sm mt-2">Name</p>
-                    <input class="focus:outline-none w-full border border-gray-400 rounded-md py-2 px-1" type="text" name="emailSubj" id="emailSubj" placeholder="Introduce something great!">
+
+                    <input class="focus:outline-none w-full border border-gray-400 rounded-md py-2 px-1" type="text" name="emailSubj" id="emailSubj" placeholder="Make a new alumni of the month!">
 
 
                 </div>
