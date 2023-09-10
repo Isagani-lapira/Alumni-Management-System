@@ -370,9 +370,8 @@ $(document).ready(function () {
 
             })
 
-            const addQuestion = $('<iconify-icon class="p-2 rounded-md center-shadow h-max" icon="gala:add" style="color: #347cb5;" width="24" height="24"></iconify-icon>')
 
-            const removeQuestion = $('<iconify-icon icon="octicon:trash-24" class="p-2 rounded-md center-shadow h-max remove-question" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+            const removeQuestion = $('<iconify-icon icon="octicon:trash-24" class="p-2 rounded-md center-shadow h-max remove-question absolute top-0 -right-12" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
                 .on("click", function () {
                     //change the status of the question to archived
                     displaySavedChanges()
@@ -390,9 +389,6 @@ $(document).ready(function () {
                 }
             );
 
-            const additionalBtn = $('<div>')
-                .addClass('absolute top-0 -right-12 flex flex-col gap-2')
-                .append(addQuestion, removeQuestion)
             //add choice button
             const addOption = $('<button>')
                 .addClass('flex items-center gap-2 text-gray-400 m-2')
@@ -431,7 +427,7 @@ $(document).ready(function () {
                     questionBody.append(newinputWrapper)
                 })
 
-            questionWrapper.append(questionName, questionBody, addOption, additionalBtn)
+            questionWrapper.append(questionName, questionBody, addOption, removeQuestion)
 
             bodyCategory.append(questionWrapper)
         })

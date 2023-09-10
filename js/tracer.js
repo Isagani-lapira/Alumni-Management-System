@@ -63,7 +63,7 @@ $(document).ready(function () {
     let questionCount = 0
     function addQuestionnaire(pageNoElement) {
         containerCount++
-        //mark up for q uestions
+        //mark up for questions
         const container = $('<div>')
             .addClass('flex gap-2 justify-center mb-2 relative w-full')
             .attr('id', "container" + containerCount)
