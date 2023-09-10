@@ -47,28 +47,7 @@ function logSignoutActivity(mysqli $mysql_con, $colAdmin, $colCode)
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 
-// function logLeaveActivity(
-//     mysqli $mysql_con,
-//     $colAdmin,
-//     $colCode
-// ) {
-//     $action = "leave";
-//     $details = "$colCode left the college";
-//     setNewActivity($mysql_con, $colAdmin, $action, $details);
-// }
 
-// function logJoinActivity(mysqli $mysql_con, $colAdmin, $colCode)
-// {
-//     $action = "join";
-//     $details = "$colCode joined the college";
-//     setNewActivity($mysql_con, $colAdmin, $action, $details);
-// }
-// function logCreateActivity(mysqli $mysql_con, $colAdmin, $colCode)
-// {
-//     $action = "create";
-//     $details = "$colCode created the college";
-//     setNewActivity($mysql_con, $colAdmin, $action, $details);
-// }
 // deleted an activity
 function logDeleteActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
@@ -88,8 +67,6 @@ function logDeleteActivity(mysqli $mysql_con, $colAdmin, $colCode)
  * @return bool
  * 
  */
-
-
 function setNewActivity(mysqli $mysql_con, $colAdmin, $action, $details): bool
 {
 
@@ -122,6 +99,7 @@ function setNewActivity(mysqli $mysql_con, $colAdmin, $action, $details): bool
 function getTotalEvents(string $colCode)
 {
 }
+
 
 /***
  * Get recent activity of the college
