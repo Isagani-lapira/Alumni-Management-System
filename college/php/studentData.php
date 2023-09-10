@@ -1,6 +1,6 @@
 <?php
 require_once '../../PHP_process/connection.php';
-require 'model/Student.php';
+require '../model/Student.php';
 
 
 $student = new Student($mysql_con);

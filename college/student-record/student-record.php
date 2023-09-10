@@ -18,6 +18,7 @@
 
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
+    <!-- Start Filter Options -->
     <div class="grid  grid-flow-row grid-cols-5 gap-4">
 
         <!-- search-bar -->
@@ -26,19 +27,33 @@
             <input class="border border-gray-400  w-full rounded-md p-2 pl-7" type="text" name="" id="" placeholder="Typing!">
         </div>
         <!-- end search-bar -->
+
+
         <!-- batch selection -->
+        <!-- Search per Year Level or batch -->
         <select name="" id="batch" class=" w-full border border-gray-400 bg-transparent rounded-md shadow-md px-4">
             <option value="" selected disabled hidden>Batch</option>
             <option value="">2023</option>
             <!-- php function on batch -->
         </select>
 
+        <select name="" id="batch" class=" w-full border border-gray-400 bg-transparent rounded-md shadow-md px-4">
+            <option value="" selected disabled hidden>Year Level</option>
+            <option value="">1st Year</option>
+            <option value="">2nd Year</option>
+            <option value="">3rd Year</option>
+            <option value="">4th Year</option>
+            <option value="">5th Year</option>
+            <!-- php function on batch -->
+        </select>
+
         <!-- college selection -->
         <select name="college" id="college" class=" w-full border border-gray-400 bg-transparent rounded-md shadow-md px-4">
+            <!-- Courses in the specific college only -->
             <option value="" selected disabled hidden>Course</option>
             <?php
 
-            require_once '../../../PHP_process/connection.php';
+            require_once '../php/connection.php';
             $query = "SELECT * FROM `college`";
             $result = mysqli_query($mysql_con, $query);
             $rows = mysqli_num_rows($result);
@@ -54,40 +69,35 @@
             ?>
         </select>
 
+
     </div>
 
-    <!-- Record Table-->
-    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
-        <thead class="bg-accent text-white rounded-t-lg">
-            <tr class=" rounded-t-lg">
-                <th class="text-start uppercase">Student Number</th>
-                <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th>DETAILS</th>
-            </tr>
-        </thead>
-        <tbody class="text-sm " id="studentTB">
-            <!-- <tr class="h-14">
-                REMOVED FOR Dynamic Reloading
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Wade Warren</span>
-                    </div>
-                </td>
-                <td class="text-center">09104905440</td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr> -->
-            <!-- <tr>
-                        TODO
-                <td colspan="4">
-                    <span class="loader"></span>
-                </td>
-            </tr> -->
-        </tbody>
-    </table>
-    <!-- End Record Table -->
+    <section class="table-section">
+
+        <!-- Copied Table -->
+
+        <table class="table-auto w-full mt-10 text-xs font-normal center-shadow table-alternate-color">
+            <thead>
+                <tr class="bg-accent text-white">
+                    <th class="text-center rounded-tl-lg">Student Number</th>
+                    <th>NAME</th>
+                    <th>CONTACT NUMBER</th>
+                    <th class="rounded-tr-lg">DETAILS</th>
+                </tr>
+            </thead>
+            <!-- This will be filled later -->
+            <tbody id="studentTB" class="text-sm">
+            </tbody>
+
+        </table>
+        <div class="flex justify-end items-center gap-2 font-bold my-2">
+            <button id="prevBtnStudent" class="border border-accent text-accent hover:bg-accent hover:text-white py-2 px-3 rounded-md">Previous</button>
+            <button id="nextBtnStudent" class="bg-accent text-white hover:bg-darkAccent py-2 px-4 rounded-md">Next</button>
+        </div>
+        <!-- End Copied Table -->
+    </section>
+
+
 </section>
 
 

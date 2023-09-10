@@ -4,6 +4,7 @@ function capitalizeFirstLetter(string) {
 }
 
 $(document).ready(function () {
+  const SIGN_IN_URL = "./index.php";
   // detect hashed id in the first load
   if (window.location.hash) {
     const linkName = window.location.hash.substr(1);
@@ -100,10 +101,10 @@ $(document).ready(function () {
       // Signout
       $("#signoutBtn").on("click", function () {
         $.ajax({
-          url: "./php/process/signout.php",
+          url: "./php/signout.php",
           type: "GET",
           success: (response) => {
-            window.location.href = "./login.php";
+            window.location.href = SIGN_IN_URL;
           },
           error: (error) => {
             console.log(error);

@@ -2,6 +2,7 @@
 session_start();
 
 
+
 // Check if Logged In
 if (
     !isset($_SESSION['username']) ||
@@ -17,11 +18,11 @@ if (
     require_once '../PHP_process/connection.php';
     require '../PHP_process/personDB.php';
 
-    // TODO and sanitize user input
     $username = $_SESSION['username'];
 
+    // TODO and sanitize user input
     //get the person ID of user
-    $query = "SELECT coladmin.personID
+    $query = "SELECT coladmin.*
             FROM coladmin
             JOIN user ON coladmin.username = user.username
             WHERE user.username = '$username'";
@@ -29,7 +30,9 @@ if (
     $result = mysqli_query($mysql_con, $query);
     if ($result) {
         $data = mysqli_fetch_assoc($result);
+        $colCode = $data['colCode'];
         $personID = $data['personID'];
+        $adminID = $data['adminID'];
 
         //get person details
         $personObj = new personDB();
@@ -46,9 +49,23 @@ if (
         $bulsu_email = $personData['bulsu_email'];
         $profilepicture = $personData['profilepicture'];
 
-        $_SESSION['personID'] = $personID;
+
+        if (!isset($_SESSION['adminID'])) {
+            // Setup the activity log
+            require_once './php/logging.php';
+            // store the id in session
+            $_SESSION['personID'] = $personID;
+            $_SESSION['adminID'] = $adminID;
+            $_SESSION['colCode'] = $colCode;
+            logSigninActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
+        }
     }
 }
+
+
+
+
+
 ?>
 
 
@@ -84,6 +101,9 @@ if (
     <!-- JS Plugins -->
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Jquery UI -->
+    <script src=" https://cdn.jsdelivr.net/npm/jqueryui@1.11.1/jquery-ui.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/jqueryui@1.11.1/jquery-ui.min.css " rel="stylesheet">
     <!-- Chart JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -96,6 +116,12 @@ if (
     <!-- Swiper -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- Moment JS (For better date parsing) -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+
+    <!-- Sweet Alert Notification Plugin -->
+    <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css " rel="stylesheet">
 
     <!-- End JS Plugins -->
     <!-- System Script -->
@@ -118,55 +144,53 @@ if (
             <!-- TODO Adjust icons to fill up when changed -->
             <nav class="">
                 <!-- Main Navigation -->
-                <ul class="space-y-2 mb-6 py-5 w-4/5">
+                <ul class="space-y-2 mb-6 py-5 w-4/5 font-light text-sm">
                     <li><a data-link="dashboard" href="#dashboard" class="flex rounded-lg p-2  font-bold bg-accent text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-pie-filled" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M9.883 2.207a1.9 1.9 0 0 1 2.087 1.522l.025 .167l.005 .104v7a1 1 0 0 0 .883 .993l.117 .007h6.8a2 2 0 0 1 2 2a1 1 0 0 1 -.026 .226a10 10 0 1 1 -12.27 -11.933l.27 -.067l.11 -.02z" stroke-width="0" fill="currentColor" />
-                                <path d="M14 3.5v5.5a1 1 0 0 0 1 1h5.5a1 1 0 0 0 .943 -1.332a10 10 0 0 0 -6.11 -6.111a1 1 0 0 0 -1.333 .943z" stroke-width="0" fill="currentColor" />
+                            <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z"></path>
                             </svg>
-                            Dashboard</a></li>
+                            DASHBOARD</a></li>
                     <li><a data-link="make-post" href="#make-post" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-bullhorn mr-2 fa-xl"></i>
-                            Make Post</a></li>
+                            MAKE POST</a></li>
                     <li><a data-link="announcements" href="#announcements" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-message mr-2 fa-xl"></i>
-                            Announcements</a></li>
+                            ANNOUNCEMENTS</a></li>
                     <li><a data-link="email" href="#email" class="flex rounded p-2 ">
-                            <i class="fa-solid fa-envelope fa-xl mr-2"></i> Email
+                            <i class="fa-solid fa-envelope fa-xl mr-2"></i> EMAIl
                         </a></li>
                     <li><a data-link="student-record" href="#student-record" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
 
-                            Student Records</a></li>
+                            STUDENT RECORDS</a></li>
                     <li><a data-link="alumni-record" href="#alumni-record" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
 
-                            Alumni Records</a></li>
+                            ALUMNI RECORDS</a></li>
                     <li><a data-link="event" href="#event" class="flex rounded p-2 ">
                             <i class="fa-solid fa-calendar-check mr-2 fa-xl"></i>
-                            Event</a></li>
+                            EVENT</a></li>
                     <li><a data-link="forms" href="#forms" class="flex rounded p-2">
                             <i class="fa-brands fa-wpforms fa-xl mr-2"></i>
-                            Tracer Form</a></li>
+                            TRACER FORM</a></li>
                     <li><a data-link="profile" href="#profile" class="flex rounded p-2">
                             <i class="fa-solid fa-circle-user mr-2 fa-xl"></i>
-                            Profile</a></li>
+                            PROFILE</a></li>
                 </ul>
 
                 <!-- Alumni Navigation -->
                 <div class="my-2 uppercase font-normal text-sm tracking-wider">Alumni</div>
-                <ul class="space-y-2 w-4/5">
+                <ul class="space-y-2 w-4/5 font-light text-sm">
                     <li><a data-link="alumni-of-the-month" href="#alumni-of-the-month" class="
                     flex rounded p-2">
                             <i class="fa-solid fa-user-graduate mr-2 fa-xl"></i>
-                            Alumni of the Month</a></li>
+                            ALUMNI OF THE MONTH</a></li>
                     <li><a data-link="community" href="#community" class="flex rounded p-2">
                             <i class="mr-2 fa-xl fa-solid fa-users"></i>
-                            Community Hub</a></li>
+                            COMMUNITY HUB</a></li>
                     <li><a data-link="job-opportunities" href="#job-opportunities" class="flex rounded p-2">
                             <i class="fa-xl mr-2 fa-solid fa-briefcase"></i>
-                            Job Opportunities</a></li>
+                            JOB OPPORTUNITIES</a></li>
                 </ul>
 
             </nav>

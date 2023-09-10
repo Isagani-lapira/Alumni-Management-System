@@ -41,9 +41,11 @@ function setStudentTB(data) {
     let tdStudentNo = $("<td>")
       .addClass("text-center font-bold")
       .text(student["studNo"]);
+    // Css for rounded logo of picture
+    // <div class="w-10 h-10 rounded-full border border-accent"></div>
     let tdfullname = $("<td>").append(
       `                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
+                        
                         <span class="ml-2">${student["fullName"]}</span>
                     </div>`
     );

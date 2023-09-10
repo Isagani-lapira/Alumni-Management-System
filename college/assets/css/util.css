@@ -34,3 +34,7 @@
 .modal-body {
   height: 70%;
 }
+
+table.table-alternate-color tr:nth-child(even) {
+  background-color: #cececeb0;
+}
