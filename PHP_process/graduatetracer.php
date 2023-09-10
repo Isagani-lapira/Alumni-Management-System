@@ -49,6 +49,14 @@ if (isset($_POST['action'])) {
     } else if ($action == 'addSectionData') {
         $sectionData = json_decode($_POST['sectionData'], true);
         insertSection($sectionData, $mysql_con);
+    } else if ($action == 'getSectionData') {
+        $choiceID = $_POST['choiceID'];
+        retrieveSection($choiceID, $mysql_con);
+    } else if ($action == "addChoicesSection") {
+        $questionID = $_POST['questionID'];
+        $choiceText = $_POST['choiceText'];
+        $isSectionQuestion = $_POST['isSectionQuestion'];
+        insertChoices($questionID, $choiceText, $isSectionQuestion, $mysql_con);
     }
 }
 
@@ -124,13 +132,13 @@ function insertCategory($count, $data, $categoryName, $formID, $sequence, $con)
 function insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $con, $isSectionQuestion = 0)
 {
     $query = "INSERT INTO `tracer_question`(`questionID`, `categoryID`, `formID`, 
-    `question_text`, `inputType`,`status`) VALUES (?,?,?,?,?,?)";
+    `question_text`, `inputType`,`status`,`isSectionQuestion`) VALUES (?,?,?,?,?,?,?)";
 
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt) {
         $status = 'available';
-        $stmt->bind_param('ssssss', $questionID, $categoryID, $formID, $question, $inputType, $status);
+        $stmt->bind_param('ssssssd', $questionID, $categoryID, $formID, $question, $inputType, $status, $isSectionQuestion);
         $result = $stmt->execute();
 
         if ($result) {
@@ -298,54 +306,17 @@ function retrievedQuestions($formID, $con)
 
             //retrieve questions
             $questionSet = "SELECT `questionID`, `question_text`,`inputType`
-            FROM `tracer_question` WHERE `categoryID` = ? AND `formID`= ? AND `status` = 'available' ";
+            FROM `tracer_question` WHERE `categoryID` = ? AND `formID`= ? AND `status` = 'available' AND `isSectionQuestion`=0 ";
 
             $stmtQuestion = mysqli_prepare($con, $questionSet);
+            $stmtQuestion->bind_param('ss', $categoryID, $formID);
 
-            $questions = array();
-            $choices = array();
-            if ($stmtQuestion) {
-                $stmtQuestion->bind_param('ss', $categoryID, $formID);
-                $stmtQuestion->execute();
-                $resultQuestion = $stmtQuestion->get_result();
-
-                while ($rowQuestion = $resultQuestion->fetch_assoc()) {
-                    $questionID = $rowQuestion['questionID'];
-
-                    //retrieve choices
-                    $queryChoices = "SELECT `choiceID`,`questionID`,`choice_text` FROM `questionnaire_choice` 
-                    WHERE `status` = 'available' AND `questionID` = ? AND `sectionQuestion`= 0  ";
-
-                    $stmtChoices = mysqli_prepare($con, $queryChoices);
-
-                    if ($stmtChoices) {
-                        $stmtChoices->bind_param('s', $questionID);
-                        $stmtChoices->execute();
-                        $resultChoices = $stmtChoices->get_result();
-
-                        while ($rowChoices = $resultChoices->fetch_assoc()) {
-                            $choices[] = array(
-                                "choiceID" => $rowChoices['choiceID'],
-                                "questionID" => $rowChoices['questionID'],
-                                "choice_text" => $rowChoices['choice_text']
-                            );
-                        }
-                    }
-                    $questions[] = array(
-                        "questionID" => $rowQuestion['questionID'],
-                        "questionTxt" => $rowQuestion['question_text'],
-                        "inputType" => $rowQuestion['inputType'],
-                        "choices" => $choices
-                    );
-                    $choices = array();
-                }
-            }
+            $questions = questionData($stmtQuestion, $con);
             $categorySet = array(
                 "categoryID" => $categoryID,
                 "categoryName" => $categoryName,
                 "questionSet" => $questions
             );
-
             $data[] = $categorySet;
         }
 
@@ -358,7 +329,65 @@ function retrievedQuestions($formID, $con)
     }
 }
 
+function questionData($stmtQuestion, $con)
+{
 
+    $questions = array();
+    $choices = array();
+    if ($stmtQuestion) {
+        $stmtQuestion->execute();
+        $resultQuestion = $stmtQuestion->get_result();
+
+        while ($rowQuestion = $resultQuestion->fetch_assoc()) {
+            $questionID = $rowQuestion['questionID'];
+
+            //retrieve choices
+            $queryChoices = "SELECT `choiceID`,`questionID`,`choice_text`, `sectionQuestion` FROM `questionnaire_choice` 
+                    WHERE `status` = 'available' AND `questionID` = ?";
+
+            $stmtChoices = mysqli_prepare($con, $queryChoices);
+
+            if ($stmtChoices) {
+                $stmtChoices->bind_param('s', $questionID);
+                $stmtChoices->execute();
+                $resultChoices = $stmtChoices->get_result();
+
+                while ($rowChoices = $resultChoices->fetch_assoc()) {
+                    $choiceID = $rowChoices['choiceID'];
+                    $isSectionChoice = haveSection($choiceID, $con);
+                    $choices[] = array(
+                        "choiceID" => $rowChoices['choiceID'],
+                        "questionID" => $rowChoices['questionID'],
+                        "choice_text" => $rowChoices['choice_text'],
+                        "sectionQuestion" => $rowChoices['sectionQuestion'],
+                        "isSectionChoice" => $isSectionChoice
+                    );
+                }
+            }
+            $questions[] = array(
+                "questionID" => $rowQuestion['questionID'],
+                "questionTxt" => $rowQuestion['question_text'],
+                "inputType" => $rowQuestion['inputType'],
+                "choices" => $choices
+            );
+            $choices = array();
+        }
+    }
+    return $questions;
+}
+function haveSection($choiceID, $con)
+{
+    $query = "SELECT `choicesSectionID` FROM `section_question` WHERE `choicesSectionID` = ? ";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('s', $choiceID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_num_rows($result);
+
+    if ($row > 0) return true;
+
+    return false;
+}
 function removeChoice($choiceID, $con)
 {
     $query = "UPDATE `questionnaire_choice` SET `status`= 'archived' WHERE `choiceID`= ? ";
@@ -451,4 +480,28 @@ function insertSection($sectionData, $con)
 
     if ($isComplete) echo 'Success';
     else echo 'Unsuccess';
+}
+
+function retrieveSection($choiceID, $con)
+{
+    $query = "SELECT `questionID` FROM `section_question` WHERE `choicesSectionID`= ?";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('s', $choiceID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $data = array();
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $questionID = $row['questionID'];
+
+            $questionQuery = "SELECT * FROM `tracer_question` WHERE `questionID`= ? ";
+            $stmtQuestion = mysqli_prepare($con, $questionQuery);
+            $stmtQuestion->bind_param('s', $questionID);
+            $questions = questionData($stmtQuestion, $con);
+
+            $data[] = $questions;
+        }
+    }
+    echo json_encode($data);
 }

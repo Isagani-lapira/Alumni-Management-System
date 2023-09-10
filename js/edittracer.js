@@ -228,7 +228,8 @@ $(document).ready(function () {
                         const categoryName = element.categoryName
                         const questionSets = element.questionSet;
 
-                        displayQuestion(categoryID, categoryName, questionSets, formID)
+                        const container = '#questions'
+                        displayQuestion(categoryID, categoryName, questionSets, formID, container, false)
                     })
                 }
             },
@@ -236,16 +237,16 @@ $(document).ready(function () {
         })
     }
 
-    function displayQuestion(categoryID, categoryName, questionSets, formID) {
+    function displayQuestion(categoryID, categoryName, questionSets, formID, container, isQuestion) {
         const categoryWrapper = $('<div>')
-            .addClass('center-shadow rounded-lg w-full mb-6 p-1')
+            .addClass('rounded-lg mx-auto mb-6 p-1')
 
         const headerCategory = $('<header>')
             .addClass('w-full text-center py-5 font-bold text-lg text-white bg-darkAccent rounded-t-lg')
             .text(categoryName)
 
         const bodyCategory = $('<div>')
-            .addClass('p-3 flex flex-col gap-2 center-shadow')
+            .addClass('p-3 flex flex-col gap-2')
 
         //get all the question for every category they belong
         questionSets.forEach(questionData => {
@@ -253,14 +254,18 @@ $(document).ready(function () {
             const questionTxt = questionData.questionTxt
             const questionType = questionData.inputType
             const choices = questionData.choices
-
             const questionWrapper = $('<div>')
-                .addClass('relative')
+                .addClass('relative center-shadow w-4/5 mx-auto')
 
             const questionName = $('<input>')
-                .addClass('text-center font-bold center-shadow py-2 w-full bg-accent text-white rounded-t-md')
+                .addClass('text-center font-bold center-shadow py-3 w-full rounded-t-md')
                 .val(questionTxt)
 
+            if (!isQuestion) {
+                questionName.addClass('bg-accent text-white')
+            } else {
+                questionName.removeClass('bg-accent text-white').addClass('text-gray-500 border-b border-gray-400 border-t-4')
+            }
             const choiceInput = $('<option>')
                 .attr('value', "Input")
                 .text('Input type')
@@ -295,7 +300,7 @@ $(document).ready(function () {
                 })
 
             const questionBody = $('<div>')
-                .addClass('flex flex-col gap-2 center-shadow p-3 rounded-b-lg')
+                .addClass('flex flex-col gap-2 p-3 rounded-b-lg')
                 .append(questionTypeDropDown)
 
             //get all the available choices for every questions
@@ -303,6 +308,8 @@ $(document).ready(function () {
                 const choiceID = choice.choiceID
                 const choice_text = choice.choice_text
                 const choicequestionID = choice.questionID
+                const sectionQuestion = choice.sectionQuestion
+                const isSectionChoice = choice.isSectionChoice
 
                 const wrapper = $('<div>')
                     .addClass('flex items-center justify-between mb-2 wrapperChoices')
@@ -320,8 +327,11 @@ $(document).ready(function () {
                 const sectionBtn = $('<iconify-icon icon="uit:web-section-alt" class="p-2" style="color: #afafaf;" width="20" height="20"></iconify-icon>')
                     .attr('title', 'Add section for this choice')
                     .on('click', function () {
-                        //add section per category
-                        createSection(categoryID, choiceID, formID)
+                        if (!isSectionChoice) createSection(categoryID, choiceID, formID)//add section per category
+                        else {
+                            retrievedSectionData(choiceID)
+                        }
+
                     })
 
                 sectionBtn.hover(
@@ -334,6 +344,14 @@ $(document).ready(function () {
                         $(this).attr("icon", "uit:web-section-alt");
                     }
                 );
+
+                if (isSectionChoice) {
+                    // Replace the icon with a different one
+                    sectionBtn
+                        .attr("icon", "uis:web-section-alt")
+                        .css("color", "#00a86b")
+                }
+
                 const removeBtn = $('<span>')
                     .html('<iconify-icon icon="ant-design:close-outlined" style="color: #626262;" width="20" height="20"></iconify-icon>')
                     .on('click', function () {
@@ -348,9 +366,13 @@ $(document).ready(function () {
                 if (questionType != "Input")
                     questionBody.append(wrapper)
 
+                if (isQuestion) sectionBtn.addClass('hidden')
+
             })
 
-            const removeQuestion = $('<iconify-icon icon="octicon:trash-24" class="p-2 rounded-md center-shadow h-max remove-question absolute top-0 right-0" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+            const addQuestion = $('<iconify-icon class="p-2 rounded-md center-shadow h-max" icon="gala:add" style="color: #347cb5;" width="24" height="24"></iconify-icon>')
+
+            const removeQuestion = $('<iconify-icon icon="octicon:trash-24" class="p-2 rounded-md center-shadow h-max remove-question" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
                 .on("click", function () {
                     //change the status of the question to archived
                     displaySavedChanges()
@@ -360,7 +382,7 @@ $(document).ready(function () {
             removeQuestion.hover(
                 function () {
                     // Mouse over
-                    $(this).css('color', 'white');
+                    $(this).css('color', 'red');
                 },
                 function () {
                     // Mouse out
@@ -368,15 +390,62 @@ $(document).ready(function () {
                 }
             );
 
+            const additionalBtn = $('<div>')
+                .addClass('absolute top-0 -right-12 flex flex-col gap-2')
+                .append(addQuestion, removeQuestion)
+            //add choice button
+            const addOption = $('<button>')
+                .addClass('flex items-center gap-2 text-gray-400 m-2')
+                .html('<iconify-icon icon="gala:add" style="color: #afafaf;" width="20" height="20"></iconify-icon>' + 'Add option')
+                .hover(function () {
+                    // over
+                    $(this).css({ 'color': '#1769AA' }) //for text
+                    $(this).find('iconify-icon').css({ 'color': '#1769AA' }) //for icon
+                }, function () {
+                    // out
+                    $(this).find('iconify-icon').css({ 'color': '#afafaf' })
+                    $(this).css({ 'color': '#afafaf' })
+                }
+                )
+                .on('click', function () {
+                    //add new option
+                    const newinputWrapper = $('<div>')
+                        .addClass('flex items-center mb-2')
+                    const newiconRadio = $('<iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+                    const newinputField = $('<input>')
+                        .addClass('py-2 px-2 outline-none w-4/5 flex-1 choices')
+                        .attr('placeholder', 'option')
+                        .on('change', function () {
+                            displaySavedChanges()
+                            const choiceTextVal = $(this).val()
+                            let isSectionQuestion = 0;
+                            if (isQuestion) isSectionQuestion = 1
 
-            questionWrapper.append(questionName, questionBody, removeQuestion)
+                            insertSectionChoices(questionID, choiceTextVal, isSectionQuestion)
+                        })
+                    const removeOption = $('<iconify-icon icon="ei:close" style="color: #afafaf;" width="20" height="20"></iconify-icon>')
+                        .on('click', function () {
+                            newinputWrapper.remove()
+                        })
+                    newinputWrapper.append(newiconRadio, newinputField, removeOption)
+                    questionBody.append(newinputWrapper)
+                })
+
+            questionWrapper.append(questionName, questionBody, addOption, additionalBtn)
 
             bodyCategory.append(questionWrapper)
         })
 
+        if (!isQuestion) {
+            categoryWrapper.append(headerCategory)
+            categoryWrapper.addClass('center-shadow w-full')
+            bodyCategory.addClass('center-shadow')
+        } else categoryWrapper.addClass('w-4/5')
+
         //display on root container
-        categoryWrapper.append(headerCategory, bodyCategory)
-        $('#questions').append(categoryWrapper)
+
+        categoryWrapper.append(bodyCategory)
+        $(container).append(categoryWrapper)
     }
 
     function removeChoice(choiceID, wrapper) {
@@ -601,6 +670,33 @@ $(document).ready(function () {
         body.append(container)
     }
 
+    function retrievedSectionData(choiceID) {
+        const action = "getSectionData";
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('choiceID', choiceID);
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                const data = JSON.parse(response); // Assuming the response is in JSON format
+                $('#sectionModalcontainer').removeClass('hidden')
+                // Loop through the data and display questions
+                data.forEach(questionSet => {
+                    const questionSets = questionSet; // You may need to access the specific property containing questions
+                    const container = '#sectionBody';
+                    displayQuestion("", "", questionSets, "", container, true)
+                });
+            },
+            erro: error => { console.log(error) }
+        })
+    }
+
+
     sectionQuestion = []
     function insertSectionData(categoryID, choiceID, formID, modal) {
         const questionSet = []
@@ -654,6 +750,25 @@ $(document).ready(function () {
                     }, 3000);
                 }
             },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function insertSectionChoices(questionID, choiceTextVal, isSectionQuestion) {
+        const action = "addChoicesSection";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('questionID', questionID)
+        formData.append('choiceText', choiceTextVal)
+        formData.append('isSectionQuestion', isSectionQuestion)
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
             error: error => { console.log(error) }
         })
     }

@@ -32,7 +32,7 @@
         <p id="noteCategory" class="text-gray-500 italic text-center w-2/5 mx-auto">This section allows you to set a categorization for
             different sets of question to be easily distinguish by the one answering</p>
 
-        <section id="questionnaire" class="w-2/5 h-3/4 block mx-auto my-5">
+        <section id="questionnaire" class="w-1/2 h-3/4 block mx-auto my-5">
             <div class="h-full">
                 <div id="categoryContainer" class=" rounded-lg border-t-8 border-accent p-5 justify-between center-shadow">
                     <div id="categoryWrapper" class="flex flex-col gap-2"></div>
@@ -76,6 +76,14 @@
         <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col justify-center items-center gap-2">
             <div class="loading-spinner mb-2"></div>
             <p class="text-xl font-bold text-gray-500">Inserting...</p>
+        </div>
+    </div>
+
+    <!-- section modal -->
+    <div id="sectionModalcontainer" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+        <div class="modal-container w-1/2 h-4/5 bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2 border-t-8 border-blue-400">
+            <header class="font-bold text-4xl text-center text-blue-400 py-2 border-b border-gray-300">Section</header>
+            <div id="sectionBody" class="h-full overflow-y-auto"></div>
         </div>
     </div>
 
