@@ -57,6 +57,18 @@ if (isset($_POST['action'])) {
         $choiceText = $_POST['choiceText'];
         $isSectionQuestion = $_POST['isSectionQuestion'];
         insertChoices($questionID, $choiceText, $isSectionQuestion, $mysql_con);
+    } else if ($action == "addNewQuestionForCategory") {
+        $data = json_decode($_POST['data'], true);
+        $categoryID = $data['CategoryID'];
+        $questionID = substr(md5(uniqid()), 0, 29);
+        $question = $data['Question'];
+        $inputType = $data['InputType'];
+        $formID = $data['FormID'];
+        $choices = $data['choices'];
+
+        $questionInsertion = insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $mysql_con);
+        if ($questionInsertion) echo 'Success';
+        else echo 'Unsuccess';
     }
 }
 

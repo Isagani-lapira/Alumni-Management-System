@@ -239,12 +239,32 @@ $(document).ready(function () {
 
     function displayQuestion(categoryID, categoryName, questionSets, formID, container, isQuestion) {
         const categoryWrapper = $('<div>')
-            .addClass('rounded-lg mx-auto mb-6 p-1')
+            .addClass('rounded-lg mx-auto mb-6 p-1 relative')
 
         const headerCategory = $('<header>')
             .addClass('w-full text-center py-5 font-bold text-lg text-white bg-darkAccent rounded-t-lg')
             .text(categoryName)
 
+        const addNewQuestion = $('<iconify-icon class="p-3 rounded-md center-shadow h-max absolute top-1 right-1" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>')
+            .on('click', function () {
+                openCreateNewQuestion(categoryID, formID);
+            })
+        addNewQuestion.hover(
+            function () {
+                // Mouse enters the element (hover)
+                $(this).css({
+                    "background": '#FFFFFF',
+                    "color": 'red'
+                })
+            },
+            function () {
+                // Mouse leaves the element (hover out)
+                $(this).css({
+                    "background": 'transparent',
+                    "color": '#AFAFAF'
+                })
+            }
+        );
         const bodyCategory = $('<div>')
             .addClass('p-3 flex flex-col gap-2')
 
@@ -440,7 +460,7 @@ $(document).ready(function () {
 
         //display on root container
 
-        categoryWrapper.append(bodyCategory)
+        categoryWrapper.append(addNewQuestion, bodyCategory)
         $(container).append(categoryWrapper)
     }
 
@@ -767,6 +787,100 @@ $(document).ready(function () {
             success: response => { console.log(response) },
             error: error => { console.log(error) }
         })
+    }
+
+    function openCreateNewQuestion(categoryID, formID) {
+        $('#newQuestionModal').removeClass('hidden')
+        $('#saveNewQuestion').on('click', function () {
+            const questionName = $('#newQuestionInputName').val()
+
+            if (questionName !== "") {
+                const inputTypeVal = $('#inputTypeModalNew').val();
+
+                // Get all the option choices
+                const choices = [];
+                $('.fieldWrapper').each(function () {
+                    let choiceVal = $(this).find('input[type="text"]').val();
+                    choices.push(choiceVal);
+                })
+
+                // Store data as an object
+                const data = {
+                    "FormID": formID,
+                    "CategoryID": categoryID,
+                    "Question": questionName,
+                    "InputType": inputTypeVal,
+                    "choices": choices
+                }
+                insertNewCategoryQuestion(data) //process insertion of data
+            }
+        })
+    }
+    $('#addOptionmodal').on('click', function () {
+        //add additional choice field
+        const fieldContainer = $('<div>')
+            .addClass('fieldWrapper flex items-center gap-2')
+
+        const icon = $('<iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>');
+        const inputType = $('<input>')
+            .addClass('flex-1 py-2')
+            .attr('type', "text")
+            .attr('placeholder', 'Add choice')
+
+        const removeOption = $('<iconify-icon icon="ei:close" class="cursor-pointer" style="color: #afafaf;" width="20" height="20"></iconify-icon>')
+            .on('click', function () {
+                fieldContainer.remove()
+            })
+
+        fieldContainer.append(icon, inputType, removeOption)
+        $('.optionContainer').append(fieldContainer)
+    })
+
+    $('#inputTypeModalNew').on('change', function () {
+        $selectedType = $(this).val();
+        if ($selectedType == 'Input') $('.optionContainer').addClass('hidden')
+        else $('.optionContainer').removeClass('hidden')
+    })
+
+    function insertNewCategoryQuestion(data) {
+        const action = "addNewQuestionForCategory";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('data', JSON.stringify(data));
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                if (response == "Success") {
+                    restartAllVal()
+                    $('#newQuestionModal').addClass('hidden')
+                    //display prompt
+                    $('#promptMsgNewQuestion').removeClass('hidden')
+                    setTimeout(() => {
+                        $('#promptMsgNewQuestion').addClass('hidden')
+                    }, 3000)
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+
+    $('#closeQuestionModal').on('click', restartAllVal) //close and restart everything
+
+    function restartAllVal() {
+        $('#newQuestionModal').addClass('hidden') //hide again the modal
+
+        //restart all the value
+        $('#newQuestionInputName').val("")
+        $('#inputTypeModalNew').val("")
+        $('.fieldWrapper:first input.choicesVal').val("");
+        $('.fieldWrapper:not(:first)').remove(); // remove all the choices available and assign it with no value
+
     }
 })
 

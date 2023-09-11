@@ -87,6 +87,44 @@
         </div>
     </div>
 
+    <!-- add new question -->
+    <div id="newQuestionModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+        <div class="modal-container w-1/3 h-max bg-white rounded-lg text-greyish_black">
+            <header class="text-center text-lg font-bold py-3 border-b border-gray-400 mb-2">Add new Question</header>
+            <div class="wrapper p-3 w-full mx-auto m-2">
+                <input id="newQuestionInputName" type="text" class="w-full text-center text-lg border-b border-gray-400" placeholder="Untitled Question" />
+                <!-- body -->
+                <div class="p-3 text-gray-400 mb-2">
+                    <select id="inputTypeModalNew" class="w-full p-2 outline-none center-shadow mb-2" name="" id="">
+                        <option value="Radio">Radio Type</option>
+                        <option value="Input">Input Type</option>
+                        <option value="Checkbox">Chexbox Type</option>
+                        <option value="DropDown">Dropdown Type</option>
+                    </select>
+                    <!-- options -->
+                    <div class="optionContainer">
+                        <div class="fieldWrapper flex items-center gap-2">
+                            <iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>
+                            <input type="text" class="py-2 choicesVal" placeholder="Add choice">
+                        </div>
+                    </div>
+                </div>
+
+                <button id="addOptionmodal" class="flex items-center gap-2 text-gray-400">
+                    <iconify-icon icon="gala:add" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    Add option
+                </button>
+
+                <div class="flex items-center justify-end gap-2">
+                    <button id="closeQuestionModal" class="text-gray-400 hover:bg-gray-300 py-2 px-3">Cancel</button>
+                    <button id="saveNewQuestion" class="bg-blue-400 hover:bg-blue-500 px-4 py-2 rounded-md text-white">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <span id="promptMsgNewQuestion" class="block mx-auto slide-bottom fixed top-0 px-4 py-2 z-50 bg-green-400 text-white rounded-sm font-bold hidden">Question successfully added</span>
+
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="../js/edittracer.js"></script>
 </body>
