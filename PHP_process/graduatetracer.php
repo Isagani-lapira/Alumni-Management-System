@@ -69,6 +69,19 @@ if (isset($_POST['action'])) {
         $questionInsertion = insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $mysql_con);
         if ($questionInsertion) echo 'Success';
         else echo 'Unsuccess';
+    } else if ($action == "addNewSectionQuestion") {
+        $newQuestionObj = json_decode($_POST['newQuestion'], true);
+        $categoryID = $newQuestionObj['CategoryID'];
+        $question = $newQuestionObj['QuestionSet']['Question'];
+        $inputType = $newQuestionObj['QuestionSet']['InputType'];
+        $formID = $newQuestionObj['FormID'];
+        $choices = $newQuestionObj['QuestionSet']['choice'];
+        $choiceID = $newQuestionObj['ChoiceID'];
+
+        $result = insertSectionData($categoryID, $question, $inputType, $formID, $choices, $choiceID, $mysql_con);
+
+        if ($result) echo 'Success';
+        else echo 'Unsuccess';
     }
 }
 
@@ -317,8 +330,7 @@ function retrievedQuestions($formID, $con)
             $categoryName =  $row['category_name'];
 
             //retrieve questions
-            $questionSet = "SELECT `questionID`, `question_text`,`inputType`
-            FROM `tracer_question` WHERE `categoryID` = ? AND `formID`= ? AND `status` = 'available' AND `isSectionQuestion`=0 ";
+            $questionSet = "SELECT * FROM `tracer_question` WHERE `categoryID` = ? AND `formID`= ? AND `status` = 'available' AND `isSectionQuestion`=0 ";
 
             $stmtQuestion = mysqli_prepare($con, $questionSet);
             $stmtQuestion->bind_param('ss', $categoryID, $formID);
@@ -352,7 +364,8 @@ function questionData($stmtQuestion, $con)
 
         while ($rowQuestion = $resultQuestion->fetch_assoc()) {
             $questionID = $rowQuestion['questionID'];
-
+            $categoryID = $rowQuestion['categoryID'];
+            $formID = $rowQuestion['formID'];
             //retrieve choices
             $queryChoices = "SELECT `choiceID`,`questionID`,`choice_text`, `sectionQuestion` FROM `questionnaire_choice` 
                     WHERE `status` = 'available' AND `questionID` = ?";
@@ -378,6 +391,8 @@ function questionData($stmtQuestion, $con)
             }
             $questions[] = array(
                 "questionID" => $rowQuestion['questionID'],
+                "categoryID" => $categoryID,
+                "formID" => $formID,
                 "questionTxt" => $rowQuestion['question_text'],
                 "inputType" => $rowQuestion['inputType'],
                 "choices" => $choices
@@ -472,27 +487,32 @@ function insertSection($sectionData, $con)
             $question = $set['Question'];
             $inputType = $set['InputType'];
             $choices = $set['choice'];
-
-            $questionID = substr(md5(uniqid()), 0, 29);
-            insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $con, 1); // perform insertion of question first 
-
-            //insert a section info
-            $query = "INSERT INTO `section_question`(`sectionID`, `choicesSectionID`, `questionID`) VALUES (?,?,?)";
-            $stmt = mysqli_prepare($con, $query);
-
-            $sectionID = substr(md5(uniqid()), 0, 29);
-            if ($stmt) {
-                $stmt->bind_param('sss', $sectionID, $choiceID, $questionID);
-                $result = $stmt->execute();
-
-                if ($result) $isComplete = true;
-            }
+            $isComplete = insertSectionData($categoryID, $question, $inputType, $formID, $choices, $choiceID, $con);
         }
     }
 
     if ($isComplete) echo 'Success';
     else echo 'Unsuccess';
 }
+
+function insertSectionData($categoryID, $question, $inputType, $formID, $choices, $choiceID, $con)
+{
+    $questionID = substr(md5(uniqid()), 0, 29);
+    insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $con, 1); // perform insertion of question first 
+
+    //insert a section info
+    $query = "INSERT INTO `section_question`(`sectionID`, `choicesSectionID`, `questionID`) VALUES (?,?,?)";
+    $stmt = mysqli_prepare($con, $query);
+
+    $sectionID = substr(md5(uniqid()), 0, 29);
+    if ($stmt) {
+        $stmt->bind_param('sss', $sectionID, $choiceID, $questionID);
+        $result = $stmt->execute();
+
+        if ($result) return true;
+    }
+}
+
 
 function retrieveSection($choiceID, $con)
 {

@@ -237,15 +237,15 @@ $(document).ready(function () {
         })
     }
 
-    function displayQuestion(categoryID, categoryName, questionSets, formID, container, isQuestion) {
+    function displayQuestion(categoryID, categoryName, questionSets, formID, container, isQuestion, choiceIDVal = "") {
         const categoryWrapper = $('<div>')
-            .addClass('rounded-lg mx-auto mb-6 p-1 relative')
+            .addClass('rounded-lg mx-auto mb-6 p-1 relative questionCategoryWrapper')
 
         const headerCategory = $('<header>')
             .addClass('w-full text-center py-5 font-bold text-lg text-white bg-darkAccent rounded-t-lg')
             .text(categoryName)
 
-        const addNewQuestion = $('<iconify-icon class="p-3 rounded-md center-shadow h-max absolute top-1 right-1" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>')
+        const addNewQuestion = $('<iconify-icon class="p-3 rounded-md hidden center-shadow h-max absolute top-1 right-1" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>')
             .on('click', function () {
                 openCreateNewQuestion(categoryID, formID);
             })
@@ -456,12 +456,19 @@ $(document).ready(function () {
             categoryWrapper.append(headerCategory)
             categoryWrapper.addClass('center-shadow w-full')
             bodyCategory.addClass('center-shadow')
-        } else categoryWrapper.addClass('w-4/5')
+            addNewQuestion.removeClass('hidden')
+        } else {
+            categoryWrapper.addClass('w-4/5')
+            $('#catIDHolder').val(categoryID)
+            $('#formIDHolder').val(formID)
+            $('#choiceIDHolder').val(choiceIDVal)
+        }
 
         //display on root container
 
         categoryWrapper.append(addNewQuestion, bodyCategory)
         $(container).append(categoryWrapper)
+
     }
 
     function removeChoice(choiceID, wrapper) {
@@ -583,6 +590,7 @@ $(document).ready(function () {
         modalContainer.append(header, body, footer)
         container.append(modalContainer)
         $('body').append(container)
+
     }
 
     function createSecQuestion(body, isFirst = false) {
@@ -703,9 +711,10 @@ $(document).ready(function () {
                 $('#sectionModalcontainer').removeClass('hidden')
                 // Loop through the data and display questions
                 data.forEach(questionSet => {
-                    const questionSets = questionSet; // You may need to access the specific property containing questions
+                    const categoryID = questionSet[0].categoryID;
+                    const formID = questionSet[0].formID
                     const container = '#sectionBody';
-                    displayQuestion("", "", questionSets, "", container, true)
+                    displayQuestion(categoryID, "", questionSet, formID, container, true, choiceID)
                 });
             },
             erro: error => { console.log(error) }
@@ -744,7 +753,7 @@ $(document).ready(function () {
         processInsertionOfSection(sectionQuestion, modal);
     }
 
-    function processInsertionOfSection(sectionData, modal) {
+    function processInsertionOfSection(sectionData, modal = "") {
         const action = 'addSectionData';
         const formData = new FormData();
         formData.append('action', action)
@@ -757,6 +766,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: response => {
+                console.log(response)
                 if (response == 'Success') {
                     modal.remove()
                     $('#promptMsgSection').removeClass('hidden') //display the message
@@ -793,26 +803,8 @@ $(document).ready(function () {
         $('#newQuestionModal').removeClass('hidden')
         $('#saveNewQuestion').on('click', function () {
             const questionName = $('#newQuestionInputName').val()
-
             if (questionName !== "") {
-                const inputTypeVal = $('#inputTypeModalNew').val();
-
-                // Get all the option choices
-                const choices = [];
-                $('.fieldWrapper').each(function () {
-                    let choiceVal = $(this).find('input[type="text"]').val();
-                    choices.push(choiceVal);
-                })
-
-                // Store data as an object
-                const data = {
-                    "FormID": formID,
-                    "CategoryID": categoryID,
-                    "Question": questionName,
-                    "InputType": inputTypeVal,
-                    "choices": choices
-                }
-                insertNewCategoryQuestion(data) //process insertion of data
+                retrieveNewQuestionData(questionName, formID, categoryID)
             }
         })
     }
@@ -882,5 +874,96 @@ $(document).ready(function () {
         $('.fieldWrapper:not(:first)').remove(); // remove all the choices available and assign it with no value
 
     }
+
+    // for section adding question
+    $('.iconAddModal').on('click', function () {
+        const formID = $('#formIDHolder').val()
+        const categoryID = $('#catIDHolder').val()
+        const choiceID = $('#choiceIDHolder').val()
+
+        $('#newQuestionModal').removeClass('hidden')
+        $('#saveNewQuestion').on('click', function () {
+            const questionName = $('#newQuestionInputName').val()
+            if (questionName !== "") {
+                retrieveNewQuestionData(questionName, formID, categoryID, true, choiceID)
+            }
+        })
+    })
+
+
+    function retrieveNewQuestionData(questionName, formID, categoryID, isSectionQuestion = false, choiceID = "") {
+        const inputTypeVal = $('#inputTypeModalNew').val();
+        // Get all the option choices
+        const choices = [];
+        $('.fieldWrapper').each(function () {
+            let choiceVal = $(this).find('input[type="text"]').val();
+            choices.push(choiceVal);
+        })
+
+        const QuestionSet = {
+            "Question": questionName,
+            "choice": choices,
+            "InputType": inputTypeVal
+        }
+
+        if (!isSectionQuestion) {
+            const data = {
+                "FormID": formID,
+                "CategoryID": categoryID,
+                "Question": questionName,
+                "InputType": inputTypeVal,
+                "choices": choices
+            }
+            insertNewCategoryQuestion(data) //process insertion of data
+        }
+        else {
+            const data = {
+                'FormID': formID,
+                'CategoryID': categoryID,
+                'ChoiceID': choiceID,
+                "QuestionSet": QuestionSet,
+            }
+            insertNewQuestionSection(data, choiceID)
+        }
+
+    }
+
+    function insertNewQuestionSection(data, choiceID) {
+        const action = 'addNewSectionQuestion';
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('newQuestion', JSON.stringify(data))
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                if (response == "Success") {
+                    $('#sectionBody').find('.questionCategoryWrapper').remove()
+                    retrievedSectionData(choiceID)
+                    restartAllVal()
+                    $('#newQuestionModal').addClass('hidden')
+                    //display prompt
+                    $('#promptMsgNewQuestion').removeClass('hidden')
+                    setTimeout(() => {
+                        $('#promptMsgNewQuestion').addClass('hidden')
+                    }, 3000)
+                }
+            },
+        })
+    }
+
+    // close the section modal
+    $('#sectionModalcontainer').on('click', function (e) {
+        const target = e.target
+        const modal = $('#sectionModal')
+
+        if (!modal.is(target) && !modal.has(target).length) {
+            $('#sectionModalcontainer').addClass('hidden')
+        }
+    })
 })
 

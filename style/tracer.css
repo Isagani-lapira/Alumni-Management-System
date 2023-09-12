@@ -36,3 +36,8 @@ main {
     transform: translateY(50px);
   }
 }
+
+.iconAddModal:hover {
+  border: 1px solid rgb(135, 208, 250);
+  color: rgb(135, 208, 250) !important;
+}
