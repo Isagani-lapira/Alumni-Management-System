@@ -1,4 +1,7 @@
 <!-- dashboard content -->
+<?php session_start();
+?>
+
 <section id="dashboard-tab" class="container">
 
 
@@ -12,7 +15,7 @@
                 <span class="block text-lg text-white text-right">
                     Welcome Back <br />
                     <span class="font-semibold text-lg">
-                        Mr. Juan Dela Cruz
+                        <?= $_SESSION['fullName']; ?>
                     </span>
                 </span>
             </div>
@@ -27,11 +30,34 @@
 
                     <div class="text-2xl text-gray-400 font-bold">
                         <div>
-                            <span class="text-accent font-bold text-4xl mt-2 relative bottom-0">55000</span>
-                            <span>/10,000</span>
+                            <span class="text-accent font-bold text-4xl mt-2 relative bottom-0">
+                                <?php
+                                require_once('../model/Student.php');
+                                require_once('../model/Alumni.php');
+
+                                require_once('../php/connection.php');
+                                $student = new Student($mysql_con);
+                                $alumni = new Alumni($mysql_con);
+                                $studentCount = $student->getTotalCount(
+                                    $_SESSION['colCode']
+                                );
+                                $alumniCount = $alumni->getTotalCount(
+                                    $_SESSION['colCode']
+                                );
+
+                                echo ($alumniCount + $studentCount);
+                                ?>
+
+                            </span>
+                            <!-- <span>/10,000</span> -->
                         </div>
-                        <div class=""><span class="font-extrabold">300</span> <span class="font-normal capitalize text-lg">students</span></div>
-                        <div class="font-normal capitalize"><span class="font-extrabold">900</span> <span class="font-normal capitalize text-lg">alumni</span> </div>
+                        <div class=""><span class="font-extrabold">
+                                <?= $studentCount ?>
+                            </span> <span class="font-normal capitalize text-lg">students</span></div>
+                        <div class="font-normal capitalize"><span class="font-extrabold">
+                                <?= $alumniCount ?>
+
+                            </span> <span class="font-normal capitalize text-lg">alumni</span> </div>
                     </div>
                 </div>
                 <!-- new users -->

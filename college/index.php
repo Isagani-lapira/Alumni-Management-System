@@ -55,6 +55,7 @@ if (
             require_once './php/logging.php';
             // store the id in session
             $_SESSION['personID'] = $personID;
+            $_SESSION['fullName'] = $fullname;
             $_SESSION['adminID'] = $adminID;
             $_SESSION['colCode'] = $colCode;
             logSigninActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
@@ -200,7 +201,7 @@ if (
 
         <main class="flex-1 mx-auto mt-10">
             <div id="main-root">
-                <?php require './dashboard/dashboard.php'; ?>
+
             </div>
 
         </main>
