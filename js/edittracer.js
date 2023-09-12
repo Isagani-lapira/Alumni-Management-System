@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     retrieveCategory() //get the category
     function retrieveCategory() {
-        const formID = "6569811a8d7bea55f82e729acb229"; //to be replaced
+        const formID = "1efafb785ac3c6403f229050e14c5"; //to be replaced
         const action = "retrievedCategory";
         const formData = new FormData();
         formData.append('action', action);
@@ -847,6 +847,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: response => {
+                console.log(response)
                 if (response == "Success") {
                     restartAllVal()
                     $('#newQuestionModal').addClass('hidden')

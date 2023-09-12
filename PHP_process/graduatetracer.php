@@ -56,7 +56,9 @@ if (isset($_POST['action'])) {
         $questionID = $_POST['questionID'];
         $choiceText = $_POST['choiceText'];
         $isSectionQuestion = $_POST['isSectionQuestion'];
-        insertChoices($questionID, $choiceText, $isSectionQuestion, $mysql_con);
+        $querySequence = "SELECT `sequence` FROM `questionnaire_choice` WHERE `questionID`='$questionID'";
+        $nextSequence = checkSequence($querySequence, $mysql_con) + 1;
+        insertChoices($questionID, $choiceText, $isSectionQuestion, $nextSequence, $mysql_con);
     } else if ($action == "addNewQuestionForCategory") {
         $data = json_decode($_POST['data'], true);
         $categoryID = $data['CategoryID'];
@@ -66,7 +68,9 @@ if (isset($_POST['action'])) {
         $formID = $data['FormID'];
         $choices = $data['choices'];
 
-        $questionInsertion = insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $mysql_con);
+        $querySequence = "SELECT `sequence` FROM `tracer_question` WHERE `categoryID` = '$categoryID'";
+        $nextSequence = checkSequence($querySequence, $mysql_con) + 1; //get the next sequence (if there one)
+        $questionInsertion = insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $nextSequence, $mysql_con);
         if ($questionInsertion) echo 'Success';
         else echo 'Unsuccess';
     } else if ($action == "addNewSectionQuestion") {
@@ -78,14 +82,24 @@ if (isset($_POST['action'])) {
         $choices = $newQuestionObj['QuestionSet']['choice'];
         $choiceID = $newQuestionObj['ChoiceID'];
 
-        $result = insertSectionData($categoryID, $question, $inputType, $formID, $choices, $choiceID, $mysql_con);
+        $querySequence = "SELECT `sequence` FROM `section_question` WHERE `choicesSectionID`= '$choiceID'";
+        $nextSequence = checkSequence($querySequence, $mysql_con) + 1; //get the next sequence (if there one)
+        $result = insertSectionData($categoryID, $question, $inputType, $formID, $choices, $choiceID, $nextSequence, $mysql_con);
 
         if ($result) echo 'Success';
         else echo 'Unsuccess';
     }
 }
 
-
+function checkSequence($query, $con)
+{
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_num_rows($result);
+    if ($result && $row) return $row;
+    else return 0;
+}
 function insertDataTracer($datajson, $con)
 {
     $formTitle = $datajson['title'];
@@ -139,13 +153,15 @@ function insertCategory($count, $data, $categoryName, $formID, $sequence, $con)
 
         if ($result) {
             // //add the questions
+            $sequence = 0;
             foreach ($data[$count] as $questionData) {
                 $question = $questionData['Question'];
                 $inputType = $questionData['InputType'];
                 $choices = $questionData['choices'];
 
                 $questionID = substr(md5(uniqid()), 0, 29);
-                $result = insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $con);
+                $sequence++;
+                $result = insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $sequence, $con);
                 if (!$result) return false;
             }
 
@@ -154,37 +170,40 @@ function insertCategory($count, $data, $categoryName, $formID, $sequence, $con)
     }
 }
 
-function insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $con, $isSectionQuestion = 0)
+function insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $sequence, $con, $isSectionQuestion = 0)
 {
     $query = "INSERT INTO `tracer_question`(`questionID`, `categoryID`, `formID`, 
-    `question_text`, `inputType`,`status`,`isSectionQuestion`) VALUES (?,?,?,?,?,?,?)";
+    `question_text`, `inputType`,`status`,`isSectionQuestion`,`sequence`) VALUES (?,?,?,?,?,?,?,?)";
 
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt) {
         $status = 'available';
-        $stmt->bind_param('ssssssd', $questionID, $categoryID, $formID, $question, $inputType, $status, $isSectionQuestion);
+        $stmt->bind_param('ssssssdd', $questionID, $categoryID, $formID, $question, $inputType, $status, $isSectionQuestion, $sequence);
         $result = $stmt->execute();
 
         if ($result) {
             //insert choices
+            $nextTerm = 0;
             foreach ($choices as $choice) {
-                insertChoices($questionID, $choice, $isSectionQuestion, $con);
+                $nextTerm++;
+                insertChoices($questionID, $choice, $isSectionQuestion, $nextTerm, $con);
             }
             return true;
         } else return false;
     }
 }
 
-function insertChoices($questionID, $choiceText, $isSectionQuestion, $con)
+function insertChoices($questionID, $choiceText, $isSectionQuestion, $nextTerm, $con)
 {
-    $query = "INSERT INTO `questionnaire_choice`(`choiceID`, `questionID`, `choice_text`,`status`,`sectionQuestion`) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO `questionnaire_choice`(`choiceID`, `questionID`, `choice_text`,
+    `status`,`sectionQuestion`,`sequence`) VALUES (?,?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt) {
         $choiceID = substr(md5(uniqid()), 0, 29);
         $status = "available";
-        $stmt->bind_param('ssssd', $choiceID, $questionID, $choiceText, $status, $isSectionQuestion);
+        $stmt->bind_param('ssssdd', $choiceID, $questionID, $choiceText, $status, $isSectionQuestion, $nextTerm);
         $result = $stmt->execute();
 
         if ($result) return true;
@@ -195,7 +214,8 @@ function insertChoices($questionID, $choiceText, $isSectionQuestion, $con)
 
 function retrieveCategory($tracerID, $con)
 {
-    $queryCategory = "SELECT `categoryID`,`category_name` FROM `question_category` WHERE `formID` = ? AND `status` = 'available' ORDER by `sequence` ASC";
+    $queryCategory = "SELECT `categoryID`,`category_name` FROM `question_category` WHERE 
+    `formID` = ? AND `status` = 'available' ORDER by `sequence` ASC";
     $stmt = mysqli_prepare($con, $queryCategory);
 
     $result = "Unsuccess";
@@ -330,7 +350,8 @@ function retrievedQuestions($formID, $con)
             $categoryName =  $row['category_name'];
 
             //retrieve questions
-            $questionSet = "SELECT * FROM `tracer_question` WHERE `categoryID` = ? AND `formID`= ? AND `status` = 'available' AND `isSectionQuestion`=0 ";
+            $questionSet = "SELECT * FROM `tracer_question` WHERE `categoryID` = ? AND `formID`= ?
+             AND `status` = 'available' AND `isSectionQuestion`=0  ORDER by `sequence` ASC";
 
             $stmtQuestion = mysqli_prepare($con, $questionSet);
             $stmtQuestion->bind_param('ss', $categoryID, $formID);
@@ -368,7 +389,7 @@ function questionData($stmtQuestion, $con)
             $formID = $rowQuestion['formID'];
             //retrieve choices
             $queryChoices = "SELECT `choiceID`,`questionID`,`choice_text`, `sectionQuestion` FROM `questionnaire_choice` 
-                    WHERE `status` = 'available' AND `questionID` = ?";
+                    WHERE `status` = 'available' AND `questionID` = ? ORDER by `sequence` ASC";
 
             $stmtChoices = mysqli_prepare($con, $queryChoices);
 
@@ -481,13 +502,14 @@ function insertSection($sectionData, $con)
         $choiceID = $data['ChoiceID'];
         $formID = $data['FormID'];
         $questionSet = $data['QuestionSet'];
-
+        $nextSequence = 0;
         //add question to the database
         foreach ($questionSet as $set) {
             $question = $set['Question'];
             $inputType = $set['InputType'];
             $choices = $set['choice'];
-            $isComplete = insertSectionData($categoryID, $question, $inputType, $formID, $choices, $choiceID, $con);
+            $nextSequence++;
+            $isComplete = insertSectionData($categoryID, $question, $inputType, $formID, $choices, $choiceID, $nextSequence, $con);
         }
     }
 
@@ -495,18 +517,21 @@ function insertSection($sectionData, $con)
     else echo 'Unsuccess';
 }
 
-function insertSectionData($categoryID, $question, $inputType, $formID, $choices, $choiceID, $con)
+function insertSectionData($categoryID, $question, $inputType, $formID, $choices, $choiceID, $nextSequence, $con)
 {
     $questionID = substr(md5(uniqid()), 0, 29);
-    insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $con, 1); // perform insertion of question first 
+
+    $questionPosition = 0;
+    //get the next sequence (if there one)
+    insertQuestion($categoryID, $questionID, $question, $inputType, $formID, $choices, $questionPosition, $con, 1); // perform insertion of question first 
 
     //insert a section info
-    $query = "INSERT INTO `section_question`(`sectionID`, `choicesSectionID`, `questionID`) VALUES (?,?,?)";
+    $query = "INSERT INTO `section_question`(`sectionID`, `choicesSectionID`, `questionID`,`sequence`) VALUES (?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
 
     $sectionID = substr(md5(uniqid()), 0, 29);
     if ($stmt) {
-        $stmt->bind_param('sss', $sectionID, $choiceID, $questionID);
+        $stmt->bind_param('sssd', $sectionID, $choiceID, $questionID, $nextSequence);
         $result = $stmt->execute();
 
         if ($result) return true;
@@ -516,7 +541,7 @@ function insertSectionData($categoryID, $question, $inputType, $formID, $choices
 
 function retrieveSection($choiceID, $con)
 {
-    $query = "SELECT `questionID` FROM `section_question` WHERE `choicesSectionID`= ?";
+    $query = "SELECT `questionID` FROM `section_question` WHERE `choicesSectionID`= ? ORDER by `sequence` ASC";
     $stmt = mysqli_prepare($con, $query);
     $stmt->bind_param('s', $choiceID);
     $stmt->execute();
