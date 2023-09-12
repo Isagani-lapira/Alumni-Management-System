@@ -28,7 +28,12 @@ module.exports = {
       outline: ["none"],
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    require("@tailwindcss/forms")({
+      strategy: "class",
+    }),
+  ],
   // daisyUI config (optional - here are the default values)
   daisyui: {
     themes: [], // true: all themes | false: only light + dark | array: specific themes like this ["light", "dark", "cupcake"]
