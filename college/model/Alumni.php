@@ -9,6 +9,40 @@ class Alumni
         $this->conn = $conn;
     }
 
+    // TODO use later, as there is no property for date_created yet.
+    public function getUserCountByDate($colCode, $date): int
+    {
+
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('SELECT COUNT(*) AS total FROM `alumni` 
+        WHERE colCode = ? dateCreated = ? ;');
+
+        // *  Binds the variable to the '?', prevents sql injection
+        $stmt->bind_param('s', $colCode);
+        // execute the query
+        $stmt->execute();
+        // gets the myql_result. Similar result to mysqli_query
+        $result = $stmt->get_result();
+        $num_row = mysqli_num_rows($result);
+
+        // count 
+        $count = '';
+
+        if ($result && $num_row > 0) {
+            // Gets every row in the query
+            while ($record = mysqli_fetch_assoc($result)) {
+                $count = $record['total'];
+            }
+        } else {
+            return 0;
+        }
+
+
+        return $count;
+    }
+
     public function getTotalCount($colCode): int
     {
 

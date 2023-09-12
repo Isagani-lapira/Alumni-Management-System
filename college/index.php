@@ -158,16 +158,16 @@ if (
                             <i class="fa-solid fa-message mr-2 fa-xl"></i>
                             ANNOUNCEMENTS</a></li>
                     <li><a data-link="email" href="#email" class="flex rounded p-2 ">
-                            <i class="fa-solid fa-envelope fa-xl mr-2"></i> EMAIl
+                            <i class="fa-solid fa-envelope fa-xl mr-2"></i> EMAIL
                         </a></li>
-                    <li><a data-link="student-record" href="#student-record" class="flex rounded-lg p-2">
+                    <!-- <li><a data-link="student-record" href="#student-record" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
 
-                            STUDENT RECORDS</a></li>
-                    <li><a data-link="alumni-record" href="#alumni-record" class="flex rounded-lg p-2">
+                            STUDENT RECORDS</a></li> -->
+                    <li><a data-link="records" href="#records" class="flex rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
 
-                            ALUMNI RECORDS</a></li>
+                            RECORDS</a></li>
                     <li><a data-link="event" href="#event" class="flex rounded p-2 ">
                             <i class="fa-solid fa-calendar-check mr-2 fa-xl"></i>
                             EVENT</a></li>
