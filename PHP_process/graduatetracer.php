@@ -88,7 +88,7 @@ if (isset($_POST['action'])) {
 
         if ($result) echo 'Success';
         else echo 'Unsuccess';
-    }
+    } else if ($action == "retrieveAllTracerForm") retrieveTracerData($mysql_con);
 }
 
 function checkSequence($query, $con)
@@ -538,7 +538,6 @@ function insertSectionData($categoryID, $question, $inputType, $formID, $choices
     }
 }
 
-
 function retrieveSection($choiceID, $con)
 {
     $query = "SELECT `questionID` FROM `section_question` WHERE `choicesSectionID`= ? ORDER by `sequence` ASC";
@@ -560,5 +559,39 @@ function retrieveSection($choiceID, $con)
             $data[] = $questions;
         }
     }
+    echo json_encode($data);
+}
+
+function retrieveTracerData($con)
+{
+    $query = "SELECT * FROM `tracer_form` WHERE `status`='available'";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_num_rows($result);
+
+    $response = "Unsuccess";
+    $formID = array();
+    $formName = array();
+    $year_created = array();
+    if ($result && $row > 0) {
+        $response = 'Success';
+
+        //get all the data in tracer_form table
+        while ($data = $result->fetch_assoc()) {
+            $formID[] = $data['formID'];
+            $formName[] = $data['formName'];
+            $year_created[] = $data['year_created'];
+        }
+    }
+
+    //make the data into object for easy acces of properties
+    $data = array(
+        'response' => $response,
+        'formID' => $formID,
+        'formName' => $formName,
+        'year_created' => $year_created,
+    );
+
     echo json_encode($data);
 }

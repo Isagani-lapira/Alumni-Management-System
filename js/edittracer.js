@@ -2,9 +2,10 @@
 
 $(document).ready(function () {
 
-    retrieveCategory() //get the category
-    function retrieveCategory() {
-        const formID = "1efafb785ac3c6403f229050e14c5"; //to be replaced
+    const formIDValue = $('#formID').val()
+    retrieveCategory(formIDValue) //get the category
+    function retrieveCategory(formIDValue) {
+        const formID = formIDValue;
         const action = "retrievedCategory";
         const formData = new FormData();
         formData.append('action', action);

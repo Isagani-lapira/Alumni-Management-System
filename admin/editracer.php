@@ -14,6 +14,14 @@
 </head>
 
 <body>
+    <?php
+    if (isset($_GET['id'])) {
+        $id = htmlspecialchars($_GET['id']);
+        echo "<input id='formID' type='hidden' value = $id";
+    } else {
+        header('Location: ../admin/admin.php');
+    }
+    ?>
     <nav class="p-3 border-b border-accent">
         <section class="logo flex gap-2 items-center">
             <img src="../assets/bulsu-logo.png" class="h-20 w-20">

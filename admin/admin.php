@@ -875,8 +875,13 @@ function dateInText($date)
           <h1 class="text-xl font-extrabold">Alumni Tracer Form</h1>
           <p class="text-grayish">See the relevant information that are gathered</p>
 
-          <div class="border border-t-grayish h-5/6">
-            <div class="h-1/2 p-5">
+          <div class="flex gap-2 justify-end mb-2">
+            <button id="tracerbtn" class="text-gray-400 hover:text-gray-500">Repository</button>
+            <button class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
+          </div>
+
+          <div id="formReport" class="border border-t-grayish h-5/6">
+            <div class="h-2/5 p-5">
               <h1 class="text-lg font-extrabold">Employment Status</h1>
               <canvas class="w-full h-5/6" id="empStatus"></canvas>
             </div>
@@ -887,6 +892,18 @@ function dateInText($date)
             </div>
 
           </div>
+
+          <!-- repository -->
+          <div id="tracerRepo" class="h-4/5 border border-t-grayish p-5 w-full hidden">
+            <span id="backToGraphForm" class="flex gap-2 items-center cursor-pointer">
+              <iconify-icon icon="ep:back" style="color: #afafaf;" width="30" height="30"></iconify-icon>
+              Back
+            </span>
+
+            <div id="repoContainer" class="grid grid-cols-4 space-x-2 overflow-y-auto my-4"></div>
+
+          </div>
+
         </div>
 
         <!-- profile content -->
@@ -2101,6 +2118,7 @@ function dateInText($date)
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/forms.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>
