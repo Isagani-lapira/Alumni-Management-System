@@ -171,17 +171,17 @@ $(document).ready(async function () {
                     }" class="event-list-item shadow-md border border-gray-200  rounded-lg">
                     <div class="grid grid-cols-2">
                       
-                        <div class="img-container h-60 w-full rounded-sm hover:scale-90 transition-all cursor-pointer">
+                        <div class="img-container h-60 w-full rounded-sm hover:scale-95 hover:opacity-70 transition-all cursor-pointer">
                           <img src="data:image/jpg;base64,${
                             event.aboutImg
                           }" alt="event image" class="object-cover rounded-sm  object-center max-w-full h-auto max-h-full w-full" loading="lazy">
                         </div>
                         <div class="flex justify-between flex-col  p-2 pl-4 ">
                             <div>
-                              <h3 class="event-list-item__name font-bold text-xl text-gray-800 cursor-pointer  "> ${
+                              <h3 class="event-list-item__name font-bold text-xl text-gray-800 cursor-pointer  hover:text-accent transition-colors "> ${
                                 event.eventName
                               }</h3>
-                              <p class=" text-slate-500">${parsedDatePosted}</p>
+                              <p class=" text-gray-400">${parsedDatePosted}</p>
                               <!-- <p class="font-medium text-lg text-gray-800">${parsedEventDateTime}</p> -->
                               <p class=" ">${limit(event.about_event, 60)}</p>
                             </div>
