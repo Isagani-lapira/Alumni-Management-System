@@ -57,6 +57,41 @@ function logDeleteActivity(mysqli $mysql_con, $colAdmin, $colCode)
 }
 
 
+
+/**
+ * Get the latest nth activity
+ */
+
+function getNewActivityByLimit(mysqli $mysql_con, int $limit)
+{
+    // Initialize the statement
+    $stmt = $mysql_con->stmt_init();
+
+    $stmt->prepare('
+        SELECT * FROM collegeadmin_log ORDER BY date_posted DESC LIMIT ?;
+        ');
+
+    // bind the parameters
+    $stmt->bind_param(
+        'i',
+        $limit
+    );
+
+    try {
+        // execute the query
+        $stmt->execute();
+        // gets the myql_result. Similar result to mysqli_query
+        $result = $stmt->get_result();
+        $num_row = mysqli_num_rows($result);
+        // iterate the results into an array
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    } catch (\Throwable $th) {
+        //throw $th;
+        echo  $th->getMessage();
+    }
+}
+
 /***
  * Set new activity
  * 
@@ -102,6 +137,7 @@ function getTotalEvents(string $colCode)
 
 
 /***
+ * TODO 
  * Get recent activity of the college
  * 
  * @param mysqli $mysql_con
@@ -109,19 +145,19 @@ function getTotalEvents(string $colCode)
  * @return array
  * 
  */
-function getRecentCollegeAcivity(mysqli $mysql_con, $colCode)
+function getRecentCollegeAcivity(mysqli $mysql_con, $colAdmin)
 {
     // Initialize the statement
     $stmt = $mysql_con->stmt_init();
 
     $stmt->prepare('
-    SELECT * FROM collegeadmin_log WHERE colCode = ? ORDER BY date_posted DESC LIMIT 5;
+    SELECT * FROM collegeadmin_log WHERE colAdmin = ? ORDER BY timestamp DESC LIMIT 5;
     ');
 
     // bind the parameters
     $stmt->bind_param(
         's',
-        $colCode
+        $colAdmin
     );
 
     try {
@@ -130,12 +166,20 @@ function getRecentCollegeAcivity(mysqli $mysql_con, $colCode)
         // gets the myql_result. Similar result to mysqli_query
         $result = $stmt->get_result();
         $num_row = mysqli_num_rows($result);
+
+        // get all the results
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        return $result;
     } catch (\Throwable $th) {
         //throw $th;
         echo  $th->getMessage();
     }
 }
 
+/**
+ * TODO
+ */
 // Get the recent activity of specific college admin
 function getRecentAdminActivity(mysqli $mysql_con, $colAdmin)
 {

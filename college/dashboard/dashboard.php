@@ -79,8 +79,33 @@
             <p class="  text-accent font-bold">RECENT ACTIVITIES
                 <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
             </p>
+            <?php
+            require_once('../php/connection.php');
+            require_once('../php/logging.php');
 
-            <div class="dash-content p-3 pt-0   rounded-md">
+            $logs = getRecentCollegeAcivity($mysql_con, $_SESSION['adminID']);
+
+
+
+
+            ?>
+            <?php foreach ($logs as  $item) : ?>
+                <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-gray-400 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                        <p class="">
+                            <span class="font-extrabold text-black"></span>
+                            <?= $item['details'] ?>
+                            <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">
+                                <?= $item['action'] ?>
+                            </span>
+                        </p>
+                        <span class="text-grayish text-xs"></span>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+            <!-- <div class="dash-content p-3 pt-0   rounded-md">
                 <div class="recent-announcement flex justify-stretch my-5">
                     <div class="circle rounded-full bg-gray-400 p-5"></div>
                     <div class="text-sm ms-2 font-extralight">
@@ -112,11 +137,11 @@
                 </div>
 
                 <!-- view more -->
-                <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
-            </div>
+            <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
+        </div> -->
 
-        </div>
-        <!-- End recent-announcement -->
+    </div>
+    <!-- End recent-announcement -->
 
 
 

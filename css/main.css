@@ -803,12 +803,6 @@ video {
   opacity: 1;
 }
 
-.daisy-modal-action {
-  display: flex;
-  margin-top: 1.5rem;
-  justify-content: flex-end;
-}
-
 :root:has(:is(.daisy-modal-open, .daisy-modal:target, .daisy-modal-toggle:checked + .daisy-modal, .daisy-modal[open])) {
   overflow: hidden;
 }
@@ -974,12 +968,6 @@ video {
   --tw-scale-x: 1;
   --tw-scale-y: 1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.daisy-modal-action > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 @keyframes modal-pop {
@@ -2562,14 +2550,6 @@ div.input-container input[type="text"],
   resize: none;
 }
 
-.resize-y {
-  resize: vertical;
-}
-
-.resize-x {
-  resize: horizontal;
-}
-
 .resize {
   resize: both;
 }
@@ -2777,10 +2757,6 @@ div.input-container input[type="text"],
 
 .self-center {
   align-self: center;
-}
-
-.justify-self-end {
-  justify-self: end;
 }
 
 .overflow-auto {
