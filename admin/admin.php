@@ -308,36 +308,7 @@ function dateInText($date)
                     <img class="inline" src="../images/pencil-box-outline.png" alt="" srcset="">
                   </p>
 
-                  <div class="flex justify-stretch">
-                    <div class="circle rounded-full bg-gray-400  h-10 w-10"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                      <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
-                        <span class="bg-yellow-300 text-white font-semibold p-1 text-sm rounded-md">Post</span>
-                      </p>
-                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-stretch mt-5">
-                    <div class="circle rounded-full bg-red-400  h-10 w-10"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                      <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new
-                        <span class="bg-green-600 text-white  p-1 text-xs rounded-md">Announcement</span>
-                      </p>
-                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-stretch mt-5">
-                    <div class="circle rounded-full bg-yellow-200  h-10 w-10"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                      <p class="text-grayish"><span class="font-extrabold text-black">COED</span> added a new
-                        <span class="bg-violet-400 text-white  p-1 text-xs rounded-md">Update</span>
-                      </p>
-                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                    </div>
-                  </div>
-
+                  <div id="recentActWrapper" class="flex flex-col items-start gap-2"></div>
                   <p class="text-sm text-accent font-semibold mt-3 text-end cursor-pointer">View more</p>
                 </div>
 
@@ -2119,6 +2090,7 @@ function dateInText($date)
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
   <script src="../js/forms.js"></script>
+  <script src="../js/log.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>
