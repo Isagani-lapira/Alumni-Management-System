@@ -6,9 +6,11 @@
         <button class="btn-tertiary">
             Export List
         </button>
-        <button class="btn-primary" id="addAlumniBtn">
+        <!-- <button class="btn-primary" id="addAlumniBtn">
             Add Alumni
-        </button>
+        </button> -->
+        <!-- You can open the modal using ID.showModal() method -->
+        <button class="daisy-btn btn-primary " onclick="my_modal_4.showModal()">Add Alumni</button>
     </div>
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
     <!-- Filter  -->
@@ -119,6 +121,72 @@
             </div>
         </form>
     </div>
+
+    <!-- Modal for adding alumni of the month -->
+
+    <dialog id="my_modal_4" class="daisy-modal ">
+        <div class="daisy-modal-box w-11/12 max-w-5xl ">
+            <!-- Exit -->
+            <form method="dialog">
+                <button class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <!-- End Exit Form -->
+            <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
+            <!-- make alumni of the year post -->
+            <form action="">
+                <div id="aoyRegister" class=" text-greyish_black flex flex-col px-12">
+                    <!-- Placeholder for image element -->
+                    <div class="flex justify-center">
+                        <img id="imgPreview" class="w-40 h-40 rounded-full" src="../../assets/default_profile.png" alt="">
+                    </div>
+
+
+                    <label for="imgShow" class="btn-tertiary p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md self-center">
+                        Choose Image
+                        <input class="hidden" id="imgShow" type="file">
+                    </label>
+                    <label class="font-bold" for="aoyFN">Fullname</label>
+                    <input id="aoyFN" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo">
+
+                    <label class="font-bold" for="aoyQuotation">Quotation</label>
+                    <input id="aoyQuotation" class="form-input block rounded" type="text" placeholder="">
+
+                    <label class="font-bold block" for="aoyBatch">Batch</label>
+                    <select id="aoyBatch" class="form-input block rounded">
+                        <option selected disabled value="">Batch of 2021</option>
+                    </select>
+
+
+
+                    <p class="font-bold block">Social media links</p>
+                    <div class="flex">
+                        <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
+                        <input id="socmedFb" class="focus:outline-none px-3" type="text" placeholder="Add Facebook link">
+                    </div>
+
+                    <div class="flex mt-2">
+                        <img class="m-2" src="../assets/socmed-icons/instagram.png" alt="">
+                        <input id="socmedIG" class="focus:outline-none px-3" type="text" placeholder="Add Instagram link">
+                    </div>
+
+                    <div class="flex mt-2">
+                        <img class="m-2" src="../assets/socmed-icons/twitter.png" alt="">
+                        <input id="socmedTwitter" class="focus:outline-none px-3" type="text" placeholder="Add Twitter link">
+                    </div>
+
+                    <p class="font-bold block" for="">Description</p>
+                    <textarea class="form-textarea block rounded resize " name="" id="aoyDescript"></textarea>
+
+                    <div class="flex flex-wrap gap-4 py-4 justify-end">
+                        <button class="btn-tertiary bg-transparent " type="reset">Reset Form</button>
+                        <button class="btn-primary">Add Alumni of the Month</button>
+                    </div>
+                </div>
+            </form>
+            <!-- End Add FORM -->
+
+        </div>
+    </dialog>
 
 
 </section>
