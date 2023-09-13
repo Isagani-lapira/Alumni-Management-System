@@ -48,6 +48,9 @@
         <!-- college selection -->
         <select name="college" id="college" class=" form-select rounded">
             <option value="" selected disabled hidden>Course</option>
+            <option value="">BS IT</option>
+            <option value="">BS IS</option>
+            <!-- <option value="" >BS </option> -->
         </select>
 
         <!-- employment status selection -->
@@ -236,12 +239,11 @@
 
     <!-- Start Record Table -->
     <!-- record of name-->
-    <table class="table-auto w-full mt-10 text-xs font-thin rounded-t-md center-shadow daisy-table daisy-table-zebra ">
+    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra hidden">
         <thead class="">
-            <tr class="bg-accent text-white  rounded-tl-md">
+            <tr class="bg-accent text-white  rounded-tl-md text-sm">
                 <th class="rounded-tl-lg">Student Number</th>
                 <th>NAME</th>
-                <th>COLLEGE</th>
                 <th>BATCH</th>
                 <th class="rounded-tr-lg">Employment Status</th>
             </tr>
@@ -250,7 +252,23 @@
         <tbody id="alumniTB" class="text-sm">
         </tbody>
     </table>
-    <p id="alumniNoRecMsg" class="text-center text-blue-500">No available data</p>
+    <!-- End Record Table -->
+    <!-- Start Record Table -->
+    <!-- record of name-->
+    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra  ">
+        <thead class="">
+            <tr class="bg-accent text-white  rounded-tl-md">
+                <th class="rounded-tl-lg">STUDENT NUMBER</th>
+                <th>NAME</th>
+                <th>CONTACT NUMBER</th>
+                <th>DETAILS</th>
+            </tr>
+        </thead>
+        <!-- To be filled later -->
+        <tbody id="studentTB" class="text-sm">
+        </tbody>
+    </table>
+    <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
     <!-- End Record Table -->
 
 
@@ -305,5 +323,5 @@
 <script>
     // Date picker
     $('#reportdaterange').daterangepicker();
-    $.getScript("record.js");
+    $.getScript("records/record.js");
 </script>
