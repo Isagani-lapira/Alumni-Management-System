@@ -173,7 +173,7 @@ function dateInText($date)
             </li>
 
             <!-- FORMS -->
-            <li class="rounded-lg p-2 "><a href="#forms-tab">
+            <li id="formLi" class="rounded-lg p-2 "><a href="#forms-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1536 1536">
                   <path d="M515 783v128H263V783h252zm0-255v127H263V528h252zm758 511v128H932v-128h341zm0-256v128H601V783h672zm0-255v127H601V528h672zm135 860V148q0-8-6-14t-14-6h-32L978 384L768 213L558 384L180 128h-32q-8 0-14 6t-6 14v1240q0 8 6 14t14 6h1240q8 0 14-6t6-14zM553 278l185-150H332zm430 0l221-150H798zm553-130v1240q0 62-43 105t-105 43H148q-62 0-105-43T0 1388V148Q0 86 43 43T148 0h1240q62 0 105 43t43 105z" />
                 </svg>
@@ -850,7 +850,7 @@ function dateInText($date)
           <p class="text-grayish">See the relevant information that are gathered</p>
 
           <div class="flex gap-2 justify-end mb-2">
-            <button id="tracerbtn" class="text-gray-400 hover:text-gray-500">Repository</button>
+            <button id="tracerbtn" class="text-gray-400 hover:text-gray-500">Tracer form</button>
             <button class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
           </div>
 
@@ -869,23 +869,11 @@ function dateInText($date)
 
           <!-- repository -->
           <div id="tracerRepo" class="h-full border border-t-grayish p-5 w-full hidden">
-            <div class="flex justify-between items-center">
-              <span id="backToGraphForm" class="flex gap-2 items-center cursor-pointer">
-                <iconify-icon icon="ep:back" style="color: #afafaf;" width="30" height="30"></iconify-icon>
-                Back
-              </span>
-              <button id="viewTracerBtn" class="text-blue-400 hover:text-blue-500 flex items-center gap-2">
-                View tracer Form
-              </button>
-            </div>
-
-            <div id="repoContainer" class="grid grid-cols-4 space-x-2 overflow-y-auto my-4"></div>
             <div id="TracerWrapper" class="hidden flex w-full h-full mx-auto p-2 gap-2">
-              <div id="categoryWrapper" class="flex flex-col gap-2 w-1/3 p-1 items-center justify-center h-full"></div>
+              <div id="categoryWrapper" class="flex flex-col gap-2 w-1/3 p-1  h-full"></div>
               <!-- question set -->
               <div class="flex-1 h-full center-shadow p-3 relative">
                 <input id="categoryName" class="w-full py-2 text-xl text-grayish border-b border-gray-400 font-semibold mb-3" />
-                <button id="newQuestionBtn" class='block ml-auto bg-blue-400 text-white hover:bg-blue-500 py-2 rounded-lg text-sm px-3'>Add question</button>
                 <span id="btnSaveChanges" class="absolute top-5 right-2 text-gray-400 text-xs flex items-center gap-2 hidden" id="savedChanges">
                   <iconify-icon icon="dashicons:saved" style="color: #afafaf;" width="20" height="20"></iconify-icon>
                 </span>

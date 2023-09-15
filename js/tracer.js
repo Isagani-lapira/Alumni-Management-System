@@ -1,8 +1,12 @@
 $(document).ready(function () {
 
-    $('#viewTracerBtn').on('click', function () {
+    $('#tracerbtn').on('click', function () {
+        $('#formReport').addClass('hidden');
+        $('#TracerWrapper').removeClass('hidden');
+        $('#categoryWrapper').removeClass('hidden');
         retrieveCategory();
     })
+
 
     function retrieveCategory() {
         const action = "retrievedCategory";
@@ -56,7 +60,7 @@ $(document).ready(function () {
                 $('#btnSaveChanges').addClass('hidden') //hide again the savechanges
                 //retrieve questions
                 $(this).addClass('active').removeClass('inactive')
-                retrieveCategoryQuestion(categoryID)
+                retrieveCategoryQuestion(categoryID, tracerID)
             })
             .on('blur', function () {
                 // Save the edited text when focus is lost
@@ -69,14 +73,10 @@ $(document).ready(function () {
                 $(this).text(categoryName)
             });
 
-        $('#newQuestionBtn').on('click', function () {
-            $('#newQuestionModal').removeClass('hidden')
-            openCreateNewQuestion(categoryID, tracerID);
-        })
         $('#categoryWrapper').append(categoryBtn)
     }
 
-    function retrieveCategoryQuestion(categoryID) {
+    function retrieveCategoryQuestion(categoryID, tracerID) {
         const action = "readQuestions";
         const formData = new FormData();
         formData.append('action', action);
@@ -98,7 +98,7 @@ $(document).ready(function () {
                         const questionSets = element.questionSet;
 
                         const container = '#questionSetContainer'
-                        displayQuestion(categoryID, categoryName, questionSets, container, false)
+                        displayQuestion(categoryID, categoryName, questionSets, container, tracerID, false)
                     })
                 }
             },
@@ -107,10 +107,20 @@ $(document).ready(function () {
     }
 
 
-    function displayQuestion(categoryID, categoryName, questionSets, container, isSection = true) {
+    function displayQuestion(categoryID, categoryName, questionSets, container, tracerID, isSection = true) {
 
-        $('#questionSetContainer').find('.questionSet').remove()
+        $('#questionSetContainer').find('.questionSet, .newQuestionBtn').remove()
         $('#categoryName').val(categoryName)
+        const addNewQuestionBtn = $('<button>')
+            .addClass('block ml-auto bg-blue-400 text-white hover:bg-blue-500 py-2 rounded-lg text-sm px-3 newQuestionBtn')
+            .text('Add question')
+            .on('click', function () {
+                // insert new question
+                displaySavedChanges()
+                $('#newQuestionModal').removeClass('hidden')
+                openCreateNewQuestion(categoryID, tracerID);
+            })
+        $('#questionSetContainer').append(addNewQuestionBtn)
         // show all the questions with its choices
         questionSets.forEach(questionData => {
             const questionID = questionData.questionID
@@ -143,17 +153,18 @@ $(document).ready(function () {
                 choiceCheckbox.prop('selected', true);
             }
 
+            const questionChoicesWrapper = $('<div>')
+                .addClass('flex flex-col gap-2')
+
             //drop down selection of input type
             const questionTypeDropDown = $('<select>')
                 .addClass('p-2 w-full text-gray-500 outline-none')
                 .append(choiceInput, choiceRadio, choiceDropDown, choiceCheckbox)
                 .on('change', function () {
+                    displaySavedChanges()
                     const newInputType = $(this).val();
-                    // changeInputType(newInputType, questionID, questionBody)
+                    changeInputType(newInputType, questionID, questionChoicesWrapper) //change the type of choices
                 })
-
-            const questionChoicesWrapper = $('<div>')
-                .addClass('flex flex-col gap-2')
 
             // get all the choices for a specific question
             choices.forEach(choice => {
@@ -164,7 +175,7 @@ $(document).ready(function () {
                 const isSectionChoice = choice.isSectionChoice
 
                 const choicesWrapper = $('<div>')
-                    .addClass('flex gap-1 p-2')
+                    .addClass('flex gap-1 p-2 wrapperChoices')
                 const choiceInput = $('<input>')
                     .addClass('border-b border-gray-300 p-2 flex-1')
                     .val(choice_text)
@@ -192,6 +203,15 @@ $(document).ready(function () {
                         $(this).attr("icon", "uit:web-section-alt");
                     }
                 );
+
+                // add indication for a choice with section
+                if (isSectionChoice) {
+                    // Replace the icon with a different one
+                    sectionBtn
+                        .attr("icon", "uis:web-section-alt")
+                        .css("color", "#00a86b")
+                }
+
                 if (questionType !== 'Input') choicesWrapper.append(choiceInput, sectionChoiceBtn, removeChoiceBtn)
                 questionChoicesWrapper.append(choicesWrapper)
             })
@@ -249,7 +269,6 @@ $(document).ready(function () {
 
             $('#questionSetContainer').append(questionWrapper)
         })
-
 
     }
 
@@ -491,5 +510,29 @@ $(document).ready(function () {
         $('.fieldWrapper:first input.choicesVal').val("");
         $('.fieldWrapper:not(:first)').remove(); // remove all the choices available and assign it with no value
 
+    }
+
+    function changeInputType(inputType, questionID, container) {
+        const action = "changeTypeOfInput"
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('inputType', inputType);
+        formData.append('questionID', questionID);
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                if (response == 'Success') {
+                    if (inputType == "Input") {
+                        $(container).find('.wrapperChoices').addClass('hidden')
+                    }
+                    else $(container).find('.wrapperChoices').removeClass('hidden')
+                }
+            }
+        })
     }
 })

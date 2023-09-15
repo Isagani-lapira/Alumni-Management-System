@@ -1119,10 +1119,20 @@ $(document).ready(function () {
     isClose = !isClose
   })
 
-  $('#viewTracerBtn').on('click', function () {
+  $('#tracerbtn').on('click', function () {
+    isClose = false
     $('#burgerBtn').click()
-    $('#repoContainer').addClass('hidden')
-    $('#TracerWrapper').removeClass('hidden')
+  })
+
+  $('#formLi').on('click', function () {
+    $('#formReport').removeClass('hidden'); //as default graph is presented
+    $('#TracerWrapper').addClass('hidden');
+    $('#categoryWrapper').addClass('hidden');
+    $('#categoryWrapper').find('.categoryBtn').remove()
+
+    //restart everything in tracer form
+    $('#questionSetContainer').empty()
+    $('#categoryName').val('')
   })
 });
 
