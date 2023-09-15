@@ -885,10 +885,11 @@ function dateInText($date)
               <!-- question set -->
               <div class="flex-1 h-full center-shadow p-3 relative">
                 <input id="categoryName" class="w-full py-2 text-xl text-grayish border-b border-gray-400 font-semibold mb-3" />
+                <button id="newQuestionBtn" class='block ml-auto bg-blue-400 text-white hover:bg-blue-500 py-2 rounded-lg text-sm px-3'>Add question</button>
                 <span id="btnSaveChanges" class="absolute top-5 right-2 text-gray-400 text-xs flex items-center gap-2 hidden" id="savedChanges">
                   <iconify-icon icon="dashicons:saved" style="color: #afafaf;" width="20" height="20"></iconify-icon>
                 </span>
-                <div id="questionSetContainer" class="overflow-y-auto flex flex-col gap-2"></div>
+                <div id="questionSetContainer" class="overflow-y-auto flex flex-col gap-2 py-2"></div>
               </div>
 
             </div>
@@ -2103,6 +2104,44 @@ function dateInText($date)
         </svg>
       </div>
     </div>
+
+    <!-- add new question -->
+    <div id="newQuestionModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg text-greyish_black">
+        <header class="text-center text-lg font-bold py-3 mb-2">Add new Question</header>
+        <div class="wrapper p-3 w-full mx-auto m-2">
+          <input id="newQuestionInputName" type="text" class="w-full text-center text-lg border-b border-gray-300" placeholder="Untitled Question" />
+          <!-- body -->
+          <div class="p-3 text-gray-400 mb-2">
+            <select id="inputTypeModalNew" class="w-full p-2 outline-none center-shadow mb-2" name="" id="">
+              <option value="Radio">Radio Type</option>
+              <option value="Input">Input Type</option>
+              <option value="Checkbox">Chexbox Type</option>
+              <option value="DropDown">Dropdown Type</option>
+            </select>
+            <!-- options -->
+            <div class="optionContainer">
+              <div class="fieldWrapper flex items-center gap-2">
+                <iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>
+                <input type="text" class="py-2 choicesVal" placeholder="Add choice">
+              </div>
+            </div>
+          </div>
+
+          <button id="addOptionmodal" class="flex items-center gap-2 text-gray-400">
+            <iconify-icon icon="gala:add" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+            Add option
+          </button>
+
+          <div class="flex items-center justify-end gap-2">
+            <button id="closeQuestionModal" class="text-gray-400 hover:bg-gray-300 py-2 px-3">Cancel</button>
+            <button id="saveNewQuestion" class="bg-blue-400 hover:bg-blue-500 px-4 py-2 rounded-md text-white">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 
 

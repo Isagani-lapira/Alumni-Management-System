@@ -826,6 +826,10 @@ div.input-container input[type="text"],
   right: -8rem;
 }
 
+.-right-7 {
+  right: -1.75rem;
+}
+
 .-right-8 {
   right: -2rem;
 }
@@ -968,6 +972,14 @@ div.input-container input[type="text"],
 
 .top-8 {
   top: 2rem;
+}
+
+.-right-11 {
+  right: -2.75rem;
+}
+
+.-right-16 {
+  right: -4rem;
 }
 
 .z-0 {
@@ -2236,11 +2248,6 @@ div.input-container input[type="text"],
   border-color: rgb(113 113 122 / var(--tw-border-opacity));
 }
 
-.border-gray-100 {
-  --tw-border-opacity: 1;
-  border-color: rgb(243 244 246 / var(--tw-border-opacity));
-}
-
 .border-b-\[\#ababab\] {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(171 171 171 / var(--tw-border-opacity));
@@ -3104,6 +3111,10 @@ div.input-container input[type="text"],
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+
+.underline {
+  text-decoration-line: underline;
 }
 
 .opacity-25 {

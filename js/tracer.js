@@ -20,12 +20,13 @@ $(document).ready(function () {
                 if (response.result == "Success") {
                     const length = response.categoryID.length;
                     const formTitle = response.tracerTitle;
+                    const tracerID = response.tracerID;
                     $('#formTitle').val(formTitle) //add the form title
                     for (let i = 0; i < length; i++) {
                         const categoryID = response.categoryID[i];
                         const categoryName = response.categoryName[i];
 
-                        addCategory(categoryID, categoryName);
+                        addCategory(categoryID, categoryName, tracerID);
                     }
                 }
             },
@@ -35,7 +36,7 @@ $(document).ready(function () {
     }
 
 
-    function addCategory(categoryID, categoryName) {
+    function addCategory(categoryID, categoryName, tracerID) {
         const categoryBtn = $('<button>')
             .addClass('w-full border border-gray-300 rounded-lg py-3 categoryBtn inactive relative')
             .text(categoryName)
@@ -68,6 +69,10 @@ $(document).ready(function () {
                 $(this).text(categoryName)
             });
 
+        $('#newQuestionBtn').on('click', function () {
+            $('#newQuestionModal').removeClass('hidden')
+            openCreateNewQuestion(categoryID, tracerID);
+        })
         $('#categoryWrapper').append(categoryBtn)
     }
 
@@ -233,9 +238,14 @@ $(document).ready(function () {
 
                 })
 
+            const removeQuestionBtn = $('<iconify-icon icon="octicon:trash-24" class="absolute top-0 -right-14 p-3 rounded-md center-shadow remove-question h-max" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+                .on('click', function () {
+                    displaySavedChanges()
+                    removeQuestions(questionID, questionWrapper)
+                })
             const questionWrapper = $('<div>')
-                .addClass('p-2 center-shadow rounded-lg w-4/5 mx-auto questionSet')
-                .append(questionName, questionTypeDropDown, questionChoicesWrapper, addOption)
+                .addClass('p-2 center-shadow rounded-lg w-4/5 mx-auto questionSet relative')
+                .append(questionName, questionTypeDropDown, questionChoicesWrapper, addOption, removeQuestionBtn)
 
             $('#questionSetContainer').append(questionWrapper)
         })
@@ -243,6 +253,27 @@ $(document).ready(function () {
 
     }
 
+    function removeQuestions(questionID, container) {
+        const action = "removeQuestion";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('questionID', questionID);
+
+        // process archiving the question
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                if (response == 'Success') {
+                    //remove the display of the question
+                    container.remove()
+                }
+            }
+        })
+    }
     function insertSectionChoices(questionID, choiceTextVal, isSectionQuestion) {
         const action = "addChoicesSection";
         const formData = new FormData();
@@ -329,4 +360,136 @@ $(document).ready(function () {
         })
     }
 
+    $('#addOptionmodal').on('click', function () {
+        //add additional choice field
+        const fieldContainer = $('<div>')
+            .addClass('fieldWrapper flex items-center gap-2')
+
+        const icon = $('<iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>');
+        const inputType = $('<input>')
+            .addClass('flex-1 py-2')
+            .attr('type', "text")
+            .attr('placeholder', 'Add choice')
+
+        const removeOption = $('<iconify-icon icon="ei:close" class="cursor-pointer" style="color: #afafaf;" width="20" height="20"></iconify-icon>')
+            .on('click', function () {
+                fieldContainer.remove()
+            })
+
+        fieldContainer.append(icon, inputType, removeOption)
+        $('.optionContainer').append(fieldContainer)
+    })
+    function openCreateNewQuestion(categoryID, formID) {
+        $('#newQuestionModal').removeClass('hidden')
+        $('#saveNewQuestion').on('click', function () {
+            const questionName = $('#newQuestionInputName').val()
+            if (questionName !== "") {
+                retrieveNewQuestionData(questionName, formID, categoryID)
+            }
+        })
+    }
+    function retrieveNewQuestionData(questionName, formID, categoryID, isSectionQuestion = false, choiceID = "") {
+        const inputTypeVal = $('#inputTypeModalNew').val();
+        // Get all the option choices
+        const choices = [];
+        $('.fieldWrapper').each(function () {
+            let choiceVal = $(this).find('input[type="text"]').val();
+            choices.push(choiceVal);
+        })
+
+        const QuestionSet = {
+            "Question": questionName,
+            "choice": choices,
+            "InputType": inputTypeVal
+        }
+
+        if (!isSectionQuestion) {
+            const data = {
+                "FormID": formID,
+                "CategoryID": categoryID,
+                "Question": questionName,
+                "InputType": inputTypeVal,
+                "choices": choices
+            }
+            insertNewCategoryQuestion(data) //process insertion of data
+        }
+        else {
+            const data = {
+                'FormID': formID,
+                'CategoryID': categoryID,
+                'ChoiceID': choiceID,
+                "QuestionSet": QuestionSet,
+            }
+            insertNewQuestionSection(data, choiceID)
+        }
+
+    }
+
+    function insertNewQuestionSection(data, choiceID) {
+        const action = 'addNewSectionQuestion';
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('newQuestion', JSON.stringify(data))
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                if (response == "Success") {
+                    console.log(response)
+                    // $('#sectionBody').find('.questionCategoryWrapper').remove()
+                    // retrievedSectionData(choiceID)
+                    // restartAllVal()
+                    // $('#newQuestionModal').addClass('hidden')
+                    // //display prompt
+                    // $('#promptMsgNewQuestion').removeClass('hidden')
+                    // setTimeout(() => {
+                    //     $('#promptMsgNewQuestion').addClass('hidden')
+                    // }, 3000)
+                }
+            },
+        })
+    }
+
+    function insertNewCategoryQuestion(data) {
+        const action = "addNewQuestionForCategory";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('data', JSON.stringify(data));
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                console.log(response)
+                if (response == "Success") {
+                    restartAllVal()
+                    $('#newQuestionModal').addClass('hidden')
+                    //display prompt
+                    $('#promptMsgNewQuestion').removeClass('hidden')
+                    setTimeout(() => {
+                        $('#promptMsgNewQuestion').addClass('hidden')
+                    }, 3000)
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function restartAllVal() {
+        $('#newQuestionModal').addClass('hidden') //hide again the modal
+
+        //restart all the value
+        $('#newQuestionInputName').val("")
+        $('#inputTypeModalNew').val("")
+        $('.fieldWrapper:first input.choicesVal').val("");
+        $('.fieldWrapper:not(:first)').remove(); // remove all the choices available and assign it with no value
+
+    }
 })

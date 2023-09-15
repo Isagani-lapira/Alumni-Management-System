@@ -247,6 +247,7 @@ function retrieveCategory($con)
 
     $data = array(
         "result" => $result,
+        "tracerID" => $tracerID,
         "tracerTitle" => $tracerTitle,
         "categoryID" => $categoryID,
         "categoryName" => $categoryName
