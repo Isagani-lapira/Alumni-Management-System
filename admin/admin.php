@@ -146,15 +146,6 @@ function dateInText($date)
                 <span>EMAIL</span></a>
             </li>
 
-            <!-- student record -->
-            <li id="studenLi" class="rounded-lg p-2"><a href="#student-tab">
-                <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
-                  <path d="M4 2H2v26a2 2 0 0 0 2 2h26v-2H4Z" />
-                  <path d="M30 9h-7v2h3.59L19 18.59l-4.29-4.3a1 1 0 0 0-1.42 0L6 21.59L7.41 23L14 16.41l4.29 4.3a1 1 0 0 0 1.42 0l8.29-8.3V16h2Z" />
-                </svg>
-                <span>STUDENT RECORD</span></a>
-            </li>
-
             <!-- ALUMNI RECORD-->
             <li id="alumniLi" class="rounded-lg p-2"><a href="#alumnRecord-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 448 512">
@@ -559,86 +550,6 @@ function dateInText($date)
           </div>
         </div>
 
-        <!-- student record content -->
-        <div id="student-tab" class="p-5">
-          <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
-
-          <div class="flex justify-end text-xs text-greyish_black">
-            <!-- HISTORY LOGS -->
-            <button class="p-2 m-2 border border-grayish text-grayish rounded-md">
-              Download history logs
-              <img class="inline" src="../images/download.png" alt="">
-            </button>
-
-            <!-- EXPORT PDF -->
-            <button class="p-2 px-4 m-2 border border-accent rounded-md 
-                  bg-accent text-white hover:bg-darkAccent">Export as PDF
-            </button>
-
-          </div>
-
-          <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
-
-          <div class="flex justify-evenly text-xs">
-
-            <div class="flex border border-greyish_black w-full rounded-md p-1">
-              <img class="inline " src="../images/search-icon.png" alt="">
-              <input class="focus:outline-none w-full" type="text" name="" id="searchPerson" placeholder="Typing!">
-            </div>
-
-            <!-- batch selection -->
-            <select name="" id="batch" class="w-full p-1">
-              <option selected disabled hidden>Batch</option>
-              <option value="">All</option>
-              <option value="4th Year">4th Year</option>
-              <option value="3rd Year">3rd Year</option>
-              <option value="2nd Year">2nd Year</option>
-              <option value="1st Year">1st Year</option>
-            </select>
-
-            <!-- college selection -->
-            <select name="college" id="college" class="w-full p-1">
-              <option selected disabled hidden>Course</option>
-              <option value="">All</option>
-              <?php
-              require_once '../PHP_process/connection.php';
-              $query = "SELECT * FROM `college`";
-              $result = mysqli_query($mysql_con, $query);
-              $rows = mysqli_num_rows($result);
-
-              if ($rows > 0) {
-                while ($data = mysqli_fetch_assoc($result)) {
-                  $colCode = $data['colCode'];
-                  $colName = $data['colname'];
-
-                  echo '<option value="' . $colCode . '">' . $colName . '</option>';
-                }
-              } else echo '<option>No college available</option>';
-              ?>
-            </select>
-
-          </div>
-
-
-          <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
-            <thead>
-              <tr class="bg-accent text-white">
-                <th class="text-center rounded-tl-lg">Student Number</th>
-                <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th class="rounded-tr-lg">DETAILS</th>
-              </tr>
-            </thead>
-            <tbody id="studentTB" class="text-sm">
-            </tbody>
-          </table>
-          <div class="flex justify-end items-center gap-2 font-bold my-2">
-            <button id="prevBtnStudent" class="border border-accent text-accent hover:bg-accent hover:text-white py-2 px-3 rounded-md">Previous</button>
-            <button id="nextBtnStudent" class="bg-accent text-white hover:bg-darkAccent py-2 px-4 rounded-md">Next</button>
-          </div>
-        </div>
-
         <!-- alumni record content -->
         <div id="alumnRecord-tab" class="p-5">
           <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
@@ -869,11 +780,11 @@ function dateInText($date)
 
           <!-- repository -->
           <div id="tracerRepo" class="h-full border border-t-grayish p-5 w-full hidden">
-            <div id="TracerWrapper" class="hidden flex w-full h-full mx-auto p-2 gap-2">
+            <div id="TracerWrapper" class="flex w-full h-full mx-auto p-2 gap-2">
               <div id="categoryWrapper" class="flex flex-col gap-2 w-1/3 p-1  h-full"></div>
               <!-- question set -->
               <div class="flex-1 h-full center-shadow p-3 relative">
-                <input id="categoryName" class="w-full py-2 text-xl text-grayish border-b border-gray-400 font-semibold mb-3" />
+                <input id="categoryName" class="w-full py-2 text-xl text-greyish_black border-b border-gray-400 font-semibold mb-3" disabled />
                 <span id="btnSaveChanges" class="absolute top-5 right-2 text-gray-400 text-xs flex items-center gap-2 hidden" id="savedChanges">
                   <iconify-icon icon="dashicons:saved" style="color: #afafaf;" width="20" height="20"></iconify-icon>
                 </span>
@@ -2129,13 +2040,26 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- section modal -->
+    <div id="sectionModalcontainer" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <input type="hidden" id="catIDHolder">
+      <input type="hidden" id="formIDHolder">
+      <input type="hidden" id="choiceIDHolder">
+      <div id="sectionModal" class="modal-container h-4/5 bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2 border-t-8 border-accent relative">
+        <iconify-icon title="Add new question for this section" class="iconAddModal p-3 rounded-md center-shadow h-max absolute top-1 right-1" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>
+        <header class="font-bold text-4xl text-center text-accent py-2 border-b border-gray-300">
+          Section
+        </header>
+        <div id="sectionBody" class="h-full overflow-y-auto py-2"></div>
+      </div>
+    </div>
 
   </div>
 
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
-  <script src="../js/forms.js"></script>
+  <script src="../js/section.js"></script>
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>
   <script src="../js/announcementscript.js"></script>

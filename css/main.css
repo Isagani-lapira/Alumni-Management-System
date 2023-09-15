@@ -826,10 +826,6 @@ div.input-container input[type="text"],
   right: -8rem;
 }
 
-.-right-7 {
-  right: -1.75rem;
-}
-
 .-right-8 {
   right: -2rem;
 }
@@ -972,14 +968,6 @@ div.input-container input[type="text"],
 
 .top-8 {
   top: 2rem;
-}
-
-.-right-11 {
-  right: -2.75rem;
-}
-
-.-right-16 {
-  right: -4rem;
 }
 
 .z-0 {
@@ -3422,11 +3410,6 @@ body {
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.hover\:text-red-500:hover {
-  --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .hover\:text-white:hover {

@@ -967,5 +967,6 @@ $(document).ready(function () {
             $('#sectionModalcontainer').addClass('hidden')
         }
     })
+
 })
 

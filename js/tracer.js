@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('#tracerbtn').on('click', function () {
         $('#formReport').addClass('hidden');
         $('#TracerWrapper').removeClass('hidden');
+        $('#tracerRepo').removeClass('hidden');
         $('#categoryWrapper').removeClass('hidden');
         retrieveCategory();
     })
@@ -106,7 +107,6 @@ $(document).ready(function () {
         })
     }
 
-
     function displayQuestion(categoryID, categoryName, questionSets, container, tracerID, isSection = true) {
 
         $('#questionSetContainer').find('.questionSet, .newQuestionBtn').remove()
@@ -192,6 +192,13 @@ $(document).ready(function () {
                         removeChoice(choiceID, choicesWrapper)
                     })
                 const sectionChoiceBtn = $('<iconify-icon class="sectionBtn" icon="uit:web-section-alt" class="p-2" style="color: #afafaf;" width="20" height="20"></iconify-icon>')
+                    .on('click', function () {
+                        if (!isSectionChoice) createSection(categoryID, choiceID, tracerID)//add section per category
+                        else {
+                            retrievedSectionData(choiceID, tracerID)
+                        }
+
+                    })
                 // hover effect
                 sectionChoiceBtn.hover(
                     function () {
@@ -204,10 +211,12 @@ $(document).ready(function () {
                     }
                 );
 
+                if (isSection) sectionChoiceBtn.addClass('hidden')
+
                 // add indication for a choice with section
                 if (isSectionChoice) {
                     // Replace the icon with a different one
-                    sectionBtn
+                    sectionChoiceBtn
                         .attr("icon", "uis:web-section-alt")
                         .css("color", "#00a86b")
                 }
@@ -217,7 +226,7 @@ $(document).ready(function () {
             })
 
             const questionName = $('<input>')
-                .addClass('text-center w-full font-bold border-b border-gray-300 py-3')
+                .addClass('text-center w-full text-lg border-b border-gray-300 py-3 text-gray-500')
                 .val(questionTxt)
 
 
@@ -267,8 +276,240 @@ $(document).ready(function () {
                 .addClass('p-2 center-shadow rounded-lg w-4/5 mx-auto questionSet relative')
                 .append(questionName, questionTypeDropDown, questionChoicesWrapper, addOption, removeQuestionBtn)
 
-            $('#questionSetContainer').append(questionWrapper)
+            $(container).append(questionWrapper)
         })
+
+    }
+
+
+    sectionQuestion = []
+    function insertSectionData(categoryID, choiceID, formID, modal) {
+        const questionSet = []
+        $('.questionnaireSection').each(function () {
+            const question = $(this).find('.sectionQuestion').val();
+            const inputType = $(this).find('select').val();
+
+            const choicesArray = [];
+            $(this).find('.choices').each(function () {
+                const choiceVal = $(this).val();
+                choicesArray.push(choiceVal)
+            });
+
+            const questionObj = {
+                'Question': question,
+                'InputType': inputType,
+                'choice': choicesArray,
+            }
+            questionSet.push(questionObj)
+        })
+        const data = {
+            'FormID': formID,
+            'CategoryID': categoryID,
+            'ChoiceID': choiceID,
+            'QuestionSet': questionSet
+        }
+
+        sectionQuestion.push(data)
+        processInsertionOfSection(sectionQuestion, modal);
+    }
+
+    function processInsertionOfSection(sectionData, modal = "") {
+        const action = 'addSectionData';
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('sectionData', JSON.stringify(sectionData))
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                console.log(response)
+                if (response == 'Success') {
+                    modal.remove()
+                    $('#promptMsgSection').removeClass('hidden') //display the message
+
+                    setTimeout(() => {
+                        $('#promptMsgSection').addClass('hidden') //hide the message
+                    }, 3000);
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+
+    function createSecQuestion(body, isFirst = false) {
+        const container = $('<div>')
+            .addClass('center-shadow w-4/5 rounded-md border-t-4 border-gray-400 p-3 mx-auto flex flex-col relative mb-2 questionnaireSection ')
+
+        const question = $('<input>')
+            .addClass('border-b border-gray-400 py-2 px-2 outline-none w-full categoryField text-center text-lg font-bold sectionQuestion')
+            .attr('type', 'text')
+            .attr('placeholder', 'Untitled Question')
+
+        // body part
+        const bodyPart = $('<div>')
+
+        //input type option
+        const optInput = $('<option>').val('Input').text('Input type')
+        const optRadio = $('<option>').val('Radio').text('Radio Choice').attr('selected', true)
+        const optDropDown = $('<option>').val('DropDown').text('DropDown type')
+        const optCheckBox = $('<option>').val('Checkbox').text('Checkbox Type')
+        const questionType = $('<select>')
+            .append(optRadio, optInput, optDropDown, optCheckBox)
+            .addClass('text-gray-400 py-3 outline-none w-full')
+
+        // input field
+        const optionContainer = $('<div>')
+        const inputWrapper = $('<div>')
+            .addClass('flex items-center mb-2')
+        const iconRadio = $('<iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+        const inputField = $('<input>')
+            .addClass('py-2 px-2 outline-none w-4/5 choices')
+            .attr('placeholder', 'option')
+        inputWrapper.append(iconRadio, inputField)
+        optionContainer.append(inputWrapper)
+
+        //add choice button
+        const addOption = $('<button>')
+            .addClass('flex items-center gap-2 text-gray-400 my-2')
+            .html('<iconify-icon icon="gala:add" style="color: #afafaf;" width="20" height="20"></iconify-icon>' + 'Add option')
+            .hover(function () {
+                // over
+                $(this).css({ 'color': '#1769AA' }) //for text
+                $(this).find('iconify-icon').css({ 'color': '#1769AA' }) //for icon
+            }, function () {
+                // out
+                $(this).find('iconify-icon').css({ 'color': '#afafaf' })
+                $(this).css({ 'color': '#afafaf' })
+            }
+            )
+            .on('click', function () {
+                //add new option
+                const newinputWrapper = $('<div>')
+                    .addClass('flex items-center mb-2')
+                const newiconRadio = $('<iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+                const newinputField = $('<input>')
+                    .addClass('py-2 px-2 outline-none w-4/5 flex-1 choices')
+                    .attr('placeholder', 'option')
+                const removeOption = $('<iconify-icon icon="ei:close" style="color: #afafaf;" width="20" height="20"></iconify-icon>')
+                    .on('click', function () {
+                        newinputWrapper.remove()
+                    })
+                newinputWrapper.append(newiconRadio, newinputField, removeOption)
+                optionContainer.append(newinputWrapper)
+            })
+
+        //remove question
+        const removeQuestion = $('<iconify-icon icon="octicon:trash-24" class="p-3 rounded-md center-shadow h-max" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
+            .on('click', function () {
+                container.remove()
+            })
+            .hover(function () {
+                // over
+                $(this).css('color', 'red');
+            }, function () {
+                // out
+                $(this).css('color', '#afafaf');
+            })
+
+        //check if the question is first
+        if (!isFirst) removeQuestion.addClass('hidden')
+
+        const addQuestion = $('<iconify-icon class="p-3 rounded-md center-shadow h-max" icon="gala:add" style="color: #347cb5;" width="24" height="24"></iconify-icon>')
+            .on('click', function () {
+                //add new question to the section
+
+                //check first if the question before create new is have value
+                if (question.val() !== "") {
+                    question.addClass('border-gray-400').removeClass('border-red-400') //back to default
+                    createSecQuestion(body, true)
+                }
+                else question.removeClass('border-gray-400').addClass('border-red-400') //add warning color
+
+            })
+
+        const additionalChoices = $('<div>')
+            .addClass('flex flex-col absolute top-0 -right-14 gap-2')
+            .append(addQuestion, removeQuestion)
+
+        //add to their corresponding container
+        bodyPart.append(questionType, optionContainer, addOption)
+        container.append(question, additionalChoices, bodyPart)
+        body.append(container)
+    }
+
+
+    function retrievedSectionData(choiceID, tracerID) {
+        const action = "getSectionData";
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('choiceID', choiceID);
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => {
+                const data = JSON.parse(response); // Assuming the response is in JSON format
+                $('#sectionModalcontainer').removeClass('hidden')
+                // Loop through the data and display questions
+                data.forEach(questionSet => {
+                    const categoryID = questionSet[0].categoryID;
+                    const formID = questionSet[0].formID
+                    const container = '#sectionBody';
+                    displayQuestion(categoryID, "", questionSet, container, tracerID)
+
+                });
+            },
+            erro: error => { console.log(error) }
+        })
+    }
+
+    function createSection(categoryID, choiceID, formID) {
+        const container = $('<div>')
+            .addClass('post modal fixed inset-0 z-50 flex items-center justify-center p-3')
+
+        const modalContainer = $('<div>')
+            .addClass('modal-container w-1/2 h-4/5 bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2 border-t-8 border-blue-400')
+
+        const header = $('<header>')
+            .addClass('font-bold text-4xl text-center text-blue-400 py-2 border-b border-gray-300')
+            .text('Section')
+
+        // body of modal
+        const body = $('<div>')
+            .addClass('h-full overflow-y-auto')
+        createSecQuestion(body)
+
+        // footer part
+        const cancelBtn = $('<button>')
+            .addClass('text-gray-400 hover:text-gray-500 text-sm')
+            .text('Cancel')
+            .on('click', function () {
+                //close the modal
+                container.remove()
+            })
+
+        const saveBtn = $('<button>')
+            .addClass('text-white px-4 py-2 rounded-md bg-green-400 hover:bg-green-500')
+            .text('Save Section')
+            .on('click', function () {
+                insertSectionData(categoryID, choiceID, formID, container);
+            })
+        const footer = $('<div>')
+            .addClass('flex justify-end gap-2')
+            .append(cancelBtn, saveBtn)
+
+        // append to their corresponding container
+        modalContainer.append(header, body, footer)
+        container.append(modalContainer)
+        $('body').append(container)
 
     }
 
@@ -535,4 +776,11 @@ $(document).ready(function () {
             }
         })
     }
+
+
+    //hide all the modal when click outside or escape
+    $(document).on('keydown', (event) => {
+        if (event.key == 'Escape' || event.keyCode == 27)
+            $('.modal').each(function () { $(this).addClass('hidden') })
+    })
 })
