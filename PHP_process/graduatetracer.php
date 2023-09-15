@@ -11,8 +11,7 @@ if (isset($_POST['action'])) {
         $datajson = json_decode($data, true);
         insertDataTracer($datajson, $mysql_con);
     } else if ($action == 'retrievedCategory') {
-        $formID = $_POST['formID'];
-        retrieveCategory($formID, $mysql_con);
+        retrieveCategory($mysql_con);
     } else if ($action == 'updateCategory') {
         $catStatus = $_POST['categoryStatus'];
         $catID = $_POST['categoryID'];
@@ -30,8 +29,8 @@ if (isset($_POST['action'])) {
         $formID = $_POST['formID'];
         addNewCategory($categoryName, $formID, $mysql_con);
     } else if ($action == "readQuestions") {
-        $formID = $_POST['formID'];
-        retrievedQuestions($formID, $mysql_con);
+        $categoryID = $_POST['categoryID'];
+        retrievedQuestions($categoryID, $mysql_con);
     } else if ($action == 'removeChoice') {
         $choiceID = $_POST['choiceID'];
         removeChoice($choiceID, $mysql_con);
@@ -212,8 +211,15 @@ function insertChoices($questionID, $choiceText, $isSectionQuestion, $nextTerm, 
 }
 
 
-function retrieveCategory($tracerID, $con)
+function retrieveCategory($con)
 {
+    $queryForm = "SELECT `formID` FROM `tracer_form`";
+    $stmtForm = mysqli_prepare($con, $queryForm);
+    $stmtForm->execute();
+    $form = $stmtForm->get_result();
+    $tracerID = $form->fetch_assoc();
+    $tracerID = $tracerID['formID'];
+
     $queryCategory = "SELECT `categoryID`,`category_name` FROM `question_category` WHERE 
     `formID` = ? AND `status` = 'available' ORDER by `sequence` ASC";
     $stmt = mysqli_prepare($con, $queryCategory);
@@ -330,16 +336,16 @@ function addNewCategory($categoryName, $formID, $con)
     echo json_encode($data);
 }
 
-function retrievedQuestions($formID, $con)
+function retrievedQuestions($categoryID, $con)
 {
     //retrieve category first
     $queryCat = "SELECT `categoryID`,`category_name` FROM `question_category` 
-    WHERE `formID` = ? AND `status` = 'available' ORDER by `sequence` ASC";
+    WHERE `categoryID` = ? AND `status` = 'available' ORDER by `sequence` ASC";
     $stmtCat = mysqli_prepare($con, $queryCat);
     $response = "Unsuccess";
 
     if ($stmtCat) {
-        $stmtCat->bind_param('s', $formID);
+        $stmtCat->bind_param('s', $categoryID);
         $stmtCat->execute();
         $result = $stmtCat->get_result();
 
@@ -350,11 +356,11 @@ function retrievedQuestions($formID, $con)
             $categoryName =  $row['category_name'];
 
             //retrieve questions
-            $questionSet = "SELECT * FROM `tracer_question` WHERE `categoryID` = ? AND `formID`= ?
+            $questionSet = "SELECT * FROM `tracer_question` WHERE `categoryID` = ?
              AND `status` = 'available' AND `isSectionQuestion`=0  ORDER by `sequence` ASC";
 
             $stmtQuestion = mysqli_prepare($con, $questionSet);
-            $stmtQuestion->bind_param('ss', $categoryID, $formID);
+            $stmtQuestion->bind_param('s', $categoryID);
 
             $questions = questionData($stmtQuestion, $con);
             $categorySet = array(

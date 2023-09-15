@@ -67,6 +67,7 @@ function dateInText($date)
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="../css/main.css" rel="stylesheet" />
   <link href="../style/style.css" rel="stylesheet" />
+  <link href="../style/tracer.css" rel="stylesheet" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -96,7 +97,8 @@ function dateInText($date)
     echo '<input type="hidden" id="accPersonID" value="' .  rawurlencode($personID) . '">';
     ?>
     <div id="tabs" class="flex font-Montserrat text-greyish_black">
-      <aside class="w-3/12 top-0 h-screen p-5 border border-r-gray-300">
+      <aside id="listOfPanels" class="w-3/12 top-0 h-screen p-5 border border-r-gray-300 relative">
+        <iconify-icon id="burgerBtn" class="absolute top-0 -right-8" icon="mdi:hamburger-menu" style="color: #991b1b;" width="28" height="28"></iconify-icon>
         <div class="h-full relative">
           <h1 class="font-extrabold text-18sm my-5">
             Alumni <span class="font-normal">System</span>
@@ -108,7 +110,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z" />
                 </svg>
-                DASHBOARD</a>
+                <span>DASHBOARD</span></a>
             </li>
 
             <!-- MAKE POST -->
@@ -116,7 +118,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z" />
                 </svg>
-                MAKE POST</a>
+                <span>MAKE POST</span></a>
             </li>
 
             <!-- announcement -->
@@ -132,7 +134,7 @@ function dateInText($date)
                   </mask>
                   <path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSAnnouncement0)" />
                 </svg>
-                ANNOUNCEMENT
+                <span>ANNOUNCEMENT</span>
               </a>
             </li>
 
@@ -141,7 +143,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16" width="24" height="24">
                   <path d="M 18 0 H 2 C 0.9 0 0.00999999 0.9 0.00999999 2 L 0 14 C 0 15.1 0.9 16 2 16 H 18 C 19.1 16 20 15.1 20 14 V 2 C 20 0.9 19.1 0 18 0 Z M 18 4 L 10 9 L 2 4 V 2 L 10 7 L 18 2 V 4 Z" />
                 </svg>
-                EMAIL</a>
+                <span>EMAIL</span></a>
             </li>
 
             <!-- student record -->
@@ -150,7 +152,7 @@ function dateInText($date)
                   <path d="M4 2H2v26a2 2 0 0 0 2 2h26v-2H4Z" />
                   <path d="M30 9h-7v2h3.59L19 18.59l-4.29-4.3a1 1 0 0 0-1.42 0L6 21.59L7.41 23L14 16.41l4.29 4.3a1 1 0 0 0 1.42 0l8.29-8.3V16h2Z" />
                 </svg>
-                STUDENT RECORD</a>
+                <span>STUDENT RECORD</span></a>
             </li>
 
             <!-- ALUMNI RECORD-->
@@ -158,7 +160,8 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 448 512">
                   <path d="M219.3.5c3.1-.6 6.3-.6 9.4 0l200 40C439.9 42.7 448 52.6 448 64s-8.1 21.3-19.3 23.5L352 102.9V160c0 70.7-57.3 128-128 128S96 230.7 96 160v-57.1l-48-9.6v65.1l15.7 78.4c.9 4.7-.3 9.6-3.3 13.3S52.8 256 48 256H16c-4.8 0-9.3-2.1-12.4-5.9s-4.3-8.6-3.3-13.3L16 158.4V86.6C6.5 83.3 0 74.3 0 64c0-11.4 8.1-21.3 19.3-23.5l200-40zM111.9 327.7c10.5-3.4 21.8.4 29.4 8.5l71 75.5c6.3 6.7 17 6.7 23.3 0l71-75.5c7.6-8.1 18.9-11.9 29.4-8.5c65 20.9 112 81.7 112 153.6c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-71.9 47-132.7 111.9-153.6z" />
                 </svg>
-                ALUMNI RECORD</a>
+                <span>ALUMNI RECORD</span>
+              </a>
             </li>
 
             <!-- COLLEGES -->
@@ -166,7 +169,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M14 11q1.25 0 2.125-.875T17 8q0-1.25-.875-2.125T14 5q-1.25 0-2.125.875T11 8q0 1.25.875 2.125T14 11Zm-6 7q-.825 0-1.413-.588T6 16V4q0-.825.588-1.413T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.588 1.413T20 18H8Zm-4 4q-.825 0-1.413-.588T2 20V7q0-.425.288-.713T3 6q.425 0 .713.288T4 7v13h13q.425 0 .713.288T18 21q0 .425-.288.713T17 22H4Zm4-6h12q-1.1-1.475-2.65-2.238T14 13q-1.8 0-3.35.763T8 16Z" />
                 </svg>
-                COLLEGES </a>
+                <span>COLLEGES</span> </a>
             </li>
 
             <!-- FORMS -->
@@ -174,7 +177,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1536 1536">
                   <path d="M515 783v128H263V783h252zm0-255v127H263V528h252zm758 511v128H932v-128h341zm0-256v128H601V783h672zm0-255v127H601V528h672zm135 860V148q0-8-6-14t-14-6h-32L978 384L768 213L558 384L180 128h-32q-8 0-14 6t-6 14v1240q0 8 6 14t14 6h1240q8 0 14-6t6-14zM553 278l185-150H332zm430 0l221-150H798zm553-130v1240q0 62-43 105t-105 43H148q-62 0-105-43T0 1388V148Q0 86 43 43T148 0h1240q62 0 105 43t43 105z" />
                 </svg>
-                TRACER FORM </a>
+                <span>TRACER FORM</span></a>
             </li>
 
             <!-- PROFILE -->
@@ -185,7 +188,7 @@ function dateInText($date)
                     <path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1ZM3 12c0 2.09.713 4.014 1.908 5.542A8.986 8.986 0 0 1 12.065 14a8.984 8.984 0 0 1 7.092 3.458A9 9 0 1 0 3 12Zm9 9a8.963 8.963 0 0 1-5.672-2.012A6.992 6.992 0 0 1 12.065 16a6.991 6.991 0 0 1 5.689 2.92A8.964 8.964 0 0 1 12 21Z" />
                   </g>
                 </svg>
-                PROFILE</a>
+                <span>PROFILE</span></a>
             </li>
 
             <br class="my-10">
@@ -196,7 +199,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                   <path fill="currentColor" d="M256 25c-11.594 0-23 12.8-23 31s11.406 31 23 31s23-12.8 23-31s-11.406-31-23-31zm-103.951 2.975l-16.098 8.05c15.092 30.185 51.37 56.81 82.188 74.442L232.334 295H247V192h18v103h14.666l14.195-184.533c30.818-17.632 67.096-44.257 82.188-74.442l-16.098-8.05c-19.91 29.9-44.891 49.148-71.334 57.77C281.311 97.28 269.75 105 256 105c-13.75 0-25.31-7.72-32.617-19.256c-26.443-8.62-51.424-27.87-71.334-57.77zM169 313v96H25v78h462v-30H343V313H169z" />
                 </svg>
-                ALUMNI OF THE YEAR</a>
+                <span>ALUMNI OF THE YEAR</span></a>
             </li>
 
             <!-- ALUMNI OF THE MONTH -->
@@ -204,7 +207,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                   <path d="M256 89.61L22.486 177.18L256 293.937l111.22-55.61l-104.337-31.9A16 16 0 0 1 256 208a16 16 0 0 1-16-16a16 16 0 0 1 16-16l-2.646 8.602l18.537 5.703a16 16 0 0 1 .008.056l27.354 8.365L455 246.645v12.146a16 16 0 0 0-7 13.21a16 16 0 0 0 7.293 13.406C448.01 312.932 448 375.383 448 400c16 10.395 16 10.775 32 0c0-24.614-.008-87.053-7.29-114.584A16 16 0 0 0 480 272a16 16 0 0 0-7-13.227v-25.42L413.676 215.1l75.838-37.92L256 89.61zM119.623 249L106.5 327.74c26.175 3.423 57.486 18.637 86.27 36.627c16.37 10.232 31.703 21.463 44.156 32.36c7.612 6.66 13.977 13.05 19.074 19.337c5.097-6.288 11.462-12.677 19.074-19.337c12.453-10.897 27.785-22.128 44.156-32.36c28.784-17.99 60.095-33.204 86.27-36.627L392.375 249h-6.25L256 314.063L125.873 249h-6.25z" />
                 </svg>
-                ALUMNI OF THE MONTH</a>
+                <span>ALUMNI OF THE MONTH</span></a>
             </li>
 
             <!-- Community Hub -->
@@ -212,7 +215,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
                   <path d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
                 </svg>
-                COMMUNITY HUB</a>
+                <span>COMMUNITY HUB</span></a>
             </li>
 
             <!-- Job Opportunities -->
@@ -220,7 +223,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M4 21q-.825 0-1.413-.588T2 19V8q0-.825.588-1.413T4 6h4V4q0-.825.588-1.413T10 2h4q.825 0 1.413.588T16 4v2h4q.825 0 1.413.588T22 8v11q0 .825-.588 1.413T20 21H4Zm6-15h4V4h-4v2Z" />
                 </svg>
-                JOB OPPORTUNITIES</a>
+                <span>JOB OPPORTUNITIES</span></a>
             </li>
           </ul>
 
@@ -865,14 +868,30 @@ function dateInText($date)
           </div>
 
           <!-- repository -->
-          <div id="tracerRepo" class="h-4/5 border border-t-grayish p-5 w-full hidden">
-            <span id="backToGraphForm" class="flex gap-2 items-center cursor-pointer">
-              <iconify-icon icon="ep:back" style="color: #afafaf;" width="30" height="30"></iconify-icon>
-              Back
-            </span>
+          <div id="tracerRepo" class="h-full border border-t-grayish p-5 w-full hidden">
+            <div class="flex justify-between items-center">
+              <span id="backToGraphForm" class="flex gap-2 items-center cursor-pointer">
+                <iconify-icon icon="ep:back" style="color: #afafaf;" width="30" height="30"></iconify-icon>
+                Back
+              </span>
+              <button id="viewTracerBtn" class="text-blue-400 hover:text-blue-500 flex items-center gap-2">
+                View tracer Form
+              </button>
+            </div>
 
             <div id="repoContainer" class="grid grid-cols-4 space-x-2 overflow-y-auto my-4"></div>
+            <div id="TracerWrapper" class="hidden flex w-full h-full mx-auto p-2 gap-2">
+              <div id="categoryWrapper" class="flex flex-col gap-2 w-1/3 p-1 items-center justify-center h-full"></div>
+              <!-- question set -->
+              <div class="flex-1 h-full center-shadow p-3 relative">
+                <input id="categoryName" class="w-full py-2 text-xl text-grayish border-b border-gray-400 font-semibold mb-3" />
+                <span id="btnSaveChanges" class="absolute top-5 right-2 text-gray-400 text-xs flex items-center gap-2 hidden" id="savedChanges">
+                  <iconify-icon icon="dashicons:saved" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                </span>
+                <div id="questionSetContainer" class="overflow-y-auto flex flex-col gap-2"></div>
+              </div>
 
+            </div>
           </div>
 
         </div>
@@ -2091,6 +2110,7 @@ function dateInText($date)
   <script src="../js/admin.js"></script>
   <script src="../js/forms.js"></script>
   <script src="../js/log.js"></script>
+  <script src="../js/tracer.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>

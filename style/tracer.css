@@ -41,3 +41,17 @@ main {
   border: 1px solid rgb(135, 208, 250);
   color: rgb(135, 208, 250) !important;
 }
+
+#questionSetContainer {
+  max-height: 90%;
+}
+
+.categoryBtn.active {
+  background-color: #991b1b !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.categoryBtn.inactive {
+  background-color: transparent;
+}

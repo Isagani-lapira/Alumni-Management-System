@@ -1105,6 +1105,25 @@ $(document).ready(function () {
       },
     });
   });
+
+  let isClose = false
+  $('#burgerBtn').on('click', function () {
+    if (!isClose) {
+      $('#listOfPanels').find('span').addClass('hidden')
+      $('#listOfPanels').addClass('w-max').removeClass('w-3/12 ')
+    }
+    else {
+      $('#listOfPanels').find('span').removeClass('hidden')
+      $('#listOfPanels').removeClass('w-max').addClass('w-3/12 ')
+    }
+    isClose = !isClose
+  })
+
+  $('#viewTracerBtn').on('click', function () {
+    $('#burgerBtn').click()
+    $('#repoContainer').addClass('hidden')
+    $('#TracerWrapper').removeClass('hidden')
+  })
 });
 
 let typingTimeout = null;
