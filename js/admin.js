@@ -1015,11 +1015,6 @@ $(document).ready(function () {
     $('#formReport').removeClass('hidden'); //as default graph is presented
     $('#TracerWrapper').addClass('hidden');
     $('#categoryWrapper').addClass('hidden');
-    $('#categoryWrapper').find('.categoryBtn').remove()
-
-    //restart everything in tracer form
-    $('#questionSetContainer').empty()
-    $('#categoryName').val('')
   })
 });
 

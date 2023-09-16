@@ -393,7 +393,8 @@ function questionData($stmtQuestion, $con)
         while ($rowQuestion = $resultQuestion->fetch_assoc()) {
             $questionID = $rowQuestion['questionID'];
             $categoryID = $rowQuestion['categoryID'];
-            $formID = $rowQuestion['formID'];
+            $status = $rowQuestion['status'];
+
             //retrieve choices
             $queryChoices = "SELECT `choiceID`,`questionID`,`choice_text`, `sectionQuestion` FROM `questionnaire_choice` 
                     WHERE `status` = 'available' AND `questionID` = ? ORDER by `sequence` ASC";
@@ -420,10 +421,10 @@ function questionData($stmtQuestion, $con)
             $questions[] = array(
                 "questionID" => $rowQuestion['questionID'],
                 "categoryID" => $categoryID,
-                "formID" => $formID,
                 "questionTxt" => $rowQuestion['question_text'],
                 "inputType" => $rowQuestion['inputType'],
-                "choices" => $choices
+                "choices" => $choices,
+                "status" => $status,
             );
             $choices = array();
         }
@@ -558,7 +559,7 @@ function retrieveSection($choiceID, $con)
         while ($row = $result->fetch_assoc()) {
             $questionID = $row['questionID'];
 
-            $questionQuery = "SELECT * FROM `tracer_question` WHERE `questionID`= ? ";
+            $questionQuery = "SELECT * FROM `tracer_question` WHERE `questionID`= ?";
             $stmtQuestion = mysqli_prepare($con, $questionQuery);
             $stmtQuestion->bind_param('s', $questionID);
             $questions = questionData($stmtQuestion, $con);

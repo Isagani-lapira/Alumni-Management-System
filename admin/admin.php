@@ -2004,6 +2004,21 @@ function dateInText($date)
       </div>
     </div>
 
+
+    <!-- section modal -->
+    <div id="sectionModalcontainer" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <input type="hidden" id="catIDHolder">
+      <input type="hidden" id="formIDHolder">
+      <input type="hidden" id="choiceIDHolder">
+      <div id="sectionModal" class="modal-container h-4/5 bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2 border-t-8 border-accent relative">
+        <iconify-icon id="addSectionQuestion" title="Add new question for this section" class="iconAddModal p-3 rounded-md center-shadow h-max absolute top-1 right-1" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>
+        <header class="font-bold text-4xl text-center text-accent py-2 border-b border-gray-300">
+          Section
+        </header>
+        <div id="sectionBody" class="h-full overflow-y-auto py-2 flex flex-col gap-2"></div>
+      </div>
+    </div>
+
     <!-- add new question -->
     <div id="newQuestionModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
       <div class="modal-container w-1/3 h-max bg-white rounded-lg text-greyish_black">
@@ -2040,26 +2055,11 @@ function dateInText($date)
       </div>
     </div>
 
-    <!-- section modal -->
-    <div id="sectionModalcontainer" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-      <input type="hidden" id="catIDHolder">
-      <input type="hidden" id="formIDHolder">
-      <input type="hidden" id="choiceIDHolder">
-      <div id="sectionModal" class="modal-container h-4/5 bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2 border-t-8 border-accent relative">
-        <iconify-icon title="Add new question for this section" class="iconAddModal p-3 rounded-md center-shadow h-max absolute top-1 right-1" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>
-        <header class="font-bold text-4xl text-center text-accent py-2 border-b border-gray-300">
-          Section
-        </header>
-        <div id="sectionBody" class="h-full overflow-y-auto py-2"></div>
-      </div>
-    </div>
-
   </div>
 
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
-  <script src="../js/section.js"></script>
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>
   <script src="../js/announcementscript.js"></script>

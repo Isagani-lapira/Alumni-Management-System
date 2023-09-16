@@ -5,6 +5,12 @@ $(document).ready(function () {
         $('#TracerWrapper').removeClass('hidden');
         $('#tracerRepo').removeClass('hidden');
         $('#categoryWrapper').removeClass('hidden');
+        $('#categoryWrapper').empty()
+
+        $('#questionSetContainer').find('.questionSet, .newQuestionBtn').remove()
+        //restart everything in tracer form
+        $('#questionSetContainer').empty()
+        $('#categoryName').val('')
         retrieveCategory();
     })
 
@@ -42,40 +48,66 @@ $(document).ready(function () {
 
 
     function addCategory(categoryID, categoryName, tracerID) {
-        const categoryBtn = $('<button>')
-            .addClass('w-full border border-gray-300 rounded-lg py-3 categoryBtn inactive relative')
-            .text(categoryName)
-            .on('click', function () {
-                // add edit button
-                const editIcon = $('<iconify-icon icon="bx:edit" style="color: white;" width="24" height="24"></iconify-icon>')
-                    .addClass('absolute top-2 right-2')
-                    .on('click', function () {
-                        // allows to be editable the content
-                        const buttonElement = $(this).parent()
-                            .attr('contentEditable', 'true')
-                            .focus()
-                            .html('<u>' + categoryName + '</u>') //add underline so that it can be seen that it is editable
-                    })
-                $(this).append(editIcon)
-                $('.categoryBtn').removeClass('active') //remove the last active button
-                $('#btnSaveChanges').addClass('hidden') //hide again the savechanges
-                //retrieve questions
-                $(this).addClass('active').removeClass('inactive')
-                retrieveCategoryQuestion(categoryID, tracerID)
-            })
-            .on('blur', function () {
-                // Save the edited text when focus is lost
-                const editedCategoryText = $(this).text();
-                updateCategoryName(categoryID, editedCategoryText) //update category name
+        let isEditing = false;
 
-                $(this).click() //refresh the display
-                $(this).removeAttr('contentEditable'); //disable the editable text again
-                $(this).find('u').remove() //remove the underline indicating the the editable is disabled
-                $(this).text(categoryName)
+        function enableEditing() {
+            // Allows to be editable the content
+            categoryBtn.attr('contentEditable', 'true').focus().html('<u>' + categoryName + '</u>')
+            isEditing = true;
+        }
+
+        function disableEditing() {
+            const editedCategoryText = categoryBtn.text();
+            updateCategoryName(categoryID, editedCategoryText); // Update category name
+
+            categoryBtn.click(); // Refresh the display
+            categoryBtn.removeAttr('contentEditable'); // Disable the editable text again
+            categoryBtn.find('u').remove(); // Remove the underline indicating the editable is disabled
+            //update the text of category name
+            categoryBtn.text(editedCategoryText);
+            $('#categoryName').val(editedCategoryText)
+
+            // refresh by retrieving again the question
+            $('#questionSetContainer').find('.questionSet, .newQuestionBtn').remove();
+            retrieveCategoryQuestion(categoryID, tracerID);
+            isEditing = false; // Back to normal
+        }
+
+        // Add edit button
+        const editIcon = $('<iconify-icon icon="bx:edit" style="color: white;" width="24" height="24"></iconify-icon>')
+            .addClass('absolute top-2 right-2')
+            .on('click', function () {
+                if (!isEditing) {
+                    enableEditing();
+                }
             });
 
-        $('#categoryWrapper').append(categoryBtn)
+        const categoryBtn = $('<button>')
+            .addClass('w-full border border-gray-300 rounded-lg py-3 categoryBtn inactive relative')
+            .text(categoryName);
+
+        // Attach the blur event handler regardless of whether it's in edit mode or not
+        categoryBtn.on('blur', function () {
+            if (isEditing) {
+                disableEditing();
+            }
+        });
+
+        categoryBtn.on('click', function () {
+            if (!isEditing) {
+                $(this).append(editIcon);
+                $('.categoryBtn').removeClass('active'); // Remove the last active button
+                $('#btnSaveChanges').addClass('hidden'); // Hide again the savechanges
+                // Retrieve questions
+                $(this).addClass('active').removeClass('inactive');
+                $('#questionSetContainer').find('.questionSet, .newQuestionBtn').remove(); // Remove the recent retrieve
+                retrieveCategoryQuestion(categoryID, tracerID);
+            }
+        });
+
+        $('#categoryWrapper').append(categoryBtn);
     }
+
 
     function retrieveCategoryQuestion(categoryID, tracerID) {
         const action = "readQuestions";
@@ -107,12 +139,10 @@ $(document).ready(function () {
         })
     }
 
-    function displayQuestion(categoryID, categoryName, questionSets, container, tracerID, isSection = true) {
-
-        $('#questionSetContainer').find('.questionSet, .newQuestionBtn').remove()
+    function displayQuestion(categoryID, categoryName, questionSets, container, tracerID, isSection = true, choiceIDVal = "") {
         $('#categoryName').val(categoryName)
         const addNewQuestionBtn = $('<button>')
-            .addClass('block ml-auto bg-blue-400 text-white hover:bg-blue-500 py-2 rounded-lg text-sm px-3 newQuestionBtn')
+            .addClass('block ml-auto bg-blue-400 text-white hover:bg-blue-500 py-2 my-2 rounded-lg text-sm px-3 newQuestionBtn')
             .text('Add question')
             .on('click', function () {
                 // insert new question
@@ -120,7 +150,14 @@ $(document).ready(function () {
                 $('#newQuestionModal').removeClass('hidden')
                 openCreateNewQuestion(categoryID, tracerID);
             })
-        $('#questionSetContainer').append(addNewQuestionBtn)
+
+
+        if (!isSection) $(container).append(addNewQuestionBtn)
+        else {
+            $('#catIDHolder').val(categoryID)
+            $('#formIDHolder').val(tracerID)
+            $('#choiceIDHolder').val(choiceIDVal)
+        }
         // show all the questions with its choices
         questionSets.forEach(questionData => {
             const questionID = questionData.questionID
@@ -195,6 +232,7 @@ $(document).ready(function () {
                     .on('click', function () {
                         if (!isSectionChoice) createSection(categoryID, choiceID, tracerID)//add section per category
                         else {
+                            $('#sectionBody').empty() //remove the last section question retrieved
                             retrievedSectionData(choiceID, tracerID)
                         }
 
@@ -461,9 +499,11 @@ $(document).ready(function () {
                 // Loop through the data and display questions
                 data.forEach(questionSet => {
                     const categoryID = questionSet[0].categoryID;
-                    const formID = questionSet[0].formID
+                    const status = questionSet[0].status
                     const container = '#sectionBody';
-                    displayQuestion(categoryID, "", questionSet, container, tracerID)
+
+                    if (status !== "archived")
+                        displayQuestion(categoryID, "", questionSet, container, tracerID, true, choiceID)
 
                 });
             },
@@ -620,6 +660,21 @@ $(document).ready(function () {
         })
     }
 
+    // for section adding question
+    $('.iconAddModal').on('click', function () {
+        const formID = $('#formIDHolder').val()
+        const categoryID = $('#catIDHolder').val()
+        const choiceID = $('#choiceIDHolder').val()
+
+        $('#newQuestionModal').removeClass('hidden')
+        $('#saveNewQuestion').on('click', function () {
+            const questionName = $('#newQuestionInputName').val()
+            if (questionName !== "")
+                retrieveNewQuestionData(questionName, formID, categoryID, true, choiceID)
+
+        })
+    })
+
     $('#addOptionmodal').on('click', function () {
         //add additional choice field
         const fieldContainer = $('<div>')
@@ -700,15 +755,15 @@ $(document).ready(function () {
             success: response => {
                 if (response == "Success") {
                     console.log(response)
-                    // $('#sectionBody').find('.questionCategoryWrapper').remove()
-                    // retrievedSectionData(choiceID)
-                    // restartAllVal()
-                    // $('#newQuestionModal').addClass('hidden')
-                    // //display prompt
-                    // $('#promptMsgNewQuestion').removeClass('hidden')
-                    // setTimeout(() => {
-                    //     $('#promptMsgNewQuestion').addClass('hidden')
-                    // }, 3000)
+                    $('#sectionBody').empty()
+                    retrievedSectionData(choiceID)
+                    restartAllVal()
+                    $('#newQuestionModal').addClass('hidden')
+                    //display prompt
+                    $('#promptMsgNewQuestion').removeClass('hidden')
+                    setTimeout(() => {
+                        $('#promptMsgNewQuestion').addClass('hidden')
+                    }, 3000)
                 }
             },
         })
@@ -782,5 +837,15 @@ $(document).ready(function () {
     $(document).on('keydown', (event) => {
         if (event.key == 'Escape' || event.keyCode == 27)
             $('.modal').each(function () { $(this).addClass('hidden') })
+    })
+
+    // close the section modal
+    $('#sectionModalcontainer').on('click', function (e) {
+        const target = e.target
+        const modal = $('#sectionModal')
+
+        if (!modal.is(target) && !modal.has(target).length) {
+            $('#sectionModalcontainer').addClass('hidden')
+        }
     })
 })
