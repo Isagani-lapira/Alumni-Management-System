@@ -144,8 +144,8 @@ session_start();
                                 Heading Image
                             </label>
                             <!-- image block in order to display the image -->
-                            <div class="image-block border border-gray-400 w-50 h-auto">
-                                <img src="" alt="" id="aboutImgPreview" class="
+                            <div class="image-block border border-gray-400 w-50 h-60">
+                                <img src="../../images/join_us.jpg" alt="" id="aboutImgPreview" class="
                               object-cover  object-center max-w-full h-auto max-h-full w-full">
                             </div>
                             <input required type="file" id="event-img" accept=".jpg" name="aboutImg">

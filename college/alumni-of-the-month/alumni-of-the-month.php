@@ -133,7 +133,7 @@
             <!-- End Exit Form -->
             <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
             <!-- make alumni of the year post -->
-            <form action="">
+            <form action="" id="add-aotm-form">
                 <div id="aoyRegister" class=" text-greyish_black flex flex-col px-12">
                     <!-- Placeholder for image element -->
                     <div class="flex justify-center">
@@ -141,41 +141,46 @@
                     </div>
 
 
-                    <label for="imgShow" class="btn-tertiary p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md self-center">
-                        Choose Image
-                        <input class="hidden" id="imgShow" type="file">
+                    <label for="cover-image" class="btn-tertiary p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md self-center">
+                        Choose Cover Image
+                        <input class="hidden" id="cover-image" type="file" accept=".jpg" name="cover-image">
+                    </label>
+
+                    <label for="profile-image" class="btn-tertiary p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md self-center">
+                        Choose Profile Image
+                        <input class="hidden" id="profile-image" type="file" accept=".jpg" name="profile-image">
                     </label>
                     <label class="font-bold" for="aoyFN">Fullname</label>
-                    <input id="aoyFN" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo">
+                    <input id="aoyFN" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo" name="name">
 
-                    <label class="font-bold" for="aoyQuotation">Quotation</label>
-                    <input id="aoyQuotation" class="form-input block rounded" type="text" placeholder="">
+                    <label class="font-bold" for="id">ID</label>
+                    <input id="id" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo" name="studentNo">
 
-                    <label class="font-bold block" for="aoyBatch">Batch</label>
-                    <select id="aoyBatch" class="form-input block rounded">
-                        <option selected disabled value="">Batch of 2021</option>
-                    </select>
-
-
+                    <label class="font-bold" for="quote">Quotation</label>
+                    <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
 
                     <p class="font-bold block">Social media links</p>
                     <div class="flex">
                         <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
-                        <input id="socmedFb" class="focus:outline-none px-3" type="text" placeholder="Add Facebook link">
+                        <input id="emailAdd" name="emailAdd" class="form-input border rounded" type="email" placeholder="Add Email">
+                    </div>
+                    <div class="flex">
+                        <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
+                        <input id="facebookUN" name="facebookUN" class="form-input border rounded" type="text" placeholder="Add Facebook link">
+                    </div>
+
+                    <div class="flex mt-2">
+                        <img class="m-2" src="../assets/socmed-icons/linkedIN.png" alt="">
+                        <input id="linkedINUN" name="linkedINUN" class="form-input border rounded" type="text" placeholder="Add LinkedIN link">
                     </div>
 
                     <div class="flex mt-2">
                         <img class="m-2" src="../assets/socmed-icons/instagram.png" alt="">
-                        <input id="socmedIG" class="focus:outline-none px-3" type="text" placeholder="Add Instagram link">
-                    </div>
-
-                    <div class="flex mt-2">
-                        <img class="m-2" src="../assets/socmed-icons/twitter.png" alt="">
-                        <input id="socmedTwitter" class="focus:outline-none px-3" type="text" placeholder="Add Twitter link">
+                        <input id="instagramUN" name="instagramUN" class="form-input border rounded" type="text" placeholder="Add instagram link">
                     </div>
 
                     <p class="font-bold block" for="">Description</p>
-                    <textarea class="form-textarea block rounded resize " name="" id="aoyDescript"></textarea>
+                    <textarea name="description" class="form-textarea block rounded resize max-w-full" id="aoyDescript"></textarea>
 
                     <div class="flex flex-wrap gap-4 py-4 justify-end">
                         <button class="btn-tertiary bg-transparent " type="reset">Reset Form</button>
@@ -197,4 +202,78 @@
 
     // get the script for alumni.js
     $.getScript("./alumni-of-the-month/alumni.js");
+
+    // preview the image after changing the input
+    $('#cover-image').change(function() {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            $('#imgPreview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+    // TODO add some image to the cover image
+
+    // on form submit
+    $('#add-aotm-form').submit(async function(e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+        // add some sweet alert dialog
+        const confirmation = await Swal.fire({
+            title: "Confirm?",
+            text: "Are you sure to add alumni with these details?",
+            icon: "info",
+            showCancelButton: true,
+            // confirmButtonColor: CONFIRM_COLOR,
+            // cancelButtonColor: CANCEL_COLOR,
+            confirmButtonText: "Yes, Add it!",
+        });
+        if (confirmation.isConfirmed) {
+            console.log("submitting add alumni form");
+
+            const isSuccessful = await postNewAlumni(this);
+            console.log(isSuccessful);
+            if (isSuccessful.response === "Successful") {
+                // show the success message
+                Swal.fire("Success!", "Alumni has been added.", "success");
+                // remove the form data
+                $("#crud-event-form")[0].reset();
+                $("#aboutImgPreview").attr("src", "");
+            } else {
+                Swal.fire("Cancelled", "Add alumni cancelled.", "info");
+            }
+        }
+
+    });
+
+    async function postNewAlumni(form, url = 'myurl') {
+        // configure the z-index of the modal  
+        // get the form data
+        const formData = new FormData(form);
+        // null
+        console.log(formData.get("id"));
+        // null
+        console.log(formData.get("AOYFN"));
+        // null
+        console.log(formData.get("quote"));
+        console.log(formData.get("emailAdd"));
+        console.log(formData.get("facebookUN"));
+        console.log(formData.get("linkedINUN"));
+        console.log(formData.get("instagramUN"));
+        console.log(formData.get("aoyDescript"));
+        console.log(formData.get("profile-image"));
+        console.log(formData.get("cover-image"));
+
+
+
+
+
+        console.log(formData);
+        // send the data to the server using fetch await
+
+        // const response = await fetch(url, {
+        //     method: "POST",
+        //     body: formData,
+        // });
+        // return response.json();
+    }
 </script>

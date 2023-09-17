@@ -60,8 +60,11 @@ function logDeleteActivity(mysqli $mysql_con, $colAdmin, $colCode)
 
 /**
  * Get the latest nth activity
+ * 
+ * @param mysqli $mysql_con
+ * @param int $limit
+ * 
  */
-
 function getNewActivityByLimit(mysqli $mysql_con, int $limit)
 {
     // Initialize the statement
@@ -137,7 +140,7 @@ function getTotalEvents(string $colCode)
 
 
 /***
- * TODO 
+ * 
  * Get recent activity of the college
  * 
  * @param mysqli $mysql_con
@@ -145,7 +148,7 @@ function getTotalEvents(string $colCode)
  * @return array
  * 
  */
-function getRecentCollegeAcivity(mysqli $mysql_con, $colAdmin)
+function getRecentCollegeAcivity(mysqli $mysql_con, string $colAdmin)
 {
     // Initialize the statement
     $stmt = $mysql_con->stmt_init();
