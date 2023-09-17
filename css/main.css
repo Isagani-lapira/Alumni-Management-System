@@ -803,6 +803,16 @@ video {
   opacity: 1;
 }
 
+.daisy-modal-toggle {
+  position: fixed;
+  height: 0px;
+  width: 0px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  opacity: 0;
+}
+
 :root:has(:is(.daisy-modal-open, .daisy-modal:target, .daisy-modal-toggle:checked + .daisy-modal, .daisy-modal[open])) {
   overflow: hidden;
 }

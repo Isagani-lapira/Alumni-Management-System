@@ -9,8 +9,10 @@
         <!-- <button class="btn-primary" id="addAlumniBtn">
             Add Alumni
         </button> -->
-        <!-- You can open the modal using ID.showModal() method -->
-        <button class="daisy-btn btn-primary " onclick="my_modal_4.showModal()">Add Alumni</button>
+        <!-- <button class="daisy-btn btn-primary " onclick="my_modal_4.showModal()">Add Alumni</button> -->
+        <!-- The button to open modal -->
+        <label for="my_modal_6" class="daisy-btn">open modal</label>
+
     </div>
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
     <!-- Filter  -->
@@ -123,8 +125,8 @@
     </div>
 
     <!-- Modal for adding alumni of the month -->
-
-    <dialog id="my_modal_4" class="daisy-modal ">
+    <input type="checkbox" id="my_modal_6" class="daisy-modal-toggle">
+    <div class="daisy-modal">
         <div class="daisy-modal-box w-11/12 max-w-5xl ">
             <!-- Exit -->
             <form method="dialog">
@@ -191,7 +193,7 @@
             <!-- End Add FORM -->
 
         </div>
-    </dialog>
+    </div>
 
 
 </section>
