@@ -61,13 +61,12 @@
             <tr class=" rounded-t-lg">
                 <th class="text-start uppercase">Student Number</th>
                 <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th>USER TYPE</th>
                 <th>DETAILS</th>
             </tr>
         </thead>
         <tbody class="text-sm">
-            <tr class="h-14">
+
+            <!-- <tr class="h-14">
                 <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
@@ -75,12 +74,8 @@
                         <span class="ml-2">Wade Warren</span>
                     </div>
                 </td>
-                <td class="text-center">09104905440</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
                 <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
+            </tr> -->
 
 
         </tbody>

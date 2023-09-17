@@ -120,4 +120,47 @@ class AlumniOfTheMonth
 
         return [];
     }
+
+
+    function getAllLatest(int $offset = 0): array
+    {
+        // TODO replace this with more detailed query (use college filter)
+        $stmt = $this->conn->prepare('SELECT * FROM `alumni_of_the_month`
+              ORDER BY date_posted DESC
+              LIMIT  10  OFFSET  ? ;');
+        $stmt->bind_param('i', $offset);
+
+        try {
+            // execute the query
+            $stmt->execute();
+            // gets the myql_result. Similar result to mysqli_query
+            $result = $stmt->get_result();
+            $num_row = mysqli_num_rows($result);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+
+        // the main assoc array to be return
+        $json_result = array();
+        // holds every row in the query
+        $resultArray = array();
+
+        if ($result && $num_row > 0) {
+            $json_result['response'] = 'Successful';
+            // Gets every row in the query
+            while ($record = mysqli_fetch_assoc($result)) {
+                // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
+                $record['profile_img'] = base64_encode($record['profile_img']);
+                $record['cover_img'] = base64_encode($record['cover_img']);
+                $resultArray[] = $record;
+            }
+            $json_result['result'] = $resultArray;
+        } else {
+            $json_result['response'] = 'Unsuccesful';
+        }
+
+        $json_result['offset'] = $offset;
+        return $json_result;
+    }
 }
