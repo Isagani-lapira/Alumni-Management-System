@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/main.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+        integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <title>College History Logs</title>
 
     <style>
@@ -20,12 +22,14 @@
             <img class=" w-32" src="../images/BSU-logo.png" alt="">
             <h1 class="font-bold text-2xl mb-2">BULACAN STATE UNIVERSITY</h1>
             <h3 class="font-bold text-lg">College history logs</h3>
+            <p></p>
         </header>
         <table class=" w-4/5 border border-gray-500">
             <thead class="text-sm">
                 <tr>
                     <th>No.</th>
                     <th>College</th>
+                    <th>Admin</th>
                     <th>Action</th>
                     <th>Date</th>
                 </tr>
@@ -34,12 +38,8 @@
         </table>
     </div>
 
-    <script>
-        function autoPrint() {
-            window.print();
-        }
-        document.onload(autoPrint()) //once it loaded it automatically printed
-    </script>
+
+    <script src="../js/printabletemplate.js"></script>
 
 </body>
 

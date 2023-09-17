@@ -7,7 +7,7 @@ $(document).ready(function () {
     const logListContainer = $('#logList')
     displayActivities(offset, true, activityContainer)
 
-
+    let dataArray = []
     function displayActivities(offset, isDashDisplay, container) {
         const action = "RetrieveData";
         const formData = new FormData();
@@ -27,6 +27,7 @@ $(document).ready(function () {
                     let length = response.action.length
                     $('.lds-roller').addClass('hidden')
                     if (isDashDisplay) length = 3 //display only 3 activities for dashboard
+
                     for (let i = 0; i < length; i++) {
                         const timestamp = response.timestamp[i];
                         const details = response.details[i];
@@ -35,10 +36,22 @@ $(document).ready(function () {
                         const colAdminName = response.colAdminName[i];
 
                         const formattedDate = convertTimestamp(timestamp) //format the date
+
+                        // in case the user will print the list
+                        const logList = {
+                            timestamp: formattedDate,
+                            details: details,
+                            colCode: colCode,
+                            colAdmin: colAdminName,
+                        }
+
                         if (isDashDisplay)
                             createActivities(formattedDate, details, colCode, colLogo, colAdminName, container)
-                        else
+                        else {
+                            dataArray = [] //every data will be new and not duplicated
+                            dataArray.push(logList)
                             createActivities(formattedDate, details, colCode, colLogo, colAdminName, logListContainer, false)
+                        }
                     }
                 }
             },
@@ -176,5 +189,11 @@ $(document).ready(function () {
 
         if (!modal.has(target).length && !modal.is(target))
             $('#logHistoryModal').addClass('hidden')
+    })
+
+
+    $('#printLogsBtn').on('click', function () {
+        const jsonString = JSON.stringify(dataArray)
+        window.open('logtemplate.html?data=' + encodeURIComponent(jsonString), '_blank')
     })
 });
