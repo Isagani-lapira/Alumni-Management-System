@@ -168,4 +168,13 @@ $(document).ready(function () {
         })
     }
 
+
+    // close the modal when clicked outside the modal
+    $('#logHistoryModal').on('click', function (e) {
+        const target = e.target
+        const modal = $("#modalLogContainer")
+
+        if (!modal.has(target).length && !modal.is(target))
+            $('#logHistoryModal').addClass('hidden')
+    })
 });

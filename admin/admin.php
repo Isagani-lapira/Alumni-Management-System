@@ -2053,12 +2053,13 @@ function dateInText($date)
 
     <!-- log history modal -->
     <div id="logHistoryModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-      <div class="modal-container w-1/2 h-3/4 bg-white rounded-lg text-greyish_black p-3">
+      <div id="modalLogContainer" class="modal-container w-1/2 h-3/4 bg-white rounded-lg text-greyish_black p-3">
         <header class="font-bold text-accent text-xl text-center py-2">College Admin Activities</header>
         <!-- HISTORY LOGS -->
-        <button class="p-2 m-2 border border-grayish text-grayish rounded-md ml-auto block">
-          <img class="inline" src="../images/download.png" alt="">
+        <button id="printLogsBtn" class="pt-1 px-2 m-2 border border-grayish text-grayish rounded-md ml-auto block hover:bg-blue-300">
+          <iconify-icon icon="mdi:download" style="color: #686b6f;" width="24" height="24"></iconify-icon>
         </button>
+
 
         <div class="border-b border-gray-400 py-1"></div>
         <div class="filter flex gap-2 mt-2">

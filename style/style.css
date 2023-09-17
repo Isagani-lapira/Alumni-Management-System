@@ -219,3 +219,7 @@ tbody tr:nth-child(odd) {
 #logList {
   height: 70%;
 }
+
+#printLogsBtn:hover iconify-icon {
+  filter: brightness(0) invert(1); /* Change the icon color to white on hover */
+}
