@@ -145,12 +145,12 @@
 
                     <label for="cover-image" class="btn-tertiary p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md self-center">
                         Choose Cover Image
-                        <input class="hidden" id="cover-image" type="file" accept=".jpg" name="cover-image">
+                        <input class="" id="cover-image" type="file" accept=".jpg" name="cover-image">
                     </label>
 
                     <label for="profile-image" class="btn-tertiary p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md self-center">
                         Choose Profile Image
-                        <input class="hidden" id="profile-image" type="file" accept=".jpg" name="profile-image">
+                        <input class="" id="profile-image" type="file" accept=".jpg" name="profile-image">
                     </label>
                     <label class="font-bold" for="fullname">Fullname</label>
                     <input id="fullname" name="fullname" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo">
@@ -240,14 +240,19 @@
                 // remove the form data
                 $("#crud-event-form")[0].reset();
                 $("#aboutImgPreview").attr("src", "");
+                $("#add-alumni-modal").prop("checked", false);
             } else {
-                Swal.fire("Cancelled", "Add alumni cancelled.", "info");
+                Swal.fire("Error", "Alumni is not added due to error.", "info");
+
             }
+        } else {
+            Swal.fire("Cancelled", "Add alumni cancelled.", "info");
+
         }
 
     });
 
-    async function postNewAlumni(form, url = 'myurl') {
+    async function postNewAlumni(form, url = './alumni-of-the-month/addAlumni.php') {
         // configure the z-index of the modal  
         // get the form data
         const formData = new FormData(form);
@@ -259,8 +264,8 @@
         // console.log(formData.get("linkedINUN"));
         // console.log(formData.get("instagramUN"));
         // console.log(formData.get("description"));
-        // console.log(formData.get("profile-image"));
-        // console.log(formData.get("cover-image"));
+        console.log(formData.get("profile-image"));
+        console.log(formData.get("cover-image"));
         // console.log(formData.entries());
 
         const response = await fetch(url, {

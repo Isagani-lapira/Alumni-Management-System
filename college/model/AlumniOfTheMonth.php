@@ -49,11 +49,16 @@ class AlumniOfTheMonth
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
 
-        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (colCode, studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img,)
-        VALUES (?,?,?,?,?,?,?,?);');
+        // set the id
+        $recordID = rand(0, 1000);
+
+        // $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (colCode, studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img, AOMID, date_assigned  )
+        // VALUES (?,?,?,?,?,?,?,?,?,?,CURDATE());');
+        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img, AOMID, date_assigned  )
+        VALUES (?,?,?,?,?,?,?,?,?,CURDATE());');
 
         // *  Binds the variable to the '?', prevents sql injection
-        $stmt->bind_param('ssssssssss', $this->colCode, $id, $details['quote'], $details['emailAdd'], $details['facebookUN'], $details['linkedINUN'], $details['instagramUN'], $details['profile_img'], $details['cover_img']);
+        $stmt->bind_param('sssssssss',  $id, $details['quote'], $details['emailAdd'], $details['facebookUN'], $details['linkedINUN'], $details['instagramUN'], $details['profile-img'], $details['cover-img'], $recordID);
         // execute the query
         $stmt->execute();
 
@@ -65,6 +70,8 @@ class AlumniOfTheMonth
 
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
+
+
 
         $stmt = $this->conn->prepare('SELECT COUNT(*) AS total FROM `alumni_of_the_month` WHERE colCode = ?;');
 

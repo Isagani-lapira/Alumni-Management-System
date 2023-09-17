@@ -36,13 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the form data;
     $id = $_POST['studentNo'];
     $quote = $_POST['quote'];
-    $emailAdd = $_POST['emailAdd'];
+    $emailAdd = $_POST['email'];
     $facebookUN = $_POST['facebookUN'];
     $linkedINUN = $_POST['linkedINUN'];
     $instagramUN = $_POST['instagramUN'];
     // image data
-    $profile_img = $_FILES['profile_img'];
-    $cover_img = $_FILES['cover_img'];
+    $profile_img = $_FILES['profile-image'];
+    $cover_img = $_FILES['cover-image'];
 
     // Create an instance of the model class
     $alumni = new AlumniOfTheMonth($mysql_con, $colCode);
@@ -64,16 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     // Image data
-    $profileImgTmpName = $profile_img['tmp_name'];
+    $profileImgTmpName =  $_FILES['profile-image']['tmp_name'];
     $profileImg = file_get_contents($profileImgTmpName);
 
-    $cover_imgTmpName = $_FILES['cover_img']['tmp_name'];
+    $cover_imgTmpName =  $_FILES['cover-image']['tmp_name'];
     $cover_img = file_get_contents($cover_imgTmpName);
 
 
 
     // make array of alumni information
-    // TODO make the id auto increment
     $alumniInformation = array(
         'studentNo' => $id,
         'quote' => $quote,
@@ -89,10 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     // set new alumni
-    $result = $alumni->setNewAlumniOfTheMonth($id, $eventInformation,);
+    $result = $alumni->setNewAlumniOfTheMonth($id, $alumniInformation,);
     header("Content-Type: application/json; charset=UTF-8");
     if ($result === TRUE) {
-        //todo modify later to use ajax
         logEventActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
         echo json_encode(
             array(
