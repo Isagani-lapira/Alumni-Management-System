@@ -68,6 +68,7 @@ function dateInText($date)
   <link href="../css/main.css" rel="stylesheet" />
   <link href="../style/style.css" rel="stylesheet" />
   <link href="../style/tracer.css" rel="stylesheet" />
+  <link href="../style/logstyle.css" rel="stylesheet" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -303,7 +304,7 @@ function dateInText($date)
                   </p>
 
                   <div id="recentActWrapper" class="flex flex-col items-start gap-2"></div>
-                  <p class="text-sm text-accent font-semibold mt-3 text-end cursor-pointer">View more</p>
+                  <p id="btnViewMoreLog" class="text-sm text-accent font-semibold mt-3 text-end cursor-pointer">View more</p>
                 </div>
 
               </div>
@@ -2055,6 +2056,59 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- log history modal -->
+    <div id="logHistoryModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div class="modal-container w-2/5 h-3/4 bg-white rounded-lg text-greyish_black p-3">
+        <header class="font-bold text-accent text-xl text-center py-2 border-b border-gray-400">College Admin Activities</header>
+
+        <div class="filter flex gap-2 mt-2">
+
+          <!-- date range -->
+          <div class="w-max flex border border-grayish p-2 rounded-lg">
+            <input type="text" name="logdaterange" id="logdaterange" value="01/01/2018 - 01/15/2018" />
+            <label for="logdaterange">
+              <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
+            </label>
+          </div>
+
+          <!-- college selection -->
+          <select name="logCollege" id="logCollege" class="w-full border border-grayish p-2 rounded-lg">
+            <option value="" selected disabled hidden>All</option>
+            <?php
+            require_once '../PHP_process/connection.php';
+            $query = "SELECT * FROM `college`";
+            $result = mysqli_query($mysql_con, $query);
+            $rows = mysqli_num_rows($result);
+
+            if ($rows > 0) {
+              while ($data = mysqli_fetch_assoc($result)) {
+                $colCode = $data['colCode'];
+                $colName = $data['colname'];
+
+                echo '<option value="' . $colCode . '">' . $colName . '</option>';
+              }
+            } else echo '<option>No college available</option>';
+            ?>
+          </select>
+
+        </div>
+
+        <div id="logList" class="overflow-y-auto py-2 flex flex-col gap-3">
+          <!-- loading screen -->
+          <div class="lds-roller relative w-4/5 flex ps-5 items-center justify-center h-1/2">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
 

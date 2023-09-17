@@ -215,3 +215,7 @@ tbody tr:nth-child(odd) {
     transform: rotate(0deg);
   }
 }
+
+#logList {
+  height: 85%;
+}

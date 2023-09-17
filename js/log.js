@@ -4,6 +4,7 @@ $(document).ready(function () {
     const imgFormat = 'data:image/jpeg;base64,'
     let offset = 0;
     const activityContainer = $('#recentActWrapper')
+    const logListContainer = $('#logList')
     displayActivities(offset, true, activityContainer)
 
 
@@ -23,19 +24,18 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response == 'Success') {
-                    //display only 3 activities for dashboard
-                    if (isDashDisplay) {
-                        for (let i = 0; i < 3; i++) {
-                            const action = response.action[i];
-                            const timestamp = response.timestamp[i];
-                            const details = response.details[i];
-                            const colCode = response.colCode[i];
-                            const colLogo = imgFormat + response.colLogo[i]; //formatted image
+                    let length = response.action.length
+                    $('.lds-roller').addClass('hidden')
+                    if (isDashDisplay) length = 3 //display only 3 activities for dashboard
+                    for (let i = 0; i < length; i++) {
+                        const action = response.action[i];
+                        const timestamp = response.timestamp[i];
+                        const details = response.details[i];
+                        const colCode = response.colCode[i];
+                        const colLogo = imgFormat + response.colLogo[i]; //formatted image
 
-                            const formattedDate = convertTimestamp(timestamp) //format the date
-                            createActivities(action, formattedDate, details, colCode, colLogo, container)
-                        }
-
+                        const formattedDate = convertTimestamp(timestamp) //format the date
+                        createActivities(action, formattedDate, details, colCode, colLogo, container)
                     }
                 }
             },
@@ -46,7 +46,7 @@ $(document).ready(function () {
     function createActivities(action, timestamp, details, colCode, colLogo, container) {
 
         const actionWrapper = $('<div>')
-            .addClass('flex justify-stretch')
+            .addClass('flex justify-stretch actionWrapper')
 
         const imgCollegeLogo = $('<img>')
             .addClass('circle rounded-full bg-gray-400  h-10 w-10')
@@ -87,4 +87,33 @@ $(document).ready(function () {
         return formattedDate;
 
     }
+
+    const defaultStart = thismonth + "/" + thisday + "/" + thisyear;
+    const defaultEnd = thismonth + 1 + "/" + thisday + "/" + thisyear;
+
+    $('#btnViewMoreLog').on('click', function () {
+        $('#logHistoryModal').removeClass('hidden')
+        $('#logList').find('.actionWrapper').remove() //remove the previously retrieve logs (not duplicate)
+        // display the history log today
+        displayActivities(offset, false, logListContainer)
+
+    })
+
+    $(function () {
+        $('input[name="logdaterange"]').daterangepicker(
+            {
+                opens: "left",
+                startDate: defaultStart,
+                endDate: defaultEnd,
+            },
+            function (start, end, label) {
+                console.log(
+                    "A new date selection was made: " +
+                    start.format("YYYY-MM-DD") +
+                    " to " +
+                    end.format("YYYY-MM-DD")
+                );
+            }
+        );
+    });
 });

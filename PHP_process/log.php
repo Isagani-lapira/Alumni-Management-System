@@ -4,20 +4,22 @@ require_once 'connection.php';
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
 
-    if ($action == "RetrieveData") {
-        $offset = $_POST['offset'];
-        getCollegeAction($offset, $mysql_con);
-    }
+    if ($action == "RetrieveData")
+        getCollegeAction($mysql_con);
 }
-function getCollegeAction($offset, $con)
+function getCollegeAction($con)
 {
-    $max = 10;
-    $query = "SELECT * FROM `collegeadmin_log` ORDER by `timestamp`DESC LIMIT $offset,$max";
+    $query = "SELECT * FROM `collegeadmin_log` ORDER by `timestamp` DESC";
     $stmt = mysqli_prepare($con, $query);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = mysqli_num_rows($result);
 
+    getDetails($result, $row, $con); //get details
+}
+
+function getDetails($result, $row, $con)
+{
     $response = 'Unsuccess';
     $action = array();
     $timestamp = array();
