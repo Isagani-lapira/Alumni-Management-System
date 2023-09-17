@@ -28,14 +28,17 @@ $(document).ready(function () {
                     $('.lds-roller').addClass('hidden')
                     if (isDashDisplay) length = 3 //display only 3 activities for dashboard
                     for (let i = 0; i < length; i++) {
-                        const action = response.action[i];
                         const timestamp = response.timestamp[i];
                         const details = response.details[i];
                         const colCode = response.colCode[i];
                         const colLogo = imgFormat + response.colLogo[i]; //formatted image
+                        const colAdminName = response.colAdminName[i];
 
                         const formattedDate = convertTimestamp(timestamp) //format the date
-                        createActivities(action, formattedDate, details, colCode, colLogo, container)
+                        if (isDashDisplay)
+                            createActivities(formattedDate, details, colCode, colLogo, colAdminName, container)
+                        else
+                            createActivities(formattedDate, details, colCode, colLogo, colAdminName, logListContainer, false)
                     }
                 }
             },
@@ -43,10 +46,10 @@ $(document).ready(function () {
         })
     }
 
-    function createActivities(action, timestamp, details, colCode, colLogo, container) {
+    function createActivities(timestamp, details, colCode, colLogo, colAdminName, container, isDashDisplay = true) {
 
         const actionWrapper = $('<div>')
-            .addClass('flex justify-stretch actionWrapper')
+            .addClass('flex justify-stretch actionWrapper items-center')
 
         const imgCollegeLogo = $('<img>')
             .addClass('circle rounded-full bg-gray-400  h-10 w-10')
@@ -65,12 +68,26 @@ $(document).ready(function () {
             .text(details)
         detailsWrapper.append(college, detailsMsg)
 
-        const time = $('<span>')
-            .addClass('text-grayish text-xs')
-            .text(timestamp)
+        const adminWrapper = $('<span>')
+            .addClass('text-accent font-bold')
+            .text('Administrator');
+        const adminName = $('<span>')
+            .addClass('text-gray-500 text-xs')
+            .append(colAdminName, '  ', adminWrapper);
 
+
+        const time = $('<span>')
+            .addClass('text-gray-500 text-xs')
+            .text(timestamp)
         content.append(detailsWrapper, time)
+
         actionWrapper.append(imgCollegeLogo, content);
+        if (!isDashDisplay) {
+            content.append(detailsWrapper, adminName)
+            actionWrapper.append(time)
+            content.addClass('flex-1')
+        }
+
         container.append(actionWrapper)
 
     }
@@ -135,14 +152,14 @@ $(document).ready(function () {
                 if (response.response == "Success") {
                     const length = response.action.length;
                     for (let i = 0; i < length; i++) {
-                        const action = response.action[i];
                         const timestamp = response.timestamp[i];
                         const details = response.details[i];
                         const colCode = response.colCode[i];
                         const colLogo = imgFormat + response.colLogo[i]; //formatted image
+                        const colAdminName = response.colAdminName[i];
 
                         const formattedDate = convertTimestamp(timestamp) //format the date
-                        createActivities(action, formattedDate, details, colCode, colLogo, logListContainer)
+                        createActivities(formattedDate, details, colCode, colLogo, colAdminName, logListContainer, false)
                     }
                 }
                 $('.lds-roller').addClass('hidden') // hide the loading
@@ -150,4 +167,5 @@ $(document).ready(function () {
             error: error => { console.log(error) }
         })
     }
+
 });

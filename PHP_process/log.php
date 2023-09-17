@@ -31,6 +31,8 @@ function getDetails($result, $row, $con)
     $details = array();
     $colCode = array();
     $colLogo = array();
+    $colname = array();
+    $colAdminName = array();
     if ($result && $row > 0) {
         $response = "Success";
         while ($data = $result->fetch_assoc()) {
@@ -40,9 +42,12 @@ function getDetails($result, $row, $con)
             $details[] = $data['details'];
 
             // get college data
-            $queryCollege = "SELECT college.colCode,college.colLogo
+            $queryCollege = "SELECT college.colCode, college.colLogo,colname,
+            CONCAT(person.fname,' ',person.lname) AS 'fullname'
             FROM coladmin JOIN college ON coladmin.colCode = college.colCode
+            JOIN person ON coladmin.personID = person.personID
             WHERE coladmin.adminID = ? ";
+
             $stmtCollege = mysqli_prepare($con, $queryCollege);
             $stmtCollege->bind_param('s', $colAdmin);
             $stmtCollege->execute();
@@ -51,7 +56,9 @@ function getDetails($result, $row, $con)
             if ($resultCol) {
                 while ($data = $resultCol->fetch_assoc()) {
                     $colCode[] = $data['colCode'];
+                    $colname[] = $data['colname'];
                     $colLogo[] = base64_encode($data['colLogo']);
+                    $colAdminName[] = $data['fullname'];
                 }
             }
         }
@@ -63,7 +70,9 @@ function getDetails($result, $row, $con)
         "timestamp" => $timestamp,
         "details" => $details,
         "colCode" => $colCode,
+        "colname" => $colname,
         "colLogo" => $colLogo,
+        "colAdminName" => $colAdminName,
     );
 
     echo json_encode($data);

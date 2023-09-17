@@ -556,11 +556,6 @@ function dateInText($date)
           <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
 
           <div class="flex justify-end text-xs text-greyish_black">
-            <!-- HISTORY LOGS -->
-            <button class="p-2 m-2 border border-grayish text-grayish rounded-md">
-              Download history logs
-              <img class="inline" src="../images/download.png" alt="">
-            </button>
 
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 
@@ -2058,9 +2053,14 @@ function dateInText($date)
 
     <!-- log history modal -->
     <div id="logHistoryModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-      <div class="modal-container w-2/5 h-3/4 bg-white rounded-lg text-greyish_black p-3">
-        <header class="font-bold text-accent text-xl text-center py-2 border-b border-gray-400">College Admin Activities</header>
+      <div class="modal-container w-1/2 h-3/4 bg-white rounded-lg text-greyish_black p-3">
+        <header class="font-bold text-accent text-xl text-center py-2">College Admin Activities</header>
+        <!-- HISTORY LOGS -->
+        <button class="p-2 m-2 border border-grayish text-grayish rounded-md ml-auto block">
+          <img class="inline" src="../images/download.png" alt="">
+        </button>
 
+        <div class="border-b border-gray-400 py-1"></div>
         <div class="filter flex gap-2 mt-2">
 
           <!-- date range -->
