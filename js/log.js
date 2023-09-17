@@ -107,13 +107,47 @@ $(document).ready(function () {
                 endDate: defaultEnd,
             },
             function (start, end, label) {
-                console.log(
-                    "A new date selection was made: " +
-                    start.format("YYYY-MM-DD") +
-                    " to " +
-                    end.format("YYYY-MM-DD")
-                );
+                start = start.format('YYYY-MM-DD')
+                end = end.format('YYYY-MM-DD')
+                $('.lds-roller').removeClass('hidden') // hide the loading
+                getFilteredDateAction(start, end)
             }
         );
     });
+
+
+    function getFilteredDateAction(startDate, endDate) {
+        const action = "retrieveByDate"
+        const formdata = new FormData();
+        formdata.append('action', action)
+        formdata.append('startDate', startDate)
+        formdata.append('endDate', endDate)
+
+        $.ajax({
+            url: '../PHP_process/log.php',
+            method: 'POST',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: response => {
+                $('#logList').find('.actionWrapper').remove()
+                if (response.response == "Success") {
+                    const length = response.action.length;
+                    for (let i = 0; i < length; i++) {
+                        const action = response.action[i];
+                        const timestamp = response.timestamp[i];
+                        const details = response.details[i];
+                        const colCode = response.colCode[i];
+                        const colLogo = imgFormat + response.colLogo[i]; //formatted image
+
+                        const formattedDate = convertTimestamp(timestamp) //format the date
+                        createActivities(action, formattedDate, details, colCode, colLogo, logListContainer)
+                    }
+                }
+                $('.lds-roller').addClass('hidden') // hide the loading
+            },
+            error: error => { console.log(error) }
+        })
+    }
 });

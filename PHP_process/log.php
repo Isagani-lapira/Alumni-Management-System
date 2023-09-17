@@ -6,6 +6,11 @@ if (isset($_POST['action'])) {
 
     if ($action == "RetrieveData")
         getCollegeAction($mysql_con);
+    else if ($action == "retrieveByDate") {
+        $startDate = $_POST['startDate'];
+        $endDate = $_POST['endDate'];
+        getActionByDate($startDate, $endDate, $mysql_con);
+    }
 }
 function getCollegeAction($con)
 {
@@ -62,4 +67,19 @@ function getDetails($result, $row, $con)
     );
 
     echo json_encode($data);
+}
+
+
+function getActionByDate($startDate, $endDate, $con)
+{
+    $query = "SELECT * FROM `collegeadmin_log` WHERE DATE(timestamp) >= ? 
+    AND DATE(timestamp) <= ? ORDER BY `timestamp` DESC";
+
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('ss', $startDate, $endDate);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_num_rows($result);
+
+    getDetails($result, $row, $con); //get details
 }
