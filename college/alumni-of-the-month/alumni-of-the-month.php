@@ -11,7 +11,7 @@
         </button> -->
         <!-- <button class="daisy-btn btn-primary " onclick="my_modal_4.showModal()">Add Alumni</button> -->
         <!-- The button to open modal -->
-        <label for="my_modal_6" class="daisy-btn">open modal</label>
+        <label for="add-alumni-modal" class="daisy-btn">open modal</label>
 
     </div>
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
@@ -125,12 +125,12 @@
     </div>
 
     <!-- Modal for adding alumni of the month -->
-    <input type="checkbox" id="my_modal_6" class="daisy-modal-toggle">
+    <input type="checkbox" id="add-alumni-modal" class="daisy-modal-toggle">
     <div class="daisy-modal">
         <div class="daisy-modal-box w-11/12 max-w-5xl ">
             <!-- Exit -->
             <form method="dialog">
-                <button class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</button>
+                <label for="add-alumni-modal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
             </form>
             <!-- End Exit Form -->
             <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
@@ -152,11 +152,11 @@
                         Choose Profile Image
                         <input class="hidden" id="profile-image" type="file" accept=".jpg" name="profile-image">
                     </label>
-                    <label class="font-bold" for="aoyFN">Fullname</label>
-                    <input id="aoyFN" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo" name="name">
+                    <label class="font-bold" for="fullname">Fullname</label>
+                    <input id="fullname" name="fullname" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo">
 
-                    <label class="font-bold" for="id">ID</label>
-                    <input id="id" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo" name="studentNo">
+                    <label class="font-bold" for="studentNo">ID</label>
+                    <input id="studentNo" name="studentNo" class="form-input block rounded" required type="text" placeholder="e.g Patrick Joseph Pronuevo">
 
                     <label class="font-bold" for="quote">Quotation</label>
                     <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
@@ -164,7 +164,7 @@
                     <p class="font-bold block">Social media links</p>
                     <div class="flex">
                         <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
-                        <input id="emailAdd" name="emailAdd" class="form-input border rounded" type="email" placeholder="Add Email">
+                        <input id="email" name="email" class="form-input border rounded" type="email" placeholder="Add Email">
                     </div>
                     <div class="flex">
                         <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
@@ -182,7 +182,7 @@
                     </div>
 
                     <p class="font-bold block" for="">Description</p>
-                    <textarea name="description" class="form-textarea block rounded resize max-w-full" id="aoyDescript"></textarea>
+                    <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
 
                     <div class="flex flex-wrap gap-4 py-4 justify-end">
                         <button class="btn-tertiary bg-transparent " type="reset">Reset Form</button>
@@ -251,31 +251,22 @@
         // configure the z-index of the modal  
         // get the form data
         const formData = new FormData(form);
-        // null
-        console.log(formData.get("id"));
-        // null
-        console.log(formData.get("AOYFN"));
-        // null
-        console.log(formData.get("quote"));
-        console.log(formData.get("emailAdd"));
-        console.log(formData.get("facebookUN"));
-        console.log(formData.get("linkedINUN"));
-        console.log(formData.get("instagramUN"));
-        console.log(formData.get("aoyDescript"));
-        console.log(formData.get("profile-image"));
-        console.log(formData.get("cover-image"));
+        // console.log(formData.get("studentNo"));
+        // console.log(formData.get("fullname"));
+        // console.log(formData.get("quote"));
+        // console.log(formData.get("email"));
+        // console.log(formData.get("facebookUN"));
+        // console.log(formData.get("linkedINUN"));
+        // console.log(formData.get("instagramUN"));
+        // console.log(formData.get("description"));
+        // console.log(formData.get("profile-image"));
+        // console.log(formData.get("cover-image"));
+        // console.log(formData.entries());
 
-
-
-
-
-        console.log(formData);
-        // send the data to the server using fetch await
-
-        // const response = await fetch(url, {
-        //     method: "POST",
-        //     body: formData,
-        // });
-        // return response.json();
+        const response = await fetch(url, {
+            method: "POST",
+            body: formData,
+        });
+        return response.json();
     }
 </script>
