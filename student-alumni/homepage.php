@@ -553,8 +553,37 @@ function getAccDetails($con, $personID)
           </div>
         </div>
         <!-- Container for Yearbook -->
-        <div id="yearbookContainer" class="hidden flex pt-48 z-10 w-full h-full">
-          <p>Yearbook</p>
+        <div id="yearbookContainer" class="hidden flex pt-48 z-10 w-full">
+
+          <!-- front page -->
+          <div id="frontpageTracer" class="h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3">
+            <img src="../assets/tracer_header_img.png" class="w-1/3 h-40" alt="">
+            <div class="rounded-lg center-shadow p-3 border-t-4 border-accent w-1/2">
+              <h3 class="text-xl text-greyish_black font-bold">Alumni Graduate Tracer 2023-2024</h3>
+              <span>Dear Graduates of Batch 2010-2023,</span>
+
+              <p class="text-sm text-justify mt-3">Please complete this questionnaire as accurately and completely as possible. Kindly
+                provide the needed information or check (/) the space corresponding to your response.
+                Your responses will be used to assess graduate employability and eventually improve
+                the current curriculum of the programs offered in the Bulacan State University (BulSU).
+                We ensure that every information that you will provide in this form will be treated in
+                strict confidentiality . Thank you for your participation and honesty!</p>
+            </div>
+
+            <div class="flex justify-end w-1/2">
+              <button id="proceedTracer" class="text-white px-3 py-2 rounded-md bg-accent hover:bg-darkAccent">Proceed</button>
+            </div>
+
+          </div>
+
+          <!-- container questions -->
+          <div id="questionsContainer" class="h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3 hidden">
+            <div class="w-1/2">
+              <h3 id="categoryNameQuestion" class="text-2xl font-bold text-accent text-center">Category Name</h3>
+            </div>
+            <div class="questions h-full w-1/2 p-2 overflow-y-auto"></div>
+          </div>
+
         </div>
 
         <!-- report modal -->
@@ -1128,6 +1157,7 @@ function getAccDetails($con, $personID)
   <script src="../student-alumni/js/jobposting.js"></script>
   <script src="../student-alumni/js/notification.js"></script>
   <script src="../student-alumni/js/post.js"></script>
+  <script src="../student-alumni/js/userformtracer.js"></script>
   <script src="../student-alumni/js/searchProfile.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
