@@ -845,6 +845,24 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <div class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
+          <div class="sectionModalTracer bg-white rounded shadow-lg w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
+            <h3 class="font-bold text-xl text-blue-400 py-2 border-b border-gray-300 text-center">Additional Question</h3>
+
+            <!-- close button -->
+            <button class="absolute top-1 right-1">
+              <iconify-icon class="text-gray-400 hover:text-accent" icon="carbon:close-outline" width="24" height="24"></iconify-icon>
+            </button>
+
+            <!-- section container -->
+            <div class="h-4/5 overflow-y-auto"></div>
+            <div class="flex w-full justify-end gap-2 py-2 border-t border-gray-300 my-2">
+              <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+              <button class="px-4 py-2 rounded-md bg-blue-400 hover:bg-blue-500 text-white">Proceed</button>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- TAB 2 -->

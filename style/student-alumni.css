@@ -363,3 +363,7 @@ pre {
 #yearbookContainer {
   height: 100vh;
 }
+
+.sectionModalTracer {
+  max-height: 70%;
+}

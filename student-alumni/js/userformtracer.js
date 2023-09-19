@@ -246,6 +246,8 @@ $(document).ready(function () {
                             .attr('id', id)
                             .val(choiceID)
                             .on('click', function () {
+                                // check first if the choice has section question
+                                haveSectionQuestion(choiceID)
                                 addAnswer(answerID, questionID, "", choiceID)
                             })
 
@@ -375,5 +377,21 @@ $(document).ready(function () {
         });
     }
 
+    // check if the selected choice have section question
+    function haveSectionQuestion(choiceID) {
+        const action = "havesectionQuestion"
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('choiceID', choiceID)
 
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) },
+        })
+    }
 })

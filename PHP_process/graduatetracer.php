@@ -87,7 +87,13 @@ if (isset($_POST['action'])) {
 
         if ($result) echo 'Success';
         else echo 'Unsuccess';
-    } else if ($action == "retrieveAllTracerForm") retrieveTracerData($mysql_con);
+    } else if ($action == "retrieveAllTracerForm") {
+        retrieveTracerData($mysql_con);
+    } else if ($action == "havesectionQuestion") {
+        $choiceID = $_POST['choiceID'];
+        $result = haveSection($choiceID, $mysql_con);
+        echo $result;
+    }
 }
 
 function checkSequence($query, $con)
