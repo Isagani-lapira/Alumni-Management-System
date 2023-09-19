@@ -44,14 +44,33 @@ $(document).ready(function () {
                     .text('Next')
                     .on('click', function () {
                         let isCompleted = true
+                        let haveCheckedInCheckBox = true
                         // check if all input type text are answered
                         $('.userinputData').each(function () {
                             let value = $(this).val().trim()
                             if (value === '') isCompleted = false;
                         })
 
+                        // check if there are checkboxes with the class
+                        const checkBoxes = $('.checkBoxVal');
+                        if (checkBoxes.length > 0) {
+                            // check if at least one checkbox is checked
+                            let isAnyChecked = false;
+                            $('.checkBoxVal').each(function () {
+                                if ($(this).prop('checked')) {
+                                    isAnyChecked = true;
+                                    return false; // Exit the loop early once a checked checkbox is found
+                                }
+                            });
+
+                            // If none of the checkboxes are checked, set haveCheckedInCheckBox to false
+                            if (!isAnyChecked) {
+                                haveCheckedInCheckBox = false;
+                            }
+                        }
+
                         // check if all input fields are completed
-                        if (areQuestionAnswered() && isCompleted) {
+                        if (areQuestionAnswered() && isCompleted && haveCheckedInCheckBox) {
                             $('.questions').empty()
                             const nextCategoryName = categoryList[count].categoryName;
                             const nextCategoryID = categoryList[count].categoryID;
@@ -141,7 +160,7 @@ $(document).ready(function () {
     function displayQuestion(categoryID, categoryName, questionID, questionTxt, inputType, choices) {
         // wrapper container
         const questionWrapper = $('<div>')
-            .addClass('center-shadow border-t-4 border-accent rounded-lg p-3 mb-3 userQuestionTracer')
+            .addClass('center-shadow border-t-4 border-accent rounded-lg py-3 px-5 mb-3 userQuestionTracer')
 
         // question name
         const question = $('<h3>')
@@ -161,6 +180,8 @@ $(document).ready(function () {
 
         }
         else {
+            const select = $('<select>')
+                .addClass('w-full px-2 py-4 outline-none center-shadow rounded-lg')
             // get all the choices
             choices.forEach(choice => {
                 const choiceID = choice.choiceID;
@@ -187,7 +208,39 @@ $(document).ready(function () {
                     inputFieldWrapper.append(choiceVal, label)
                     questionBody.append(inputFieldWrapper)
                 }
+                else if (inputType === "DropDown") {
+                    // dropdown type
+                    const option = $('<option>')
+                        .attr('value', choiceID)
+                        .text(choice_text)
+
+                    select.append(option)
+                }
+                else if (inputType == "Checkbox") {
+                    const inputFieldWrapper = $('<div>')
+                        .addClass('flex justify-start items-center gap-2 w-full p-2')
+                    let name = questionTxt.replace(' ', '')
+                    const max = 1000
+                    let id = choiceID + Math.floor(Math.random() * (max + 1))
+                    const choiceVal = $('<input>')
+                        .addClass('checkBoxVal')
+                        .attr('type', 'checkbox')
+                        .attr('name', name)
+                        .attr('id', id)
+                        .val(choiceID)
+
+                    const label = $('<label>')
+                        .addClass('cursor-pointer')
+                        .attr('for', id)
+                        .text(choice_text)
+
+                    inputFieldWrapper.append(choiceVal, label)
+                    questionBody.append(inputFieldWrapper)
+                }
             })
+
+            if (inputType === "DropDown")
+                questionBody.append(select) //add select if the input was assigned as dropwdown
 
         }
 
