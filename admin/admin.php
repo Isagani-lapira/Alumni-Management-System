@@ -759,7 +759,7 @@ function dateInText($date)
 
           <div class="flex gap-2 justify-end mb-2">
             <button id="tracerbtn" class="text-gray-400 hover:text-gray-500">Tracer form</button>
-            <button class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
+            <button id="deployTracerBtn" class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
           </div>
 
           <div id="formReport" class="border border-t-grayish h-5/6">
@@ -2110,6 +2110,22 @@ function dateInText($date)
         </div>
 
       </div>
+    </div>
+
+    <div id="deploymentModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+
+      <div id="modalConfirmDeployment" class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3">
+        <h3 class="text-xl font-semibold text-gray-900 border-b border-gray-300 py-3">Tracer Deploy Confirmation</h3>
+        <p class="p-4"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi laudantium natus accusamus aperiam quas,
+          assumenda placeat vero quia temporibus? Autem doloribus asperiores veritatis reiciendis? Aliquam tenetur provident
+          officiis? Eveniet, ipsa.</p>
+
+        <div class="flex w-full justify-end items-center gap-2 my-3 border-t border-gray-300 py-2">
+          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button id="confirmDeployTracerBtn" class="px-4 py-2 rounded-lg bg-blue-400 hover:bg-blue-500 text-white font-bold">Deploy</button>
+        </div>
+      </div>
+
     </div>
   </div>
 

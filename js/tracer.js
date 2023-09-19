@@ -848,4 +848,27 @@ $(document).ready(function () {
             $('#sectionModalcontainer').addClass('hidden')
         }
     })
+
+
+    // deploy tracer
+    $('#deployTracerBtn').on('click', function () {
+        $('#deploymentModal').removeClass('hidden') //open the confirmation for deployment
+    })
+
+    // deploy new tracer
+    $('#confirmDeployTracerBtn').on('click', function () {
+        const action = 'deployNewTracer';
+        const formData = new FormData();
+        formData.append('action', action);
+
+        $.ajax({
+            url: '../PHP_process/deploymentTracer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) }
+        })
+    })
 })
