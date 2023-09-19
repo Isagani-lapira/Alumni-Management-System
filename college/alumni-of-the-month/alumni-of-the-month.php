@@ -11,7 +11,7 @@
         </button> -->
         <!-- <button class="daisy-btn btn-primary " onclick="my_modal_4.showModal()">Add Alumni</button> -->
         <!-- The button to open modal -->
-        <label for="add-alumni-modal" class="daisy-btn">open modal</label>
+        <label for="add-alumni-modal" class="daisy-btn">Add This Month's Alumni</label>
 
     </div>
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
@@ -83,8 +83,7 @@
     <!-- End Record Table -->
 
 
-    <!-- Modal for adding new email -->
-    <!-- modal add email message -->
+    <!-- MODAL OLD -->
     <div id="modalAlumni" class="bg-gray-800 bg-opacity-80 fixed inset-0 h-full w-full flex items-center justify-center 
       text-grayish  top-0 left-0 hidden">
         <form id="add-alumni-month-form" class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
@@ -131,22 +130,41 @@
             <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
             <!-- make alumni of the year post -->
             <form action="" id="add-aotm-form">
-                <div id="aoyRegister" class=" text-greyish_black flex flex-col px-12">
-                    <!-- Placeholder for image element -->
-                    <div class="flex justify-center">
-                        <img id="imgPreview" class="w-40 h-40 rounded-full" src="../../assets/default_profile.png" alt="">
+                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12">
+                    <span class="daisy-label-text">Choose Cover Image</span>
+
+                    <!-- Placeholder for Cover Image -->
+                    <div class="w-full h-40 relative group">
+                        <img id="coverImgPreview" class="w-full bg-red-300 object-cover max-h-full h-full block" src="" alt="">
+                        <!-- Cover Image Input -->
+                        <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <label for="cover-image" class="daisy-label">
+                            </label>
+                            <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-image" type="file" accept=".jpg" name="cover-image">
+                            <label class="daisy-label">
+                                <span class="daisy-label-text-alt">Use JPG File Format</span>
+                            </label>
+                        </div>
                     </div>
 
 
-                    <label for="cover-image" class="btn-tertiary p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md self-center">
-                        Choose Cover Image
-                        <input class="" id="cover-image" type="file" accept=".jpg" name="cover-image">
-                    </label>
+                    <!-- Placeholder for profile image -->
+                    <span class="daisy-label-text"> Choose Profile Image</span>
 
-                    <label for="profile-image" class="btn-tertiary p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md self-center">
-                        Choose Profile Image
-                        <input class="" id="profile-image" type="file" accept=".jpg" name="profile-image">
-                    </label>
+                    <div class="flex justify-center relative group">
+                        <img id="imgPreview" class="w-40 h-40 rounded-full peer" src="../../assets/default_profile.png" alt="">
+                        <!-- Profile Image Input -->
+                        <div class="daisy-form-control  w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <label for="cover-image" class="daisy-btn w-9 mx-auto ">
+                                Choose Image
+                            </label>
+                            <input class="daisy-file-input hidden daisy-file-input-bordered w-full max-w-xs" id="profile-image" type="file" accept=".jpg" name="profile-image">
+                            <label class="daisy-label mx-auto bg-gray-100 rounded mt-2">
+                                <span class="daisy-label-text-alt text-slate-600 ">Use JPG File Format</span>
+                            </label>
+                        </div>
+                    </div>
+
                     <label class="font-bold" for="fullname">Fullname</label>
                     <input id="fullname" name="fullname" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo">
 
@@ -156,24 +174,24 @@
                     <label class="font-bold" for="quote">Quotation</label>
                     <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
 
-                    <p class="font-bold block">Social media links</p>
-                    <div class="flex">
-                        <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
-                        <input id="email" name="email" class="form-input border rounded" type="email" placeholder="Add Email">
-                    </div>
-                    <div class="flex">
-                        <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
-                        <input id="facebookUN" name="facebookUN" class="form-input border rounded" type="text" placeholder="Add Facebook link">
-                    </div>
-
-                    <div class="flex mt-2">
-                        <img class="m-2" src="../assets/socmed-icons/linkedIN.png" alt="">
-                        <input id="linkedINUN" name="linkedINUN" class="form-input border rounded" type="text" placeholder="Add LinkedIN link">
-                    </div>
-
-                    <div class="flex mt-2">
-                        <img class="m-2" src="../assets/socmed-icons/instagram.png" alt="">
-                        <input id="instagramUN" name="instagramUN" class="form-input border rounded" type="text" placeholder="Add instagram link">
+                    <p class="font-bold block">Social Media Links</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope fa-xl text-gray-600 absolute top-2 left-2"></i>
+                            <input id="email" name="email" class="form-input border rounded pl-10" type="email" placeholder="Add Email">
+                        </div>
+                        <div class="relative">
+                            <i class="fa-brands fa-facebook fa-xl  absolute top-2 left-2"></i>
+                            <input id="facebookUN" name="facebookUN" class="form-input border rounded  pl-10" type="text" placeholder="Add Facebook link">
+                        </div>
+                        <div class="relative">
+                            <i class="fa-brands fa-linkedin fa-xl absolute top-2 left-2"></i>
+                            <input id="linkedINUN" name="linkedINUN" class="form-input border rounded  pl-10" type="text" placeholder="Add LinkedIN link">
+                        </div>
+                        <div class="relative">
+                            <i class="fa-brands fa-instagram fa-xl absolute top-2 left-2"></i>
+                            <input id="instagramUN" name="instagramUN" class="form-input border rounded  pl-10" type="text" placeholder="Add instagram link">
+                        </div>
                     </div>
 
                     <p class="font-bold block" for="">Description</p>
