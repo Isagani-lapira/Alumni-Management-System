@@ -18,19 +18,26 @@ if (
   $username = $_SESSION['username'];
 
   //get the person ID of that user
-  $query = "SELECT 'student' AS user_details, student.personID
-            FROM student
-            WHERE student.username = '$username'
-            UNION
-            SELECT 'alumni' AS user_details, alumni.personID
-            FROM alumni
-            WHERE alumni.username = '$username'";
+  $query = "SELECT 'student' AS user_type, student.personID
+  FROM student
+  WHERE student.username = '$username'
+  UNION
+  SELECT 'alumni' AS user_type, alumni.personID
+  FROM alumni
+  WHERE alumni.username = '$username'
+  UNION
+  SELECT 'not found' AS user_type, NULL
+  WHERE NOT EXISTS (
+      SELECT 1 FROM student WHERE student.username = '$username'
+  ) AND NOT EXISTS (
+      SELECT 1 FROM alumni WHERE alumni.username = '$username'
+  )";
 
   $result = mysqli_query($mysql_con, $query);
   if ($result) {
     $data = mysqli_fetch_assoc($result);
     $personID = $data['personID'];
-
+    $user_type = $data['user_type'];
     //get person details
     $personObj = new personDB();
     $personDataJSON = $personObj->readPerson($personID, $mysql_con);
@@ -109,7 +116,8 @@ function getAccDetails($con, $personID)
   <div class="fixed top-0 w-full z-50">
     <?php
     echo '<p id="colCode" class="hidden">' . $colCode . '</p>';
-    echo '<p id="accUsername" class="hidden">' . $username . '</p>'
+    echo '<p id="accUsername" class="hidden">' . $username . '</p>';
+    echo '<p id="" class="hidden">' . $user_type . '</p>';
     ?>
     <div id="tabs" class="h-screen overflow-y-scroll hide-scrollbar relative">
       <!-- Navbar -->
@@ -239,15 +247,26 @@ function getAccDetails($con, $personID)
             </div>
 
             <!-- Yearbook -->
-            <div id="target-div-yearbook" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
-              <button id="yearbook-btn" onclick="toggleYearbook()">
-                <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
-                  <path fill="currentColor" d="M464 48c-67.61.29-117.87 9.6-154.24 25.69c-27.14 12-37.76 21.08-37.76 51.84V448c41.57-37.5 78.46-48 224-48V48ZM48 48c67.61.29 117.87 9.6 154.24 25.69c27.14 12 37.76 21.08 37.76 51.84V448c-41.57-37.5-78.46-48-224-48V48Z" />
-                </svg>
-                <span class="ps-3 text-sm text-greyish_black font-medium">Yearbook</span>
-              </button>
-            </div>
+            <!-- show only yearbook for alumni -->
+            <?php
+            if ($user_type == "alumni") {
+              require '../PHP_process/deploymentTracer.php';
+              $isAvailable = retrievedDeployment($mysql_con);
 
+              // check if there's still available to be answer
+              if ($isAvailable != "None") {
+                echo '
+                <div id="target-div-yearbook" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
+                  <button id="yearbook-btn" onclick="toggleYearbook()">
+                    <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
+                      <path fill="currentColor" d="M464 48c-67.61.29-117.87 9.6-154.24 25.69c-27.14 12-37.76 21.08-37.76 51.84V448c41.57-37.5 78.46-48 224-48V48ZM48 48c67.61.29 117.87 9.6 154.24 25.69c27.14 12 37.76 21.08 37.76 51.84V448c-41.57-37.5-78.46-48-224-48V48Z" />
+                    </svg>
+                    <span class="ps-3 text-sm text-greyish_black font-medium">Yearbook</span>
+                  </button>
+                </div>';
+              }
+            }
+            ?>
             <!-- profile -->
             <div class="flex items-center h-10 p-2 mt-1">
               <a href="profile.php">
