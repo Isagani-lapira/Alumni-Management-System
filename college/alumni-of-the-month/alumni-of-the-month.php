@@ -135,7 +135,7 @@
 
                     <!-- Placeholder for Cover Image -->
                     <div class="w-full h-40 relative group">
-                        <img id="coverImgPreview" class="w-full bg-red-300 object-cover max-h-full h-full block" src="" alt="">
+                        <img id="cover-img-preview" class="w-full bg-red-300 object-cover max-h-full h-full block" src="" alt="">
                         <!-- Cover Image Input -->
                         <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <label for="cover-image" class="daisy-label">
@@ -152,10 +152,10 @@
                     <span class="daisy-label-text"> Choose Profile Image</span>
 
                     <div class="flex justify-center relative group">
-                        <img id="imgPreview" class="w-40 h-40 rounded-full peer" src="../../assets/default_profile.png" alt="">
+                        <img id="profile-img-preview" class="w-40 h-40 rounded-full peer" src="../../assets/default_profile.png" alt="">
                         <!-- Profile Image Input -->
                         <div class="daisy-form-control  w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <label for="cover-image" class="daisy-btn w-9 mx-auto ">
+                            <label for="profile-image" class="daisy-btn w-9 mx-auto ">
                                 Choose Image
                             </label>
                             <input class="daisy-file-input hidden daisy-file-input-bordered w-full max-w-xs" id="profile-image" type="file" accept=".jpg" name="profile-image">
@@ -222,11 +222,17 @@
     $('#cover-image').change(function() {
         let reader = new FileReader();
         reader.onload = (e) => {
-            $('#imgPreview').attr('src', e.target.result);
+            $('#cover-img-preview').attr('src', e.target.result);
         }
         reader.readAsDataURL(this.files[0]);
     });
-    // TODO add some image to the cover image
+    $('#profile-image').change(function() {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            $('#profile-img-preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
 
     // on form submit
     $('#add-aotm-form').submit(async function(e) {
@@ -251,8 +257,9 @@
                 // show the success message
                 Swal.fire("Success!", "Alumni has been added.", "success");
                 // remove the form data
-                $("#crud-event-form")[0].reset();
-                $("#aboutImgPreview").attr("src", "");
+                $("#add-aotm-form")[0].reset();
+                $("#cover-image-preview").attr("src", "");
+                $("#profile-image-preview").attr("src", "");
                 $("#add-alumni-modal").prop("checked", false);
             } else {
                 Swal.fire("Error", "Alumni is not added due to error.", "info");
@@ -266,21 +273,8 @@
     });
 
     async function postNewAlumni(form, url = './alumni-of-the-month/addAlumni.php') {
-        // configure the z-index of the modal  
         // get the form data
         const formData = new FormData(form);
-        // console.log(formData.get("studentNo"));
-        // console.log(formData.get("fullname"));
-        // console.log(formData.get("quote"));
-        // console.log(formData.get("email"));
-        // console.log(formData.get("facebookUN"));
-        // console.log(formData.get("linkedINUN"));
-        // console.log(formData.get("instagramUN"));
-        // console.log(formData.get("description"));
-        console.log(formData.get("profile-image"));
-        console.log(formData.get("cover-image"));
-        // console.log(formData.entries());
-
         const response = await fetch(url, {
             method: "POST",
             body: formData,
