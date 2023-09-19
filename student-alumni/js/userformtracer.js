@@ -149,6 +149,7 @@ $(document).ready(function () {
             const firstCategoryName = categoryList[0].categoryName;
             const firstCategoryID = categoryList[0].categoryID;
 
+            createAlumniEntry()
             $('#categoryNameQuestion').text(firstCategoryName)
             categoryQuestion(firstCategoryID)
             count++
@@ -157,6 +158,22 @@ $(document).ready(function () {
         }
     });
 
+
+    function createAlumniEntry() {
+        const action = "addNewAnswer";
+        const formData = new FormData();
+        formData.append('action', action);
+
+        $.ajax({
+            url: '../PHP_process/answer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) }
+        })
+    }
     function displayQuestion(categoryID, categoryName, questionID, questionTxt, inputType, choices) {
         // wrapper container
         const questionWrapper = $('<div>')
@@ -252,6 +269,7 @@ $(document).ready(function () {
         $('.questions').append(questionWrapper) //add to main container
     }
 
+    // check if all readio input question are answered
     function areQuestionAnswered() {
         const unansweredRequiredQuestions = $('.questions [data-required="true"]')
             .toArray()

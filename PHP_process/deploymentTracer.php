@@ -37,7 +37,7 @@ function insertNewTracerDeployment($con)
 function retrievedDeployment($con)
 {
     // get if there's tracer form available based on the current date
-    $query = "SELECT `formID` FROM `tracer_deployment` WHERE CURRENT_DATE<=`end_date`";
+    $query = "SELECT `tracer_deployID` FROM `tracer_deployment` WHERE CURRENT_DATE<=`end_date` ORDER BY `end_date` DESC LIMIT 1";
     $stmt = mysqli_prepare($con, $query);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -45,6 +45,6 @@ function retrievedDeployment($con)
 
     if ($result && $row > 0) {
         $data = $result->fetch_assoc();
-        return $data['formID'];
+        return $data['tracer_deployID'];
     } else return 'None';
 }
