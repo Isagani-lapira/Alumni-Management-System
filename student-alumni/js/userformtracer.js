@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
+    let answerIDEntry = ""
     // retrieving all the question for specific category
-    function categoryQuestion(categoryID) {
+    function categoryQuestion(answerID, categoryID) {
         const action = "readQuestions";
         const formData = new FormData();
         formData.append('action', action)
@@ -16,6 +17,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response == 'Success') {
+                    $('#navigationWrapper').empty()
                     response.dataSet.forEach(data => {
                         const categoryID = data.categoryID
                         const categoryName = data.categoryName
@@ -29,7 +31,7 @@ $(document).ready(function () {
                             const choices = data.choices
 
                             //mark up for displaying question
-                            displayQuestion(categoryID, categoryName, questionID, questionTxt, inputType, choices)
+                            displayQuestion(answerID, categoryID, categoryName, questionID, questionTxt, inputType, choices)
                         })
 
                     })
@@ -76,7 +78,7 @@ $(document).ready(function () {
                             const nextCategoryID = categoryList[count].categoryID;
                             //open another set of question
                             $('#categoryNameQuestion').text(nextCategoryName)
-                            categoryQuestion(nextCategoryID)
+                            categoryQuestion(answerIDEntry, nextCategoryID)
                             count++
                         }
                     })
@@ -85,7 +87,7 @@ $(document).ready(function () {
 
 
                 navigationWrapper.append(nextBtn)
-                $('.questions').append(navigationWrapper)
+                $('#navigationWrapper').append(navigationWrapper)
             },
             error: error => { console.log(error) }
         })
@@ -142,21 +144,22 @@ $(document).ready(function () {
         $('#frontpageTracer').addClass('hidden');
         $('#questionsContainer').removeClass('hidden');
 
-
-        // get the first questions
         try {
             await retrieveCategory(); // Wait for the data to be retrieved
             const firstCategoryName = categoryList[0].categoryName;
             const firstCategoryID = categoryList[0].categoryID;
 
-            createAlumniEntry()
-            $('#categoryNameQuestion').text(firstCategoryName)
-            categoryQuestion(firstCategoryID)
-            count++
+            // Use await with createAlumniEntry and store the result in answerIDEntry
+            const answerIDEntry = await createAlumniEntry();
+
+            $('#categoryNameQuestion').text(firstCategoryName);
+            categoryQuestion(answerIDEntry, firstCategoryID);
+            count++;
         } catch (error) {
             console.error(error);
         }
     });
+
 
 
     function createAlumniEntry() {
@@ -164,109 +167,151 @@ $(document).ready(function () {
         const formData = new FormData();
         formData.append('action', action);
 
-        $.ajax({
-            url: '../PHP_process/answer.php',
-            method: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: response => { console.log(response) },
-            error: error => { console.log(error) }
-        })
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '../PHP_process/answer.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: response => {
+                    const answerIDEntry = response;
+                    resolve(answerIDEntry);
+                },
+                error: error => {
+                    reject(error);
+                }
+            });
+        });
     }
-    function displayQuestion(categoryID, categoryName, questionID, questionTxt, inputType, choices) {
+
+    async function displayQuestion(answerID, categoryID, categoryName, questionID, questionTxt, inputType, choices) {
         // wrapper container
         const questionWrapper = $('<div>')
-            .addClass('center-shadow border-t-4 border-accent rounded-lg py-3 px-5 mb-3 userQuestionTracer')
+            .addClass('center-shadow border-t-4 border-accent rounded-lg py-3 px-5 mb-5 userQuestionTracer');
 
         // question name
         const question = $('<h3>')
             .addClass('text-center font-bold lg text-greyish_black')
-            .text(questionTxt)
-        questionWrapper.append(question)
+            .text(questionTxt);
+        questionWrapper.append(question);
 
-        const questionBody = $('<div>')
-            .addClass('flex flex-col gap-2 py-2')
-        // check what type of input type is set
-        if (inputType === 'Input') {
-            // input type
-            let questionType = $('<input>')
-                .addClass('border-b border-gray-400 p-2 w-full outline-none userinputData')
-                .attr('type', 'text')
-            questionBody.append(questionType)
+        try {
+            const response = await getAnswer(questionID, answerID);
 
-        }
-        else {
-            const select = $('<select>')
-                .addClass('w-full px-2 py-4 outline-none center-shadow rounded-lg')
-            // get all the choices
-            choices.forEach(choice => {
-                const choiceID = choice.choiceID;
-                const choice_text = choice.choice_text;
+            let answerTxt = "";
+            let choiceIDData = "";
 
-                // check again where it fall to three (radio,dropdown,checkbox)
-                if (inputType === "Radio") {
-                    const inputFieldWrapper = $('<div>')
-                        .addClass('flex justify-start items-center gap-2 w-full p-2')
-                    let name = questionTxt.replace(' ', '')
-                    const max = 1000
-                    let id = choiceID + Math.floor(Math.random() * (max + 1))
-                    const choiceVal = $('<input>')
-                        .attr('type', 'radio')
-                        .attr('name', name)
-                        .attr('id', id)
-                        .val(choiceID)
+            if (response.response == "Success") {
+                answerTxt = response.answerTxt;
+                choiceIDData = response.choiceID;
+            }
 
-                    const label = $('<label>')
-                        .addClass('cursor-pointer')
-                        .attr('for', id)
-                        .text(choice_text)
+            const questionBody = $('<div>')
+                .addClass('flex flex-col gap-2 py-2');
 
-                    inputFieldWrapper.append(choiceVal, label)
-                    questionBody.append(inputFieldWrapper)
+            // check what type of input type is set
+            if (inputType === 'Input') {
+                // input type
+                let questionType = $('<input>')
+                    .addClass('border-b border-gray-400 p-2 w-full outline-none userinputData')
+                    .attr('type', 'text')
+                    .on('change', function () {
+                        const answer = $(this).val();
+                        addAnswer(answerID, questionID, answer);
+                    });
+
+                if (answerTxt !== "") questionType.val(answerTxt);
+                questionBody.append(questionType);
+            } else {
+                const select = $('<select>')
+                    .addClass('w-full px-2 py-4 outline-none center-shadow rounded-lg')
+
+                let tempChoiceID = ""
+                // get all the choices
+                choices.forEach(choice => {
+                    const choiceID = choice.choiceID;
+                    const choice_text = choice.choice_text;
+                    tempChoiceID = choiceID
+                    // check again where it fall to three (radio,dropdown,checkbox)
+                    if (inputType === "Radio") {
+                        const inputFieldWrapper = $('<div>')
+                            .addClass('flex justify-start items-center gap-2 w-full p-2')
+                        let name = questionTxt.replace(' ', '')
+                        const max = 1000
+                        let id = choiceID + Math.floor(Math.random() * (max + 1))
+                        const choiceVal = $('<input>')
+                            .attr('type', 'radio')
+                            .attr('name', name)
+                            .attr('id', id)
+                            .val(choiceID)
+                            .on('click', function () {
+                                addAnswer(answerID, questionID, "", choiceID)
+                            })
+
+                        // if have already answer then make it as checked
+                        if (choiceIDData !== "" && choiceIDData == choiceID) choiceVal.attr('checked', true)
+
+                        const label = $('<label>')
+                            .addClass('cursor-pointer')
+                            .attr('for', id)
+                            .text(choice_text)
+
+                        inputFieldWrapper.append(choiceVal, label)
+                        questionBody.append(inputFieldWrapper)
+                    }
+                    else if (inputType === "DropDown") {
+                        // dropdown type
+                        const option = $('<option>')
+                            .attr('value', choiceID)
+                            .text(choice_text)
+
+                        if (choiceIDData !== "" && choiceID == choiceIDData) option.attr('selected', true)
+                        select.append(option)
+                    }
+                    else if (inputType == "Checkbox") {
+                        const inputFieldWrapper = $('<div>')
+                            .addClass('flex justify-start items-center gap-2 w-full p-2')
+                        let name = questionTxt.replace(' ', '')
+                        const max = 1000
+                        let id = choiceID + Math.floor(Math.random() * (max + 1))
+                        const choiceVal = $('<input>')
+                            .addClass('checkBoxVal')
+                            .attr('type', 'checkbox')
+                            .attr('name', name)
+                            .attr('id', id)
+                            .val(choiceID)
+
+                        const label = $('<label>')
+                            .addClass('cursor-pointer')
+                            .attr('for', id)
+                            .text(choice_text)
+
+                        inputFieldWrapper.append(choiceVal, label)
+                        questionBody.append(inputFieldWrapper)
+                    }
+
+                });
+
+                if (inputType === "DropDown") {
+                    questionBody.append(select); // add select if the input was assigned as dropdown
+                    select.on('change', function () {
+                        addAnswer(answerID, questionID, "", tempChoiceID)
+                    })
                 }
-                else if (inputType === "DropDown") {
-                    // dropdown type
-                    const option = $('<option>')
-                        .attr('value', choiceID)
-                        .text(choice_text)
 
-                    select.append(option)
-                }
-                else if (inputType == "Checkbox") {
-                    const inputFieldWrapper = $('<div>')
-                        .addClass('flex justify-start items-center gap-2 w-full p-2')
-                    let name = questionTxt.replace(' ', '')
-                    const max = 1000
-                    let id = choiceID + Math.floor(Math.random() * (max + 1))
-                    const choiceVal = $('<input>')
-                        .addClass('checkBoxVal')
-                        .attr('type', 'checkbox')
-                        .attr('name', name)
-                        .attr('id', id)
-                        .val(choiceID)
+            }
 
-                    const label = $('<label>')
-                        .addClass('cursor-pointer')
-                        .attr('for', id)
-                        .text(choice_text)
+            // Add data-required attribute to required questions
+            if (inputType !== 'Input') {
+                questionWrapper.attr('data-required', 'true');
+            }
 
-                    inputFieldWrapper.append(choiceVal, label)
-                    questionBody.append(inputFieldWrapper)
-                }
-            })
-
-            if (inputType === "DropDown")
-                questionBody.append(select) //add select if the input was assigned as dropwdown
-
+            questionWrapper.append(questionBody);
+            $('.questions').append(questionWrapper); // add to the main container
+        } catch (error) {
+            console.error(error);
         }
-
-        // Add data-required attribute to required questions
-        if (inputType !== 'Input') {
-            questionWrapper.attr('data-required', 'true');
-        }
-        questionWrapper.append(questionBody)
-        $('.questions').append(questionWrapper) //add to main container
     }
 
     // check if all readio input question are answered
@@ -284,7 +329,51 @@ $(document).ready(function () {
         return unansweredRequiredQuestions.length === 0;
     }
 
+    // insert the answer
+    function addAnswer(answerID, questionID, answerTxt, choiceID = "") {
+        const action = "addAnswer";
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('answerID', answerID)
+        formData.append('questionID', questionID)
+        formData.append('choiceID', choiceID)
+        formData.append('answerTxt', answerTxt)
 
+        $.ajax({
+            url: '../PHP_process/answer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) },
+        })
+    }
+
+    function getAnswer(questionID, answerID) {
+        const action = "getAnswer";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('questionID', questionID);
+        formData.append('answerID', answerID);
+
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '../PHP_process/answer.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: response => {
+                    resolve(response);
+                },
+                error: error => {
+                    reject(error);
+                }
+            });
+        });
+    }
 
 
 })
