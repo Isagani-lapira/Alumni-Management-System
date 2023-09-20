@@ -25,6 +25,7 @@ $(document).ready(function () {
             success: response => {
                 if (response.response == 'Success') {
                     let length = response.action.length
+                    dataArray = []
                     $('.lds-roller').addClass('hidden')
                     if (isDashDisplay) length = 3 //display only 3 activities for dashboard
 
@@ -34,7 +35,6 @@ $(document).ready(function () {
                         const colCode = response.colCode[i];
                         const colLogo = imgFormat + response.colLogo[i]; //formatted image
                         const colAdminName = response.colAdminName[i];
-
                         const formattedDate = convertTimestamp(timestamp) //format the date
 
                         // in case the user will print the list
@@ -44,11 +44,9 @@ $(document).ready(function () {
                             colCode: colCode,
                             colAdmin: colAdminName,
                         }
-
                         if (isDashDisplay)
                             createActivities(formattedDate, details, colCode, colLogo, colAdminName, container)
                         else {
-                            dataArray = [] //every data will be new and not duplicated
                             dataArray.push(logList)
                             createActivities(formattedDate, details, colCode, colLogo, colAdminName, logListContainer, false)
                         }
@@ -164,6 +162,7 @@ $(document).ready(function () {
                 $('#logList').find('.actionWrapper').remove()
                 if (response.response == "Success") {
                     const length = response.action.length;
+                    dataArray = []
                     for (let i = 0; i < length; i++) {
                         const timestamp = response.timestamp[i];
                         const details = response.details[i];
@@ -172,6 +171,15 @@ $(document).ready(function () {
                         const colAdminName = response.colAdminName[i];
 
                         const formattedDate = convertTimestamp(timestamp) //format the date
+
+                        // in case the user will print the list
+                        const logList = {
+                            timestamp: formattedDate,
+                            details: details,
+                            colCode: colCode,
+                            colAdmin: colAdminName,
+                        }
+                        dataArray.push(logList)
                         createActivities(formattedDate, details, colCode, colLogo, colAdminName, logListContainer, false)
                     }
                 }

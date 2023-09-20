@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-    let answerIDEntry = ""
     // retrieving all the question for specific category
     function categoryQuestion(answerID, categoryID) {
         const action = "readQuestions";
@@ -78,7 +77,7 @@ $(document).ready(function () {
                             const nextCategoryID = categoryList[count].categoryID;
                             //open another set of question
                             $('#categoryNameQuestion').text(nextCategoryName)
-                            categoryQuestion(answerIDEntry, nextCategoryID)
+                            categoryQuestion(answerID, nextCategoryID)
                             count++
                         }
                     })
@@ -247,8 +246,9 @@ $(document).ready(function () {
                             .val(choiceID)
                             .on('click', function () {
                                 // check first if the choice has section question
-                                haveSectionQuestion(choiceID)
                                 addAnswer(answerID, questionID, "", choiceID)
+                                // haveSectionQuestion(choiceID)
+
                             })
 
                         // if have already answer then make it as checked
