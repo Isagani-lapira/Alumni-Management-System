@@ -39,6 +39,17 @@ $(document).ready(function () {
 
                         addCategory(categoryID, categoryName, tracerID);
                     }
+
+                    // button for adding new category
+                    const newCategoryBtn = $('<button>')
+                        .addClass('w-full border border-gray-300 rounded-lg py-3 categoryBtn inactive relative flex gap-2 items-center ' +
+                            'text-gray-400 justify-center hover:text-blue-500 hover:font-semibold')
+                        .html('<iconify-icon icon="fluent:add-12-filled" width="24" height="24"></iconify-icon> ' + 'Add Category')
+                        .on('click', function () {
+                            // modal for inserting new category
+                        })
+                    $('#categoryWrapper').append(newCategoryBtn)
+
                 }
             },
             error: error => { console.log(error) }
