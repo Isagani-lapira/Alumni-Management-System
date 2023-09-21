@@ -565,7 +565,7 @@ function retrieveSection($choiceID, $con)
         while ($row = $result->fetch_assoc()) {
             $questionID = $row['questionID'];
 
-            $questionQuery = "SELECT * FROM `tracer_question` WHERE `questionID`= ?";
+            $questionQuery = "SELECT * FROM `tracer_question` WHERE `questionID`= ? AND status = 'available'";
             $stmtQuestion = mysqli_prepare($con, $questionQuery);
             $stmtQuestion->bind_param('s', $questionID);
             $questions = questionData($stmtQuestion, $con);

@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    const tracerQuestionWrapper = $('.questions')
     // retrieving all the question for specific category
     function categoryQuestion(answerID, categoryID) {
         const action = "readQuestions";
@@ -18,8 +19,6 @@ $(document).ready(function () {
                 if (response.response == 'Success') {
                     $('#navigationWrapper').empty()
                     response.dataSet.forEach(data => {
-                        const categoryID = data.categoryID
-                        const categoryName = data.categoryName
                         const questionSet = data.questionSet
 
                         // get the details of a question
@@ -28,9 +27,9 @@ $(document).ready(function () {
                             const questionTxt = data.questionTxt
                             const inputType = data.inputType
                             const choices = data.choices
-
+                            $('.questions')
                             //mark up for displaying question
-                            displayQuestion(answerID, categoryID, categoryName, questionID, questionTxt, inputType, choices)
+                            displayQuestion(answerID, questionID, questionTxt, inputType, choices, tracerQuestionWrapper)
                         })
 
                     })
@@ -184,7 +183,7 @@ $(document).ready(function () {
         });
     }
 
-    async function displayQuestion(answerID, categoryID, categoryName, questionID, questionTxt, inputType, choices) {
+    async function displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot) {
         // wrapper container
         const questionWrapper = $('<div>')
             .addClass('center-shadow border-t-4 border-accent rounded-lg py-3 px-5 mb-5 userQuestionTracer');
@@ -226,12 +225,12 @@ $(document).ready(function () {
                 const select = $('<select>')
                     .addClass('w-full px-2 py-4 outline-none center-shadow rounded-lg')
 
-                let tempChoiceID = ""
                 // get all the choices
                 choices.forEach(choice => {
                     const choiceID = choice.choiceID;
                     const choice_text = choice.choice_text;
-                    tempChoiceID = choiceID
+                    const isSectionChoice = choice.isSectionChoice
+
                     // check again where it fall to three (radio,dropdown,checkbox)
                     if (inputType === "Radio") {
                         const inputFieldWrapper = $('<div>')
@@ -246,8 +245,10 @@ $(document).ready(function () {
                             .val(choiceID)
                             .on('click', function () {
                                 // check first if the choice has section question
-                                addAnswer(answerID, questionID, "", choiceID)
-                                // haveSectionQuestion(choiceID)
+                                if (isSectionChoice)
+                                    openSectionModal(choiceID, answerID, questionID)
+
+                                addAnswer(answerID, questionID, "", choiceID) //add the question
 
                             })
 
@@ -266,9 +267,13 @@ $(document).ready(function () {
                         // dropdown type
                         const option = $('<option>')
                             .attr('value', choiceID)
+                            .attr('data-is-section-choice', isSectionChoice)
                             .text(choice_text)
 
-                        if (choiceIDData !== "" && choiceID == choiceIDData) option.attr('selected', true)
+                        if (choiceIDData !== "" && choiceID == choiceIDData) {
+                            console.log(option.text())
+                            option.attr('selected', true)
+                        }
                         select.append(option)
                     }
                     else if (inputType == "Checkbox") {
@@ -292,14 +297,21 @@ $(document).ready(function () {
                         inputFieldWrapper.append(choiceVal, label)
                         questionBody.append(inputFieldWrapper)
                     }
-
                 });
 
                 if (inputType === "DropDown") {
                     questionBody.append(select); // add select if the input was assigned as dropdown
                     select.on('change', function () {
-                        addAnswer(answerID, questionID, "", tempChoiceID)
-                    })
+                        const selectedOption = $(this).find('option:selected');
+                        const isSectionChoice = selectedOption.data('is-section-choice');
+                        const choiceID = selectedOption.val();
+
+                        // check first if the answer has additional question
+                        if (isSectionChoice)
+                            openSectionModal(choiceID, answerID)
+                        addAnswer(answerID, questionID, "", choiceID) //adding normal answering
+
+                    });
                 }
 
             }
@@ -310,11 +322,49 @@ $(document).ready(function () {
             }
 
             questionWrapper.append(questionBody);
-            $('.questions').append(questionWrapper); // add to the main container
+            containerRoot.append(questionWrapper); // add to the main container
         } catch (error) {
             console.error(error);
         }
     }
+
+    function openSectionModal(choiceID, answerID) {
+        $('#sectionModal').removeClass('hidden')
+        retrievedSectionData(choiceID, answerID)
+    }
+
+    function retrievedSectionData(choiceID, answerID) {
+        const action = "getSectionData";
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('choiceID', choiceID);
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: response => {
+                $('#sectionModalcontainer').removeClass('hidden')
+                // Loop through the data and display questions
+                const length = response.length
+                for (let i = 0; i < length; i++) {
+                    const questionID = response[i][0].questionID;
+                    const questionTxt = response[i][0].questionTxt;
+                    const inputType = response[i][0].inputType;
+                    const choices = response[i][0].choices;
+
+                    const containerRoot = $('#sectionQuestionContainer'); //root container of section modal
+                    displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot)
+                }
+
+            },
+            erro: error => { console.log(error) }
+        })
+    }
+
 
     // check if all readio input question are answered
     function areQuestionAnswered() {
@@ -377,21 +427,9 @@ $(document).ready(function () {
         });
     }
 
-    // check if the selected choice have section question
-    function haveSectionQuestion(choiceID) {
-        const action = "havesectionQuestion"
-        const formData = new FormData();
-        formData.append('action', action)
-        formData.append('choiceID', choiceID)
-
-        $.ajax({
-            url: '../PHP_process/graduatetracer.php',
-            method: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: response => { console.log(response) },
-            error: error => { console.log(error) },
-        })
-    }
+    $('.closeSectionModal').on('click', function () {
+        // close the section question
+        $('#sectionModal').addClass('hidden')
+        $('#sectionQuestionContainer').empty()
+    })
 })
