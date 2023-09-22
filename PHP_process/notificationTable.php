@@ -71,7 +71,7 @@ class Notification
                 $personData = json_decode($personDataJSON, true);
 
                 $added_by[] = $personData['fname'] . ' ' . $personData['lname'];
-                $profile[] = base64_encode($personData['profilepicture']);
+                $profile[] = $personData['profilepicture'];
             }
         } else $response = "Nothing";
 

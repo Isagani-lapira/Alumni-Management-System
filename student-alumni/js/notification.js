@@ -64,7 +64,8 @@ $(document).ready(function () {
         //image of the user
         const defaultProfile = "../assets/icons/person.png"
         const dbProfile = imgFormat + profile
-        const src = (profile != '') ? dbProfile : defaultProfile
+        console.log(dbProfile)
+        const src = (profile !== '') ? dbProfile : defaultProfile
         const imgProfile = $('<img>')
             .addClass('h-12 w-12 rounded-full border border-accent')
             .attr('src', src);
