@@ -258,10 +258,9 @@ function getAccDetails($con, $personID)
                 echo '
                 <div id="target-div-yearbook" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
                   <button id="yearbook-btn" onclick="toggleYearbook()">
-                    <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
-                      <path fill="currentColor" d="M464 48c-67.61.29-117.87 9.6-154.24 25.69c-27.14 12-37.76 21.08-37.76 51.84V448c41.57-37.5 78.46-48 224-48V48ZM48 48c67.61.29 117.87 9.6 154.24 25.69c27.14 12 37.76 21.08 37.76 51.84V448c-41.57-37.5-78.46-48-224-48V48Z" />
+                    <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M14.727 6h6l-6-6v6zm0 .727H14V0H4.91c-.905 0-1.637.732-1.637 1.636v20.728c0 .904.732 1.636 1.636 1.636h14.182c.904 0 1.636-.732 1.636-1.636V6.727h-6zM7.91 17.318a.819.819 0 1 1 .001-1.638a.819.819 0 0 1 0 1.638zm0-3.273a.819.819 0 1 1 .001-1.637a.819.819 0 0 1 0 1.637zm0-3.272a.819.819 0 1 1 .001-1.638a.819.819 0 0 1 0 1.638zm9 6.409h-6.818v-1.364h6.818v1.364zm0-3.273h-6.818v-1.364h6.818v1.364zm0-3.273h-6.818V9.273h6.818v1.363z"/>
                     </svg>
-                    <span class="ps-3 text-sm text-greyish_black font-medium">Yearbook</span>
+                    <span class="ps-3 text-sm text-greyish_black font-medium">Graduate Tracer</span>
                   </button>
                 </div>';
               }
@@ -576,9 +575,9 @@ function getAccDetails($con, $personID)
 
           <!-- front page -->
           <div id="frontpageTracer" class="h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3">
-            <img src="../assets/tracer_header_img.png" class="w-1/3 h-40" alt="">
+            <img src="../assets/tracer_header_img.png" class="w-1/3 h-56" alt="">
             <div class="rounded-lg center-shadow p-3 border-t-4 border-accent w-1/2">
-              <h3 class="text-xl text-greyish_black font-bold">Alumni Graduate Tracer 2023-2024</h3>
+              <h3 class="text-2xl text-greyish_black font-bold">Alumni Graduate Tracer 2023-2024</h3>
               <span>Dear Graduates of Batch 2010-2023,</span>
 
               <p class="text-sm text-justify mt-3">Please complete this questionnaire as accurately and completely as possible. Kindly
@@ -598,7 +597,7 @@ function getAccDetails($con, $personID)
           <!-- container questions -->
           <div id="questionsContainer" class="h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3 hidden">
             <div class="w-1/2">
-              <h3 id="categoryNameQuestion" class="text-2xl font-bold text-accent text-center">Category Name</h3>
+              <h3 id="categoryNameQuestion" class="text-3xl font-extrabold text-accent text-center">Category Name</h3>
             </div>
             <div class="questions h-full w-1/2 p-2 overflow-y-auto"></div>
             <div id="navigationWrapper" class="w-1/2"></div>
@@ -858,7 +857,7 @@ function getAccDetails($con, $personID)
             <div id="sectionQuestionContainer" class="h-4/5 overflow-y-auto p-3"></div>
             <div class="flex w-full justify-end gap-2 py-2 border-t border-gray-300 my-2">
               <button class="closeSectionModal text-gray-400 hover:text-gray-500">Cancel</button>
-              <button class="px-4 py-2 rounded-md bg-blue-400 hover:bg-blue-500 text-white">Proceed</button>
+              <button id="proceedBtnSection" class="px-4 py-2 rounded-md bg-blue-400 hover:bg-blue-500 text-white">Proceed</button>
             </div>
           </div>
         </div>

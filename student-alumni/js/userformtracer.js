@@ -45,11 +45,32 @@ $(document).ready(function () {
                     .on('click', function () {
                         let isCompleted = true
                         let haveCheckedInCheckBox = true
+                        let haveSelectedDropDown = true
                         // check if all input type text are answered
                         $('.userinputData').each(function () {
                             let value = $(this).val().trim()
                             if (value === '') isCompleted = false;
                         })
+
+                        // check the dropdown has value (if there's any)
+                        const dropDown = $('.dropdownQuestion')
+                        if (dropDown.length > 0) {
+                            let dropDownNotNull = true;
+                            dropDown.each(function () {
+                                let value = $(this).val();
+                                if (value === null) {
+                                    dropDownNotNull = false
+                                    return false;
+                                }
+
+
+                            })
+                            // if there's nul then don't allow to proceed
+                            if (!dropDownNotNull) {
+                                haveSelectedDropDown = false
+                            }
+                        }
+
 
                         // check if there are checkboxes with the class
                         const checkBoxes = $('.checkBoxVal');
@@ -70,7 +91,7 @@ $(document).ready(function () {
                         }
 
                         // check if all input fields are completed
-                        if (areQuestionAnswered() && isCompleted && haveCheckedInCheckBox) {
+                        if (areQuestionAnswered() && isCompleted && haveCheckedInCheckBox && haveSelectedDropDown) {
                             $('.questions').empty()
                             const nextCategoryName = categoryList[count].categoryName;
                             const nextCategoryID = categoryList[count].categoryID;
@@ -223,8 +244,9 @@ $(document).ready(function () {
                 questionBody.append(questionType);
             } else {
                 const select = $('<select>')
-                    .addClass('w-full px-2 py-4 outline-none center-shadow rounded-lg')
-
+                    .addClass('w-full px-2 py-4 outline-none center-shadow rounded-lg dropdownQuestion')
+                const defaultOption = $('<option value="" selected disabled>--Please choose an option--</option>')
+                select.append(defaultOption)
                 // get all the choices
                 choices.forEach(choice => {
                     const choiceID = choice.choiceID;
@@ -245,8 +267,10 @@ $(document).ready(function () {
                             .val(choiceID)
                             .on('click', function () {
                                 // check first if the choice has section question
-                                if (isSectionChoice)
+                                if (isSectionChoice) {
+                                    $('#sectionQuestionContainer').empty()
                                     openSectionModal(choiceID, answerID, questionID)
+                                }
 
                                 addAnswer(answerID, questionID, "", choiceID) //add the question
 
@@ -271,7 +295,6 @@ $(document).ready(function () {
                             .text(choice_text)
 
                         if (choiceIDData !== "" && choiceID == choiceIDData) {
-                            console.log(option.text())
                             option.attr('selected', true)
                         }
                         select.append(option)
@@ -307,8 +330,10 @@ $(document).ready(function () {
                         const choiceID = selectedOption.val();
 
                         // check first if the answer has additional question
-                        if (isSectionChoice)
+                        if (isSectionChoice) {
+                            $('#sectionQuestionContainer').empty()
                             openSectionModal(choiceID, answerID)
+                        }
                         addAnswer(answerID, questionID, "", choiceID) //adding normal answering
 
                     });
@@ -359,6 +384,68 @@ $(document).ready(function () {
                     const containerRoot = $('#sectionQuestionContainer'); //root container of section modal
                     displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot)
                 }
+
+                $('#proceedBtnSection').on('click', function () {
+                    let haveInputVal = true
+                    let haveCheckedInCheckBox = true
+                    let haveSelectedDropDown = true
+
+                    const input = $('#sectionQuestionContainer').find('input')
+                    if (input.length > 0) {
+                        inputHaveValue = true
+                        input.each(function () {
+                            let value = $(this).val().trim();
+
+                            // checking all the input if they have value
+                            if (value === '') {
+                                inputHaveValue = false
+                                return false;
+                            }
+                        })
+
+                        if (!inputHaveValue) haveInputVal = false
+                    }
+
+                    // dropdown checker
+                    const dropdown = $('#sectionQuestionContainer').find('select')
+                    if (dropdown.length > 0) {
+                        dropdownHaveValue = true
+                        dropdown.each(function () {
+                            let value = $(this).val();
+
+                            // checking all the input if they have value
+                            if (value === null) {
+                                dropdownHaveValue = false
+                                return false;
+                            }
+                        })
+
+                        if (!dropdownHaveValue) haveSelectedDropDown = false
+                    }
+
+
+                    // check box checker
+                    const checkBoxes = $('#sectionQuestionContainer').find('.checkBoxVal')
+                    if (checkBoxes.length > 0) {
+                        // check if at least one checkbox is checked
+                        let isAnyChecked = false;
+                        $('.checkBoxVal').each(function () {
+                            if ($(this).prop('checked')) {
+                                isAnyChecked = true;
+                                return false; // Exit the loop early once a checked checkbox is found
+                            }
+                        });
+
+                        // If none of the checkboxes are checked, set haveCheckedInCheckBox to false
+                        if (!isAnyChecked) {
+                            haveCheckedInCheckBox = false;
+                        }
+                    }
+
+                    // check for proceeding
+                    if (haveInputVal && haveSelectedDropDown && haveCheckedInCheckBox)
+                        $('#sectionModal').addClass('hidden')
+                })
 
             },
             erro: error => { console.log(error) }
