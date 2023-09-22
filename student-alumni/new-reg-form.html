@@ -651,7 +651,7 @@
                 }
 
                 function resetFormFields() {
-                // Get references to all the form fields
+                // Reset Page 1 input fields
                 const firstNameInput = document.getElementById("firstName");
                 const lastNameInput = document.getElementById("lastName");
                 const contactNumberInput = document.getElementById("contactNumber");
@@ -664,7 +664,7 @@
                 const personalEmailInput = document.getElementById("personalEmail");
                 const bulsuEmailInput = document.getElementById("bulsuEmail");
 
-                // Reset the values of all form fields
+                // Reset the values of Page 1 form fields
                 firstNameInput.value = "";
                 lastNameInput.value = "";
                 contactNumberInput.value = "";
@@ -676,12 +676,48 @@
                 personalEmailInput.value = "";
                 bulsuEmailInput.value = "";
 
-                // Clear any error messages
+                // Clear any error messages on Page 1
                 const contactNumberError = document.getElementById("contactNumberError");
+                contactNumberError.style.display = "none"; // Clear the error message
+
                 const bulsuEmailError = document.getElementById("bulsuEmailError");
-                contactNumberError.textContent = "";
-                bulsuEmailError.textContent = "";
+                bulsuEmailError.style.display = "none"; // Clear the error message
+
+                firstNameInput.style.border = "1px solid #ced4da";
+                lastNameInput.style.border = "1px solid #ced4da";
+                contactNumberInput.style.border = "1px solid #ced4da";
+                studentNumberInput.style.border = "1px solid #ced4da";
+                birthdayInput.style.border = "1px solid #ced4da";
+                addressInput.style.border = "1px solid #ced4da";
+                personalEmailInput.style.border = "1px solid #ced4da";
+                bulsuEmailInput.style.border = "1px solid #ced4da";
+
+                // Reset Page 2 input fields
+                const collegeInput = document.getElementById("college");
+                const batchInput = document.getElementById("batch");
+                const usernameInput = document.getElementById("username");
+                const passwordInput = document.getElementById("password");
+                const confirmPasswordInput = document.getElementById("confirmPassword");
+
+                // Reset the values of Page 2 form fields
+                usernameInput.value = "";
+                passwordInput.value = "";
+                confirmPasswordInput.value = "";
+
+                // Clear any error messages on Page 2
+                const passwordError = document.getElementById("passwordError");
+                passwordError.style.display = "none"; // Clear the error message
+                const confirmPasswordError = document.getElementById("confirmPasswordError");
+                confirmPasswordError.style.display = "none"; // Clear the error message
+
+                // Reset border colors to gray-300 for Page 2 input fields
+                collegeInput.style.border = "1px solid #ced4da";
+                batchInput.style.border = "1px solid #ced4da";
+                usernameInput.style.border = "1px solid #ced4da";
+                passwordInput.style.border = "1px solid #ced4da";
+                confirmPasswordInput.style.border = "1px solid #ced4da";
             }
+
 
             // Add an event listener to the "Back" button to reset form fields
             alumniBackButton.addEventListener("click", function () {
