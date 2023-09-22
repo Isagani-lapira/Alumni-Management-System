@@ -589,119 +589,6 @@ $(document).ready(function () {
     }
   });
 
-  let studentDataOffset = 0;
-  let studentCurrentYear = "";
-  let studentColCode = "";
-  let studentSearch = "";
-  let studentRetrieved = 0;
-  $("#studenLi").on("click", function () {
-    studentDataOffset = 0;
-    studentCurrentYear = "";
-    studentColCode = "";
-    studentSearch = "";
-    //load the student record
-    getStudentRecord();
-  });
-  //get student record
-  function getStudentRecord() {
-    let action = {
-      action: "read",
-      currentYear: studentCurrentYear,
-      colCode: studentColCode,
-      offset: studentDataOffset,
-      search: studentSearch,
-    };
-    let studentData = new FormData();
-    studentData.append("action", JSON.stringify(action));
-    $.ajax({
-      url: "../PHP_process/studentData.php",
-      method: "POST",
-      data: studentData,
-      dataType: "json",
-      processData: false,
-      contentType: false,
-      success: (response) => {
-        let tbody = $("#studentTB");
-        tbody.find("tr").remove();
-        if (response.response == "Success") {
-          let data = response;
-          let length = data.studentNo.length; //length of the data has been retrieved
-
-          //display the student record on the table
-          for (let i = 0; i < length; i++) {
-            //retrieve data from response
-            const studentNo = data.studentNo[i];
-            const fullname = data.fullname[i];
-            const contactNo = data.contactNo[i];
-            let tr = $("<tr>").addClass("student-data");
-            let tdStudentNo = $("<td>")
-              .addClass("text-center font-bold")
-              .text(studentNo);
-            let tdfullname = $("<td>").addClass("text-center").text(fullname);
-            let tdcontactNo = $("<td>").addClass("text-center").text(contactNo);
-            let viewProfile = $("<td>")
-              .addClass(
-                "text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue"
-              )
-              .text("VIEW PROFILE");
-
-            tr.append(tdStudentNo, tdfullname, tdcontactNo, viewProfile);
-            tbody.append(tr);
-          }
-          studentDataOffset += length;
-          studentRetrieved = length;
-          if (length < 10) $("#nextBtnStudent").addClass("hidden");
-        }
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
-
-  //filtering process for student record
-  $("#college").on("change", function () {
-    studentDataOffset = 0;
-    //restart the student search
-    studentSearch = "";
-    $("#searchPerson").val("");
-    studentColCode = $(this).val();
-    getStudentRecord(); //retrieve data based on filtered college
-  });
-  //batch filtering
-  $("#batch").on("change", function () {
-    studentDataOffset = 0;
-    //restart the student search
-    studentSearch = "";
-    $("#searchPerson").val("");
-    studentCurrentYear = $(this).val();
-    getStudentRecord(); //retrieve data based on filtered college
-  });
-
-  //search a specific student
-  $("#searchPerson").on("input", function () {
-    studentDataOffset = 0;
-    studentColCode = "";
-    studentCurrentYear = "";
-    studentSearch = $(this).val();
-    getStudentRecord();
-  });
-
-  //pagination for student record
-  $("#nextBtnStudent").on("click", getStudentRecord);
-
-  $("#prevBtnStudent").on("click", function () {
-    studentDataOffset -= studentRetrieved;
-    //check first if there's more to be previous
-    if (studentDataOffset !== 0) {
-      getStudentRecord();
-      //show the next
-      $("#nextBtnStudent").removeClass("hidden");
-    } else {
-      $(this).addClass("hidden");
-      $("#nextBtnStudent").addClass("hidden");
-    }
-  });
 
   $('#alumniLi').on('click', getAlumniRecord)
 
@@ -1105,6 +992,36 @@ $(document).ready(function () {
       },
     });
   });
+
+  let isClose = false
+  $('#burgerBtn').on('click', function () {
+    if (!isClose) {
+      $('#listOfPanels').find('span').addClass('hidden')
+      $('#listOfPanels').addClass('w-max').removeClass('w-3/12 ')
+    }
+    else {
+      $('#listOfPanels').find('span').removeClass('hidden')
+      $('#listOfPanels').removeClass('w-max').addClass('w-3/12 ')
+    }
+    isClose = !isClose
+  })
+
+  $('#tracerbtn').on('click', function () {
+    isClose = false
+    $('#burgerBtn').click()
+  })
+
+  $('#formLi').on('click', function () {
+    $('#formReport').removeClass('hidden'); //as default graph is presented
+    $('#TracerWrapper').addClass('hidden');
+    $('#categoryWrapper').addClass('hidden');
+  })
+
+
+  $('#closeQuestionModal').on('click', function () {
+    $('#newQuestionModal').addClass('hidden')
+    $('#newQuestionInputName, .choicesVal').val('')
+  })
 });
 
 let typingTimeout = null;

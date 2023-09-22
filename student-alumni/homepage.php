@@ -18,19 +18,26 @@ if (
   $username = $_SESSION['username'];
 
   //get the person ID of that user
-  $query = "SELECT 'student' AS user_details, student.personID
-            FROM student
-            WHERE student.username = '$username'
-            UNION
-            SELECT 'alumni' AS user_details, alumni.personID
-            FROM alumni
-            WHERE alumni.username = '$username'";
+  $query = "SELECT 'student' AS user_type, student.personID
+  FROM student
+  WHERE student.username = '$username'
+  UNION
+  SELECT 'alumni' AS user_type, alumni.personID
+  FROM alumni
+  WHERE alumni.username = '$username'
+  UNION
+  SELECT 'not found' AS user_type, NULL
+  WHERE NOT EXISTS (
+      SELECT 1 FROM student WHERE student.username = '$username'
+  ) AND NOT EXISTS (
+      SELECT 1 FROM alumni WHERE alumni.username = '$username'
+  )";
 
   $result = mysqli_query($mysql_con, $query);
   if ($result) {
     $data = mysqli_fetch_assoc($result);
     $personID = $data['personID'];
-
+    $user_type = $data['user_type'];
     //get person details
     $personObj = new personDB();
     $personDataJSON = $personObj->readPerson($personID, $mysql_con);
@@ -109,7 +116,8 @@ function getAccDetails($con, $personID)
   <div class="fixed top-0 w-full z-50">
     <?php
     echo '<p id="colCode" class="hidden">' . $colCode . '</p>';
-    echo '<p id="accUsername" class="hidden">' . $username . '</p>'
+    echo '<p id="accUsername" class="hidden">' . $username . '</p>';
+    echo '<p id="" class="hidden">' . $user_type . '</p>';
     ?>
     <div id="tabs" class="h-screen overflow-y-scroll hide-scrollbar relative">
       <!-- Navbar -->
@@ -239,15 +247,25 @@ function getAccDetails($con, $personID)
             </div>
 
             <!-- Yearbook -->
-            <div id="target-div-yearbook" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
-              <button id="yearbook-btn" onclick="toggleYearbook()">
-                <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
-                  <path fill="currentColor" d="M464 48c-67.61.29-117.87 9.6-154.24 25.69c-27.14 12-37.76 21.08-37.76 51.84V448c41.57-37.5 78.46-48 224-48V48ZM48 48c67.61.29 117.87 9.6 154.24 25.69c27.14 12 37.76 21.08 37.76 51.84V448c-41.57-37.5-78.46-48-224-48V48Z" />
-                </svg>
-                <span class="ps-3 text-sm text-greyish_black font-medium">Yearbook</span>
-              </button>
-            </div>
+            <!-- show only yearbook for alumni -->
+            <?php
+            if ($user_type == "alumni") {
+              require '../PHP_process/deploymentTracer.php';
+              $isAvailable = retrievedDeployment($mysql_con);
 
+              // check if there's still available to be answer
+              if ($isAvailable != "None") {
+                echo '
+                <div id="target-div-yearbook" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
+                  <button id="yearbook-btn">
+                    <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M14.727 6h6l-6-6v6zm0 .727H14V0H4.91c-.905 0-1.637.732-1.637 1.636v20.728c0 .904.732 1.636 1.636 1.636h14.182c.904 0 1.636-.732 1.636-1.636V6.727h-6zM7.91 17.318a.819.819 0 1 1 .001-1.638a.819.819 0 0 1 0 1.638zm0-3.273a.819.819 0 1 1 .001-1.637a.819.819 0 0 1 0 1.637zm0-3.272a.819.819 0 1 1 .001-1.638a.819.819 0 0 1 0 1.638zm9 6.409h-6.818v-1.364h6.818v1.364zm0-3.273h-6.818v-1.364h6.818v1.364zm0-3.273h-6.818V9.273h6.818v1.363z"/>
+                    </svg>
+                    <span class="ps-3 text-sm text-greyish_black font-medium">Graduate Tracer</span>
+                  </button>
+                </div>';
+              }
+            }
+            ?>
             <!-- profile -->
             <div class="flex items-center h-10 p-2 mt-1">
               <a href="profile.php">
@@ -553,8 +571,40 @@ function getAccDetails($con, $personID)
           </div>
         </div>
         <!-- Container for Yearbook -->
-        <div id="yearbookContainer" class="hidden flex pt-48 z-10 w-full h-full">
-          <p>Yearbook</p>
+        <div id="yearbookContainer" class="hidden flex pt-48 z-10 w-full">
+
+          <!-- finished answering -->
+          <div id="finishedContainer" class="hidden h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3"></div>
+          <!-- front page -->
+          <div id="frontpageTracer" class=" h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3">
+            <img src="../assets/tracer_header_img.png" class="w-1/3 h-56" alt="">
+            <div class="rounded-lg center-shadow p-3 border-t-4 border-accent w-1/2">
+              <h3 class="text-2xl text-greyish_black font-bold">Alumni Graduate Tracer 2023-2024</h3>
+              <span>Dear Graduates of Batch 2010-2023,</span>
+
+              <p class="text-sm text-justify mt-3">Please complete this questionnaire as accurately and completely as possible. Kindly
+                provide the needed information or check (/) the space corresponding to your response.
+                Your responses will be used to assess graduate employability and eventually improve
+                the current curriculum of the programs offered in the Bulacan State University (BulSU).
+                We ensure that every information that you will provide in this form will be treated in
+                strict confidentiality . Thank you for your participation and honesty!</p>
+            </div>
+
+            <div class="flex justify-end w-1/2">
+              <button id="proceedTracer" class="text-white px-3 py-2 rounded-md bg-accent hover:bg-darkAccent">Proceed</button>
+            </div>
+
+          </div>
+
+          <!-- container questions -->
+          <div id="questionsContainer" class="h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3 hidden">
+            <div class="w-1/2">
+              <h3 id="categoryNameQuestion" class="text-3xl font-extrabold text-accent text-center">Category Name</h3>
+            </div>
+            <div class="questions h-full w-1/2 p-2 overflow-y-auto"></div>
+            <div id="navigationWrapper" class="w-1/2"></div>
+          </div>
+
         </div>
 
         <!-- report modal -->
@@ -670,7 +720,7 @@ function getAccDetails($con, $personID)
               </g>
             </svg>
             <h1 class=" text-3xl font-bold text-green-500 text-center">Thank you</h1>
-            <p class=" text-lg text-center text-gray-500">"Your feedback is important to us, and we take all reports seriously"</p>
+            <p id="msgSuccess" class=" text-center text-gray-500">Your feedback is important to us, and we take all reports seriously</p>
           </div>
         </div>
 
@@ -792,6 +842,24 @@ function getAccDetails($con, $personID)
                 <p id="noProfileMsgSearch" class="text-center text-blue-400 my-2 hidden">No available Post</p>
               </div>
 
+            </div>
+          </div>
+        </div>
+
+        <div id="sectionModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
+          <div class="sectionModalTracer bg-white rounded shadow-lg w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
+            <h3 class="font-bold text-xl text-accent py-2 border-b border-gray-300 text-center">Additional Question</h3>
+
+            <!-- close button -->
+            <button class="closeSectionModal absolute top-1 right-1">
+              <iconify-icon class="text-gray-400 hover:text-accent" icon="carbon:close-outline" width="24" height="24"></iconify-icon>
+            </button>
+
+            <!-- section container -->
+            <div id="sectionQuestionContainer" class="h-4/5 overflow-y-auto p-3"></div>
+            <div class="flex w-full justify-end gap-2 py-2 border-t border-gray-300 my-2">
+              <button class="closeSectionModal text-gray-400 hover:text-gray-500">Cancel</button>
+              <button id="proceedBtnSection" class="px-4 py-2 rounded-md bg-blue-400 hover:bg-blue-500 text-white">Proceed</button>
             </div>
           </div>
         </div>
@@ -1128,6 +1196,7 @@ function getAccDetails($con, $personID)
   <script src="../student-alumni/js/jobposting.js"></script>
   <script src="../student-alumni/js/notification.js"></script>
   <script src="../student-alumni/js/post.js"></script>
+  <script src="../student-alumni/js/userformtracer.js"></script>
   <script src="../student-alumni/js/searchProfile.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

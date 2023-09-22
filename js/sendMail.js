@@ -31,7 +31,7 @@ $(document).ready(function () {
         //file input
         var fileInput = $('#imageSelection')
         var file = fileInput[0].files[0] //get the first file that being select
-
+        var filename = file.name
         fileExtension = file.name.split('.').pop().toLowerCase() //getting the extension of the selected file
         //checking if the file is based on the extension we looking for
         if (validExtension.includes(fileExtension)) {
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
                 reader.readAsDataURL(file)
             }
-            else $('#errorMsgEM').removeClass('hidden').text('File size maximum of 1mb')
+            else $('#errorMsgEM').removeClass('hidden').text(filename + ' file size maximum of 1mb')
         }
         else
             $('#errorMsgEM').removeClass('hidden').text('Sorry we only allow images that has file extension of jpg, jpeg, png') //if the file is not based on the img extension we looking for
@@ -88,13 +88,13 @@ $(document).ready(function () {
         //file input
         var fileInput = $('#fileSelection')
         var file = fileInput[0].files[0] //get the first file that being select
-
+        var nameOfFile = file.name
         if (file.size <= 5 * 1024 * 1024) {
             $('#errorMsgEM').addClass('hidden') // hide the message
             selectedFileEM.push(file);
             //preview of the file
             fileContainerPrev = $('<div>').addClass('flex justify-evenly item-center')
-            fileName = $('<p>').addClass('p-1 w-full text-xs').text(file.name)
+            fileName = $('<p>').addClass('p-1 w-full text-xs').text(nameOfFile)
             xBtn = $('<span>').text('x').addClass('cursor-pointer')
                 .on('click', function (e) {
                     var parent = e.target.parentNode
@@ -106,7 +106,7 @@ $(document).ready(function () {
             fileContainerPrev.append(fileName, xBtn)
             $('#fileContEmail').show().append(fileContainerPrev)
         }
-        else $('#errorMsgEM').removeClass('hidden').text('File size maximum of 5mb')
+        else $('#errorMsgEM').removeClass('hidden').text(nameOfFile + ' file size maximum of 5mb')
 
     })
 

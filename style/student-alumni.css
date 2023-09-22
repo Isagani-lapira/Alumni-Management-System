@@ -359,3 +359,11 @@ pre {
     rgba(231, 149, 149, 1) 95%
   );
 }
+
+#yearbookContainer {
+  height: 100vh;
+}
+
+.sectionModalTracer {
+  max-height: 70%;
+}

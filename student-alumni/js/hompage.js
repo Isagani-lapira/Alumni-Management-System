@@ -842,6 +842,13 @@ $(document).ready(function () {
     })
   }
 
+  $('#yearbook-btn').on('click', toggleYearbook)
+  //Yearbook
+  function toggleYearbook() {
+    $("#mainFeedContainer").toggleClass("hidden");
+    $("#yearbookContainer").toggleClass("hidden");
+  }
+
 });
 
 
@@ -881,17 +888,12 @@ function toggleColorJob() {
     text.style.color = "";
     targetDiv.classList.remove("hover:bg-red-900");
   }
+
 }
 
 function toggleJobPost() {
   $("#mainFeed").toggleClass("hidden");
   $("#jobRepo").toggleClass("hidden");
-}
-
-//Yearbook
-function toggleYearbook() {
-  $("#mainFeedContainer").toggleClass("hidden");
-  $("#yearbookContainer").toggleClass("hidden");
 }
 
 // TOGGLE THE FEED AGAIN 

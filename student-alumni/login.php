@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
   <title>BulSuan Landing Page</title>
 
+  <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
   <style>
     body {
       background-image: url('../assets/bg.jpg');

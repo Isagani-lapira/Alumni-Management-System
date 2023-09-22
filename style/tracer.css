@@ -38,6 +38,24 @@ main {
 }
 
 .iconAddModal:hover {
-  border: 1px solid rgb(135, 208, 250);
-  color: rgb(135, 208, 250) !important;
+  border: 1px solid rgb(236, 128, 125);
+  color: rgb(236, 128, 125) !important;
+}
+
+#questionSetContainer {
+  max-height: 80%;
+}
+
+.categoryBtn.active {
+  background-color: #991b1b !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.categoryBtn.inactive {
+  background-color: transparent;
+}
+
+#sectionModal {
+  width: 45% !important;
 }

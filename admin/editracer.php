@@ -85,7 +85,7 @@
         <input type="hidden" id="formIDHolder">
         <input type="hidden" id="choiceIDHolder">
         <div id="sectionModal" class="modal-container w-1/2 h-4/5 bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2 border-t-8 border-blue-400 relative">
-            <iconify-icon title="Add new question for this section" class="iconAddModal p-3 rounded-md center-shadow h-max absolute top-0 right-0" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>
+            <iconify-icon id="addSectionQuestion" title="Add new question for this section" class="iconAddModal p-3 rounded-md center-shadow h-max absolute top-0 right-0" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>
             <header class="font-bold text-4xl text-center text-blue-400 py-2 border-b border-gray-300">
                 Section
             </header>

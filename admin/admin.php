@@ -67,6 +67,8 @@ function dateInText($date)
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="../css/main.css" rel="stylesheet" />
   <link href="../style/style.css" rel="stylesheet" />
+  <link href="../style/tracer.css" rel="stylesheet" />
+  <link href="../style/logstyle.css" rel="stylesheet" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -81,6 +83,7 @@ function dateInText($date)
   <script src="https://cdn.jsdelivr.net/npm/js-md5@0.7.3/build/md5.min.js"></script>
 
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
   <title>University Admin</title>
 </head>
 
@@ -96,7 +99,8 @@ function dateInText($date)
     echo '<input type="hidden" id="accPersonID" value="' .  rawurlencode($personID) . '">';
     ?>
     <div id="tabs" class="flex font-Montserrat text-greyish_black">
-      <aside class="w-3/12 top-0 h-screen p-5 border border-r-gray-300">
+      <aside id="listOfPanels" class="w-3/12 top-0 h-screen p-5 border border-r-gray-300 relative">
+        <iconify-icon id="burgerBtn" class="absolute top-0 -right-8" icon="mdi:hamburger-menu" style="color: #991b1b;" width="28" height="28"></iconify-icon>
         <div class="h-full relative">
           <h1 class="font-extrabold text-18sm my-5">
             Alumni <span class="font-normal">System</span>
@@ -108,7 +112,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z" />
                 </svg>
-                DASHBOARD</a>
+                <span>DASHBOARD</span></a>
             </li>
 
             <!-- MAKE POST -->
@@ -116,7 +120,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M12 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h3l5 4V4l-5 4m9.5 4c0 1.71-.96 3.26-2.5 4V8c1.53.75 2.5 2.3 2.5 4Z" />
                 </svg>
-                MAKE POST</a>
+                <span>MAKE POST</span></a>
             </li>
 
             <!-- announcement -->
@@ -132,7 +136,7 @@ function dateInText($date)
                   </mask>
                   <path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSAnnouncement0)" />
                 </svg>
-                ANNOUNCEMENT
+                <span>ANNOUNCEMENT</span>
               </a>
             </li>
 
@@ -141,16 +145,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16" width="24" height="24">
                   <path d="M 18 0 H 2 C 0.9 0 0.00999999 0.9 0.00999999 2 L 0 14 C 0 15.1 0.9 16 2 16 H 18 C 19.1 16 20 15.1 20 14 V 2 C 20 0.9 19.1 0 18 0 Z M 18 4 L 10 9 L 2 4 V 2 L 10 7 L 18 2 V 4 Z" />
                 </svg>
-                EMAIL</a>
-            </li>
-
-            <!-- student record -->
-            <li id="studenLi" class="rounded-lg p-2"><a href="#student-tab">
-                <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
-                  <path d="M4 2H2v26a2 2 0 0 0 2 2h26v-2H4Z" />
-                  <path d="M30 9h-7v2h3.59L19 18.59l-4.29-4.3a1 1 0 0 0-1.42 0L6 21.59L7.41 23L14 16.41l4.29 4.3a1 1 0 0 0 1.42 0l8.29-8.3V16h2Z" />
-                </svg>
-                STUDENT RECORD</a>
+                <span>EMAIL</span></a>
             </li>
 
             <!-- ALUMNI RECORD-->
@@ -158,7 +153,8 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 448 512">
                   <path d="M219.3.5c3.1-.6 6.3-.6 9.4 0l200 40C439.9 42.7 448 52.6 448 64s-8.1 21.3-19.3 23.5L352 102.9V160c0 70.7-57.3 128-128 128S96 230.7 96 160v-57.1l-48-9.6v65.1l15.7 78.4c.9 4.7-.3 9.6-3.3 13.3S52.8 256 48 256H16c-4.8 0-9.3-2.1-12.4-5.9s-4.3-8.6-3.3-13.3L16 158.4V86.6C6.5 83.3 0 74.3 0 64c0-11.4 8.1-21.3 19.3-23.5l200-40zM111.9 327.7c10.5-3.4 21.8.4 29.4 8.5l71 75.5c6.3 6.7 17 6.7 23.3 0l71-75.5c7.6-8.1 18.9-11.9 29.4-8.5c65 20.9 112 81.7 112 153.6c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-71.9 47-132.7 111.9-153.6z" />
                 </svg>
-                ALUMNI RECORD</a>
+                <span>ALUMNI RECORD</span>
+              </a>
             </li>
 
             <!-- COLLEGES -->
@@ -166,15 +162,15 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M14 11q1.25 0 2.125-.875T17 8q0-1.25-.875-2.125T14 5q-1.25 0-2.125.875T11 8q0 1.25.875 2.125T14 11Zm-6 7q-.825 0-1.413-.588T6 16V4q0-.825.588-1.413T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.588 1.413T20 18H8Zm-4 4q-.825 0-1.413-.588T2 20V7q0-.425.288-.713T3 6q.425 0 .713.288T4 7v13h13q.425 0 .713.288T18 21q0 .425-.288.713T17 22H4Zm4-6h12q-1.1-1.475-2.65-2.238T14 13q-1.8 0-3.35.763T8 16Z" />
                 </svg>
-                COLLEGES </a>
+                <span>COLLEGES</span> </a>
             </li>
 
             <!-- FORMS -->
-            <li class="rounded-lg p-2 "><a href="#forms-tab">
+            <li id="formLi" class="rounded-lg p-2 "><a href="#forms-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1536 1536">
                   <path d="M515 783v128H263V783h252zm0-255v127H263V528h252zm758 511v128H932v-128h341zm0-256v128H601V783h672zm0-255v127H601V528h672zm135 860V148q0-8-6-14t-14-6h-32L978 384L768 213L558 384L180 128h-32q-8 0-14 6t-6 14v1240q0 8 6 14t14 6h1240q8 0 14-6t6-14zM553 278l185-150H332zm430 0l221-150H798zm553-130v1240q0 62-43 105t-105 43H148q-62 0-105-43T0 1388V148Q0 86 43 43T148 0h1240q62 0 105 43t43 105z" />
                 </svg>
-                TRACER FORM </a>
+                <span>TRACER FORM</span></a>
             </li>
 
             <!-- PROFILE -->
@@ -185,7 +181,7 @@ function dateInText($date)
                     <path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1ZM3 12c0 2.09.713 4.014 1.908 5.542A8.986 8.986 0 0 1 12.065 14a8.984 8.984 0 0 1 7.092 3.458A9 9 0 1 0 3 12Zm9 9a8.963 8.963 0 0 1-5.672-2.012A6.992 6.992 0 0 1 12.065 16a6.991 6.991 0 0 1 5.689 2.92A8.964 8.964 0 0 1 12 21Z" />
                   </g>
                 </svg>
-                PROFILE</a>
+                <span>PROFILE</span></a>
             </li>
 
             <br class="my-10">
@@ -196,7 +192,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                   <path fill="currentColor" d="M256 25c-11.594 0-23 12.8-23 31s11.406 31 23 31s23-12.8 23-31s-11.406-31-23-31zm-103.951 2.975l-16.098 8.05c15.092 30.185 51.37 56.81 82.188 74.442L232.334 295H247V192h18v103h14.666l14.195-184.533c30.818-17.632 67.096-44.257 82.188-74.442l-16.098-8.05c-19.91 29.9-44.891 49.148-71.334 57.77C281.311 97.28 269.75 105 256 105c-13.75 0-25.31-7.72-32.617-19.256c-26.443-8.62-51.424-27.87-71.334-57.77zM169 313v96H25v78h462v-30H343V313H169z" />
                 </svg>
-                ALUMNI OF THE YEAR</a>
+                <span>ALUMNI OF THE YEAR</span></a>
             </li>
 
             <!-- ALUMNI OF THE MONTH -->
@@ -204,7 +200,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                   <path d="M256 89.61L22.486 177.18L256 293.937l111.22-55.61l-104.337-31.9A16 16 0 0 1 256 208a16 16 0 0 1-16-16a16 16 0 0 1 16-16l-2.646 8.602l18.537 5.703a16 16 0 0 1 .008.056l27.354 8.365L455 246.645v12.146a16 16 0 0 0-7 13.21a16 16 0 0 0 7.293 13.406C448.01 312.932 448 375.383 448 400c16 10.395 16 10.775 32 0c0-24.614-.008-87.053-7.29-114.584A16 16 0 0 0 480 272a16 16 0 0 0-7-13.227v-25.42L413.676 215.1l75.838-37.92L256 89.61zM119.623 249L106.5 327.74c26.175 3.423 57.486 18.637 86.27 36.627c16.37 10.232 31.703 21.463 44.156 32.36c7.612 6.66 13.977 13.05 19.074 19.337c5.097-6.288 11.462-12.677 19.074-19.337c12.453-10.897 27.785-22.128 44.156-32.36c28.784-17.99 60.095-33.204 86.27-36.627L392.375 249h-6.25L256 314.063L125.873 249h-6.25z" />
                 </svg>
-                ALUMNI OF THE MONTH</a>
+                <span>ALUMNI OF THE MONTH</span></a>
             </li>
 
             <!-- Community Hub -->
@@ -212,7 +208,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
                   <path d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
                 </svg>
-                COMMUNITY HUB</a>
+                <span>COMMUNITY HUB</span></a>
             </li>
 
             <!-- Job Opportunities -->
@@ -220,7 +216,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M4 21q-.825 0-1.413-.588T2 19V8q0-.825.588-1.413T4 6h4V4q0-.825.588-1.413T10 2h4q.825 0 1.413.588T16 4v2h4q.825 0 1.413.588T22 8v11q0 .825-.588 1.413T20 21H4Zm6-15h4V4h-4v2Z" />
                 </svg>
-                JOB OPPORTUNITIES</a>
+                <span>JOB OPPORTUNITIES</span></a>
             </li>
           </ul>
 
@@ -308,37 +304,8 @@ function dateInText($date)
                     <img class="inline" src="../images/pencil-box-outline.png" alt="" srcset="">
                   </p>
 
-                  <div class="flex justify-stretch">
-                    <div class="circle rounded-full bg-gray-400  h-10 w-10"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                      <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
-                        <span class="bg-yellow-300 text-white font-semibold p-1 text-sm rounded-md">Post</span>
-                      </p>
-                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-stretch mt-5">
-                    <div class="circle rounded-full bg-red-400  h-10 w-10"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                      <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new
-                        <span class="bg-green-600 text-white  p-1 text-xs rounded-md">Announcement</span>
-                      </p>
-                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-stretch mt-5">
-                    <div class="circle rounded-full bg-yellow-200  h-10 w-10"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                      <p class="text-grayish"><span class="font-extrabold text-black">COED</span> added a new
-                        <span class="bg-violet-400 text-white  p-1 text-xs rounded-md">Update</span>
-                      </p>
-                      <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                    </div>
-                  </div>
-
-                  <p class="text-sm text-accent font-semibold mt-3 text-end cursor-pointer">View more</p>
+                  <div id="recentActWrapper" class="flex flex-col items-start gap-2"></div>
+                  <p id="btnViewMoreLog" class="text-sm text-accent font-semibold mt-3 text-end cursor-pointer">View more</p>
                 </div>
 
               </div>
@@ -585,96 +552,11 @@ function dateInText($date)
           </div>
         </div>
 
-        <!-- student record content -->
-        <div id="student-tab" class="p-5">
-          <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
-
-          <div class="flex justify-end text-xs text-greyish_black">
-            <!-- HISTORY LOGS -->
-            <button class="p-2 m-2 border border-grayish text-grayish rounded-md">
-              Download history logs
-              <img class="inline" src="../images/download.png" alt="">
-            </button>
-
-            <!-- EXPORT PDF -->
-            <button class="p-2 px-4 m-2 border border-accent rounded-md 
-                  bg-accent text-white hover:bg-darkAccent">Export as PDF
-            </button>
-
-          </div>
-
-          <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
-
-          <div class="flex justify-evenly text-xs">
-
-            <div class="flex border border-greyish_black w-full rounded-md p-1">
-              <img class="inline " src="../images/search-icon.png" alt="">
-              <input class="focus:outline-none w-full" type="text" name="" id="searchPerson" placeholder="Typing!">
-            </div>
-
-            <!-- batch selection -->
-            <select name="" id="batch" class="w-full p-1">
-              <option selected disabled hidden>Batch</option>
-              <option value="">All</option>
-              <option value="4th Year">4th Year</option>
-              <option value="3rd Year">3rd Year</option>
-              <option value="2nd Year">2nd Year</option>
-              <option value="1st Year">1st Year</option>
-            </select>
-
-            <!-- college selection -->
-            <select name="college" id="college" class="w-full p-1">
-              <option selected disabled hidden>Course</option>
-              <option value="">All</option>
-              <?php
-              require_once '../PHP_process/connection.php';
-              $query = "SELECT * FROM `college`";
-              $result = mysqli_query($mysql_con, $query);
-              $rows = mysqli_num_rows($result);
-
-              if ($rows > 0) {
-                while ($data = mysqli_fetch_assoc($result)) {
-                  $colCode = $data['colCode'];
-                  $colName = $data['colname'];
-
-                  echo '<option value="' . $colCode . '">' . $colName . '</option>';
-                }
-              } else echo '<option>No college available</option>';
-              ?>
-            </select>
-
-          </div>
-
-
-          <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
-            <thead>
-              <tr class="bg-accent text-white">
-                <th class="text-center rounded-tl-lg">Student Number</th>
-                <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th class="rounded-tr-lg">DETAILS</th>
-              </tr>
-            </thead>
-            <tbody id="studentTB" class="text-sm">
-            </tbody>
-          </table>
-          <div class="flex justify-end items-center gap-2 font-bold my-2">
-            <button id="prevBtnStudent" class="border border-accent text-accent hover:bg-accent hover:text-white py-2 px-3 rounded-md">Previous</button>
-            <button id="nextBtnStudent" class="bg-accent text-white hover:bg-darkAccent py-2 px-4 rounded-md">Next</button>
-          </div>
-        </div>
-
         <!-- alumni record content -->
         <div id="alumnRecord-tab" class="p-5">
           <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
 
           <div class="flex justify-end text-xs text-greyish_black">
-            <!-- HISTORY LOGS -->
-            <button class="p-2 m-2 border border-grayish text-grayish rounded-md">
-              Download history logs
-              <img class="inline" src="../images/download.png" alt="">
-            </button>
 
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 
@@ -875,8 +757,13 @@ function dateInText($date)
           <h1 class="text-xl font-extrabold">Alumni Tracer Form</h1>
           <p class="text-grayish">See the relevant information that are gathered</p>
 
-          <div class="border border-t-grayish h-5/6">
-            <div class="h-1/2 p-5">
+          <div class="flex gap-2 justify-end mb-2">
+            <button id="tracerbtn" class="text-gray-400 hover:text-gray-500">Tracer form</button>
+            <button id="deployTracerBtn" class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
+          </div>
+
+          <div id="formReport" class="border border-t-grayish h-5/6">
+            <div class="h-2/5 p-5">
               <h1 class="text-lg font-extrabold">Employment Status</h1>
               <canvas class="w-full h-5/6" id="empStatus"></canvas>
             </div>
@@ -887,6 +774,23 @@ function dateInText($date)
             </div>
 
           </div>
+
+          <!-- repository -->
+          <div id="tracerRepo" class="h-full border border-t-grayish p-5 w-full hidden">
+            <div id="TracerWrapper" class="flex w-full h-full mx-auto p-2 gap-2">
+              <div id="categoryWrapper" class="flex flex-col gap-2 w-1/3 p-1  h-full"></div>
+              <!-- question set -->
+              <div class="flex-1 h-full center-shadow p-3 relative">
+                <input id="categoryName" class="w-full py-2 text-xl text-greyish_black border-b border-gray-400 font-semibold mb-3" disabled />
+                <span id="btnSaveChanges" class="absolute top-5 right-2 text-gray-400 text-xs flex items-center gap-2 hidden" id="savedChanges">
+                  <iconify-icon icon="dashicons:saved" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                </span>
+                <div id="questionSetContainer" class="overflow-y-auto flex flex-col gap-2 py-2"></div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
         <!-- profile content -->
@@ -2096,11 +2000,152 @@ function dateInText($date)
         </svg>
       </div>
     </div>
+
+
+    <!-- section modal -->
+    <div id="sectionModalcontainer" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <input type="hidden" id="catIDHolder">
+      <input type="hidden" id="formIDHolder">
+      <input type="hidden" id="choiceIDHolder">
+      <div id="sectionModal" class="modal-container h-4/5 bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2 border-t-8 border-accent relative">
+        <iconify-icon id="addSectionQuestion" title="Add new question for this section" class="iconAddModal p-3 rounded-md center-shadow h-max absolute top-1 right-1" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>
+        <header class="font-bold text-4xl text-center text-accent py-2 border-b border-gray-300">
+          Section
+        </header>
+        <div id="sectionBody" class="h-full overflow-y-auto py-2 flex flex-col gap-2"></div>
+      </div>
+    </div>
+
+    <!-- add new question -->
+    <div id="newQuestionModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg text-greyish_black">
+        <header class="text-center text-lg font-bold py-3 mb-2">Add new Question</header>
+        <div class="wrapper p-3 w-full mx-auto m-2">
+          <input id="newQuestionInputName" type="text" class="w-full text-center text-lg border-b border-gray-300" placeholder="Untitled Question" />
+          <!-- body -->
+          <div class="p-3 text-gray-400 mb-2">
+            <select id="inputTypeModalNew" class="w-full p-2 outline-none center-shadow mb-2">
+              <option value="Radio">Radio Type</option>
+              <option value="Input">Input Type</option>
+              <option value="Checkbox">Chexbox Type</option>
+              <option value="DropDown">Dropdown Type</option>
+            </select>
+            <!-- options -->
+            <div class="optionContainer">
+              <div class="fieldWrapper flex items-center gap-2">
+                <iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>
+                <input type="text" class="py-2 choicesVal w-full" placeholder="Add choice">
+              </div>
+            </div>
+          </div>
+
+          <button id="addOptionmodal" class="flex items-center gap-2 text-gray-400">
+            <iconify-icon icon="gala:add" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+            Add option
+          </button>
+
+          <div class="flex items-center justify-end gap-2">
+            <button id="closeQuestionModal" class="text-gray-400 hover:bg-gray-300 py-2 px-3">Cancel</button>
+            <button id="saveNewQuestion" class="bg-blue-400 hover:bg-blue-500 px-4 py-2 rounded-md text-white">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- log history modal -->
+    <div id="logHistoryModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div id="modalLogContainer" class="modal-container w-1/2 h-3/4 bg-white rounded-lg text-greyish_black p-3">
+        <header class="font-bold text-accent text-xl text-center py-2">College Admin Activities</header>
+        <!-- HISTORY LOGS -->
+        <button id="printLogsBtn" class="pt-1 px-2 m-2 border border-grayish text-grayish rounded-md ml-auto block hover:bg-blue-300">
+          <iconify-icon icon="mdi:download" style="color: #686b6f;" width="24" height="24"></iconify-icon>
+        </button>
+
+
+        <div class="border-b border-gray-400 py-1"></div>
+        <div class="filter flex gap-2 mt-2">
+
+          <!-- date range -->
+          <div class="w-max flex border border-grayish p-2 rounded-lg">
+            <input type="text" name="logdaterange" id="logdaterange" value="01/01/2018 - 01/15/2018" />
+            <label for="logdaterange">
+              <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
+            </label>
+          </div>
+
+          <!-- college selection -->
+          <select name="logCollege" id="logCollege" class="w-full border border-grayish p-2 rounded-lg">
+            <option value="" selected disabled hidden>All</option>
+            <?php
+            require_once '../PHP_process/connection.php';
+            $query = "SELECT * FROM `college`";
+            $result = mysqli_query($mysql_con, $query);
+            $rows = mysqli_num_rows($result);
+
+            if ($rows > 0) {
+              while ($data = mysqli_fetch_assoc($result)) {
+                $colCode = $data['colCode'];
+                $colName = $data['colname'];
+
+                echo '<option value="' . $colCode . '">' . $colName . '</option>';
+              }
+            } else echo '<option>No college available</option>';
+            ?>
+          </select>
+
+        </div>
+
+        <div id="logList" class="overflow-y-auto py-2 flex flex-col gap-3">
+          <!-- loading screen -->
+          <div class="lds-roller relative w-4/5 flex ps-5 items-center justify-center h-1/2">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="deploymentModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+
+      <div id="modalConfirmDeployment" class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3">
+        <h3 class="text-xl font-semibold text-gray-900 border-b border-gray-300 py-3">Tracer Deploy Confirmation</h3>
+        <p class="p-4"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi laudantium natus accusamus aperiam quas,
+          assumenda placeat vero quia temporibus? Autem doloribus asperiores veritatis reiciendis? Aliquam tenetur provident
+          officiis? Eveniet, ipsa.</p>
+
+        <div class="flex w-full justify-end items-center gap-2 my-3 border-t border-gray-300 py-2">
+          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button id="confirmDeployTracerBtn" class="px-4 py-2 rounded-lg bg-blue-400 hover:bg-blue-500 text-white font-bold">Deploy</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="insertCategoryModal" class="modal fixed inset-0 z-50 flex justify-center p-3 hidden">
+      <div class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3">
+        <h3 class="font-bold text-xl text-center text-greyish_black py-2 border-b border-gray-300">Insert New Category</h3>
+        <input id="categoryInputVal" type="text" placeholder="Enter a new category..." class="w-full border-b border-gray-300 p-3 my-3">
+
+        <div class="flex justify-end gap-2">
+          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button id="addNewCategoryBtn" class="text-white bg-green-400 rounded-lg py-2 px-4 hover:bg-green-500 font-bold">Create</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/log.js"></script>
+  <script src="../js/tracer.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>

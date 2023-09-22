@@ -2,9 +2,10 @@
 
 $(document).ready(function () {
 
-    retrieveCategory() //get the category
-    function retrieveCategory() {
-        const formID = "6569811a8d7bea55f82e729acb229"; //to be replaced
+    const formIDValue = $('#formID').val()
+    retrieveCategory(formIDValue) //get the category
+    function retrieveCategory(formIDValue) {
+        const formID = formIDValue;
         const action = "retrievedCategory";
         const formData = new FormData();
         formData.append('action', action);
@@ -847,6 +848,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: response => {
+                console.log(response)
                 if (response == "Success") {
                     restartAllVal()
                     $('#newQuestionModal').addClass('hidden')
@@ -965,5 +967,6 @@ $(document).ready(function () {
             $('#sectionModalcontainer').addClass('hidden')
         }
     })
+
 })
 
