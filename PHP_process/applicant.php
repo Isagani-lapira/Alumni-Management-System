@@ -45,16 +45,15 @@ class Applicant
         else echo 'Failed';
     }
 
-    public function getApplicantCount($username, $con)
+    public function getApplicantCount($careerID, $con)
     {
         $query = "SELECT `careerID` FROM `applicant` WHERE `careerID` = ?";
         $stmt = mysqli_prepare($con, $query);
         // Bind the parameter
-        mysqli_stmt_bind_param($stmt, "s", $username);
-        mysqli_stmt_execute($stmt);
-        // Get the result
-        mysqli_stmt_store_result($stmt);
-        $row = mysqli_stmt_num_rows($stmt);
+        $stmt->bind_param("s", $careerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = mysqli_num_rows($result);
 
         // Close the statement
         mysqli_stmt_close($stmt);

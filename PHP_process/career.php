@@ -210,7 +210,7 @@ class Career
                 $applicant = new Applicant();
                 $isApplied[] = $applicant->isApplied($tempCareerID, $username, $con);
 
-                $applicantNo[] = $applicant->getApplicantCount($username, $con);
+                $applicantNo[] = $applicant->getApplicantCount($tempCareerID, $con);
                 //check if the current user saved the job post
                 $isSaved[] = $this->isJobSaved($tempCareerID, $username, $con);
             }
