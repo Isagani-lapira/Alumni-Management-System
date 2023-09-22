@@ -573,7 +573,10 @@ $(document).ready(function () {
   });
 
 
-  $('#alumniLi').on('click', getAlumniRecord)
+  $('#alumniLi').on('click', function () {
+    $("#alumniTB").empty()
+    getAlumniRecord()
+  })
 
   function getAlumniRecord() {
     let actionAlumni = {
