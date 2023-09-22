@@ -28,6 +28,10 @@ if (isset($_POST['action'])) {
         $answerID = $_POST['answerID'];
         $choiceID = $_POST['choiceID'];
         removeCheckedAnswer($questionID, $answerID, $choiceID, $mysql_con);
+    } else if ($action == "updateStatusToDone") {
+        $answerID = $_POST['answerID'];
+        updateStatusToDone($answerID, $mysql_con);
+    } else if ($action == 'checkUserTracerStatus') {
     }
 }
 
@@ -60,7 +64,10 @@ function addAnswer($con)
         // the user already click the proceed before return only the answerID for references
         $data = $result->fetch_assoc();
         $answerID = $data['answerID'];
-        echo $answerID;
+        $personStatTracer = checkUserTracerStatus($answerID, $con);
+
+        if ($personStatTracer) echo 'finished';
+        else echo $answerID;
     }
 }
 
@@ -158,4 +165,35 @@ function removeCheckedAnswer($questionID, $answerID, $choiceID, $con)
 
     if ($result) echo 'Deleted';
     else echo 'Unsuccess';
+}
+
+function updateStatusToDone($answerID, $con)
+{
+    $personID = $_SESSION['personID'];
+    $status = 'done';
+    $query = "UPDATE `answer` SET `status`= ? WHERE `answerID` = ? AND `personID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('sss', $status, $answerID, $personID);
+    $result = $stmt->execute();
+
+    if ($result) echo 'Success';
+    else echo 'Unsuccess';
+}
+
+function checkUserTracerStatus($answerID, $con)
+{
+    $query = "SELECT `status` FROM `answer` WHERE `answerID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('s', $answerID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_num_rows($result);
+
+    $isDone = false;
+    if ($result && $row > 0) {
+        $answerID = $result->fetch_assoc()['status'];
+        if ($answerID == 'done') return $isDone = true;
+    }
+
+    return $isDone;
 }

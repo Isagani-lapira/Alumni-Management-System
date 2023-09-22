@@ -39,6 +39,20 @@ $(document).ready(function () {
                 // add navigation button
                 const navigationWrapper = $('<div>')
                     .addClass('flex justify-end w-full gap-2')
+
+                const backBtn = $('<button>')
+                    .addClass('px-3 py-2 rounded-md hover:bg-gray-300 text-gray-500')
+                    .text('Back')
+                    .on('click', function () {
+                        //go back to previous category
+                        count--
+                        $('.questions').empty()
+                        const prevCategoryName = categoryList[count].categoryName;
+                        const prevCategoryID = categoryList[count].categoryID;
+                        //open another set of question
+                        $('#categoryNameQuestion').text(prevCategoryName)
+                        categoryQuestion(answerID, prevCategoryID)
+                    })
                 const nextBtn = $('<button>')
                     .addClass('px-3 py-2 rounded-md bg-accent hover:bg-darkAccent text-white font-bold')
                     .text('Next')
@@ -92,20 +106,84 @@ $(document).ready(function () {
 
                         // check if all input fields are completed
                         if (areQuestionAnswered() && isCompleted && haveCheckedInCheckBox && haveSelectedDropDown) {
+                            count++
                             $('.questions').empty()
                             const nextCategoryName = categoryList[count].categoryName;
                             const nextCategoryID = categoryList[count].categoryID;
                             //open another set of question
                             $('#categoryNameQuestion').text(nextCategoryName)
                             categoryQuestion(answerID, nextCategoryID)
-                            count++
                         }
                     })
 
-                if (count === categoryList.length) nextBtn.addClass('hidden')
+                const submitBtn = $('<button>')
+                    .addClass('px-3 py-2 rounded-md bg-green-400 hover:bg-green-500 text-white font-bold hidden')
+                    .text('Submit')
+                    .on('click', function () {
+                        let isCompleted = true
+                        let haveCheckedInCheckBox = true
+                        let haveSelectedDropDown = true
+                        // check if all input type text are answered
+                        $('.userinputData').each(function () {
+                            let value = $(this).val().trim()
+                            if (value === '') isCompleted = false;
+                        })
+
+                        // check the dropdown has value (if there's any)
+                        const dropDown = $('.dropdownQuestion')
+                        if (dropDown.length > 0) {
+                            let dropDownNotNull = true;
+                            dropDown.each(function () {
+                                let value = $(this).val();
+                                if (value === null) {
+                                    dropDownNotNull = false
+                                    return false;
+                                }
 
 
-                navigationWrapper.append(nextBtn)
+                            })
+                            // if there's nul then don't allow to proceed
+                            if (!dropDownNotNull) {
+                                haveSelectedDropDown = false
+                            }
+                        }
+
+
+                        // check if there are checkboxes with the class
+                        const checkBoxes = $('.checkBoxVal');
+                        if (checkBoxes.length > 0) {
+                            // check if at least one checkbox is checked
+                            let isAnyChecked = false;
+                            $('.checkBoxVal').each(function () {
+                                if ($(this).prop('checked')) {
+                                    isAnyChecked = true;
+                                    return false; // Exit the loop early once a checked checkbox is found
+                                }
+                            });
+
+                            // If none of the checkboxes are checked, set haveCheckedInCheckBox to false
+                            if (!isAnyChecked) {
+                                haveCheckedInCheckBox = false;
+                            }
+                        }
+
+                        // check if all input fields are completed
+                        if (areQuestionAnswered() && isCompleted && haveCheckedInCheckBox && haveSelectedDropDown) {
+                            // update the progress of the user
+                            updateUserProgress(answerID)
+                        }
+                    })
+
+
+                if (count === categoryList.length - 1) {
+                    nextBtn.addClass('hidden')
+                    submitBtn.removeClass('hidden')
+                }
+
+                if (count > 0)
+                    navigationWrapper.append(backBtn)
+
+                navigationWrapper.append(submitBtn, nextBtn)
                 $('#navigationWrapper').append(navigationWrapper)
             },
             error: error => { console.log(error) }
@@ -160,8 +238,6 @@ $(document).ready(function () {
     let count = 0
     // Event listener for clicking the "proceedTracer" button
     $('#proceedTracer').on('click', async function () {
-        $('#frontpageTracer').addClass('hidden');
-        $('#questionsContainer').removeClass('hidden');
 
         try {
             await retrieveCategory(); // Wait for the data to be retrieved
@@ -171,9 +247,15 @@ $(document).ready(function () {
             // Use await with createAlumniEntry and store the result in answerIDEntry
             const answerIDEntry = await createAlumniEntry();
 
-            $('#categoryNameQuestion').text(firstCategoryName);
-            categoryQuestion(answerIDEntry, firstCategoryID);
-            count++;
+            $('#frontpageTracer').addClass('hidden');
+            // check first if the user is already done taking graduate tracer
+            if (answerIDEntry !== 'finished') {
+                $('#questionsContainer').removeClass('hidden');
+
+                $('#categoryNameQuestion').text(firstCategoryName);
+                categoryQuestion(answerIDEntry, firstCategoryID);
+            }
+            else $('#finishedContainer').removeClass('hidden') //done finishing graduate tracer
         } catch (error) {
             console.error(error);
         }
@@ -568,6 +650,37 @@ $(document).ready(function () {
             contentType: false,
             success: response => { console.log(response) },
             error: error => { console.log(error) },
+        })
+    }
+
+    // updating from ongoing to done of answering graduate tracer 
+    function updateUserProgress(answerID) {
+        const action = "updateStatusToDone"
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('answerID', answerID)
+
+        $.ajax({
+            url: '../PHP_process/answer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response == 'Success') {
+                    $('#finishedContainer').addClass('hidden')
+                    $('#successModal').removeClass('hidden')
+                    $("#msgSuccess").text('Thank you for the having time completing this Graduate Tracer Form.')
+
+                    // hide the modal again
+                    setTimeout(() => {
+                        $('#successModal').addClass('hidden')
+                        $("#msgSuccess").text('Your feedback is important to us, and we take all reports seriously')
+                        window.location.href = '../student-alumni/homepage.php'; //go back to the main page
+                    }, 5000)
+                }
+            },
+            error: error => { console.log(error) }
         })
     }
 })
