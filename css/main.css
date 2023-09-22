@@ -831,8 +831,16 @@ div.input-container input[type="text"],
   right: -8rem;
 }
 
+.-right-4 {
+  right: -1rem;
+}
+
 .-right-8 {
   right: -2rem;
+}
+
+.-top-1 {
+  top: -0.25rem;
 }
 
 .-top-10 {
@@ -973,6 +981,18 @@ div.input-container input[type="text"],
 
 .top-8 {
   top: 2rem;
+}
+
+.-right-7 {
+  right: -1.75rem;
+}
+
+.-right-9 {
+  right: -2.25rem;
+}
+
+.-right-11 {
+  right: -2.75rem;
 }
 
 .z-0 {
@@ -1542,6 +1562,10 @@ div.input-container input[type="text"],
 
 .w-10\/12 {
   width: 83.333333%;
+}
+
+.w-11\/12 {
+  width: 91.666667%;
 }
 
 .w-12 {
@@ -2854,6 +2878,11 @@ div.input-container input[type="text"],
   line-height: 1;
 }
 
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -3242,10 +3271,6 @@ div.input-container input[type="text"],
   hostname: port;
 }
 
-.\[s\:\FFFD\FFFDQ\7C5\FFFD\FFFD\@\FFFD\FFFD\FFFD\FFFDV\`\FFFD\FFFD\FFFD\F\7\FFFDY\>\FFFD\5\FFFD\.\FFFD\$\10\FFFD\!\FFFD\/\FFFD\FFFD 5\FFFDU\FFFD\FFFD\1A\] {
-  s: ��Q߅��@����V`����Y>��.�$�!�/��5�U��;
-}
-
 .heading-container {
   background-image: url("../assets/heading.png");
 }
@@ -3288,6 +3313,11 @@ body {
 .hover\:border-gray-800:hover {
   --tw-border-opacity: 1;
   border-color: rgb(31 41 55 / var(--tw-border-opacity));
+}
+
+.hover\:border-accent:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(153 27 27 / var(--tw-border-opacity));
 }
 
 .hover\:bg-accent:hover {
@@ -3717,6 +3747,10 @@ body {
 
   .md\:max-w-6xl {
     max-width: 72rem;
+  }
+
+  .md\:max-w-md {
+    max-width: 28rem;
   }
 
   .md\:auto-cols-fr {

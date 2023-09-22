@@ -1193,6 +1193,19 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <!-- no resume prompt -->
+        <div id="resumeModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+          <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex items-center flex-col gap-2 p-5 relative">
+            <button class="hover:bg-accent rounded-full border border-white absolute -top-1 -right-11 p-2 flex items-center text-white">
+              <iconify-icon icon="ei:close" width="24" height="24"></iconify-icon>
+            </button>
+            <img class=" w-32" src="../assets/icons/robot-img.png" alt="">
+            <span class=" text-3xl font-bold text-accent">Oopss!</span>
+            <p class=" text-center">You appear to have forgotten to include a résumé. Before applying for a position, please edit your resume. Click the link below to be forwarded to the resume area.</p>
+            <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 my-5">Click Me</span>
+          </div>
+        </div>
+
       </div>
 
     </div>

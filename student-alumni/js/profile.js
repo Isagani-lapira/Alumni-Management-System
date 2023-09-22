@@ -18,7 +18,6 @@ $(document).ready(function () {
   getPost(formDataAvailable, false)
   function getPost(data, isDeleted) {
     data.append('offset', offsetPost)
-    console.log(offsetPost)
     $.ajax({
       url: '../PHP_process/postDB.php',
       method: 'POST',
@@ -992,4 +991,5 @@ $(document).ready(function () {
     $('#editResumeModal').removeClass('hidden')
     $('#viewResumeModal').addClass('hidden')
   })
+
 })

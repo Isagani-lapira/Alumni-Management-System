@@ -553,9 +553,48 @@ $(document).ready(function () {
       $('#appTxt').removeClass('font-bold')
 
       applicationBtn.on('click', function () {
-        applyJob(careerID);  //application
+        // check first if user have resume
+        checkUserResumeStatus()
+          .then(response => {
+            if (response) {
+              //proceed on applying
+              applyJob(careerID);  //application
+            }
+            else {
+              // display the error
+              $('#resumeModal').removeClass('hidden')
+              $('#resumeModal button').on('click', function () {
+                $('#resumeModal').addClass('hidden')
+              })
+            }
+          })
       })
     }
+
+  }
+
+  $('#directToResume').on('click', function () {
+    window.location.href = "../student-alumni/profile.php?resumeOpen=" + true;
+  })
+
+  function checkUserResumeStatus() {
+
+    // return the result of findings of resume
+    return new Promise((resolve, reject) => {
+      const action = 'haveResume'
+      const formData = new FormData();
+      formData.append('action', action)
+
+      $.ajax({
+        url: '../PHP_process/resume.php',
+        method: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: response => { resolve(response) },
+        error: error => { reject(error) }
+      })
+    })
 
   }
 

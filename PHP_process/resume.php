@@ -7,6 +7,11 @@ if (isset($_POST['action'])) {
         insertionOfData($mysql_con);
     } else if ($action == 'retrievalData') {
         retrieveResume($mysql_con);
+    } else if ($action == 'haveResume') {
+        session_start();
+        $personID = $_SESSION['personID'];
+        $result = haveResume($personID, $mysql_con);
+        echo $result;
     }
 } else echo 'ayaw';
 
