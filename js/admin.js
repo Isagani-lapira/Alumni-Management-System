@@ -187,23 +187,6 @@ $(document).ready(function () {
     );
   });
 
-  $(function () {
-    $('input[name="reportdaterange"]').daterangepicker(
-      {
-        opens: "left",
-        startDate: defaultStart,
-        endDate: defaultEnd,
-      },
-      function (start, end, label) {
-        console.log(
-          "A new date selection was made: " +
-          start.format("YYYY-MM-DD") +
-          " to " +
-          end.format("YYYY-MM-DD")
-        );
-      }
-    );
-  });
 
   $(function () {
     $('input[name="aomdaterange"]').daterangepicker(

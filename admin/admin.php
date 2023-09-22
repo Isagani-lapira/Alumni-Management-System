@@ -567,20 +567,7 @@ function dateInText($date)
 
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-          <div class="flex justify-evenly text-xs">
-
-            <div class="flex border border-greyish_black w-full rounded-md p-1">
-              <img class="inline " src="../images/search-icon.png" alt="">
-              <input class="focus:outline-none w-full" type="text" name="" id="searchPerson" placeholder="Typing!">
-            </div>
-
-            <!-- range -->
-            <div class="w-full flex border p-2 mx-2">
-              <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018" />
-              <label class="" for="reportdaterange">
-                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
-              </label>
-            </div>
+          <div class="flex justify-evenly text-sm">
 
             <!-- batch selection -->
             <select name="" id="batch" class="w-full p-1">

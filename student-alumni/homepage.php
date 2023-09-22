@@ -800,39 +800,46 @@ function getAccDetails($con, $personID)
               <div class="flex items-start mb-4">
                 <img id="profileModalProfile" alt="Profile Picture" class=" w-16 h-16 md:w-28 md:h-28 rounded-full md:-mt-20 mr-4 ml-2 bg-white border-2">
                 <div class="flex-grow">
-                  <h2 id="profileModalFN" class=" md:text-lg font-bold text-gray-700">Patrick Joseph Pronuevo</h2>
-                  <p id="profileModalUN" class="text-gray-500 text-sm">@3xjoseph</p>
+                  <h2 id="profileModalFN" class=" md:text-lg font-bold text-gray-700"></h2>
+                  <p id="profileModalUN" class="text-gray-500 text-sm"></p>
                 </div>
 
                 <button class="px-3 md:px-4 py-2 text-xs md:text-sm bg-red-800 text-white rounded-md">Send Email</button>
               </div>
 
               <h2 class="text-md md:text-lg font-bold mb-2 text-greyish_black">Social Media</h2>
-              <div class="flex gap-2 border-b border-gray-300 text-xs py-2 mb-2">
-                <!-- social media links -->
-                <!-- facebook -->
-                <div class="flex items-center gap-2">
-                  <iconify-icon icon="formkit:facebook" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                  <span id="facebookUN" class="text-center"></span>
+
+              <!-- social media links -->
+              <div class="flex gap-2 border-b border-gray-300 text-sm text-gray-500 py-2 mb-2">
+
+                <div class="flex-1 flex-col gap-4 justify-center items-center">
+                  <!-- facebook -->
+                  <div class="flex items-center gap-3">
+                    <iconify-icon icon="formkit:facebook" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <span id="facebookUN" class="text-center"></span>
+                  </div>
+
+                  <!-- instagram -->
+                  <div class="flex items-center gap-3">
+                    <iconify-icon icon="formkit:instagram" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <span id="instagramUN" class="text-center"></span>
+                  </div>
                 </div>
 
-                <!-- instagram -->
-                <div class="flex items-center gap-2">
-                  <iconify-icon icon="formkit:instagram" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                  <span id="instagramUN" class="text-center"></span>
+                <div class="flex-1 flex-col gap-3 justify-center items-center">
+                  <!-- twitter -->
+                  <div class="flex items-center gap-3">
+                    <iconify-icon icon="simple-icons:twitter" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <span id="twitterUN" class="text-center"></span>
+                  </div>
+
+                  <!-- linkedIN -->
+                  <div class="flex items-center gap-3">
+                    <iconify-icon icon="uiw:linkedin" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <span id="linkedInUN" class="text-center"></span>
+                  </div>
                 </div>
 
-                <!-- twitter -->
-                <div class="flex items-center gap-2">
-                  <iconify-icon icon="simple-icons:twitter" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                  <span id="twitterUN" class="text-center"></span>
-                </div>
-
-                <!-- linkedIN -->
-                <div class="flex items-center gap-2">
-                  <iconify-icon icon="uiw:linkedin" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                  <span id="linkedInUN" class="text-center"></span>
-                </div>
 
               </div>
 

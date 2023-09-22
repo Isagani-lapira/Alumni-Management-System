@@ -986,4 +986,10 @@ $(document).ready(function () {
   $('#closeRestore, #closeRestoreModal').on('click', function () {
     $('#restoreModal').addClass('hidden');
   });
+
+
+  $('#editResumeBtn').on('click', function () {
+    $('#editResumeModal').removeClass('hidden')
+    $('#viewResumeModal').addClass('hidden')
+  })
 })
