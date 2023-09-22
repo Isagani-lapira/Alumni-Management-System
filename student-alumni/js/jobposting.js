@@ -107,34 +107,24 @@ $(document).ready(function () {
         jobDescript, jobQuali, location, applicantcount) {
 
         //sets of color
-        const colorSet = ["#A9FBC3", "#979DED", "#ACBDBA", "#6DA17C", "#CDDDDD", "#9DB5B2", "#F9B4ED",
-            "#06908F", "#D7B49E", "#CEB992", "#947BD3", "#EFA9AE", "#F9ADA0", "#F4F1BB", "#809BCE",
-            "#D6EADF", "#D3D4D9", "#FFE19C", "#ADBCA5", "#E8B9AB", "#EDDEA4", "#7C9885", "#CED0CE",
-            "#58A4B0", "#BBC2E2", "#CFCCD6", "#364156", "#AC80A0"];
-
-        //access random color to be use for header
-        const randomIndex = Math.floor(Math.random() * colorSet.length);
-        const color = colorSet[randomIndex];
+        const colorBG = (status === 'verified') ? 'bg-accent' : 'bg-gray-400'
 
         const wrapper = $('<div>')
             .addClass('rounded-md max-w-sm flex flex-col center-shadow')
 
         const headerPart = $('<div>')
-            .addClass('h-full flex flex-col rounded-t-md p-3 justify-between')
-            .css({
-                "background-color": color //set the random color to header
-            })
+            .addClass('h-full flex flex-col rounded-t-md p-3 justify-between ' + colorBG)
 
         const jobTitleElement = $('<h1>')
             .addClass('text-lg text-white font-bold my-2')
             .text(jobTitle);
 
         const list = $('<div>')
-            .addClass('flex flex-wrap gap-1 text-xs text-gray-500 italic items-center')
+            .addClass('flex flex-wrap gap-1 text-xs text-white italic items-center')
 
         //retrieve all the skill and display in on a div to be included on the container
         skills.forEach(skill => {
-            let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+            let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #ffffff;"></iconify-icon>';
             let skillElement = $('<span>').html(skill)
             list.append(bulletIcon, skillElement)
         })
