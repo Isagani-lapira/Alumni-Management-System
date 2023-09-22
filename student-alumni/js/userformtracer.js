@@ -218,8 +218,8 @@ $(document).ready(function () {
         try {
             const response = await getAnswer(questionID, answerID);
 
-            let answerTxt = "";
-            let choiceIDData = "";
+            let answerTxt = [];
+            let choiceIDData = [];
 
             if (response.response == "Success") {
                 answerTxt = response.answerTxt;
@@ -240,7 +240,7 @@ $(document).ready(function () {
                         addAnswer(answerID, questionID, answer);
                     });
 
-                if (answerTxt !== "") questionType.val(answerTxt);
+                if (answerTxt[0] !== "") questionType.val(answerTxt[0]);
                 questionBody.append(questionType);
             } else {
                 const select = $('<select>')
@@ -277,7 +277,7 @@ $(document).ready(function () {
                             })
 
                         // if have already answer then make it as checked
-                        if (choiceIDData !== "" && choiceIDData == choiceID) choiceVal.attr('checked', true)
+                        if (choiceIDData[0] !== "" && choiceIDData[0] == choiceID) choiceVal.attr('checked', true)
 
                         const label = $('<label>')
                             .addClass('cursor-pointer')
@@ -294,7 +294,7 @@ $(document).ready(function () {
                             .attr('data-is-section-choice', isSectionChoice)
                             .text(choice_text)
 
-                        if (choiceIDData !== "" && choiceID == choiceIDData) {
+                        if (choiceIDData[0] !== "" && choiceID == choiceIDData[0]) {
                             option.attr('selected', true)
                         }
                         select.append(option)
@@ -311,6 +311,18 @@ $(document).ready(function () {
                             .attr('name', name)
                             .attr('id', id)
                             .val(choiceID)
+                            .on('click', function () {
+                                let isSelected = $(this).prop('checked');
+                                // check first if the check box is checked or not
+                                if (!isSelected) removeCheckedAnswer(questionID, answerID, choiceID)  // remove the selected choice 
+                                else addAnswerCheckBox(answerID, questionID, choiceID)  // insert new data
+
+                            })
+
+                        // Check the checkbox if choiceID is in choiceIDData
+                        if (choiceIDData.includes(choiceID)) {
+                            choiceVal.prop('checked', true);
+                        }
 
                         const label = $('<label>')
                             .addClass('cursor-pointer')
@@ -519,4 +531,43 @@ $(document).ready(function () {
         $('#sectionModal').addClass('hidden')
         $('#sectionQuestionContainer').empty()
     })
+
+    // insert the answer
+    function addAnswerCheckBox(answerID, questionID, choiceID) {
+        const action = "addCheckboxAnswer";
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('answerID', answerID)
+        formData.append('questionID', questionID)
+        formData.append('choiceID', choiceID)
+
+        $.ajax({
+            url: '../PHP_process/answer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) },
+        })
+    }
+
+    function removeCheckedAnswer(questionID, answerID, choiceID) {
+        const action = "removeCheckBoxAnswer";
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('questionID', questionID)
+        formData.append('answerID', answerID)
+        formData.append('choiceID', choiceID)
+
+        $.ajax({
+            url: '../PHP_process/answer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) },
+        })
+    }
 })

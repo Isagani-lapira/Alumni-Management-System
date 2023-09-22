@@ -18,6 +18,16 @@ if (isset($_POST['action'])) {
         $questionID = $_POST['questionID'];
         $answerID = $_POST['answerID'];
         getAnswer($questionID, $answerID, $mysql_con);
+    } else if ($action == 'addCheckboxAnswer') {
+        $answerID = $_POST['answerID'];
+        $questionID = $_POST['questionID'];
+        $choiceID = $_POST['choiceID'];
+        addCheckBoxAnswer($answerID, $questionID, $choiceID, $mysql_con);
+    } else if ($action == 'removeCheckBoxAnswer') {
+        $questionID = $_POST['questionID'];
+        $answerID = $_POST['answerID'];
+        $choiceID = $_POST['choiceID'];
+        removeCheckedAnswer($questionID, $answerID, $choiceID, $mysql_con);
     }
 }
 
@@ -105,13 +115,14 @@ function getAnswer($questionID, $answerID, $con)
     $row = mysqli_num_rows($result);
 
     $response = "Unsuccess";
-    $choiceID = "";
-    $answer_txt = "";
+    $choiceID = array();
+    $answer_txt = array();
     if ($result && $row > 0) {
-        $data = $result->fetch_assoc();
-        $response = "Success";
-        $choiceID = $data['choiceID'];
-        $answer_txt = $data['answer_txt'];
+        while ($data = $result->fetch_assoc()) {
+            $response = "Success";
+            $choiceID[] = $data['choiceID'];
+            $answer_txt[] = $data['answer_txt'];
+        }
     }
 
     $array = array(
@@ -121,4 +132,30 @@ function getAnswer($questionID, $answerID, $con)
     );
 
     echo json_encode($array);
+}
+
+
+function addCheckBoxAnswer($answerID, $questionID, $choiceID, $con)
+{
+    // create new answer
+    $answerDataID = substr(md5(uniqid()), 0, 29);
+    $query = "INSERT INTO `answer_data`(`answerDataID`, `answerID`, `questionID`,`choiceID`) 
+     VALUES (? ,? ,? ,?)";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('ssss', $answerDataID, $answerID, $questionID, $choiceID);
+    $result = $stmt->execute();
+
+    if ($result) echo 'Success';
+    else echo 'Unsuccess';
+}
+
+function removeCheckedAnswer($questionID, $answerID, $choiceID, $con)
+{
+    $query = "DELETE FROM `answer_data` WHERE `questionID` = ? AND `answerID`= ? AND `choiceID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('sss', $questionID, $answerID, $choiceID);
+    $result = $stmt->execute();
+
+    if ($result) echo 'Deleted';
+    else echo 'Unsuccess';
 }
