@@ -168,8 +168,6 @@ $(document).ready(function () {
       .on('click', function () {
         $('#jobDescWrapper').removeClass('hidden');
         $('#jobCard').addClass('hidden')
-        // containerJob.addClass('selectedJob');//set the container that has been clicked as selected container
-        //viewing of particular job
         viewOfCareer(careerID);
       })
 
@@ -187,8 +185,7 @@ $(document).ready(function () {
     //once the bottom ends, it will reach another sets of data (post)
     if (scrollOffset + containerHeight + threshold >= contentHeight) {
       //get another set of post
-      // getPost();
-      console.log('good sheesh')
+      getWork(action, offsetCardJob, isCardView);
     }
   })
   function listOfJobDisplay(jobTitle, company, author, skills, companyLogo, careerID, location, isSaved) {

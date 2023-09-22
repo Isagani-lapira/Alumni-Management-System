@@ -984,7 +984,7 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- CENTER DIV -->
-          <div class="center-div w-full  overflow-y-auto jobDescript">
+          <div class="center-div w-full jobDescript">
             <div class="content-div rounded-md text-sm h-full">
               <div id="jobDescWrapper" class="tab-content p-3 w-full mx-auto hidden h-full">
                 <!-- JOB DESC. -->
@@ -1054,8 +1054,8 @@ function getAccDetails($con, $personID)
                 </div>
 
               </div>
-              <div>
-                <div id="jobCard" class="w-full h-full grid grid-cols-3 gap-2 overflow-y-auto p-5"></div>
+              <div class="h-full">
+                <div id="jobCard" class="w-full h-full grid grid-cols-3 overflow-y-auto gap-2 p-5"></div>
               </div>
 
             </div>
