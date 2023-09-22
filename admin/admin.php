@@ -2034,7 +2034,7 @@ function dateInText($date)
             <div class="optionContainer">
               <div class="fieldWrapper flex items-center gap-2">
                 <iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>
-                <input type="text" class="py-2 choicesVal" placeholder="Add choice">
+                <input type="text" class="py-2 choicesVal w-full" placeholder="Add choice">
               </div>
             </div>
           </div>
@@ -2128,14 +2128,14 @@ function dateInText($date)
 
     </div>
 
-    <div id="insertCategoryModal" class="modal fixed inset-0 z-50 flex justify-center p-3">
-      <div id="modalCategoryInsertion" class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3">
+    <div id="insertCategoryModal" class="modal fixed inset-0 z-50 flex justify-center p-3 hidden">
+      <div class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3">
         <h3 class="font-bold text-xl text-center text-greyish_black py-2 border-b border-gray-300">Insert New Category</h3>
-        <input type="text" placeholder="Enter a new category..." class="w-full border-b border-gray-300 p-3 my-3">
+        <input id="categoryInputVal" type="text" placeholder="Enter a new category..." class="w-full border-b border-gray-300 p-3 my-3">
 
         <div class="flex justify-end gap-2">
           <button class="text-gray-400 hover:text-gray-500">Cancel</button>
-          <button class="text-white bg-green-400 rounded-lg py-2 px-4 hover:bg-green-500 font-bold">Create</button>
+          <button id="addNewCategoryBtn" class="text-white bg-green-400 rounded-lg py-2 px-4 hover:bg-green-500 font-bold">Create</button>
         </div>
       </div>
     </div>

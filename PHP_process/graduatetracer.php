@@ -316,8 +316,10 @@ function updateTitleForm($formID, $formTitle, $con)
 
 function addNewCategory($categoryName, $formID, $con)
 {
+    $querySequence = "SELECT `sequence` FROM `question_category` WHERE `formID` = '$formID' ";
+    $nextSequence = checkSequence($querySequence, $con);
     $query = "INSERT INTO `question_category`(`categoryID`, `category_name`, 
-    `formID`,`status`) VALUES (?, ?, ?, ?)";
+    `formID`,`status`,`sequence`) VALUES (?, ?, ?, ?,?)";
 
     $stmt = mysqli_prepare($con, $query);
 
@@ -326,7 +328,7 @@ function addNewCategory($categoryName, $formID, $con)
     if ($stmt) {
         $categoryID = substr(md5(uniqid()), 0, 29);
         $status = 'available';
-        $stmt->bind_param("ssss", $categoryID, $categoryName, $formID, $status);
+        $stmt->bind_param("sssss", $categoryID, $categoryName, $formID, $status, $nextSequence);
         $result = $stmt->execute();
 
         if ($result) {

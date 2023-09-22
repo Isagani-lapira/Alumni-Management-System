@@ -47,6 +47,15 @@ $(document).ready(function () {
                         .html('<iconify-icon icon="fluent:add-12-filled" width="24" height="24"></iconify-icon> ' + 'Add Category')
                         .on('click', function () {
                             // modal for inserting new category
+                            $('#insertCategoryModal').removeClass('hidden')
+
+                            // submitting new category
+                            $('#addNewCategoryBtn').on('click', function () {
+                                const newCatVal = $('#categoryInputVal').val().trim()
+                                if (newCatVal !== '')
+                                    addNewCategory(tracerID, newCatVal)
+                            })
+
                         })
                     $('#categoryWrapper').append(newCategoryBtn)
 
@@ -882,4 +891,36 @@ $(document).ready(function () {
             error: error => { console.log(error) }
         })
     })
+
+
+    function addNewCategory(formID, categoryValue) {
+        const categoryName = categoryValue
+        const action = "insertNewCategory";
+        const formData = new FormData();
+
+        //data to be sent
+        formData.append('action', action)
+        formData.append('categoryName', categoryName)
+        formData.append('formID', formID)
+
+        //proccess insertion
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'JSON',
+            success: response => {
+                if (response.result == "Success") {
+                    // hide and restart the insertion category modal
+                    $('#insertCategoryModal').addClass('hidden')
+                    $('#categoryInputVal').val()
+                    $('#categoryWrapper').empty()
+                    retrieveCategory()
+                }
+            }
+        })
+    }
+
 })
