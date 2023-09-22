@@ -211,7 +211,7 @@ $(document).ready(function () {
             }
 
             const questionChoicesWrapper = $('<div>')
-                .addClass('flex flex-col gap-2')
+                .addClass('flex flex-col')
 
             //drop down selection of input type
             const questionTypeDropDown = $('<select>')
@@ -331,7 +331,7 @@ $(document).ready(function () {
                     removeQuestions(questionID, questionWrapper)
                 })
             const questionWrapper = $('<div>')
-                .addClass('p-2 center-shadow rounded-lg w-4/5 mx-auto questionSet relative')
+                .addClass('p-2 center-shadow rounded-lg w-4/5 mx-auto questionSet relative mb-5')
                 .append(questionName, questionTypeDropDown, questionChoicesWrapper, addOption, removeQuestionBtn)
 
             $(container).append(questionWrapper)

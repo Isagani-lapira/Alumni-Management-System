@@ -1016,6 +1016,12 @@ $(document).ready(function () {
     $('#TracerWrapper').addClass('hidden');
     $('#categoryWrapper').addClass('hidden');
   })
+
+
+  $('#closeQuestionModal').on('click', function () {
+    $('#newQuestionModal').addClass('hidden')
+    $('#newQuestionInputName, .choicesVal').val('')
+  })
 });
 
 let typingTimeout = null;

@@ -2024,7 +2024,7 @@ function dateInText($date)
           <input id="newQuestionInputName" type="text" class="w-full text-center text-lg border-b border-gray-300" placeholder="Untitled Question" />
           <!-- body -->
           <div class="p-3 text-gray-400 mb-2">
-            <select id="inputTypeModalNew" class="w-full p-2 outline-none center-shadow mb-2" name="" id="">
+            <select id="inputTypeModalNew" class="w-full p-2 outline-none center-shadow mb-2">
               <option value="Radio">Radio Type</option>
               <option value="Input">Input Type</option>
               <option value="Checkbox">Chexbox Type</option>
