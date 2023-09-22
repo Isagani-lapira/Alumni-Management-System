@@ -238,6 +238,31 @@
                                     </div>
 
                                 </div>
+
+                                <!-- Registration Complete Modal -->
+                                <div id="registrationModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+                                    <div class="modal-overlay absolute inset-0 bg-black opacity-50"></div>
+                                    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                                        <!-- Modal Content -->
+                                        <div class="modal-content py-4 text-left px-6">
+                                            <!-- Success Icon -->
+                                            <div class="flex justify-center">
+                                                <i class="fas fa-check-circle text-6xl text-green-500"></i>
+                                            </div>
+                                            <!-- Success Text -->
+                                            <h2 class="text-2xl font-semibold text-center text-green-500 my-4">SUCCESS</h2>
+                                            <!-- Description -->
+                                            <p class="text-gray-700 text-center mb-4">
+                                                You have successfully registered.
+                                            </p>
+                                            <!-- Go Back Button -->
+                                            <div class="text-center">
+                                                <button id="goBackButton" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Go Back to Homepage</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -527,8 +552,8 @@
 
                     if (isValid) {
                         // All fields are valid, you can submit the form or proceed to the next step.
-                        // In this example, we'll just show a success message.
-                        alert("Form submitted successfully!");
+                        // In this example, we'll just show the registration complete modal.
+                        openRegistrationCompleteModal(); // Call the function to open the modal
                     }
                 }
 
@@ -538,6 +563,11 @@
                     return regex.test(password);
                 }
 
+                // Function to open the registration complete modal
+                function openRegistrationCompleteModal() {
+                    const registrationModal = document.getElementById('registrationModal');
+                    registrationModal.classList.remove('hidden');
+                }
 
 
             </script>
