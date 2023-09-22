@@ -25,6 +25,11 @@ $(document).ready(function () {
     loadURL(link, $("#main-root"));
   });
 
+  // Handles Sidebar collapse using the hamburger menu
+  $("#toggleSidebarIcon").on("click", function () {
+    $("#sidebar").toggleClass("is-collapsed");
+  });
+
   function handleLinkFocusChange(pageName) {
     // changes the state of nav links to highlight focus
     const elem = $(`nav li a[data-link="${pageName}"`);

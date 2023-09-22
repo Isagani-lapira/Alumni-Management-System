@@ -136,10 +136,9 @@
                     </div>
                 </div>
 
-                <!-- view more -->
+                 view more -->
             <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
-        </div> -->
-
+        </div>
     </div>
     <!-- End recent-announcement -->
 
