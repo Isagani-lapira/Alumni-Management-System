@@ -37,6 +37,7 @@ $(document).ready(function () {
                         if (typeOfNotif == "comment") content = "Commented on your post"
                         else if (typeOfNotif == "like") content = "Liked on your post"
                         else if (typeOfNotif == "added post") content = "added a post"
+                        else if (typeOfNotif == "delete") content = "Admin deleted your post"
 
                         displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID)
                     }
