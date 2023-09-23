@@ -128,7 +128,7 @@ class Notification
         else echo 'Failed';
     }
 
-    public function insertNotif($postID, $username, $typeOfNotif, $con)
+    public function insertNotif($postID, $username, $typeOfNotif, $con, $details = NULL)
     {
         $random = rand(0, 5000);
         $uniqID = md5(uniqid());
@@ -139,11 +139,23 @@ class Notification
         $is_read = 0; //default
 
         $query = "INSERT INTO `notification`(`notifID`, `postID`, `username`, 
-        `added_by`, `typeOfNotif`, `date_notification`, `timestamp`, `is_read`) 
-        VALUES ('$notifID','$postID','$username','$added_by','$typeOfNotif',
-        '$date','$timestamp','$is_read')";
+        `added_by`, `typeOfNotif`, `date_notification`, `timestamp`, `is_read`,`details`) 
+        VALUES (? ,? ,? ,? ,? ,? ,? ,? ,? )";
 
-        $result = mysqli_query($con, $query);
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param(
+            'sssssssss',
+            $notifID,
+            $postID,
+            $username,
+            $added_by,
+            $typeOfNotif,
+            $date,
+            $timestamp,
+            $is_read,
+            $details
+        );
+        $result = $stmt->execute();
 
         if ($result) return true;
         else return false;

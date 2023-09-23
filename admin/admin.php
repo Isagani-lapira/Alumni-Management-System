@@ -1560,26 +1560,6 @@ function dateInText($date)
       </form>
     </div>
 
-    <!-- Delete modal -->
-    <!-- modal -->
-    <div id="modalDelete" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
-        text-grayish  top-0 left-0 hidden">
-      <div class="modal-container w-1/3 bg-white rounded-lg p-3 mt-2">
-        <div class="modal-header py-5">
-          <p class="text-greyish_black text-lg text-center w-1/2 mx-auto">Are you sure you want to delete post of
-            Patrick?</p>
-        </div>
-        <div class="modal-body px-3">
-          <input id="reasonForDel" class="w-full pe-3 text-center" type="text" placeholder="Add reason for deleting">
-        </div>
-
-        <!-- Footer -->
-        <div class="modal-footer flex items-end flex-row-reverse px-3 mt-3">
-          <button class="bg-accent py-2 rounded px-5 text-white ms-3 hover:bg-darkAccent hover:font-semibold">Delete</button>
-          <button class="cancelDel py-2 rounded px-5 text-grayish border hover:bg-slate-400 hover:text-white">Cancel</button>
-        </div>
-      </div>
-    </div>
 
     <!-- View profile modal -->
     <div id="viewProfile" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
@@ -2129,6 +2109,19 @@ function dateInText($date)
         </div>
       </div>
     </div>
+
+    <!-- deletion post modal -->
+    <div class="deleteModalPost modal fixed inset-0 z-50 flex justify-center p-3 hidden">
+      <div class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3 center-shadow slide-bottom">
+        <h3 class="text-lg text-greyish_black text-center ">Are you sure you want to delete post this post?</h3>
+        <input id="reasonForDel" class="text-gray-400 py-2 w-full text-center" type="text" placeholder="State your reason for deleting">
+        <div class="flex items-center justify-end my-2 gap-2">
+          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button id="deleteByAdminBtn" class="bg-accent py-1 px-4 text-white hover:bg-darkAccent rounded-lg">Delete</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
