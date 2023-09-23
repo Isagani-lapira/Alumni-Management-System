@@ -553,21 +553,7 @@ $(document).ready(function () {
       $('#appTxt').removeClass('font-bold')
 
       applicationBtn.on('click', function () {
-        // check first if user have resume
-        checkUserResumeStatus()
-          .then(response => {
-            if (response) {
-              //proceed on applying
-              applyJob(careerID);  //application
-            }
-            else {
-              // display the error
-              $('#resumeModal').removeClass('hidden')
-              $('#resumeModal button').on('click', function () {
-                $('#resumeModal').addClass('hidden')
-              })
-            }
-          })
+        applyJob(careerID);  //application
       })
     }
 
@@ -577,26 +563,6 @@ $(document).ready(function () {
     window.location.href = "../student-alumni/profile.php?resumeOpen=" + true;
   })
 
-  function checkUserResumeStatus() {
-
-    // return the result of findings of resume
-    return new Promise((resolve, reject) => {
-      const action = 'haveResume'
-      const formData = new FormData();
-      formData.append('action', action)
-
-      $.ajax({
-        url: '../PHP_process/resume.php',
-        method: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: response => { resolve(response) },
-        error: error => { reject(error) }
-      })
-    })
-
-  }
 
   function deleteApplication(careerID) {
     const action = {
@@ -653,10 +619,6 @@ $(document).ready(function () {
           //not yet set up
           $('#errorResumeModal').removeClass('hidden')
 
-          //hide the error message after 3 seconds
-          setTimeout(function () {
-            $('#errorResumeModal').addClass('hidden')
-          }, 3500)
         }
       },
       error: error => { console.log(error) }

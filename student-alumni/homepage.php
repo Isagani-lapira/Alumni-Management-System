@@ -587,7 +587,18 @@ function getAccDetails($con, $personID)
         <div id="yearbookContainer" class="hidden flex pt-48 z-10 w-full">
 
           <!-- finished answering -->
-          <div id="finishedContainer" class="hidden h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3"></div>
+          <div id="finishedContainer" class="hidden h-full w-full overflow-y-auto flex flex-col gap-3 items-start p-5 text-accent relative">
+            <h2 class="text-lg md:text-5xl font-bold italic">Welcome to</h2>
+            <h2 class="text-lg md:text-5xl font-bold">BulSU Connect Community!</h2>
+            <p class="w-1/2 text-sm md:text-lg">Thank you for answering the Graduate Tracer form,
+              you are now connected to the community. Stay tuned for the more updates.</p>
+
+            <a href="javascript:location.reload(true);" class="text-center text-sm md:font-xl md:w-1/3 py-4 rounded-md text-white font-bold bg-accent hover:bg-darkAccent my-3">Back to Homepage</a>
+
+            <div class="flex justify-end absolute bottom-0">
+              <img src="../assets/alumni_tracer_bg.png" class="w-2/3" alt="">
+            </div>
+          </div>
           <!-- front page -->
           <div id="frontpageTracer" class=" h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3">
             <img src="../assets/tracer_header_img.png" class="w-1/3 h-56" alt="">
@@ -1083,7 +1094,8 @@ function getAccDetails($con, $personID)
             <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
             </lord-icon>
             <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
-            <p class=" text-center text-gray-500">Your resume appears to not have been set up yet. Set it first before applying.</p>
+            <p class=" text-center text-gray-500">You appear to have forgotten to include a résumé. Before applying for a position, please edit your resume. Click the link below to be forwarded to the resume area.</p>
+            <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 my-5 text-center w-full cursor-pointer">Click Me</span>
           </div>
 
         </div>
@@ -1206,18 +1218,6 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
-        <!-- no resume prompt -->
-        <div id="resumeModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-          <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex items-center flex-col gap-2 p-5 relative">
-            <button class="hover:bg-accent rounded-full border border-white absolute -top-1 -right-11 p-2 flex items-center text-white">
-              <iconify-icon icon="ei:close" width="24" height="24"></iconify-icon>
-            </button>
-            <img class=" w-32" src="../assets/icons/robot-img.png" alt="">
-            <span class=" text-3xl font-bold text-accent">Oopss!</span>
-            <p class=" text-center">You appear to have forgotten to include a résumé. Before applying for a position, please edit your resume. Click the link below to be forwarded to the resume area.</p>
-            <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 my-5">Click Me</span>
-          </div>
-        </div>
 
       </div>
 
