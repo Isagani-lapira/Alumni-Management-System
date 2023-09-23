@@ -13,9 +13,10 @@ class Alumni
         else return false;
     }
 
-    function getAlumniRecord($con)
+    function getAlumniRecord($offset, $con)
     {
-        $query = "SELECT * FROM `alumni`";
+        $maxLimit = 10;
+        $query = "SELECT * FROM `alumni` ORDER BY `batchYr` DESC LIMIT $offset,$maxLimit";
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 

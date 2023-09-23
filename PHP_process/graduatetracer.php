@@ -637,9 +637,9 @@ function getTracerPercentage($con)
             $alumniCount = $alumniObj->getAlumniCount($con);
 
             //get the percentage of already answer
-            $totalPercentage = ($totalAnswer / $alumniCount) * 100;
+            $totalPercentage = round(($totalAnswer / $alumniCount) * 100);
             $maxPercentage = 100;
-            $notYetAnswering = $maxPercentage - $totalPercentage;
+            $notYetAnswering = round($maxPercentage - $totalPercentage);
 
             $data = array(
                 "answered" => $totalPercentage,

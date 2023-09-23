@@ -555,12 +555,10 @@ function dateInText($date)
         <!-- alumni record content -->
         <div id="alumnRecord-tab" class="p-5">
           <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
-
           <div class="flex justify-end text-xs text-greyish_black">
-
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 
-          bg-accent text-white hover:bg-darkAccent">Export as PDF
+            bg-accent text-white hover:bg-darkAccent">Export as PDF
             </button>
 
           </div>
@@ -621,6 +619,11 @@ function dateInText($date)
             <tbody id="alumniTB" class="text-sm">
             </tbody>
           </table>
+          <div class="navigationAlumniRecord flex justify-end items-center gap-2 mt-2">
+            <button class="prevBtnAlumRecord text-gray-400 hover:text-gray-500">Previous</button>
+            <button class="nextBtnAlumRecord bg-accent text-white hover:bg-darkAccent px-3 py-2 rounded-md">Next</button>
+          </div>
+
           <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
         </div>
 

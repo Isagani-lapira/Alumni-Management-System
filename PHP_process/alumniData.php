@@ -11,7 +11,8 @@ if (isset($_POST['action'])) {
     switch ($action) {
         case 'readAll':
             $alumni = new Alumni();
-            $alumni->getAlumniRecord($mysql_con);
+            $offset = $_POST['offset'];
+            $alumni->getAlumniRecord($offset, $mysql_con);
             break;
     }
 } else {
