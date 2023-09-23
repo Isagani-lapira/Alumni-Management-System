@@ -325,11 +325,11 @@ function dateInText($date)
                     <p class="text-accent font-semibold">TRACER STATUS </p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Already Answered</p>
-                      <span class="text-accent">73%</span>
+                      <span id="alreadyAnswer" class="text-accent"></span>
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Haven't answer yet</p>
-                      <span class="text-accent">27%</span>
+                      <span id="notYetAnswering" class="text-accent"></span>
                     </div>
                   </div>
                 </div>
@@ -2133,6 +2133,7 @@ function dateInText($date)
   <script src="../js/admin.js"></script>
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>
+  <script src="../js/alumnirecord.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>

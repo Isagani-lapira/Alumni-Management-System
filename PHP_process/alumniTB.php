@@ -56,4 +56,17 @@ class Alumni
 
         echo json_encode($alumniData);
     }
+
+    function getAlumniCount($con)
+    {
+        $count = 0;
+        $query = "SELECT COUNT(*) AS 'total' FROM `alumni`";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result)
+            $count = $result->fetch_assoc()['total'];
+
+        return $count;
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 
 require_once 'connection.php';
-
+require_once 'alumniTB.php';
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
     //perform necessary action
@@ -93,6 +93,8 @@ if (isset($_POST['action'])) {
         $choiceID = $_POST['choiceID'];
         $result = haveSection($choiceID, $mysql_con);
         echo $result;
+    } else if ($action == 'getTotalTracer') {
+        getTracerPercentage($mysql_con);
     }
 }
 
@@ -610,4 +612,40 @@ function retrieveTracerData($con)
     );
 
     echo json_encode($data);
+}
+
+function getTracerPercentage($con)
+{
+    // get the latest tracer form
+    $query = "SELECT `tracer_deployID` FROM `tracer_deployment` ORDER BY `timstamp` DESC LIMIT 1";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result) {
+        $tracerID = $result->fetch_assoc()['tracer_deployID'];
+        // get the total number of answer
+        $queryTotal = "SELECT COUNT(*) as 'total_answer' FROM `answer` WHERE `tracer_deployID` = ?";
+        $stmtTotal = mysqli_prepare($con, $queryTotal);
+        $stmtTotal->bind_param('s', $tracerID);
+        $stmtTotal->execute();
+        $resultTotal = $stmtTotal->get_result();
+
+        if ($resultTotal) {
+            $totalAnswer = $resultTotal->fetch_assoc()['total_answer'];
+            $alumniObj = new Alumni();
+            $alumniCount = $alumniObj->getAlumniCount($con);
+
+            //get the percentage of already answer
+            $totalPercentage = ($totalAnswer / $alumniCount) * 100;
+            $maxPercentage = 100;
+            $notYetAnswering = $maxPercentage - $totalPercentage;
+
+            $data = array(
+                "answered" => $totalPercentage,
+                "notyetAnswering" => $notYetAnswering
+            );
+            echo json_encode($data);
+        }
+    }
 }

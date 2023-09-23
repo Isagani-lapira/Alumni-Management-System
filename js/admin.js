@@ -573,68 +573,6 @@ $(document).ready(function () {
   });
 
 
-  $('#alumniLi').on('click', function () {
-    $("#alumniTB").empty()
-    getAlumniRecord()
-  })
-
-  function getAlumniRecord() {
-    let actionAlumni = {
-      action: "readAll",
-    };
-
-    let alumniData = new FormData();
-    alumniData.append("action", JSON.stringify(actionAlumni));
-
-    let alumniTB = $("#alumniTB");
-    let prompt = $("#alumniNoRecMsg");
-    $.ajax({
-      url: "../PHP_process/alumniData.php",
-      method: "POST",
-      data: alumniData,
-      processData: false,
-      contentType: false,
-      success: (response) => {
-        const parsedResponse = JSON.parse(response);
-        if (parsedResponse.result == "Unsuccess")
-          //no available data
-          prompt.removeClass("hidden");
-        else {
-          prompt.addClass("hidden");
-          //display the data
-          let dataLength = parsedResponse.studentNo.length;
-          for (let i = 0; i < dataLength; i++) {
-            //retrieve data from json
-            let studNo = parsedResponse.studentNo[i];
-            let fullname = parsedResponse.fullname[i];
-            let colCode = parsedResponse.colCode[i];
-            let batchYr = parsedResponse.batchYr[i];
-            let employmentStatus = parsedResponse.employmentStat[i];
-
-            //creation of table data
-            let tr = $("<tr>");
-            let tdStudentNo = $("<td>").text(studNo);
-            let tdfullname = $("<td>").text(fullname);
-            let tdcolCode = $("<td>").text(colCode);
-            let tdbatchYr = $("<td>").text(batchYr);
-            let tdemploymentStatus = $("<td>").text(employmentStatus);
-
-            tr.append(
-              tdStudentNo,
-              tdfullname,
-              tdcolCode,
-              tdbatchYr,
-              tdemploymentStatus
-            );
-            alumniTB.append(tr); //display to the table
-          }
-        }
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
 
   //sign out
   $("#signout").on("click", function () {
