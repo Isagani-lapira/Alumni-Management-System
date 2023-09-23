@@ -17,6 +17,7 @@ if (isset($_POST['action'])) {
 
 function insertionOfData($con)
 {
+    session_start();
     $personID = $_SESSION['personID'];
     $random = rand(0, 5000);
     $uniqID = substr(md5(uniqid()), 0, 10);
@@ -74,7 +75,6 @@ function insertionOfData($con)
                                 if ($workExp) $checker = true;
                             }
                             if ($checker) {
-
                                 if (insertSkill($con, $resumeID)) {
                                     $resultQuery = insertReference($con, $resumeID);
 

@@ -310,6 +310,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
+                console.log(response)
                 if (response == "Successful") {
                     //display the successful modal
                     $('#editResumeModal').addClass('hidden')

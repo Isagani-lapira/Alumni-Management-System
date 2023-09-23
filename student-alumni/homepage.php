@@ -456,10 +456,10 @@ function getAccDetails($con, $personID)
               </div>
 
               <div class="p-3 text-gray-400 border-t border-gray-400 flex justify-between">
-                <div class="flex items-center gap-2">
+                <button id="aplicantListBtn" class="flex items-center gap-2 cursor-text">
                   <iconify-icon icon="uiw:user" style="color: #868e96;" width="18" height="18"></iconify-icon>
                   <span id="jobApplicant"></span>
-                </div>
+                </button>
 
                 <div class="flex items-center gap-2">
                   <iconify-icon icon="ri:verified-badge-line" style="color: #868e96;" width="18" height="18"></iconify-icon>
@@ -468,6 +468,19 @@ function getAccDetails($con, $personID)
 
               </div>
             </div>
+
+          </div>
+        </div>
+
+        <!-- list of applicant -->
+        <div id="listOfApplicantModal" class="post modal fixed inset-0 flex justify-center p-3 hidden">
+          <div class="modaListApplicant modal-container w-1/3 h-max bg-white rounded-md relative slide-bottom p-5">
+            <button class="p-1 text-gray-300 items-center justify-center flex border border-gray-400 rounded-full hover:bg-accent absolute top-0 -right-11">
+              <iconify-icon icon="ei:close" width="24" height="24"></iconify-icon>
+            </button>
+            <h3 class="text-center font-bold text-xl py-2 text-greyish_black border-b border-gray-300">Applicant List</h3>
+
+            <div id="listApplicantContainer" class="modaListApplicant overflow-y-auto h-max p-3 flex flex-col gap-3"></div>
 
           </div>
         </div>

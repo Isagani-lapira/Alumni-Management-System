@@ -139,6 +139,9 @@ if (isset($_POST['action'])) {
             $username = $_SESSION['username'];
             $offset = $_POST['offset'];
             $readCareer->userPost($username, $offset, $mysql_con);
+        } else if ($action == 'applicantDetails') {
+            $careerID = $_POST['careerID'];
+            $apply->getApplicantDetails($careerID, $mysql_con);
         }
     } catch (Exception $e) {
         echo $e->getMessage();
