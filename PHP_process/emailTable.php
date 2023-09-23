@@ -107,4 +107,42 @@ class EmailTable
 
         $this->emailDetails($query, $con);
     }
+
+    public function filterRetrieval($personID, $offset, $colCode, $con)
+    {
+        $maxLimit = 10;
+        $query = "SELECT * FROM `email` WHERE `personID` = ? AND 
+        `colCode`=? ORDER by `dateSent` DESC LIMIT ? , $maxLimit";
+
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('sss', $personID, $colCode, $offset);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = mysqli_num_rows($result);
+
+        // //store every email in these array
+        $recipient = array();
+        $colCode = array();
+        $dateSent = array();
+
+        $response = "Unsuccess";
+        if ($result && $row) {
+            $response = "Success";
+            while ($data = mysqli_fetch_assoc($result)) {
+                $recipient[] = $data['recipient'];
+                $colCode[] = $data['colCode'];
+                $dateSent[] = $data['dateSent'];
+            }
+        }
+
+        // //data received on the client side
+        $data = array(
+            "result" => $response,
+            "recipient" => $recipient,
+            "colCode" => $colCode,
+            "dateSent" => $dateSent
+        );
+
+        echo json_encode($data); //return data as json
+    }
 }

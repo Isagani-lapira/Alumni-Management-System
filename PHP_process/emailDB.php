@@ -30,5 +30,11 @@ if (isset($_POST['action'])) {
             $offset = $_POST['offset'];
             $emailData->retrieveEmailsSent($personID, $offset, $mysql_con);
             break;
+        case 'retrieveByFilter':
+            $personID = $_SESSION['personID'];
+            $offset = $_POST['offset'];
+            $colCode = $_POST['colCode'];
+            $emailData->filterRetrieval($personID, $offset, $colCode, $mysql_con);
+            break;
     }
 } else echo 'ayaw pumasok';

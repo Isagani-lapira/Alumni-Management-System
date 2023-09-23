@@ -183,19 +183,27 @@ $(document).ready(function () {
     let emailOffset = 0;
     let tempOffsetEmail = 0;
     let countNextEmail = 0;
+
+    const actionByFilter = "retrieveByFilter"
+    const actionDefault = "retrieveEmails"
+    let colCodeTracker = ""
+    let actionTracker = ""
     $('#emailLi').on('click', function () {
         emailOffset = 0;
-        $('#emailTBody').empty();
+        countNextEmail = 0;
+        tempOffsetEmail = 0;
         //retrieve emails
-        getEmailSent()
+        getEmailSent(actionDefault)
+        actionTracker = actionDefault
     })
 
-    function getEmailSent() {
+    function getEmailSent(actionData, colCode = "") {
         //perform ajax operation 
-        const action = { action: 'retrieveEmails' };
+        const action = { action: actionData };
         const formData = new FormData();
         formData.append('action', JSON.stringify(action));
         formData.append('offset', emailOffset);
+        formData.append('colCode', colCode);
 
         $.ajax({
             url: '../PHP_process/emailDB.php',
@@ -205,6 +213,7 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'JSON',
             success: response => {
+                $('#emailTBody').empty(); //remove the data previously retrieved
                 //check for the data retrieved
                 if (response.result == "Success") {
                     const length = response.recipient.length;
@@ -244,18 +253,35 @@ $(document).ready(function () {
         emailOffset = countNextEmail
         if (countNextEmail >= 0) {
             countNextEmail -= tempOffsetEmail
-            $('#emailTBody').empty();
             $('#nextEmail').removeClass('hidden')
-            getEmailSent()
+            getEmailSent(actionTracker, colCodeTracker)
         }
     })
 
     //retrieve new sets of emails
     $('#nextEmail').on('click', function () {
         countNextEmail += tempOffsetEmail
-        console.log(countNextEmail)
-        $('#emailTBody').empty();
-        getEmailSent()
+        getEmailSent(actionTracker, colCodeTracker)
         $('#prevEmail').removeClass('hidden')
     })
+
+    $('#emCol').on('change', function () {
+        // restart email counting
+        emailOffset = 0;
+        countNextEmail = 0;
+        tempOffsetEmail = 0;
+        let colCode = $(this).val();
+
+        if (colCode == '') {
+            getEmailSent(actionDefault)
+            actionTracker = actionDefault
+            colCodeTracker = ""
+        }
+        else {
+            getEmailSent(actionByFilter, colCode) //filter data
+            actionTracker = actionByFilter
+            colCodeTracker = colCode
+        }
+    })
+
 })

@@ -500,7 +500,7 @@ function dateInText($date)
               <p class="text-sm font-thin">Course</p>
               <!-- college selection -->
               <select name="college" id="emCol" class="w-full border border-grayish p-2 rounded-lg">
-                <option value="" selected disabled hidden>All</option>
+                <option value="" selected>All</option>
                 <?php
                 require_once '../PHP_process/connection.php';
                 $query = "SELECT * FROM `college`";
