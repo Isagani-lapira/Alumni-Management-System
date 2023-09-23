@@ -392,35 +392,6 @@ $(document).ready(function () {
       error: (error) => { console.log(error) }
     })
   }
-  //checking if the career is already in saved
-  function checkCareerMarked(careerID) {
-    return new Promise((resolve, reject) => {
-      // data to be sent
-      let formData = new FormData();
-      formData.append('action', 'checkBookmark');
-      formData.append('careerID', careerID);
-
-      // process checking
-      $.ajax({
-        method: 'POST',
-        url: '../PHP_process/bookmark.php',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: (response) => {
-          if (response === 'Exist') {
-            resolve('exist'); // Resolve the promise with the value 'exist'
-          } else {
-            resolve('not exist'); // Resolve the promise with the value 'not exist'
-          }
-        },
-        error: (error) => {
-          console.log(error);
-          reject(error); // Reject the promise if an error occurs
-        },
-      });
-    });
-  }
 
   function getCurrentDate() {
     var today = new Date();
