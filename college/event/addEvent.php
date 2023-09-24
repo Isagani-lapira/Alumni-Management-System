@@ -80,10 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // set new event
     $result = $event->setNewEvent($eventInformation, $colCode, $adminID);
+
     header("Content-Type: application/json; charset=UTF-8");
     if ($result === TRUE) {
-        //todo modify later to use ajax
-        logEventActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
+        $action = "event";
+        $details = " created an event";
+        setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
         echo json_encode(
             array(
                 'response' => 'Successful',

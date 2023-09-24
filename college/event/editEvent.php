@@ -92,7 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $event->setEditEvent($eventInformation, $colCode, $adminID);
     header("Content-Type: application/json; charset=UTF-8");
     if ($result === TRUE) {
-        logUpdateActivity($mysql_con, $adminID, $colCode);
+        $action = "updated";
+        $details = " updated an event";
+        setNewActivity($mysql_con, $adminID, $action, $details);
         echo json_encode(
             array(
                 'response' => 'Successful',

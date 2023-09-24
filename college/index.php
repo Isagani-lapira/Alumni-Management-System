@@ -58,7 +58,9 @@ if (
             $_SESSION['fullName'] = $fullname;
             $_SESSION['adminID'] = $adminID;
             $_SESSION['colCode'] = $colCode;
-            logSigninActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
+            $action = "signin";
+            $details = "signed in";
+            setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
         }
     }
 }

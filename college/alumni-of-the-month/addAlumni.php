@@ -92,7 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $alumni->setNewAlumniOfTheMonth($id, $alumniInformation,);
     header("Content-Type: application/json; charset=UTF-8");
     if ($result === TRUE) {
-        logEventActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
+        $action = "posted";
+        $details = "posted a new Alumni of the Month";
+        setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
         echo json_encode(
             array(
                 'response' => 'Successful',

@@ -5,7 +5,8 @@ session_start();
 require "./logging.php";
 require "./connection.php";
 
-logSignoutActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
+
+setNewActivity($mysql_con, $_SESSION['adminID'], "signout", "signed out");
 
 // Unset all of the session variables.
 $_SESSION = array();
