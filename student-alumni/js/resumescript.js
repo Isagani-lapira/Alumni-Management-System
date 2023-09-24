@@ -89,34 +89,15 @@ $(document).ready(function () {
 
     }
 
-
-    function setResume() {
-        let data = $('#formResume')[0];
-        var formData = new FormData(data);
-
-        //gather data that collected
-        const action = "insertData"
-        const firstname = $('#firstname').val()
-        const lastname = $('#lastname').val()
-        const address = $('#address').val()
-        const contactNo = $('#contactNo').val()
-        const emailAdd = $('#emailAdd').val()
-        const objective = $('#objectiveInput').val()
-
-        //data to be send
-        formData.append('action', action)
-        formData.append('firstname', firstname)
-        formData.append('lastname', lastname)
-        formData.append('address', address)
-        formData.append('contactNo', contactNo)
-        formData.append('emailAdd', emailAdd)
-        formData.append('objective', objective)
-        formData.append('primary', JSON.stringify(primaryEduc))
-        formData.append('secondary', JSON.stringify(secondaryEduc))
-        formData.append('tertiary', JSON.stringify(tertiaryEduc))
-        formData.append('work', JSON.stringify(work));
-        formData.append('skills', JSON.stringify(skills));
-        formData.append('references', JSON.stringify(referenceData));
+    function updateResumeDetails(actionPerform, table, column, value, recentVal, resumeID) {
+        const action = actionPerform;
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('table', table);
+        formData.append('column', column);
+        formData.append('value', value);
+        formData.append('recentVal', recentVal);
+        formData.append('resumeID', resumeID);
 
         $.ajax({
             url: '../PHP_process/resume.php',
@@ -124,22 +105,10 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: response => {
-                console.log(response)
-                if (response == "Successful") {
-                    //display the successful modal
-                    $('#editResumeModal').addClass('hidden')
-                    $('#successModal').removeClass('hidden')
-                    //hide the success modal
-                    setTimeout(function () {
-                        $('#successModal').addClass('hidden')
-                    }, 7000)
-                } else { console.log("dito") }
-            },
-            error: error => { console.log(error) }
+            success: response => { console.log(response) },
+            error: error => { console.log(error) },
         })
     }
-
 
 
     $('.closeEditorResume').on('click', restartResume)
@@ -180,6 +149,7 @@ $(document).ready(function () {
                     // check if there's a value to be display
                     if (length > 0) {
                         //store the data that has been respond by the server
+                        const resumeID = response.resumeID
                         const objective = response.objective
                         const fullname = response.fullname
                         const contactNo = response.contactNo
@@ -191,7 +161,7 @@ $(document).ready(function () {
                         const references = response.references;
 
                         if (isEditting)
-                            addResumeDataToEditing(objective, skills, education, workExp, references)
+                            addResumeDataToEditing(resumeID, objective, skills, education, workExp, references)
                         else
                             setResumeDetails(objective, fullname, contactNo, address, emailAdd, skills, education, workExp, references);
                     }
@@ -202,7 +172,15 @@ $(document).ready(function () {
         })
     }
 
-    function addResumeDataToEditing(objective, skills, education, workExp, references) {
+    function addResumeDataToEditing(resumeID, objective, skills, education, workExp, references) {
+
+        const action = "updateResume";
+        const workTbl = "work_exp"
+        const educationTbl = "education"
+        const skillTbl = "resume_skill"
+        const referencesTbl = "reference_resume"
+        const resumeTbl = "resume"
+
         // set up the data for school details
         let length = education.educationLevel.length
         for (let i = 0; i < length; i++) {
@@ -213,8 +191,30 @@ $(document).ready(function () {
 
             // update value of input field
             $('#degree' + i).val(schoolName)
+                .on('change', function () {
+                    const newVal = $(this).val()
+                    const degree = "`degree`";
+                    let recentVal = schoolName;
+
+                    updateResumeDetails(action, educationTbl, degree, newVal, recentVal, resumeID);
+                })
+
             $('#startYr' + i).val(startedYr)
+                .on('change', function () {
+                    const newVal = $(this).val() + '-' + endYr
+                    const year = "`year`";
+                    let recentVal = startedYr + '-' + endYr;
+
+                    updateResumeDetails(action, educationTbl, year, newVal, recentVal, resumeID);
+                })
             $('#endYr' + i).val(endYr)
+                .on('change', function () {
+                    const newVal = startedYr + '-' + $(this).val()
+                    const year = "`year`";
+                    let recentVal = startedYr + '-' + endYr;
+
+                    updateResumeDetails(action, educationTbl, year, newVal, recentVal, resumeID);
+                })
         }
 
 
@@ -229,10 +229,47 @@ $(document).ready(function () {
             let endYr = years[1];
 
             $('#workTitle' + i).val(jobTitle)
+                .on('change', function () {
+                    const newVal = $(this).val()
+                    const job_title = "`job_title`";
+                    let recentVal = jobTitle;
+
+                    updateResumeDetails(action, workTbl, job_title, newVal, recentVal, resumeID);
+                })
             $('#workDescript' + i).val(workDescript)
+                .on('change', function () {
+                    const newVal = $(this).val()
+                    const description = "`work_description`";
+                    let recentVal = workDescript;
+
+                    updateResumeDetails(action, workTbl, description, newVal, recentVal, resumeID);
+                })
             $('#workCompanyName' + i).val(companyName)
+                .on('change', function () {
+                    const newVal = $(this).val()
+                    const companyNameCol = "`companyName`";
+                    let recentVal = companyName;
+
+                    updateResumeDetails(action, workTbl, companyNameCol, newVal, recentVal, resumeID);
+                })
+
             $('#workStartYr' + i).val(startYr)
+                .on('change', function () {
+                    const newVal = $(this).val() + '-' + endYr
+                    const year = "`year`";
+                    let recentVal = startYr + '-' + endYr;
+
+
+                    updateResumeDetails(action, workTbl, year, newVal, recentVal, resumeID);
+                })
             $('#workEndYr' + i).val(endYr)
+                .on('change', function () {
+                    const newVal = startYr + '-' + $(this).val()
+                    const year = "`year`";
+                    let recentVal = startYr + '-' + endYr
+
+                    updateResumeDetails(action, workTbl, year, newVal, recentVal, resumeID);
+                })
         }
 
 
@@ -240,6 +277,13 @@ $(document).ready(function () {
         let skillLength = skills.length;
         for (let i = 0; i < skillLength; i++) {
             $('#skill' + i).val(skills[i])
+                .on('change', function () {
+                    const newVal = $(this).val()
+                    const skillCol = "`skill`";
+                    let recentVal = skills[i];
+
+                    updateResumeDetails(action, skillTbl, skillCol, newVal, recentVal, resumeID);
+                })
         }
 
         // add references
@@ -247,18 +291,54 @@ $(document).ready(function () {
         for (let i = 0; i < refLength; i++) {
             let fullname = references.fullname[i];
             let jobTitle = references.jobTitle[i];
-            let emailAdd = references.fullname[i];
-            let contactNo = references.fullname[i];
+            let contactNo = references.contactNo[i];
+            let emailAdd = references.emailAdd[i];
 
 
             $('#refFN' + i).val(fullname)
+                .on('change', function () {
+                    const newVal = $(this).val()
+                    const fullnameCol = "`reference_name`";
+                    let recentVal = fullname;
+
+                    updateResumeDetails(action, referencesTbl, fullnameCol, newVal, recentVal, resumeID);
+                })
+
             $('#refJobTitle' + i).val(jobTitle)
-            $('#refContactNo' + i).val(emailAdd)
-            $('#refEmailAdd' + i).val(contactNo)
+                .on('change', function () {
+                    const newVal = $(this).val()
+                    const job_titleCol = "`job_title`";
+                    let recentVal = jobTitle;
+
+                    updateResumeDetails(action, referencesTbl, job_titleCol, newVal, recentVal, resumeID);
+                })
+            $('#refContactNo' + i).val(contactNo)
+                .on('change', function () {
+                    const newVal = $(this).val()
+                    const contactNoCol = "`contactNo`";
+                    let recentVal = contactNo;
+
+                    updateResumeDetails(action, referencesTbl, contactNoCol, newVal, recentVal, resumeID);
+                })
+            $('#refEmailAdd' + i).val(emailAdd)
+                .on('change', function () {
+                    const newVal = $(this).val()
+                    const emailAddCol = "`emailAddress`";
+                    let recentVal = emailAdd;
+
+                    updateResumeDetails(action, referencesTbl, emailAddCol, newVal, recentVal, resumeID);
+                })
         }
 
         // add value to summary
         $('#objectiveInput').val(objective)
+            .on('change', function () {
+                const newVal = $(this).val()
+                const objectiveCol = "`objective`";
+                let recentVal = objective;
+
+                updateResumeDetails(action, resumeTbl, objectiveCol, newVal, recentVal, resumeID);
+            })
 
 
     }

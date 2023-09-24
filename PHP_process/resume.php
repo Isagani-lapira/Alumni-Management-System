@@ -12,6 +12,13 @@ if (isset($_POST['action'])) {
         $personID = $_SESSION['personID'];
         $result = haveResume($personID, $mysql_con);
         echo $result;
+    } else if ($action == 'updateResume') {
+        $table = $_POST['table'];
+        $column = $_POST['column'];
+        $recentVal = $_POST['recentVal'];
+        $value = $_POST['value'];
+        $resumeID = $_POST['resumeID'];
+        updateResumeData($table, $column, $value, $resumeID, $recentVal, $mysql_con);
     }
 } else echo 'ayaw';
 
@@ -171,6 +178,7 @@ function retrieveResume($con)
 
     //data to be retrieve
     $response = "";
+    $resumeID = "";
     $objective = "";
     $fullname = "";
     $contactNo = "";
@@ -275,6 +283,7 @@ function retrieveResume($con)
     //send back the data as json
     $data = array(
         "response" => $response,
+        "resumeID" => $resumeID,
         "objective" => $objective,
         "fullname" => $fullname,
         "contactNo" => $contactNo,
@@ -299,4 +308,27 @@ function getResumeID($con)
     $resumeID = $data['resumeID'];
 
     return $resumeID;
+}
+
+function updateResumeDetail($column, $value, $resumeID, $con)
+{
+    $query = "UPDATE `resume` SET ? = ? WHERE `resumeID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('ss', $column, $value, $resumeID);
+    $result = $stmt->execute();
+
+    if ($result) echo 'Success';
+    else echo 'Unsuccess';
+}
+
+function updateResumeData($table, $column, $value, $resumeID, $recentVal, $con)
+{
+    $query = "UPDATE `$table` SET $column = ? WHERE `resumeID` = ?  AND $column = ? ";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('sss', $value, $resumeID, $recentVal);
+    $result = $stmt->execute();
+
+
+    if ($result) echo 'Success';
+    else echo 'Unsuccess';
 }
