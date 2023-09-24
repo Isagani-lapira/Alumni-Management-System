@@ -1,4 +1,7 @@
 <!-- dashboard content -->
+<?php session_start();
+?>
+
 <section id="dashboard-tab" class="container">
 
 
@@ -12,7 +15,7 @@
                 <span class="block text-lg text-white text-right">
                     Welcome Back <br />
                     <span class="font-semibold text-lg">
-                        Mr. Juan Dela Cruz
+                        <?= $_SESSION['fullName']; ?>
                     </span>
                 </span>
             </div>
@@ -27,11 +30,34 @@
 
                     <div class="text-2xl text-gray-400 font-bold">
                         <div>
-                            <span class="text-accent font-bold text-4xl mt-2 relative bottom-0">55000</span>
-                            <span>/10,000</span>
+                            <span class="text-accent font-bold text-4xl mt-2 relative bottom-0">
+                                <?php
+                                require_once('../model/Student.php');
+                                require_once('../model/Alumni.php');
+
+                                require_once('../php/connection.php');
+                                $student = new Student($mysql_con);
+                                $alumni = new Alumni($mysql_con);
+                                $studentCount = $student->getTotalCount(
+                                    $_SESSION['colCode']
+                                );
+                                $alumniCount = $alumni->getTotalCount(
+                                    $_SESSION['colCode']
+                                );
+
+                                echo ($alumniCount + $studentCount);
+                                ?>
+
+                            </span>
+                            <!-- <span>/10,000</span> -->
                         </div>
-                        <div class=""><span class="font-extrabold">300</span> <span class="font-normal capitalize text-lg">students</span></div>
-                        <div class="font-normal capitalize"><span class="font-extrabold">900</span> <span class="font-normal capitalize text-lg">alumni</span> </div>
+                        <div class=""><span class="font-extrabold">
+                                <?= $studentCount ?>
+                            </span> <span class="font-normal capitalize text-lg">students</span></div>
+                        <div class="font-normal capitalize"><span class="font-extrabold">
+                                <?= $alumniCount ?>
+
+                            </span> <span class="font-normal capitalize text-lg">alumni</span> </div>
                     </div>
                 </div>
                 <!-- new users -->
@@ -53,8 +79,33 @@
             <p class="  text-accent font-bold">RECENT ACTIVITIES
                 <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
             </p>
+            <?php
+            require_once('../php/connection.php');
+            require_once('../php/logging.php');
 
-            <div class="dash-content p-3 pt-0   rounded-md">
+            $logs = getRecentCollegeAcivity($mysql_con, $_SESSION['adminID']);
+
+
+
+
+            ?>
+            <?php foreach ($logs as  $item) : ?>
+                <div class="recent-announcement flex justify-stretch my-5">
+                    <div class="circle rounded-full bg-gray-400 p-5"></div>
+                    <div class="text-sm ms-2 font-extralight">
+                        <p class="">
+                            <span class="font-extrabold text-black"></span>
+                            <?= $item['details'] ?>
+                            <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">
+                                <?= $item['action'] ?>
+                            </span>
+                        </p>
+                        <span class="text-grayish text-xs"></span>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+            <!-- <div class="dash-content p-3 pt-0   rounded-md">
                 <div class="recent-announcement flex justify-stretch my-5">
                     <div class="circle rounded-full bg-gray-400 p-5"></div>
                     <div class="text-sm ms-2 font-extralight">
@@ -85,12 +136,11 @@
                     </div>
                 </div>
 
-                <!-- view more -->
-                <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
-            </div>
-
+                 view more -->
+            <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
         </div>
-        <!-- End recent-announcement -->
+    </div>
+    <!-- End recent-announcement -->
 
 
 

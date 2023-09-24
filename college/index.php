@@ -55,6 +55,7 @@ if (
             require_once './php/logging.php';
             // store the id in session
             $_SESSION['personID'] = $personID;
+            $_SESSION['fullName'] = $fullname;
             $_SESSION['adminID'] = $adminID;
             $_SESSION['colCode'] = $colCode;
             logSigninActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
@@ -81,7 +82,8 @@ if (
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
-
+    <!-- Favicon -->
+    <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
     <!-- Stylesheets -->
     <!--   Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -135,72 +137,88 @@ if (
     <div class="flex flex-row min-h-screen ">
 
         <aside class="
-        border flex-initial relative w-80 px-5 py-5
-        ">
-            <header class="my-2">
-                <h1 class="text-lg tracking-wide"><span class="font-bold ">Alumni </span> System</h1>
+        border flex-initial relative w-80 px-5 py-5 transition-all group 
+        " id="sidebar">
+            <header class="my-2 p-2 flex gap-4 items-center justify-start">
+                <i class="fa-solid fa-bars " id="toggleSidebarIcon"></i>
+                <h1 class="text-lg tracking-wide group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  "><span class="font-bold ">Alumni </span> System</h1>
             </header>
             <!-- TODO make this sticky fixed left-0 top-8 z-0 -->
             <!-- TODO Adjust icons to fill up when changed -->
             <nav class="">
                 <!-- Main Navigation -->
-                <ul class="space-y-2 mb-6 py-5 w-4/5 font-light text-sm">
-                    <li><a data-link="dashboard" href="#dashboard" class="flex rounded-lg p-2  font-bold bg-accent text-white">
-                            <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <ul class="flex flex-col gap-2 mb-6 py-5 w-4/5 font-light text-sm ">
+
+                    <li><a data-link="dashboard" href="#dashboard" class=" flex justify-left flex-nowrap rounded-lg p-2  font-bold bg-accent text-white ">
+                            <svg class="block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z"></path>
                             </svg>
-                            DASHBOARD</a></li>
-                    <li><a data-link="make-post" href="#make-post" class="flex rounded-lg p-2">
-                            <i class="fa-solid fa-bullhorn mr-2 fa-xl"></i>
-                            MAKE POST</a></li>
-                    <li><a data-link="announcements" href="#announcements" class="flex rounded-lg p-2">
-                            <i class="fa-solid fa-message mr-2 fa-xl"></i>
-                            ANNOUNCEMENTS</a></li>
-                    <li><a data-link="email" href="#email" class="flex rounded p-2 ">
-                            <i class="fa-solid fa-envelope fa-xl mr-2"></i> EMAIl
+                            <span class="group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">DASHBOARD</span></a></li>
+                    <li><a data-link="make-post" href="#make-post" class=" flex justify-left flex-nowrap rounded-lg p-2">
+                            <i class="fa-solid fa-bullhorn  fa-xl"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">MAKE POST</span>
                         </a></li>
-                    <li><a data-link="student-record" href="#student-record" class="flex rounded-lg p-2">
-                            <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
+                    <li><a data-link="announcements" href="#announcements" class=" flex justify-left flex-nowrap rounded-lg p-2">
+                            <i class="fa-solid fa-message  fa-xl"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150   animate">ANNOUNCEMENTS</span>
 
-                            STUDENT RECORDS</a></li>
-                    <li><a data-link="alumni-record" href="#alumni-record" class="flex rounded-lg p-2">
-                            <i class="fa-solid fa-folder-open fa-xl mr-2"></i>
+                        </a></li>
+                    <li><a data-link="email" href="#email" class=" flex justify-left flex-nowrap rounded p-2 ">
 
-                            ALUMNI RECORDS</a></li>
-                    <li><a data-link="event" href="#event" class="flex rounded p-2 ">
-                            <i class="fa-solid fa-calendar-check mr-2 fa-xl"></i>
-                            EVENT</a></li>
-                    <li><a data-link="forms" href="#forms" class="flex rounded p-2">
-                            <i class="fa-brands fa-wpforms fa-xl mr-2"></i>
-                            TRACER FORM</a></li>
-                    <li><a data-link="profile" href="#profile" class="flex rounded p-2">
-                            <i class="fa-solid fa-circle-user mr-2 fa-xl"></i>
-                            PROFILE</a></li>
+                            <i class="fa-solid fa-envelope fa-xl ">
+
+                            </i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">EMAIL</span>
+                        </a></li>
+                    <!-- <li><a data-link="student-record" href="#student-record" class=" flex justify-left flex-nowrap rounded-lg p-2">
+                            <i class="fa-solid fa-folder-open fa-xl "></i>
+
+                            STUDENT RECORDS</a></li> -->
+                    <li><a data-link="records" href="#records" class=" flex justify-left flex-nowrap rounded-lg p-2">
+                            <i class="fa-solid fa-folder-open fa-xl "></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">RECORDS</span>
+
+                        </a></li>
+                    <li><a data-link="event" href="#event" class=" flex justify-left flex-nowrap rounded p-2 ">
+                            <i class="fa-solid fa-calendar-check  fa-xl"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">EVENT</span>
+
+                        </a></li>
+                    <li><a data-link="forms" href="#forms" class=" flex justify-left flex-nowrap rounded p-2">
+                            <i class="fa-brands fa-wpforms fa-xl "></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">TRACER FORM</span>
+
+                        </a></li>
+                    <li><a data-link="profile" href="#profile" class=" flex justify-left flex-nowrap rounded p-2">
+                            <i class="fa-solid fa-circle-user  fa-xl"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">PROFILE</span>
+
+                        </a></li>
                 </ul>
 
                 <!-- Alumni Navigation -->
-                <div class="my-2 uppercase font-normal text-sm tracking-wider">Alumni</div>
+                <div class="my-2 uppercase font-normal text-sm tracking-wider  group-[.is-collapsed]:opacity-0 group-[.is-collapsed]:invisible  transition-all   ">Alumni</div>
                 <ul class="space-y-2 w-4/5 font-light text-sm">
                     <li><a data-link="alumni-of-the-month" href="#alumni-of-the-month" class="
-                    flex rounded p-2">
-                            <i class="fa-solid fa-user-graduate mr-2 fa-xl"></i>
-                            ALUMNI OF THE MONTH</a></li>
-                    <li><a data-link="community" href="#community" class="flex rounded p-2">
-                            <i class="mr-2 fa-xl fa-solid fa-users"></i>
-                            COMMUNITY HUB</a></li>
-                    <li><a data-link="job-opportunities" href="#job-opportunities" class="flex rounded p-2">
-                            <i class="fa-xl mr-2 fa-solid fa-briefcase"></i>
-                            JOB OPPORTUNITIES</a></li>
+                     flex justify-left flex-nowrap rounded p-2">
+                            <i class="fa-solid fa-user-graduate  fa-xl"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">ALUMNI OF THE MONTH</span></a></li>
+                    <li><a data-link="community" href="#community" class=" flex justify-left flex-nowrap rounded p-2">
+                            <i class=" fa-xl fa-solid fa-users"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">COMMUNITY HUB</span></a></li>
+                    <li><a data-link="job-opportunities" href="#job-opportunities" class=" flex justify-left flex-nowrap rounded p-2">
+                            <i class="fa-xl  fa-solid fa-briefcase"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">JOB OPPORTUNITIES</span></a></li>
                 </ul>
 
             </nav>
             <!-- Sign out Button -->
-            <button class="btn-accent absolute bottom-2" id="signOutPromptBtn"><i class="px-2 fa-solid fa-right-from-bracket"></i>Sign Out</button>
+            <button class="btn-accent absolute bottom-2" id="signOutPromptBtn"><i class="px-2 fa-solid fa-right-from-bracket"></i><span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150 ">Sign Out</span></button>
         </aside>
 
         <main class="flex-1 mx-auto mt-10">
             <div id="main-root">
-                <?php require './dashboard/dashboard.php'; ?>
+
             </div>
 
         </main>

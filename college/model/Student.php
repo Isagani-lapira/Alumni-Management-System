@@ -25,6 +25,37 @@ class Student
         else return false;
     }
 
+    public function getTotalCount($colCode): int
+    {
+
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('SELECT COUNT(*) AS total FROM `student` WHERE colCode = ?;');
+
+        // *  Binds the variable to the '?', prevents sql injection
+        $stmt->bind_param('s', $colCode);
+        // execute the query
+        $stmt->execute();
+        // gets the myql_result. Similar result to mysqli_query
+        $result = $stmt->get_result();
+        $num_row = mysqli_num_rows($result);
+
+        // the main assoc array to be return
+        $count = 0;
+
+        // count 
+
+        if ($result && $num_row > 0) {
+            // Gets every row in the query
+            while ($record = mysqli_fetch_assoc($result)) {
+                $count = $record['total'];
+            }
+        }
+
+        return $count;
+    }
+
     function getStudentsByYear($currentYear = ''): string
     {
 
