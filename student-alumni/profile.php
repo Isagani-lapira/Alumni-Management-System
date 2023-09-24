@@ -1162,7 +1162,11 @@ function dateInText($date)
             <button id="closeViewResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
                 <iconify-icon icon="fluent-mdl2:back" style="color: white;" width="24" height="24"></iconify-icon>
             </button>
+
             <div class="flex gap-2">
+                <button id="editResumeBtn" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+                    <iconify-icon icon="ant-design:edit-outlined" style="color: white;" width="24" height="24"></iconify-icon>
+                </button>
                 <button id="downloadResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
                     <iconify-icon icon="teenyicons:download-outline" style="color: white;" width="24" height="24"></iconify-icon>
                 </button>
@@ -1177,7 +1181,6 @@ function dateInText($date)
                 <main class="flex">
                     <aside class="w-2/6 text-greyish_black p-3 flex flex-col gap-4 text-xs">
                         <header id="fullnameResume" class="text-3xl block font-bold"></header>
-                        <p>Marketing Manager</p>
                         <!-- contact Section -->
                         <section class="flex flex-col gap-2">
                             <h1 class="font-bold text-base">CONTACT</h1>
@@ -1245,7 +1248,7 @@ function dateInText($date)
                         <section class="my-2">
                             <h1 class="font-bold text-base">REFERENCES</h1>
 
-                            <div id="referenceContainer" class="flex flex-wrap gap-4 my-2"></div>
+                            <div id="referenceContainer" class="flex flex-col gap-4 my-2"></div>
                         </section>
                     </aside>
                 </main>

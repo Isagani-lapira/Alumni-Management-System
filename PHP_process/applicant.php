@@ -45,20 +45,54 @@ class Applicant
         else echo 'Failed';
     }
 
-    public function getApplicantCount($username, $con)
+    public function getApplicantCount($careerID, $con)
     {
         $query = "SELECT `careerID` FROM `applicant` WHERE `careerID` = ?";
         $stmt = mysqli_prepare($con, $query);
         // Bind the parameter
-        mysqli_stmt_bind_param($stmt, "s", $username);
-        mysqli_stmt_execute($stmt);
-        // Get the result
-        mysqli_stmt_store_result($stmt);
-        $row = mysqli_stmt_num_rows($stmt);
+        $stmt->bind_param("s", $careerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = mysqli_num_rows($result);
 
         // Close the statement
         mysqli_stmt_close($stmt);
 
         return $row;
+    }
+
+    public function getApplicantDetails($careerID, $con)
+    {
+        $query = "SELECT p.fname, p.lname, a.resumeID
+        FROM applicant AS a
+        LEFT JOIN student AS s ON a.username = s.username
+        LEFT JOIN alumni AS al ON a.username = al.username
+        LEFT JOIN person AS p ON s.personID = p.personID OR al.personID = p.personID
+        WHERE a.careerID = ?";
+
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $careerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $response = "";
+        $fullname = array();
+        $resumeID = array();
+
+        if ($result) {
+            $response = "Success";
+            while ($data = $result->fetch_assoc()) {
+                $fullname[] = $data['fname'] . ' ' . $data['lname'];
+                $resumeID[] = $data['resumeID'];
+            }
+        } else $response = "Unsuccess";
+
+        $data = array(
+            "response" => $response,
+            "fullname" => $fullname,
+            "resumeID" => $resumeID,
+        );
+
+        echo json_encode($data);
     }
 }

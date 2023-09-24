@@ -456,10 +456,10 @@ function getAccDetails($con, $personID)
               </div>
 
               <div class="p-3 text-gray-400 border-t border-gray-400 flex justify-between">
-                <div class="flex items-center gap-2">
+                <button id="aplicantListBtn" class="flex items-center gap-2 cursor-text">
                   <iconify-icon icon="uiw:user" style="color: #868e96;" width="18" height="18"></iconify-icon>
                   <span id="jobApplicant"></span>
-                </div>
+                </button>
 
                 <div class="flex items-center gap-2">
                   <iconify-icon icon="ri:verified-badge-line" style="color: #868e96;" width="18" height="18"></iconify-icon>
@@ -468,6 +468,19 @@ function getAccDetails($con, $personID)
 
               </div>
             </div>
+
+          </div>
+        </div>
+
+        <!-- list of applicant -->
+        <div id="listOfApplicantModal" class="post modal fixed inset-0 flex justify-center p-3 hidden">
+          <div class="modaListApplicant modal-container w-1/3 h-max bg-white rounded-md relative slide-bottom p-5">
+            <button class="p-1 text-gray-300 items-center justify-center flex border border-gray-400 rounded-full hover:bg-accent absolute top-0 -right-11">
+              <iconify-icon icon="ei:close" width="24" height="24"></iconify-icon>
+            </button>
+            <h3 class="text-center font-bold text-xl py-2 text-greyish_black border-b border-gray-300">Applicant List</h3>
+
+            <div id="listApplicantContainer" class="modaListApplicant overflow-y-auto h-max p-3 flex flex-col gap-3"></div>
 
           </div>
         </div>
@@ -574,7 +587,18 @@ function getAccDetails($con, $personID)
         <div id="yearbookContainer" class="hidden flex pt-48 z-10 w-full">
 
           <!-- finished answering -->
-          <div id="finishedContainer" class="hidden h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3"></div>
+          <div id="finishedContainer" class="hidden h-full w-full overflow-y-auto flex flex-col gap-3 items-start p-5 text-accent relative">
+            <h2 class="text-lg md:text-5xl font-bold italic">Welcome to</h2>
+            <h2 class="text-lg md:text-5xl font-bold">BulSU Connect Community!</h2>
+            <p class="w-1/2 text-sm md:text-lg">Thank you for answering the Graduate Tracer form,
+              you are now connected to the community. Stay tuned for the more updates.</p>
+
+            <a href="javascript:location.reload(true);" class="text-center text-sm md:font-xl md:w-1/3 py-4 rounded-md text-white font-bold bg-accent hover:bg-darkAccent my-3">Back to Homepage</a>
+
+            <div class="flex justify-end absolute bottom-0">
+              <img src="../assets/alumni_tracer_bg.png" class="w-2/3" alt="">
+            </div>
+          </div>
           <!-- front page -->
           <div id="frontpageTracer" class=" h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3">
             <img src="../assets/tracer_header_img.png" class="w-1/3 h-56" alt="">
@@ -800,39 +824,46 @@ function getAccDetails($con, $personID)
               <div class="flex items-start mb-4">
                 <img id="profileModalProfile" alt="Profile Picture" class=" w-16 h-16 md:w-28 md:h-28 rounded-full md:-mt-20 mr-4 ml-2 bg-white border-2">
                 <div class="flex-grow">
-                  <h2 id="profileModalFN" class=" md:text-lg font-bold text-gray-700">Patrick Joseph Pronuevo</h2>
-                  <p id="profileModalUN" class="text-gray-500 text-sm">@3xjoseph</p>
+                  <h2 id="profileModalFN" class=" md:text-lg font-bold text-gray-700"></h2>
+                  <p id="profileModalUN" class="text-gray-500 text-sm"></p>
                 </div>
 
                 <button class="px-3 md:px-4 py-2 text-xs md:text-sm bg-red-800 text-white rounded-md">Send Email</button>
               </div>
 
               <h2 class="text-md md:text-lg font-bold mb-2 text-greyish_black">Social Media</h2>
-              <div class="flex gap-2 border-b border-gray-300 text-xs py-2 mb-2">
-                <!-- social media links -->
-                <!-- facebook -->
-                <div class="flex items-center gap-2">
-                  <iconify-icon icon="formkit:facebook" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                  <span id="facebookUN" class="text-center"></span>
+
+              <!-- social media links -->
+              <div class="flex gap-2 border-b border-gray-300 text-sm text-gray-500 py-2 mb-2">
+
+                <div class="flex-1 flex-col gap-4 justify-center items-center">
+                  <!-- facebook -->
+                  <div class="flex items-center gap-3">
+                    <iconify-icon icon="formkit:facebook" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <span id="facebookUN" class="text-center"></span>
+                  </div>
+
+                  <!-- instagram -->
+                  <div class="flex items-center gap-3">
+                    <iconify-icon icon="formkit:instagram" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <span id="instagramUN" class="text-center"></span>
+                  </div>
                 </div>
 
-                <!-- instagram -->
-                <div class="flex items-center gap-2">
-                  <iconify-icon icon="formkit:instagram" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                  <span id="instagramUN" class="text-center"></span>
+                <div class="flex-1 flex-col gap-3 justify-center items-center">
+                  <!-- twitter -->
+                  <div class="flex items-center gap-3">
+                    <iconify-icon icon="simple-icons:twitter" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <span id="twitterUN" class="text-center"></span>
+                  </div>
+
+                  <!-- linkedIN -->
+                  <div class="flex items-center gap-3">
+                    <iconify-icon icon="uiw:linkedin" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <span id="linkedInUN" class="text-center"></span>
+                  </div>
                 </div>
 
-                <!-- twitter -->
-                <div class="flex items-center gap-2">
-                  <iconify-icon icon="simple-icons:twitter" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                  <span id="twitterUN" class="text-center"></span>
-                </div>
-
-                <!-- linkedIN -->
-                <div class="flex items-center gap-2">
-                  <iconify-icon icon="uiw:linkedin" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                  <span id="linkedInUN" class="text-center"></span>
-                </div>
 
               </div>
 
@@ -960,18 +991,24 @@ function getAccDetails($con, $personID)
               </ul>
             </div>
 
-            <div class="absolute bottom-7 mt-3 flex justify-center items-center w-10/12">
-              <button id="createJobPost" class="bg-blue-400 rounded-md text-white w-full py-3 hover:bg-blue-500">
-                <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-2 -2 24 24">
-                  <path fill="white" d="m5.72 14.456l1.761-.508l10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635l-.52 1.82zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.901.901 0 0 1-1.11-.623a.915.915 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635h3.592z" />
-                </svg>
-                Job post
-              </button>
-            </div>
+            <?php
+
+            if ($user_type == "alumni") {
+              echo '
+              <div class="absolute bottom-7 mt-3 flex justify-center items-center w-10/12">
+                <button id="createJobPost" class="bg-blue-400 rounded-md text-white w-full py-3 hover:bg-blue-500">
+                  <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-2 -2 24 24">
+                    <path fill="white" d="m5.72 14.456l1.761-.508l10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635l-.52 1.82zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.901.901 0 0 1-1.11-.623a.915.915 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635h3.592z" />
+                  </svg>
+                  Job post
+                </button>
+              </div>';
+            }
+            ?>
           </div>
 
           <!-- CENTER DIV -->
-          <div class="center-div w-full  overflow-y-auto jobDescript">
+          <div class="center-div w-full jobDescript">
             <div class="content-div rounded-md text-sm h-full">
               <div id="jobDescWrapper" class="tab-content p-3 w-full mx-auto hidden h-full">
                 <!-- JOB DESC. -->
@@ -1041,8 +1078,8 @@ function getAccDetails($con, $personID)
                 </div>
 
               </div>
-              <div>
-                <div id="jobCard" class="w-full h-full grid grid-cols-3 gap-2 overflow-y-auto p-5"></div>
+              <div class="h-full">
+                <div id="jobCard" class="w-full h-full grid grid-cols-3 overflow-y-auto gap-2 p-5"></div>
               </div>
 
             </div>
@@ -1057,7 +1094,8 @@ function getAccDetails($con, $personID)
             <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
             </lord-icon>
             <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
-            <p class=" text-center text-gray-500">Your resume appears to not have been set up yet. Set it first before applying.</p>
+            <p class=" text-center text-gray-500">You appear to have forgotten to include a résumé. Before applying for a position, please edit your resume. Click the link below to be forwarded to the resume area.</p>
+            <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 my-5 text-center w-full cursor-pointer">Click Me</span>
           </div>
 
         </div>
@@ -1179,6 +1217,7 @@ function getAccDetails($con, $personID)
             <p class=" text-lg text-center text-gray-500">"Your Job Post is Being Reviewed!"</p>
           </div>
         </div>
+
 
       </div>
 

@@ -1138,37 +1138,12 @@ $(document).ready(function () {
             .text('Archive post')
             .on('click', function () {
                 //open the delete prompt
-                $('#delete-modal').removeClass('hidden')
+                $('.deleteModalPost').removeClass('hidden')
                 //update the post status into deleted
-                $('#deletePostbtn').on('click', function () {
-                    let action = { action: 'updatePostStatus' };
-                    const formdata = new FormData()
-                    const status = 'deleted'
-                    formdata.append('action', JSON.stringify(action));
-                    formdata.append('postID', postID);
-                    formdata.append('status', status);
+                $('#deleteByAdminBtn').on('click', function () {
+                    const reasonForDel = $('#reasonForDel').val();
+                    if (reasonForDel !== '') removePostByAdmin(postID, username, reasonForDel)
 
-                    //process the deletion
-                    $.ajax({
-                        url: '../PHP_process/postDB.php',
-                        method: 'POST',
-                        data: formdata,
-                        processData: false,
-                        contentType: false,
-                        success: response => {
-                            if (response == 'Deleted') {
-                                //close the modal
-                                $('#delete-modal').addClass('hidden')
-                                offsetCommunity = 0
-                                lengthRetrieved = 0;
-                                const feedContainer = $('#communityContainer')
-                                feedContainer.find('.communityPost').remove()
-                                getCommunityPost()
-                            }
-
-                        },
-                        error: error => { console.log(error) }
-                    })
                 })
             })
 
@@ -1234,6 +1209,37 @@ $(document).ready(function () {
     }
 
 
+    function removePostByAdmin(postID, username, reason) {
+        let action = { action: 'removePostByAlumAdmin' };
+        const formdata = new FormData()
+        formdata.append('action', JSON.stringify(action));
+        formdata.append('postID', postID);
+        formdata.append('username', username);
+        formdata.append('reason', reason);
+
+        //process the deletion
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: response => {
+                console.log(response);
+                if (response == 'Success') {
+                    // //close the modal
+                    $('.deleteModalPost').addClass('hidden')
+                    offsetCommunity = 0
+                    lengthRetrieved = 0;
+                    const feedContainer = $('#communityContainer')
+                    feedContainer.find('.communityPost').remove()
+                    getCommunityPost()
+                }
+
+            },
+            error: error => { console.log(error) }
+        })
+    }
     $('#communityContainer').on('scroll', function () {
         var container = $(this);
         var scrollPosition = container.scrollTop();
@@ -1400,6 +1406,3 @@ $(document).ready(function () {
     }
 })
 
-function closeReport() {
-    $('#delete-modal').addClass('hidden')
-}

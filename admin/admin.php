@@ -325,11 +325,11 @@ function dateInText($date)
                     <p class="text-accent font-semibold">TRACER STATUS </p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Already Answered</p>
-                      <span class="text-accent">73%</span>
+                      <span id="alreadyAnswer" class="text-accent"></span>
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                       <p class="font-normal text-greyish_black">Haven't answer yet</p>
-                      <span class="text-accent">27%</span>
+                      <span id="notYetAnswering" class="text-accent"></span>
                     </div>
                   </div>
                 </div>
@@ -500,7 +500,7 @@ function dateInText($date)
               <p class="text-sm font-thin">Course</p>
               <!-- college selection -->
               <select name="college" id="emCol" class="w-full border border-grayish p-2 rounded-lg">
-                <option value="" selected disabled hidden>All</option>
+                <option value="" selected>All</option>
                 <?php
                 require_once '../PHP_process/connection.php';
                 $query = "SELECT * FROM `college`";
@@ -555,32 +555,17 @@ function dateInText($date)
         <!-- alumni record content -->
         <div id="alumnRecord-tab" class="p-5">
           <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
-
           <div class="flex justify-end text-xs text-greyish_black">
-
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 
-          bg-accent text-white hover:bg-darkAccent">Export as PDF
+            bg-accent text-white hover:bg-darkAccent">Export as PDF
             </button>
 
           </div>
 
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-          <div class="flex justify-evenly text-xs">
-
-            <div class="flex border border-greyish_black w-full rounded-md p-1">
-              <img class="inline " src="../images/search-icon.png" alt="">
-              <input class="focus:outline-none w-full" type="text" name="" id="searchPerson" placeholder="Typing!">
-            </div>
-
-            <!-- range -->
-            <div class="w-full flex border p-2 mx-2">
-              <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018" />
-              <label class="" for="reportdaterange">
-                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
-              </label>
-            </div>
+          <div class="flex justify-evenly text-sm">
 
             <!-- batch selection -->
             <select name="" id="batch" class="w-full p-1">
@@ -634,6 +619,11 @@ function dateInText($date)
             <tbody id="alumniTB" class="text-sm">
             </tbody>
           </table>
+          <div class="navigationAlumniRecord flex justify-end items-center gap-2 mt-2">
+            <button class="prevBtnAlumRecord text-gray-400 hover:text-gray-500">Previous</button>
+            <button class="nextBtnAlumRecord bg-accent text-white hover:bg-darkAccent px-3 py-2 rounded-md">Next</button>
+          </div>
+
           <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
         </div>
 
@@ -1570,26 +1560,6 @@ function dateInText($date)
       </form>
     </div>
 
-    <!-- Delete modal -->
-    <!-- modal -->
-    <div id="modalDelete" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
-        text-grayish  top-0 left-0 hidden">
-      <div class="modal-container w-1/3 bg-white rounded-lg p-3 mt-2">
-        <div class="modal-header py-5">
-          <p class="text-greyish_black text-lg text-center w-1/2 mx-auto">Are you sure you want to delete post of
-            Patrick?</p>
-        </div>
-        <div class="modal-body px-3">
-          <input id="reasonForDel" class="w-full pe-3 text-center" type="text" placeholder="Add reason for deleting">
-        </div>
-
-        <!-- Footer -->
-        <div class="modal-footer flex items-end flex-row-reverse px-3 mt-3">
-          <button class="bg-accent py-2 rounded px-5 text-white ms-3 hover:bg-darkAccent hover:font-semibold">Delete</button>
-          <button class="cancelDel py-2 rounded px-5 text-grayish border hover:bg-slate-400 hover:text-white">Cancel</button>
-        </div>
-      </div>
-    </div>
 
     <!-- View profile modal -->
     <div id="viewProfile" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
@@ -2139,6 +2109,19 @@ function dateInText($date)
         </div>
       </div>
     </div>
+
+    <!-- deletion post modal -->
+    <div class="deleteModalPost modal fixed inset-0 z-50 flex justify-center p-3 hidden">
+      <div class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3 center-shadow slide-bottom">
+        <h3 class="text-lg text-greyish_black text-center ">Are you sure you want to delete post this post?</h3>
+        <input id="reasonForDel" class="text-gray-400 py-2 w-full text-center" type="text" placeholder="State your reason for deleting">
+        <div class="flex items-center justify-end my-2 gap-2">
+          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button id="deleteByAdminBtn" class="bg-accent py-1 px-4 text-white hover:bg-darkAccent rounded-lg">Delete</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
@@ -2146,6 +2129,7 @@ function dateInText($date)
   <script src="../js/admin.js"></script>
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>
+  <script src="../js/alumnirecord.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/postScript.js"></script>

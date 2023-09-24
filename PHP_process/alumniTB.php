@@ -13,9 +13,10 @@ class Alumni
         else return false;
     }
 
-    function getAlumniRecord($con)
+    function getAlumniRecord($offset, $con)
     {
-        $query = "SELECT * FROM `alumni`";
+        $maxLimit = 10;
+        $query = "SELECT * FROM `alumni` ORDER BY `batchYr` DESC LIMIT $offset,$maxLimit";
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 
@@ -55,5 +56,18 @@ class Alumni
         );
 
         echo json_encode($alumniData);
+    }
+
+    function getAlumniCount($con)
+    {
+        $count = 0;
+        $query = "SELECT COUNT(*) AS 'total' FROM `alumni`";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result)
+            $count = $result->fetch_assoc()['total'];
+
+        return $count;
     }
 }

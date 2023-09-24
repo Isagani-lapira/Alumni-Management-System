@@ -82,6 +82,7 @@ $(document).ready(function () {
                     const length = response.jobTitle.length;
                     //data that has been retrieved
                     for (let i = 0; i < length; i++) {
+                        const careerID = response.careerID[i];
                         const jobTitle = response.jobTitle[i];
                         const skills = response.skills[i];
                         const status = response.status[i];
@@ -91,7 +92,7 @@ $(document).ready(function () {
                         const location = response.location[i];
                         const applicantcount = response.applicantCount[i];
 
-                        displayJobRepo(jobTitle, skills, status, companyName,
+                        displayJobRepo(careerID, jobTitle, skills, status, companyName,
                             jobDescript, jobQuali, location, applicantcount);
                     }
 
@@ -103,38 +104,28 @@ $(document).ready(function () {
         })
     }
     //mark up for job repository in verified post
-    function displayJobRepo(jobTitle, skills, status, companyName,
+    function displayJobRepo(careerID, jobTitle, skills, status, companyName,
         jobDescript, jobQuali, location, applicantcount) {
 
         //sets of color
-        const colorSet = ["#A9FBC3", "#979DED", "#ACBDBA", "#6DA17C", "#CDDDDD", "#9DB5B2", "#F9B4ED",
-            "#06908F", "#D7B49E", "#CEB992", "#947BD3", "#EFA9AE", "#F9ADA0", "#F4F1BB", "#809BCE",
-            "#D6EADF", "#D3D4D9", "#FFE19C", "#ADBCA5", "#E8B9AB", "#EDDEA4", "#7C9885", "#CED0CE",
-            "#58A4B0", "#BBC2E2", "#CFCCD6", "#364156", "#AC80A0"];
-
-        //access random color to be use for header
-        const randomIndex = Math.floor(Math.random() * colorSet.length);
-        const color = colorSet[randomIndex];
+        const colorBG = (status === 'verified') ? 'accent' : 'gray-400'
 
         const wrapper = $('<div>')
             .addClass('rounded-md max-w-sm flex flex-col center-shadow')
 
         const headerPart = $('<div>')
-            .addClass('h-full flex flex-col rounded-t-md p-3 justify-between')
-            .css({
-                "background-color": color //set the random color to header
-            })
+            .addClass('h-full flex flex-col rounded-t-md p-3 justify-between bg-' + colorBG)
 
         const jobTitleElement = $('<h1>')
             .addClass('text-lg text-white font-bold my-2')
             .text(jobTitle);
 
         const list = $('<div>')
-            .addClass('flex flex-wrap gap-1 text-xs text-gray-500 italic items-center')
+            .addClass('flex flex-wrap gap-1 text-xs text-white italic items-center')
 
         //retrieve all the skill and display in on a div to be included on the container
         skills.forEach(skill => {
-            let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+            let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #ffffff;"></iconify-icon>';
             let skillElement = $('<span>').html(skill)
             list.append(bulletIcon, skillElement)
         })
@@ -143,10 +134,10 @@ $(document).ready(function () {
             .addClass('bg-gray-200 rounded-b-md p-3 flex flex-wrap justify-between items-center text-xs text-gray-400')
 
         const applicant = $('<span>')
-            .addClass('flex items-center gap-2')
+            .addClass('flex items-center gap-2 text-' + colorBG)
             .html(
-                '<iconify-icon icon="uiw:user" style="color: #868e96;" width="14" height="14"></iconify-icon>' +
-                'Applicant: ' + applicantcount
+                '<iconify-icon icon="uiw:user" width="14" height="14"></iconify-icon>' +
+                '<span>Applicant: <span class="font-bold">' + applicantcount + '</span></span>'
             )
 
         const verifiedElement = $('<span>')
@@ -176,13 +167,22 @@ $(document).ready(function () {
                 $("#jobOverview").text(jobDescript);
                 $("#jobQualification").text(jobQuali);
                 $("#statusJob").text(status);
-                $("#jobApplicant").text('Applicant: ' + applicantcount);
+                $("#jobApplicant").addClass('text-' + colorBG).text('Applicant: ' + applicantcount);
 
-                $('.headerJob').css({ 'background-color': color })
+                $('#aplicantListBtn').addClass('cursor-text') //default
+                if (parseInt(applicantcount) > 0) {
+                    $('#aplicantListBtn').removeClass('cursor-text')
+                        .on('click', function () {
+                            //open the list
+                            displayApplicant(careerID)
+                        })
+                }
+
+                $('.headerJob').addClass('bg-' + colorBG)
                 //retrieve the skills
                 skills.forEach((skill) => {
                     //create a span and append it in the div
-                    spSkill = $("<span>").html("&#x2022; " + skill);
+                    let spSkill = $("<span>").html("&#x2022; " + skill);
                     $("#skillSets").append(spSkill);
                 });
 
@@ -221,4 +221,54 @@ $(document).ready(function () {
     })
 
 
+    // retrieve details of applicant
+    function displayApplicant(careerID) {
+        const action = { action: 'applicantDetails' }
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('careerID', careerID);
+
+        // process retrieval of applicant details
+        $.ajax({
+            url: '../PHP_process/jobTable.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: response => {
+                if (response.response == "Success") {
+                    $('#listApplicantContainer').empty()
+                    $('#listOfApplicantModal').removeClass('hidden')
+                    const length = response.fullname.length;
+
+                    // mark up the data retrieved
+                    for (let i = 0; i < length; i++) {
+                        let fullname = response.fullname[i];
+                        let resumeID = response.resumeID[i];
+
+                        let wrapper = $('<div>')
+                            .addClass('justify-between flex items-center')
+
+                        let fullnameElement = $('<p>')
+                            .addClass('italic text-gray-500')
+                            .text(fullname)
+
+                        let viewResume = $('<button>')
+                            .addClass('py-2 px-4 rounded-lg bg-accent text-white font-bold text-xs hover:bg-darkAccent')
+                            .text('Resume')
+
+                        wrapper.append(fullnameElement, viewResume)
+                        $('#listApplicantContainer').append(wrapper)
+                    }
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+
+    $('.modaListApplicant button').on('click', function () {
+        $('#listOfApplicantModal').addClass('hidden')
+    })
 })

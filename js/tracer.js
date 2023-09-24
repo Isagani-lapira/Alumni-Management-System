@@ -923,4 +923,24 @@ $(document).ready(function () {
         })
     }
 
+    getTracerPercentage() //display the percentage
+    function getTracerPercentage() {
+        const action = 'getTotalTracer'
+        const formData = new FormData();
+        formData.append('action', action);
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: response => {
+                $('#alreadyAnswer').text(response.answered + '%')
+                $('#notYetAnswering').text(response.notyetAnswering + '%')
+            },
+            error: error => { console.log(error) }
+        })
+    }
 })

@@ -75,6 +75,12 @@ if (isset($_POST['action'])) {
             $username = $_POST['username'];
             $post->getProfilePost($username, $offset, $status, $mysql_con);
             break;
+        case 'removePostByAlumAdmin':
+            $postID = $_POST['postID'];
+            $username = $_POST['username'];
+            $reason = $_POST['reason'];
+            $post->removeUserPost($postID, $username, $reason, $mysql_con);
+            break;
     }
 }
 

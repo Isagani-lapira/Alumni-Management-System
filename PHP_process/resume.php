@@ -7,11 +7,17 @@ if (isset($_POST['action'])) {
         insertionOfData($mysql_con);
     } else if ($action == 'retrievalData') {
         retrieveResume($mysql_con);
+    } else if ($action == 'haveResume') {
+        session_start();
+        $personID = $_SESSION['personID'];
+        $result = haveResume($personID, $mysql_con);
+        echo $result;
     }
 } else echo 'ayaw';
 
 function insertionOfData($con)
 {
+    session_start();
     $personID = $_SESSION['personID'];
     $random = rand(0, 5000);
     $uniqID = substr(md5(uniqid()), 0, 10);
@@ -69,7 +75,6 @@ function insertionOfData($con)
                                 if ($workExp) $checker = true;
                             }
                             if ($checker) {
-
                                 if (insertSkill($con, $resumeID)) {
                                     $resultQuery = insertReference($con, $resumeID);
 

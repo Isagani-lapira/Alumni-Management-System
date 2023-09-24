@@ -310,6 +310,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
+                console.log(response)
                 if (response == "Successful") {
                     //display the successful modal
                     $('#editResumeModal').addClass('hidden')
@@ -383,17 +384,22 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response = "Success") {
-                    //store the data that has been respond by the server
-                    const objective = response.objective
-                    const fullname = response.fullname
-                    const contactNo = response.contactNo
-                    const address = response.address
-                    const emailAdd = response.emailAdd
-                    const skills = response.skills
-                    const education = response.education;
-                    const workExp = response.workExp;
-                    const references = response.references;
-                    setResumeDetails(objective, fullname, contactNo, address, emailAdd, skills, education, workExp, references);
+                    let length = response.fullname.length
+                    // check if there's a value to be display
+                    if (length > 0) {
+                        //store the data that has been respond by the server
+                        const objective = response.objective
+                        const fullname = response.fullname
+                        const contactNo = response.contactNo
+                        const address = response.address
+                        const emailAdd = response.emailAdd
+                        const skills = response.skills
+                        const education = response.education;
+                        const workExp = response.workExp;
+                        const references = response.references;
+                        setResumeDetails(objective, fullname, contactNo, address, emailAdd, skills, education, workExp, references);
+                    }
+
                 }
             },
             error: error => { console.log(error) }
@@ -601,4 +607,13 @@ $(document).ready(function () {
     $('#closeViewResume').on('click', function () {
         $('#viewResumeModal').addClass('hidden')
     })
+
+    const currentURL = window.location.href;
+    const url = new URL(currentURL);
+    let resumeOpen = url.searchParams.get('resumeOpen');
+
+    if (resumeOpen === 'true') {
+        console.log(resumeOpen)
+        $('#viewResumeBtn').click()
+    }
 })

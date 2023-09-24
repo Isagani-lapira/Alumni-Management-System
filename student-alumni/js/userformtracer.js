@@ -255,7 +255,10 @@ $(document).ready(function () {
                 $('#categoryNameQuestion').text(firstCategoryName);
                 categoryQuestion(answerIDEntry, firstCategoryID);
             }
-            else $('#finishedContainer').removeClass('hidden') //done finishing graduate tracer
+            else {
+                $('#finishedContainer').removeClass('hidden') //done finishing graduate tracer
+                $('.sub-navbar-wrapper').addClass('hidden') //hide the navbar
+            }
         } catch (error) {
             console.error(error);
         }

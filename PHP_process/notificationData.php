@@ -23,9 +23,6 @@ if (isset($_POST['action'])) {
             $notifID = $_POST['notifID'];
             $notificationObj->updateStat($notifID, $mysql_con);
             break;
-        case 'insertNotif':
-
-            break;
         default:
             echo 'nothing';
             break;

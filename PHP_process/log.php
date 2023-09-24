@@ -14,7 +14,7 @@ if (isset($_POST['action'])) {
 }
 function getCollegeAction($con)
 {
-    $query = "SELECT * FROM `collegeadmin_log` WHERE DATE(`timestamp`) = CURDATE()"; //get all the log for today
+    $query = "SELECT * FROM `collegeadmin_log` ORDER BY `timestamp` DESC LIMIT 50"; //get all the log for today
     $stmt = mysqli_prepare($con, $query);
     $stmt->execute();
     $result = $stmt->get_result();

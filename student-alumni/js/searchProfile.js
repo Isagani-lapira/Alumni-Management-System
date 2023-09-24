@@ -91,6 +91,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response == 'Success') {
+                    $('#userPost').empty()
                     const data = response
                     const fullname = data.fullname;
                     const profilePic = data.profilePic;

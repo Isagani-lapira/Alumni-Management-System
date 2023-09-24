@@ -1,7 +1,7 @@
 <?php
 
 require 'collegeAdminLog.php';
-
+require 'notificationTable.php';
 class PostData
 {
     private $postTimeStamp = "";
@@ -383,6 +383,24 @@ class PostData
             if ($result) echo 'Deleted';
             else echo 'Error';
         }
+    }
+
+    function removeUserPost($postID, $username, $details, $con)
+    {
+        $query = "UPDATE `post` SET `status`= 'adminArchived' WHERE `postID`= ?";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $postID);
+        $result = $stmt->execute();
+
+        // notify user about the post
+        if ($result) {
+            $typeNotif = "delete";
+            $notification = new Notification();
+            $notify = $notification->insertNotif($postID, $username, $typeNotif, $con, $details);
+
+            if ($notify) echo 'Success';
+            else echo 'Unsuccess';
+        } else echo 'Unsuccess';
     }
 
     function getAllPost($offset, $con)

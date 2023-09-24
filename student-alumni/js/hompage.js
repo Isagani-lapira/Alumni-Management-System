@@ -168,8 +168,6 @@ $(document).ready(function () {
       .on('click', function () {
         $('#jobDescWrapper').removeClass('hidden');
         $('#jobCard').addClass('hidden')
-        // containerJob.addClass('selectedJob');//set the container that has been clicked as selected container
-        //viewing of particular job
         viewOfCareer(careerID);
       })
 
@@ -187,8 +185,7 @@ $(document).ready(function () {
     //once the bottom ends, it will reach another sets of data (post)
     if (scrollOffset + containerHeight + threshold >= contentHeight) {
       //get another set of post
-      // getPost();
-      console.log('good sheesh')
+      getWork(action, offsetCardJob, isCardView);
     }
   })
   function listOfJobDisplay(jobTitle, company, author, skills, companyLogo, careerID, location, isSaved) {
@@ -395,35 +392,6 @@ $(document).ready(function () {
       error: (error) => { console.log(error) }
     })
   }
-  //checking if the career is already in saved
-  function checkCareerMarked(careerID) {
-    return new Promise((resolve, reject) => {
-      // data to be sent
-      let formData = new FormData();
-      formData.append('action', 'checkBookmark');
-      formData.append('careerID', careerID);
-
-      // process checking
-      $.ajax({
-        method: 'POST',
-        url: '../PHP_process/bookmark.php',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: (response) => {
-          if (response === 'Exist') {
-            resolve('exist'); // Resolve the promise with the value 'exist'
-          } else {
-            resolve('not exist'); // Resolve the promise with the value 'not exist'
-          }
-        },
-        error: (error) => {
-          console.log(error);
-          reject(error); // Reject the promise if an error occurs
-        },
-      });
-    });
-  }
 
   function getCurrentDate() {
     var today = new Date();
@@ -562,6 +530,11 @@ $(document).ready(function () {
 
   }
 
+  $('#directToResume').on('click', function () {
+    window.location.href = "../student-alumni/profile.php?resumeOpen=" + true;
+  })
+
+
   function deleteApplication(careerID) {
     const action = {
       action: 'deleteApplication'
@@ -617,10 +590,6 @@ $(document).ready(function () {
           //not yet set up
           $('#errorResumeModal').removeClass('hidden')
 
-          //hide the error message after 3 seconds
-          setTimeout(function () {
-            $('#errorResumeModal').addClass('hidden')
-          }, 3500)
         }
       },
       error: error => { console.log(error) }

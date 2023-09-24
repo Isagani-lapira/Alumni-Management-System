@@ -121,7 +121,7 @@ class Career
 
     public function selectDataForCollege($college, $offset, $con)
     {
-        $maxLimit = 10; //default number of retrieval
+        $maxLimit = 9; //default number of retrieval
         // Properly formatted SQL query
         $query = "SELECT * FROM `career` WHERE `colCode` = '$college' AND `status` ='verified' 
         ORDER BY `date_posted` DESC LIMIT $offset,$maxLimit";
@@ -210,7 +210,7 @@ class Career
                 $applicant = new Applicant();
                 $isApplied[] = $applicant->isApplied($tempCareerID, $username, $con);
 
-                $applicantNo[] = $applicant->getApplicantCount($username, $con);
+                $applicantNo[] = $applicant->getApplicantCount($tempCareerID, $con);
                 //check if the current user saved the job post
                 $isSaved[] = $this->isJobSaved($tempCareerID, $username, $con);
             }
