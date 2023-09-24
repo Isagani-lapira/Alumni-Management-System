@@ -54,11 +54,13 @@ class AlumniOfTheMonth
 
         // $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (colCode, studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img, AOMID, date_assigned  )
         // VALUES (?,?,?,?,?,?,?,?,?,?,CURDATE());');
-        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img, AOMID, date_assigned  )
-        VALUES (?,?,?,?,?,?,?,?,?,CURDATE());');
+        // TODO have an alternative if alumni is not on the database.
+
+        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img, AOMID, colCode, date_assigned )
+        VALUES (?,?,?,?,?,?,?,?,?,?,CURDATE());');
 
         // *  Binds the variable to the '?', prevents sql injection
-        $stmt->bind_param('sssssssss',  $id, $details['quote'], $details['emailAdd'], $details['facebookUN'], $details['linkedINUN'], $details['instagramUN'], $details['profile-img'], $details['cover-img'], $recordID);
+        $stmt->bind_param('ssssssssss',  $id, $details['quote'], $details['emailAdd'], $details['facebookUN'], $details['linkedINUN'], $details['instagramUN'], $details['profile-img'], $details['cover-img'], $recordID, $this->colCode);
         // execute the query
         $stmt->execute();
 
