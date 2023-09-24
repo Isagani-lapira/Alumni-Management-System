@@ -35,37 +35,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Get the form data;
     $id = $_POST['studentNo'];
+    $personID = $_POST['personID'];
     $quote = $_POST['quote'];
-    $emailAdd = $_POST['email'];
-    $facebookUN = $_POST['facebookUN'];
-    $linkedINUN = $_POST['linkedINUN'];
-    $instagramUN = $_POST['instagramUN'];
     // image data
-    $profile_img = $_FILES['profile-image'];
+    // $profile_img = $_FILES['profile-image'];
     $cover_img = $_FILES['cover-image'];
 
     // Create an instance of the model class
     $alumni = new AlumniOfTheMonth($mysql_con, $colCode);
 
-    // Check if image file is larger than 2MB
-    if ($profile_img["size"] > 2000000 && $cover_img["size"] > 2000000) {
-        echo "Sorry, your file is too large. Make it 2mb or less";
-    }
+    // // Check if image file is larger than 2MB
+    // if ($profile_img["size"] > 2000000 && $cover_img["size"] > 2000000) {
+    //     echo "Sorry, your file is too large. Make it 2mb or less";
+    // }
 
 
-    // check if image file is jpg
-    $imageMimeType = $profile_img["type"];
-    $image2MimeType = $cover_img["type"];
-    if ($imageMimeType != "image/jpg" && $imageMimeType != "image/jpeg") {
+    // // check if image file is jpg
+    // $imageMimeType = $profile_img["type"];
+    // $image2MimeType = $cover_img["type"];
+    // if ($imageMimeType != "image/jpg" && $imageMimeType != "image/jpeg") {
 
-        echo "Sorry, only JPG files are allowed.";
-        die();
-    }
+    //     echo "Sorry, only JPG files are allowed.";
+    //     die();
+    // }
 
 
     // Image data
-    $profileImgTmpName =  $_FILES['profile-image']['tmp_name'];
-    $profileImg = file_get_contents($profileImgTmpName);
+    // $profileImgTmpName =  $_FILES['profile-image']['tmp_name'];
+    // $profileImg = file_get_contents($profileImgTmpName);
 
     $cover_imgTmpName =  $_FILES['cover-image']['tmp_name'];
     $cover_img = file_get_contents($cover_imgTmpName);
@@ -75,12 +72,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // make array of alumni information
     $alumniInformation = array(
         'studentNo' => $id,
+        'personID' => $personID,
         'quote' => $quote,
-        'emailAdd' => $emailAdd,
-        'facebookUN' => $facebookUN,
-        'linkedINUN' => $linkedINUN,
-        'instagramUN' => $instagramUN,
-        'profile-img' => $profileImg,
+        // 'emailAdd' => $emailAdd,
+        // 'facebookUN' => $facebookUN,
+        // 'linkedINUN' => $linkedINUN,
+        // 'instagramUN' => $instagramUN,
+        // 'profile-img' => $profileImg,
         'cover-img' => $cover_img
     );
 

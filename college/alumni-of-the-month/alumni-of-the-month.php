@@ -124,7 +124,8 @@
         </form>
     </div>
 
-    <!-- Modal for adding alumni of the month -->
+    <!-- Modal NEW for adding alumni of the month -->
+    <!-- TODO use searchbar to search the alumni for users. -->
     <input type="checkbox" id="add-alumni-modal" class="daisy-modal-toggle">
     <div class="daisy-modal">
         <div class="daisy-modal-box w-11/12 max-w-5xl ">
@@ -155,11 +156,11 @@
 
 
                     <!-- Placeholder for profile image -->
-                    <span class="daisy-label-text"> Choose Profile Image</span>
+                    <!-- Profile Image Input -->
+                    <!-- <span class="daisy-label-text"> Choose Profile Image</span>
 
                     <div class="flex justify-center relative group">
                         <img id="profile-img-preview" class="w-40 h-40 rounded-full peer" src="../../assets/default_profile.png" alt="">
-                        <!-- Profile Image Input -->
                         <div class="daisy-form-control  w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <label for="profile-image" class="daisy-btn w-9 mx-auto ">
                                 Choose Image
@@ -169,36 +170,19 @@
                                 <span class="daisy-label-text-alt text-slate-600 ">Use JPG File Format</span>
                             </label>
                         </div>
-                    </div>
+                    </div> -->
 
                     <label class="font-bold" for="fullname">Fullname</label>
                     <input id="fullname" name="fullname" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo">
 
-                    <label class="font-bold" for="studentNo">ID</label>
+                    <label class="font-bold" for="studentNo">Student ID</label>
                     <input id="studentNo" name="studentNo" class="form-input block rounded" required type="text" placeholder="e.g Patrick Joseph Pronuevo">
+                    <label class="font-bold" for="personID">Person ID</label>
+                    <input id="studentNo" name="personID" class="form-input block rounded" required type="text" placeholder="User23/09/24 10:14:03-644">
 
                     <label class="font-bold" for="quote">Quotation</label>
                     <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
 
-                    <p class="font-bold block">Social Media Links</p>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="relative">
-                            <i class="fa-solid fa-envelope fa-xl text-gray-600 absolute top-2 left-2"></i>
-                            <input id="email" name="email" class="form-input border rounded pl-10" type="email" placeholder="Add Email">
-                        </div>
-                        <div class="relative">
-                            <i class="fa-brands fa-facebook fa-xl  absolute top-2 left-2"></i>
-                            <input id="facebookUN" name="facebookUN" class="form-input border rounded  pl-10" type="text" placeholder="Add Facebook link">
-                        </div>
-                        <div class="relative">
-                            <i class="fa-brands fa-linkedin fa-xl absolute top-2 left-2"></i>
-                            <input id="linkedINUN" name="linkedINUN" class="form-input border rounded  pl-10" type="text" placeholder="Add LinkedIN link">
-                        </div>
-                        <div class="relative">
-                            <i class="fa-brands fa-instagram fa-xl absolute top-2 left-2"></i>
-                            <input id="instagramUN" name="instagramUN" class="form-input border rounded  pl-10" type="text" placeholder="Add instagram link">
-                        </div>
-                    </div>
 
                     <p class="font-bold block" for="">Description</p>
                     <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
@@ -232,13 +216,13 @@
         }
         reader.readAsDataURL(this.files[0]);
     });
-    $('#profile-image').change(function() {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            $('#profile-img-preview').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
+    // $('#profile-image').change(function() {
+    //     let reader = new FileReader();
+    //     reader.onload = (e) => {
+    //         $('#profile-img-preview').attr('src', e.target.result);
+    //     }
+    //     reader.readAsDataURL(this.files[0]);
+    // });
 
     // on form submit
     $('#add-aotm-form').submit(async function(e) {
@@ -265,7 +249,7 @@
                 // remove the form data
                 $("#add-aotm-form")[0].reset();
                 $("#cover-image-preview").attr("src", "");
-                $("#profile-image-preview").attr("src", "");
+                // $("#profile-image-preview").attr("src", "");
                 $("#add-alumni-modal").prop("checked", false);
             } else {
                 Swal.fire("Error", "Alumni is not added due to error.", "info");

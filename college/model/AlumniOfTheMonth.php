@@ -49,18 +49,11 @@ class AlumniOfTheMonth
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
 
-        // set the id
-        $recordID = rand(0, 1000);
-
-        // $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (colCode, studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img, AOMID, date_assigned  )
-        // VALUES (?,?,?,?,?,?,?,?,?,?,CURDATE());');
-        // TODO have an alternative if alumni is not on the database.
-
-        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img, AOMID, colCode, date_assigned )
-        VALUES (?,?,?,?,?,?,?,?,?,?,CURDATE());');
+        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo,personID, quote, cover_img ,colCode, date_assigned )
+        VALUES (?,?,?,?,?,CURDATE());');
 
         // *  Binds the variable to the '?', prevents sql injection
-        $stmt->bind_param('ssssssssss',  $id, $details['quote'], $details['emailAdd'], $details['facebookUN'], $details['linkedINUN'], $details['instagramUN'], $details['profile-img'], $details['cover-img'], $recordID, $this->colCode);
+        $stmt->bind_param('sssss',  $id, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode);
         // execute the query
         $stmt->execute();
 
