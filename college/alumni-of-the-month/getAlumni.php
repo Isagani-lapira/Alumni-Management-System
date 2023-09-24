@@ -28,18 +28,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['partial']) &&   $_GET['partial'] === 'true') {
         // get the offset from the url
         $offset = $_GET['offset'];
-
-
-
         //convert to int
         $offset = (int) $offset;
 
         $results = $event->getAllLatest($offset);
-        header("Content-Type: application/json; charset=UTF-8");
+        // header("Content-Type: application/json; charset=UTF-8");
         echo json_encode($results);
     } else {
+        // Return the full detail of the alumni of the month
         $results = $event->getFullDetailById($_GET['studentNo']);
-        header("Content-Type: application/json; charset=UTF-8");
+        // header("Content-Type: application/json; charset=UTF-8");
         echo json_encode($results);
     }
 } else {

@@ -11,20 +11,26 @@ $(document).ready(function () {
   /*****
    *
    */
-  const API_URL = "./event/getEvent.php";
+  const API_URL = "./alumni-of-the-month/getAlumni.php?partial=true";
   let offset = 0;
   refreshList();
+  //  add event handler to the refresh button
+  $("#refreshRecord").on("click", async function () {
+    refreshList();
+  });
+
   // refresh the list
   async function refreshList(category = "all") {
     //   get the event details
     const results = await getPartialEventDetails(0, category);
-
-    $("#event-list").empty();
-    appendContent($("#event-list"), results.result);
+    $("#tBodyRecord").empty();
+    appendContent($("#tBodyRecord"), results.result);
   }
+
   //   get the event details
-  async function getPartialEventDetails(offset) {
-    const response = await fetch(API_URL + "?offset=" + offset, {
+  async function getPartialEventDetails(offset, category) {
+    console.log("getPartialEventDetails");
+    const response = await fetch(API_URL + "&offset=" + offset, {
       headers: {
         method: "GET",
         "Content-Type": "application/json",
@@ -38,24 +44,22 @@ $(document).ready(function () {
 
     return result;
   }
+
   //   set the data into the table
   function appendContent(selectorContainer, jsonData) {
+    console.log(jsonData);
     const container = selectorContainer;
-    jsonData.forEach((event) => {
-      // moment js parsing
-      const parsedDatePosted = moment(event.date_posted).format("MMMM Do YYYY");
-      const parsedEventDateTime = moment(
-        event.eventDate + " " + event.eventStartTime
-      ).format("MMMM Do YYYY [|] h:mm a");
-
+    jsonData.forEach((item) => {
       //  append the data to the table
+      console.log(item);
+
       container.append(`
       <tr class="h-14">
-      <td class="student-num__val text-start font-bold">${jsonData.studentNo}</td>
+      <td class="student-num__val text-start font-bold">${item.studentNo}</td>
       <td>
           <div class="flex items-center justify-start">
               <div class="w-10 h-10 rounded-full border border-accent"></div>
-              <span class="ml-2">${jsonData.fullname}</span>
+              <span class="ml-2">${item.fullname}</span>
           </div>
       </td>
 

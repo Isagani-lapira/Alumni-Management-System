@@ -126,11 +126,15 @@ class AlumniOfTheMonth
 
     function getAllLatest(int $offset = 0): array
     {
-        // TODO replace this with more detailed query (use college filter)
-        $stmt = $this->conn->prepare('SELECT * FROM `alumni_of_the_month`
-              ORDER BY date_posted DESC
+        // TODO use a more sensible query
+        $stmt = $this->conn->prepare('SELECT alumni_of_the_month.*, 
+        CONCAT(fName, " ", lName) AS fullname  FROM `alumni_of_the_month`
+            INNER JOIN `alumni` on studNo = studentNo
+            INNER JOIN `person` on person.personID = alumni.personID
+              WHERE alumni_of_the_month.colCode = ?
+              ORDER BY date_assigned DESC
               LIMIT  10  OFFSET  ? ;');
-        $stmt->bind_param('i', $offset);
+        $stmt->bind_param('si',  $this->colCode, $offset);
 
         try {
             // execute the query

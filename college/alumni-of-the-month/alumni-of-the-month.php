@@ -55,6 +55,12 @@
 
 
     <!-- End Filter Section -->
+    <!-- refresh record -->
+    <div class="flex justify-end gap-4 mt-4">
+        <button class="btn-tertiary" id="refreshRecord">
+            Refresh Record
+        </button>
+    </div>
     <!-- Record Table-->
     <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
         <thead class="bg-accent text-white rounded-t-lg">
@@ -64,7 +70,7 @@
                 <th>DETAILS</th>
             </tr>
         </thead>
-        <tbody class="text-sm">
+        <tbody class="text-sm" id="tBodyRecord">
 
             <!-- <tr class="h-14">
                 <td class="student-num__val text-start font-bold">2020101933</td>
