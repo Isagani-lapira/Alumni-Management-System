@@ -14,7 +14,7 @@ module.exports = {
         secondary: "#1746A2",
         grayish: "#9CA3AF",
         darkAccent: "#601010",
-        greyish_black: "#333030",
+        greyish_black: "#474645",
         accentBlue: "#1746A2",
         postButton: "#60A5FA",
         postHoverButton: "#3B82F6",

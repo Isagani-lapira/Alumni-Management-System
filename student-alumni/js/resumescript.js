@@ -1,280 +1,95 @@
 $(document).ready(function () {
 
+    let pageNo = 0
 
-    let currentPage = 1
-    const enabledBtn = "bg-blue-400 hover:bg-blue-500"
-    const disabledBtn = "bg-blue-300"
-    function enabledTheNext() {
-        $('#resumeBtnNext')
-            .removeClass(disabledBtn)
-            .addClass(enabledBtn)
-            .attr('disabled', false)
-    }
-
-    function disabledTheNext() {
-        $('#resumeBtnNext')
-            .attr('disabled', true)
-            .addClass('bg-blue-300')
-            .removeClass('bg-blue-400 hover:bg-blue-500')
-    }
-
-    let skills = [];
-    $('#resumeBtnNext').on('click', function () {
-        if (currentPage == 1) {
-            // personal information page
-            const className = '.personalInput'
-            // check if all input are completed
-            if (isInputComplete(className)) {
-                currentPage++
-                navigateToPage(currentPage)
-            }
-        }
-        else if (currentPage == 2) {
-            //academic background page
-            const className = '.academicBgInput'
-            // check if all input are completed
-            if (isInputComplete(className)) {
-                currentPage++
-                enabledTheNext()
-                navigateToPage(currentPage)
-            }
-        }
-        else if (currentPage == 3) {
-            //work experience
-            currentPage++
-            navigateToPage(currentPage)
-        }
-        else if (currentPage == 4) {
-            // skill page
-            let skillCount = 0;
-            $('.skillInput').each(function () {
-                let value = $(this).val();
-
-                if (value !== "") {
-                    skillCount++
-                    skills.push(value) //add to the array
+    $('#editResumeBtn').on('click', function () {
+        haveResume()
+            .then((response) => {
+                if (response) { //have resume
+                    // display all the data for page 1
+                    getResumeData(true)
                 }
             })
-            //check if it reach the minimum of 2 skill
-            if (skillCount > 1) {
-                currentPage++
-                navigateToPage(currentPage)
+    })
+
+    $('#resumeBtnNext').on('click', function () {
+        let inputFieldComplete = true
+        // check first if all the field has value
+        //skill required minimum of 3 skill
+        if (pageNo == 2) {
+            let countSkill = 0;
+
+            $('.skillInput').each(function () {
+                let val = $(this).val();
+                if (val !== '') countSkill++
+            })
+            if (countSkill < 3) inputFieldComplete = false
+        }
+        else {
+            $('#pageNo' + pageNo + ' .requiredValue').each(function () {
+                let element = $(this)
+                let value = element.val().trim();
+
+                if (value === '') inputFieldComplete = false
+
+            })
+        }
+
+        if (inputFieldComplete) {
+            pageNo++
+            $('#pageNo' + pageNo).removeClass('hidden') //show the next page
+            $('#pageNo' + (pageNo - 1)).addClass('hidden') //hide the previous page
+
+            // change button on the last page of edit resume
+            if (pageNo == 4) {
+                $('#resumeBtnUpdate').removeClass('hidden')
+                $('#resumeBtnNext').addClass('hidden')
+
+                // enable update button if the last page has value
+                if ($('#objectiveInput').val().trim() !== '') {
+                    $('#resumeBtnUpdate')
+                        .addClass('bg-green-400 hover:bg-green-500')
+                        .removeClass('bg-green-300')
+                        .attr('disabled', false)
+                }
             }
         }
-        else if (currentPage == 5) {
-            //reference
-            currentPage++
-            disabledTheNext()
-            navigateToPage(currentPage)
-        }
+
+        if (pageNo == 0) $('#resumeBtnPrev').addClass('hidden')
+        $('#resumeBtnPrev').removeClass('hidden') // display the previous to be use 
     })
 
+
+    // go back to previous page
     $('#resumeBtnPrev').on('click', function () {
-        currentPage--
-        $('#resumeBtnNext').removeClass('hidden') //show next button
-        $('#resumeBtnUpdate').addClass('hidden') //hide the update button
-        navigateToPage(currentPage)
-
-    })
-
-    //change the page base on what the he's current page
-    function navigateToPage(page) {
-        $('.resumePages').each(function () { $(this).addClass('hidden') })
-        switch (page) {
-            case 1:
-                $('#personInfoPage').removeClass('hidden')
-                break;
-            case 2:
-                $('#academicInfoPage').removeClass('hidden')
-                break;
-            case 3:
-                $('#workExpPage').removeClass('hidden')
-                disabledTheNext()
-                break;
-            case 4:
-                $('#skillPage').removeClass('hidden')
-                enabledTheNext()
-                break;
-            case 5:
-                $('#references').removeClass('hidden');
-                disabledTheNext()
-                break;
-            case 6:
-                $('#resumeSummary').removeClass('hidden')
-                $('#resumeBtnNext').addClass('hidden')
-                //change the button to success button
-                $('#resumeBtnUpdate').removeClass('hidden')
-                break;
+        pageNo--
+        if (pageNo >= 0) {
+            $('#pageNo' + (pageNo + 1)).addClass('hidden')
+            $('#pageNo' + pageNo).removeClass('hidden')
         }
+        if (pageNo == 0) $('#resumeBtnPrev').addClass('hidden')
+    })
+    // check first if have resume
+    function haveResume() {
+        const action = "haveResume"
+        const formData = new FormData();
+        formData.append('action', action)
 
-        //check if the prev button should be visible
-        isHidden = (page > 1) ? true : false;
-
-        if (isHidden) $('#resumeBtnPrev').removeClass('hidden')
-        else $('#resumeBtnPrev').addClass('hidden')
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '../PHP_process/resume.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: response => { resolve(response) },
+                error: error => { reject(error) },
+            })
+        })
 
     }
 
-    //check if the input are complete to be able to proceed
-    function isInputComplete(classPage) {
-        let isComplete = true
-        $(classPage).each(function () {
-            let value = $(this).val();
-            let element = $(this)
 
-            //return as soon as it see null in input
-            if (value === "") {
-                isComplete = false
-
-                //add indication of no input inserted
-                element.addClass('border border-red-400')
-            } else element.removeClass('border border-red-400')
-        })
-
-        return isComplete;
-    }
-
-
-    const date = new Date()
-    let currentYear = parseInt(date.getFullYear())
-
-    $('.yearSelection').each(function () {
-        let target = $(this)
-        //create a option up to 1945
-        const maxYear = 1945;
-        for (let i = currentYear; i > maxYear; i--) {
-            //markeup for option
-            let option = $('<option>').val(i).text(i)
-            target.append(option)
-        }
-    })
-
-    let work = [];
-
-    function getWork(selector) {
-        const jobTitleInput = $(selector + '.job-title').val();
-        const companyNameInput = $(selector + '.company-name').val();
-        const startYearSelect = $(selector + '.year:nth-child(5)').val();
-        const endYearSelect = $(selector + '.year:nth-child(6)').val();
-        const year = startYearSelect + '-' + endYearSelect;
-        const responsibility = $(selector + '.responsibility').val();
-        // Create an object and push it to the work array
-        work.push({
-            jobTitle: jobTitleInput,
-            companyName: companyNameInput,
-            year: year,
-            responsibility: responsibility
-        });
-
-    }
-    $('#addWorkExp2').on('click', function () {
-        let classPage = ".firstWork"
-        if (isInputComplete(classPage)) {
-            showWorkInputField($(this))
-            $('#addWorkExp3').removeClass('hidden') //show the next add icon
-            //get the data
-            getWork(classPage)
-            enabledTheNext()
-        } else {
-            disabledTheNext()
-        }
-
-    })
-
-    // third work experience
-    $('#addWorkExp3').on('click', function () {
-        let classPage = ".secondWork"
-        if (isInputComplete(classPage)) {
-            showWorkInputField($(this))
-            $('#addWorkExp4').removeClass('hidden') //show the next add icon
-            //get the data
-            getWork(classPage)
-            enabledTheNext()
-        } else disabledTheNext() //if the input is incomplete then it dont allow to be next
-    })
-    $('#addWorkExp4').on('click', function () {
-        let classPage = ".thirdWork"
-        if (isInputComplete(classPage)) {
-            showWorkInputField($(this))
-            $('#addWorkExp4').removeClass('hidden') //show the next add icon
-            //get the data
-            getWork(classPage)
-            enabledTheNext()
-        } else disabledTheNext()//if the input is incomplete then it dont allow to be next
-    })
-
-    function showWorkInputField(element) {
-        const targetParent = $(element).parent()
-
-        //find all the input that is invisible
-        const inputFields = targetParent.find('input, select');
-
-        //traverse and show
-        inputFields.removeClass('invisible')
-    }
-
-    $('#noExp').on('click', function () {
-        $('#workExpWrapper').addClass('hidden')
-        enabledTheNext() // allows to be next
-    })
-    $('#withExp').on('click', function () {
-        $('#workExpWrapper').removeClass('hidden')
-        disabledTheNext()
-    })
-
-    $('#objectiveInput').on('input', function () {
-        let value = $(this).val()
-
-        //allows the update resume button now
-        if (value !== "") {
-            //change button to update
-            $('#resumeBtnUpdate')
-                .attr('disabled', false)
-                .addClass('bg-green-400 hover:bg-green-500')
-                .removeClass('bg-green-300')
-        }
-    })
-
-    let primaryEduc = [];
-    let secondaryEduc = [];
-    let tertiaryEduc = [];
-    let referenceData = [];
-    $('#resumeBtnUpdate').on('click', function () {
-        //get primary education
-        $('.primary').each(function () {
-            var value = $(this).val()
-            primaryEduc.push(value)
-        })
-
-        //get secondary education
-        $('.secondary').each(function () {
-            var value = $(this).val()
-            secondaryEduc.push(value)
-        })
-
-        // get tertiary
-        $('.tertiary').each(function () {
-            var value = $(this).val()
-            tertiaryEduc.push(value)
-        })
-
-        //get first reference data
-        const firstFN = '#refFN'
-        const firstJT = '#refJobTitle'
-        const firstContact = '#refContactNo'
-        const firstEmail = '#refEmailAdd'
-        getReferences(firstFN, firstJT, firstContact, firstEmail)
-
-        //get second reference data
-        const secondFN = '#refFNSecond'
-        const secondJT = '#refJobTitleSecond'
-        const secondContact = '#refContactSecond'
-        const secondEmail = '#refEmailThird'
-        getReferences(secondFN, secondJT, secondContact, secondEmail)
-
-        setResume()
-
-    })
     function setResume() {
         let data = $('#formResume')[0];
         var formData = new FormData(data);
@@ -325,32 +140,9 @@ $(document).ready(function () {
         })
     }
 
-    //get reference
-    function getReferences(refFNID, refJobID, refContactID, refEmailID) {
-        const selector = ".referencesInput"
-        const refFname = $(selector + refFNID).val()
-        const refJobTitle = $(selector + refJobID).val()
-        const refContactNo = $(selector + refContactID).val()
-        const refEmailAdd = $(selector + refEmailID).val()
 
-        referenceData.push({
-            fullname: refFname,
-            jobTitle: refJobTitle,
-            contactNo: refContactNo,
-            emailAdd: refEmailAdd
-        })
-    }
 
-    //cancel the resume modal
-    $('#editResumeModal').on('click', function (e) {
-        const target = e.target
-        const wrapper = $('#resumeWrapper')
-
-        if (!wrapper.is(target) && !wrapper.has(target).length) {
-            restartResume()
-        }
-    })
-
+    $('.closeEditorResume').on('click', restartResume)
     function restartResume() {
         $('#editResumeModal').addClass('hidden')
 
@@ -370,7 +162,7 @@ $(document).ready(function () {
         getResumeData()
     })
 
-    function getResumeData() {
+    function getResumeData(isEditting = false) {
         const action = "retrievalData"; //action to be perform
         const formData = new FormData();
         formData.append('action', action);
@@ -397,7 +189,11 @@ $(document).ready(function () {
                         const education = response.education;
                         const workExp = response.workExp;
                         const references = response.references;
-                        setResumeDetails(objective, fullname, contactNo, address, emailAdd, skills, education, workExp, references);
+
+                        if (isEditting)
+                            addResumeDataToEditing(objective, skills, education, workExp, references)
+                        else
+                            setResumeDetails(objective, fullname, contactNo, address, emailAdd, skills, education, workExp, references);
                     }
 
                 }
@@ -405,6 +201,78 @@ $(document).ready(function () {
             error: error => { console.log(error) }
         })
     }
+
+    function addResumeDataToEditing(objective, skills, education, workExp, references) {
+        // set up the data for school details
+        let length = education.educationLevel.length
+        for (let i = 0; i < length; i++) {
+            let schoolName = education.degree[i];
+            let educationYr = education.year[i].split('-')
+            let startedYr = educationYr[0]
+            let endYr = educationYr[1];
+
+            // update value of input field
+            $('#degree' + i).val(schoolName)
+            $('#startYr' + i).val(startedYr)
+            $('#endYr' + i).val(endYr)
+        }
+
+
+        // add work experience
+        let workLength = workExp.companyName.length;
+        for (let i = 0; i < workLength; i++) {
+            let jobTitle = workExp.jobTitle[i];
+            let workDescript = workExp.workDescript[i];
+            let companyName = workExp.companyName[i];
+            let years = workExp.year[i].split('-');
+            let startYr = years[0];
+            let endYr = years[1];
+
+            $('#workTitle' + i).val(jobTitle)
+            $('#workDescript' + i).val(workDescript)
+            $('#workCompanyName' + i).val(companyName)
+            $('#workStartYr' + i).val(startYr)
+            $('#workEndYr' + i).val(endYr)
+        }
+
+
+        // add skills
+        let skillLength = skills.length;
+        for (let i = 0; i < skillLength; i++) {
+            $('#skill' + i).val(skills[i])
+        }
+
+        // add references
+        let refLength = 3
+        for (let i = 0; i < refLength; i++) {
+            let fullname = references.fullname[i];
+            let jobTitle = references.jobTitle[i];
+            let emailAdd = references.fullname[i];
+            let contactNo = references.fullname[i];
+
+
+            $('#refFN' + i).val(fullname)
+            $('#refJobTitle' + i).val(jobTitle)
+            $('#refContactNo' + i).val(emailAdd)
+            $('#refEmailAdd' + i).val(contactNo)
+        }
+
+        // add value to summary
+        $('#objectiveInput').val(objective)
+
+
+    }
+
+    // set all the select with max of todays year and minimum of 1995
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const lowestYear = 1995
+    $('.yearSelection ').each(function () {
+        for (let i = currentYear; i > lowestYear; i--) {
+            const option = $('<option>').val(i).text(i);
+            $(this).append(option)
+        }
+    })
 
     function setResumeDetails(objective, fullname, contactNo, address, emailadd,
         skills, educations, workExp, references) {
@@ -582,11 +450,6 @@ $(document).ready(function () {
         }).from(contentWithStyles).save();
     });
 
-    //open the extra reference
-    $('#referenceBtn').on('click', function () {
-        $('#extraReference').removeClass('hidden') //show the hidden reference
-        $(this).hide()
-    })
 
     $('#refFN, #refJobTitle,#refContactNo,#refEmailAdd,#refFNSecond, #refJobTitleSecond, #refContactSecond, #refEmailThird')
         .on('input', function () {

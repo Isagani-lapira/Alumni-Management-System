@@ -44,3 +44,8 @@
 .profileWrapper {
   left: 20%;
 }
+
+.workExpPage input::placeholder,
+.workExpPage select {
+  color: rgb(107, 107, 107);
+}

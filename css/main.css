@@ -839,10 +839,6 @@ div.input-container input[type="text"],
   right: -2rem;
 }
 
-.-top-1 {
-  top: -0.25rem;
-}
-
 .-top-10 {
   top: -2.5rem;
 }
@@ -981,10 +977,6 @@ div.input-container input[type="text"],
 
 .top-8 {
   top: 2rem;
-}
-
-.right-1\/2 {
-  right: 50%;
 }
 
 .z-0 {
@@ -2241,7 +2233,7 @@ div.input-container input[type="text"],
 
 .border-greyish_black {
   --tw-border-opacity: 1;
-  border-color: rgb(51 48 48 / var(--tw-border-opacity));
+  border-color: rgb(71 70 69 / var(--tw-border-opacity));
 }
 
 .border-red-400 {
@@ -2276,7 +2268,7 @@ div.input-container input[type="text"],
 
 .border-b-greyish_black {
   --tw-border-opacity: 1;
-  border-bottom-color: rgb(51 48 48 / var(--tw-border-opacity));
+  border-bottom-color: rgb(71 70 69 / var(--tw-border-opacity));
 }
 
 .border-b-white {
@@ -3089,7 +3081,7 @@ div.input-container input[type="text"],
 
 .text-greyish_black {
   --tw-text-opacity: 1;
-  color: rgb(51 48 48 / var(--tw-text-opacity));
+  color: rgb(71 70 69 / var(--tw-text-opacity));
 }
 
 .text-lightDirtyWhite {
@@ -3301,6 +3293,10 @@ body {
   cursor: pointer;
 }
 
+.hover\:border:hover {
+  border-width: 1px;
+}
+
 .hover\:border-gray-700:hover {
   --tw-border-opacity: 1;
   border-color: rgb(55 65 81 / var(--tw-border-opacity));
@@ -3309,6 +3305,11 @@ body {
 .hover\:border-gray-800:hover {
   --tw-border-opacity: 1;
   border-color: rgb(31 41 55 / var(--tw-border-opacity));
+}
+
+.hover\:border-white:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
 .hover\:bg-accent:hover {
@@ -3644,11 +3645,6 @@ body {
     vertical-align: middle;
   }
 
-  .sm\:text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
   .sm\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -3717,6 +3713,10 @@ body {
     width: 50%;
   }
 
+  .md\:w-1\/3 {
+    width: 33.333333%;
+  }
+
   .md\:w-2\/6 {
     width: 33.333333%;
   }
@@ -3735,10 +3735,6 @@ body {
 
   .md\:w-96 {
     width: 24rem;
-  }
-
-  .md\:w-1\/3 {
-    width: 33.333333%;
   }
 
   .md\:max-w-5xl {
