@@ -107,4 +107,8 @@ body {
       scrollbar-width: none; /* Firefox */
     }
   }
+  /* Sidebar  */
+  .is-collapsed {
+    @apply w-24;
+  }
 }

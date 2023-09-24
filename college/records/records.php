@@ -1,6 +1,6 @@
 <!-- report content -->
 <section id="report-tab" class=" mx-auto lg:mx-8">
-    <h1 class="text-xl font-extrabold uppercase">Alumni Record</h1>
+    <h1 class="text-xl font-extrabold uppercase">Records</h1>
 
     <div class="flex justify-end text-sm text-greyish_black">
         <!-- HISTORY LOGS -->
@@ -20,6 +20,12 @@
 
     <div class="flex flex-wrap gap-4">
 
+        <select name="type" id="type-user" class=" form-select rounded">
+            <option value="all" selected>All</option>
+            <option value="student">Student</option>
+            <option value="alumni">Alumni</option>
+            <!-- php function on batch -->
+        </select>
         <!-- search-bar -->
         <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-2 top-0 mt-3 text-gray-400 "></i>
@@ -33,18 +39,22 @@
         </div>
         <!-- end daterangepicker input -->
         <!-- batch selection -->
-        <select name="" id="batch" class="input-text">
+        <select name="" id="batch" class=" form-select rounded ">
             <option value="" selected disabled hidden>Batch</option>
             <!-- php function on batch -->
         </select>
 
+
         <!-- college selection -->
-        <select name="college" id="college" class="input-text">
+        <select name="college" id="college" class=" form-select rounded">
             <option value="" selected disabled hidden>Course</option>
+            <option value="">BS IT</option>
+            <option value="">BS IS</option>
+            <!-- <option value="" >BS </option> -->
         </select>
 
         <!-- employment status selection -->
-        <select name="employment" id="employment" class="input-text">
+        <select name="employment" id="employment" class=" form-select rounded">
             <option value="" selected disabled hidden>Employment Status</option>
             <option value="">Employed</option>
             <option value="">Unemployed</option>
@@ -229,12 +239,11 @@
 
     <!-- Start Record Table -->
     <!-- record of name-->
-    <table class="table-auto w-full mt-10 text-xs font-thin center-shadow ">
+    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra hidden">
         <thead class="">
-            <tr class="bg-accent text-white ">
+            <tr class="bg-accent text-white  rounded-tl-md text-sm">
                 <th class="rounded-tl-lg">Student Number</th>
                 <th>NAME</th>
-                <th>COLLEGE</th>
                 <th>BATCH</th>
                 <th class="rounded-tr-lg">Employment Status</th>
             </tr>
@@ -243,7 +252,23 @@
         <tbody id="alumniTB" class="text-sm">
         </tbody>
     </table>
-    <p id="alumniNoRecMsg" class="text-center text-blue-500">No available data</p>
+    <!-- End Record Table -->
+    <!-- Start Record Table -->
+    <!-- record of name-->
+    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra  ">
+        <thead class="">
+            <tr class="bg-accent text-white  rounded-tl-md">
+                <th class="rounded-tl-lg">STUDENT NUMBER</th>
+                <th>NAME</th>
+                <th>CONTACT NUMBER</th>
+                <th>DETAILS</th>
+            </tr>
+        </thead>
+        <!-- To be filled later -->
+        <tbody id="studentTB" class="text-sm">
+        </tbody>
+    </table>
+    <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
     <!-- End Record Table -->
 
 
@@ -257,7 +282,7 @@
 <div id="modal" class="modal fixed inset-0 h-full w-full  items-center justify-center text-grayish  top-0 left-0 hidden">
     <div class="modal-container w-1/3 h-2/3 bg-white rounded-lg p-3">
         <div class="modal-header py-5">
-            <h1 class="text-accent text-2xl text-center font-bold">Create Announcement</h1>
+            <h1 class="text-accent text-2xl text-center font-bold">Create something</h1>
         </div>
         <div class="modal-body px-3">
 
@@ -298,5 +323,5 @@
 <script>
     // Date picker
     $('#reportdaterange').daterangepicker();
-    $.getScript("record.js");
+    $.getScript("records/record.js");
 </script>

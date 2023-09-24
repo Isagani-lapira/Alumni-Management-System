@@ -6,9 +6,13 @@
         <button class="btn-tertiary">
             Export List
         </button>
-        <button class="btn-primary" id="addAlumniBtn">
+        <!-- <button class="btn-primary" id="addAlumniBtn">
             Add Alumni
-        </button>
+        </button> -->
+        <!-- <button class="daisy-btn btn-primary " onclick="my_modal_4.showModal()">Add Alumni</button> -->
+        <!-- The button to open modal -->
+        <label for="add-alumni-modal" class="daisy-btn">Add This Month's Alumni</label>
+
     </div>
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
     <!-- Filter  -->
@@ -57,13 +61,12 @@
             <tr class=" rounded-t-lg">
                 <th class="text-start uppercase">Student Number</th>
                 <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th>USER TYPE</th>
                 <th>DETAILS</th>
             </tr>
         </thead>
         <tbody class="text-sm">
-            <tr class="h-14">
+
+            <!-- <tr class="h-14">
                 <td class="student-num__val text-start font-bold">2020101933</td>
                 <td>
                     <div class="flex items-center justify-start">
@@ -71,12 +74,8 @@
                         <span class="ml-2">Wade Warren</span>
                     </div>
                 </td>
-                <td class="text-center">09104905440</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
                 <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
+            </tr> -->
 
 
         </tbody>
@@ -84,8 +83,7 @@
     <!-- End Record Table -->
 
 
-    <!-- Modal for adding new email -->
-    <!-- modal add email message -->
+    <!-- MODAL OLD -->
     <div id="modalAlumni" class="bg-gray-800 bg-opacity-80 fixed inset-0 h-full w-full flex items-center justify-center 
       text-grayish  top-0 left-0 hidden">
         <form id="add-alumni-month-form" class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
@@ -120,6 +118,96 @@
         </form>
     </div>
 
+    <!-- Modal for adding alumni of the month -->
+    <input type="checkbox" id="add-alumni-modal" class="daisy-modal-toggle">
+    <div class="daisy-modal">
+        <div class="daisy-modal-box w-11/12 max-w-5xl ">
+            <!-- Exit -->
+            <form method="dialog">
+                <label for="add-alumni-modal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
+            </form>
+            <!-- End Exit Form -->
+            <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
+            <!-- make alumni of the year post -->
+            <form action="" id="add-aotm-form">
+                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12">
+                    <span class="daisy-label-text">Choose Cover Image</span>
+
+                    <!-- Placeholder for Cover Image -->
+                    <div class="w-full h-40 relative group">
+                        <img id="cover-img-preview" class="w-full bg-red-300 object-cover max-h-full h-full block" src="" alt="">
+                        <!-- Cover Image Input -->
+                        <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <label for="cover-image" class="daisy-label">
+                            </label>
+                            <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-image" type="file" accept=".jpg" name="cover-image">
+                            <label class="daisy-label">
+                                <span class="daisy-label-text-alt">Use JPG File Format</span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <!-- Placeholder for profile image -->
+                    <span class="daisy-label-text"> Choose Profile Image</span>
+
+                    <div class="flex justify-center relative group">
+                        <img id="profile-img-preview" class="w-40 h-40 rounded-full peer" src="../../assets/default_profile.png" alt="">
+                        <!-- Profile Image Input -->
+                        <div class="daisy-form-control  w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <label for="profile-image" class="daisy-btn w-9 mx-auto ">
+                                Choose Image
+                            </label>
+                            <input class="daisy-file-input hidden daisy-file-input-bordered w-full max-w-xs" id="profile-image" type="file" accept=".jpg" name="profile-image">
+                            <label class="daisy-label mx-auto bg-gray-100 rounded mt-2">
+                                <span class="daisy-label-text-alt text-slate-600 ">Use JPG File Format</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <label class="font-bold" for="fullname">Fullname</label>
+                    <input id="fullname" name="fullname" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo">
+
+                    <label class="font-bold" for="studentNo">ID</label>
+                    <input id="studentNo" name="studentNo" class="form-input block rounded" required type="text" placeholder="e.g Patrick Joseph Pronuevo">
+
+                    <label class="font-bold" for="quote">Quotation</label>
+                    <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
+
+                    <p class="font-bold block">Social Media Links</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope fa-xl text-gray-600 absolute top-2 left-2"></i>
+                            <input id="email" name="email" class="form-input border rounded pl-10" type="email" placeholder="Add Email">
+                        </div>
+                        <div class="relative">
+                            <i class="fa-brands fa-facebook fa-xl  absolute top-2 left-2"></i>
+                            <input id="facebookUN" name="facebookUN" class="form-input border rounded  pl-10" type="text" placeholder="Add Facebook link">
+                        </div>
+                        <div class="relative">
+                            <i class="fa-brands fa-linkedin fa-xl absolute top-2 left-2"></i>
+                            <input id="linkedINUN" name="linkedINUN" class="form-input border rounded  pl-10" type="text" placeholder="Add LinkedIN link">
+                        </div>
+                        <div class="relative">
+                            <i class="fa-brands fa-instagram fa-xl absolute top-2 left-2"></i>
+                            <input id="instagramUN" name="instagramUN" class="form-input border rounded  pl-10" type="text" placeholder="Add instagram link">
+                        </div>
+                    </div>
+
+                    <p class="font-bold block" for="">Description</p>
+                    <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
+
+                    <div class="flex flex-wrap gap-4 py-4 justify-end">
+                        <button class="btn-tertiary bg-transparent " type="reset">Reset Form</button>
+                        <button class="btn-primary">Add Alumni of the Month</button>
+                    </div>
+                </div>
+            </form>
+            <!-- End Add FORM -->
+
+        </div>
+    </div>
+
 
 </section>
 
@@ -129,4 +217,68 @@
 
     // get the script for alumni.js
     $.getScript("./alumni-of-the-month/alumni.js");
+
+    // preview the image after changing the input
+    $('#cover-image').change(function() {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            $('#cover-img-preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+    $('#profile-image').change(function() {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            $('#profile-img-preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    // on form submit
+    $('#add-aotm-form').submit(async function(e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+        // add some sweet alert dialog
+        const confirmation = await Swal.fire({
+            title: "Confirm?",
+            text: "Are you sure to add alumni with these details?",
+            icon: "info",
+            showCancelButton: true,
+            // confirmButtonColor: CONFIRM_COLOR,
+            // cancelButtonColor: CANCEL_COLOR,
+            confirmButtonText: "Yes, Add it!",
+        });
+        if (confirmation.isConfirmed) {
+            console.log("submitting add alumni form");
+
+            const isSuccessful = await postNewAlumni(this);
+            console.log(isSuccessful);
+            if (isSuccessful.response === "Successful") {
+                // show the success message
+                Swal.fire("Success!", "Alumni has been added.", "success");
+                // remove the form data
+                $("#add-aotm-form")[0].reset();
+                $("#cover-image-preview").attr("src", "");
+                $("#profile-image-preview").attr("src", "");
+                $("#add-alumni-modal").prop("checked", false);
+            } else {
+                Swal.fire("Error", "Alumni is not added due to error.", "info");
+
+            }
+        } else {
+            Swal.fire("Cancelled", "Add alumni cancelled.", "info");
+
+        }
+
+    });
+
+    async function postNewAlumni(form, url = './alumni-of-the-month/addAlumni.php') {
+        // get the form data
+        const formData = new FormData(form);
+        const response = await fetch(url, {
+            method: "POST",
+            body: formData,
+        });
+        return response.json();
+    }
 </script>

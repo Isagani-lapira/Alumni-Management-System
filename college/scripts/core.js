@@ -4,7 +4,12 @@ function capitalizeFirstLetter(string) {
 }
 
 $(document).ready(function () {
+  // Constants
   const SIGN_IN_URL = "./index.php";
+
+  // load the page upon first try.
+  loadURL("dashboard", $("#main-root"));
+
   // detect hashed id in the first load
   if (window.location.hash) {
     const linkName = window.location.hash.substr(1);
@@ -18,6 +23,11 @@ $(document).ready(function () {
     const link = $(this).attr("data-link");
     handleLinkFocusChange(link);
     loadURL(link, $("#main-root"));
+  });
+
+  // Handles Sidebar collapse using the hamburger menu
+  $("#toggleSidebarIcon").on("click", function () {
+    $("#sidebar").toggleClass("is-collapsed");
   });
 
   function handleLinkFocusChange(pageName) {
