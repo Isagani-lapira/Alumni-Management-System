@@ -88,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     // set new alumni
+    // TODO add new logging event
     $result = $alumni->setNewAlumniOfTheMonth($id, $alumniInformation,);
     header("Content-Type: application/json; charset=UTF-8");
     if ($result === TRUE) {

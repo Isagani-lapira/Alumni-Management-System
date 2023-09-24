@@ -7,43 +7,43 @@
 function logPostActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
     $action = "posted";
-    $details = "$colCode posted an event";
+    $details = " posted an event";
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 function logUpdateActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
     $action = "updated";
-    $details = "$colCode updated an event";
+    $details = " updated an event";
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 function logEmailedActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
     $action = "emailed";
-    $details = "$colCode added a new email";
+    $details = " added a new email";
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 function logEventActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
     $action = "event";
-    $details = "$colCode created an event";
+    $details = " created an event";
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 function logCommentedActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
     $action = "commented";
-    $details = "$colCode added a new comment";
+    $details = "added a new comment";
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 function logSigninActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
     $action = "signin";
-    $details = "$colCode signed in";
+    $details = "signed in";
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 function logSignoutActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
     $action = "signout";
-    $details = "$colCode signed out";
+    $details = "signed out";
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 
@@ -52,7 +52,7 @@ function logSignoutActivity(mysqli $mysql_con, $colAdmin, $colCode)
 function logDeleteActivity(mysqli $mysql_con, $colAdmin, $colCode)
 {
     $action = "delete";
-    $details = "$colCode deleted an event.";
+    $details = "deleted an event.";
     setNewActivity($mysql_con, $colAdmin, $action, $details);
 }
 
