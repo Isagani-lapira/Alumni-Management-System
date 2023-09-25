@@ -757,12 +757,12 @@ function dateInText($date)
                         echo '<div class="flex items-center gap-2 mt-4">
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                             <span class="font-bold">First name</span>
-                            <input id="firstname" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $firstName . '"
+                            <input id="firstnameEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $firstName . '"
                             placeholder="' . $firstName . '"/>
                         </div>
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                            <span class="font-bold">Last name</span>
-                           <input id="lastname" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $lastName . '"
+                           <input id="lastnameEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $lastName . '"
                             placeholder="' . $lastName . '"/>
                         </div>
                         </div>';
@@ -770,12 +770,12 @@ function dateInText($date)
                         echo '<div class="flex items-center gap-2 mt-2">
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                             <span class="font-bold">Address</span>
-                            <input id="address" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $address . '"
+                            <input id="addressEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $address . '"
                             placeholder="' . $address . '"/>
                         </div>
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                            <span class="font-bold">Contact No.</span>
-                           <input id="contactNo" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $contactNo . '"
+                           <input id="contactNoEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $contactNo . '"
                             placeholder="' . $contactNo . '"/>
                         </div>
                         </div>';
@@ -783,7 +783,7 @@ function dateInText($date)
                         echo '
                         <div class="flex flex-col w-full text-sm text-gray-500 mt-2">
                             <span class="font-bold">Email Address</span>
-                            <input id="emailAdd" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md" value="' . $personal_email . '"
+                            <input id="emailAddEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md" value="' . $personal_email . '"
                             placeholder="' . $personal_email . '"/>
                         </div>'
                         ?>
@@ -793,26 +793,26 @@ function dateInText($date)
                     <div class="academicBackground">
                         <h1 class=" text-greyish_black font-black">Academic Background</h1>
                         <!-- primary education -->
-                        <div class="flex gap-2 text-sm text-gray-500 mt-2">
+                        <div class="primary flex gap-2 text-sm text-gray-500 mt-2 education">
                             <div class="w-1/2">
                                 <p class="font-bold px-2">Education Level</p>
-                                <input id="degree0" type="text" class="primary p-2 w-full rounded-md requiredValue" placeholder="Primary education">
+                                <input id="degree0" type="text" class=" p-2 w-full rounded-md requiredValue" placeholder="Primary education">
                             </div>
 
                             <div class="w-1/4">
                                 <p class="font-bold text-center">Start year</p>
-                                <select id="startYr0" class="primary yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="startYr0" class=" yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
 
                             <div class="w-1/4">
                                 <p class="font-bold text-center">End Year</p>
-                                <select id="endYr0" class="primary yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="endYr0" class=" yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
 
                         </div>
 
                         <!-- secondary education -->
-                        <div class="flex gap-2 text-sm text-gray-500">
+                        <div class="flex gap-2 text-sm text-gray-500 education">
                             <div class="w-1/2">
                                 <input id="degree1" type="text" class="secondary p-2 w-full rounded-md requiredValue" placeholder="Secondary education">
                             </div>
@@ -828,7 +828,7 @@ function dateInText($date)
                         </div>
 
                         <!-- tertiary education -->
-                        <div class="flex gap-2 text-sm text-gray-500">
+                        <div class="flex gap-2 text-sm text-gray-500 education">
                             <div class="w-1/2">
                                 <input id="degree2" type="text" class="tertiary p-2 w-full rounded-md requiredValue" placeholder="Tertiary education">
                             </div>
@@ -855,7 +855,7 @@ function dateInText($date)
                         <p class="italic text-xs">Note: Maximum work experience you can add is 4</p>
 
                         <!-- first work experience -->
-                        <div class="flex flex-wrap gap-1 items-center py-2 border-b border-gray-400">
+                        <div class="flex flex-wrap gap-1 items-center py-2 border-b border-gray-400 experience">
                             <svg id="addWorkExp3" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -882,7 +882,7 @@ function dateInText($date)
                         </div>
 
                         <!-- second work experience -->
-                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400">
+                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400 experience">
                             <svg id="addWorkExp3" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -907,7 +907,7 @@ function dateInText($date)
                         </div>
 
                         <!-- third work experience -->
-                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400">
+                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400 experience">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -932,7 +932,7 @@ function dateInText($date)
                         </div>
 
                         <!-- fourth work experience -->
-                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400">
+                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400 experience">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -971,7 +971,7 @@ function dateInText($date)
 
                     <div class="flex flex-col gap-3 mt-4">
                         <!-- first skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -983,7 +983,7 @@ function dateInText($date)
                         </div>
 
                         <!-- second skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -995,7 +995,7 @@ function dateInText($date)
                         </div>
 
                         <!-- third skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -1007,7 +1007,7 @@ function dateInText($date)
                         </div>
 
                         <!-- fourth skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -1019,7 +1019,7 @@ function dateInText($date)
                         </div>
 
                         <!-- fifth skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -1031,7 +1031,7 @@ function dateInText($date)
                         </div>
 
                         <!-- sixth skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -1057,7 +1057,7 @@ function dateInText($date)
                     </p>
 
                     <!-- first person -->
-                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2">
+                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 referenceData">
                         <header class="font-bold text-blue-500">Person 1</header>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <div class="flex flex-col">
@@ -1084,7 +1084,7 @@ function dateInText($date)
                     </div>
 
                     <!-- second person -->
-                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2">
+                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 referenceData">
                         <header class="font-bold text-blue-500">Person 2</header>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <div class="flex flex-col">
@@ -1110,7 +1110,7 @@ function dateInText($date)
                         </div>
                     </div>
 
-                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2">
+                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 referenceData">
                         <header class="font-bold text-blue-500">Person 3</header>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <div class="flex flex-col">

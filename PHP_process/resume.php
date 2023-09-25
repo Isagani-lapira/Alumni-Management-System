@@ -19,6 +19,23 @@ if (isset($_POST['action'])) {
         $value = $_POST['value'];
         $resumeID = $_POST['resumeID'];
         updateResumeData($table, $column, $value, $resumeID, $recentVal, $mysql_con);
+    } else if ($action == 'addWorkExp') {
+        $resumeID = $_POST['resumeID'];
+        $workArray = json_decode($_POST['workArray'], true);
+        $countWork = count($workArray);
+        if ($countWork > 0) {
+            foreach ($workArray as $workData) {
+                $jobTitle = $workData['workTitle'];
+                $workDescript = $workData['workDescript'];
+                $companyName = $workData['companyName'];
+                $year = $workData['yearDuration'];
+
+                // check first if there's a value first 
+                if ($jobTitle != '')
+                    insertWorkExperience($resumeID, $jobTitle, $companyName, $workDescript, $year, $mysql_con);
+                else continue;
+            }
+        }
     }
 } else echo 'ayaw';
 
@@ -26,137 +43,159 @@ function insertionOfData($con)
 {
     session_start();
     $personID = $_SESSION['personID'];
-    $random = rand(0, 5000);
+    $timestamp = time();
     $uniqID = substr(md5(uniqid()), 0, 10);
-    $resumeID = $random . '-' . $uniqID;
-    $objective = $_POST['objective'];
+    $resumeID = $timestamp . '-' . $uniqID;
     $fullname = $_POST['firstname'] . ' ' . $_POST['lastname'];
     $contactNo = $_POST['contactNo'];
     $address = $_POST['address'];
+    $objective = $_POST['objective'];
     $emailAdd = $_POST['emailAdd'];
+    $educArray = json_decode($_POST['educationalData'], true);
+    $workArray = json_decode($_POST['workExpData'], true);
+    $skillArray = json_decode($_POST['skillData'], true);
+    $referenceArray = json_decode($_POST['referenceData'], true);
 
-    $primaryJSON = $_POST['primary'];
-    $primaryArray = json_decode($primaryJSON, true);
 
-    $secondaryJSON = $_POST['secondary'];
-    $secondaryArray = json_decode($secondaryJSON, true);
+    //perform insertion
+    $query = "INSERT INTO `resume`(`resumeID`, `personID`, `objective`, `fullname`, `contactNo`, `address`, `emailAdd`) 
+    VALUES (? ,? ,? ,? ,? ,? ,? )";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('sssssss', $resumeID, $personID, $objective, $fullname, $contactNo, $address, $emailAdd);
+    $result = $stmt->execute();
 
-    $tertiaryJSON = $_POST['tertiary'];
-    $tertiaryArray = json_decode($tertiaryJSON, true);
+    if ($result) {
+        $educationalLevel = ['primary education', 'secondary education', 'tertiary education']; //enum choices
+        $index = 0;
 
-    if (haveResume($personID, $con)) {
-        //update only
+        // insert data for educational background
+        foreach ($educArray as $data) {
+            $educationLevel = $educationalLevel[$index];
+            $schoolName = $data['school'];
+            echo $educationalLevel[$index] . '-' . $schoolName;
+            $year = $data['year'];
+            educationResume($resumeID, $schoolName, $year, $educationLevel, $con);
+            $index++;
+        }
 
-    } else {
-        //perform insertion
-        $query = "INSERT INTO `resume`(`resumeID`, `personID`, `objective`, `fullname`, `contactNo`, `address`, `emailAdd`)
-          VALUES (\"$resumeID\",\"$personID\",\"$objective\",\"$fullname\",\"$contactNo\",\"$address\",\"$emailAdd\")";
-        $result = mysqli_query($con, $query);
+        $response = "Unsuccess";
+        // add work experience (if any)
+        // check first if there's a work inserted
+        $countWork = count($workArray);
 
-        $educationLevel = "Primary education";
-        if ($result) {
-            //change education level as it goes to upward
-            if (educationResume($resumeID, $primaryArray, $educationLevel, $con)) {
-                $educationLevel = "Secondary education";
-                if (educationResume($resumeID, $secondaryArray, $educationLevel, $con)) {
-                    $educationLevel = "Tertiary education";
-                    if (educationResume($resumeID, $tertiaryArray, $educationLevel, $con)) {
-                        //insert the value for work
-                        $work = json_decode($_POST['work'], true);
-                        $count = count($work);
+        // insert experience
+        if ($countWork > 0) {
 
-                        if ($count > 0) {
-                            $checker = false;
-                            //traverse the data of work
-                            foreach ($work as $workEntry) {
-                                $jobTitle = $workEntry['jobTitle'];
-                                $companyName = $workEntry['companyName'];
-                                $year = $workEntry['year'];
-                                $responsibility = $workEntry['responsibility'];
-                                $workID = substr(md5(uniqid()), 0, 10) . '-' . rand(0, 5000);
-                                // query the insertion
-                                $query = 'INSERT INTO `work_exp`(`workID`, `resumeID`, `job_title`, `companyName`, `work_description`, `year`) 
-                                VALUES ("' . $workID . '","' . $resumeID . '","' . $jobTitle . '","' . $companyName . '","' . $responsibility . '","' . $year . '")';
-                                $workExp = mysqli_query($con, $query);
+            foreach ($workArray as $workData) {
+                $jobTitle = $workData['workTitle'];
+                $workDescript = $workData['workDescript'];
+                $companyName = $workData['companyName'];
+                $year = $workData['yearDuration'];
 
-                                if ($workExp) $checker = true;
-                            }
-                            if ($checker) {
-                                if (insertSkill($con, $resumeID)) {
-                                    $resultQuery = insertReference($con, $resumeID);
-
-                                    if ($resultQuery) echo 'Successful';
-                                    else echo 'Failed';
-                                } else echo 'Failed';
-                            }
-                        } else { //skip the work experience
-                            echo 'ayaw';
-                        }
-                    } else echo 'failed';
-                }
+                // check first if there's a value first 
+                if ($jobTitle != '')
+                    insertWorkExperience($resumeID, $jobTitle, $companyName, $workDescript, $year, $con);
+                else continue;
             }
-        } else echo 'Failed';
-    }
+
+            $result = skillandRef($skillArray, $resumeID, $referenceArray, $con);
+            if ($result) $response = "Success";
+            else $response = "Unsuccess";
+        } else {
+            $result = skillandRef($skillArray, $resumeID, $referenceArray, $con);
+            if ($result) $response = "Success";
+            else $response = "Unsuccess";
+        }
+    } else echo 'Unsuccess';
+
+
+    echo $response;
 }
 
-
-function insertSkill($con, $resumeID)
+function skillandRef($skillArray, $resumeID, $referenceArray, $con)
 {
-    $skills = json_decode($_POST['skills'], true);
-
-    $response = false;
-    //traverse to insert every skill
-    foreach ($skills as $skill) {
-        $skillID = substr(md5(uniqid()), 0, 10) . '-' . rand(0, 5000);
-        $query = "INSERT INTO `resume_skill`(`skillID`, `resumeID`, `skill`) 
-                                        VALUES (\"$skillID\",\"$resumeID\",\"$skill\")";
-        if (mysqli_query($con, $query)) $response = true;
-        else $response = false;
+    $isAdded = true;
+    //insert the rest of the data
+    // skill insertion
+    foreach ($skillArray as $skill) {
+        if ($skill != "")
+            $isAdded = insertSkill($resumeID, $skill, $con);
     }
 
-    return $response;
-}
-
-function insertReference($con, $resumeID)
-{
-    $resultQuery = false;
-    //for reference table
-    $references = json_decode($_POST['references'], true);
-    //insert the reference details
-
-    foreach ($references as $reference) {
+    // reference insertion
+    foreach ($referenceArray as $reference) {
         $fullname = $reference['fullname'];
         $jobTitle = $reference['jobTitle'];
         $contactNo = $reference['contactNo'];
         $emailAdd = $reference['emailAdd'];
-
-        $referenceID = substr(md5(uniqid()), 0, 10) . '-' . rand(0, 5000);
-        //insertion of reference
-        $queryReferences = "INSERT INTO `reference_resume`(`referenceID`, `resumeID`, `reference_name`, 
-            `job_title`, `contactNo`, `emailAddress`) VALUES ('$referenceID','$resumeID','$fullname',
-            '$jobTitle','$contactNo','$emailAdd')";
-
-        if (mysqli_query($con, $queryReferences)) $resultQuery = true;
-        else $resultQuery = false;
+        $isAdded = insertReference($resumeID, $fullname, $jobTitle, $contactNo, $emailAdd, $con);
     }
 
-    return $resultQuery;
+    return $isAdded;
 }
-function educationResume($resumeID, $school, $educationLevel, $con)
+
+function insertSkill($resumeID, $skill, $con)
+{
+    $timestamp = time();
+    $uniqID = substr(md5(uniqid()), 0, 10);
+    $skillID = $timestamp . '-' . $uniqID;
+
+    $query = "INSERT INTO `resume_skill`(`skillID`, `resumeID`, `skill`) VALUES (? ,? ,? )";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('sss', $skillID, $resumeID, $skill);
+    $result = $stmt->execute();
+
+    if ($result) return true;
+    else return false;
+}
+
+function insertReference($resumeID, $fullname, $jobTitle, $contactNo, $emailAdd, $con)
+{
+    $timestamp = time();
+    $uniqID = substr(md5(uniqid()), 0, 10);
+    $referenceID = $timestamp . '-' . $uniqID;
+
+    $query = "INSERT INTO `reference_resume`(`referenceID`, `resumeID`, `reference_name`, `job_title`, 
+    `contactNo`, `emailAddress`) VALUES (? ,? ,? ,? ,? ,? )";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('ssssss', $referenceID, $resumeID, $fullname, $jobTitle, $contactNo, $emailAdd);
+    $result = $stmt->execute();
+
+    if ($result) return true;
+    else return false;
+}
+function educationResume($resumeID, $schoolName, $year, $educationLevel, $con)
 {
     $random = rand(0, 5000);
     $uniqID = substr(md5(uniqid()), 0, 10);
     $educID = $random . '-' . $uniqID;
 
-    $degree = $school[0];
-    $year = $school[1] . '-' . $school[2];
-    $query = "INSERT INTO `education`(`educationID`, `resumeID`,`education_level`, `degree`, `year`) 
-    VALUES ('$educID','$resumeID','$educationLevel','$degree','$year')";
-    $result = mysqli_query($con, $query);
+    $query = "INSERT INTO `education`(`educationID`, `resumeID`, `education_level`, `degree`, `year`) 
+    VALUES (? ,? ,? ,? ,? )";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('sssss', $educID, $resumeID, $educationLevel, $schoolName, $year);
+    $result = $stmt->execute();
 
     if ($result) return true;
     else return false;
 }
+
+function insertWorkExperience($resumeID, $jobTitle, $companyName, $workDescript, $year, $con)
+{
+    $random = rand(0, 5000);
+    $uniqID = substr(md5(uniqid()), 0, 10);
+    $workID = $random . '-' . $uniqID;
+
+    $query = "INSERT INTO `work_exp`(`workID`, `resumeID`, `job_title`, `companyName`, 
+    `work_description`, `year`) VALUES (? ,? ,? ,? ,? ,? )";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('ssssss', $workID, $resumeID, $jobTitle, $companyName, $workDescript, $year);
+    $result = $stmt->execute();
+
+    if ($result) return true;
+    else return false;
+}
+
 //check if the user already have resume
 function haveResume($personID, $con)
 {

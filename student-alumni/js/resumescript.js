@@ -1,16 +1,32 @@
 $(document).ready(function () {
 
     let pageNo = 0
-
+    let haveResumeNoWorkExp = false;
+    let resumeIDVal = ""
+    let isCreate = true;
     $('#editResumeBtn').on('click', function () {
         haveResume()
             .then((response) => {
                 if (response) { //have resume
                     // display all the data for page 1
                     getResumeData(true)
+                    isCreate = false;
+                }
+                else {
+                    $('#objectiveInput').on('input', function () {
+                        let objectiveVal = $(this).val()
+                        if (objectiveVal !== "") {
+                            $('#resumeBtnUpdate')
+                                .addClass('bg-green-400 hover:bg-green-500')
+                                .removeClass('bg-green-300')
+                                .attr('disabled', false)
+                        }
+                    })
+
                 }
             })
     })
+
 
     $('#resumeBtnNext').on('click', function () {
         let inputFieldComplete = true
@@ -53,12 +69,149 @@ $(document).ready(function () {
                         .attr('disabled', false)
                 }
             }
+
+            let lastPage = pageNo - 1
+            if (lastPage == 0) getAcademicData()
+            else if (lastPage == 1) getWorkExperience()
+            else if (lastPage == 2) getSkills()
+            else if (lastPage == 3) getReferences()
+
         }
 
         if (pageNo == 0) $('#resumeBtnPrev').addClass('hidden')
         $('#resumeBtnPrev').removeClass('hidden') // display the previous to be use 
     })
 
+
+    let educationBGData = [];
+    let workExpData = [];
+    let referenceData = [];
+    let skillData = [];
+    function getAcademicData() {
+        $('.education').each(function () {
+            let schoolName = $(this).find('input').val();
+            let startYr = $(this).find('select:eq(0)').val();
+            let endYr = $(this).find('select:eq(1)').val();
+            let yearDuration = startYr + '-' + endYr;
+
+            let collection = {
+                school: schoolName,
+                year: yearDuration
+            }
+
+            educationBGData.push(collection)
+        })
+
+    }
+
+    // get the data collected in work experience section
+    function getWorkExperience() {
+        $('.workExpPage .experience').each(function () {
+            const workTitle = $(this).find('input:eq(0)').val()
+            const workDescript = $(this).find('input:eq(1)').val()
+            const companyName = $(this).find('input:eq(2)').val()
+            const startYr = $(this).find('select:eq(0)').val()
+            const endYr = $(this).find('select:eq(1)').val()
+            const yearDuration = startYr + '-' + endYr
+
+            const collection = {
+                workTitle: workTitle,
+                workDescript: workDescript,
+                companyName: companyName,
+                yearDuration: yearDuration,
+            }
+            workExpData.push(collection)
+        })
+    }
+
+    function getSkills() {
+        $('.skillData').each(function () {
+            let value = $(this).find('input').val();
+            skillData.push(value)
+        })
+    }
+
+    function getReferences() {
+        $('.referenceData').each(function () {
+            const fullname = $(this).find('input:eq(0)').val()
+            const jobTitle = $(this).find('input:eq(1)').val()
+            const contactNo = $(this).find('input:eq(2)').val()
+            const emailAdd = $(this).find('input:eq(3)').val()
+
+            const collection = {
+                fullname: fullname,
+                jobTitle: jobTitle,
+                contactNo: contactNo,
+                emailAdd: emailAdd
+            }
+
+            referenceData.push(collection)
+        })
+    }
+
+    $('#resumeBtnUpdate').on('click', function () {
+        // do insertion if there's no value yet
+        if (isCreate) {
+            processInsertionData(educationBGData, workExpData, referenceData, skillData)
+        }
+
+        if (haveResumeNoWorkExp) {
+            insertWorkExperienceData(resumeIDVal, workExpData)
+        }
+    })
+
+    function processInsertionData(educationalData, workExpData, referenceData, skillData) {
+        // data of personal information
+        const firstname = $('#firstnameEdit').val()
+        const lastname = $('#lastnameEdit').val()
+        const contactNo = $('#contactNoEdit').val()
+        const address = $('#addressEdit').val()
+        const emailAdd = $('#emailAddEdit').val()
+        const objective = $('#objectiveInput').val()
+
+        // data to be send on server side
+        const action = "insertData";
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('firstname', firstname)
+        formData.append('lastname', lastname)
+        formData.append('contactNo', contactNo)
+        formData.append('address', address)
+        formData.append('emailAdd', emailAdd)
+        formData.append('objective', objective)
+        formData.append('educationalData', JSON.stringify(educationalData))
+        formData.append('skillData', JSON.stringify(skillData))
+        formData.append('workExpData', JSON.stringify(workExpData))
+        formData.append('referenceData', JSON.stringify(referenceData))
+
+        $.ajax({
+            url: '../PHP_process/resume.php',
+            method: 'POST',
+            data: formData,
+            success: response => { console.log(response) },
+            processData: false,
+            contentType: false,
+            error: error => { console.log(error) }
+        })
+    }
+
+    function insertWorkExperienceData(resumeID, workArray) {
+        const action = "addWorkExp";
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('resumeID', resumeID)
+        formData.append('workArray', JSON.stringify(workArray));
+
+        $.ajax({
+            url: '../PHP_process/resume.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) }
+        })
+    }
 
     // go back to previous page
     $('#resumeBtnPrev').on('click', function () {
@@ -183,9 +336,10 @@ $(document).ready(function () {
 
         // set up the data for school details
         let length = education.educationLevel.length
+        let index = 2;
         for (let i = 0; i < length; i++) {
-            let schoolName = education.degree[i];
-            let educationYr = education.year[i].split('-')
+            let schoolName = education.degree[index];
+            let educationYr = education.year[index].split('-')
             let startedYr = educationYr[0]
             let endYr = educationYr[1];
 
@@ -215,62 +369,69 @@ $(document).ready(function () {
 
                     updateResumeDetails(action, educationTbl, year, newVal, recentVal, resumeID);
                 })
+            index--
         }
 
 
         // add work experience
-        let workLength = workExp.companyName.length;
-        for (let i = 0; i < workLength; i++) {
-            let jobTitle = workExp.jobTitle[i];
-            let workDescript = workExp.workDescript[i];
-            let companyName = workExp.companyName[i];
-            let years = workExp.year[i].split('-');
-            let startYr = years[0];
-            let endYr = years[1];
+        let workLength = (workExp != null) ? workExp.companyName.length : 0;
+        if (workLength > 0) {
+            for (let i = 0; i < workLength; i++) {
+                let jobTitle = workExp.jobTitle[i];
+                let workDescript = workExp.workDescript[i];
+                let companyName = workExp.companyName[i];
+                let years = workExp.year[i].split('-');
+                let startYr = years[0];
+                let endYr = years[1];
 
-            $('#workTitle' + i).val(jobTitle)
-                .on('change', function () {
-                    const newVal = $(this).val()
-                    const job_title = "`job_title`";
-                    let recentVal = jobTitle;
+                $('#workTitle' + i).val(jobTitle)
+                    .on('change', function () {
+                        const newVal = $(this).val()
+                        const job_title = "`job_title`";
+                        let recentVal = jobTitle;
 
-                    updateResumeDetails(action, workTbl, job_title, newVal, recentVal, resumeID);
-                })
-            $('#workDescript' + i).val(workDescript)
-                .on('change', function () {
-                    const newVal = $(this).val()
-                    const description = "`work_description`";
-                    let recentVal = workDescript;
+                        updateResumeDetails(action, workTbl, job_title, newVal, recentVal, resumeID);
+                    })
+                $('#workDescript' + i).val(workDescript)
+                    .on('change', function () {
+                        const newVal = $(this).val()
+                        const description = "`work_description`";
+                        let recentVal = workDescript;
 
-                    updateResumeDetails(action, workTbl, description, newVal, recentVal, resumeID);
-                })
-            $('#workCompanyName' + i).val(companyName)
-                .on('change', function () {
-                    const newVal = $(this).val()
-                    const companyNameCol = "`companyName`";
-                    let recentVal = companyName;
+                        updateResumeDetails(action, workTbl, description, newVal, recentVal, resumeID);
+                    })
+                $('#workCompanyName' + i).val(companyName)
+                    .on('change', function () {
+                        const newVal = $(this).val()
+                        const companyNameCol = "`companyName`";
+                        let recentVal = companyName;
 
-                    updateResumeDetails(action, workTbl, companyNameCol, newVal, recentVal, resumeID);
-                })
+                        updateResumeDetails(action, workTbl, companyNameCol, newVal, recentVal, resumeID);
+                    })
 
-            $('#workStartYr' + i).val(startYr)
-                .on('change', function () {
-                    const newVal = $(this).val() + '-' + endYr
-                    const year = "`year`";
-                    let recentVal = startYr + '-' + endYr;
+                $('#workStartYr' + i).val(startYr)
+                    .on('change', function () {
+                        const newVal = $(this).val() + '-' + endYr
+                        const year = "`year`";
+                        let recentVal = startYr + '-' + endYr;
 
 
-                    updateResumeDetails(action, workTbl, year, newVal, recentVal, resumeID);
-                })
-            $('#workEndYr' + i).val(endYr)
-                .on('change', function () {
-                    const newVal = startYr + '-' + $(this).val()
-                    const year = "`year`";
-                    let recentVal = startYr + '-' + endYr
+                        updateResumeDetails(action, workTbl, year, newVal, recentVal, resumeID);
+                    })
+                $('#workEndYr' + i).val(endYr)
+                    .on('change', function () {
+                        const newVal = startYr + '-' + $(this).val()
+                        const year = "`year`";
+                        let recentVal = startYr + '-' + endYr
 
-                    updateResumeDetails(action, workTbl, year, newVal, recentVal, resumeID);
-                })
+                        updateResumeDetails(action, workTbl, year, newVal, recentVal, resumeID);
+                    })
+            }
+        } else {
+            haveResumeNoWorkExp = true
+            resumeIDVal = resumeID;
         }
+
 
 
         // add skills
@@ -556,7 +717,6 @@ $(document).ready(function () {
     let resumeOpen = url.searchParams.get('resumeOpen');
 
     if (resumeOpen === 'true') {
-        console.log(resumeOpen)
         $('#viewResumeBtn').click()
     }
 })
