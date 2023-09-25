@@ -751,8 +751,8 @@ function dateInText($date)
                     <!-- personal information -->
                     <div class="personInfoSection">
                         <h1 class=" text-greyish_black font-black">Personal Details</h1>
-                        <p class="text-sm text-gray-500">Note: the information provided is dependent on the account's personal data.
-                            If there are any details that need to be changed, please edit your profile.</p>
+                        <p class="text-sm text-gray-500">Note: The information provided below depends on your account's personal data.
+                            If there are any details that need to be changed, please update your profile.</p>
                         <?php
                         echo '<div class="flex items-center gap-2 mt-4">
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
@@ -842,7 +842,7 @@ function dateInText($date)
                             </div>
                         </div>
 
-                        <p class="text-gray-400 italic text-sm">Note: If you are still a student, please include your anticipated graduation year.</p>
+                        <p class="text-gray-400 italic text-sm">Note: if you are still a student, please include your anticipated graduate year.</p>
                     </div>
 
                 </div>
@@ -963,10 +963,7 @@ function dateInText($date)
                 <div id="pageNo2" id="skillPage" class="hidden">
                     <h1 class=" text-greyish_black font-black">Skills you have</h1>
                     <p class="text-sm text-gray-500">
-                        Provide only the skills that is related to what you are applying for you to stand out
-                    </p>
-                    <p class="text-sm text-gray-500">
-                        Note: Provide minimum of 3 and maximum of 6 skills
+                        Note: Please provide only the skills that are relevant to the job you are applying for, in order to make yourself stand out. Please also note that the minimum for this part is 3, and the maximum is 6
                     </p>
 
                     <div class="flex flex-col gap-3 mt-4">
@@ -1049,11 +1046,10 @@ function dateInText($date)
                 <div id="pageNo3" class="hidden">
                     <h1 class=" text-greyish_black font-black">References</h1>
                     <p class="text-sm text-gray-500">
-                        You should make sure you have obtained permission from
-                        your references before listing their contact information
-                        on your resume. It's also a good practice to choose references
-                        who can speak positively about your professional abilities and
-                        work experiences.
+                        Please ensure that you have obtained permission to include individuals
+                        as your references before listing their contact details on your resume.
+                        It is also good practice to select references who can speak positively
+                        about your professional abilities and work experiences
                     </p>
 
                     <!-- first person -->
@@ -1143,10 +1139,11 @@ function dateInText($date)
                 <div id="pageNo4" class="hidden">
                     <h1 class=" text-greyish_black font-black">Objective</h1>
                     <p class="text-sm text-gray-500">
-                        A brief statement highlighting your career goals, skills,
-                        and what you can bring to the table for potential employers.
-                        A summary is typically used for those with some work experience,
-                        while an objective is more suitable for entry-level candidates.
+                        It is a brief statement that highlights your career goals,
+                        skills, and what you can bring to the table for potential
+                        employers. A summary is typically used for those with some
+                        work experience, while an objective is more suitable for
+                        entry-level candidates.
                     </p>
                     <textarea id="objectiveInput" class="requiredValue w-full h-40 p-3 border border-gray-300 mt-4 rounded-md text-gray-500 outline-none" placeholder="Add an amazing summary about you"></textarea>
                 </div>
