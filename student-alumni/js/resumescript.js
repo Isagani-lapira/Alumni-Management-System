@@ -69,6 +69,10 @@ $(document).ready(function () {
                         .attr('disabled', false)
                 }
             }
+            else {
+                $('#resumeBtnUpdate').addClass('hidden')
+                $('#resumeBtnNext').removeClass('hidden')
+            }
 
             let lastPage = pageNo - 1
             if (lastPage == 0) getAcademicData()
@@ -154,11 +158,11 @@ $(document).ready(function () {
         if (isCreate) {
             processInsertionData(educationBGData, workExpData, referenceData, skillData)
         }
+        // haveresume but no work experience, add the newly added work experience
+        if (haveResumeNoWorkExp) insertWorkExperienceData(resumeIDVal, workExpData)
 
-        if (haveResumeNoWorkExp) {
-            insertWorkExperienceData(resumeIDVal, workExpData)
-        }
     })
+
 
     function processInsertionData(educationalData, workExpData, referenceData, skillData) {
         // data of personal information
@@ -216,12 +220,24 @@ $(document).ready(function () {
     // go back to previous page
     $('#resumeBtnPrev').on('click', function () {
         pageNo--
+        // go back to  previous page
         if (pageNo >= 0) {
             $('#pageNo' + (pageNo + 1)).addClass('hidden')
             $('#pageNo' + pageNo).removeClass('hidden')
+            removeCurrentDataCollect(pageNo)
         }
+
+        // hide the prev button if the page is in the first page
         if (pageNo == 0) $('#resumeBtnPrev').addClass('hidden')
     })
+
+    function removeCurrentDataCollect(pageNo) {
+        let lastNextPage = pageNo + 1
+        if (lastNextPage == 3) referenceData = []
+        else if (lastNextPage == 2) skillData = []
+        else if (lastNextPage == 1) educationBGData = []
+    }
+
     // check first if have resume
     function haveResume() {
         const action = "haveResume"
