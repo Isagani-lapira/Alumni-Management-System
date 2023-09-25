@@ -161,6 +161,14 @@ $(document).ready(function () {
         // haveresume but no work experience, add the newly added work experience
         if (haveResumeNoWorkExp) insertWorkExperienceData(resumeIDVal, workExpData)
 
+
+        // show successful modal and hide after 3 seconds
+        $('#successModal').removeClass('hidden')
+        $('#editResumeModal').addClass('hidden')
+        setTimeout(() => {
+            $('#successModal').addClass('hidden')
+        }, 3000)
+
     })
 
 
@@ -192,10 +200,8 @@ $(document).ready(function () {
             url: '../PHP_process/resume.php',
             method: 'POST',
             data: formData,
-            success: response => { console.log(response) },
             processData: false,
             contentType: false,
-            error: error => { console.log(error) }
         })
     }
 
