@@ -895,7 +895,7 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
-        <div id="reportedPostModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50">
+        <div id="reportedPostModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
           <div class="bg-white rounded shadow-lg w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
 
             <!-- head -->
