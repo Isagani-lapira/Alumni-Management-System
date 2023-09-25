@@ -27,6 +27,7 @@ class Notification
         $timestamp = array();
         $is_read = array();
         $profile = array();
+        $details = array();
 
 
         if ($result && $row > 0) {
@@ -39,6 +40,7 @@ class Notification
                 $date_notification[] = $this->dateInText($data['date_notification']);
                 $timestamp[] = $data['timestamp'];
                 $is_read[] = $data['is_read'];
+                $details[] = $data['details'];
 
                 //get user personID
                 //get the person ID of that user
@@ -89,6 +91,7 @@ class Notification
             "timestamp" => $timestamp,
             "is_read" => $is_read,
             "profile" => $profile,
+            "details" => $details,
         );
 
         echo json_encode($notification);

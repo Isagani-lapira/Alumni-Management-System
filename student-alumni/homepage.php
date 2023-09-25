@@ -903,7 +903,7 @@ function getAccDetails($con, $personID)
               <iconify-icon class="text-accent" icon="fe:warning" width="32" height="32"></iconify-icon>
               <div class="text-gray-500">
                 <p class="text-lg font-medium">Your post was removed by admin.</p>
-                <p class="text-sm">Date</p>
+                <p id="reportedTime" class="text-sm">Date</p>
               </div>
             </div>
 
@@ -922,15 +922,15 @@ function getAccDetails($con, $personID)
                   ?>
                 </div>
 
-                <span class="text-xs">August 10, 2023 , 3:00pm</span>
+                <span id="postDate" class="text-xs text-gray-500"></span>
               </div>
 
-              <p class="text-center p-3 mt-3 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-              <p class="text-accent text-center font-semibold text-sm p-3">This post has been removed due to the use of inappropriate language that violates our community guidelines.</p>
+              <p id="reportedPostCap" class="text-center p-3 mt-3 text-sm"></p>
+              <p id="reasonForDel" class="text-accent text-center font-semibold text-sm p-3"></p>
             </div>
 
             <div class="flex justify-end gap-3 p-3">
-              <button class="text-accent px-2 hover:text-darkAccent hover:font-semibold">Ok</button>
+              <button id="closeReportedPost" class="text-accent px-2 hover:text-darkAccent hover:font-semibold">Ok</button>
               <button class="text-white py-2 px-4 bg-accent rounded-md hover:bg-darkAccent">Learn more</button>
             </div>
           </div>
