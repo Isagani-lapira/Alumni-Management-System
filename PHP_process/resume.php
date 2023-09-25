@@ -65,17 +65,13 @@ function insertionOfData($con)
     $result = $stmt->execute();
 
     if ($result) {
-        $educationalLevel = ['primary education', 'secondary education', 'tertiary education']; //enum choices
-        $index = 0;
 
         // insert data for educational background
         foreach ($educArray as $data) {
-            $educationLevel = $educationalLevel[$index];
+            $educationLevel = $data['level'];
             $schoolName = $data['school'];
-            echo $educationalLevel[$index] . '-' . $schoolName;
             $year = $data['year'];
             educationResume($resumeID, $schoolName, $year, $educationLevel, $con);
-            $index++;
         }
 
         $response = "Unsuccess";

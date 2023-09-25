@@ -57,7 +57,7 @@ $(document).ready(function () {
             $('#pageNo' + (pageNo - 1)).addClass('hidden') //hide the previous page
 
             // change button on the last page of edit resume
-            if (pageNo == 4) {
+            if (pageNo === 4) {
                 $('#resumeBtnUpdate').removeClass('hidden')
                 $('#resumeBtnNext').addClass('hidden')
 
@@ -68,10 +68,6 @@ $(document).ready(function () {
                         .removeClass('bg-green-300')
                         .attr('disabled', false)
                 }
-            }
-            else {
-                $('#resumeBtnUpdate').addClass('hidden')
-                $('#resumeBtnNext').removeClass('hidden')
             }
 
             let lastPage = pageNo - 1
@@ -92,6 +88,8 @@ $(document).ready(function () {
     let referenceData = [];
     let skillData = [];
     function getAcademicData() {
+        const level = ['primary education', 'secondary education', 'tertiary education'];
+        let index = 0;
         $('.education').each(function () {
             let schoolName = $(this).find('input').val();
             let startYr = $(this).find('select:eq(0)').val();
@@ -99,11 +97,13 @@ $(document).ready(function () {
             let yearDuration = startYr + '-' + endYr;
 
             let collection = {
+                level: level[index],
                 school: schoolName,
                 year: yearDuration
             }
 
             educationBGData.push(collection)
+            index++
         })
 
     }
@@ -225,6 +225,8 @@ $(document).ready(function () {
             $('#pageNo' + (pageNo + 1)).addClass('hidden')
             $('#pageNo' + pageNo).removeClass('hidden')
             removeCurrentDataCollect(pageNo)
+            $('#resumeBtnUpdate').addClass('hidden')
+            $('#resumeBtnNext').removeClass('hidden')
         }
 
         // hide the prev button if the page is in the first page
@@ -352,10 +354,9 @@ $(document).ready(function () {
 
         // set up the data for school details
         let length = education.educationLevel.length
-        let index = 2;
         for (let i = 0; i < length; i++) {
-            let schoolName = education.degree[index];
-            let educationYr = education.year[index].split('-')
+            let schoolName = education.degree[i];
+            let educationYr = education.year[i].split('-')
             let startedYr = educationYr[0]
             let endYr = educationYr[1];
 
@@ -385,7 +386,6 @@ $(document).ready(function () {
 
                     updateResumeDetails(action, educationTbl, year, newVal, recentVal, resumeID);
                 })
-            index--
         }
 
 
