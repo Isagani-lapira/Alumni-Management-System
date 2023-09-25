@@ -1094,7 +1094,7 @@ function getAccDetails($con, $personID)
             <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
             </lord-icon>
             <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
-            <p class=" text-center text-gray-500">You appear to have forgotten to include a résumé. Before applying for a position, please edit your resume. Click the link below to be forwarded to the resume area.</p>
+            <p class=" text-center text-gray-500">It appears that you have forgotten to include your resume. Please do not forget to review and revise your resume to make it relevant to the position you are applying for. To access the resume editing area, simply click the link below.</p>
             <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 my-5 text-center w-full cursor-pointer">Click Me</span>
           </div>
 
