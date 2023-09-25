@@ -568,14 +568,14 @@ function dateInText($date)
           <div class="flex justify-evenly text-sm">
 
             <!-- batch selection -->
-            <select name="" id="batch" class="w-full p-1">
-              <option selected disabled hidden>Batch</option>
+            <select id="batchAlumRecord" class="w-full p-1">
+              <option selected value="" disabled>Batch</option>
               <!-- php function on batch -->
             </select>
 
             <!-- college selection -->
-            <select name="college" id="college" class="w-full p-1">
-              <option value="" selected disabled hidden>Course</option>
+            <select id="alumniCollege" class="w-full p-1">
+              <option value="" selected>Course</option>
               <?php
               require_once '../PHP_process/connection.php';
               $query = "SELECT * FROM `college`";
@@ -594,8 +594,8 @@ function dateInText($date)
             </select>
 
             <!-- employment status selection -->
-            <select name="employment" id="employment" class="w-full p-1">
-              <option selected disabled hidden>Employment Status</option>
+            <select id="employmentStat" class="w-full p-1">
+              <option selected value="">Employment Status</option>
               <option value="Employed">Employed</option>
               <option value="Unemployed">Unemployed</option>
               <option value="Self-employed">Self-employed</option>
