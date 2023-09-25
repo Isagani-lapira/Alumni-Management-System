@@ -895,6 +895,47 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <div id="reportedPostModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50">
+          <div class="bg-white rounded shadow-lg w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
+
+            <!-- head -->
+            <div class="flex gap-2 items-center">
+              <iconify-icon class="text-accent" icon="fe:warning" width="32" height="32"></iconify-icon>
+              <div class="text-gray-500">
+                <p class="text-lg font-medium">Your post was removed by admin.</p>
+                <p class="text-sm">Date</p>
+              </div>
+            </div>
+
+            <!-- post details -->
+            <div class="mt-5">
+              <div class="flex justify-between items-center">
+                <div class="flex gap-2 items-center">
+                  <?php
+                  if ($profilepicture == "") {
+                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                  } else {
+                    $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                  }
+                  echo '<span class="text-gray-600 ">' . $username . '</span>';
+                  ?>
+                </div>
+
+                <span class="text-xs">August 10, 2023 , 3:00pm</span>
+              </div>
+
+              <p class="text-center p-3 mt-3 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+              <p class="text-accent text-center font-semibold text-sm p-3">This post has been removed due to the use of inappropriate language that violates our community guidelines.</p>
+            </div>
+
+            <div class="flex justify-end gap-3 p-3">
+              <button class="text-accent px-2 hover:text-darkAccent hover:font-semibold">Ok</button>
+              <button class="text-white py-2 px-4 bg-accent rounded-md hover:bg-darkAccent">Learn more</button>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- TAB 2 -->
