@@ -36,6 +36,9 @@ if (isset($_POST['action'])) {
                 else continue;
             }
         }
+    } else if ($action == 'showApplicantResume') {
+        $resumeID = $_POST['resumeID'];
+        showApplicantResume($resumeID, $mysql_con);
     }
 } else echo 'ayaw';
 
@@ -210,7 +213,11 @@ function retrieveResume($con)
     $query = "SELECT * FROM `resume` WHERE `personID` = '$personID'";
     $result = mysqli_query($con, $query);
     $row = mysqli_num_rows($result);
+    resumeDetails($result, $row, $con);
+}
 
+function resumeDetails($result, $row, $con)
+{
     //data to be retrieve
     $response = "";
     $resumeID = "";
@@ -366,4 +373,18 @@ function updateResumeData($table, $column, $value, $resumeID, $recentVal, $con)
 
     if ($result) echo 'Success';
     else echo 'Unsuccess';
+}
+
+function showApplicantResume($resumeID, $con)
+{
+    $query = "SELECT * FROM `resume` WHERE `resumeID` = ? ";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('s', $resumeID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result) {
+        $row = mysqli_num_rows($result);
+        resumeDetails($result, $row, $con);
+    }
 }
