@@ -150,7 +150,7 @@ class AlumniOfTheMonth
             // Gets every row in the query
             while ($record = mysqli_fetch_assoc($result)) {
                 // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
-                $record['profile_img'] = base64_encode($record['profile_img']);
+                // $record['profile_img'] = base64_encode($record['profile_img']);
                 $record['cover_img'] = base64_encode($record['cover_img']);
                 $resultArray[] = $record;
             }
