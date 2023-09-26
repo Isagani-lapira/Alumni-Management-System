@@ -47,10 +47,11 @@ class Applicant
 
     public function getApplicantCount($careerID, $con)
     {
-        $query = "SELECT `careerID` FROM `applicant` WHERE `careerID` = ?";
+        $username = $_SESSION['username'];
+        $query = "SELECT `careerID` FROM `applicant` WHERE `careerID` = ? AND username != ?";
         $stmt = mysqli_prepare($con, $query);
         // Bind the parameter
-        $stmt->bind_param("s", $careerID);
+        $stmt->bind_param("ss", $careerID, $username);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = mysqli_num_rows($result);
@@ -63,15 +64,17 @@ class Applicant
 
     public function getApplicantDetails($careerID, $con)
     {
+        $username = $_SESSION['username'];
+
         $query = "SELECT p.fname, p.lname, a.resumeID
         FROM applicant AS a
         LEFT JOIN student AS s ON a.username = s.username
         LEFT JOIN alumni AS al ON a.username = al.username
         LEFT JOIN person AS p ON s.personID = p.personID OR al.personID = p.personID
-        WHERE a.careerID = ?";
+        WHERE a.careerID = ? AND a.username != ?";
 
         $stmt = mysqli_prepare($con, $query);
-        $stmt->bind_param('s', $careerID);
+        $stmt->bind_param('ss', $careerID, $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
