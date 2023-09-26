@@ -137,8 +137,8 @@
             <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
             <!-- make alumni of the year post -->
             <form action="" id="add-aotm-form">
-                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12">
-                    <span class="daisy-label-text">Choose Cover Image</span>
+                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12 s">
+                    <span class="daisy-label-text">Choose a cover image to showcase</span>
 
                     <!-- Placeholder for Cover Image -->
                     <div class="w-full h-40 relative group">
@@ -172,13 +172,27 @@
                         </div>
                     </div> -->
 
-                    <label class="font-bold" for="fullname">Fullname</label>
-                    <input id="fullname" name="fullname" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo">
+                    <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
+                    <label for="searchQuery">Search Database</label>
+                    <div class="flex flex-row flex-wrap">
 
-                    <label class="font-bold" for="studentNo">Student ID</label>
-                    <input id="studentNo" name="studentNo" class="form-input block rounded" required type="text" placeholder="e.g Patrick Joseph Pronuevo">
-                    <label class="font-bold" for="personID">Person ID</label>
-                    <input id="studentNo" name="personID" class="form-input block rounded" required type="text" placeholder="User23/09/24 10:14:03-644">
+                        <select name="searchFilter" id="searchFilter" class="form-select font-semibold">
+                            <option value="name">Name</option>
+                            <option value="studentId">Student Number</option>
+                            <option value="personID">Person ID</option>
+                            <option value="personalEmail">Personal Email</option>
+                            <option value="bulsuEmail">BulSu Email</option>
+                        </select>
+
+                        <div class="relative rounded">
+                            <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
+                            <input class="form-input rounded pr-8" type="text" name="searchQuery" id="searchQuery" placeholder="Search">
+
+                        </div>
+                    </div>
+
+                    <label class="font-bold" for="fullname">Fullname</label>
+                    <input id="fullname" name="fullname" disabled class="form-input block rounded disabled:opacity-75 " type="text" placeholder="">
 
                     <label class="font-bold" for="quote">Quotation</label>
                     <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">

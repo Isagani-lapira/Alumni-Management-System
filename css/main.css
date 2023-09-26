@@ -4510,6 +4510,10 @@ body {
   --tw-ring-color: rgb(252 165 165 / var(--tw-ring-opacity));
 }
 
+.disabled\:opacity-75:disabled {
+  opacity: 0.75;
+}
+
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
 }

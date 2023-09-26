@@ -44,7 +44,7 @@ class AlumniOfTheMonth
         return $count;
     }
 
-    public function setNewAlumniOfTheMonth($id, array $details): bool
+    public function setNewAlumniOfTheMonth(string $studentId, array $details): bool
     {
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
@@ -53,7 +53,7 @@ class AlumniOfTheMonth
         VALUES (?,?,?,?,?,CURDATE());');
 
         // *  Binds the variable to the '?', prevents sql injection
-        $stmt->bind_param('sssss',  $id, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode);
+        $stmt->bind_param('sssss',  $studentId, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode);
         // execute the query
         $stmt->execute();
 
