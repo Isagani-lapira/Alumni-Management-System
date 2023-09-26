@@ -2082,13 +2082,20 @@ function dateInText($date)
       </div>
     </div>
 
-    <div id="deploymentModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+    <div id="deploymentModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3">
 
       <div id="modalConfirmDeployment" class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3">
         <h3 class="text-xl font-semibold text-gray-900 border-b border-gray-300 py-3">Tracer Deploy Confirmation</h3>
-        <p class="p-4"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi laudantium natus accusamus aperiam quas,
-          assumenda placeat vero quia temporibus? Autem doloribus asperiores veritatis reiciendis? Aliquam tenetur provident
-          officiis? Eveniet, ipsa.</p>
+        <p class="p-4 text-sm">You are about to deploy the Graduate Tracer, which will be accessible to all alumni users in the system.
+          Please be aware that this deployment is valid for a limited period of 4 months. </p>
+
+        <p class="p-4 text-sm">By confirming this action, you are distributing
+          the Graduate Tracer to all alumni, enabling them to access valuable information and insights.
+          It's essential to ensure that the data and content within the tracer are up-to-date and accurate for the
+          benefit of our alumni community. </p>
+
+        <p class="p-4 text-sm">Remember, this deployment is a significant step in keeping our alumni engaged and informed.
+          Are you sure you want to proceed?</p>
 
         <div class="flex w-full justify-end items-center gap-2 my-3 border-t border-gray-300 py-2">
           <button class="text-gray-400 hover:text-gray-500">Cancel</button>
