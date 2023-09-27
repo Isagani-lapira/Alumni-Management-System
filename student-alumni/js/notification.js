@@ -524,4 +524,11 @@ $(document).ready(function () {
     $('#closeReportedPost').on('click', function () {
         $('#reportedPostModal').addClass('hidden')
     })
+
+    $('#learnMoreBtn').on('click', function () {
+        $('.communityGuideline').removeClass('hidden')
+    })
+    $('.closeGuidelines').on('click', function () {
+        $('.communityGuideline').addClass('hidden')
+    })
 })

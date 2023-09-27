@@ -371,3 +371,7 @@ pre {
 .modaListApplicant {
   max-height: 80%;
 }
+
+#modalGuidelines {
+  height: 90%;
+}

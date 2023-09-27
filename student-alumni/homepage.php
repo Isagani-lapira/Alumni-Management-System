@@ -932,7 +932,7 @@ function getAccDetails($con, $personID)
 
             <div class="flex justify-end gap-3 p-3">
               <button id="closeReportedPost" class="text-accent px-2 hover:text-darkAccent hover:font-semibold">Ok</button>
-              <button class="text-white py-2 px-4 bg-accent rounded-md hover:bg-darkAccent">Learn more</button>
+              <button id="learnMoreBtn" class="text-white py-2 px-4 bg-accent rounded-md hover:bg-darkAccent">Learn more</button>
             </div>
           </div>
         </div>
@@ -1031,6 +1031,117 @@ function getAccDetails($con, $personID)
                 </aside>
               </main>
 
+            </div>
+
+          </div>
+        </div>
+
+        <!-- community guidelines -->
+        <div class="communityGuideline fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 h-full hidden">
+          <div id="modalGuidelines" class="bg-white rounded-lg shadow-lg w-2/5">
+
+            <div class="w-full h-full">
+              <!-- head -->
+              <div class="bg-accent p-5 gap-2 flex items-center text-white rounded-t-lg">
+                <iconify-icon icon="gridicons:notice-outline" width="36" height="36"></iconify-icon>
+                <h3 class="text-xl font-bold">BulSU Connect Community Guidelines</h3>
+              </div>
+              <!-- content -->
+              <div class="p-4 flex flex-col gap-2 text-sm overflow-y-auto no-scrollbar h-4/5">
+                <p class="text-justify">
+                  <span class="font-bold">1.) Reporting Threshold:</span>
+                  Any post that receives 10 or more reports from community members will be subject to review and
+                  may be removed if found to violate these guidelines. Reporting plays a crucial role in maintaining
+                  the quality and safety of our community, so please use this feature responsibly.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">2.) Be Respectful and Inclusive:</span>
+                  Treat every user with respect, kindness, and inclusivity. We encourage diverse opinions and
+                  discussions but do not engage in hate speech, harassment, or bullying of any kind.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">3.) No Offensive or Harmful Content:</span>
+                  Do not post or share content that is offensive, discriminatory, or explicit.
+                  This includes hate speech, nudity, violence, or any content that may be considered harmful or offensive to others.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">4.) Respect Privacy:</span>
+                  Always respect the privacy of others. Do not share personal information, such as phone numbers, addresses,
+                  or financial details, without the explicit consent of the individuals involved.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">5.) Safety First:</span>
+                  Ensure a safe environment for all. Do not post content that promotes violence, threats, or criminal behavior.
+                  Bullying, harassment, and self-harm content are strictly prohibited.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">6.) Thoughtful and Constructive Engagement:</span>
+                  When sharing your thoughts, opinions, or ideas, be constructive and considerate of others' perspectives.
+                  Engage in healthy discussions and avoid trolling or flame wars.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">7.) Respect Intellectual Property:</span>
+                  Only share content that you have the right to distribute. Do not infringe upon
+                  copyrights, trademarks, or intellectual property rights.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">8.) No Spam or Self-Promotion:</span>
+                  Do not post spammy content, advertisements, or self-promotional material. If you have a business or product to promote,
+                  please use designated channels or contact the administrators for permission.
+
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">9.) Reporting Content:</span>
+                  If you come across content that violates these guidelines, use the report feature to notify the administrators.
+                  Do not engage in public arguments or retaliation.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">10.) Photo Sharing:</span>
+                  You can share photos that are appropriate and relevant to the community's interests. Ensure you have the necessary
+                  rights or permissions to share any images.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">11.) User Safety and Authenticity: </span>
+                  Help maintain the integrity of our community by reporting fake accounts, spam, or misleading information.
+                  We do not tolerate fake news or misinformation.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">12.) Respect for Diverse Opinions:</span>
+                  While we encourage healthy debates, do not engage in credible threats or direct harassment,
+                  even when discussing public figures or organizations.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">13.) Child Safety:</span>
+                  We are committed to child safety. Do not share or promote content that involves minors in harmful or abusive situations.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">14.) Legal Compliance: </span>
+                  Adhere to all applicable laws and regulations in your area when using our platform,
+                  including but not limited to copyright, defamation, and privacy laws.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">15.) Account Responsibility: </span>
+                  You are responsible for all activity conducted under your account.
+                  Keep your login credentials secure and do not share your account with others.
+                </p>
+
+              </div>
+
+              <button class="closeGuidelines px-4 py-2 rounded-md block ml-auto m-3 text-gray-400 hover:text-gray-500">Close</button>
             </div>
 
           </div>
