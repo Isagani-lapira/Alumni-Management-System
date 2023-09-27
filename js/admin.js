@@ -418,10 +418,6 @@ $(document).ready(function () {
     });
   }
 
-  //admin job list post
-  $("#jobMyPost").on("click", function () {
-    console.log("napindot");
-  });
   //retrieve all the skills have been written
   function skillArray() {
     var skills = [];

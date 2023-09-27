@@ -81,6 +81,7 @@ function dateInText($date)
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-md5@0.7.3/build/md5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
@@ -1218,7 +1219,7 @@ function dateInText($date)
         </div>
 
         <!-- job opportunities content -->
-        <div id="jobOpportunities-tab" class="p-5">
+        <div id="jobOpportunities-tab" class="p-5 h-full">
           <img class="jobPostingBack inline cursor-pointer hidden" src="../images/back.png" alt="">
           <h1 class="text-xl font-extrabold">Job Opportunities </h1>
           <p class="text-grayish  ">Check all the pending job post to be posted</p>
@@ -1384,9 +1385,10 @@ function dateInText($date)
           </div>
 
           <!-- admin job post -->
-          <div id="adminJobPost" class="mt-10 w-full hidden">
+          <div id="adminJobPost" class="mt-10 w-full hidden h-4/5 overflow-y-auto">
             <div id="adminJobPostCont" class="grid grid-cols-4 gap-4 p-7"></div>
           </div>
+
         </div>
       </main>
     </div>
@@ -1610,45 +1612,65 @@ function dateInText($date)
 
     <!-- View job post modal -->
     <div id="viewJob" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
-        top-0 left-0 p-5 hidden overflow-y-auto">
+          top-0 left-0 p-5 hidden overflow-y-auto">
       <!-- modal body -->
-      <div class="w-2/5 bg-white rounded-lg h-max p-5">
-        <!-- content -->
-        <div class="headerJob flex">
-          <img id="jobCompanyLogo" class="h-20 w-20 inline" src="" alt="">
-          <div class="w-3/5 ps-3">
-            <span id="viewJobColText" class="text-lg font-semibold"></span>
-            <div class="flex items-center">
-              <p class="text-sm text-gray-600 pr-1">Posted by: </p>
-              <p id="viewJobAuthor" class="text-sm font-semibold text-green-500"></p>
+      <div id="viewingJobModal" class="w-2/5 bg-white rounded-lg h-4/5 slide-bottom">
+
+        <div class="flex flex-col justify-between h-full">
+          <div class=" overflow-y-auto no-scrollbar">
+            <!-- content -->
+            <div class="headerJob flex rounded-t-lg p-5">
+              <div class="w-3/5 ps-3">
+                <span id="viewJobColText" class="text-2xl font-bold text-gray-200"></span>
+                <div class="flex gap-2 items-center">
+                  <p class="text-sm text-white">Company Name: </p>
+                  <p id="viewJobColCompany" class="text-sm font-bold text-white">Admin</p>
+                </div>
+                <div id="skillSets" class="flex flex-wrap gap-2 text-white text-xs my-1 "></div>
+              </div>
+
+
             </div>
 
-            <div class="flex items-center">
-              <p class="text-sm text-gray-600 pr-1">Company Name: </p>
-              <p id="viewJobColCompany" class="text-sm text-green-500 font-semibold">Admin</p>
-            </div>
+            <div class="p-5">
+              <p class="text-gray-500 font-bold text-xl">Project Overview</p>
+              <pre id="jobOverview" class="text-sm h-max w-full indented text-gray-500 mb-2 mt-1"></pre>
 
-            <p id="viewPostedDate" class="text-sm text-gray-600 pr-1"></p>
+              <p class="text-gray-500 font-bold text-xl">Qualification</p>
+              <pre id="jobQualification" class="text-sm h-max indented text-gray-500 mb-2 mt-1"></pre>
+
+              <p class="text-gray-500 font-bold text-xl">LOCATION</p>
+              <span id="locationJobModal" class="text-gray-500 text-sm my-1"></span>
+            </div>
           </div>
 
+          <div class="p-3 text-gray-400 border-t border-gray-400 flex justify-between">
+            <button id="aplicantListBtn" class="flex items-center gap-2 cursor-text">
+              <iconify-icon icon="uiw:user" style="color: #868e96;" width="18" height="18"></iconify-icon>
+              <span id="jobApplicant"></span>
+            </button>
+
+            <div class="flex items-center gap-2">
+              <iconify-icon icon="ri:verified-badge-line" style="color: #868e96;" width="18" height="18"></iconify-icon>
+              <span id="statusJob"></span>
+            </div>
+
+          </div>
         </div>
-        <hr class="p-1 border-gray-400 mt-5">
 
+      </div>
+    </div>
 
-        <p class="text-black font-bold my-3">Project Overview</p>
-        <p id="jobOverview" class="text-sm h-max w-full text-gray-600"></p>
+    <!-- list of applicant -->
+    <div id="listOfApplicantModal" class="post modal fixed inset-0 flex justify-center p-3 hidden">
+      <div class="modaListApplicant modal-container w-1/3 h-max bg-white rounded-md relative slide-bottom p-5">
+        <button class="p-1 text-gray-300 items-center justify-center flex border border-gray-400 rounded-full hover:bg-accent absolute top-0 -right-11">
+          <iconify-icon icon="ei:close" width="24" height="24"></iconify-icon>
+        </button>
+        <h3 class="text-center font-bold text-xl py-2 text-greyish_black border-b border-gray-300">Applicant List</h3>
 
-        <p class="text-black font-bold text-sm my-3">Skills</p>
-        <div id="skillSets" class="flex flex-wrap gap-2 text-gray-600 text-sm"></div>
+        <div id="listApplicantContainer" class="modaListApplicant overflow-y-auto h-max p-3 flex flex-col gap-3"></div>
 
-        <p class="text-black font-bold my-3">Qualification</p>
-        <p id="jobQualification" class="text-sm h-max text-gray-600"></p>
-
-
-        <p class="text-black font-bold my-3">REQUIREMENTS</p>
-        <div id="reqCont" class="text-gray-600 text-sm"></div>
-
-        <button class="bg-green-400 text-white px-8 py-3 mt-5 rounded-md block ml-auto">Apply Now</button>
       </div>
     </div>
 
@@ -2129,11 +2151,110 @@ function dateInText($date)
       </div>
     </div>
 
+    <div id="viewResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+      <div class="fixed h-max w-full bg-black bg-opacity-50  flex justify-between p-3 top-0 gap-2">
+        <button id="closeViewResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+          <iconify-icon icon="fluent-mdl2:back" style="color: white;" width="24" height="24"></iconify-icon>
+        </button>
+
+        <div class="flex gap-2">
+          <button id="downloadResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+            <iconify-icon icon="teenyicons:download-outline" style="color: white;" width="24" height="24"></iconify-icon>
+          </button>
+          <button id="printResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+            <iconify-icon icon="fluent:print-32-regular" style="color: white;" width="24" height="24"></iconify-icon>
+          </button>
+        </div>
+
+      </div>
+      <div class="bg-white p-5 h-full overflow-y-auto w-2/3">
+        <div id="resumeWrapperModal">
+          <main class="flex">
+            <aside class="w-2/6 text-greyish_black p-3 flex flex-col gap-4 text-xs">
+              <header id="fullnameResume" class="text-3xl block font-bold"></header>
+              <!-- contact Section -->
+              <section class="flex flex-col gap-2">
+                <h1 class="font-bold text-base">CONTACT</h1>
+
+                <!-- contact number -->
+                <span class="flex gap-4 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <g fill="none" fill-rule="evenodd">
+                      <path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
+                      <path fill="#555" d="M16.552 22.133c-1.44-.053-5.521-.617-9.795-4.89c-4.273-4.274-4.836-8.354-4.89-9.795c-.08-2.196 1.602-4.329 3.545-5.162a1.47 1.47 0 0 1 1.445.159c1.6 1.166 2.704 2.93 3.652 4.317a1.504 1.504 0 0 1-.256 1.986l-1.951 1.449a.48.48 0 0 0-.142.616c.442.803 1.228 1.999 2.128 2.899c.901.9 2.153 1.738 3.012 2.23a.483.483 0 0 0 .644-.162l1.27-1.933a1.503 1.503 0 0 1 2.056-.332c1.407.974 3.049 2.059 4.251 3.598a1.47 1.47 0 0 1 .189 1.485c-.837 1.953-2.955 3.616-5.158 3.535Z" />
+                    </g>
+                  </svg>
+                  <span id="contactNoResume" class="font-thin">09104905440</span>
+                </span>
+
+                <!-- email address -->
+                <span class="flex gap-4 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <path fill="#555" d="M19 14.5v-9c0-.83-.67-1.5-1.5-1.5H3.49c-.83 0-1.5.67-1.5 1.5v9c0 .83.67 1.5 1.5 1.5H17.5c.83 0 1.5-.67 1.5-1.5zm-1.31-9.11c.33.33.15.67-.03.84L13.6 9.95l3.9 4.06c.12.14.2.36.06.51c-.13.16-.43.15-.56.05l-4.37-3.73l-2.14 1.95l-2.13-1.95l-4.37 3.73c-.13.1-.43.11-.56-.05c-.14-.15-.06-.37.06-.51l3.9-4.06l-4.06-3.72c-.18-.17-.36-.51-.03-.84s.67-.17.95.07l6.24 5.04l6.25-5.04c.28-.24.62-.4.95-.07z" />
+                  </svg>
+                  <span id="emailAddResume" class=" font-thin">lapiraisagani@gmail.com</span>
+                </span>
+
+                <!-- location -->
+                <span class="flex gap-4 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
+                    <path fill="#555" d="M9.156 14.544C10.899 13.01 14 9.876 14 7A6 6 0 0 0 2 7c0 2.876 3.1 6.01 4.844 7.544a1.736 1.736 0 0 0 2.312 0ZM6 7a2 2 0 1 1 4 0a2 2 0 0 1-4 0Z" />
+                  </svg>
+                  <span id="addressResume" class="font-thin">56 Vinta Street, Mabolo, Malolos Bulacan</span>
+                </span>
+              </section>
+
+              <!-- education -->
+              <section id="educationContainer" class="flex flex-col gap-2 z-50">
+                <h1 class="font-bold text-base">EDUCATION</h1>
+
+                <div id="primaryLvl" class="font-thin"></div>
+                <div id="secondaryLvl" class="font-thin"></div>
+                <div id="tertiaryLvl" class="font-thin"></div>
+              </section>
+
+
+              <!-- skills -->
+              <section>
+                <h1 class="font-bold text-base">SKILLS</h1>
+
+                <div id="skillWrapper" class="flex flex-col gap-2 z-50"></div>
+              </section>
+            </aside>
+
+            <aside class="w-4/6 text-greyish_black text-xs p-3">
+              <!-- objective -->
+              <section>
+                <h1 class="font-bold text-base">OBJECTIVE</h1>
+                <p id="objectiveResume" class="my-2"></p>
+              </section>
+
+              <!-- work experience -->
+              <section class="my-2">
+                <h1 class="font-bold text-base mt-5">WORK EXPERIENCE</h1>
+                <ul id="workExpList" class="p-3 flex flex-col gap-2"></ul>
+              </section>
+
+              <!-- reference -->
+              <section class="my-2">
+                <h1 class="font-bold text-base">REFERENCES</h1>
+
+                <div id="referenceContainer" class="flex flex-col gap-4 my-2"></div>
+              </section>
+            </aside>
+          </main>
+
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/jobposted.js"></script>
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>
   <script src="../js/alumnirecord.js"></script>
