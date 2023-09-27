@@ -2082,7 +2082,7 @@ function dateInText($date)
       </div>
     </div>
 
-    <div id="deploymentModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3">
+    <div id="deploymentModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
 
       <div id="modalConfirmDeployment" class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3">
         <h3 class="text-xl font-semibold text-gray-900 border-b border-gray-300 py-3">Tracer Deploy Confirmation</h3>

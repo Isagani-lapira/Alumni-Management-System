@@ -49,10 +49,6 @@ $(document).ready(function () {
                                 .text(tempDescription);
                             const datePostedTD = $('<td>').text(date_posted);
 
-                            const delBtn = $('<button>')
-                                .addClass("border border-red-400 text-red-400 hover:text-white hover:bg-red-500 rounded-sm hover:text-white px-3 py-1 text-xs")
-                                .text('Archive')
-
                             const viewBtn = $('<button>')
                                 .addClass('bg-postButton hover:bg-postHoverButton rounded-sm text-white px-3 py-1 text-xs')
                                 .text('View')
@@ -64,7 +60,7 @@ $(document).ready(function () {
 
                             const actionContainer = $('<div>')
                                 .addClass('flex flex-wrap justify-center gap-2')
-                                .append(delBtn, viewBtn)
+                                .append(viewBtn)
 
                             //action data
                             const actionTD = $('<td>')

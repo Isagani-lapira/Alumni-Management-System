@@ -1047,7 +1047,7 @@ function getAccDetails($con, $personID)
                 <h3 class="text-xl font-bold">BulSU Connect Community Guidelines</h3>
               </div>
               <!-- content -->
-              <div class="p-4 flex flex-col gap-2 text-sm overflow-y-auto no-scrollbar h-4/5">
+              <div class="p-4 flex flex-col gap-2 text-sm text-greyish_black overflow-y-auto no-scrollbar h-4/5">
                 <p class="text-justify">
                   <span class="font-bold">1.) Reporting Threshold:</span>
                   Any post that receives 10 or more reports from community members will be subject to review and
