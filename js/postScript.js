@@ -179,7 +179,7 @@ $(document).ready(function () {
                         let imagesObj = data.images;
 
                         if (isTable)
-                            announcementTbDisplay(postID, collegeCode, fullname, username, caption, imagesObj, date, i, comment, likes) //add post in table;
+                            announcementTbDisplay(postID, collegeCode, fullname, username, caption, imagesObj, date, i, comment, likes, length) //add post in table;
                         else
                             displayToProfile();
                     }
@@ -199,29 +199,6 @@ $(document).ready(function () {
     }
 
 
-    //show next set of post
-    $('#nextPost').on('click', function () {
-        postData.delete('offset')
-        postData.append('offset', offsetPost);
-        getPostAdmin(postData, true)
-    })
-
-    //show prev set of post
-    $('#prevPost').on('click', function () {
-        //check if it still not 0
-        if (offsetPost != 0) {
-            offsetPost -= offsetPost
-            postData.delete('offset');
-            postData.append('offset', offsetPost); //set new offset that is increase by 10
-            getPostAdmin(postData, true); //retrieve new sets of data
-
-            //enable the next button
-            $('#nextPost').removeAttr('disabled')
-                .removeClass('hidden')
-        }
-
-    })
-
     function textDateFormat(date) {
         //extract parts of date
         year = date.substr(0, 4);
@@ -237,40 +214,68 @@ $(document).ready(function () {
     }
 
 
-    function announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments, likes) {
-        let tbody = $('#postTBody')
+    $('#postTable').DataTable({
+        "paging": true,
+        "ordering": true,
+        "info": false,
+        "lengthChange": false,
+        "searching": false,
+        // Add more options as needed
+    });
 
-        //create of rows
-        let row = $('<tr>')
-        let colCodeData = $('<td>').text(colCode);
-        let likesData = $('<td>').text(likes);
-        let commentsData = $('<td>').text(comments);
-        let postdateData = $('<td>').text(postdate);
-        let action = $('<td>').addClass('flex justify-center gap-2')
+    let table = $('#postTable').DataTable(); // Get the DataTable instance
+    function announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments, likes, length) {
 
-        let delBtn = $('<button>')
-            .addClass(' text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white')
-            .text('Archive')
-            .on('click', function () {
-                //show delete prompt
-                $('#delete-modal').removeClass('hidden')
+        // Create a new row
+        let row = [
+            colCode,
+            likes,
+            comments,
+            postdate,
+            `<button class="text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white">Archive</button>
+            <button class="bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500 view-button" data-postID="${postID}">View</button>`
+        ];
 
-                //update the post status into deleted
-                $('#deletePostbtn').on('click', function () {
-                    const status = "deleted"
-                    updatePostStatus(status, postID, false)
-                })
-            })
-        let viewBtn = $('<button>').addClass('bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500').text('View')
-        viewBtn.on('click', function () {
-            $('#modalPost').removeClass('hidden')
-            viewingOfPost(postID, name, accUN, postcaption, images, position, likes)
-        })
-        action.append(delBtn, viewBtn)
-        row.append(colCodeData, likesData, commentsData, postdateData, action)
-        tbody.append(row)
+        // Add the new row to the DataTable
+        table.row.add(row).draw();
 
+        // Attach click event handler to the specific "View" button using the data-postID attribute
+        $(`button.view-button[data-postID="${postID}"]`).on('click', function () {
+
+            console.log('click');
+            $('#modalPost').removeClass('hidden');
+            viewingOfPost(postID, name, accUN, postcaption, images, position, likes);
+        });
+
+        // Check if the table has exactly 10 rows
+        if (table.rows().count() === 10) {
+            offsetPost += length
+            postData.set('offset', offsetPost)
+            // Your code for when there are 10 rows
+            getPostAdmin(postData, true)
+
+        }
     }
+
+    let collegeFilter = "";
+    let startDateFilter = "";
+    let endDateFilter = "";
+
+    $('#announcementCol').on('change', function () {
+        collegeFilter = $(this).val();
+        offsetPost = 0;
+        table.clear().draw();
+        const action = { action: 'filterDataPost' };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('offset', offsetPost);
+        formData.append('colCode', collegeFilter);
+        formData.append('startingDate', startDateFilter);
+        formData.append('endDate', endDateFilter);
+
+        getPostAdmin(formData, true);
+    })
+
 
     function viewingOfPost(postID, name, accUN, description, images, position, likes) {
         $('#profilePic').attr('src', profilePic);
@@ -367,18 +372,19 @@ $(document).ready(function () {
             endDate: defaultEnd
         }, function (start, end, label) {
             //get the start date and end date
-            let startDate = start.format('YYYY-MM-DD')
-            let endDate = end.format('YYYY-MM-DD')
+            startDateFilter = start.format('YYYY-MM-DD')
+            endDateFilter = end.format('YYYY-MM-DD')
 
-            offsetPost = 0; //restart the offset
-            //set data to be sent in the back end for filtering
-            let formData = new FormData();
-            formData.append('action', JSON.stringify(postAction))
-            formData.append('startDate', startDate)
-            formData.append('endDate', endDate)
-            formData.append('offset', offsetPost)
-            getPostAdmin(formData, true)
-            $('#paginationBtnPost').addClass('hidden')
+            offsetPost = 0;
+            table.clear().draw();
+            const action = { action: 'filterDataPost' };
+            const formData = new FormData();
+            formData.append('action', JSON.stringify(action));
+            formData.append('offset', offsetPost);
+            formData.append('colCode', collegeFilter);
+            formData.append('startingDate', startDateFilter);
+            formData.append('endDate', endDateFilter);
+            getPostAdmin(formData, true);
         });
     });
 

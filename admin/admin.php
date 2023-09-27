@@ -82,6 +82,10 @@ function dateInText($date)
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-md5@0.7.3/build/md5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Include DataTables CSS and JS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
 
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
@@ -380,7 +384,7 @@ function dateInText($date)
         </div>
 
         <!-- POST CONTENT -->
-        <div id="announcement-tab" class="p-5">
+        <div id="announcement-tab" class="px-5">
           <h1 class="text-xl font-extrabold">POST</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
@@ -403,7 +407,22 @@ function dateInText($date)
               <p class="text-sm font-thin">Course</p>
               <!-- college selection -->
               <select name="college" id="announcementCol" class="w-full border border-grayish p-2 rounded-lg">
-                <option value="" selected disabled hidden>BS Computer Science</option>
+                <option value="" selected>BS Computer Science</option>
+                <?php
+                require_once '../PHP_process/connection.php';
+                $query = "SELECT * FROM `college`";
+                $result = mysqli_query($mysql_con, $query);
+                $rows = mysqli_num_rows($result);
+
+                if ($rows > 0) {
+                  while ($data = mysqli_fetch_assoc($result)) {
+                    $colCode = $data['colCode'];
+                    $colName = $data['colname'];
+
+                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                  }
+                } else echo '<option>No college available</option>';
+                ?>
               </select>
             </div>
 
@@ -438,10 +457,6 @@ function dateInText($date)
               </tbody>
             </table>
             <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
-            <div id="paginationBtnPost" class="flex justify-end gap-2 px-2 mt-2">
-              <button id="prevPost" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
-              <button id="nextPost" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
-            </div>
           </div>
 
 
@@ -1787,9 +1802,7 @@ function dateInText($date)
           </div>
 
           <!-- comments -->
-          <div id="commentContainer" class=" h-3/4 p-2 overflow-auto">
-
-          </div>
+          <div id="commentContainer" class=" h-3/4 p-2 overflow-auto"></div>
         </div>
       </div>
     </div>
@@ -1915,7 +1928,7 @@ function dateInText($date)
     <div id="delete-modal" class="modal hidden fixed inset-0 z-50 h-full w-full flex items-center justify-center ">
       <div class="relative w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow">
-          <button onclick="closeReport()" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+          <button type="button" class="closeDeleteBtn absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
             </svg>
@@ -1929,7 +1942,7 @@ function dateInText($date)
             <button id="deletePostbtn" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
               Yes, I'm sure
             </button>
-            <button type="button" class="text-gray-400" onclick="closeReport()">No, cancel</button>
+            <button type="button" class="closeDeleteBtn text-gray-400">No, cancel</button>
           </div>
         </div>
       </div>
