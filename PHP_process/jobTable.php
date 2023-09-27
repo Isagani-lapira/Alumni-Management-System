@@ -129,8 +129,8 @@ if (isset($_POST['action'])) {
                 $skillArray,
                 $personID,
                 $location,
-                $status,
-                $mysql_con
+                $mysql_con,
+                $status
             );
 
             if ($career) echo 'Successful';

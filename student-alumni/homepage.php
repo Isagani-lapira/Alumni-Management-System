@@ -327,7 +327,7 @@ function getAccDetails($con, $personID)
               </div>
 
               <!-- Job Post Feed -->
-              <div id="jobRepo" class="hidden h-full grid grid-cols-3 gap-2 overflow-y-auto no-scrollbar py-3"></div>
+              <div id="jobRepo" class="hidden h-max grid grid-cols-3 gap-2 overflow-y-auto no-scrollbar py-3"></div>
 
             </div>
 

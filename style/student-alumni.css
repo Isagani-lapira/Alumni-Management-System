@@ -375,3 +375,7 @@ pre {
 #modalGuidelines {
   height: 90%;
 }
+
+#jobRepo {
+  max-height: 100%;
+}
