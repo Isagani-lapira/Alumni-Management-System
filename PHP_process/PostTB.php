@@ -75,7 +75,8 @@ class PostData
         $query = "";
         //check if it the post retrieve based on date
         if ($startingDate != null && $endDate != null)
-            $query = 'SELECT * FROM `post` WHERE `date` BETWEEN "' . $startingDate . '" AND "' . $endDate . '" AND `username` = "' . $username . '" AND `status` = "available"';
+            $query = "SELECT * FROM `post` WHERE `date` BETWEEN '$startingDate' AND '$endDate' 
+            AND `username`='$username' AND `status` = 'available' ORDER by `date` DESC LIMIT $offset,$maxLimit";
         else {
             $query = "SELECT * FROM `post` WHERE `username`= '$username' AND`status`='available' ORDER by `date` DESC LIMIT $offset ,$maxLimit";
         }
@@ -254,7 +255,7 @@ class PostData
                 //get post report
                 $report[] = $this->postReport($tempPostID, $con);
             }
-        } else return false;
+        } else $response = 'Unsuccess';
 
         $data = array(
             'response' => $response,
@@ -516,5 +517,43 @@ class PostData
 
             mysqli_stmt_close($stmt);
         } else echo 'Error';
+    }
+
+    function filterPost($username, $offset, $colCode, $startingDate, $endDate, $con)
+    {
+        $maxLimit = 10;
+        $query = "";
+        $stmt = null;
+        if ($colCode != "" && $startingDate != "") {
+
+            // both have assigned
+            $query = "SELECT * FROM `post` WHERE `username` = ? AND `colCode` = ? AND `date` BETWEEN ? and ? AND status = 'available'
+            ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('ssss', $username, $colCode, $startingDate, $endDate);
+        } else if ($colCode != "" && $startingDate == "") {
+
+            // colcode only filter
+            $query = "SELECT * FROM `post` WHERE `username` = ? AND `colCode` = ? AND status = 'available'
+            ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('ss', $username, $colCode);
+        } else if ($colCode == "" && $startingDate != "") {
+
+            // date range filter
+            $query = "SELECT * FROM `post` WHERE `username` = ? AND `date` BETWEEN ? and ? AND status = 'available'
+            ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('sss', $username, $startingDate, $endDate);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row > 0) {
+            $postResult = $this->getPostData($result, $con);
+            echo $postResult;
+        } else 'Failed';
     }
 }
