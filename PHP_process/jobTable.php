@@ -136,9 +136,9 @@ if (isset($_POST['action'])) {
             if ($career) echo 'Successful';
             else echo 'Unexpected issue: Try again later';
         } else if ($action == 'currentUserJobPost') {
-            $username = $_SESSION['username'];
+            $personID = $_SESSION['personID'];
             $offset = $_POST['offset'];
-            $readCareer->userPost($username, $offset, $mysql_con);
+            $readCareer->userPost($personID, $offset, $mysql_con);
         } else if ($action == 'applicantDetails') {
             $careerID = $_POST['careerID'];
             $apply->getApplicantDetails($careerID, $mysql_con);
