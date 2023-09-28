@@ -3,7 +3,9 @@ $(document).ready(function () {
     // show the alumni of the month
     $('#aomLi').on('click', function () {
         $('#aomMonth option:not(:first-child)').remove() //avoid duplication of option
+        $('#aomYr option:not(:first-child)').remove()
         addMonths()
+        addYearOption()
         retrieveAlumniOfMonth()
     })
 
@@ -44,13 +46,13 @@ $(document).ready(function () {
         "ordering": true,
         "info": false,
         "lengthChange": false,
-        "searching": true,
+        "searching": false,
         // Add more options as needed
     });
     function displayOnTable(profile, personalEmail, studentNo, colCode, fullname) {
         //add the data to the table
         let row = [
-            `<img src="${profile}" alt="Profile Image" class="w-16 h-16 mx-auto rounded-full" />`,
+            `<img src="${profile}" alt="Profile Image" class="w-12 h-12 mx-auto rounded-full" />`,
             fullname,
             personalEmail,
             studentNo,
@@ -75,29 +77,43 @@ $(document).ready(function () {
     // default value
     let monthVal = ''
     let colCodeVal = ''
+    let yearVal = ''
 
     // data to be sent on the server
     let actionFilter = 'filterAOM'
+    let filterForm = new FormData();
+    filterForm.append('action', actionFilter)
+    filterForm.append('month', monthVal)
+    filterForm.append('colCode', colCodeVal)
+    filterForm.append('year', yearVal)
 
     // filter based on the month selected
     $('#aomMonth').on('change', function () {
         monthVal = $(this).val();
-        let filterForm = new FormData();
-        filterForm.append('action', actionFilter)
-        filterForm.append('month', monthVal)
-        filterForm.append('colCode', colCodeVal)
+        filterForm.set('month', monthVal)
+        filterForm.set('colCode', colCodeVal)
+        filterForm.set('year', yearVal)
         filterAlumni(filterForm)
 
     })
 
     $('#aomCollege').on('change', function () {
         colCodeVal = $(this).val()
-        let filterForm = new FormData();
-        filterForm.append('action', actionFilter)
-        filterForm.append('month', monthVal)
-        filterForm.append('colCode', colCodeVal)
+        filterForm.set('month', monthVal)
+        filterForm.set('colCode', colCodeVal)
+        filterForm.set('year', yearVal)
         filterAlumni(filterForm)
     })
+
+    $('#aomYr').on('change', function () {
+        yearVal = $(this).val();
+        filterForm.set('month', monthVal)
+        filterForm.set('colCode', colCodeVal)
+        filterForm.set('year', yearVal)
+        filterAlumni(filterForm)
+    })
+
+
     function filterAlumni(data) {
 
         $.ajax({
@@ -125,5 +141,16 @@ $(document).ready(function () {
             },
             error: error => { console.log(error.responseText) }
         })
+    }
+
+    const currentDate = new Date()
+    const currentYr = currentDate.getFullYear();
+    const lastYr = 1904
+    function addYearOption() {
+        for (let i = currentYr; i >= lastYr; i--) {
+            const option = $('<option>').val(i).text(i)
+            $('#aomYr').append(option)
+        }
+
     }
 })

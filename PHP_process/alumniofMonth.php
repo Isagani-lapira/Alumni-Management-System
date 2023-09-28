@@ -12,8 +12,9 @@ if (isset($_POST['action'])) {
         case 'filterAOM':
             $month = ($_POST['month'] == '') ? '' : $_POST['month'];
             $colCode = ($_POST['colCode'] == '') ? '' : $_POST['colCode'];
+            $year = ($_POST['year'] == '') ? '' : $_POST['year'];
 
-            getAOTMByFilter($month, $colCode, $mysql_con);
+            getAOTMByFilter($month, $colCode, $year, $mysql_con);
     }
 }
 
@@ -35,7 +36,7 @@ function getAOTM($con)
     if ($result) alumniOfMonthDetails($result);
 }
 
-function getAOTMByFilter($month, $colCode, $con)
+function getAOTMByFilter($month, $colCode, $year, $con)
 {
     $stmt = null;
     $query = "SELECT a.studentNo, a.cover_img, a.colCode, 
@@ -43,24 +44,42 @@ function getAOTMByFilter($month, $colCode, $con)
     FROM alumni_of_the_month AS a
     INNER JOIN person AS p ON a.personID = p.personID ";
 
-    if ($month != "" && $colCode != "") { //all filter included
-        $query .= "WHERE MONTH(a.date_assigned) = ? AND `colCode` = ?";
+    if ($month != "" && $colCode != "" && $year != "") { //all filter included
+        $query .= "WHERE MONTH(a.date_assigned) = ? AND YEAR(a.date_assigned) = ? AND `colCode` = ?";
         $stmt = mysqli_prepare($con, $query);
-        $stmt->bind_param('ss', $month, $colCode);
-    } else if ($month != "" && $colCode == "") { //only month filtered
+        $stmt->bind_param('ss', $month, $year, $colCode);
+    } else if ($month != "" && $colCode == "" && $year == "") { //only month filtered
         $query .= "WHERE MONTH(a.date_assigned) = ?";
         $stmt = mysqli_prepare($con, $query);
         $stmt->bind_param('s', $month);
-    } else if ($month == '' && $colCode != "") { //only colcode available
+    } else if ($month == '' && $colCode != "" && $year == "") { //only colcode available
         $query .= "WHERE `colCode`= ? ";
         $stmt = mysqli_prepare($con, $query);
         $stmt->bind_param('s', $colCode);
+    } else if ($month == '' && $colCode == "" && $year != "") { //only year
+        $query .= "WHERE MONTH(a.date_assigned) = MONTH(CURRENT_DATE())
+        AND YEAR(a.date_assigned) = ? ";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $year);
+    } else if ($month != '' && $colCode == "" && $year != "") { //month and year filter
+        $query .= "WHERE MONTH(a.date_assigned) = ? AND 
+        YEAR(a.date_assigned) = ? ";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('ss', $month, $year);
+    } else if ($month == '' && $colCode != "" && $year != "") { //colcode and year filter
+        $query .= "WHERE `colCode` = ? AND 
+        YEAR(a.date_assigned) = ? ";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('ss', $colCode, $year);
+    } else if ($month != '' && $colCode != "" && $year == "") { //month and colcode
+        $query .= "WHERE MONTH(a.date_assigned) = ? AND `colCode` = ?";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('ss', $month, $colCode);
     }
 
     // get the result
     $stmt->execute();
     $result = $stmt->get_result();
-
     if ($result) alumniOfMonthDetails($result);
 }
 

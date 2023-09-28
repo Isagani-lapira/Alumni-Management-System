@@ -1062,15 +1062,20 @@ function dateInText($date)
 
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-          <div class="flex gap-2">
+          <div class="flex gap-2 my-2">
             <!-- batch -->
             <select id="aomMonth" class=" border border-gray-300 rounded-md py-3">
               <option value="" selected>Month</option>
             </select>
 
+            <!-- year filter -->
+            <select id="aomYr" class=" border border-gray-300 rounded-md px-3">
+              <option value="" selected>Year</option>
+            </select>
+
             <!-- college -->
             <select id="aomCollege" class=" border border-gray-300 rounded-md ">
-              <option value="" selected disabled hidden>College</option>
+              <option value="" selected>College</option>
               <?php
               require_once '../PHP_process/connection.php';
               $query = "SELECT * FROM `college`";
