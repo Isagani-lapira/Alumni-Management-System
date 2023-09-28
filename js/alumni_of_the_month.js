@@ -2,6 +2,7 @@ $(document).ready(function () {
     const imgFormat = "data:image/jpeg;base64,"
     // show the alumni of the month
     $('#aomLi').on('click', function () {
+        $('#aomMonth option:not(:first-child)').remove() //avoid duplication of option
         addMonths()
         retrieveAlumniOfMonth()
     })

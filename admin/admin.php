@@ -570,7 +570,7 @@ function dateInText($date)
 
         <!-- alumni record content -->
         <div id="alumnRecord-tab" class="p-5">
-          <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
+          <h1 class="text-xl font-extrabold">ALUMNI RECORD</h1>
           <div class="flex justify-end text-xs text-greyish_black">
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 

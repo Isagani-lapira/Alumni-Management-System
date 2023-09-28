@@ -9,7 +9,7 @@ $(document).ready(function () {
     $('#alumniLi').on('click', function () {
         offset = 0
         getAlumniRecord(alumniDataDefault)
-        $('#batchAlumRecord').empty()
+        $('#batchAlumRecord option:not(:first-child)').remove()
         addBatchOption()
     })
 
