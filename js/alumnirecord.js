@@ -9,6 +9,7 @@ $(document).ready(function () {
     $('#alumniLi').on('click', function () {
         offset = 0
         getAlumniRecord(alumniDataDefault)
+        $('#batchAlumRecord').empty()
         addBatchOption()
     })
 

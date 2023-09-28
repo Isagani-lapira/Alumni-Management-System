@@ -201,7 +201,7 @@ function dateInText($date)
             </li>
 
             <!-- ALUMNI OF THE MONTH -->
-            <li class="rounded-lg p-2"><a href="#alumnMonth-tab">
+            <li id="aomLi" class="rounded-lg p-2"><a href="#alumnMonth-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                   <path d="M256 89.61L22.486 177.18L256 293.937l111.22-55.61l-104.337-31.9A16 16 0 0 1 256 208a16 16 0 0 1-16-16a16 16 0 0 1 16-16l-2.646 8.602l18.537 5.703a16 16 0 0 1 .008.056l27.354 8.365L455 246.645v12.146a16 16 0 0 0-7 13.21a16 16 0 0 0 7.293 13.406C448.01 312.932 448 375.383 448 400c16 10.395 16 10.775 32 0c0-24.614-.008-87.053-7.29-114.584A16 16 0 0 0 480 272a16 16 0 0 0-7-13.227v-25.42L413.676 215.1l75.838-37.92L256 89.61zM119.623 249L106.5 327.74c26.175 3.423 57.486 18.637 86.27 36.627c16.37 10.232 31.703 21.463 44.156 32.36c7.612 6.66 13.977 13.05 19.074 19.337c5.097-6.288 11.462-12.677 19.074-19.337c12.453-10.897 27.785-22.128 44.156-32.36c28.784-17.99 60.095-33.204 86.27-36.627L392.375 249h-6.25L256 314.063L125.873 249h-6.25z" />
                 </svg>
@@ -1062,35 +1062,14 @@ function dateInText($date)
 
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-          <div class="flex justify-evenly text-xs">
-
-            <div class="flex border border-grayish w-full rounded-md p-1">
-              <img class="inline " src="../images/search-icon.png" alt="">
-              <input class="outline-none" type="text" name="" id="aomSearch" placeholder="Typing!">
-            </div>
-
-            <!-- gender -->
-            <select name="aomGender" id="aomGender" class="px-3 py-2">
-              <option value="" selected disabled hidden>All</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-
-            <!-- range -->
-            <div class="w-full flex justify-evenly border p-2 mx-2">
-              <input type="text" name="aomdaterange" id="aomdaterange" value="01/01/2018 - 01/15/2018" />
-              <label class="" for="aomdaterange">
-                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
-              </label>
-            </div>
-
+          <div class="flex gap-2">
             <!-- batch -->
-            <select name="batch" id="aomBatch" class="w-full p-1">
-              <option value="" selected disabled hidden>Batch</option>
+            <select id="aomMonth" class=" border border-gray-300 rounded-md py-3">
+              <option value="" selected>Month</option>
             </select>
 
             <!-- college -->
-            <select name="employment" id="aomCollege" class="w-full p-1">
+            <select id="aomCollege" class=" border border-gray-300 rounded-md ">
               <option value="" selected disabled hidden>College</option>
               <?php
               require_once '../PHP_process/connection.php';
@@ -1112,76 +1091,17 @@ function dateInText($date)
           </div>
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin text-greyish_black center-shadow">
+          <table id="aomTable" class="table-auto w-full mt-16 text-xs font-thin text-greyish_black center-shadow">
             <thead>
               <tr class="bg-accent text-white">
-                <th class="text-start rounded-tl-lg">NAME</th>
+                <th class="text-start rounded-tl-lg w-5"></th>
+                <th>NAME</th>
                 <th>EMAIL</th>
                 <th>STUDENT NUMBER</th>
-                <th>COLLEGE</th>
-                <th class="rounded-tr-lg">DETAILS</th>
+                <th class=" rounded-tr-lg">COLLEGE</th>
               </tr>
             </thead>
-            <tbody class="text-sm">
-              <tr class="h-14 text-xs">
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/alumni-pic2.png"></img>
-                    <span class="ml-2">Wade Warren</span>
-                  </div>
-                </td>
-                <td class="text-center">wadeWarren@gmail.com</td>
-                <td class="text-center">2020183209</td>
-                <td class="text-center">CICT</td>
-                <td class="text-center viewProfile text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">
-                  VIEW PROFILE</td>
-              </tr>
-
-              <tr class="h-14 text-xs">
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/avatar-prof.png"></img>
-                    <span class="ml-2">Leslie Alexander</span>
-                  </div>
-                </td>
-                <td class="text-center">lesliealexander12@gmail.com</td>
-                <td class="text-center">2020183233</td>
-                <td>COED</td>
-                <td class="text-center viewProfile text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">
-                  VIEW PROFILE</td>
-              </tr>
-
-              <tr class="h-14 text-xs">
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/footer-img.png"></img>
-                    <span class="ml-2">Floyd Miles</span>
-                  </div>
-                </td>
-                <td class="text-center">mile_floyd@gmail.com</td>
-                <td class="text-center">2020183211</td>
-                <td class="text-center">CIT</td>
-                <td class="text-center viewProfile text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">
-                  VIEW PROFILE</td>
-              </tr>
-
-
-              <tr class="h-14 text-xs">
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src=""></img>
-                    <span class="ml-2">Cameron Williamson</span>
-                  </div>
-                </td>
-                <td class="text-center">cameron_williamson@gmail.com</td>
-                <td class="text-center">2020183236</td>
-                <td class="text-center">CHTM</td>
-                <td class="text-center viewProfile text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">
-                  VIEW PROFILE</td>
-              </tr>
-
-
-            </tbody>
+            <tbody class="text-sm text-gray-500 rounded-b-lg"></tbody>
           </table>
         </div>
 
@@ -2268,6 +2188,7 @@ function dateInText($date)
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
   <script src="../js/jobposted.js"></script>
+  <script src="../js/alumni_of_the_month.js"></script>
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>
   <script src="../js/alumnirecord.js"></script>

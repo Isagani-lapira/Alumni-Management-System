@@ -223,3 +223,8 @@ tbody tr:nth-child(odd) {
 #printLogsBtn:hover iconify-icon {
   filter: brightness(0) invert(1); /* Change the icon color to white on hover */
 }
+
+.dataTables_wrapper .dataTables_filter input {
+  border: 1px solid #991b1b !important;
+  margin: 5px 0px;
+}
