@@ -379,3 +379,28 @@ pre {
 #jobRepo {
   max-height: 100%;
 }
+
+.calendar-logo {
+  margin-left: 70%;
+}
+.diagonalBg {
+  position: relative;
+  width: 100%;
+
+  /* Create the diagonal line using a pseudo-element */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom right,
+      transparent 50%,
+      #121328 50%
+    ); /* Adjust the gradient angle as needed */
+  }
+
+  background-color: white; /* Set the background color for the white half */
+}

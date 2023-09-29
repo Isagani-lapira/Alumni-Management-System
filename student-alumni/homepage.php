@@ -1150,65 +1150,75 @@ function getAccDetails($con, $personID)
       </div>
 
       <!-- TAB 2 -->
-      <div id="tabs-2" class=" h-2/3">
-        <!--IMAGE HEADER-->
-        <div id="image-header-con" class="relative top-24 mt-1 z-10 h-full">
-          <div class="flex items-center justify-center h-full">
-            <div class="w-2/5 p-5">
-              <h1 id="headerEvent" class=" text-gray-800 text-5xl lg:text-6xl font-bold">Get Ready to Dance with</h1>
-              <p id="eventNameHeader" class=" text-4xl font-bold mb-2">Rainbow Pop</p>
-              <button class="text-white font-bold bg-blue-300 px-5 py-3 my-2">
-                <a id="connectURL" target="_blank">CONNECT WITH US</a>
-              </button>
-            </div>
+      <div id="tabs-2" class="h-full">
+        <div class="hidden">
+          <!--IMAGE HEADER-->
+          <div id="image-header-con" class="relative top-24 mt-1 z-10 h-full">
+            <div class="flex items-center justify-center h-full">
+              <div class="w-2/5 p-5">
+                <h1 id="headerEvent" class=" text-gray-800 text-5xl lg:text-6xl font-bold">Get Ready to Dance with</h1>
+                <p id="eventNameHeader" class=" text-4xl font-bold mb-2">Rainbow Pop</p>
+                <button class="text-white font-bold bg-blue-300 px-5 py-3 my-2">
+                  <a id="connectURL" target="_blank">CONNECT WITH US</a>
+                </button>
+              </div>
 
-            <!-- swiper -->
-            <div class="w-1/2 flex justify-center items-center p-3 h-full">
-              <div class="swiper mySwiper w-1/2 h-1/2">
-                <div id="swiperWrapperEvent" class="swiper-wrapper"></div>
-                <div class="swiper-pagination"></div>
+              <!-- swiper -->
+              <div class="w-1/2 flex justify-center items-center p-3 h-full">
+                <div class="swiper mySwiper w-1/2 h-1/2">
+                  <div id="swiperWrapperEvent" class="swiper-wrapper"></div>
+                  <div class="swiper-pagination"></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="separator h-10 mt-16"></div>
+          <div class="separator h-10 mt-16"></div>
 
-        <h1 id="eventName" class="text-5xl p-5 indented font-bold">RAINBOX POP</h1>
-        <div class="flex flex-nowrap px-5">
-          <!-- about image -->
-          <div class="w-1/2 flex justify-center">
-            <img id="aboutImg" class="h-3/4 w-3/4 rounded-md center-shadow object-contain bg-black">
-          </div>
-
-          <!-- about the event -->
-          <div class="flex flex-col p-5 w-1/2">
-            <h1 class="w-4/5 text-end text-3xl text-greyish_black font-bold">About the Event</h1>
-            <p id="aboutEvent" class=" w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum."</p>
-
-            <!-- event details -->
-            <div class="my-10 w-full">
-              <h1 class="w-4/5 text-3xl text-greyish_black font-bold">Event Details</h1>
-              <p class="w-4/5 text-gray-500">Date: <span id="eventDate"></span></p>
-              <p class="w-4/5 text-gray-500">Place: <span id="eventPlace"></span></p>
-              <p class="w-4/5 text-gray-500">Start time: <span id="eventStartTime"></span></p>
+          <h1 id="eventName" class="text-5xl p-5 indented font-bold">RAINBOX POP</h1>
+          <div class="flex flex-nowrap px-5">
+            <!-- about image -->
+            <div class="w-1/2 flex justify-center">
+              <img id="aboutImg" class="h-3/4 w-3/4 rounded-md center-shadow object-contain bg-black">
             </div>
+
+            <!-- about the event -->
+            <div class="flex flex-col p-5 w-1/2">
+              <h1 class="w-4/5 text-end text-3xl text-greyish_black font-bold">About the Event</h1>
+              <p id="aboutEvent" class=" w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum."</p>
+
+              <!-- event details -->
+              <div class="my-10 w-full">
+                <h1 class="w-4/5 text-3xl text-greyish_black font-bold">Event Details</h1>
+                <p class="w-4/5 text-gray-500">Date: <span id="eventDate"></span></p>
+                <p class="w-4/5 text-gray-500">Place: <span id="eventPlace"></span></p>
+                <p class="w-4/5 text-gray-500">Start time: <span id="eventStartTime"></span></p>
+              </div>
+            </div>
+
+
           </div>
 
 
+          <!-- Expectation for event -->
+          <div class="p-10 mb-10 bg-red-400 relative">
+            <h1 class="w-full px-5 indented text-4xl text-center text-white font-bold">Expectation for this event</h1>
+
+            <div id="expectContainer" class="flex flex-nowrap justify-center gap-3 my-5"></div>
+
+          </div>
         </div>
-
-
-        <!-- Expectation for event -->
-        <div class="p-10 mb-10 bg-red-400 relative">
-          <h1 class="w-full px-5 indented text-4xl text-center text-white font-bold">Expectation for this event</h1>
-
-          <div id="expectContainer" class="flex flex-nowrap justify-center gap-3 my-5"></div>
-
+        <div class="h-full flex flex-col justify-center p-5 relative">
+          <h3 class="w-1/2 font-bold text-lg md:text-6xl mb-2">No Upcoming Event On Our Calendar</h3>
+          <p class="w-1/2 text-lg text-gray-800">Thank you for your interest! While there are no upcoming events right now,
+            we're constantly working to bring you exciting experiences. Please stay tuned</p>
+          <div class="w-56 h-56"></div>
+          <img class="absolute translate-y-1/2 calendar-logo w-56 h-56 block z-50" src="../assets/Calendar 1.png" alt="calendar image">
+          <div class="absolute diagonalBg bottom-0 right-0 h-1/2 w-1/2"></div>
         </div>
       </div>
 
