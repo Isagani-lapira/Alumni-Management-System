@@ -1,256 +1,318 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registration Form</title>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-        <style>
+<html lang="en">
 
-            .italic-placeholder::placeholder {
-                font-style: italic;
-            }
-        </style>
-    </head>
-    <body class="overflow-hidden">
-        <div class="container mx-auto mt-4 px-20">
-            <!-- Logo and Website Name -->
-            <div class="flex items-center">
-                <img src="../images/BSU-logo.png" alt="Logo" class="w-16 h-16">
-                <div class="ml-4">
-                    <h1 class="l-2 text-4xl font-bold text-gray-800">BulSU Connect</h1>
-                </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <style>
+        .italic-placeholder::placeholder {
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body class="overflow-hidden">
+    <div class="container mx-auto mt-4 px-20">
+        <!-- Logo and Website Name -->
+        <div class="flex items-center">
+            <img src="../images/BSU-logo.png" alt="Logo" class="w-16 h-16">
+            <div class="ml-4">
+                <h1 class="l-2 text-4xl font-bold text-gray-800">BulSU Connect</h1>
             </div>
+        </div>
 
-            <div class="text-center">
-                <div class="mt-24">
-                    <h1 class="text-3xl font-bold mb-6" id="statusHeader">PLEASE SPECIFY YOUR STATUS</h1>
-                    <div id="buttons" class="mt-4 mb-4 flex flex-col md:flex-row justify-center">
-                        <button id="alumniButton" class="relative cursor-pointer w-1/2 md:w-96 h-40 md:h-60 rounded-lg flex flex-col justify-center items-center shadow-md bg-gray-300 hover:bg-accent ease-in duration-300 text-white font-bold py-4 px-8" style="">
-                            <i class="fas fa-user-graduate text-xs md:text-xl mb-2"></i>
-                            <span class="text-xs font-bold md:text-xl">Alumni</span>
-                        </button>
+        <div class="text-center">
+            <div class="mt-24">
+                <h1 class="text-3xl font-bold mb-6" id="statusHeader">PLEASE SPECIFY YOUR STATUS</h1>
+                <div id="buttons" class="mt-4 mb-4 flex flex-col md:flex-row justify-center">
+                    <button id="alumniButton"
+                        class="relative cursor-pointer w-1/2 md:w-96 h-40 md:h-60 rounded-lg flex flex-col justify-center items-center shadow-md bg-gray-300 hover:bg-accent ease-in duration-300 text-white font-bold py-4 px-8"
+                        style="">
+                        <i class="fas fa-user-graduate text-xs md:text-xl mb-2"></i>
+                        <span class="text-xs font-bold md:text-xl">Alumni</span>
+                    </button>
 
-                        <!-- Add space between the two options -->
-                        <div class="px-2 hidden md:block"></div>
+                    <!-- Add space between the two options -->
+                    <div class="px-2 hidden md:block"></div>
 
-                        <button id="studentButton" class="relative cursor-pointer w-1/2 md:w-96 h-40 md:h-60 rounded-lg flex flex-col justify-center items-center shadow-md bg-gray-300 hover:bg-accent ease-in duration-300 text-white font-bold py-4 px-8">
-                            <i class="fas fa-user text-xs md:text-xl mb-2"></i>
-                            <span class="text-xs md:text-xl font-bold">Student</span>
-                        </button>
-                    </div>
-            
-                    <!-- Tab for Registration -->
-                    <!-- D KO LNG NAPALITAN ID NAME FOR DIV PALITAN MMYA -->
-                    <div id="alumniTab" class=" hidden text-left">
-                        <div class="w-1/2 mt-12 mx-auto">
-                            <!-- Alumni registration form fields - Page 1 -->
-                            <div id="alumniPage1" class="hidden">
-                                    <!-- FORM -->
-                                    <form class="h-96 overflow-y-auto">
-                                        <!-- First Name and Last Name -->
-                                        <div class="mb-4 flex flex-col gap-2 md:flex-row ">
-                                            <div class="w-full">
-                                                <label class="block text-gray-700 font-semibold mb-2" for="firstName">First Name</label>
-                                                <input type="text" id="firstName" name="firstName" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="ex. Juan" required>
-                                            </div>
-                                            <div class="w-full">
-                                                <label class="block text-gray-700 font-semibold mb-2" for="lastName">Last Name</label>
-                                                <input type="text" id="lastName" name="lastName" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="ex. Dela Cruz" required>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Contact Number and Student Number -->
-                                        <div class="mb-4 flex flex-col gap-2 md:flex-row">
-                                            <div class="w-full md:w-1/2 mb-2 md:mb-0">
-                                                <label class="block text-gray-700 font-semibold mb-2" for="contactNumber">Contact Number</label>
-                                                <input type="text" id="contactNumber" name="contactNumber" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="ex. +639763942218" required>
-                                               <!-- Error messages for validation -->
-                                                <p id="contactNumberError" class="text-red-500 text-sm mt-2"></p>
-                                            </div>
-                                            <div class="w-full md:w-1/2">
-                                                <label class="block text-gray-700 font-semibold mb-2" for="studentNumber">Student Number</label>
-                                                <input type="text" id="studentNumber" name="studentNumber" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="ex. 2023142872" required>
-                                            </div>
-                                        </div>
-    
-                                        <!-- Birthday and Gender (Side by Side) -->
-                                        <div class="mb-4 flex flex-col md:flex-row">
-                                            <div class="w-full md:w-1/2 mb-2 md:mb-0">
-                                                <label class="block text-gray-700 font-semibold mb-2" for="birthday">Birthday</label>
-                                                <input type="date" id="birthday" name="birthday" class="w-full p-2 border border-gray-300 rounded" required>
-                                            </div>
-                                            <div class="w-full md:w-1/2">
-                                                <label class="block text-gray-700 font-semibold mb-2">Gender</label>
-                                                <div class="flex items-center justify-start space-x-4 ml-4">
-                                                    <div class="flex items-center">
-                                                        <input type="radio" id="male" name="gender" value="male" class="w-6 h-6 mr-2" checked>
-                                                        <label for="male" class="mr-4">Male</label>
-                                                    </div>
-                                                    <div class="flex items-center">
-                                                        <input type="radio" id="female" name="gender" value="female" class="w-6 h-6 mr-2">
-                                                        <label for="female">Female</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <!-- Address -->
-                                        <div class="mb-4 flex flex-col md:flex-row">
-                                            <div class="w-full mb-2 md:mb-0">
-                                                <label class="block text-gray-700 font-semibold mb-2" for="address">Address</label>
-                                                <input type="text" id="address" name="address" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="ex. 123 Main Street Cityville, Stateville 12345 United States" required>
-                                            </div>
-                                        </div>
-    
-                                        <!-- Employment Status (Dropdown) -->
-                                        <div class="mb-4">
-                                            <label class="block text-gray-700 font-semibold mb-2" for="employmentStatus">Employment Status</label>
-                                            <select id="employmentStatus" name="employmentStatus" class="w-full p-2 border border-gray-300 rounded" required>
-                                                <option value="employed">Employed</option>
-                                                <option value="unemployed">Unemployed</option>
-                                                <option value="self-employed">Self-Employed</option>
-                                            </select>
-                                        </div>
-    
-                                        <!-- Email Address (Personal) and Email Address (BulSU) -->
-                                        <div class="mb-4">
-                                            <label class="block text-gray-700 font-semibold mb-2" for="personalEmail">Email Address (Personal)</label>
-                                            <input type="email" id="personalEmail" name="personalEmail" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="ex. juandelacruz@gmail.com" required>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="block text-gray-700 font-semibold mb-2" for="bulsuEmail">Email Address (BulSU)</label>
-                                            <input type="email" id="bulsuEmail" name="bulsuEmail" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="ex. juandelacruz.a@bulsu.edu.ph" required>
-                                            <p class="text-gray-500 text-sm mt-2">note: Type N/A if you don’t have access to your bulsu email</p>
-                                            <!-- Error messages for validation -->
-                                            <p id="bulsuEmailError" class="text-red-500 text-sm mt-2"></p>
-                                        </div>
-    
-                                    </form>
+                    <button id="studentButton"
+                        class="relative cursor-pointer w-1/2 md:w-96 h-40 md:h-60 rounded-lg flex flex-col justify-center items-center shadow-md bg-gray-300 hover:bg-accent ease-in duration-300 text-white font-bold py-4 px-8">
+                        <i class="fas fa-user text-xs md:text-xl mb-2"></i>
+                        <span class="text-xs md:text-xl font-bold">Student</span>
+                    </button>
+                </div>
 
-                                    <!-- Back and Next buttons -->
-                                    <div class="flex items-end justify-end mt-4">
-                                        <button id="alumniBackButton" class="px-10 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Back</button>
-                                        <div class="px-2 hidden md:block"></div>
-                                        <button id="alumniNextButton" class="px-10 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="goToAlumniPage2()">Next</button>
+                <!-- Tab for Registration -->
+                <!-- D KO LNG NAPALITAN ID NAME FOR DIV PALITAN MMYA -->
+                <div id="alumniTab" class=" hidden text-left">
+                    <div class="w-1/2 mt-12 mx-auto">
+                        <!-- Alumni registration form fields - Page 1 -->
+                        <div id="alumniPage1" class="hidden">
+                            <!-- FORM -->
+                            <form class="h-96 overflow-y-auto">
+                                <!-- First Name and Last Name -->
+                                <div class="mb-4 flex flex-col gap-2 md:flex-row ">
+                                    <div class="w-full">
+                                        <label class="block text-gray-700 font-semibold mb-2" for="firstName">First
+                                            Name</label>
+                                        <input type="text" id="firstName" name="firstName"
+                                            class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                            placeholder="ex. Juan" required>
                                     </div>
-                            </div>
-
-                            <!-- Alumni registration form fields - Page 2 (Initially hidden) -->
-                            <div id="alumniPage2" class="hidden">
-                                    <form id="alumniFormPage2" class="h-96 overflow-y-auto">
-                                        <div class="mb-4 flex">
-                                            <!-- College Dropdown (Occupying 50% of the width) -->
-                                            <div class="w-1/2 md:w-1/2 md:mr-2 mb-2 md:mb-0">
-                                                <label class="block text-gray-700 font-semibold mb-2" for="college">College</label>
-                                                <select id="college" name="college" class="w-full p-2 border border-gray-300 rounded" required>
-                                                    <option value="CICT">College of Information and Communications Technology</option>
-                                                    <option value="CON">College of Nursing</option>
-                                                    <option value="COL">College of Law</option>
-                                                    <!-- Add more college options as needed -->
-                                                </select>
-                                            </div>
-
-                                            <!-- Batch Dropdown (Initially visible) -->
-                                            <div id="batchContainer" class="w-1/2">
-                                                <label class="block text-gray-700 font-semibold mb-2" for="batch">Batch</label>
-                                                <select id="batch" name="batch" class="w-full p-2 border border-gray-300 rounded" required>
-                                                    <!-- Batch options here -->
-                                                </select>
-                                            </div>
-                                            
-                                            <!-- Year Dropdown (Initially hidden) -->
-                                            <div id="yearContainer" class="w-1/2 hidden">
-                                                <label class="block text-gray-700 font-semibold mb-2" for="year">Year</label>
-                                                <select id="year" name="year" class="w-full p-2 border border-gray-300 rounded" required>
-                                                    <!-- Year options here -->
-                                                    <option value="1st Year">1st Year</option>
-                                                    <option value="2nd year">2nd Year</option>
-                                                    <option value="3rd Year">3rd Year</option>
-                                                    <option value="4th Year">4th Year</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <!-- Username -->
-                                        <div class="mb-4">
-                                            <label class="block text-gray-700 font-semibold mb-2" for="username">Username</label>
-                                            <input type="text" id="username" name="username" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="ex. juandelacruz@31" required>
-                                        </div>
-
-                                        <!-- Password Field -->
-                                        <div class="mb-4 relative">
-                                            <label class="block text-gray-700 font-semibold mb-2" for="password">Password</label>
-                                            <div class="relative">
-                                                <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="Enter your password" required>
-                                                <!-- Password Visibility Toggle Icon -->
-                                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                                    <i id="passwordToggle" class="fas fa-eye-slash text-gray-400 cursor-pointer"></i>
-                                                </div>
-                                            </div>
-                                            <p id="passwordError" class="text-red-500 text-sm mt-2 error-message" style="display: none">
-                                                Password must meet the following requirements:
-                                                <ul id="passwordRequirements" class="text-red-500 text-sm mt-2">
-                                                    <li id="lengthReq">At least 8 characters</li>
-                                                    <li id="upperCaseReq">At least one uppercase letter</li>
-                                                    <li id="lowerCaseReq">At least one lowercase letter</li>
-                                                    <li id="digitReq">At least one digit</li>
-                                                    <li id="specialCharReq">At least one special character</li>
-                                                </ul>
-                                            </p>
-                                        </div>
-
-                                        <!-- Confirm Password Field -->
-                                        <div class="mb-4 relative">
-                                            <label class="block text-gray-700 font-semibold mb-2" for="confirmPassword">Confirm Password</label>
-                                            <div class="relative">
-                                                <input type="password" id="confirmPassword" name="confirmPassword" class="w-full p-2 border border-gray-300 rounded italic-placeholder" placeholder="Re-enter your password" required>
-                                                <!-- Confirm Password Visibility Toggle Icon -->
-                                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                                    <i id="confirmPasswordToggle" class="fas fa-eye-slash text-gray-400 cursor-pointer"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </form>
-
-                                    <p id="confirmPasswordError" class="text-red-500 text-sm mt-2 error-message" style="display: none">Passwords do not match.</p>
-
-                                    <!-- Back and Next buttons for Page 2 -->
-                                    <div class="flex items-end justify-end mt-4">
-                                        <button id="alumniBackButton2" class="px-10 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onclick="goBackAlumniPage2()">Back</button>
-                                        <div class="px-2 hidden md:block"></div>
-                                        <button id="alumniSignUp" class="px-10 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="validateAlumniFormPage2()">Sign Up</button>
+                                    <div class="w-full">
+                                        <label class="block text-gray-700 font-semibold mb-2" for="lastName">Last
+                                            Name</label>
+                                        <input type="text" id="lastName" name="lastName"
+                                            class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                            placeholder="ex. Dela Cruz" required>
                                     </div>
+                                </div>
 
-                            </div>
+                                <!-- Contact Number and Student Number -->
+                                <div class="mb-4 flex flex-col gap-2 md:flex-row">
+                                    <div class="w-full md:w-1/2 mb-2 md:mb-0">
+                                        <label class="block text-gray-700 font-semibold mb-2"
+                                            for="contactNumber">Contact Number</label>
+                                        <input type="text" id="contactNumber" name="contactNumber"
+                                            class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                            placeholder="ex. +639763942218" required>
+                                        <!-- Error messages for validation -->
+                                        <p id="contactNumberError" class="text-red-500 text-sm mt-2"></p>
+                                    </div>
+                                    <div class="w-full md:w-1/2">
+                                        <label class="block text-gray-700 font-semibold mb-2"
+                                            for="studentNumber">Student Number</label>
+                                        <input type="text" id="studentNumber" name="studentNumber"
+                                            class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                            placeholder="ex. 2023142872" required>
+                                    </div>
+                                </div>
 
-                            <!-- Registration Complete Modal -->
-                            <div id="registrationModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-                                    <div class="modal-overlay absolute inset-0 bg-black opacity-50"></div>
-                                    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-                                        <!-- Modal Content -->
-                                        <div class="modal-content py-4 text-left px-6">
-                                            <!-- Success Icon -->
-                                            <div class="flex justify-center">
-                                                <i class="fas fa-check-circle text-6xl text-green-500"></i>
+                                <!-- Birthday and Gender (Side by Side) -->
+                                <div class="mb-4 flex flex-col md:flex-row">
+                                    <div class="w-full md:w-1/2 mb-2 md:mb-0">
+                                        <label class="block text-gray-700 font-semibold mb-2"
+                                            for="birthday">Birthday</label>
+                                        <input type="date" id="birthday" name="birthday"
+                                            class="w-full p-2 border border-gray-300 rounded" required>
+                                    </div>
+                                    <div class="w-full md:w-1/2">
+                                        <label class="block text-gray-700 font-semibold mb-2">Gender</label>
+                                        <div class="flex items-center justify-start space-x-4 ml-4">
+                                            <div class="flex items-center">
+                                                <input type="radio" id="male" name="gender" value="male"
+                                                    class="w-6 h-6 mr-2" checked>
+                                                <label for="male" class="mr-4">Male</label>
                                             </div>
-                                            <!-- Success Text -->
-                                            <h2 class="text-2xl font-semibold text-center text-green-500 my-4">SUCCESS</h2>
-                                            <!-- Description -->
-                                            <p class="text-gray-700 text-center mb-4">
-                                                You have successfully registered.
-                                            </p>
-                                            <!-- Go Back Button -->
-                                            <div class="text-center">
-                                                <button id="goBackButton" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                                                    <a href="../student-alumni/login.php">Go Back to Homepage</a>
-                                                </button>
+                                            <div class="flex items-center">
+                                                <input type="radio" id="female" name="gender" value="female"
+                                                    class="w-6 h-6 mr-2">
+                                                <label for="female">Female</label>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="mb-4 flex flex-col md:flex-row">
+                                    <div class="w-full mb-2 md:mb-0">
+                                        <label class="block text-gray-700 font-semibold mb-2"
+                                            for="address">Address</label>
+                                        <input type="text" id="address" name="address"
+                                            class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                            placeholder="ex. 123 Main Street Cityville, Stateville 12345 United States"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <!-- Employment Status (Dropdown) -->
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 font-semibold mb-2"
+                                        for="employmentStatus">Employment Status</label>
+                                    <select id="employmentStatus" name="employmentStatus"
+                                        class="w-full p-2 border border-gray-300 rounded" required>
+                                        <option value="employed">Employed</option>
+                                        <option value="unemployed">Unemployed</option>
+                                        <option value="self-employed">Self-Employed</option>
+                                    </select>
+                                </div>
+
+                                <!-- Email Address (Personal) and Email Address (BulSU) -->
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 font-semibold mb-2" for="personalEmail">Email
+                                        Address (Personal)</label>
+                                    <input type="email" id="personalEmail" name="personalEmail"
+                                        class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                        placeholder="ex. juandelacruz@gmail.com" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 font-semibold mb-2" for="bulsuEmail">Email Address
+                                        (BulSU)</label>
+                                    <input type="email" id="bulsuEmail" name="bulsuEmail"
+                                        class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                        placeholder="ex. juandelacruz.a@bulsu.edu.ph" required>
+                                    <p class="text-gray-500 text-sm mt-2">note: Type N/A if you don’t have access to
+                                        your bulsu email</p>
+                                    <!-- Error messages for validation -->
+                                    <p id="bulsuEmailError" class="text-red-500 text-sm mt-2"></p>
+                                </div>
+
+                            </form>
+
+                            <!-- Back and Next buttons -->
+                            <div class="flex items-end justify-end mt-4">
+                                <button id="alumniBackButton"
+                                    class="px-10 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Back</button>
+                                <div class="px-2 hidden md:block"></div>
+                                <button id="alumniNextButton"
+                                    class="px-10 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                    onclick="goToAlumniPage2()">Next</button>
                             </div>
+                        </div>
+
+                        <!-- Alumni registration form fields - Page 2 (Initially hidden) -->
+                        <div id="alumniPage2" class="hidden">
+                            <form id="alumniFormPage2" class="h-96 overflow-y-auto">
+                                <div class="mb-4 flex">
+                                    <!-- College Dropdown (Occupying 50% of the width) -->
+                                    <div class="w-1/2 md:w-1/2 md:mr-2 mb-2 md:mb-0">
+                                        <label class="block text-gray-700 font-semibold mb-2"
+                                            for="college">College</label>
+                                        <select id="college" name="college"
+                                            class="w-full p-2 border border-gray-300 rounded" required>
+                                            <option value="CICT">College of Information and Communications Technology
+                                            </option>
+                                            <option value="CON">College of Nursing</option>
+                                            <option value="COL">College of Law</option>
+                                            <!-- Add more college options as needed -->
+                                        </select>
+                                    </div>
+
+                                    <!-- Batch Dropdown (Initially visible) -->
+                                    <div id="batchContainer" class="w-1/2">
+                                        <label class="block text-gray-700 font-semibold mb-2" for="batch">Batch</label>
+                                        <select id="batch" name="batch"
+                                            class="w-full p-2 border border-gray-300 rounded" required>
+                                            <!-- Batch options here -->
+                                        </select>
+                                    </div>
+
+                                    <!-- Year Dropdown (Initially hidden) -->
+                                    <div id="yearContainer" class="w-1/2 hidden">
+                                        <label class="block text-gray-700 font-semibold mb-2" for="year">Year</label>
+                                        <select id="year" name="year" class="w-full p-2 border border-gray-300 rounded"
+                                            required>
+                                            <!-- Year options here -->
+                                            <option value="1st Year">1st Year</option>
+                                            <option value="2nd year">2nd Year</option>
+                                            <option value="3rd Year">3rd Year</option>
+                                            <option value="4th Year">4th Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Username -->
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 font-semibold mb-2"
+                                        for="username">Username</label>
+                                    <input type="text" id="username" name="username"
+                                        class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                        placeholder="ex. juandelacruz@31" required>
+                                </div>
+
+                                <!-- Password Field -->
+                                <div class="mb-4 relative">
+                                    <label class="block text-gray-700 font-semibold mb-2"
+                                        for="password">Password</label>
+                                    <div class="relative">
+                                        <input type="password" id="password" name="password"
+                                            class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                            placeholder="Enter your password" required>
+                                        <!-- Password Visibility Toggle Icon -->
+                                        <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                            <i id="passwordToggle"
+                                                class="fas fa-eye-slash text-gray-400 cursor-pointer"></i>
+                                        </div>
+                                    </div>
+                                    <p id="passwordError" class="text-red-500 text-sm mt-2 error-message"
+                                        style="display: none">
+                                        Password must meet the following requirements:
+                                    <ul id="passwordRequirements" class="text-red-500 text-sm mt-2">
+                                        <li id="lengthReq">At least 8 characters</li>
+                                        <li id="upperCaseReq">At least one uppercase letter</li>
+                                        <li id="lowerCaseReq">At least one lowercase letter</li>
+                                        <li id="digitReq">At least one digit</li>
+                                        <li id="specialCharReq">At least one special character</li>
+                                    </ul>
+                                    </p>
+                                </div>
+
+                                <!-- Confirm Password Field -->
+                                <div class="mb-4 relative">
+                                    <label class="block text-gray-700 font-semibold mb-2" for="confirmPassword">Confirm
+                                        Password</label>
+                                    <div class="relative">
+                                        <input type="password" id="confirmPassword" name="confirmPassword"
+                                            class="w-full p-2 border border-gray-300 rounded italic-placeholder"
+                                            placeholder="Re-enter your password" required>
+                                        <!-- Confirm Password Visibility Toggle Icon -->
+                                        <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                            <i id="confirmPasswordToggle"
+                                                class="fas fa-eye-slash text-gray-400 cursor-pointer"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                            <p id="confirmPasswordError" class="text-red-500 text-sm mt-2 error-message"
+                                style="display: none">Passwords do not match.</p>
+
+                            <!-- Back and Next buttons for Page 2 -->
+                            <div class="flex items-end justify-end mt-4">
+                                <button id="alumniBackButton2"
+                                    class="px-10 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+                                    onclick="goBackAlumniPage2()">Back</button>
+                                <div class="px-2 hidden md:block"></div>
+                                <button id="alumniSignUp"
+                                    class="px-10 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                    onclick="validateAlumniFormPage2()">Sign Up</button>
+                            </div>
+
+                        </div>
+
+                        <!-- Registration Complete Modal -->
+                        <div id="registrationModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+                            <div class="modal-overlay absolute inset-0 bg-black opacity-50"></div>
+                            <div
+                                class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                                <!-- Modal Content -->
+                                <div class="modal-content py-4 text-left px-6">
+                                    <!-- Success Icon -->
+                                    <div class="flex justify-center">
+                                        <i class="fas fa-check-circle text-6xl text-green-500"></i>
+                                    </div>
+                                    <!-- Success Text -->
+                                    <h2 class="text-2xl font-semibold text-center text-green-500 my-4">SUCCESS</h2>
+                                    <!-- Description -->
+                                    <p class="text-gray-700 text-center mb-4">
+                                        You have successfully registered.
+                                    </p>
+                                    <!-- Go Back Button -->
+                                    <div class="text-center">
+                                        <button id="goBackButton"
+                                            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                            <a href="../student-alumni/login.php">Go Back to Homepage</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         </div>
                     </div>  
@@ -259,444 +321,6 @@
                 
             </div>
         </div>
-        <script>
-            //NEW-REG-FORM
-
-const buttons = document.getElementById('buttons');
-                const statusHeader = document.getElementById('statusHeader');
-
-                const alumniButton = document.getElementById('alumniButton');
-                const studentButton = document.getElementById('studentButton');
-
-
-                const alumniTab = document.getElementById('alumniTab');
-                const alumniPage1 = document.getElementById('alumniPage1');
-
-                const studentTab = document.getElementById('studentTab');
-                const studentPage1 = document.getElementById('studentPage1');
-
-                const alumniBackButton = document.getElementById('alumniBackButton');
-                const alumniBackButton2 = document.getElementById('alumniBackButton2');
-
-                const alumniNextButton = document.getElementById('alumniNextButton');
-                const studentBackButton = document.getElementById('studentBackButton');
-                const studentNextButton = document.getElementById('studentNextButton');
-
-                alumniButton.addEventListener('click', () => {
-                    buttons.style.display = 'none';
-                    statusHeader.style.display = 'none';
-                    alumniTab.style.display = 'block';
-                    alumniPage1.style.display = 'block';
-
-                });
-
-                studentButton.addEventListener('click', () => {
-                    buttons.style.display = 'none';
-                    statusHeader.style.display = 'none';
-                    alumniTab.style.display = 'block';
-                    alumniPage1.style.display = 'block';
-                });
-
-                alumniBackButton.addEventListener('click', () => {
-                    buttons.style.display = 'flex';
-                    statusHeader.style.display = 'block';
-                    alumniTab.style.display = 'none';
-                });
-
-                function goToAlumniPage2() {
-                    // Validate the input fields on Page 1
-                    if (validatePage1()) {
-                        // If Page 1 is valid, show Page 2
-                        document.getElementById("alumniPage2").style.display = "block";
-                        document.getElementById("alumniPage1").style.display = "none"; // Hide Page 1
-                        document.getElementById("alumniTab").scrollTop = 0; // Scroll to the top of the tab
-                    }
-                }
-
-                function validatePage1() {
-                    const firstName = document.getElementById("firstName");
-                    const lastName = document.getElementById("lastName");
-                    const contactNumber = document.getElementById("contactNumber");
-                    const studentNumber = document.getElementById("studentNumber");
-                    const birthday = document.getElementById("birthday");
-                    const streetNumber = document.getElementById("address");
-                    const employmentStatus = document.getElementById("employmentStatus");
-                    const personalEmail = document.getElementById("personalEmail");
-                    const bulsuEmail = document.getElementById("bulsuEmail");
-
-                    // Remove red borders and error messages (in case there were previous errors)
-                    removeRedBorder(firstName);
-                    removeRedBorder(lastName);
-                    removeRedBorder(contactNumber);
-                    removeRedBorder(studentNumber);
-                    removeRedBorder(birthday);
-                    removeRedBorder(address);
-                    removeRedBorder(employmentStatus);
-                    removeRedBorder(personalEmail);
-                    removeRedBorder(bulsuEmail);
-
-                    // Remove error messages
-                    removeErrorMessage("contactNumberError");
-                    removeErrorMessage("bulsuEmailError");
-
-                    // Check if all fields are filled
-                    let isValid = true;
-
-                    if (firstName.value === "") {
-                        addRedBorder(firstName);
-                        isValid = false;
-                    }
-
-                    if (lastName.value === "") {
-                        addRedBorder(lastName);
-                        isValid = false;
-                    }
-
-
-                    if (contactNumber.value === "") {
-                        addRedBorder(contactNumber);
-                        addErrorMessage("contactNumberError", "Please enter a valid Philippine contact number.");
-                        isValid = false;
-                    } else {
-                        // Validate the Philippine contact number
-                        const contactNumberRegex = /^\+639\d{9}$/;
-                        if (!contactNumberRegex.test(contactNumber.value)) {
-                            addRedBorder(contactNumber);
-                            addErrorMessage("contactNumberError", "Invalid contact number format. Please use the format +639xxxxxxxxx.");
-                            isValid = false;
-                        }
-                    }
-
-                    if (studentNumber.value === "") {
-                        addRedBorder(studentNumber);
-                        isValid = false;
-                    }
-
-                    if (birthday.value === "") {
-                        addRedBorder(birthday);
-                        isValid = false;
-                    }
-
-                    if (address.value === "") {
-                        addRedBorder(address);
-                        isValid = false;
-                    }
-
-                    if (personalEmail.value === "") {
-                        addRedBorder(personalEmail);
-                        isValid = false;
-                    }
-
-                    if (bulsuEmail.value === "") {
-                        addRedBorder(bulsuEmail);
-                        addErrorMessage("bulsuEmailError", "Please enter a valid BulSU email address or 'N/A' if not applicable.");
-                        isValid = false;
-                    } else if (!bulsuEmail.value.endsWith("@bulsu.edu.ph") && bulsuEmail.value.toLowerCase() !== "n/a") {
-                        addRedBorder(bulsuEmail);
-                        addErrorMessage("bulsuEmailError", "Invalid BulSU email address format. It should end with @bulsu.edu.ph or use 'N/A'.");
-                        isValid = false;
-                    }
-
-                    // Add similar checks for the remaining input fields
-
-                    return isValid; // All validations passed
-                }
-
-                function addRedBorder(element) {
-                    element.style.border = "1px solid red";
-                }
-
-                function removeRedBorder(element) {
-                    element.style.border = "";
-                }
-
-                function addErrorMessage(id, message) {
-                    const errorElement = document.getElementById(id);
-                    errorElement.textContent = message;
-                    errorElement.style.color = "red";
-                }
-
-                function removeErrorMessage(id) {
-                    const errorElement = document.getElementById(id);
-                    errorElement.textContent = "";
-                }
-
-
-                function goBackAlumniPage2() {
-                    // Hide Page 2 and show Page 1
-                    document.getElementById("alumniPage2").style.display = "none"; // Hide Page 2
-                    document.getElementById("alumniPage1").style.display = "block"; // Show Page 1
-                    document.getElementById("alumniTab").scrollTop = 0; // Scroll to the top of the tab
-                }
-
-                // Function to toggle between "Batch" and "Year" dropdowns
-                function populateBatchDropdown() {
-                    const batchDropdown = document.getElementById("batch");
-                    const currentYear = new Date().getFullYear(); // Get the current year
-
-                    for (let year = currentYear; year >= 1904; year--) {
-                        const option = document.createElement("option");
-                        option.value = year.toString();
-                        option.text = year.toString();
-                        batchDropdown.appendChild(option);
-                    }
-                }
-
-                // Function to toggle between "Batch" and "Year" dropdowns
-                function toggleYearOrBatch(isStudent) {
-                    const batchContainer = document.getElementById("batchContainer");
-                    const yearContainer = document.getElementById("yearContainer");
-
-                    if (isStudent) {
-                        batchContainer.style.display = "none";
-                        yearContainer.style.display = "block";
-                    } else {
-                        batchContainer.style.display = "block";
-                        yearContainer.style.display = "none";
-                    }
-                }
-
-                // Add click event listeners to the "Alumni" and "Student" buttons
-
-                alumniButton.addEventListener("click", function() {
-                    // If the "Alumni" button is clicked, set toggleYearOrBatch to false
-                    toggleYearOrBatch(false);
-                });
-
-                studentButton.addEventListener("click", function() {
-                    // If the "Student" button is clicked, set toggleYearOrBatch to true
-                    toggleYearOrBatch(true);
-                });
-
-
-                // Call the function to populate the Batch dropdown when the page loads
-                window.addEventListener("load", function () {
-                    populateBatchDropdown();
-                });
-
-                // Get password and confirm password elements and their toggle icons
-                const passwordInput = document.getElementById("password");
-                const confirmPasswordInput = document.getElementById("confirmPassword");
-                const passwordToggle = document.getElementById("passwordToggle");
-                const confirmPasswordToggle = document.getElementById("confirmPasswordToggle");
-
-                // Function to toggle password visibility
-                function togglePasswordVisibility(inputElement, toggleElement) {
-                    if (inputElement.type === "password") {
-                        inputElement.type = "text";
-                        toggleElement.classList.remove("fa-eye-slash");
-                        toggleElement.classList.add("fa-eye");
-                    } else {
-                        inputElement.type = "password";
-                        toggleElement.classList.remove("fa-eye");
-                        toggleElement.classList.add("fa-eye-slash");
-                    }
-                }
-
-                // Add click event listeners to the toggle icons
-                passwordToggle.addEventListener("click", () => {
-                    togglePasswordVisibility(passwordInput, passwordToggle);
-                });
-
-                confirmPasswordToggle.addEventListener("click", () => {
-                    togglePasswordVisibility(confirmPasswordInput, confirmPasswordToggle);
-                });
-
-                function validateAlumniFormPage2() {
-                    // Get form elements
-                    const form = document.getElementById("alumniFormPage2");
-                    const college = document.getElementById("college");
-                    const batch = document.getElementById("batch");
-                    const username = document.getElementById("username");
-                    const password = document.getElementById("password");
-                    const confirmPassword = document.getElementById("confirmPassword");
-
-                    // Reset previous validation styles and error messages
-                    const inputs = [college, batch, username, password, confirmPassword];
-                    inputs.forEach((input) => {
-                        input.style.border = "1px solid #ced4da"; // Reset border to default
-                    });
-
-                    const errorMessages = document.getElementsByClassName("error-message");
-                    for (let i = 0; i < errorMessages.length; i++) {
-                        errorMessages[i].style.display = "none"; // Hide previous error messages
-                    }
-
-                    // Validate input fields
-                    let isValid = true;
-
-                    if (college.value === "") {
-                        college.style.border = "1px solid red"; // Highlight in red if empty
-                        isValid = false;
-                    }
-
-                    if (batch.value === "") {
-                        batch.style.border = "1px solid red"; // Highlight in red if empty
-                        isValid = false;
-                    }
-
-                    if (username.value === "") {
-                        username.style.border = "1px solid red"; // Highlight in red if empty
-                        isValid = false;
-                    }
-
-                    // Password validation
-                    if (password.value === "") {
-                        password.style.border = "1px solid red"; // Highlight in red if empty
-                        isValid = false;
-                    } else if (!isPasswordValid(password.value)) {
-                        password.style.border = "1px solid red"; // Highlight in red if not valid
-                        isValid = false;
-                        document.getElementById("passwordError").style.display = "block";
-                    }
-
-                    if (confirmPassword.value === "") {
-                        confirmPassword.style.border = "1px solid red"; // Highlight in red if empty
-                        isValid = false;
-                    } else if (password.value !== confirmPassword.value) {
-                        confirmPassword.style.border = "1px solid red"; // Highlight in red if not matching
-                        isValid = false;
-                        document.getElementById("confirmPasswordError").style.display = "block";
-                    }
-
-                    if (isValid) {
-                        // All fields are valid, you can submit the form or proceed to the next step.
-                        // In this example, we'll just show the registration complete modal.
-                        openRegistrationCompleteModal(); // Call the function to open the modal
-                    }
-                }
-
-                // Function to update password complexity error messages
-                function updatePasswordComplexity(password) {
-                    const lengthReq = document.getElementById("lengthReq");
-                    const upperCaseReq = document.getElementById("upperCaseReq");
-                    const lowerCaseReq = document.getElementById("lowerCaseReq");
-                    const digitReq = document.getElementById("digitReq");
-                    const specialCharReq = document.getElementById("specialCharReq");
-
-                    lengthReq.style.color = password.length >= 8 ? "green" : "red";
-                    upperCaseReq.style.color = /[A-Z]/.test(password) ? "green" : "red";
-                    lowerCaseReq.style.color = /[a-z]/.test(password) ? "green" : "red";
-                    digitReq.style.color = /[0-9]/.test(password) ? "green" : "red";
-                    specialCharReq.style.color = /[@$!%*?&_]/.test(password) ? "green" : "red";
-                }
-
-                // Add input event listener to the password field
-                passwordInput.addEventListener("input", function () {
-                    const password = passwordInput.value;
-                    updatePasswordComplexity(password);
-
-                    // Check password validity and display/hide error message
-                    const passwordError = document.getElementById("passwordError");
-                    const isValid = isPasswordValid(password);
-                    if (isValid) {
-                        passwordError.style.display = "none";
-                        passwordInput.style.border = "1px solid #ced4da"; // Reset border to default
-                    } else {
-                        passwordError.style.display = "block";
-                        passwordInput.style.border = "1px solid red"; // Highlight in red if not valid
-                    }
-                });
-
-                if (confirmPassword.value === "") {
-                        confirmPassword.style.border = "1px solid red"; // Highlight in red if empty
-                        isValid = false;
-                    } else if (password.value !== confirmPassword.value) {
-                        confirmPassword.style.border = "1px solid red"; // Highlight in red if not matching
-                        isValid = false;
-                        document.getElementById("confirmPasswordError").style.display = "block";
-                    }
-
-                // Function to validate if password meets complexity requirements
-                function isPasswordValid(password) {
-                    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/;
-                    return regex.test(password);
-                }
-
-                // Function to open the registration complete modal
-                function openRegistrationCompleteModal() {
-                    const registrationModal = document.getElementById('registrationModal');
-                    registrationModal.classList.remove('hidden');
-                }
-
-                function resetFormFields() {
-                // Reset Page 1 input fields
-                const firstNameInput = document.getElementById("firstName");
-                const lastNameInput = document.getElementById("lastName");
-                const contactNumberInput = document.getElementById("contactNumber");
-                const studentNumberInput = document.getElementById("studentNumber");
-                const birthdayInput = document.getElementById("birthday");
-                const maleRadio = document.getElementById("male");
-                const femaleRadio = document.getElementById("female");
-                const addressInput = document.getElementById("address");
-                const employmentStatusInput = document.getElementById("employmentStatus");
-                const personalEmailInput = document.getElementById("personalEmail");
-                const bulsuEmailInput = document.getElementById("bulsuEmail");
-
-                // Reset the values of Page 1 form fields
-                firstNameInput.value = "";
-                lastNameInput.value = "";
-                contactNumberInput.value = "";
-                studentNumberInput.value = "";
-                birthdayInput.value = "";
-                maleRadio.checked = true; // Reset gender radio buttons
-                addressInput.value = "";
-                employmentStatusInput.value = "employed"; // Reset employment status dropdown
-                personalEmailInput.value = "";
-                bulsuEmailInput.value = "";
-
-                // Clear any error messages on Page 1
-                const contactNumberError = document.getElementById("contactNumberError");
-                contactNumberError.style.display = "none"; // Clear the error message
-
-                const bulsuEmailError = document.getElementById("bulsuEmailError");
-                bulsuEmailError.style.display = "none"; // Clear the error message
-
-                firstNameInput.style.border = "1px solid #ced4da";
-                lastNameInput.style.border = "1px solid #ced4da";
-                contactNumberInput.style.border = "1px solid #ced4da";
-                studentNumberInput.style.border = "1px solid #ced4da";
-                birthdayInput.style.border = "1px solid #ced4da";
-                addressInput.style.border = "1px solid #ced4da";
-                personalEmailInput.style.border = "1px solid #ced4da";
-                bulsuEmailInput.style.border = "1px solid #ced4da";
-
-                // Reset Page 2 input fields
-                const collegeInput = document.getElementById("college");
-                const batchInput = document.getElementById("batch");
-                const usernameInput = document.getElementById("username");
-                const passwordInput = document.getElementById("password");
-                const confirmPasswordInput = document.getElementById("confirmPassword");
-
-                // Reset the values of Page 2 form fields
-                usernameInput.value = "";
-                passwordInput.value = "";
-                confirmPasswordInput.value = "";
-
-                // Clear any error messages on Page 2
-                const passwordError = document.getElementById("passwordError");
-                passwordError.style.display = "none"; // Clear the error message
-                const confirmPasswordError = document.getElementById("confirmPasswordError");
-                confirmPasswordError.style.display = "none"; // Clear the error message
-
-                // Reset border colors to gray-300 for Page 2 input fields
-                collegeInput.style.border = "1px solid #ced4da";
-                batchInput.style.border = "1px solid #ced4da";
-                usernameInput.style.border = "1px solid #ced4da";
-                passwordInput.style.border = "1px solid #ced4da";
-                confirmPasswordInput.style.border = "1px solid #ced4da";
-            }
-
-
-            // Add an event listener to the "Back" button to reset form fields
-            alumniBackButton.addEventListener("click", function () {
-                resetFormFields(); // Call the function to reset form fields
-                // Additional code to navigate back to the previous page or hide elements
-            });
-
-
-
-
-        </script>
+        <script src="../student-alumni/js/login-register.js"></script>
     </body>
     </html>
