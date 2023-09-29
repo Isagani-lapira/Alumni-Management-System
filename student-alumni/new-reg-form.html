@@ -259,6 +259,444 @@
                 
             </div>
         </div>
-        <script src="../student-alumni/js/login-register.js"></script>
+        <script>
+            //NEW-REG-FORM
+
+const buttons = document.getElementById('buttons');
+                const statusHeader = document.getElementById('statusHeader');
+
+                const alumniButton = document.getElementById('alumniButton');
+                const studentButton = document.getElementById('studentButton');
+
+
+                const alumniTab = document.getElementById('alumniTab');
+                const alumniPage1 = document.getElementById('alumniPage1');
+
+                const studentTab = document.getElementById('studentTab');
+                const studentPage1 = document.getElementById('studentPage1');
+
+                const alumniBackButton = document.getElementById('alumniBackButton');
+                const alumniBackButton2 = document.getElementById('alumniBackButton2');
+
+                const alumniNextButton = document.getElementById('alumniNextButton');
+                const studentBackButton = document.getElementById('studentBackButton');
+                const studentNextButton = document.getElementById('studentNextButton');
+
+                alumniButton.addEventListener('click', () => {
+                    buttons.style.display = 'none';
+                    statusHeader.style.display = 'none';
+                    alumniTab.style.display = 'block';
+                    alumniPage1.style.display = 'block';
+
+                });
+
+                studentButton.addEventListener('click', () => {
+                    buttons.style.display = 'none';
+                    statusHeader.style.display = 'none';
+                    alumniTab.style.display = 'block';
+                    alumniPage1.style.display = 'block';
+                });
+
+                alumniBackButton.addEventListener('click', () => {
+                    buttons.style.display = 'flex';
+                    statusHeader.style.display = 'block';
+                    alumniTab.style.display = 'none';
+                });
+
+                function goToAlumniPage2() {
+                    // Validate the input fields on Page 1
+                    if (validatePage1()) {
+                        // If Page 1 is valid, show Page 2
+                        document.getElementById("alumniPage2").style.display = "block";
+                        document.getElementById("alumniPage1").style.display = "none"; // Hide Page 1
+                        document.getElementById("alumniTab").scrollTop = 0; // Scroll to the top of the tab
+                    }
+                }
+
+                function validatePage1() {
+                    const firstName = document.getElementById("firstName");
+                    const lastName = document.getElementById("lastName");
+                    const contactNumber = document.getElementById("contactNumber");
+                    const studentNumber = document.getElementById("studentNumber");
+                    const birthday = document.getElementById("birthday");
+                    const streetNumber = document.getElementById("address");
+                    const employmentStatus = document.getElementById("employmentStatus");
+                    const personalEmail = document.getElementById("personalEmail");
+                    const bulsuEmail = document.getElementById("bulsuEmail");
+
+                    // Remove red borders and error messages (in case there were previous errors)
+                    removeRedBorder(firstName);
+                    removeRedBorder(lastName);
+                    removeRedBorder(contactNumber);
+                    removeRedBorder(studentNumber);
+                    removeRedBorder(birthday);
+                    removeRedBorder(address);
+                    removeRedBorder(employmentStatus);
+                    removeRedBorder(personalEmail);
+                    removeRedBorder(bulsuEmail);
+
+                    // Remove error messages
+                    removeErrorMessage("contactNumberError");
+                    removeErrorMessage("bulsuEmailError");
+
+                    // Check if all fields are filled
+                    let isValid = true;
+
+                    if (firstName.value === "") {
+                        addRedBorder(firstName);
+                        isValid = false;
+                    }
+
+                    if (lastName.value === "") {
+                        addRedBorder(lastName);
+                        isValid = false;
+                    }
+
+
+                    if (contactNumber.value === "") {
+                        addRedBorder(contactNumber);
+                        addErrorMessage("contactNumberError", "Please enter a valid Philippine contact number.");
+                        isValid = false;
+                    } else {
+                        // Validate the Philippine contact number
+                        const contactNumberRegex = /^\+639\d{9}$/;
+                        if (!contactNumberRegex.test(contactNumber.value)) {
+                            addRedBorder(contactNumber);
+                            addErrorMessage("contactNumberError", "Invalid contact number format. Please use the format +639xxxxxxxxx.");
+                            isValid = false;
+                        }
+                    }
+
+                    if (studentNumber.value === "") {
+                        addRedBorder(studentNumber);
+                        isValid = false;
+                    }
+
+                    if (birthday.value === "") {
+                        addRedBorder(birthday);
+                        isValid = false;
+                    }
+
+                    if (address.value === "") {
+                        addRedBorder(address);
+                        isValid = false;
+                    }
+
+                    if (personalEmail.value === "") {
+                        addRedBorder(personalEmail);
+                        isValid = false;
+                    }
+
+                    if (bulsuEmail.value === "") {
+                        addRedBorder(bulsuEmail);
+                        addErrorMessage("bulsuEmailError", "Please enter a valid BulSU email address or 'N/A' if not applicable.");
+                        isValid = false;
+                    } else if (!bulsuEmail.value.endsWith("@bulsu.edu.ph") && bulsuEmail.value.toLowerCase() !== "n/a") {
+                        addRedBorder(bulsuEmail);
+                        addErrorMessage("bulsuEmailError", "Invalid BulSU email address format. It should end with @bulsu.edu.ph or use 'N/A'.");
+                        isValid = false;
+                    }
+
+                    // Add similar checks for the remaining input fields
+
+                    return isValid; // All validations passed
+                }
+
+                function addRedBorder(element) {
+                    element.style.border = "1px solid red";
+                }
+
+                function removeRedBorder(element) {
+                    element.style.border = "";
+                }
+
+                function addErrorMessage(id, message) {
+                    const errorElement = document.getElementById(id);
+                    errorElement.textContent = message;
+                    errorElement.style.color = "red";
+                }
+
+                function removeErrorMessage(id) {
+                    const errorElement = document.getElementById(id);
+                    errorElement.textContent = "";
+                }
+
+
+                function goBackAlumniPage2() {
+                    // Hide Page 2 and show Page 1
+                    document.getElementById("alumniPage2").style.display = "none"; // Hide Page 2
+                    document.getElementById("alumniPage1").style.display = "block"; // Show Page 1
+                    document.getElementById("alumniTab").scrollTop = 0; // Scroll to the top of the tab
+                }
+
+                // Function to toggle between "Batch" and "Year" dropdowns
+                function populateBatchDropdown() {
+                    const batchDropdown = document.getElementById("batch");
+                    const currentYear = new Date().getFullYear(); // Get the current year
+
+                    for (let year = currentYear; year >= 1904; year--) {
+                        const option = document.createElement("option");
+                        option.value = year.toString();
+                        option.text = year.toString();
+                        batchDropdown.appendChild(option);
+                    }
+                }
+
+                // Function to toggle between "Batch" and "Year" dropdowns
+                function toggleYearOrBatch(isStudent) {
+                    const batchContainer = document.getElementById("batchContainer");
+                    const yearContainer = document.getElementById("yearContainer");
+
+                    if (isStudent) {
+                        batchContainer.style.display = "none";
+                        yearContainer.style.display = "block";
+                    } else {
+                        batchContainer.style.display = "block";
+                        yearContainer.style.display = "none";
+                    }
+                }
+
+                // Add click event listeners to the "Alumni" and "Student" buttons
+
+                alumniButton.addEventListener("click", function() {
+                    // If the "Alumni" button is clicked, set toggleYearOrBatch to false
+                    toggleYearOrBatch(false);
+                });
+
+                studentButton.addEventListener("click", function() {
+                    // If the "Student" button is clicked, set toggleYearOrBatch to true
+                    toggleYearOrBatch(true);
+                });
+
+
+                // Call the function to populate the Batch dropdown when the page loads
+                window.addEventListener("load", function () {
+                    populateBatchDropdown();
+                });
+
+                // Get password and confirm password elements and their toggle icons
+                const passwordInput = document.getElementById("password");
+                const confirmPasswordInput = document.getElementById("confirmPassword");
+                const passwordToggle = document.getElementById("passwordToggle");
+                const confirmPasswordToggle = document.getElementById("confirmPasswordToggle");
+
+                // Function to toggle password visibility
+                function togglePasswordVisibility(inputElement, toggleElement) {
+                    if (inputElement.type === "password") {
+                        inputElement.type = "text";
+                        toggleElement.classList.remove("fa-eye-slash");
+                        toggleElement.classList.add("fa-eye");
+                    } else {
+                        inputElement.type = "password";
+                        toggleElement.classList.remove("fa-eye");
+                        toggleElement.classList.add("fa-eye-slash");
+                    }
+                }
+
+                // Add click event listeners to the toggle icons
+                passwordToggle.addEventListener("click", () => {
+                    togglePasswordVisibility(passwordInput, passwordToggle);
+                });
+
+                confirmPasswordToggle.addEventListener("click", () => {
+                    togglePasswordVisibility(confirmPasswordInput, confirmPasswordToggle);
+                });
+
+                function validateAlumniFormPage2() {
+                    // Get form elements
+                    const form = document.getElementById("alumniFormPage2");
+                    const college = document.getElementById("college");
+                    const batch = document.getElementById("batch");
+                    const username = document.getElementById("username");
+                    const password = document.getElementById("password");
+                    const confirmPassword = document.getElementById("confirmPassword");
+
+                    // Reset previous validation styles and error messages
+                    const inputs = [college, batch, username, password, confirmPassword];
+                    inputs.forEach((input) => {
+                        input.style.border = "1px solid #ced4da"; // Reset border to default
+                    });
+
+                    const errorMessages = document.getElementsByClassName("error-message");
+                    for (let i = 0; i < errorMessages.length; i++) {
+                        errorMessages[i].style.display = "none"; // Hide previous error messages
+                    }
+
+                    // Validate input fields
+                    let isValid = true;
+
+                    if (college.value === "") {
+                        college.style.border = "1px solid red"; // Highlight in red if empty
+                        isValid = false;
+                    }
+
+                    if (batch.value === "") {
+                        batch.style.border = "1px solid red"; // Highlight in red if empty
+                        isValid = false;
+                    }
+
+                    if (username.value === "") {
+                        username.style.border = "1px solid red"; // Highlight in red if empty
+                        isValid = false;
+                    }
+
+                    // Password validation
+                    if (password.value === "") {
+                        password.style.border = "1px solid red"; // Highlight in red if empty
+                        isValid = false;
+                    } else if (!isPasswordValid(password.value)) {
+                        password.style.border = "1px solid red"; // Highlight in red if not valid
+                        isValid = false;
+                        document.getElementById("passwordError").style.display = "block";
+                    }
+
+                    if (confirmPassword.value === "") {
+                        confirmPassword.style.border = "1px solid red"; // Highlight in red if empty
+                        isValid = false;
+                    } else if (password.value !== confirmPassword.value) {
+                        confirmPassword.style.border = "1px solid red"; // Highlight in red if not matching
+                        isValid = false;
+                        document.getElementById("confirmPasswordError").style.display = "block";
+                    }
+
+                    if (isValid) {
+                        // All fields are valid, you can submit the form or proceed to the next step.
+                        // In this example, we'll just show the registration complete modal.
+                        openRegistrationCompleteModal(); // Call the function to open the modal
+                    }
+                }
+
+                // Function to update password complexity error messages
+                function updatePasswordComplexity(password) {
+                    const lengthReq = document.getElementById("lengthReq");
+                    const upperCaseReq = document.getElementById("upperCaseReq");
+                    const lowerCaseReq = document.getElementById("lowerCaseReq");
+                    const digitReq = document.getElementById("digitReq");
+                    const specialCharReq = document.getElementById("specialCharReq");
+
+                    lengthReq.style.color = password.length >= 8 ? "green" : "red";
+                    upperCaseReq.style.color = /[A-Z]/.test(password) ? "green" : "red";
+                    lowerCaseReq.style.color = /[a-z]/.test(password) ? "green" : "red";
+                    digitReq.style.color = /[0-9]/.test(password) ? "green" : "red";
+                    specialCharReq.style.color = /[@$!%*?&_]/.test(password) ? "green" : "red";
+                }
+
+                // Add input event listener to the password field
+                passwordInput.addEventListener("input", function () {
+                    const password = passwordInput.value;
+                    updatePasswordComplexity(password);
+
+                    // Check password validity and display/hide error message
+                    const passwordError = document.getElementById("passwordError");
+                    const isValid = isPasswordValid(password);
+                    if (isValid) {
+                        passwordError.style.display = "none";
+                        passwordInput.style.border = "1px solid #ced4da"; // Reset border to default
+                    } else {
+                        passwordError.style.display = "block";
+                        passwordInput.style.border = "1px solid red"; // Highlight in red if not valid
+                    }
+                });
+
+                if (confirmPassword.value === "") {
+                        confirmPassword.style.border = "1px solid red"; // Highlight in red if empty
+                        isValid = false;
+                    } else if (password.value !== confirmPassword.value) {
+                        confirmPassword.style.border = "1px solid red"; // Highlight in red if not matching
+                        isValid = false;
+                        document.getElementById("confirmPasswordError").style.display = "block";
+                    }
+
+                // Function to validate if password meets complexity requirements
+                function isPasswordValid(password) {
+                    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/;
+                    return regex.test(password);
+                }
+
+                // Function to open the registration complete modal
+                function openRegistrationCompleteModal() {
+                    const registrationModal = document.getElementById('registrationModal');
+                    registrationModal.classList.remove('hidden');
+                }
+
+                function resetFormFields() {
+                // Reset Page 1 input fields
+                const firstNameInput = document.getElementById("firstName");
+                const lastNameInput = document.getElementById("lastName");
+                const contactNumberInput = document.getElementById("contactNumber");
+                const studentNumberInput = document.getElementById("studentNumber");
+                const birthdayInput = document.getElementById("birthday");
+                const maleRadio = document.getElementById("male");
+                const femaleRadio = document.getElementById("female");
+                const addressInput = document.getElementById("address");
+                const employmentStatusInput = document.getElementById("employmentStatus");
+                const personalEmailInput = document.getElementById("personalEmail");
+                const bulsuEmailInput = document.getElementById("bulsuEmail");
+
+                // Reset the values of Page 1 form fields
+                firstNameInput.value = "";
+                lastNameInput.value = "";
+                contactNumberInput.value = "";
+                studentNumberInput.value = "";
+                birthdayInput.value = "";
+                maleRadio.checked = true; // Reset gender radio buttons
+                addressInput.value = "";
+                employmentStatusInput.value = "employed"; // Reset employment status dropdown
+                personalEmailInput.value = "";
+                bulsuEmailInput.value = "";
+
+                // Clear any error messages on Page 1
+                const contactNumberError = document.getElementById("contactNumberError");
+                contactNumberError.style.display = "none"; // Clear the error message
+
+                const bulsuEmailError = document.getElementById("bulsuEmailError");
+                bulsuEmailError.style.display = "none"; // Clear the error message
+
+                firstNameInput.style.border = "1px solid #ced4da";
+                lastNameInput.style.border = "1px solid #ced4da";
+                contactNumberInput.style.border = "1px solid #ced4da";
+                studentNumberInput.style.border = "1px solid #ced4da";
+                birthdayInput.style.border = "1px solid #ced4da";
+                addressInput.style.border = "1px solid #ced4da";
+                personalEmailInput.style.border = "1px solid #ced4da";
+                bulsuEmailInput.style.border = "1px solid #ced4da";
+
+                // Reset Page 2 input fields
+                const collegeInput = document.getElementById("college");
+                const batchInput = document.getElementById("batch");
+                const usernameInput = document.getElementById("username");
+                const passwordInput = document.getElementById("password");
+                const confirmPasswordInput = document.getElementById("confirmPassword");
+
+                // Reset the values of Page 2 form fields
+                usernameInput.value = "";
+                passwordInput.value = "";
+                confirmPasswordInput.value = "";
+
+                // Clear any error messages on Page 2
+                const passwordError = document.getElementById("passwordError");
+                passwordError.style.display = "none"; // Clear the error message
+                const confirmPasswordError = document.getElementById("confirmPasswordError");
+                confirmPasswordError.style.display = "none"; // Clear the error message
+
+                // Reset border colors to gray-300 for Page 2 input fields
+                collegeInput.style.border = "1px solid #ced4da";
+                batchInput.style.border = "1px solid #ced4da";
+                usernameInput.style.border = "1px solid #ced4da";
+                passwordInput.style.border = "1px solid #ced4da";
+                confirmPasswordInput.style.border = "1px solid #ced4da";
+            }
+
+
+            // Add an event listener to the "Back" button to reset form fields
+            alumniBackButton.addEventListener("click", function () {
+                resetFormFields(); // Call the function to reset form fields
+                // Additional code to navigate back to the previous page or hide elements
+            });
+
+
+
+
+        </script>
     </body>
     </html>
