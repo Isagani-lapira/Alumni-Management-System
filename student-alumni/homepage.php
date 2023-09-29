@@ -1216,8 +1216,14 @@ function getAccDetails($con, $personID)
           <h3 class="w-1/2 font-bold text-lg md:text-6xl mb-2">No Upcoming Event On Our Calendar</h3>
           <p class="w-1/2 text-lg text-gray-800">Thank you for your interest! While there are no upcoming events right now,
             we're constantly working to bring you exciting experiences. Please stay tuned</p>
-          <div class="w-56 h-56"></div>
-          <img class="absolute translate-y-1/2 calendar-logo w-56 h-56 block z-50" src="../assets/Calendar 1.png" alt="calendar image">
+          <div class="w-56 h-56 relative"></div>
+
+
+          <img class="absolute left-2/3 z-50" src="../assets/3d_images/Chat Emoji 1.png" alt="">
+          <img class="absolute top-1/3 right-16 z-50" src="../assets/3d_images/Music Player 1.png" alt="">
+          <img class="absolute translate-y-1/2 calendar-logo w-56 h-56 block z-40" src="../assets/3d_images/Calendar 1.png" alt="calendar image">
+          <img class="absolute translate-y-2/3 left-2/3 z-50" src="../assets/3d_images/Microphone 1.png" alt="">
+          <img class="absolute top-3/4 right-10 z-50" src="../assets/3d_images/look_left chat.png" alt="">
           <div class="absolute diagonalBg bottom-0 right-0 h-1/2 w-1/2"></div>
         </div>
       </div>
