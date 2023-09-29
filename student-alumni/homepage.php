@@ -1151,68 +1151,44 @@ function getAccDetails($con, $personID)
 
       <!-- TAB 2 -->
       <div id="tabs-2" class="h-full">
-        <div class="hidden">
-          <!--IMAGE HEADER-->
-          <div id="image-header-con" class="relative top-24 mt-1 z-10 h-full">
-            <div class="flex items-center justify-center h-full">
-              <div class="w-2/5 p-5">
-                <h1 id="headerEvent" class=" text-gray-800 text-5xl lg:text-6xl font-bold">Get Ready to Dance with</h1>
-                <p id="eventNameHeader" class=" text-4xl font-bold mb-2">Rainbow Pop</p>
-                <button class="text-white font-bold bg-blue-300 px-5 py-3 my-2">
-                  <a id="connectURL" target="_blank">CONNECT WITH US</a>
-                </button>
-              </div>
+        <div class="h-full">
+          <div class="h-1/2 top-72">
+            <img class=" object-cover w-full h-full" src="../images/event_header.jpg" alt="">
+          </div>
 
-              <!-- swiper -->
-              <div class="w-1/2 flex justify-center items-center p-3 h-full">
-                <div class="swiper mySwiper w-1/2 h-1/2">
-                  <div id="swiperWrapperEvent" class="swiper-wrapper"></div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
+          <!-- body -->
+          <div class="p-10">
+            <span class="text-gray-500">Get excited for the upcoming</span>
+            <h3 class="font-bold text-gray-600 text-4xl">Intramurals Event</h3>
+
+            <div class="date flex flex-col items-end text-gray-600">
+              <span>Starts on</span>
+              <span class="font-bold">October 15, 2003</span>
+            </div>
+
+            <!-- description -->
+            <p class="text-gray-600 my-4 text-lg w-4/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem qui unde amet,
+              illum odio sequi iure rerum corrupti! Sit animi labore earum, iste doloribus
+              vel dolor accusantium. Ducimus, rem possimus.</p>
+
+            <!-- view more details -->
+            <button class="bg-accent px-4 py-2 rounded-md text-white font-semibold block ml-auto">See Event Details</button>
+
+
+            <div class="m-4 rounded-md border border-gray-300 p-5 text-gray-600">
+              <h3 class="font-bold text-2xl">College Future Events</h3>
+              <!-- top 3 incoming college event -->
+              <div class="flex justify-evenly flex-wrap"></div>
+
+              <!-- top 3 upcoming event for alumni -->
+              <div class="flex justify-evenly flex-wrap"></div>
             </div>
           </div>
 
-          <div class="separator h-10 mt-16"></div>
-
-          <h1 id="eventName" class="text-5xl p-5 indented font-bold">RAINBOX POP</h1>
-          <div class="flex flex-nowrap px-5">
-            <!-- about image -->
-            <div class="w-1/2 flex justify-center">
-              <img id="aboutImg" class="h-3/4 w-3/4 rounded-md center-shadow object-contain bg-black">
-            </div>
-
-            <!-- about the event -->
-            <div class="flex flex-col p-5 w-1/2">
-              <h1 class="w-4/5 text-end text-3xl text-greyish_black font-bold">About the Event</h1>
-              <p id="aboutEvent" class=" w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum."</p>
-
-              <!-- event details -->
-              <div class="my-10 w-full">
-                <h1 class="w-4/5 text-3xl text-greyish_black font-bold">Event Details</h1>
-                <p class="w-4/5 text-gray-500">Date: <span id="eventDate"></span></p>
-                <p class="w-4/5 text-gray-500">Place: <span id="eventPlace"></span></p>
-                <p class="w-4/5 text-gray-500">Start time: <span id="eventStartTime"></span></p>
-              </div>
-            </div>
-
-
-          </div>
-
-
-          <!-- Expectation for event -->
-          <div class="p-10 mb-10 bg-red-400 relative">
-            <h1 class="w-full px-5 indented text-4xl text-center text-white font-bold">Expectation for this event</h1>
-
-            <div id="expectContainer" class="flex flex-nowrap justify-center gap-3 my-5"></div>
-
-          </div>
         </div>
-        <div class="h-full flex flex-col justify-center p-5 relative">
+
+        <!-- default view -->
+        <div class="h-full flex flex-col justify-center p-5 relative hidden">
           <h3 class="w-1/2 font-bold text-lg md:text-6xl mb-2">No Upcoming Event On Our Calendar</h3>
           <p class="w-1/2 text-lg text-gray-800">Thank you for your interest! While there are no upcoming events right now,
             we're constantly working to bring you exciting experiences. Please stay tuned</p>
