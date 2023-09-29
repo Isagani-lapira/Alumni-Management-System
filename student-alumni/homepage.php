@@ -775,28 +775,6 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
-        <!-- event modal -->
-        <div id="eventModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-          <div id="eventContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-7 px-12 
-          text-greyish_black flex flex-col gap-2">
-
-            <!-- Event images -->
-            <div id="eventImgWrapper" class="flex flex-wrap justify-center gap-1">
-
-            </div>
-
-            <p id="eventTitleModal" class="text-center text-2xl text-accent font-black"></p>
-            <pre id="eventDescript" class="text-gray-500 text-justify w-full indented"></pre>
-            <p class="text-lg font-bold text-greyish_black">WHEN AND WHERE</p>
-            <p class="text-sm text-gray-500">Date: <span id="eventDateModal"></span></p>
-            <p class="text-sm text-gray-500">Place: <span id="eventPlaceModal"></span></p>
-            <p class="text-sm text-gray-500">Start time: <span id="eventTimeModal"></span></p>
-            <!-- <p id="author" class="text-sm text-gray-500">By: <span class="text-accent">Media Relations Office</span></p> -->
-            <p class="text-lg text-greyish_black font-bold">EXPECTATION</p>
-            <div id="expectationList" class="flex flex-col gap-2"></div>
-          </div>
-        </div>
-
         <div id="restoreModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
           <div class="relative w-1/3 h-max p-3 bg-white rounded-md">
             <h1 class="text-xl text-greyish_black font-bold text-center py-2 border-b border-gray-400">Restore to Profile</h1>
@@ -1159,27 +1137,34 @@ function getAccDetails($con, $personID)
           <!-- body -->
           <div class="p-10">
             <span class="text-gray-500">Get excited for the upcoming</span>
-            <h3 class="font-bold text-gray-600 text-4xl">Intramurals Event</h3>
+            <h3 id="eventName" class="font-bold text-gray-600 text-4xl">Intramurals Event</h3>
 
             <div class="date flex flex-col items-end text-gray-600">
               <span>Starts on</span>
-              <span class="font-bold">October 15, 2003</span>
+              <span id="eventStartDate" class="font-bold">October 15, 2003</span>
             </div>
 
             <!-- description -->
-            <p class="text-gray-600 my-4 text-lg w-4/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem qui unde amet,
+            <p id="eventDescriptData" class="text-gray-600 my-4 text-lg w-4/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem qui unde amet,
               illum odio sequi iure rerum corrupti! Sit animi labore earum, iste doloribus
               vel dolor accusantium. Ducimus, rem possimus.</p>
 
             <!-- view more details -->
-            <button class="bg-accent px-4 py-2 rounded-md text-white font-semibold block ml-auto">See Event Details</button>
+            <div class="viewDetailCont flex justify-end">
+              <button id="viewInDetailsEvent" class="bg-accent px-4 py-2 rounded-md text-white font-semibold">See Event Details</button>
+            </div>
 
 
+            <!-- college event -->
             <div class="m-4 rounded-md border border-gray-300 p-5 text-gray-600">
               <h3 class="font-bold text-2xl">College Future Events</h3>
               <!-- top 3 incoming college event -->
               <div class="flex justify-evenly flex-wrap"></div>
+            </div>
 
+            <!-- alumni event -->
+            <div class="m-4 rounded-md border border-gray-300 p-5 text-gray-600">
+              <h3 class="font-bold text-2xl">Alumni Future Events</h3>
               <!-- top 3 upcoming event for alumni -->
               <div class="flex justify-evenly flex-wrap"></div>
             </div>
@@ -1465,6 +1450,25 @@ function getAccDetails($con, $personID)
 
       </div>
 
+      <!-- event modal -->
+      <div id="eventModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+        <div id="eventContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-7 px-12 
+          text-greyish_black flex flex-col gap-2">
+
+          <!-- Event images -->
+          <img id="headerImg" class="w-full h-44 object-contain bg-red-200 rounded-md" src="" alt="">
+
+          <p id="eventTitleModal" class="text-center text-2xl text-accent font-black"></p>
+          <pre id="eventDescript" class="text-gray-500 text-justify w-full indented"></pre>
+          <p class="text-lg font-bold text-greyish_black">WHEN AND WHERE</p>
+          <p class="text-sm text-gray-500">Date: <span id="eventDateModal"></span></p>
+          <p class="text-sm text-gray-500">Place: <span id="eventPlaceModal"></span></p>
+          <p class="text-sm text-gray-500">Start time: <span id="eventTimeModal"></span></p>
+          <!-- <p id="author" class="text-sm text-gray-500">By: <span class="text-accent">Media Relations Office</span></p> -->
+          <p class="text-lg text-greyish_black font-bold">EXPECTATION</p>
+          <div id="expectationList" class="flex flex-col gap-2"></div>
+        </div>
+      </div>
     </div>
 
   </div>

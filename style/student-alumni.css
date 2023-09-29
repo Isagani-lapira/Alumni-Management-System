@@ -284,19 +284,6 @@ body {
   }
 }
 
-.event-carousel img {
-  box-shadow: rgba(7, 185, 255, 0.3) 0px 19px 38px,
-    rgba(57, 199, 255, 0.22) 0px 15px 12px;
-}
-
-#eventNameHeader,
-#eventName {
-  background: #ff6f9a;
-  background: linear-gradient(to right, #ff6f9a 7%, #e33a19 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 pre {
   white-space: pre-wrap;
   word-wrap: break-word;

@@ -1,16 +1,5 @@
 $(document).ready(function () {
     const imgFormat = "data:image/jpeg;base64,"
-    var swiper = new Swiper(".mySwiper", {
-        effect: "cards",
-        pagination: {
-            el: ".swiper-pagination",
-        },
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        grabCursor: true,
-    });
 
     function getCurrentDate() {
         var today = new Date();
@@ -38,23 +27,39 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
-                const headerPhrase = response.headerPhrase
-                const eventName = response.eventName
-                const eventDate = response.eventDate
-                const about_event = response.about_event
-                const contactLink = response.contactLink
-                const eventPlace = response.eventPlace
-                const eventStartTime = response.eventPlace
-                const aboutImg = response.aboutImg
-                const images = response.images
-                const expectation = response.expectation
+                if (response.response == 'Success') {
 
-                displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, eventPlace, aboutImg, images, eventStartTime, expectation)
+                    const eventName = response.eventName
+                    const eventDate = formatDate(response.eventDate)
+                    const about_event = response.about_event
+                    const eventPlace = response.eventPlace
+                    const eventStartTime = response.eventPlace
+                    const aboutImg = response.aboutImg
+                    const expectation = response.expectation
+
+                    displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime, expectation)
+                }
+                let colCode = $('#colCode').text();
+                let category = "col_event_alumni"
+                // retrieveNextCollegeEvent(colCode);
+                retrieveNextCollegeEvent("", category);
+
             },
-            error: error => { console.log(error) }
+            error: error => { console.log(error.responseText) }
         })
     }
 
+    function displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime, expectation) {
+        $('#eventName').text(eventName)
+        $('#eventStartDate').text(eventDate)
+        $('#eventDescriptData').text(about_event)
+
+        // for viewing in details
+        $('#viewInDetailsEvent').on('click', function () {
+            $('#eventModal').removeClass('hidden')
+            seeEventDetails(eventName, about_event, eventDate, eventPlace, eventStartTime, aboutImg, expectation)
+        })
+    }
 
 
     // close the event modal
@@ -66,4 +71,56 @@ $(document).ready(function () {
             $('#eventModal').addClass('hidden')
         }
     })
+
+    function formatDate(inputDate) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(inputDate);
+        return date.toLocaleDateString(undefined, options);
+    }
+
+    function seeEventDetails(eventTitle, aboutEvent, eventDate, eventPlace, eventStartTime, headerImg, expectation) {
+        //display the data
+        $('#eventTitleModal').text(eventTitle)
+        $('#eventDescript').text(aboutEvent)
+        $('#eventDateModal').text(eventDate)
+        $('#eventPlaceModal').text(eventPlace)
+        $('#eventTimeModal').text(eventStartTime)
+
+        // header
+        let src = imgFormat + headerImg
+        $('#headerImg').attr('src', src)
+        $('#expectationList').empty() //remove the previously display list of expectation
+        // show expectation
+        const expectationData = expectation.expectation
+        expectationData.forEach(value => {
+            const wrapper = $('<div>')
+                .addClass('flex gap-2 items-center text-gray-500')
+
+            const bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+            const expectationElement = $('<p>')
+                .addClass('text-sm')
+                .text(value)
+            wrapper.append(bulletIcon, expectationElement)
+
+            $('#expectationList').append(wrapper)
+        })
+    }
+
+    function retrieveNextCollegeEvent(colCode = "", categoryVal = "") {
+        const action = "nextEvents";
+        const formatData = new FormData();
+        formatData.append('action', action)
+        formatData.append('colCode', colCode)
+        formatData.append('category', categoryVal)
+
+        $.ajax({
+            url: '../PHP_process/event.php',
+            method: 'POST',
+            data: formatData,
+            processData: false,
+            contentType: false,
+            success: response => { console.log(response) },
+            error: error => { console.log(error) }
+        })
+    }
 })
