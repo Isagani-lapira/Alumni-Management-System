@@ -4,18 +4,16 @@ $(document).ready(function () {
 
   // Initial Load
   initialLoad();
-
-  // Handles the navigation links
-  $("nav li a").on("click", function () {
-    const link = $(this).attr("data-link");
-    handleLinkFocusChange(link);
-    loadURL(link, $("#main-root"));
-  });
-
-  // Handles Sidebar collapse using the hamburger menu
-  $("#toggleSidebarIcon").on("click", function () {
-    $("#sidebar").toggleClass("is-collapsed");
-  });
+  function initialLoad() {
+    // detect hashed id in the first load
+    if (window.location.hash) {
+      const linkName = window.location.hash.substr(1);
+      // change the color of the links
+      handleLinkFocusChange(linkName);
+    }
+    // load the page upon first try.
+    loadURL("dashboard", $("#main-root"));
+  }
 
   // TODO Refactor later when doing backend
   function capitalizeFirstLetter(string) {
@@ -45,23 +43,6 @@ $(document).ready(function () {
       return error;
     }
   }
-
-  // Handles the AJAX request for the section JS
-  // async function getSectionJS(url) {
-  //   try {
-  //     const result = await fetch(url, {
-  //       method: "GET",
-  //       headers: {
-  //         cache: "no-cache",
-  //       },
-  //     });
-  //     const htmlBody = await result.text();
-  //     return htmlBody;
-  //   } catch (error) {
-  //     // return the error
-  //     return error;
-  //   }
-  // }
 
   // Transistion the section appearance
   function transistionSectionAppearance(container, htmlBody) {
@@ -112,19 +93,19 @@ $(document).ready(function () {
     }
   }
 
-  function initialLoad() {
-    // load the page upon first try.
-    loadURL("dashboard", $("#main-root"));
+  // * Event Handlers
 
-    // detect hashed id in the first load
-    if (window.location.hash) {
-      const linkName = window.location.hash.substr(1);
-      // change the color of the links
-      handleLinkFocusChange(linkName);
-      // change the url
-      loadURL(linkName, $("#main-root"));
-    }
-  }
+  // Handles the navigation links
+  $("nav li a").on("click", function () {
+    const link = $(this).attr("data-link");
+    handleLinkFocusChange(link);
+    loadURL(link, $("#main-root"));
+  });
+
+  // Handles Sidebar collapse using the hamburger menu
+  $("#toggleSidebarIcon").on("click", function () {
+    $("#sidebar").toggleClass("is-collapsed");
+  });
 
   /**
    * Signs out the user and redirects to the sign in page

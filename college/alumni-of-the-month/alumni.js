@@ -1,6 +1,66 @@
-import { getJSONFromURL } from "./utils.js";
+import { getJSONFromURL } from "../scripts/utils.js";
 
 $(document).ready(function () {
+  // Date picker
+  $("#aoydaterange").daterangepicker();
+
+  // preview the image after changing the input
+  $("#cover-image").change(function () {
+    let reader = new FileReader();
+    reader.onload = (e) => {
+      $("#cover-img-preview").attr("src", e.target.result);
+    };
+    reader.readAsDataURL(this.files[0]);
+  });
+
+  // on form submit
+  $("#add-aotm-form").submit(async function (e) {
+    e.preventDefault();
+    let formData = new FormData(this);
+    // add some sweet alert dialog
+    const confirmation = await Swal.fire({
+      title: "Confirm?",
+      text: "Are you sure to add alumni with these details?",
+      icon: "info",
+      showCancelButton: true,
+      // confirmButtonColor: CONFIRM_COLOR,
+      // cancelButtonColor: CANCEL_COLOR,
+      confirmButtonText: "Yes, Add it!",
+    });
+    if (confirmation.isConfirmed) {
+      console.log("submitting add alumni form");
+
+      const isSuccessful = await postNewAlumni(this);
+      console.log(isSuccessful);
+      if (isSuccessful.response === "Successful") {
+        // show the success message
+        Swal.fire("Success!", "Alumni has been added.", "success");
+        // remove the form data
+        $("#add-aotm-form")[0].reset();
+        $("#cover-image-preview").attr("src", "");
+        // $("#profile-image-preview").attr("src", "");
+        $("#add-alumni-modal").prop("checked", false);
+      } else {
+        Swal.fire("Error", "Alumni is not added due to error.", "info");
+      }
+    } else {
+      Swal.fire("Cancelled", "Add alumni cancelled.", "info");
+    }
+  });
+
+  async function postNewAlumni(
+    form,
+    url = "./alumni-of-the-month/addAlumni.php"
+  ) {
+    // get the form data
+    const formData = new FormData(form);
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+    return response.json();
+  }
+
   // Constants
   const API_URL = "./alumni-of-the-month/getAlumni.php?partial=true";
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
@@ -17,11 +77,11 @@ $(document).ready(function () {
 
   $("#searchQuery").on("keyup", function () {
     const search = $("#searchQuery").val();
-    console.log(search);
     debouncedSearchAlumni(search);
   });
 
-  refreshList();
+  // refreshList();
+
   //  add event handler to the refresh button
   $("#refreshRecord").on("click", async function () {
     refreshList();
@@ -53,19 +113,19 @@ $(document).ready(function () {
     return result;
   }
 
-  async function getSearchAlumni(search) {
-    console.log("working...");
-    const response = await fetch(API_URL_SEARCH + "&qName=" + search, {
-      headers: {
-        method: "GET",
-        "Content-Type": "application/json",
-        cache: "no-cache",
-      },
-    });
+  // async function getSearchAlumni(search) {
+  //   console.log("working...");
+  //   const response = await fetch(API_URL_SEARCH + "&qName=" + search, {
+  //     headers: {
+  //       method: "GET",
+  //       "Content-Type": "application/json",
+  //       cache: "no-cache",
+  //     },
+  //   });
 
-    const result = await response.json();
-    return result.result;
-  }
+  //   const result = await response.json();
+  //   return result.result;
+  // }
 
   const debouncedSearchAlumni = _.debounce(searchAlumni, 500);
 
@@ -104,35 +164,34 @@ $(document).ready(function () {
   }
 
   // end
-});
-
-function hideDisplay(hide = "") {
-  $(hide)
-    .css({
-      opacity: "1.0",
-    })
-    .addClass("hidden")
-    .delay(50)
-    .animate(
-      {
-        opacity: "0.0",
-      },
-      300
-    );
-}
-
-function showDisplay(show = "") {
-  // add transition
-  $(show)
-    .css({
-      opacity: "0.0",
-    })
-    .removeClass("hidden")
-    .delay(50)
-    .animate(
-      {
+  function hideDisplay(hide = "") {
+    $(hide)
+      .css({
         opacity: "1.0",
-      },
-      300
-    );
-}
+      })
+      .addClass("hidden")
+      .delay(50)
+      .animate(
+        {
+          opacity: "0.0",
+        },
+        300
+      );
+  }
+
+  function showDisplay(show = "") {
+    // add transition
+    $(show)
+      .css({
+        opacity: "0.0",
+      })
+      .removeClass("hidden")
+      .delay(50)
+      .animate(
+        {
+          opacity: "1.0",
+        },
+        300
+      );
+  }
+});
