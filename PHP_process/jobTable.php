@@ -20,7 +20,7 @@ if (isset($_POST['action'])) {
             $skillArray = json_decode($skillData, true);
 
             //logo
-            $image = addslashes(file_get_contents($_FILES['jobLogoInput']['tmp_name']));
+            $image = file_get_contents($_FILES['jobLogoInput']['tmp_name']);
 
             //retrieve the value 
             $jobTitle = $_POST['jobTitle'];
