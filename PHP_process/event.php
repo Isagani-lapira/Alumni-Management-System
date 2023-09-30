@@ -170,6 +170,42 @@ function getNextCollegeEvent($colCode, $category, $con)
     $result = $stmt->get_result();
     $row = mysqli_num_rows($result);
 
-    if ($result && $row > 0) getDetail($result, $con);
-    else echo 'nothing';
+    $response = "Unsuccess";
+    $eventID  = array();
+    $eventName = array();
+    $eventDate = array();
+    $date_posted  = array();
+    $about_event = array();
+    $eventPlace = array();
+    $eventStartTime = array();
+    $aboutImg = array();
+
+
+    if ($result && $row > 0) {
+        $response = "Success";
+        while ($data = $result->fetch_assoc()) {
+            $eventID[]  = $data['eventID'];
+            $eventName[] = $data['eventName'];
+            $eventDate[] = $data['eventDate'];
+            $date_posted[]  = $data['date_posted'];
+            $about_event[] = $data['about_event'];
+            $eventPlace[] = $data['eventPlace'];
+            $eventStartTime[] = $data['eventStartTime'];
+            $aboutImg[] = base64_encode($data['aboutImg']);
+        }
+    }
+
+
+    $data = array(
+        "response" => $response,
+        "eventName" => $eventName,
+        "eventDate" => $eventDate,
+        "date_posted" => $date_posted,
+        "about_event" => $about_event,
+        "eventPlace" => $eventPlace,
+        "eventStartTime" => $eventStartTime,
+        "aboutImg" => $aboutImg,
+    );
+
+    echo json_encode($data);
 }

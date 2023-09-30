@@ -37,12 +37,16 @@ $(document).ready(function () {
                     const aboutImg = response.aboutImg
                     const expectation = response.expectation
 
+                    // mark up for event
                     displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime, expectation)
+
+                    // get the upcoming event
+                    let colCode = $('#colCode').text();
+                    let category = "col_event_alumni"
+                    retrieveNextCollegeEvent(colCode);
+                    retrieveNextCollegeEvent("", category);
                 }
-                let colCode = $('#colCode').text();
-                let category = "col_event_alumni"
-                // retrieveNextCollegeEvent(colCode);
-                retrieveNextCollegeEvent("", category);
+
 
             },
             error: error => { console.log(error.responseText) }
@@ -119,7 +123,53 @@ $(document).ready(function () {
             data: formatData,
             processData: false,
             contentType: false,
-            success: response => { console.log(response) },
+            dataType: 'json',
+            success: response => {
+                console.log(response)
+                if (response.response = "Success") {
+
+                    let length = response.eventName.length;
+
+                    for (let i = 0; i < length; i++) {
+                        const eventName = response.eventName[i]
+                        const eventDate = formatDate(response.eventDate[i])
+                        const about_event = response.about_event[i].substring(0, 150)
+                        const aboutImg = imgFormat + response.aboutImg[i]
+
+                        const eventWrapper = $('<div>')
+                            .addClass('rounded-md w-64 center-shadow')
+
+                        const header = $('<div>')
+                            .addClass('rounded-t-md relative')
+                            .css({ 'background-color': '#495057' })
+
+                        const img = $('<img>')
+                            .addClass('w-full h-48 object-contain')
+                            .attr('src', aboutImg)
+                        const date = $('<span>')
+                            .addClass('p-2 rounded-tr-md text-xs text-white bg-black absolute bottom-0 left-0')
+                            .css({ 'background-color': '#A54500' })
+                            .text(eventDate);
+
+                        const body = $('<div>')
+                            .addClass('p-3 rounded-b-md')
+
+                        const name = $('<h3>').addClass('text-greyish_black font-bold').text(eventName);
+                        const description = $('<p>').addClass('text-gray-400 text-xs text-justify').text(about_event);
+
+
+                        header.append(img, date);
+                        body.append(name, description)
+                        eventWrapper.append(header, body)
+
+                        if (colCode != "")
+                            $('#upcomingColEvent').append(eventWrapper)
+                        else
+                            $('#upcomingAlumniEvent').append(eventWrapper)
+                    }
+
+                }
+            },
             error: error => { console.log(error) }
         })
     }

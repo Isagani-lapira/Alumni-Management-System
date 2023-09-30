@@ -1130,24 +1130,25 @@ function getAccDetails($con, $personID)
       <!-- TAB 2 -->
       <div id="tabs-2" class="h-full">
         <div class="h-full">
-          <div class="h-1/2 top-72">
-            <img class=" object-cover w-full h-full" src="../images/event_header.jpg" alt="">
+          <div class=" h-2/3 top-72">
+            <div class="relative w-full h-full flex items-center">
+              <img class=" object-cover object-top darkened-image" src="../assets/bg_event.jpg" alt="">
+              <h1 class=" md:text-8xl sm:text-2xl text-white font-black w-full text-center absolute typewriter">Let's Connect <span class="text-accent"> BulSUAN!</span></h1>
+            </div>
           </div>
 
           <!-- body -->
           <div class="p-10">
             <span class="text-gray-500">Get excited for the upcoming</span>
-            <h3 id="eventName" class="font-bold text-gray-600 text-4xl">Intramurals Event</h3>
+            <h3 id="eventName" class="font-bold text-gray-700 text-4xl"></h3>
 
-            <div class="date flex flex-col items-end text-gray-600">
+            <div class="date flex flex-col items-end text-gray-700">
               <span>Starts on</span>
-              <span id="eventStartDate" class="font-bold">October 15, 2003</span>
+              <span id="eventStartDate" class="font-bold"></span>
             </div>
 
             <!-- description -->
-            <p id="eventDescriptData" class="text-gray-600 my-4 text-lg w-4/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem qui unde amet,
-              illum odio sequi iure rerum corrupti! Sit animi labore earum, iste doloribus
-              vel dolor accusantium. Ducimus, rem possimus.</p>
+            <p id="eventDescriptData" class="text-gray-700 my-4 text-lg w-4/5"></p>
 
             <!-- view more details -->
             <div class="viewDetailCont flex justify-end">
@@ -1157,16 +1158,16 @@ function getAccDetails($con, $personID)
 
             <!-- college event -->
             <div class="m-4 rounded-md border border-gray-300 p-5 text-gray-600">
-              <h3 class="font-bold text-2xl">College Future Events</h3>
+              <h3 class="font-bold text-2xl mb-5">College Future Events</h3>
               <!-- top 3 incoming college event -->
-              <div class="flex justify-evenly flex-wrap"></div>
+              <div id="upcomingColEvent" class="flex justify-evenly flex-wrap"></div>
             </div>
 
             <!-- alumni event -->
             <div class="m-4 rounded-md border border-gray-300 p-5 text-gray-600">
-              <h3 class="font-bold text-2xl">Alumni Future Events</h3>
+              <h3 class="font-bold text-2xl mb-5">Alumni Future Events</h3>
               <!-- top 3 upcoming event for alumni -->
-              <div class="flex justify-evenly flex-wrap"></div>
+              <div id="upcomingAlumniEvent" class="flex justify-evenly flex-wrap"></div>
             </div>
           </div>
 
