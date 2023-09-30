@@ -768,17 +768,18 @@ function dateInText($date)
             <button id="deployTracerBtn" class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
           </div>
 
-          <div id="formReport" class="border border-t-grayish h-5/6">
-            <div class="h-2/5 p-5">
-              <h1 class="text-lg font-extrabold">Employment Status</h1>
-              <canvas class="w-full h-5/6" id="empStatus"></canvas>
-            </div>
+          <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
+            <div class="flex gap-2 justify-evenly">
+              <div class="h-2/5 w-1/2 p-5 flex flex-col">
+                <h1 class="text-lg font-extrabold">Completion Chart</h1>
+                <canvas class="w-full h-1/2" id="completionChart"></canvas>
+              </div>
 
-            <div class="h-1/2 p-5">
-              <h1 class="text-lg font-extrabold px-5">Annual Salary</h1>
-              <canvas class="block mx-auto w-full h-full" id="salaryChart"></canvas>
+              <div class="h-2/5 w-1/2 p-5 flex flex-col">
+                <h1 class="text-lg font-extrabold px-5">College Alumni Chart</h1>
+                <canvas class="w-full h-5/6" id="salaryChart"></canvas>
+              </div>
             </div>
-
           </div>
 
           <!-- repository -->
@@ -1899,7 +1900,7 @@ function dateInText($date)
         </div>
 
         <!-- headline image -->
-        <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" src="../images/bsu-header5.jpg" alt="">
+        <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" alt="">
 
         <p class="text-sm text-gray-500">Date Posted: <span id="announceDatePosted"></span></p>
         <p class="text-sm text-gray-500">By: <span id="announcementAuthor" class="text-accent"></span></p>
@@ -2193,6 +2194,7 @@ function dateInText($date)
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
   <script src="../js/jobposted.js"></script>
+  <script src="../js/tracerchart.js"></script>
   <script src="../js/alumni_of_the_month.js"></script>
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>

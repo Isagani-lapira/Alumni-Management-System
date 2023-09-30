@@ -1029,66 +1029,7 @@ chartConfig(
   false
 );
 
-//chart for employement status
-const empStatus = document.getElementById("empStatus");
-const empStatus_labels = [
-  "2021",
-  "2020",
-  "2019",
-  "2018",
-  "2017",
-  "2016",
-  "2015",
-  "2014",
-];
-const empStatus_data = [1000, 500, 247, 635, 323, 393, 290, 860];
-const empStatus_type = "line";
-const empStatus_color = [redAccent, blueAccent];
-chartConfig(
-  empStatus,
-  empStatus_type,
-  empStatus_labels,
-  empStatus_data,
-  true,
-  empStatus_color,
-  false
-);
 
-//chart for salary
-const salaryChart = document.getElementById("salaryChart");
-const salaryChart_labels = [
-  "₱10k-20k",
-  "₱21k-30k",
-  "₱31k-40k",
-  "₱51k-60k",
-  "₱60k-70k",
-  "₱71k-80k",
-];
-const salaryChart_data = [1000, 500, 247, 635, 323, 393];
-const salaryChart_type = "bar";
-const lightBlue = "#ACCEE9";
-const lightGreen = "#BAC3B0";
-const lightRed = "#F2AA84";
-const lightYellow = "#E7E7A1";
-const lightPink = "#F0B3C3";
-const lightPurple = "#CBB5CA";
-const salaryChart_color = [
-  lightBlue,
-  lightGreen,
-  lightRed,
-  lightYellow,
-  lightPink,
-  lightPurple,
-];
-chartConfig(
-  salaryChart,
-  salaryChart_type,
-  salaryChart_labels,
-  salaryChart_data,
-  true,
-  salaryChart_color,
-  false
-);
 
 //for creation of chart
 function chartConfig(
