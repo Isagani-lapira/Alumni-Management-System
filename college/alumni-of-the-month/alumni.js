@@ -1,4 +1,11 @@
+import { getJSONFromURL } from "./utils.js";
+
 $(document).ready(function () {
+  // Constants
+  const API_URL = "./alumni-of-the-month/getAlumni.php?partial=true";
+  const API_URL_SEARCH = "php/searchAlumni.php?search=true";
+  let offset = 0;
+
   // add event handler to the cancel button
   $(".cancelModal").click(function () {
     hideDisplay("#modalAlumni");
@@ -14,13 +21,6 @@ $(document).ready(function () {
     debouncedSearchAlumni(search);
   });
 
-  /*****
-   *
-   */
-  const API_URL = "./alumni-of-the-month/getAlumni.php?partial=true";
-  const API_URL_SEARCH = "php/searchAlumni.php?search=true";
-
-  let offset = 0;
   refreshList();
   //  add event handler to the refresh button
   $("#refreshRecord").on("click", async function () {
@@ -73,7 +73,7 @@ $(document).ready(function () {
     const search = $("#searchQuery").val();
     console.log(search);
     if (search.length > 0) {
-      const result = await getSearchAlumni(search);
+      const result = await getJSONFromURL(API_URL_SEARCH + "&qName=" + search);
       console.log(result);
     } else {
     }

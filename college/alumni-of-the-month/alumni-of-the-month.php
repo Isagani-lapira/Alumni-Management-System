@@ -215,7 +215,9 @@
 
 </section>
 
-<script>
+<script type="module" src="./alumni-of-the-month/alumni.js"></script>
+
+<!-- <script>
     // Date picker
     $('#aoydaterange').daterangepicker();
 
@@ -285,4 +287,4 @@
         });
         return response.json();
     }
-</script>
+</script> -->

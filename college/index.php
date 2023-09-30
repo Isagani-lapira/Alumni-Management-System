@@ -130,6 +130,7 @@ if (
     <!-- End JS Plugins -->
     <!-- System Script -->
     <script src="./scripts/core.js" defer></script>
+    <script src="./scripts/utils.js" type="module"></script>
     <!-- End JS Scripts -->
 
 </head>
