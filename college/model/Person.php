@@ -54,34 +54,26 @@ class Person
     }
 
 
-    public function getSearchResult(string $search, string $tableFilter, int $limit = 5)
+    public function getSearchResult(string $userType, string $search, int $limit = 5)
     {
         //get the person ID of user
 
-        if ($tableFilter == 'name') {
-            $tableFilter = 'CONCAT(fname, " ",lname)';
-        }
-
-        $query = 'SELECT CONCAT(fname, " ",lname) AS fullname, personID FROM `person` 
-        INNER JOIN `alumni` on alumni.personID = person.personID
-            WHERE colCode = ? AND ? LIKE "%?%"
+        $query = 'SELECT CONCAT(fname, " ",lname) AS fullname, studNo,  personID, FROM `person` 
+            INNER JOIN `?` on ?.personID = person.personID
+            WHERE colCode = ? AND CONCAT(fname, " " , lname)  LIKE "%?%"
             LIMIT ?";';
-
 
         try {
             $stmt = $this->conn->prepare($query);
-            $stmt->bind_param('sssi', $search, $tableFilter, $this->colCode,  $limit);
+            $stmt->bind_param('ssssi', $userType, $userType, $search, $this->colCode,  $limit);
             $stmt->execute();
-
             $result = $stmt->get_result();
-
             if (
                 $result->num_rows
             ) {
 
                 return $result->fetch_assoc();
             }
-
             return [];
         } catch (\Throwable $th) {
             throw $th;
@@ -93,7 +85,7 @@ class Person
         //get the person ID of user
         $query = 'SELECT * FROM `alumni_of_the_month` WHERE personId = ?';
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param('s', $id);
+        $stmt->bind_param('s', $personId);
         $stmt->execute();
 
         $result = $stmt->get_result();

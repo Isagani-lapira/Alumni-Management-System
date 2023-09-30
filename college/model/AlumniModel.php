@@ -1,16 +1,18 @@
 <?php
 
-class Alumni
+class AlumniModel
 {
     private $conn;
+    private $colCode;
 
-    public function __construct(mysqli $conn = null)
+    public function __construct(mysqli $conn = null, string $colCode)
     {
         $this->conn = $conn;
+        $this->colCode = $colCode;
     }
 
     // TODO use later, as there is no property for date_created yet.
-    public function getUserCountByDate($colCode, $date): int
+    public function getUserCountByDate($date): int
     {
 
         // Initialize the statement
@@ -43,7 +45,7 @@ class Alumni
         return $count;
     }
 
-    public function getTotalCount($colCode): int
+    public function getTotalCount(): int
     {
 
         // Initialize the statement
@@ -101,5 +103,33 @@ class Alumni
         }
 
         return json_encode(array('response' => 'Unsuccessful', 'result' => []));
+    }
+
+
+    public function getSearch(string $search, int $limit = 5)
+    {
+        //get the person ID of user
+        $search = '%' . $search . '%';
+
+        $query = 'SELECT CONCAT(fname, " ",lname) AS fullname, studNo,  person.personID FROM `person` 
+            INNER JOIN `alumni` on alumni.personID = person.personID
+            WHERE  CONCAT(fname, " " , lname)  LIKE ? AND colCode = ?
+            LIMIT ?';
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param('sss', $search, $this->colCode,  $limit);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if (
+                $result->num_rows
+            ) {
+
+                return $result->fetch_assoc();
+            }
+            return [];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

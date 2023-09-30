@@ -33,17 +33,15 @@
                             <span class="text-accent font-bold text-4xl mt-2 relative bottom-0">
                                 <?php
                                 require_once('../model/Student.php');
-                                require_once('../model/Alumni.php');
+                                require_once('../model/AlumniModel.php');
 
                                 require_once('../php/connection.php');
                                 $student = new Student($mysql_con);
-                                $alumni = new Alumni($mysql_con);
+                                $alumni = new AlumniModel($mysql_con, $_SESSION['colCode']);
                                 $studentCount = $student->getTotalCount(
                                     $_SESSION['colCode']
                                 );
-                                $alumniCount = $alumni->getTotalCount(
-                                    $_SESSION['colCode']
-                                );
+                                $alumniCount = $alumni->getTotalCount();
 
                                 echo ($alumniCount + $studentCount);
                                 ?>

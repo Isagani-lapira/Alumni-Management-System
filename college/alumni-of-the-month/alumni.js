@@ -8,10 +8,18 @@ $(document).ready(function () {
     showDisplay("#modalAlumni");
   });
 
+  $("#searchQuery").on("keyup", function () {
+    const search = $("#searchQuery").val();
+    console.log(search);
+    debouncedSearchAlumni(search);
+  });
+
   /*****
    *
    */
   const API_URL = "./alumni-of-the-month/getAlumni.php?partial=true";
+  const API_URL_SEARCH = "php/searchAlumni.php?search=true";
+
   let offset = 0;
   refreshList();
   //  add event handler to the refresh button
@@ -43,6 +51,32 @@ $(document).ready(function () {
     console.log(result);
 
     return result;
+  }
+
+  async function getSearchAlumni(search) {
+    console.log("working...");
+    const response = await fetch(API_URL_SEARCH + "&qName=" + search, {
+      headers: {
+        method: "GET",
+        "Content-Type": "application/json",
+        cache: "no-cache",
+      },
+    });
+
+    const result = await response.json();
+    return result.result;
+  }
+
+  const debouncedSearchAlumni = _.debounce(searchAlumni, 500);
+
+  async function searchAlumni() {
+    const search = $("#searchQuery").val();
+    console.log(search);
+    if (search.length > 0) {
+      const result = await getSearchAlumni(search);
+      console.log(result);
+    } else {
+    }
   }
 
   //   set the data into the table

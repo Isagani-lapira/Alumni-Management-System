@@ -56,13 +56,13 @@
 
     <!-- End Filter Section -->
     <!-- refresh record -->
-    <div class="flex justify-end gap-4 mt-4">
+    <!-- <div class="flex justify-end gap-4 mt-4">
         <button class="btn-tertiary" id="refreshRecord">
             Refresh Record
         </button>
-    </div>
+    </div> -->
     <!-- Record Table-->
-    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
+    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg bg-white">
         <thead class="bg-accent text-white rounded-t-lg">
             <tr class=" rounded-t-lg">
                 <th class="text-start uppercase">Student Number</th>
@@ -141,8 +141,8 @@
                     <span class="daisy-label-text">Choose a cover image to showcase</span>
 
                     <!-- Placeholder for Cover Image -->
-                    <div class="w-full h-40 relative group">
-                        <img id="cover-img-preview" class="w-full bg-red-300 object-cover max-h-full h-full block" src="" alt="">
+                    <div class="w-full h-80 relative group rounded-sm">
+                        <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
                         <!-- Cover Image Input -->
                         <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <label for="cover-image" class="daisy-label">
@@ -173,16 +173,16 @@
                     </div> -->
 
                     <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
-                    <label for="searchQuery">Search Database</label>
+                    <label for="searchQuery" class="font-bold">Search:</label>
                     <div class="flex flex-row flex-wrap">
 
-                        <select name="searchFilter" id="searchFilter" class="form-select font-semibold">
+                        <!-- <select name="searchFilter" id="searchFilter" class="form-select font-semibold">
                             <option value="name">Name</option>
                             <option value="studentId">Student Number</option>
                             <option value="personID">Person ID</option>
                             <option value="personalEmail">Personal Email</option>
                             <option value="bulsuEmail">BulSu Email</option>
-                        </select>
+                        </select> -->
 
                         <div class="relative rounded">
                             <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
@@ -191,14 +191,14 @@
                         </div>
                     </div>
 
-                    <label class="font-bold" for="fullname">Fullname</label>
+                    <label class="font-bold" for="fullname">Result Name:</label>
                     <input id="fullname" name="fullname" disabled class="form-input block rounded disabled:opacity-75 " type="text" placeholder="">
 
-                    <label class="font-bold" for="quote">Quotation</label>
+                    <label class="font-bold" for="quote">Quotation:</label>
                     <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
 
 
-                    <p class="font-bold block" for="">Description</p>
+                    <p class="font-bold block" for="">Description:</p>
                     <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
 
                     <div class="flex flex-wrap gap-4 py-4 justify-end">
