@@ -141,6 +141,11 @@ $(document).ready(function () {
     $('.selectionStatus').addClass('hidden')
     $('#alumniForm').removeClass('hidden')
   })
+
+  $('#studentStatus').on('click', function () {
+    $('.selectionStatus').addClass('hidden')
+    $('#studentForm').removeClass('hidden');
+  })
   // cancel registration
   $('.cancelBtnReg').on('click', function () {
     $('.selectionStatus').removeClass('hidden')
@@ -156,6 +161,7 @@ $(document).ready(function () {
     }
   })
 
+  // submit the form and create the account
   $('#alumniForm').on('submit', function (e) {
     e.preventDefault();
     if (checkInputField('.requiredAlumni2')) {
@@ -184,8 +190,7 @@ $(document).ready(function () {
           contentType: false,
           success: response => {
             if (response === 'Success') $('#successJobModal').removeClass('hidden')
-          },
-          error: error => { console.log(error) }
+          }
         })
         $('.errorPassNotMatch').addClass('hidden')
       }
@@ -223,4 +228,65 @@ $(document).ready(function () {
     const option = $('<option>').val(i).text(i);
     $('#batchAlumni').append(option)
   }
+
+  // student form process
+
+  $('#nextStudent').on('click', function () {
+    // check first if all the input fields are complete
+    if (checkInputField('.requiredStudenField')) {
+
+      //to verify if the email set as valid bulsu email
+      let isBulSUEmailValid = false
+      isBulSUEmailValid = $('#studbulsuEmail').val().endsWith('bulsu.edu.ph')
+
+      // go to next page
+      if (isBulSUEmailValid) {
+        $('#bulsuEmailError').addClass('hidden')
+        $('.personalInfo').addClass('hidden')
+        $('#accountInfoStudent').removeClass('hidden')
+      } else $('#bulsuEmailError').removeClass('hidden')
+    }
+  })
+
+
+  // submit the form
+  $('#studentForm').on('submit', function (e) {
+    e.preventDefault();
+
+    // check first if all the input are complete
+    if (checkInputField('.requiredStudent2')) {
+      const studAccountPass = $('#studAccountPass').val()
+      const studConfirmPass = $('#studConfirmPass').val()
+
+      // check if password matches
+      if (studAccountPass == studConfirmPass) {
+        $('.errorPassNotMatch').addClass('hidden')
+
+        // register new account
+        let formData = $('#studentForm')[0];
+        let action = {
+          action: 'create',
+          account: 'User'
+        }
+
+        let data = new FormData(formData)
+        data.append('action', JSON.stringify(action));
+        data.append('status', 'Student')
+
+        $.ajax({
+          url: '../PHP_process/userData.php',
+          method: 'POST',
+          data: data,
+          processData: false,
+          contentType: false,
+          success: response => {
+            console.log(response)
+            if (response === 'Success') $('#successJobModal').removeClass('hidden')
+          },
+          error: error => { console.log(error) }
+        })
+
+      } else $('.errorPassNotMatch').removeClass('hidden')
+    }
+  })
 })

@@ -54,7 +54,7 @@
             </button>
           </form>
           <p id="registerBtn" class="text-center absolute bottom-1 w-full cursor-pointer md:text-base sm:text-xs">Don't
-            have an account? <span class="text-accent font-semibold"><a href="../student-alumni/new-reg-form.html">Register here</a></span></p>
+            have an account? <span class="text-accent font-semibold"><a href="../student-alumni/registrationForm.php">Register here</a></span></p>
         </div>
       </div>
 
