@@ -1,3 +1,5 @@
+
+
 let usernameAvailable = true;
 let personalEmailAvailable = true;
 $(document).ready(function () {
@@ -152,6 +154,33 @@ $(document).ready(function () {
     $('.fieldFormReg').addClass('hidden')
   })
 
+  // password eye
+  $('#alumniPassEye').on('click', function () {
+    const icon = "#alumniPassEye"
+    const password = "#accountPass"
+    togglePassword(icon, password)
+  })
+
+  // confirm password eye
+  $('#alumniConfirmPassEye').on('click', function () {
+    const icon = "#alumniConfirmPassEye"
+    const password = "#confirmPass"
+    togglePassword(icon, password)
+  })
+
+  function togglePassword(icon, password) {
+    let eyeCurrentState = $(icon).attr('icon');
+
+    if (eyeCurrentState == 'bi:eye-fill') {
+      // open the password
+      $(icon).attr('icon', 'el:eye-close')
+      $(password).attr('type', 'text');
+    } else {
+      // close the password
+      $(icon).attr('icon', 'bi:eye-fill')
+      $(password).attr('type', 'password');
+    }
+  }
 
   $('#nextAlumni').on('click', function () {
     // check first if all the input fields are complete
@@ -161,6 +190,15 @@ $(document).ready(function () {
     }
   })
 
+  // back to personal information field
+  $('#backAlumni').on('click', function () {
+    $('.personalInfo').removeClass('hidden')
+    $('#accountInfoAlumni').addClass('hidden')
+  })
+
+  let isUsernameValid = false
+  let isPasswordStrong = false
+
   // submit the form and create the account
   $('#alumniForm').on('submit', function (e) {
     e.preventDefault();
@@ -168,35 +206,55 @@ $(document).ready(function () {
       let accountPass = $('#accountPass').val().trim();
       let confirmPass = $('#confirmPass').val().trim();
 
-      // check account password if match
-      if (accountPass === confirmPass) {
-        // register new account
-        let formData = $('#alumniForm')[0];
-        let action = {
-          action: 'create',
-          account: 'User'
-        }
-
-        let data = new FormData(formData)
-        data.append('action', JSON.stringify(action));
-        data.append('status', 'Alumni')
-        data.append('bulsuEmail', '')
-
-        $.ajax({
-          url: '../PHP_process/userData.php',
-          method: 'POST',
-          data: data,
-          processData: false,
-          contentType: false,
-          success: response => {
-            if (response === 'Success') $('#successJobModal').removeClass('hidden')
+      if (isUsernameValid) {
+        // check account password if match
+        if (accountPass === confirmPass) {
+          // register new account
+          let formData = $('#alumniForm')[0];
+          let action = {
+            action: 'create',
+            account: 'User'
           }
-        })
-        $('.errorPassNotMatch').addClass('hidden')
+
+          let data = new FormData(formData)
+          data.append('action', JSON.stringify(action));
+          data.append('status', 'Alumni')
+          data.append('bulsuEmail', '')
+
+          $.ajax({
+            url: '../PHP_process/userData.php',
+            method: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: response => {
+              if (response === 'Success') $('#successJobModal').removeClass('hidden')
+            }
+          })
+          $('.errorPassNotMatch').addClass('hidden')
+        }
+        else $('.errorPassNotMatch').removeClass('hidden')
       }
-      else $('.errorPassNotMatch').removeClass('hidden')
 
     }
+  })
+
+  // check alumni username is available
+  $('#username').on('change', function () {
+    let usernameVal = $(this).val();
+    isUsernameAvailable(usernameVal)
+      .then(response => {
+        // user name is already exist
+        if (response == 'exist') {
+          $('.usernameMsg').removeClass('hidden')
+          isUsernameValid = false
+        }
+        else {
+          // valid
+          $('.usernameMsg').addClass('hidden')
+          isUsernameValid = true
+        }
+      })
   })
 
   function checkInputField(className) {
@@ -218,6 +276,34 @@ $(document).ready(function () {
     return isCompleted
   }
 
+
+  // username availability checker
+  function isUsernameAvailable(username) {
+    const action = {
+      action: 'read',
+      query: 0
+    }
+
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action))
+    formData.append('username', username);
+
+    // return the response to be use in other function
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: '../PHP_process/userData.php',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: response => {
+          resolve(response)
+        },
+        error: error => { reject(error) },
+      })
+    })
+
+  }
 
   //add batch option
   const currentDate = new Date();
@@ -249,44 +335,136 @@ $(document).ready(function () {
   })
 
 
+  // back to personal information
+  $('#backStudent').on('click', function () {
+    $('.personalInfo').removeClass('hidden')
+    $('#accountInfoStudent').addClass('hidden')
+  })
+
+
   // submit the form
   $('#studentForm').on('submit', function (e) {
     e.preventDefault();
 
     // check first if all the input are complete
     if (checkInputField('.requiredStudent2')) {
-      const studAccountPass = $('#studAccountPass').val()
-      const studConfirmPass = $('#studConfirmPass').val()
 
-      // check if password matches
-      if (studAccountPass == studConfirmPass) {
-        $('.errorPassNotMatch').addClass('hidden')
+      // check if the username is valid
+      if (isUsernameValid && isPasswordStrong) {
+        const studAccountPass = $('#studAccountPass').val()
+        const studConfirmPass = $('#studConfirmPass').val()
 
-        // register new account
-        let formData = $('#studentForm')[0];
-        let action = {
-          action: 'create',
-          account: 'User'
-        }
+        // check if password matches
+        if (studAccountPass == studConfirmPass) {
+          $('.errorPassNotMatch').addClass('hidden')
 
-        let data = new FormData(formData)
-        data.append('action', JSON.stringify(action));
-        data.append('status', 'Student')
+          // register new account
+          let formData = $('#studentForm')[0];
+          let action = {
+            action: 'create',
+            account: 'User'
+          }
 
-        $.ajax({
-          url: '../PHP_process/userData.php',
-          method: 'POST',
-          data: data,
-          processData: false,
-          contentType: false,
-          success: response => {
-            console.log(response)
-            if (response === 'Success') $('#successJobModal').removeClass('hidden')
-          },
-          error: error => { console.log(error) }
-        })
+          let data = new FormData(formData)
+          data.append('action', JSON.stringify(action));
+          data.append('status', 'Student')
 
-      } else $('.errorPassNotMatch').removeClass('hidden')
+          $.ajax({
+            url: '../PHP_process/userData.php',
+            method: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: response => {
+              if (response === 'Success') $('#successJobModal').removeClass('hidden')
+            },
+            error: error => { console.log(error) }
+          })
+
+        } else $('.errorPassNotMatch').removeClass('hidden')
+      }
     }
+  })
+
+
+  // check password if meets the requirement of strong password
+  $('#accountPass').on('input', function () {
+    let passwordVal = $(this).val();
+    // special characters, numbers, lower and upper case
+    const strongpassReq = /[A-Z]/.test(passwordVal) && /[a-z]/.test(passwordVal) && /[^A-Za-z0-9]/.test(passwordVal) && /[0-9]/.test(passwordVal);
+    const requiredPassLength = 8
+
+    if (strongpassReq && passwordVal.length >= requiredPassLength) { //strong password
+      $('.passwordStatus')
+        .text('Strong password')
+        .removeClass('text-red-500')
+        .addClass('text-blue-500')
+      isPasswordStrong = true
+    }
+    else {
+      $('.passwordStatus')
+        .text('Weak password')
+        .addClass('text-red-500')
+        .removeClass('text-blue-500')
+      isPasswordStrong = false
+    }
+
+
+  })
+
+  // password eye
+  $('#studentPassEye').on('click', function () {
+    const icon = "#studentPassEye"
+    const password = "#studAccountPass"
+    togglePassword(icon, password)
+  })
+
+  // confirm password eye
+  $('#studentConfirmPassEye').on('click', function () {
+    const icon = "#studentConfirmPassEye"
+    const password = "#studConfirmPass"
+    togglePassword(icon, password)
+  })
+
+  // check student username is available
+  $('#studUsername').on('change', function () {
+    let usernameVal = $(this).val();
+    isUsernameAvailable(usernameVal)
+      .then(response => {
+        // user name is already exist
+        if (response == 'exist') {
+          $('.usernameMsg').removeClass('hidden')
+          isUsernameValid = false
+        }
+        else {
+          // valid
+          $('.usernameMsg').addClass('hidden')
+          isUsernameValid = true
+        }
+      })
+  })
+
+  // check password if meets the requirement of strong password
+  $('#studAccountPass').on('input', function () {
+    let passwordVal = $(this).val();
+    const strongpassReq = /[A-Z]/.test(passwordVal) && /[a-z]/.test(passwordVal) && /[^A-Za-z0-9]/.test(passwordVal) && /[0-9]/.test(passwordVal);
+    const requiredPassLength = 8
+
+    if (strongpassReq && passwordVal.length >= requiredPassLength) { //strong password
+      $('.passwordStatus')
+        .text('Strong password')
+        .removeClass('text-red-500')
+        .addClass('text-blue-500')
+      isPasswordStrong = true
+    }
+    else {
+      $('.passwordStatus')
+        .text('Weak password')
+        .addClass('text-red-500')
+        .removeClass('text-blue-500')
+      isPasswordStrong = false
+    }
+
+
   })
 })
