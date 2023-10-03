@@ -89,6 +89,8 @@
             </form>
             <!-- End Exit Form -->
             <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
+
+
             <!-- make alumni of the year post -->
             <form action="" id="add-aotm-form">
                 <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12 s">
@@ -128,7 +130,7 @@
 
                     <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
                     <label for="searchQuery" class="font-bold">Search:</label>
-                    <div class="flex flex-row flex-wrap">
+                    <div class="flex  flex-wrap  flex-row   text-gray-500 relative">
 
                         <!-- <select name="searchFilter" id="searchFilter" class="form-select font-semibold">
                             <option value="name">Name</option>
@@ -141,12 +143,19 @@
                         <div class="relative rounded">
                             <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
                             <input class="form-input rounded pr-8" type="text" name="searchQuery" id="searchQuery" placeholder="Search">
-
                         </div>
+                        <ul class="bg-slate-100 border border-gray-100 w-full mt-2 absolute top-full inset-x-0 hidden" id="searchList">
+                            <!-- TODO add some animation to this -->
+                            <li class="pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-gray-200 hover:text-gray-900">
+
+                                <p>Hello Wolrd</p>
+                            </li>
+
+                        </ul>
                     </div>
 
-                    <label class="font-bold" for="fullname">Result Name:</label>
-                    <input id="fullname" name="fullname" disabled class="form-input block rounded disabled:opacity-75 " type="text" placeholder="">
+                    <!-- <label class="font-bold" for="fullname">Result Name:</label>
+                    <input id="fullname" name="fullname" disabled class="form-input block rounded disabled:opacity-75 " type="text" placeholder=""> -->
 
                     <label class="font-bold" for="quote">Quotation:</label>
                     <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
