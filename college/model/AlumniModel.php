@@ -82,7 +82,7 @@ class AlumniModel
     {
 
         //get the person ID of user
-        $query = 'SELECT * FROM person where personID = ?';
+        $query = 'SELECT person.*, studNo FROM person INNER JOIN `alumni` ON alumni.personID = person.personID where alumni.personID = ? ';
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('s', $id);
         $stmt->execute();

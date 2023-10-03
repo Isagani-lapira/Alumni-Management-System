@@ -110,35 +110,10 @@
                         </div>
                     </div>
 
-
-                    <!-- Placeholder for profile image -->
-                    <!-- Profile Image Input -->
-                    <!-- <span class="daisy-label-text"> Choose Profile Image</span>
-
-                    <div class="flex justify-center relative group">
-                        <img id="profile-img-preview" class="w-40 h-40 rounded-full peer" src="../../assets/default_profile.png" alt="">
-                        <div class="daisy-form-control  w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <label for="profile-image" class="daisy-btn w-9 mx-auto ">
-                                Choose Image
-                            </label>
-                            <input class="daisy-file-input hidden daisy-file-input-bordered w-full max-w-xs" id="profile-image" type="file" accept=".jpg" name="profile-image">
-                            <label class="daisy-label mx-auto bg-gray-100 rounded mt-2">
-                                <span class="daisy-label-text-alt text-slate-600 ">Use JPG File Format</span>
-                            </label>
-                        </div>
-                    </div> -->
-
                     <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
                     <label for="searchQuery" class="font-bold">Search Alumni From Your College:</label>
                     <div class="flex  flex-wrap  flex-row   text-gray-500 relative" id="searchContainer">
 
-                        <!-- <select name="searchFilter" id="searchFilter" class="form-select font-semibold">
-                            <option value="name">Name</option>
-                            <option value="studentId">Student Number</option>
-                            <option value="personID">Person ID</option>
-                            <option value="personalEmail">Personal Email</option>
-                            <option value="bulsuEmail">BulSu Email</option>
-                        </select> -->
 
                         <div class="relative rounded">
                             <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
@@ -146,19 +121,24 @@
                         </div>
                         <ul class="bg-slate-100 border border-gray-100 w-full mt-2 absolute top-full inset-x-0 hidden" id="searchList">
                             <!-- TODO add some animation to this -->
-                            <li class="pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-gray-200 hover:text-gray-900">
-
-                                <p>Hello Wolrd</p>
-                            </li>
 
                         </ul>
                     </div>
+                    <div id="alumni-details" class="hidden">
+                        <!-- Details of the alumni -->
+                        <p>Details of the alumni</p>
+                        <img class="rounded-full h-10 w-10 border border-accent" src="" id="detail-profile-img">
 
-                    <!-- <label class="font-bold" for="fullname">Result Name:</label>
-                    <input id="fullname" name="fullname" disabled class="form-input block rounded disabled:opacity-75 " type="text" placeholder=""> -->
+                        <p id="detail-fullname"></p>
+                        <!-- <p id="detail-student-id"></p> -->
+                        <p id="detail-personal-email"></p>
+                        <p id="detail-yearGraduated"></p>
 
+                    </div>
                     <label class="font-bold" for="quote">Quotation:</label>
                     <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
+                    <input id="studentId" name="studentNo" class="hidden" type="hidden">
+                    <input id="personId" name="personID" class="hidden" type="hidden">
 
 
                     <p class="font-bold block" for="">Description:</p>

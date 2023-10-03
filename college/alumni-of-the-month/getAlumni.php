@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $results = $event->getFullDetailById($_GET['studentNo']);
         // header("Content-Type: application/json; charset=UTF-8");
     }
-    echo json_encode(['data' => $results, 'response' => 'Successful']);
+    echo json_encode(['data' => [$results], 'response' => 'Successful']);
 } else {
     echo "You are not supposed to be here.";
     header("refresh:5; url=../index.php");

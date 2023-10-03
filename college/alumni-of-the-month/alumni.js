@@ -104,12 +104,17 @@ $(document).ready(function () {
 
     try {
       if (result.data.length > 0) {
-        console.log(result);
         const data = result.data[0];
-        $("#searchQuery").val(data.fullname);
-        $("#personID").val(data.personID);
+        console.log("data", data);
+        $("#detail-fullname").text(data.fname + " " + data.lname);
+        // $("#detail-student-id").text(data.studNo);
+        $("#detail-personal-email").text(data.personal_email);
+        $("#detail-profile-picture").attr("src", data.profileImage);
         $("#searchList").addClass("hidden");
         $("#searchList").empty();
+        $("#alumni-details").removeClass("hidden");
+        $("#studentId").val(data.studNo);
+        $("#personId").val(data.personID);
       }
       $("#searchList").addClass("hidden");
       $("#searchList").empty();
