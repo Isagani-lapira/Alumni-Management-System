@@ -772,13 +772,61 @@ function dateInText($date)
             <div class="flex gap-2 justify-evenly">
               <div class="h-2/5 w-1/2 p-5 flex flex-col">
                 <h1 class="text-lg font-extrabold">Completion Chart</h1>
-                <canvas class="w-full h-1/2" id="completionChart"></canvas>
+                <canvas class="w-full h-full" id="completionChart"></canvas>
               </div>
 
               <div class="h-2/5 w-1/2 p-5 flex flex-col">
                 <h1 class="text-lg font-extrabold px-5">College Alumni Chart</h1>
-                <canvas class="w-full h-5/6" id="salaryChart"></canvas>
+                <canvas class="w-full h-5/6" id="respondentPerCol"></canvas>
               </div>
+            </div>
+
+            <div class="center-shadow rounded-lg p-3 m-2">
+              <h3 class="font-semibold text-lg text-greyish_black">GET THE GRAPH OF A SPECIFIC QUESTION</h3>
+
+              <div class="flex mt-2 items-center">
+                <div class=" w-3/4 flex">
+                  <!-- category -->
+                  <div class="text-sm text-gray-500 flex flex-col w-1/2">
+                    <label for="categorySelection" class="px-2">CATEGORY</label>
+                    <select id="categorySelection" class="border border-gray-400 rounded-lg p-2 m-2">
+                      <option value="" selected>--Your Choice--</option>
+                    </select>
+                  </div>
+                  <!-- question -->
+                  <div class="text-sm text-gray-500 flex flex-col w-1/2">
+                    <label for="questionSelection" class="px-2">QUESTION</label>
+                    <select id="questionSelection" class="border border-gray-400 rounded-lg p-2 m-2">
+                      <option value="" selected>--Your Choice--</option>
+                    </select>
+                  </div>
+
+                  <!-- graph type -->
+                  <div class="text-sm text-gray-500 flex flex-col w-1/2">
+                    <label for="typeChartSelection" class="px-2">GRAPH/CHART</label>
+                    <select id="typeChartSelection" class="border border-gray-400 rounded-lg p-2 m-2">
+                      <option value="" selected>--Your Choice--</option>
+                      <option value="bar">Bar Type</option>
+                      <option value="bubble">Bubble Type</option>
+                      <option value="doughnut">Doughnut Type</option>
+                      <option value="pie">Pie Type</option>
+                      <option value="line">Line Type</option>
+                    </select>
+                  </div>
+
+                </div>
+
+                <div class="w-1/2 flex items-center justify-end">
+                  <button id="displayChart" class="px-4 py-2 rounded-lg off">Display</button>
+                </div>
+
+              </div>
+
+              <p class="text-sm italic text-gray-500">Note: Select a category first</p>
+            </div>
+
+            <div class="center-shadow rounded-lg p-3 m-2 h-4/5 flex justify-center">
+              <canvas class="w-full h-full" id="chartPerQuestion"></canvas>
             </div>
           </div>
 

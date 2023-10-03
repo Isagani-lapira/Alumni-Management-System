@@ -2,6 +2,8 @@
 
 require_once 'connection.php';
 require_once 'alumniTB.php';
+require_once 'deploymentTracer.php';
+
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
     //perform necessary action
@@ -95,6 +97,9 @@ if (isset($_POST['action'])) {
         echo $result;
     } else if ($action == 'getTotalTracer') {
         getTracerPercentage($mysql_con);
+    } else if ($action == 'getQuestionChoices') {
+        $questionID = $_POST['questionID'];
+        getQuestionChoices($questionID, $mysql_con);
     }
 }
 
@@ -648,4 +653,50 @@ function getTracerPercentage($con)
             echo json_encode($data);
         }
     }
+}
+
+function getQuestionChoices($questionID, $con)
+{
+    $query = "SELECT `choiceID`, `choice_text` FROM `questionnaire_choice` WHERE `questionID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('s', $questionID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $dataChoice = array();
+
+    if ($result) {
+
+        while ($data = $result->fetch_assoc()) {
+            $choiceID = $data['choiceID'];
+            $choiceText = $data['choice_text'];
+
+            $tracerID = retrievedDeployment($con);
+            $count = 0;
+            $queryCountChosen =  "SELECT ad.choiceID, COUNT(ad.choiceID) AS choiceCount
+            FROM answer_data ad
+            JOIN answer a ON ad.answerID = a.answerID
+            WHERE a.tracer_deployID = ? AND ad.choiceID = ?
+            GROUP BY ad.choiceID";
+            $stmtCount = mysqli_prepare($con, $queryCountChosen);
+            $stmtCount->bind_param('ss', $tracerID, $choiceID);
+            $stmtCount->execute();
+            $resultCount = $stmtCount->get_result();
+
+            if ($resultCount) {
+                $row = mysqli_num_rows($resultCount);
+                if ($row > 0)
+                    $count = $resultCount->fetch_assoc()['choiceCount'];
+            }
+
+            $dataPerChoice = array(
+                "choiceText" => $choiceText,
+                "count" => $count
+            );
+
+            $dataChoice[] = $dataPerChoice;
+            $stmtCount->close();
+        }
+    }
+
+    echo json_encode($dataChoice);
 }
