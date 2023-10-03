@@ -4,6 +4,7 @@ session_start();
 
 require '../php/connection.php';
 require '../model/AlumniOfTheMonth.php';
+require '../model/AlumniModel.php';
 
 //    check if college admin is logged in
 if ($_SESSION['accountType'] !== 'ColAdmin') {
@@ -34,6 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $results = $event->getAllLatest($offset);
         // header("Content-Type: application/json; charset=UTF-8");
         echo json_encode($results);
+    } else if (isset($_GET['getPersonId']) && isset($_GET['personId'])) {
+        $model = new AlumniModel($mysql_con, $_SESSION['colCode']);
+        $result = $model->getFullAlumniDetailById($_GET['personId'], true);
+        echo json_encode($result);
     } else {
         // Return the full detail of the alumni of the month
         $results = $event->getFullDetailById($_GET['studentNo']);

@@ -2,7 +2,7 @@ import { getJSONFromURL } from "../scripts/utils.js";
 
 $(document).ready(function () {
   // Constants
-  const API_URL = "./alumni-of-the-month/getAlumni.php?partial=true";
+  const API_URL = "./alumni-of-the-month/getAlumni.php?";
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   let offset = 0;
 
@@ -83,6 +83,32 @@ $(document).ready(function () {
     await handleSearchList(search);
   });
 
+  // Search bar remove suggestions when clicked outside
+  $("#searchContainer").on("blur", async function () {
+    $("#searchList").addClass("hidden");
+    $("#searchList").empty();
+  });
+
+  // Event handler for clicking list item
+  $("#searchList").on("click", "li", async function () {
+    console.log("clicked");
+    const id = $(this).data("personid");
+    const result = await getJSONFromURL(
+      API_URL + "&getPersonId=1" + "&personId=" + id
+    );
+    try {
+      if (result.data.length > 0) {
+        const data = result.data[0];
+        $("#searchQuery").val(data.fullname);
+        $("#personID").val(data.personID);
+        $("#searchList").addClass("hidden");
+        $("#searchList").empty();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   async function getAlumniSearch(search) {
     console.log("searchAlumni", search);
     if (search.length > 0) {
@@ -104,7 +130,7 @@ $(document).ready(function () {
       $("#searchList").removeClass("hidden");
       $("#searchList").empty();
       const list = result.data.map((item) => {
-        return `<li class="searchList__item p-3 flex items-center gap-2 hover:bg-gray-200 hover:text-gray-900 text-gray-500 cursor-pointer" data-id="${item.personID}">
+        return `<li class="searchList__item p-3 flex items-center gap-2 hover:bg-gray-200 hover:text-gray-900 text-gray-500 cursor-pointer" data-id="${item.personID}" data-personId="${item.personID}"">
             <img class="rounded-full h-10 w-10 border border-accent" src="../assets/icons/person.png">
             <div class="flex flex-col text-sm">
               <p class="font-bold">${item.fullname}</p>
@@ -140,7 +166,7 @@ $(document).ready(function () {
   //   get the event details
   async function getPartialEventDetails(offset, category) {
     console.log("getPartialEventDetails");
-    const response = await fetch(API_URL + "&offset=" + offset, {
+    const response = await fetch(API_URL + "partial=true&offset=" + offset, {
       headers: {
         method: "GET",
         "Content-Type": "application/json",
