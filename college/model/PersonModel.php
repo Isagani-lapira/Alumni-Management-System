@@ -9,7 +9,7 @@
 
 
 
-class Person
+class PersonModel
 {
     private $conn;
     private $colCode;
@@ -83,7 +83,7 @@ class Person
     public function getOneById(string $personId)
     {
         //get the person ID of user
-        $query = 'SELECT * FROM `alumni_of_the_month` WHERE personId = ?';
+        $query = 'SELECT * FROM `person` WHERE personId = ?';
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('s', $personId);
         $stmt->execute();

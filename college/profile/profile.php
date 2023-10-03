@@ -1,15 +1,15 @@
 <?php
 session_start();
-require_once('../model/AlumniModel.php');
+require_once('../model/PersonModel.php');
 require_once("../../PHP_process/connection.php");
 
 
 $alumniData = [];
 // get the id of the user from session id
 if (isset($_SESSION['personID'])) {
-    $alumni = new AlumniModel($mysql_con, $_SESSION['colCode']);
+    $model = new PersonModel($mysql_con, $_SESSION['colCode']);
     // todo refactor later
-    $alumniData = json_decode($alumni->getFullAlumniDetailById($_SESSION['personID'], false), true)['result'];
+    $alumniData = $model->getOneById($_SESSION['personID']);
 } else {
     echo "<h1>" . "No person ID" .  "</h1>";
     die();
