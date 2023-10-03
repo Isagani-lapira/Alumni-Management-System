@@ -125,7 +125,7 @@ class AlumniModel
                 $result->num_rows
             ) {
 
-                return $result->fetch_assoc();
+                return $result->fetch_all(MYSQLI_ASSOC);
             }
             return [];
         } catch (\Throwable $th) {
