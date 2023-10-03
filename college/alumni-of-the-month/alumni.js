@@ -83,10 +83,12 @@ $(document).ready(function () {
     await handleSearchList(search);
   });
 
-  // Search bar remove suggestions when clicked outside
-  $("#searchContainer").on("blur", async function () {
-    $("#searchList").addClass("hidden");
-    $("#searchList").empty();
+  // Search bar remove suggestions when clicked outside except on search suggestions
+  $(document).on("click", function (e) {
+    if (!$(e.target).closest("#searchList").length) {
+      $("#searchList").addClass("hidden");
+      $("#searchList").empty();
+    }
   });
 
   // Event handler for clicking list item
@@ -96,14 +98,19 @@ $(document).ready(function () {
     const result = await getJSONFromURL(
       API_URL + "&getPersonId=1" + "&personId=" + id
     );
+    console.log(result);
+
     try {
       if (result.data.length > 0) {
+        console.log(result);
         const data = result.data[0];
         $("#searchQuery").val(data.fullname);
         $("#personID").val(data.personID);
         $("#searchList").addClass("hidden");
         $("#searchList").empty();
       }
+      $("#searchList").addClass("hidden");
+      $("#searchList").empty();
     } catch (error) {
       console.log(error);
     }

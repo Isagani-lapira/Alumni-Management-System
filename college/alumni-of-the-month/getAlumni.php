@@ -23,7 +23,7 @@ if (!isset($_SESSION['college_admin']) && !isset($_SESSION['adminID'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    $result = null;
+    $results = null;
     $event = new AlumniOfTheMonth($mysql_con, $_SESSION['colCode']);
 
     if (isset($_GET['partial']) &&   $_GET['partial'] === 'true') {
@@ -34,17 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $results = $event->getAllLatest($offset);
         // header("Content-Type: application/json; charset=UTF-8");
-        echo json_encode($results);
     } else if (isset($_GET['getPersonId']) && isset($_GET['personId'])) {
         $model = new AlumniModel($mysql_con, $_SESSION['colCode']);
-        $result = $model->getFullAlumniDetailById($_GET['personId'], true);
-        echo json_encode($result);
+        $results = $model->getFullAlumniDetailById($_GET['personId'], true);
     } else {
         // Return the full detail of the alumni of the month
         $results = $event->getFullDetailById($_GET['studentNo']);
         // header("Content-Type: application/json; charset=UTF-8");
-        echo json_encode($results);
     }
+    echo json_encode(['data' => $results, 'response' => 'Successful']);
 } else {
     echo "You are not supposed to be here.";
     header("refresh:5; url=../index.php");
