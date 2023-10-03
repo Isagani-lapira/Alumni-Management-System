@@ -6,6 +6,8 @@ $(document).ready(function () {
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   let offset = 0;
 
+  // TODO get the details and show the details.
+
   // Date picker
   $("#aoydaterange").daterangepicker();
 
@@ -116,42 +118,48 @@ $(document).ready(function () {
     }
   });
 
-  async function getAlumniSearch(search) {
-    console.log("searchAlumni", search);
-    if (search.length > 0) {
-      const result = await getJSONFromURL(API_URL_SEARCH + "&qName=" + search);
-      console.log("completed", result);
-      return result;
-    }
-  }
-
   async function searchAlumniListener(searchStr) {
     if (searchStr.trim().length === 0) {
       $("#searchList").addClass("hidden");
       $("#searchList").empty();
       return;
     }
-    const result = await getAlumniSearch(searchStr);
-    // Add the list to the search suggestion
-    if (result.data.length > 0) {
-      $("#searchList").removeClass("hidden");
-      $("#searchList").empty();
-      const list = result.data.map((item) => {
-        return `<li class="searchList__item p-3 flex items-center gap-2 hover:bg-gray-200 hover:text-gray-900 text-gray-500 cursor-pointer" data-id="${item.personID}" data-personId="${item.personID}"">
-            <img class="rounded-full h-10 w-10 border border-accent" src="../assets/icons/person.png">
+    try {
+      const result = await getJSONFromURL(
+        API_URL_SEARCH + "&qName=" + searchStr
+      );
+      console.log("completed", result);
+      // Add the list to the search suggestion
+      if (result.data.length > 0) {
+        $("#searchList").removeClass("hidden");
+        $("#searchList").empty();
+        const list = result.data.map((item) => {
+          // check if item has a profile image
+          let profileImage = "../assets/icons/person.png";
+          if (item.profileImage) {
+            profileImage = item.profileImage;
+          }
+          return `<li class="searchList__item p-3 flex items-center gap-2 hover:bg-gray-200 hover:text-gray-900 text-gray-500 cursor-pointer" data-id="${item.personID}" data-personId="${item.personID}"">
+            <img class="rounded-full h-10 w-10 border border-accent" src="${profileImage}">
             <div class="flex flex-col text-sm">
               <p class="font-bold">${item.fullname}</p>
               <p class="text-xs">${item.studNo}</p>
                    
                 </li>`;
-      });
-      $("#searchList").append(list);
-    } else {
-      $("#searchList").addClass("hidden");
-      $("#searchList").empty();
-      $("#searchList").html(
-        `<li class="searchList__item">No results found.</li>`
-      );
+        });
+        $("#searchList").append(list);
+      } else {
+        console.log("no results found");
+        $("#searchList").removeClass("hidden");
+        $("#searchList").empty();
+        $("#searchList").append(
+          `<li class="searchList__item p-3 flex items-center gap-2 hover:bg-gray-200 hover:text-gray-900 text-gray-500">
+            <p>No results found.</p>
+          </li>`
+        );
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

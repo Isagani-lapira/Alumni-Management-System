@@ -129,7 +129,7 @@
                     </div> -->
 
                     <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
-                    <label for="searchQuery" class="font-bold">Search:</label>
+                    <label for="searchQuery" class="font-bold">Search Alumni From Your College:</label>
                     <div class="flex  flex-wrap  flex-row   text-gray-500 relative" id="searchContainer">
 
                         <!-- <select name="searchFilter" id="searchFilter" class="form-select font-semibold">
