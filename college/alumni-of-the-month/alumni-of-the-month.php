@@ -79,7 +79,7 @@
 
 
     <!-- Modal NEW for adding alumni of the month -->
-    <!-- TODO use searchbar to search the alumni for users. -->
+    <!-- TODO restrict alumni of the month for this month only. -->
     <input type="checkbox" id="add-alumni-modal" class="daisy-modal-toggle">
     <div class="daisy-modal">
         <div class="daisy-modal-box w-11/12 max-w-5xl ">

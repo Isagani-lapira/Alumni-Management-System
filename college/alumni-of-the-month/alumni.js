@@ -5,6 +5,14 @@ $(document).ready(function () {
   const API_URL = "./alumni-of-the-month/getAlumni.php?";
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   let offset = 0;
+  // Initial load
+  refreshList();
+  // Binds the section link in order to reload the list whenever the section is clicked
+  $('a[data-link="alumni-of-the-month"]').on("click", function () {
+    refreshList();
+
+    console.log("i ran");
+  });
 
   // TODO get the details and show the details.
 
@@ -178,27 +186,13 @@ $(document).ready(function () {
   // refresh the list
   async function refreshList(category = "all") {
     //   get the event details
-    const results = await getPartialEventDetails(0, category);
+    const result = await getJSONFromURL(
+      API_URL + "partial=true&offset=" + offset
+    );
+
     $("#tBodyRecord").empty();
-    appendContent($("#tBodyRecord"), results.result);
-  }
-
-  //   get the event details
-  async function getPartialEventDetails(offset, category) {
-    console.log("getPartialEventDetails");
-    const response = await fetch(API_URL + "partial=true&offset=" + offset, {
-      headers: {
-        method: "GET",
-        "Content-Type": "application/json",
-        cache: "no-cache",
-      },
-    });
-
-    const result = await response.json();
-
-    console.log(result);
-
-    return result;
+    console.log("first-result", result);
+    appendContent($("#tBodyRecord"), result.data);
   }
 
   //   set the data into the table
@@ -207,7 +201,7 @@ $(document).ready(function () {
     const container = selectorContainer;
     jsonData.forEach((item) => {
       //  append the data to the table
-      console.log(item);
+      console.log("item", item);
 
       container.append(`
       <tr class="h-14">

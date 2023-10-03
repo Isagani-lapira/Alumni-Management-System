@@ -24,7 +24,9 @@ if (!isset($_SESSION['college_admin']) && !isset($_SESSION['adminID'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     $results = null;
-    $event = new AlumniOfTheMonth($mysql_con, $_SESSION['colCode']);
+    $model = new AlumniOfTheMonth($mysql_con, $_SESSION['colCode']);
+
+    header("Content-Type: application/json; charset=UTF-8");
 
     if (isset($_GET['partial']) &&   $_GET['partial'] === 'true') {
         // get the offset from the url
@@ -32,17 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         //convert to int
         $offset = (int) $offset;
 
-        $results = $event->getAllLatest($offset);
-        // header("Content-Type: application/json; charset=UTF-8");
+        $results = $model->getAllLatest($offset);
+        echo json_encode(['data' => $results, 'response' => 'Successful']);
     } else if (isset($_GET['getPersonId']) && isset($_GET['personId'])) {
         $model = new AlumniModel($mysql_con, $_SESSION['colCode']);
         $results = $model->getFullAlumniDetailById($_GET['personId'], true);
+        echo json_encode(['data' => [$results], 'response' => 'Successful']);
     } else {
         // Return the full detail of the alumni of the month
-        $results = $event->getFullDetailById($_GET['studentNo']);
+        $results = $model->getFullDetailById($_GET['studentNo']);
         // header("Content-Type: application/json; charset=UTF-8");
+        echo json_encode(['data' => [$results], 'response' => 'Successful']);
     }
-    echo json_encode(['data' => [$results], 'response' => 'Successful']);
 } else {
     echo "You are not supposed to be here.";
     header("refresh:5; url=../index.php");

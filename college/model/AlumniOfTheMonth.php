@@ -140,13 +140,11 @@ class AlumniOfTheMonth
         }
 
 
-        // the main assoc array to be return
-        $json_result = array();
+
         // holds every row in the query
         $resultArray = array();
 
         if ($result && $num_row > 0) {
-            $json_result['response'] = 'Successful';
             // Gets every row in the query
             while ($record = mysqli_fetch_assoc($result)) {
                 // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
@@ -154,12 +152,9 @@ class AlumniOfTheMonth
                 $record['cover_img'] = base64_encode($record['cover_img']);
                 $resultArray[] = $record;
             }
-            $json_result['result'] = $resultArray;
         } else {
-            $json_result['response'] = 'Unsuccesful';
         }
 
-        $json_result['offset'] = $offset;
-        return $json_result;
+        return $resultArray;
     }
 }
