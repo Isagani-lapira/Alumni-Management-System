@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         header("Content-Type: application/json; charset=UTF-8");
         if ($results) {
 
-            echo json_encode(array('response' => 'Successful', 'result' => $results));
+            echo json_encode(array('response' => 'Successful', 'data' => $results));
         } else {
-            echo json_encode(array('response' => 'Unsuccessful', 'result' => []));
+            echo json_encode(array('response' => 'Unsuccessful', 'data' => []));
         }
     } else {
         // // Return the full detail of the alumni of the month
