@@ -563,7 +563,12 @@ function insertSectionData($categoryID, $question, $inputType, $formID, $choices
 
 function retrieveSection($choiceID, $con)
 {
-    $query = "SELECT `questionID` FROM `section_question` WHERE `choicesSectionID`= ? ORDER by `sequence` ASC";
+    $query = "SELECT sq.`questionID`
+    FROM `section_question` sq
+    INNER JOIN `tracer_question` tq ON sq.`questionID` = tq.`questionID`
+    WHERE sq.`choicesSectionID` = ?
+    AND tq.`status` = 'available'
+    ORDER BY sq.`sequence` ASC";
     $stmt = mysqli_prepare($con, $query);
     $stmt->bind_param('s', $choiceID);
     $stmt->execute();

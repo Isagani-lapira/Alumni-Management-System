@@ -3,10 +3,9 @@ $(document).ready(function () {
     $('#tracerbtn').on('click', function () {
         $('#formReport').addClass('hidden');
         $('#TracerWrapper').removeClass('hidden');
-        $('#tracerRepo').removeClass('hidden');
         $('#categoryWrapper').removeClass('hidden');
         $('#categoryWrapper').empty()
-
+        $('#tracerRepo').removeClass('hidden');
         $('#questionSetContainer').find('.questionSet, .newQuestionBtn').remove()
         //restart everything in tracer form
         $('#questionSetContainer').empty()
@@ -52,8 +51,18 @@ $(document).ready(function () {
                             // submitting new category
                             $('#addNewCategoryBtn').on('click', function () {
                                 const newCatVal = $('#categoryInputVal').val().trim()
-                                if (newCatVal !== '')
+                                if (newCatVal !== '') {
+                                    // adding new category
+                                    $('#categoryInputVal')
+                                        .addClass('border-gray-300')
+                                        .removeClass('border-red-400')
                                     addNewCategory(tracerID, newCatVal)
+                                }
+                                else {
+                                    $('#categoryInputVal')
+                                        .removeClass('border-gray-300')
+                                        .addClass('border-red-400')
+                                }
                             })
 
                         })
@@ -66,6 +75,14 @@ $(document).ready(function () {
 
     }
 
+    // close the insertion of new category
+    $('#cancelCatInsertion').on('click', function () {
+        $('#insertCategoryModal').addClass('hidden')
+    })
+
+    $('#cancelDeployBtn').on('click', function () {
+        $('#deploymentModal').addClass('hidden')
+    })
 
     function addCategory(categoryID, categoryName, tracerID) {
         let isEditing = false;
@@ -327,8 +344,13 @@ $(document).ready(function () {
 
             const removeQuestionBtn = $('<iconify-icon icon="octicon:trash-24" class="absolute top-0 -right-14 p-3 rounded-md center-shadow remove-question h-max" style="color: #afafaf;" width="24" height="24"></iconify-icon>')
                 .on('click', function () {
-                    displaySavedChanges()
-                    removeQuestions(questionID, questionWrapper)
+                    // open confirmation modal
+                    $('.deleteQuestionPost').removeClass('hidden')
+                    $('#deleteQuestionBtn').on('click', function () {
+                        displaySavedChanges()
+                        $('.deleteQuestionPost').addClass('hidden')
+                        removeQuestions(questionID, questionWrapper) //delete the question
+                    })
                 })
             const questionWrapper = $('<div>')
                 .addClass('p-2 center-shadow rounded-lg w-4/5 mx-auto questionSet relative mb-5')
@@ -339,6 +361,10 @@ $(document).ready(function () {
 
     }
 
+
+    $('#cancelDelQuestionBtn').on('click', function () {
+        $('.deleteQuestionPost').addClass('hidden')
+    })
 
     sectionQuestion = []
     function insertSectionData(categoryID, choiceID, formID, modal) {

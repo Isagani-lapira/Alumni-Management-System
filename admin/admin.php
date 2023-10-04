@@ -825,7 +825,7 @@ function dateInText($date)
               <p class="text-sm italic text-gray-500">Note: Select a category first</p>
             </div>
 
-            <div class="center-shadow rounded-lg p-3 m-2 h-4/5 flex justify-center">
+            <div class="center-shadow rounded-lg p-3 m-2 h-full flex justify-center">
               <canvas class="w-full h-full" id="chartPerQuestion"></canvas>
             </div>
           </div>
@@ -2107,7 +2107,7 @@ function dateInText($date)
           Are you sure you want to proceed?</p>
 
         <div class="flex w-full justify-end items-center gap-2 my-3 border-t border-gray-300 py-2">
-          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button id="cancelDeployBtn" class="text-gray-400 hover:text-gray-500">Cancel</button>
           <button id="confirmDeployTracerBtn" class="px-4 py-2 rounded-lg bg-blue-400 hover:bg-blue-500 text-white font-bold">Deploy</button>
         </div>
       </div>
@@ -2120,7 +2120,7 @@ function dateInText($date)
         <input id="categoryInputVal" type="text" placeholder="Enter a new category..." class="w-full border-b border-gray-300 p-3 my-3">
 
         <div class="flex justify-end gap-2">
-          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button id="cancelCatInsertion" class="text-gray-400 hover:text-gray-500">Cancel</button>
           <button id="addNewCategoryBtn" class="text-white bg-green-400 rounded-lg py-2 px-4 hover:bg-green-500 font-bold">Create</button>
         </div>
       </div>
@@ -2134,6 +2134,17 @@ function dateInText($date)
         <div class="flex items-center justify-end my-2 gap-2">
           <button class="text-gray-400 hover:text-gray-500">Cancel</button>
           <button id="deleteByAdminBtn" class="bg-accent py-1 px-4 text-white hover:bg-darkAccent rounded-lg">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- deletion question modal -->
+    <div class="deleteQuestionPost modal fixed inset-0 z-50 flex justify-center p-3 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg text-greyish_black p-3 center-shadow slide-bottom">
+        <h3 class="text-lg text-greyish_black text-center ">Are you sure you want to delete this question?</h3>
+        <div class="flex flex-col justify-end mt-7 gap-2 w-4/5 mx-auto">
+          <button id="deleteQuestionBtn" class="bg-accent py-1 px-4 text-white hover:bg-darkAccent rounded-lg">Delete</button>
+          <button id="cancelDelQuestionBtn" class="text-gray-400 hover:text-gray-500">Cancel</button>
         </div>
       </div>
     </div>
