@@ -43,13 +43,16 @@ $(document).ready(function () {
                     // get the upcoming event
                     let colCode = $('#colCode').text();
                     let category = "col_event_alumni"
-                    retrieveNextCollegeEvent(colCode);
-                    retrieveNextCollegeEvent("", category);
+                    retrieveNextCollegeEvent(colCode); //for college
+                    retrieveNextCollegeEvent("", category); //alumni
                 }
 
 
             },
-            error: error => { console.log(error.responseText) }
+            error: () => {
+                $('#eventView').addClass('hidden');
+                $('#defaultEvent').removeClass('hidden')
+            }
         })
     }
 

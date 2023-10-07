@@ -1129,7 +1129,7 @@ function getAccDetails($con, $personID)
 
       <!-- TAB 2 -->
       <div id="tabs-2" class="h-full">
-        <div class="h-full">
+        <div id="eventView" class="h-full">
           <div class=" h-2/3 top-72">
             <div class="relative w-full h-full flex items-center">
               <img class=" object-cover object-top darkened-image" src="../assets/bg_event.jpg" alt="">
@@ -1174,8 +1174,8 @@ function getAccDetails($con, $personID)
         </div>
 
         <!-- default view -->
-        <div class="h-full flex flex-col justify-center p-5 relative hidden">
-          <h3 class="w-1/2 font-bold text-lg md:text-6xl mb-2">No Upcoming Event On Our Calendar</h3>
+        <div id="defaultEvent" class="h-full flex flex-col justify-center p-5 relative hidden">
+          <h3 class="w-1/2 font-bold text-lg md:text-6xl mb-2 text-gray-800">No Upcoming Event On Our Calendar</h3>
           <p class="w-1/2 text-lg text-gray-800">Thank you for your interest! While there are no upcoming events right now,
             we're constantly working to bring you exciting experiences. Please stay tuned</p>
           <div class="w-56 h-56 relative"></div>
