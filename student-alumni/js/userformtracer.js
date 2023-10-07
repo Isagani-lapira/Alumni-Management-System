@@ -54,7 +54,7 @@ $(document).ready(function () {
                         categoryQuestion(answerID, prevCategoryID)
                     })
                 const nextBtn = $('<button>')
-                    .addClass('px-3 py-2 rounded-md bg-accent hover:bg-darkAccent text-white font-bold')
+                    .addClass('px-3 py-2 rounded-md bg-accent hover:bg-darkAccent text-white font-bold nextBtnQuestion')
                     .text('Next')
                     .on('click', function () {
                         let isCompleted = true
@@ -117,7 +117,7 @@ $(document).ready(function () {
                     })
 
                 const submitBtn = $('<button>')
-                    .addClass('px-3 py-2 rounded-md bg-green-400 hover:bg-green-500 text-white font-bold hidden')
+                    .addClass('px-3 py-2 rounded-md bg-green-400 hover:bg-green-500 text-white font-bold hidden submitQuestionnaire')
                     .text('Submit')
                     .on('click', function () {
                         let isCompleted = true
@@ -357,6 +357,16 @@ $(document).ready(function () {
                                     openSectionModal(choiceID, answerID, questionID)
                                 }
 
+                                // checking if the answer is have you ever been employed is "no" then show the submit now
+                                if (choiceID == 'ed7f8ed8d45c72df2d9d5f5c8771c') {
+                                    $('#navigationWrapper').find('.nextBtnQuestion').addClass('hidden')
+                                    $('#navigationWrapper').find('.submitQuestionnaire').removeClass('hidden')
+                                }
+                                else if (choiceID == 'ed7f8ed8d45c72df2d9d5f5c8771c' || choiceIDData[0] == 'f26cd3188710d81ef34664426f940') {
+                                    $('#navigationWrapper').find('.nextBtnQuestion').removeClass('hidden')
+                                    $('#navigationWrapper').find('.submitQuestionnaire').addClass('hidden')
+                                }
+
                                 addAnswer(answerID, questionID, "", choiceID) //add the question
 
                             })
@@ -443,6 +453,12 @@ $(document).ready(function () {
                 questionWrapper.attr('data-required', 'true');
             }
 
+            // skip 1 part of question
+            if (choiceIDData[0] == 'e7df2b8246f80bceb558e7bc19bc1') count += 1
+            if (choiceIDData[0] == 'ed7f8ed8d45c72df2d9d5f5c8771c') { // Have you ever been employed? No answer
+                $('#navigationWrapper').find('.nextBtnQuestion').addClass('hidden')
+                $('#navigationWrapper').find('.submitQuestionnaire').removeClass('hidden')
+            }
             questionWrapper.append(questionBody);
             containerRoot.append(questionWrapper); // add to the main container
         } catch (error) {
@@ -539,6 +555,8 @@ $(document).ready(function () {
                         }
                     }
 
+                    // check if the user has already clicked the with employer to advance
+                    if (choiceID == 'e7df2b8246f80bceb558e7bc19bc1') count += 1
                     // check for proceeding
                     if (haveInputVal && haveSelectedDropDown && haveCheckedInCheckBox)
                         $('#sectionModal').addClass('hidden')
