@@ -129,6 +129,7 @@ class personDB
 
     public function searchPerson($personName, $con)
     {
+        $maxLimit = 10;
         $query = "SELECT
         p.`personID`,
         CONCAT(p.`fname`, ' ', p.`lname`) AS 'Fullname',
@@ -141,7 +142,7 @@ class personDB
         LEFT JOIN `alumni` a ON p.`personID` = a.`personID`
         LEFT JOIN `student` s ON p.`personID` = s.`personID`
         WHERE (a.`personID` IS NOT NULL OR s.`personID` IS NOT NULL)
-        AND CONCAT(`fname`, ' ', `lname`) LIKE CONCAT('%', ?, '%')";
+        AND CONCAT(`fname`, ' ', `lname`) LIKE CONCAT('%', ?, '%') LIMIT $maxLimit";
 
 
         $stmt = mysqli_prepare($con, $query);
