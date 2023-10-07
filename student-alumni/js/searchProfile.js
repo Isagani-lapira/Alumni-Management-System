@@ -91,7 +91,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response == 'Success') {
-                    $('#userPost').empty()
+                    $('#userPostModal').empty()
                     const data = response
                     const fullname = data.fullname;
                     const profilePic = data.profilePic;
@@ -162,7 +162,7 @@ $(document).ready(function () {
                                     .addClass('rounded-lg h-28 w-full')
                                     .attr('src', imgSrc)
 
-                                $('#userPost').append(image)
+                                $('#userPostModal').append(image)
                                 offset++
                                 tempCount++
                             }

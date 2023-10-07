@@ -759,7 +759,7 @@ function getAccDetails($con, $personID)
             </div>
 
             <!-- headline image -->
-            <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" src="../images/bsu-header5.jpg" alt="">
+            <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" alt="">
 
             <p class="text-sm text-gray-500">Date Posted: <span id="announceDatePosted"></span></p>
             <p class="text-sm text-gray-500">By: <span id="announcementAuthor" class="text-accent"></span></p>
@@ -848,7 +848,7 @@ function getAccDetails($con, $personID)
 
               <!-- user post -->
               <div id="userPostContainer" class="max-h-48 md:max-h-64 overflow-y-auto no-scrollbar">
-                <div id="userPost" class="grid grid-cols-3 gap-4 p-2"></div>
+                <div id="userPostModal" class="grid grid-cols-3 gap-4 p-2"></div>
                 <p id="noProfileMsgSearch" class="text-center text-blue-400 my-2 hidden">No available Post</p>
               </div>
 

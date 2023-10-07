@@ -149,11 +149,12 @@ function dateInText($date)
         </a>
 
         <!-- Search Bar -->
-        <div class="col-span-1 flex items-center justify-center">
+        <div class="col-span-1 flex items-center justify-center relative">
             <div class="relative w-full">
-                <input type="text" placeholder="Search" class="pl-10 pr-4 py-3 w-full border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none transparent-search-bar" />
+                <input type="text" id="searchUser" placeholder="Search" class="pl-10 pr-4 py-3 w-full border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none transparent-search-bar" />
                 <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
             </div>
+            <div id="searchProfile" class="absolute top-16 bg-white rounded-b-lg p-3 z-50 w-full hidden"></div>
         </div>
 
         <!-- Menu Items -->
@@ -350,6 +351,71 @@ function dateInText($date)
     </div>
 
     <!-- MODALS -->
+
+    <div id="profileModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div id="profileModalUser" class="bg-white rounded shadow-lg w-2/5 max-h-screen h-max overflow-y-auto slide-bottom">
+            <!-- Cover Photo -->
+            <div class="coverPhotoContainer">
+                <img id="profileModalCover" alt="Cover Photo" class=" w-4/5 h-full md:h-56 mb-4 object-cover block mx-auto object-center">
+            </div>
+            <div class="px-4 md:px-6">
+
+                <!-- Profile Picture and Info -->
+                <div class="flex items-start mb-4">
+                    <img id="profileModalProfile" alt="Profile Picture" class=" w-16 h-16 md:w-28 md:h-28 rounded-full md:-mt-20 mr-4 ml-2 bg-white border-2">
+                    <div class="flex-grow">
+                        <h2 id="profileModalFN" class=" md:text-lg font-bold text-gray-700"></h2>
+                        <p id="profileModalUN" class="text-gray-500 text-sm"></p>
+                    </div>
+
+                    <button class="px-3 md:px-4 py-2 text-xs md:text-sm bg-red-800 text-white rounded-md">Send Email</button>
+                </div>
+
+                <h2 class="text-md md:text-lg font-bold mb-2 text-greyish_black">Social Media</h2>
+
+                <!-- social media links -->
+                <div class="flex gap-2 border-b border-gray-300 text-sm text-gray-500 py-2 mb-2">
+
+                    <div class="flex-1 flex-col gap-4 justify-center items-center">
+                        <!-- facebook -->
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="formkit:facebook" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                            <span id="facebookUN" class="text-center"></span>
+                        </div>
+
+                        <!-- instagram -->
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="formkit:instagram" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                            <span id="instagramUN" class="text-center"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex-col gap-3 justify-center items-center">
+                        <!-- twitter -->
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="simple-icons:twitter" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                            <span id="twitterUN" class="text-center"></span>
+                        </div>
+
+                        <!-- linkedIN -->
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="uiw:linkedin" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                            <span id="linkedInUN" class="text-center"></span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- user post -->
+                <div id="userPostContainer" class="max-h-48 md:max-h-64 overflow-y-auto no-scrollbar">
+                    <div id="userPostModal" class="grid grid-cols-3 gap-4 p-2"></div>
+                    <p id="noProfileMsgSearch" class="text-center text-blue-400 my-2 hidden">No available Post</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- EDIT PROFILE -->
     <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
@@ -1282,6 +1348,7 @@ function dateInText($date)
 
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="../student-alumni/js/profile.js"></script>
+    <script src="../student-alumni/js/searchProfile.js"></script>
     <script src="../student-alumni/js/resumescript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </body>
