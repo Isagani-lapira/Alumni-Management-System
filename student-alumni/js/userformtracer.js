@@ -27,7 +27,7 @@ $(document).ready(function () {
                             const questionTxt = data.questionTxt
                             const inputType = data.inputType
                             const choices = data.choices
-                            $('.questions')
+
                             //mark up for displaying question
                             displayQuestion(answerID, questionID, questionTxt, inputType, choices, tracerQuestionWrapper)
                         })
@@ -292,12 +292,14 @@ $(document).ready(function () {
     async function displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot) {
         // wrapper container
         const questionWrapper = $('<div>')
-            .addClass('center-shadow border-t-4 border-accent rounded-lg py-3 px-5 mb-5 userQuestionTracer');
+            .addClass('center-shadow rounded-md py-3 px-5 mb-5 userQuestionTracer');
 
         // question name
         const question = $('<h3>')
-            .addClass('text-center font-bold lg text-greyish_black')
+            .addClass('text-center font-bold text-greyish_black')
             .text(questionTxt);
+
+        if (containerRoot == tracerQuestionWrapper) question.removeClass('text-center')
         questionWrapper.append(question);
 
         try {
