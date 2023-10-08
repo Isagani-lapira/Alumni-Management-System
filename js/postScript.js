@@ -1136,6 +1136,22 @@ $(document).ready(function () {
 
         let commentIcon = $('<span>').html('<iconify-icon icon="uil:comment" style="color: #626262;" width="20" height="20"></iconify-icon>')
             .addClass('cursor-pointer flex items-center comment')
+            .on('click', function () {
+                $('#commentPost').removeClass('hidden') //open the comment modal
+
+                //set up the details for comment to be display
+                $('#postProfile').attr('src', img)
+                $('#postFullname').text(fullname)
+                $('#postUsername').text(username)
+                $('#replyToUsername').text(username)
+
+                //insert a comment to database
+                $('#commentBtn').on('click', function () {
+                    console.log('clicked')
+                    let commentVal = $('#commentArea').val()
+                    insertComment(postID, commentVal, commentElement)
+                })
+            })
         let likesElement = $('<p>').addClass('text-xs text-gray-500').text(likes)
         let commentElement = $('<p>').addClass('text-xs text-gray-500 comment').text(comments)
         let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
@@ -1214,6 +1230,64 @@ $(document).ready(function () {
         postWrapper.width(percent);
     }
 
+
+    $('#commentArea').on('input', function () {
+        let commentVal = $(this).val();
+        //enable the comment button
+        if (commentVal != "") {
+            $('#commentBtn').removeAttr('disabled')
+                .addClass('bg-accent')
+                .removeClass('bg-red-950')
+        }
+        else {
+            $('#commentBtn').attr('disabled', true) //disabled the button again
+                .addClass('bg-red-950')
+                .removeClass('bg-accent')
+        }
+    })
+
+
+    function displayPostPrompt(message) {
+        $('#promptMsgComment').removeClass('hidden')//display the prompt
+            .text(message)
+
+        //hide again after 4 seconds
+        setTimeout(() => {
+            $('#promptMsgComment').addClass('hidden')
+        }, 4000)
+    }
+
+
+    function insertComment(postID, comment, commentElement) {
+        const action = {
+            action: 'insertComment'
+        }
+
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID);
+        formData.append('comment', comment);
+
+        $.ajax({
+            url: '../PHP_process/commentData.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: (response) => {
+                if (response === 'Success') {
+                    $('#commentPost').addClass('hidden') //hide modal
+                    displayPostPrompt('Comment successfully added')
+                    $('#commentArea').val('') //restart the value of comment
+                    let commentCount = parseInt(commentElement.text()) + 1
+                    commentElement.text(commentCount) //update the count of comment of ta certain post
+                }
+            },
+            error: error => {
+                console.log(error)
+            }
+        })
+    }
 
     $('.cancelDeletionAdmin').on('click', function () {
         $('.deleteModalPost').addClass('hidden')

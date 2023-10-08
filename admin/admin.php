@@ -99,6 +99,7 @@ function dateInText($date)
         <p id="message" class="text-accent font-semibold text-center text-sm "></p>
       </div>
     </div>
+    <span id="promptMsgComment" class="hidden rounded-md slide-bottom fixed bottom-28 px-4 py-2 z-50 bg-accent text-white rounded-sm font-bold">Comment successfully added</span>
     <?php
     echo '<p class="profilePicVal hidden">' . $profilepicture . '</p>';
     echo '<input type="hidden" id="accPersonID" value="' .  rawurlencode($personID) . '">';
@@ -2244,6 +2245,43 @@ function dateInText($date)
 
         </div>
 
+      </div>
+    </div>
+
+    <!-- comment -->
+    <div id="commentPost" class="post modal fixed inset-0 flex justify-center p-3 z-50 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 flex flex-col gap-1 slide-bottom">
+        <!-- close button -->
+        <span class="flex justify-end">
+          <iconify-icon id="closeComment" class="rounded-full cursor-pointer p-2 hover:bg-gray-300" icon="ep:close" style="color: #686b6f;" width="20" height="20"></iconify-icon>
+        </span>
+
+        <div class="flex gap-2 items-center">
+          <img id="postProfile" class="h-10 w-10 rounded-full" src="../assets/icons/person.png" alt="">
+          <div>
+            <p id="postFullname" class="text-black"></p>
+            <p id="postUsername" class="text-xs text-gray-400 font-thin"></p>
+          </div>
+        </div>
+
+        <div id="replacementComment" class="border-l-2 border-gray-400 w-max ml-5 p-3">
+          <p class="text-center text-sm italic text-gray-400">Reply to
+            <span id="replyToUsername" class=" font-semibold text-blue-500">username</span>
+          </p>
+        </div>
+        <div class="flex gap-2 ">
+          <?php
+          if ($profilepicture == "") {
+            echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon rounded-full" />';
+          } else {
+            $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+            echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon rounded-full" />';
+          }
+          ?>
+          <textarea id="commentArea" class="w-full h-28 outline-none text-gray-400" placeholder="Comment your thought!"></textarea>
+        </div>
+
+        <button id="commentBtn" class="px-3 py-2 rounded-lg bg-red-950 text-white font-semibold block ml-auto text-sm" disabled>Comment</button>
       </div>
     </div>
 
