@@ -40,6 +40,10 @@ $(document).ready(function () {
                     // mark up for event
                     displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime, expectation)
 
+                    // for avoiding duplication of entry
+                    $('#upcomingColEvent').empty()
+                    $('#upcomingAlumniEvent').empty()
+
                     // get the upcoming event
                     let colCode = $('#colCode').text();
                     let category = "col_event_alumni"
@@ -128,8 +132,8 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
-                console.log(response)
                 if (response.response = "Success") {
+                    // for avoiding duplication of retrieval
 
                     let length = response.eventName.length;
 
