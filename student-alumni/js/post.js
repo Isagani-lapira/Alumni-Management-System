@@ -44,7 +44,7 @@ $(document).ready(function () {
             contentType: false,
             success: (response) => {
                 //no data available for the day
-                if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 50) {
+                if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 150) {
                     retrievalDate = getPreviousDate(noOfDaySubtract);
                     getPost()
                     noOfDaySubtract++ //if no more the day will be increasing to get the previous date
@@ -79,6 +79,14 @@ $(document).ready(function () {
                             stoppingPostRetrieval = 0;
                             getPost()
                         } else maxRetrieve = 10;
+                    }
+                    else {
+                        // retrieve another data
+                        retrievalDate = getPreviousDate(noOfDaySubtract);
+                        getPost()
+                        noOfDaySubtract++ //if no more the day will be increasing to get the previous date
+                        stoppingPostRetrieval++
+
                     }
                 }
                 else {
@@ -228,7 +236,7 @@ $(document).ready(function () {
             //insert a comment to database
             $('#commentBtn').on('click', function () {
                 let commentVal = $('#commentArea').val()
-                insertComment(postID, commentVal)
+                insertComment(postID, commentVal, commentElement)
             })
 
         })
@@ -333,7 +341,7 @@ $(document).ready(function () {
     }
 
 
-    function insertComment(postID, comment) {
+    function insertComment(postID, comment, commentElement) {
         const action = {
             action: 'insertComment'
         }
@@ -353,6 +361,9 @@ $(document).ready(function () {
                 if (response === 'Success') {
                     $('#commentPost').addClass('hidden') //hide modal
                     displayPostPrompt('Comment successfully added')
+                    $('#commentArea').val('') //restart the value of comment
+                    let commentCount = parseInt(commentElement.text()) + 1
+                    commentElement.text(commentCount) //update the count of comment of ta certain post
                 }
             },
             error: error => {
@@ -422,7 +433,6 @@ $(document).ready(function () {
         const threshold = 50;
         //once the bottom ends, it will reach another sets of data (post)
         if (scrollOffset + containerHeight + threshold >= contentHeight) {
-            console.log('rar')
             getPost();
         }
     })

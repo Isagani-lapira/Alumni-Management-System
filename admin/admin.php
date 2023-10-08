@@ -2132,7 +2132,7 @@ function dateInText($date)
         <h3 class="text-lg text-greyish_black text-center ">Are you sure you want to delete post this post?</h3>
         <input id="reasonForDel" class="text-gray-400 py-2 w-full text-center" type="text" placeholder="State your reason for deleting">
         <div class="flex items-center justify-end my-2 gap-2">
-          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button class="text-gray-400 hover:text-gray-500 cancelDeletionAdmin">Cancel</button>
           <button id="deleteByAdminBtn" class="bg-accent py-1 px-4 text-white hover:bg-darkAccent rounded-lg">Delete</button>
         </div>
       </div>

@@ -1215,6 +1215,10 @@ $(document).ready(function () {
     }
 
 
+    $('.cancelDeletionAdmin').on('click', function () {
+        $('.deleteModalPost').addClass('hidden')
+    })
+
     function removePostByAdmin(postID, username, reason) {
         let action = { action: 'removePostByAlumAdmin' };
         const formdata = new FormData()
