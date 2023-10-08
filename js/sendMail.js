@@ -125,7 +125,6 @@ $(document).ready(function () {
     $('#emailForm').on('submit', (e) => {
 
         e.preventDefault();
-        let isGroup = false;
         //check the type of recipient
         let recipient = $('input[name="recipient"]:checked').val();
         let emailSubj = $('#emailSubj').val();
@@ -141,7 +140,7 @@ $(document).ready(function () {
             formSend.append('college', college);
             formSend.append('user', user);
 
-            if (college === null) return
+            if (college === null) return //for avoiding unselected college
         }
 
         let message = $('#TxtAreaEmail').val();
