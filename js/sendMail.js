@@ -125,6 +125,7 @@ $(document).ready(function () {
     $('#emailForm').on('submit', (e) => {
 
         e.preventDefault();
+        let isGroup = false;
         //check the type of recipient
         let recipient = $('input[name="recipient"]:checked').val();
         let emailSubj = $('#emailSubj').val();
@@ -139,6 +140,8 @@ $(document).ready(function () {
             let college = $('#selectColToEmail').val();
             formSend.append('college', college);
             formSend.append('user', user);
+
+            if (college === null) return
         }
 
         let message = $('#TxtAreaEmail').val();
@@ -154,6 +157,7 @@ $(document).ready(function () {
             formSend.append('files[]', selectedFileEM[i]);
         }
 
+
         $.ajax({
             url: '../PHP_process/sendEmail.php',
             type: 'POST',
@@ -161,11 +165,18 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
-                $('#promptMsg').removeClass('hidden')
                 $('#message').text('Sending email..')
                 if (response == 'user is not existing')
                     $('#userNotExist').show()
                 else {
+                    $('#promptMsg').removeClass('hidden')
+                    // restart email
+                    emailOffset = 0;
+                    countNextEmail = 0;
+                    tempOffsetEmail = 0;
+                    //retrieve emails
+                    getEmailSent(actionDefault)
+                    actionTracker = actionDefault
                     //success sending
                     $('#message').text('Email sent!')
                     $('#userNotExist').hide()
@@ -196,6 +207,8 @@ $(document).ready(function () {
         getEmailSent(actionDefault)
         actionTracker = actionDefault
     })
+
+
 
     function getEmailSent(actionData, colCode = "") {
         //perform ajax operation 

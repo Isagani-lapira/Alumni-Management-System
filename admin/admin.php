@@ -405,7 +405,7 @@ function dateInText($date)
             </div>
 
             <div class="m-2 p-1">
-              <p class="text-sm font-thin">Course</p>
+              <p class="text-sm font-thin">College</p>
               <!-- college selection -->
               <select name="college" id="announcementCol" class="w-full border border-grayish p-2 rounded-lg">
                 <option value="" selected>BS Computer Science</option>
@@ -495,7 +495,7 @@ function dateInText($date)
           <div class="mt-5 text-end">
             <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
               NEW
-              MESSAGE
+              EMAIL
             </button>
           </div>
           <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
@@ -563,6 +563,7 @@ function dateInText($date)
             </thead>
             <tbody id="emailTBody"></tbody>
           </table>
+          <p id="noEmailMsg" class="text-center text-blue-400 text-lg hidden">No email available</p>
           <div class="flex justify-end items-center gap-2 mt-2">
             <button id="prevEmail" class="rounded-md border border-accent text-accent hover:bg-darkAccent hover:text-white px-4 py-2">Previous</button>
             <button id="nextEmail" class="rounded-md bg-accent hover:bg-darkAccent text-white px-4 py-2">Next</button>
@@ -1475,7 +1476,7 @@ function dateInText($date)
             <div id="groupEmail" class="flex gap-1">
               <div class=" border border-gray-400 rounded flex px-2 py-2">
                 <select name="selectColToEmail" id="selectColToEmail" class="w-full outline-none">
-                  <option value="all" selected>All colleges</option>
+                  <option value="" disabled selected>College</option>
                   <?php
                   require_once '../PHP_process/connection.php';
                   $query = "SELECT * FROM `college`";

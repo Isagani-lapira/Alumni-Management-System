@@ -171,12 +171,7 @@ $(document).ready(function () {
                 $("#emailTBody").append(tr);
               }
             } else {
-              let tr = $("<tr>");
-              let tdRecipient = $("<td>")
-                .text("No available email")
-                .addClass("text-start text-blue-400 text-base");
-              tr.append(tdRecipient);
-              $("#emailTBody").append(tr);
+              $('#noEmailMsg').removeClass('hidden')
             }
           },
           error: (error) => {
