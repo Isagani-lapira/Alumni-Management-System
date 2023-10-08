@@ -81,12 +81,8 @@ $(document).ready(function () {
                         } else maxRetrieve = 10;
                     }
                     else {
-                        // retrieve another data
                         retrievalDate = getPreviousDate(noOfDaySubtract);
                         getPost()
-                        noOfDaySubtract++ //if no more the day will be increasing to get the previous date
-                        stoppingPostRetrieval++
-
                     }
                 }
                 else {
