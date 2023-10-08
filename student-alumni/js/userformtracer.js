@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
     const tracerQuestionWrapper = $('.questions')
+    const progressBar = $('.progressBar')
+    progressBar.css({ 'width': 0 + '%' }) //start with 0 percentage
     // retrieving all the question for specific category
     function categoryQuestion(answerID, categoryID) {
         const action = "readQuestions";
@@ -8,6 +10,7 @@ $(document).ready(function () {
         formData.append('action', action)
         formData.append('categoryID', categoryID)
 
+        if (categoryID == '5fcdbb93760ce2f85bb62e5ca4f90') progressBar.css({ 'width': '100%' }) //last category will be 100%
         $.ajax({
             url: '../PHP_process/graduatetracer.php',
             method: 'POST',
@@ -17,7 +20,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response == 'Success') {
-                    $('#navigationWrapper').empty()
+                    $('#navigationWrapper').find('button').remove()
                     response.dataSet.forEach(data => {
                         const questionSet = data.questionSet
 
@@ -49,6 +52,9 @@ $(document).ready(function () {
                         $('.questions').empty()
                         const prevCategoryName = categoryList[count].categoryName;
                         const prevCategoryID = categoryList[count].categoryID;
+
+                        // update progress bar
+                        progressBarMovement(count)
                         //open another set of question
                         $('#categoryNameQuestion').text(prevCategoryName)
                         categoryQuestion(answerID, prevCategoryID)
@@ -110,6 +116,9 @@ $(document).ready(function () {
                             $('.questions').empty()
                             const nextCategoryName = categoryList[count].categoryName;
                             const nextCategoryID = categoryList[count].categoryID;
+
+                            // update progress bar
+                            progressBarMovement(count)
                             //open another set of question
                             $('#categoryNameQuestion').text(nextCategoryName)
                             categoryQuestion(answerID, nextCategoryID)
@@ -190,6 +199,13 @@ $(document).ready(function () {
         })
     }
 
+    function progressBarMovement(progress) {
+        const progressGoal = categoryList.length;
+        console.log(progress)
+        //calculating percentage
+        const percentage = (progress / progressGoal) * 100;
+        progressBar.css({ 'width': percentage + '%' }) //change the level of of progress
+    }
     const categoryList = [];
     // Function to retrieve category data as a Promise
     function retrieveCategory() {
@@ -361,10 +377,13 @@ $(document).ready(function () {
 
                                 // checking if the answer is have you ever been employed is "no" then show the submit now
                                 if (choiceID == 'ed7f8ed8d45c72df2d9d5f5c8771c') {
+                                    const progress = categoryList.length;
+                                    progressBarMovement(progress)
                                     $('#navigationWrapper').find('.nextBtnQuestion').addClass('hidden')
                                     $('#navigationWrapper').find('.submitQuestionnaire').removeClass('hidden')
                                 }
-                                else if (choiceID == 'ed7f8ed8d45c72df2d9d5f5c8771c' || choiceIDData[0] == 'f26cd3188710d81ef34664426f940') {
+                                else if (choiceID == 'f26cd3188710d81ef34664426f940' || choiceIDData[0] == 'f26cd3188710d81ef34664426f940') {
+                                    progressBarMovement(count)
                                     $('#navigationWrapper').find('.nextBtnQuestion').removeClass('hidden')
                                     $('#navigationWrapper').find('.submitQuestionnaire').addClass('hidden')
                                 }
@@ -458,8 +477,15 @@ $(document).ready(function () {
             // skip 1 part of question
             if (choiceIDData[0] == 'e7df2b8246f80bceb558e7bc19bc1') count += 1
             if (choiceIDData[0] == 'ed7f8ed8d45c72df2d9d5f5c8771c') { // Have you ever been employed? No answer
+                // update the progress bar to full
+                const progress = categoryList.length;
+                progressBarMovement(progress)
                 $('#navigationWrapper').find('.nextBtnQuestion').addClass('hidden')
                 $('#navigationWrapper').find('.submitQuestionnaire').removeClass('hidden')
+            }
+            else if (choiceIDData[0] == 'f26cd3188710d81ef34664426f940') {
+                const progress = count;
+                progressBarMovement(progress)
             }
             questionWrapper.append(questionBody);
             containerRoot.append(questionWrapper); // add to the main container

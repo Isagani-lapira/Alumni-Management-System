@@ -627,7 +627,11 @@ function getAccDetails($con, $personID)
               <h3 id="categoryNameQuestion" class="text-3xl font-extrabold text-accent text-center">Category Name</h3>
             </div>
             <div class="questions h-full w-full p-2 overflow-y-auto "></div>
-            <div id="navigationWrapper" class="w-full"></div>
+            <div id="navigationWrapper" class="w-full">
+              <div class="border border-gray-300 rounded-lg w-full mb-2">
+                <div class="progressBar bg-green-600 h-full rounded-lg p-1"></div>
+              </div>
+            </div>
           </div>
 
         </div>
