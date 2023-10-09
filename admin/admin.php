@@ -1458,7 +1458,7 @@ function dateInText($date)
       <form id="emailForm" class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
         <div class="w-full h-full">
           <div class="modal-header py-5">
-            <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
+            <h1 class="text-accent text-2xl text-center font-bold">Send Mail</h1>
           </div>
           <div class="modal-body px-3 h-1/2">
 
@@ -1474,7 +1474,7 @@ function dateInText($date)
 
 
             <div id="groupEmail" class="flex gap-1">
-              <div class=" border border-gray-400 rounded flex px-2 py-2">
+              <div class=" border border-gray-400 rounded flex px-2 py-2 selectColWrapper">
                 <select name="selectColToEmail" id="selectColToEmail" class="w-full outline-none">
                   <option value="" disabled selected>College</option>
                   <?php
@@ -1546,8 +1546,8 @@ function dateInText($date)
 
           <!-- Footer -->
           <div class="modal-footer flex items-end flex-row-reverse px-3 mt-2">
-            <button type="submit" id="sendEmail" class="bg-accent h-full py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
-            <button class="cancelEmail py-2 rounded px-5  hover:bg-slate-400 hover:text-white">Cancel</button>
+            <button type="submit" id="sendEmail" class="bg-accent h-full py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Send</button>
+            <button type="button" class="cancelEmail py-2 rounded px-5  hover:bg-slate-400 hover:text-white">Cancel</button>
           </div>
         </div>
       </form>

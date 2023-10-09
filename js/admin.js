@@ -37,10 +37,6 @@ $(document).ready(function () {
   $("#btnEmail").click(function () {
     prompt("#modalEmail", true);
   });
-  // //close modal email
-  $(".cancelEmail").click(function () {
-    prompt("#modalEmail", false);
-  });
 
   //go to creating college page
   $("#btnNewCol").click(function () {
