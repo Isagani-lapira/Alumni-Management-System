@@ -22,7 +22,6 @@ $(document).ready(function () {
   let validExtension = ["jpeg", "jpg", "png"]; //only allowed extension
   let fileExtension;
 
-  const decodedPersonID = decodeURIComponent($("#accPersonID").val());
   //change the tab appearance when active and not
   $(".tabs li").click(function () {
     $(".tabs li").removeClass("ui-tabs-active");
@@ -78,10 +77,6 @@ $(document).ready(function () {
     $("#jobList").show();
     $(".jobPostingBack").hide();
     $("#adminJobPost").hide();
-  });
-
-  $(".inputSkill").on("input", function () {
-    addNewField(skillDiv, holderSkill, true);
   });
 
   //error handling for logo
@@ -228,204 +223,6 @@ $(document).ready(function () {
     },
   });
 
-  //go back button in job tab
-  $("#goBack").click(function () {
-    $("#promptMessage").addClass("hidden");
-    $("#jobPosting").hide();
-    $("#jobList").show();
-    $(".jobPostingBack").hide();
-  });
-
-  //job form
-  $("#jobForm").on("submit", function (e) {
-    e.preventDefault();
-
-    var skills = skillArray();
-
-    //check first if all input field are complete
-    if (jobField()) {
-      var data = new FormData(this);
-      var action = {
-        action: "create",
-      };
-
-      //data to be sent in the php
-      data.append("action", JSON.stringify(action));
-      data.append("author", "University Admin");
-      data.append("skills", JSON.stringify(skills));
-      data.append("personID", decodedPersonID);
-
-      $.ajax({
-        url: "../PHP_process/jobTable.php",
-        type: "Post",
-        data: data,
-        processData: false,
-        contentType: false,
-        success: function (success) {
-          $("#promptMessage").removeClass("hidden");
-          $("#insertionMsg").html(success);
-        },
-        error: function (error) {
-          $("#promptMessage").removeClass("hidden");
-          $("#insertionMsg").html(error);
-        },
-      });
-    }
-  });
-
-  let offset = 0;
-  let tempOffsetJob = 0;
-  let countNext = 0;
-  //job table listing
-  $("#jobLI").on("click", function () {
-    offset = 0;
-    $("#jobTBContent").find("tr").remove();
-    jobList(offset);
-  });
-
-  function jobList(offset) {
-    let jobAction = {
-      action: "read", //read the data
-    };
-    const jobData = new FormData();
-    jobData.append("action", JSON.stringify(jobAction));
-    jobData.append("offset", offset);
-    $.ajax({
-      url: "../PHP_process/jobTable.php",
-      type: "POST",
-      data: jobData,
-      processData: false,
-      contentType: false,
-      dataType: "json",
-      success: function (response) {
-        //check if there's a value
-        if (response.result === "Success") {
-          $("#jobNavigation").find("button").remove();
-          $(".jobErrorMsg").addClass("hidden"); //hide the message
-          let data = response;
-          let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
-
-          for (let i = 0; i < jobTitles.length; i++) {
-            //fetch all the data
-            let jobTitle = jobTitles[i];
-            let author = data.author[i];
-            let companyName = data.companyName[i];
-            let jobDescript = data.jobDescript[i];
-            let jobQuali = data.jobQuali[i];
-            let college = data.colCode[i];
-            let datePosted = data.date_posted[i];
-            let companyLogo = data.companyLogo[i];
-            let skills = data.skills[i];
-            let logo = imgFormat + companyLogo;
-
-            //add data to a table data
-            let row = $("<tr>").addClass("text-xs");
-            let tdTitle = $("<td>").text(jobTitle);
-            let tdAuthor = $("<td>").text(author);
-            let tdCollege = $("<td>").text(college);
-            let tdDatePosted = $("<td>").text(datePosted);
-            let tdLogo = $("<td>").append(
-              $("<img>")
-                .attr("src", logo)
-                .addClass("w-16 h-16 mx-auto rounded-full")
-            );
-
-            //set up the value if th button view was clicked to view the details of the job
-            let btnView = $("<td>").append(
-              $("<button>")
-                .text("View")
-                .addClass(
-                  "py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton"
-                )
-                .on("click", function () {
-                  //remove the recent added skill and requirements
-                  $("#skillSets").empty();
-
-                  //set value to the view modal
-                  $("#viewJob").removeClass("hidden");
-                  $("#jobCompanyLogo").attr("src", logo);
-                  $("#viewJobColText").text(jobTitle);
-                  $("#viewJobAuthor").text(author);
-                  $("#viewJobColCompany").text(companyName);
-                  $("#viewPostedDate").text(datePosted);
-                  $("#jobOverview").text(jobDescript);
-                  $("#jobQualification").text(jobQuali);
-
-                  //retrieve the skills
-                  skills.forEach((skill) => {
-                    //create a span and append it in the div
-                    spSkill = $("<span>").html("&#x2022; " + skill);
-                    $("#skillSets").append(spSkill);
-                  });
-                })
-            );
-
-            //display every data inside the table
-            row.append(
-              tdLogo,
-              tdTitle,
-              tdAuthor,
-              tdCollege,
-              tdDatePosted,
-              btnView
-            );
-            $("#jobTBContent").append(row);
-          }
-          offset += jobTitles.length;
-          tempOffsetJob = jobTitles.length;
-          const nextBtn = $("<button>")
-            .addClass("bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md")
-            .text("Next")
-            .on("click", function () {
-              $("#jobTBContent").find("tr").remove();
-              jobList(offset);
-              countNext += tempOffsetJob;
-            });
-          const prevBtn = $("<button>")
-            .addClass("border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md")
-            .text("Previous")
-            .on("click", function () {
-              countNext -= tempOffsetJob;
-              //check if there are still to be back
-              if (countNext >= 0) {
-                $("#jobTBContent").find("tr").remove();
-                jobList(countNext);
-              } else prevBtn.addClass("hidden");
-            });
-
-          $("#jobNavigation").append(prevBtn, nextBtn);
-        } else {
-          $(".jobErrorMsg").removeClass("hidden"); //add message to the user
-          $("#nextJob").attr("disabled", true).addClass("hidden");
-        }
-      },
-      error: function (xhr, status, error) {
-        console.log("AJAX request error:", error);
-      },
-    });
-  }
-
-  //retrieve all the skills have been written
-  function skillArray() {
-    var skills = [];
-    $(".skillInput").each(function () {
-      skills.push($(this).val());
-    });
-
-    return skills;
-  }
-
-  //check if the forms in the job field is all answered
-  function jobField() {
-    var allFieldCompleted = true;
-    $(".jobField").each(function () {
-      if (!$(this).val()) {
-        $(this).removeClass("border-gray-400").addClass("border-accent");
-        allFieldCompleted = false;
-      } else $(this).addClass("border-grayish").removeClass("border-accent");
-    });
-    return allFieldCompleted;
-  }
 
   $(".college").on("click", function () {
     var colName = $(this).data("colname");
@@ -931,49 +728,6 @@ $(document).ready(function () {
   })
 });
 
-let typingTimeout = null;
-
-//
-function addNewField(container, holder, isSkill) {
-  clearTimeout(typingTimeout);
-
-  var field = isSkill == true ? true : false;
-
-  typingTimeout = setTimeout(function () {
-    const containerSkill = document.getElementById(container);
-
-    //image element
-    const imageSkill = document.createElement("img");
-    const srcAddIcon = "../assets/icons/add-circle.png";
-    imageSkill.className = "h-12 w-12 inline cursor-pointer";
-    imageSkill.setAttribute("src", srcAddIcon);
-
-    //input element
-    const inputField = document.createElement("input");
-    inputField.setAttribute("placeholder", holder);
-    inputField.setAttribute("type", "text");
-    inputField.setAttribute("oninput", "checkField(" + field + ")");
-
-    //add className for getting the value later
-    if (isSkill) inputField.setAttribute("class", "skillInput");
-    else inputField.setAttribute("class", "reqInput");
-
-    //add to the parent div to be display
-    const fieldContainer = document.createElement("div");
-    fieldContainer.appendChild(imageSkill);
-    fieldContainer.appendChild(inputField);
-    containerSkill.appendChild(fieldContainer);
-  }, 3000);
-}
-
-//checker which value should be pass
-function checkField(checker) {
-  var containerDiv = checker == true ? skillDiv : reqDiv;
-  var placeHolder = checker == true ? holderSkill : holderReq;
-  var field = checker == true ? true : false;
-
-  addNewField(containerDiv, placeHolder, field);
-}
 
 //chart for response by year
 const responseByYear = document.getElementById("responseByYear");
