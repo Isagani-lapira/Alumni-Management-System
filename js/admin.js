@@ -33,10 +33,6 @@ $(document).ready(function () {
   $("#btnAnnouncement").click(function () {
     prompt("#modal", true);
   });
-  // //open modal email
-  $("#btnEmail").click(function () {
-    prompt("#modalEmail", true);
-  });
 
   //go to creating college page
   $("#btnNewCol").click(function () {

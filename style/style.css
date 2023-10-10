@@ -249,3 +249,23 @@ tbody tr:nth-child(odd) {
 #promptMsgComment {
   left: 35%;
 }
+
+/* loader */
+
+.loader {
+  border: 5px solid;
+  border-color: #ffffff transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

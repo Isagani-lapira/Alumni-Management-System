@@ -163,6 +163,7 @@ $(document).ready(function () {
 
         // submit email
         if (checkerInput(emailSubj, message)) {
+            $('#loadingScreen').removeClass('hidden') //open loading animation
             $.ajax({
                 url: '../PHP_process/sendEmail.php',
                 type: 'POST',
@@ -170,8 +171,7 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: (response) => {
-                    console.log(response)
-                    $('#message').text('Sending email..')
+                    $('#loadingScreen').addClass('hidden')
                     if (response == 'user is not existing')
                         $('#userNotExist').show()
                     else {
@@ -186,7 +186,7 @@ $(document).ready(function () {
                         //success sending
                         $('#message').text('Email sent!')
                         $('#userNotExist').hide()
-                        $('#modalEmail').hide()
+                        $('#modalEmail').addClass('hidden')
                         setTimeout(() => {
                             $('#promptMsg').addClass('hidden')
                         }, 4000)
@@ -199,6 +199,10 @@ $(document).ready(function () {
 
     })
 
+    $('#btnEmail').on('click', function () {
+        $('#emailForm')[0].reset() // restart everything
+        $("#modalEmail").removeClass('hidden')
+    })
 
     let emailOffset = 0;
     let tempOffsetEmail = 0;
@@ -329,7 +333,5 @@ $(document).ready(function () {
     //close modal email
     $(".cancelEmail").click(function () {
         $("#modalEmail").addClass('hidden')
-
-        $('#emailForm')[0].reset() // restart everything
     });
 })
