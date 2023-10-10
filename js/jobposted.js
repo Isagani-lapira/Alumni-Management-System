@@ -46,7 +46,9 @@ $(document).ready(function () {
                     lengthChecker = length;
                 }
             },
-            error: error => { console.log(error) }
+            error: () => {
+                lengthChecker = 0
+            }
         })
     }
 
@@ -109,8 +111,8 @@ $(document).ready(function () {
                 $("#jobOverview").text(jobDescript);
                 $("#jobQualification").text(jobQuali);
                 $("#statusJob").text(status);
-                $("#jobApplicant").addClass('text-' + colorBG).text('Applicant: ' + applicantcount);
-
+                $("#jobApplicant").text('Applicant: ' + applicantcount);
+                console.log(applicantcount)
                 $('#aplicantListBtn').addClass('cursor-text') //default
                 if (parseInt(applicantcount) > 0) {
                     $('#aplicantListBtn').removeClass('cursor-text')
@@ -417,5 +419,229 @@ $(document).ready(function () {
             html2canvas: { scale: 2 },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set A4 size
         }).from(contentWithStyles).save();
+    });
+
+
+    //job table listing
+    // job table
+    $('#jobTable').DataTable({
+        "paging": true,
+        "ordering": true,
+        "info": false,
+        "lengthChange": false,
+        "searching": true,
+        "pageLength": 5
+    })
+    let table = $('#jobTable').DataTable();
+    $('#jobTable').removeClass('dataTable').addClass('rounded-lg')
+
+    // Attach a change event handler to the authorFilter select element
+    $('#authorFilter').on('change', function () {
+        let selectedVal = $(this).val();
+
+        // Apply the filter based on the selected author type
+        if (selectedVal === 'all') {
+            // Clear the filter and show all rows
+            table.search('').draw();
+        } else if (selectedVal === 'admin') {
+            // Apply a filter to show only rows with the selected author type
+            table.column(2).search(selectedVal).draw();
+        } else {
+            //show only the alumni
+            table.column(2).search(`^(?!(${selectedVal}|University Admin|College Admin)$).*`, true, false).draw();
+        }
+    });
+
+    let offset = 0;
+    $("#jobLI").on("click", function () {
+        restartTable();
+    });
+
+
+    function jobList(offset) {
+        let jobAction = {
+            action: "read", // read the data
+        };
+        const jobData = new FormData();
+        jobData.append("action", JSON.stringify(jobAction));
+        jobData.append("offset", offset);
+
+        $.ajax({
+            url: "../PHP_process/jobTable.php",
+            type: "POST",
+            data: jobData,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function (response) {
+                // check if there's a value
+                if (response.result === "Success") {
+                    let data = response;
+                    let jobTitles = data.jobTitle;
+
+                    for (let i = 0; i < jobTitles.length; i++) {
+                        // fetch all the data
+                        let jobTitle = jobTitles[i];
+                        let author = data.author[i];
+                        let companyName = data.companyName[i];
+                        let jobDescript = data.jobDescript[i];
+                        let jobQuali = data.jobQuali[i];
+                        let college = data.colCode[i];
+                        let datePosted = data.date_posted[i];
+                        let companyLogo = data.companyLogo[i];
+                        let skills = data.skills[i];
+                        let logo = imgFormat + companyLogo;
+
+                        // Create row
+                        let row = [
+                            `<img class="w-16 h-16 mx-auto rounded-full" src="${logo}" />`,
+                            jobTitle,
+                            author,
+                            college,
+                            datePosted,
+                            `<button class="py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton view-button" 
+                            data-job-title="${jobTitle}" 
+                            data-author="${author}" 
+                            data-company-name="${companyName}" 
+                            data-job-descript="${jobDescript}" 
+                            data-job-quali="${jobQuali}" 
+                            data-date-posted="${datePosted}" 
+                            data-company-logo="${companyLogo}" 
+                            data-skills="${skills}">View</button>`
+                        ];
+
+
+                        // Add the new row to the DataTable
+                        table.row.add(row);
+                    }
+
+                    // Draw the DataTable to update the UI
+                    table.draw();
+
+                    // Check if there is more data to load
+                    if (jobTitles.length > 0) {
+                        jobList(offset + jobTitles.length);
+                    }
+                }
+            },
+        });
+    }
+
+    function displayJobDetails(logo, jobTitle, author, companyName, datePosted, jobDescript, jobQuali, skills) {
+        $("#skillSets").empty();
+
+        //set value to the view modal
+        $("#viewJob").removeClass("hidden");
+        $("#jobCompanyLogo").attr("src", logo);
+        $("#viewJobColText").text(jobTitle);
+        $("#viewJobAuthor").text(author);
+        $("#viewJobColCompany").text(companyName);
+        $("#viewPostedDate").text(datePosted);
+        $("#jobOverview").text(jobDescript);
+        $("#jobQualification").text(jobQuali);
+
+        //retrieve the skills
+        skills.forEach((skill) => {
+            // Create a span and append it in the div
+            let spSkill = $("<span>").html("&#x2022; " + skill);
+            $("#skillSets").append(spSkill);
+        });
+
+    }
+
+    // Add a click event listener to the "View" button
+    $("#jobTable").on("click", ".view-button", function () {
+        // Get the data attributes from the clicked button
+        let jobTitle = $(this).data("job-title");
+        let author = $(this).data("author");
+        let companyName = $(this).data("company-name");
+        let jobDescript = $(this).data("job-descript");
+        let jobQuali = $(this).data("job-quali");
+        let datePosted = $(this).data("date-posted");
+        let companyLogo = $(this).data("company-logo");
+        let skills = $(this).data("skills");
+        skills = skills.split(',');
+
+        // Call the displayJobDetails function with the extracted data
+        displayJobDetails(companyLogo, jobTitle, author, companyName, datePosted, jobDescript, jobQuali, skills);
+    });
+
+
+    //job form
+    const decodedPersonID = decodeURIComponent($("#accPersonID").val());
+    $("#jobForm").on("submit", function (e) {
+        e.preventDefault();
+
+        var skills = skillArray();
+
+        //check first if all input field are complete
+        if (jobField()) {
+            var data = new FormData(this);
+            var action = {
+                action: "create",
+            };
+
+            //data to be sent in the php
+            data.append("action", JSON.stringify(action));
+            data.append("author", "University Admin");
+            data.append("skills", JSON.stringify(skills));
+            data.append("personID", decodedPersonID);
+
+            $.ajax({
+                url: "../PHP_process/jobTable.php",
+                type: "Post",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (success) {
+                    $("#promptMessage").removeClass("hidden");
+                    $("#insertionMsg").html(success);
+                    restartTable(); //refresh the table
+                },
+                error: function (error) {
+                    $("#promptMessage").removeClass("hidden");
+                    $("#insertionMsg").html(error);
+                },
+            });
+        }
+    });
+
+
+    //retrieve all the skills have been written
+    function skillArray() {
+        var skills = [];
+        $(".skillInput").each(function () {
+            skills.push($(this).val());
+        });
+
+        return skills;
+    }
+
+    //check if the forms in the job field is all answered
+    function jobField() {
+        var allFieldCompleted = true;
+        $(".jobField").each(function () {
+            let currentElement = $(this)
+            if (!currentElement.val()) {
+                currentElement.removeClass("border-gray-400").addClass("border-accent");
+                allFieldCompleted = false;
+            } else currentElement.addClass("border-grayish").removeClass("border-accent");
+        });
+        return allFieldCompleted;
+    }
+
+    function restartTable() {
+        offset = 0;
+        table.clear().draw();
+        jobList(offset);
+    }
+
+    //go back button in job tab
+    $("#goBack").click(function () {
+        $("#promptMessage").addClass("hidden");
+        $("#jobPosting").hide();
+        $("#jobList").show();
+        $(".jobPostingBack").hide();
+        $("#jobForm")[0].reset(); //restart the form 
     });
 })

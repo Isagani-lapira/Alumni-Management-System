@@ -453,9 +453,7 @@ function dateInText($date)
                   <th class="rounded-tr-lg">Action</th>
                 </tr>
               </thead>
-              <tbody id="postTBody">
-
-              </tbody>
+              <tbody id="postTBody"></tbody>
             </table>
             <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
           </div>
@@ -1224,21 +1222,17 @@ function dateInText($date)
 
               <div class=" items-center flex">
 
-                <select name="" id="">
+                <select id="authorFilter">
                   <option value="all" selected>All</option>
                   <option value="admin">Admin</option>
                   <option value="alumni">Alumni</option>
                 </select>
 
-                <div class="border border-accent rounded-md">
-                  <img class="inline" src="../images/search-icon.png" alt="">
-                  <input id="jobSearchTitle" type="text" placeholder="Search title">
-                </div>
               </div>
 
             </div>
 
-            <table class="w-full mt-10 center-shadow">
+            <table id="jobTable" class="w-full mt-10 center-shadow">
               <thead class="bg-accent text-sm text-white p-3">
                 <tr>
                   <th class="rounded-tl-lg">Company</th>
@@ -1250,13 +1244,9 @@ function dateInText($date)
                 </tr>
               </thead>
 
-              <tbody class="text-sm" id="jobTBContent"></tbody>
+              <tbody class="text-sm"></tbody>
             </table>
-            <div id="jobNavigation" class="flex justify-end gap-2 px-2 mt-2">
-              <button id="prevJob" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
-              <button id="nextJob" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
-            </div>
-            <p class="hidden jobErrorMsg text-center mt-5 text-accent ">No available data yet</p>
+
           </div>
 
           <!-- job posting -->
@@ -1270,7 +1260,7 @@ function dateInText($date)
                   <div class="mb-3">
                     <label for="collegeJob" class="font-bold text-greyish_black block">College</label>
                     <!-- college selection -->
-                    <select name="collegeJob" id="collegeJob" class=" border border-grayish p-2 rounded-lg w-4/5 outline-none text-gray-400">
+                    <select name="collegeJob" id="collegeJob" class=" border border-gray-400 p-2 rounded-lg w-4/5 outline-none text-gray-400 jobField">
                       <option value="" selected disabled hidden>All</option>
                       <?php
                       require_once '../PHP_process/connection.php';
@@ -1363,7 +1353,15 @@ function dateInText($date)
                 <div id="skillDiv" class="flex flex-wrap">
                   <div>
                     <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                    <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
+                    <input id="inputSkill" class="inputSkill skillInput jobField" type="text" placeholder="Add skill/s that needed">
+                  </div>
+                  <div>
+                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
+                    <input id="inputSkill2" class="inputSkill skillInput jobField" type="text" placeholder="Add skill/s that needed">
+                  </div>
+                  <div>
+                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
+                    <input id="inputSkill2" class="inputSkill skillInput jobField" type="text" placeholder="Add skill/s that needed">
                   </div>
                 </div>
               </div>
@@ -1610,7 +1608,7 @@ function dateInText($date)
         <div class="flex flex-col justify-between h-full">
           <div class=" overflow-y-auto no-scrollbar">
             <!-- content -->
-            <div class="headerJob flex rounded-t-lg p-5">
+            <div class="headerJob flex rounded-t-lg p-5 w-full bg-accent">
               <div class="w-3/5 ps-3">
                 <span id="viewJobColText" class="text-2xl font-bold text-gray-200"></span>
                 <div class="flex gap-2 items-center">
