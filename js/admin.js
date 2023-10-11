@@ -726,92 +726,153 @@ $(document).ready(function () {
     $('#newQuestionModal').addClass('hidden')
     $('#newQuestionInputName, .choicesVal').val('')
   })
+
+
+  retrievedLast5YearResponse()
+
+  // retrieve dashboard response
+  function retrievedLast5YearResponse() {
+    const action = "retrieveRespondent";
+    const formData = new FormData();
+    formData.append('action', action);
+
+    $.ajax({
+      url: '../PHP_process/deploymentTracer.php',
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      dataType: 'json',
+      success: response => {
+        let labels = [];
+        let dataCount = [];
+        if (response.response == 'Success') {
+          const data = response
+          let length = data.year.length;
+          let lastYear = 0;
+          for (let i = 0; i < length; i++) {
+            let year = data.year[i];
+            let respondent = data.respondent[i];
+
+            lastYear = year
+            labels.push(year);
+            dataCount.push(respondent);
+          }
+
+          const maxPrevYear = 4;
+          const defaultRespondentCount = 0
+          // if the data doesnt have 5 year previous set it as default zero
+          if (length != maxPrevYear) {
+            while (length <= maxPrevYear) {
+              lastYear-- //decreasing year from the last year retrieve
+              labels.push(lastYear);
+              dataCount.push(defaultRespondentCount);
+              length++
+            }
+          }
+
+          // update the graph
+          objResponse.data.labels = labels;
+          objResponse.data.datasets[0].data = dataCount;
+          objResponse.update()
+        }
+
+      },
+      error: error => { console.log(error) }
+    })
+  }
+
+  const responseByYear = $('#responseByYear')[0].getContext('2d');
+  const objResponse = new Chart(responseByYear, {
+    type: 'line',
+    data: {
+      datasets: [{
+        label: '# of Votes',
+        borderWidth: 1,
+        borderColor: redAccent, // Set the line color
+        backgroundColor: '#991b1b',
+        borderWidth: 1,
+        tension: 0.1,
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  })
+
 });
 
 
-//chart for response by year
-const responseByYear = document.getElementById("responseByYear");
-const responseByYear_labels = [
-  "2021",
-  "2020",
-  "2019",
-  "2018",
-  "2017",
-  "2016",
-  "2015",
-  "2014",
-];
-const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860];
-const responseByYear_type = "line";
-chartConfig(
-  responseByYear,
-  responseByYear_type,
-  responseByYear_labels,
-  responseByYear_data,
-  false,
-  redAccent,
-  false
-);
-
-//tracer status
-const tracerStatus = document.getElementById("myChart");
-const tracerType = "bar";
-const tracerLabels = ["Already answered", "Haven't answer yet"];
-const tracerData = [12, 5];
-const color = [blueAccent, redAccent];
-
-chartConfig(
-  tracerStatus,
-  tracerType,
-  tracerLabels,
-  tracerData,
-  false,
-  color,
-  false
-);
+// //chart for response by year
+// const responseByYear = document.getElementById("responseByYear");
+// const responseByYear_labels = [
+//   "2021",
+//   "2020",
+//   "2019",
+//   "2018",
+//   "2017",
+//   "2016",
+//   "2015",
+//   "2014",
+// ];
+// const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860];
+// const responseByYear_type = "line";
+// chartConfig(
+//   responseByYear,
+//   responseByYear_type,
+//   responseByYear_labels,
+//   responseByYear_data,
+//   false,
+//   redAccent,
+//   false
+// );
 
 
+// //for creation of chart
+// function chartConfig(
+//   chartID,
+//   type,
+//   labels,
+//   data,
+//   responsive,
+//   colors,
+//   displayLegend
+// ) {
+//   //the chart
+//   new Chart(chartID, {
+//     type: type,
+//     data: {
+//       labels: labels,
+//       datasets: [
+//         {
+//           backgroundColor: colors,
+//           data: data,
+//           borderColor: redAccent, // Set the line color
+//           borderWidth: 1,
+//           tension: 0.1,
+//         },
+//       ],
+//     },
+//     options: {
+//       responsive: responsive, // Disable responsiveness
+//       maintainAspectRatio: false, // Disable aspect ratio
 
-//for creation of chart
-function chartConfig(
-  chartID,
-  type,
-  labels,
-  data,
-  responsive,
-  colors,
-  displayLegend
-) {
-  //the chart
-  new Chart(chartID, {
-    type: type,
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          backgroundColor: colors,
-          data: data,
-          borderColor: redAccent, // Set the line color
-          borderWidth: 1,
-          tension: 0.1,
-        },
-      ],
-    },
-    options: {
-      responsive: responsive, // Disable responsiveness
-      maintainAspectRatio: false, // Disable aspect ratio
-
-      plugins: {
-        legend: {
-          display: displayLegend,
-          position: "bottom",
-          labels: {
-            font: {
-              weight: "bold",
-            },
-          },
-        },
-      },
-    },
-  });
-}
+//       plugins: {
+//         legend: {
+//           display: displayLegend,
+//           position: "bottom",
+//           labels: {
+//             font: {
+//               weight: "bold",
+//             },
+//           },
+//         },
+//       },
+//     },
+//   });
+// }

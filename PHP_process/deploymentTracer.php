@@ -6,7 +6,9 @@ if (isset($_POST['action'])) {
     if ($action == "deployNewTracer") {
         insertNewTracerDeployment($mysql_con);
     } else if ($action == "retrieveNewlyDeploy") {
-        insertNewTracerDeployment($con);
+        insertNewTracerDeployment($mysql_con);
+    } else if ($action == "retrieveRespondent") {
+        retrieveLast5YearResponse($mysql_con);
     }
 }
 
@@ -47,4 +49,39 @@ function retrievedDeployment($con)
         $data = $result->fetch_assoc();
         return $data['tracer_deployID'];
     } else return 'None';
+}
+
+
+function retrieveLast5YearResponse($con)
+{
+    // get all the total count of response for each year in last 5 years
+    $query = "SELECT YEAR(t.timstamp) AS deployment_year, COUNT(a.tracer_deployID) AS answer_count
+    FROM tracer_deployment t
+    LEFT JOIN answer a ON t.tracer_deployID = a.tracer_deployID
+    WHERE t.timstamp >= DATE_SUB(NOW(), INTERVAL 5 YEAR)
+    GROUP BY deployment_year
+    ORDER BY deployment_year DESC";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $response = "Unsuccess";
+    $year = array();
+    $respondentCount = array();
+
+    if ($result) {
+        $response = "Success";
+        while ($data = $result->fetch_assoc()) {
+            $year[] = $data['deployment_year'];
+            $respondentCount[] = $data['answer_count'];
+        }
+    }
+
+    $data = array(
+        "response" => $response,
+        "year" => $year,
+        "respondent" => $respondentCount
+    );
+
+    echo json_encode($data);
 }

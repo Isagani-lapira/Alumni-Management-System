@@ -114,7 +114,7 @@ function dateInText($date)
           <ul class="w-3/4 text-sm">
 
             <!-- DASHBOARD -->
-            <li class="rounded-lg p-2"><a href="#dashboard-tab">
+            <li id="dashboardLi" class="rounded-lg p-2"><a href="#dashboard-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z" />
                 </svg>
