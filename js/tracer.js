@@ -185,7 +185,7 @@ $(document).ready(function () {
                 // insert new question
                 displaySavedChanges()
                 $('#newQuestionModal').removeClass('hidden')
-                openCreateNewQuestion(categoryID, tracerID);
+                openCreateNewQuestionModal(categoryID, tracerID);
             })
 
 
@@ -505,8 +505,6 @@ $(document).ready(function () {
 
         const addQuestion = $('<iconify-icon class="p-3 rounded-md center-shadow h-max" icon="gala:add" style="color: #347cb5;" width="24" height="24"></iconify-icon>')
             .on('click', function () {
-                //add new question to the section
-
                 //check first if the question before create new is have value
                 if (question.val() !== "") {
                     question.addClass('border-gray-400').removeClass('border-red-400') //back to default
@@ -740,15 +738,16 @@ $(document).ready(function () {
         fieldContainer.append(icon, inputType, removeOption)
         $('.optionContainer').append(fieldContainer)
     })
-    function openCreateNewQuestion(categoryID, formID) {
+
+    function openCreateNewQuestionModal(categoryID, formID) {
         $('#newQuestionModal').removeClass('hidden')
         $('#saveNewQuestion').on('click', function () {
             const questionName = $('#newQuestionInputName').val()
-            if (questionName !== "") {
+            if (questionName !== "")
                 retrieveNewQuestionData(questionName, formID, categoryID)
-            }
         })
     }
+
     function retrieveNewQuestionData(questionName, formID, categoryID, isSectionQuestion = false, choiceID = "") {
         const inputTypeVal = $('#inputTypeModalNew').val();
         // Get all the option choices
@@ -772,7 +771,7 @@ $(document).ready(function () {
                 "InputType": inputTypeVal,
                 "choices": choices
             }
-            insertNewCategoryQuestion(data) //process insertion of data
+            insertNewCategoryQuestion(data) //process insertion of question for non section question
         }
         else {
             const data = {
@@ -781,7 +780,7 @@ $(document).ready(function () {
                 'ChoiceID': choiceID,
                 "QuestionSet": QuestionSet,
             }
-            insertNewQuestionSection(data, choiceID)
+            insertNewQuestionSection(data, choiceID) //insertion of section question
         }
 
     }
@@ -800,9 +799,8 @@ $(document).ready(function () {
             processData: false,
             success: response => {
                 if (response == "Success") {
-                    console.log(response)
                     $('#sectionBody').empty()
-                    retrievedSectionData(choiceID)
+                    retrievedSectionData(choiceID) //display the newly refresh section questions
                     restartAllVal()
                     $('#newQuestionModal').addClass('hidden')
                     //display prompt
@@ -828,7 +826,6 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: response => {
-                console.log(response)
                 if (response == "Success") {
                     restartAllVal()
                     $('#newQuestionModal').addClass('hidden')

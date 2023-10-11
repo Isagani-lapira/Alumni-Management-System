@@ -787,7 +787,7 @@ $(document).ready(function () {
     type: 'line',
     data: {
       datasets: [{
-        label: '# of Votes',
+        label: '# of Response',
         borderWidth: 1,
         borderColor: redAccent, // Set the line color
         backgroundColor: '#991b1b',
@@ -807,72 +807,3 @@ $(document).ready(function () {
 
 });
 
-
-// //chart for response by year
-// const responseByYear = document.getElementById("responseByYear");
-// const responseByYear_labels = [
-//   "2021",
-//   "2020",
-//   "2019",
-//   "2018",
-//   "2017",
-//   "2016",
-//   "2015",
-//   "2014",
-// ];
-// const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860];
-// const responseByYear_type = "line";
-// chartConfig(
-//   responseByYear,
-//   responseByYear_type,
-//   responseByYear_labels,
-//   responseByYear_data,
-//   false,
-//   redAccent,
-//   false
-// );
-
-
-// //for creation of chart
-// function chartConfig(
-//   chartID,
-//   type,
-//   labels,
-//   data,
-//   responsive,
-//   colors,
-//   displayLegend
-// ) {
-//   //the chart
-//   new Chart(chartID, {
-//     type: type,
-//     data: {
-//       labels: labels,
-//       datasets: [
-//         {
-//           backgroundColor: colors,
-//           data: data,
-//           borderColor: redAccent, // Set the line color
-//           borderWidth: 1,
-//           tension: 0.1,
-//         },
-//       ],
-//     },
-//     options: {
-//       responsive: responsive, // Disable responsiveness
-//       maintainAspectRatio: false, // Disable aspect ratio
-
-//       plugins: {
-//         legend: {
-//           display: displayLegend,
-//           position: "bottom",
-//           labels: {
-//             font: {
-//               weight: "bold",
-//             },
-//           },
-//         },
-//       },
-//     },
-//   });
-// }
