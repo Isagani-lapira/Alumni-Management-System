@@ -220,7 +220,6 @@ $(document).ready(function () {
         "info": false,
         "lengthChange": false,
         "searching": false,
-        // Add more options as needed
     });
 
     let table = $('#postTable').DataTable(); // Get the DataTable instance
@@ -241,8 +240,6 @@ $(document).ready(function () {
 
         // Attach click event handler to the specific "View" button using the data-postID attribute
         $(`button.view-button[data-postID="${postID}"]`).on('click', function () {
-
-            console.log('click');
             $('#modalPost').removeClass('hidden');
             viewingOfPost(postID, name, accUN, postcaption, images, position, likes);
         });

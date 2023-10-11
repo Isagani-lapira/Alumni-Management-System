@@ -269,3 +269,9 @@ tbody tr:nth-child(odd) {
     transform: rotate(360deg);
   }
 }
+
+/* Change the hover color of DataTables pagination buttons */
+#jobTable_wrapper .dataTables_paginate a:hover {
+  background-color: #007bff !important; /* Change the background color on hover */
+  color: #fff !important; /* Change text color on hover */
+}
