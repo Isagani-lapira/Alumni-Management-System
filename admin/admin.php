@@ -81,6 +81,11 @@ function dateInText($date)
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-md5@0.7.3/build/md5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Include DataTables CSS and JS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
 
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
@@ -94,6 +99,7 @@ function dateInText($date)
         <p id="message" class="text-accent font-semibold text-center text-sm "></p>
       </div>
     </div>
+    <span id="promptMsgComment" class="hidden rounded-md slide-bottom fixed bottom-28 px-4 py-2 z-50 bg-accent text-white rounded-sm font-bold">Comment successfully added</span>
     <?php
     echo '<p class="profilePicVal hidden">' . $profilepicture . '</p>';
     echo '<input type="hidden" id="accPersonID" value="' .  rawurlencode($personID) . '">';
@@ -108,7 +114,7 @@ function dateInText($date)
           <ul class="w-3/4 text-sm">
 
             <!-- DASHBOARD -->
-            <li class="rounded-lg p-2"><a href="#dashboard-tab">
+            <li id="dashboardLi" class="rounded-lg p-2"><a href="#dashboard-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z" />
                 </svg>
@@ -196,7 +202,7 @@ function dateInText($date)
             </li>
 
             <!-- ALUMNI OF THE MONTH -->
-            <li class="rounded-lg p-2"><a href="#alumnMonth-tab">
+            <li id="aomLi" class="rounded-lg p-2"><a href="#alumnMonth-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                   <path d="M256 89.61L22.486 177.18L256 293.937l111.22-55.61l-104.337-31.9A16 16 0 0 1 256 208a16 16 0 0 1-16-16a16 16 0 0 1 16-16l-2.646 8.602l18.537 5.703a16 16 0 0 1 .008.056l27.354 8.365L455 246.645v12.146a16 16 0 0 0-7 13.21a16 16 0 0 0 7.293 13.406C448.01 312.932 448 375.383 448 400c16 10.395 16 10.775 32 0c0-24.614-.008-87.053-7.29-114.584A16 16 0 0 0 480 272a16 16 0 0 0-7-13.227v-25.42L413.676 215.1l75.838-37.92L256 89.61zM119.623 249L106.5 327.74c26.175 3.423 57.486 18.637 86.27 36.627c16.37 10.232 31.703 21.463 44.156 32.36c7.612 6.66 13.977 13.05 19.074 19.337c5.097-6.288 11.462-12.677 19.074-19.337c12.453-10.897 27.785-22.128 44.156-32.36c28.784-17.99 60.095-33.204 86.27-36.627L392.375 249h-6.25L256 314.063L125.873 249h-6.25z" />
                 </svg>
@@ -379,7 +385,7 @@ function dateInText($date)
         </div>
 
         <!-- POST CONTENT -->
-        <div id="announcement-tab" class="p-5">
+        <div id="announcement-tab" class="px-5">
           <h1 class="text-xl font-extrabold">POST</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
@@ -399,10 +405,25 @@ function dateInText($date)
             </div>
 
             <div class="m-2 p-1">
-              <p class="text-sm font-thin">Course</p>
+              <p class="text-sm font-thin">College</p>
               <!-- college selection -->
               <select name="college" id="announcementCol" class="w-full border border-grayish p-2 rounded-lg">
-                <option value="" selected disabled hidden>BS Computer Science</option>
+                <option value="" selected>BS Computer Science</option>
+                <?php
+                require_once '../PHP_process/connection.php';
+                $query = "SELECT * FROM `college`";
+                $result = mysqli_query($mysql_con, $query);
+                $rows = mysqli_num_rows($result);
+
+                if ($rows > 0) {
+                  while ($data = mysqli_fetch_assoc($result)) {
+                    $colCode = $data['colCode'];
+                    $colName = $data['colname'];
+
+                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                  }
+                } else echo '<option>No college available</option>';
+                ?>
               </select>
             </div>
 
@@ -432,15 +453,9 @@ function dateInText($date)
                   <th class="rounded-tr-lg">Action</th>
                 </tr>
               </thead>
-              <tbody id="postTBody">
-
-              </tbody>
+              <tbody id="postTBody"></tbody>
             </table>
             <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
-            <div id="paginationBtnPost" class="flex justify-end gap-2 px-2 mt-2">
-              <button id="prevPost" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
-              <button id="nextPost" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
-            </div>
           </div>
 
 
@@ -478,7 +493,7 @@ function dateInText($date)
           <div class="mt-5 text-end">
             <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
               NEW
-              MESSAGE
+              EMAIL
             </button>
           </div>
           <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
@@ -546,6 +561,7 @@ function dateInText($date)
             </thead>
             <tbody id="emailTBody"></tbody>
           </table>
+          <p id="noEmailMsg" class="text-center text-blue-400 text-lg hidden">No email available</p>
           <div class="flex justify-end items-center gap-2 mt-2">
             <button id="prevEmail" class="rounded-md border border-accent text-accent hover:bg-darkAccent hover:text-white px-4 py-2">Previous</button>
             <button id="nextEmail" class="rounded-md bg-accent hover:bg-darkAccent text-white px-4 py-2">Next</button>
@@ -554,7 +570,7 @@ function dateInText($date)
 
         <!-- alumni record content -->
         <div id="alumnRecord-tab" class="p-5">
-          <h1 class="text-xl font-extrabold">STUDENT RECORD</h1>
+          <h1 class="text-xl font-extrabold">ALUMNI RECORD</h1>
           <div class="flex justify-end text-xs text-greyish_black">
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 
@@ -568,14 +584,14 @@ function dateInText($date)
           <div class="flex justify-evenly text-sm">
 
             <!-- batch selection -->
-            <select name="" id="batch" class="w-full p-1">
-              <option selected disabled hidden>Batch</option>
+            <select id="batchAlumRecord" class="w-full p-1">
+              <option selected value="" disabled>Batch</option>
               <!-- php function on batch -->
             </select>
 
             <!-- college selection -->
-            <select name="college" id="college" class="w-full p-1">
-              <option value="" selected disabled hidden>Course</option>
+            <select id="alumniCollege" class="w-full p-1">
+              <option value="" selected>Course</option>
               <?php
               require_once '../PHP_process/connection.php';
               $query = "SELECT * FROM `college`";
@@ -594,8 +610,8 @@ function dateInText($date)
             </select>
 
             <!-- employment status selection -->
-            <select name="employment" id="employment" class="w-full p-1">
-              <option selected disabled hidden>Employment Status</option>
+            <select id="employmentStat" class="w-full p-1">
+              <option selected value="">Employment Status</option>
               <option value="Employed">Employed</option>
               <option value="Unemployed">Unemployed</option>
               <option value="Self-employed">Self-employed</option>
@@ -752,17 +768,66 @@ function dateInText($date)
             <button id="deployTracerBtn" class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
           </div>
 
-          <div id="formReport" class="border border-t-grayish h-5/6">
-            <div class="h-2/5 p-5">
-              <h1 class="text-lg font-extrabold">Employment Status</h1>
-              <canvas class="w-full h-5/6" id="empStatus"></canvas>
+          <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
+            <div class="flex gap-2 justify-evenly">
+              <div class="h-2/5 w-1/2 p-5 flex flex-col">
+                <h1 class="text-lg font-extrabold">Completion Chart</h1>
+                <canvas class="w-full h-full" id="completionChart"></canvas>
+              </div>
+
+              <div class="h-2/5 w-1/2 p-5 flex flex-col">
+                <h1 class="text-lg font-extrabold px-5">College Alumni Chart</h1>
+                <canvas class="w-full h-5/6" id="respondentPerCol"></canvas>
+              </div>
             </div>
 
-            <div class="h-1/2 p-5">
-              <h1 class="text-lg font-extrabold px-5">Annual Salary</h1>
-              <canvas class="block mx-auto w-full h-full" id="salaryChart"></canvas>
+            <div class="center-shadow rounded-lg p-3 m-2">
+              <h3 class="font-semibold text-lg text-greyish_black">GET THE GRAPH OF A SPECIFIC QUESTION</h3>
+
+              <div class="flex mt-2 items-center">
+                <div class=" w-3/4 flex">
+                  <!-- category -->
+                  <div class="text-sm text-gray-500 flex flex-col w-1/2">
+                    <label for="categorySelection" class="px-2">CATEGORY</label>
+                    <select id="categorySelection" class="border border-gray-400 rounded-lg p-2 m-2">
+                      <option value="" selected>--Your Choice--</option>
+                    </select>
+                  </div>
+                  <!-- question -->
+                  <div class="text-sm text-gray-500 flex flex-col w-1/2">
+                    <label for="questionSelection" class="px-2">QUESTION</label>
+                    <select id="questionSelection" class="border border-gray-400 rounded-lg p-2 m-2">
+                      <option value="" selected>--Your Choice--</option>
+                    </select>
+                  </div>
+
+                  <!-- graph type -->
+                  <div class="text-sm text-gray-500 flex flex-col w-1/2">
+                    <label for="typeChartSelection" class="px-2">GRAPH/CHART</label>
+                    <select id="typeChartSelection" class="border border-gray-400 rounded-lg p-2 m-2">
+                      <option value="" selected>--Your Choice--</option>
+                      <option value="bar">Bar Type</option>
+                      <option value="bubble">Bubble Type</option>
+                      <option value="doughnut">Doughnut Type</option>
+                      <option value="pie">Pie Type</option>
+                      <option value="line">Line Type</option>
+                    </select>
+                  </div>
+
+                </div>
+
+                <div class="w-1/2 flex items-center justify-end">
+                  <button id="displayChart" class="px-4 py-2 rounded-lg off">Display</button>
+                </div>
+
+              </div>
+
+              <p class="text-sm italic text-gray-500">Note: Select a category first</p>
             </div>
 
+            <div class="center-shadow rounded-lg p-3 m-2 h-full flex justify-center">
+              <canvas class="w-full h-full" id="chartPerQuestion"></canvas>
+            </div>
           </div>
 
           <!-- repository -->
@@ -1046,36 +1111,20 @@ function dateInText($date)
 
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-          <div class="flex justify-evenly text-xs">
-
-            <div class="flex border border-grayish w-full rounded-md p-1">
-              <img class="inline " src="../images/search-icon.png" alt="">
-              <input class="outline-none" type="text" name="" id="aomSearch" placeholder="Typing!">
-            </div>
-
-            <!-- gender -->
-            <select name="aomGender" id="aomGender" class="px-3 py-2">
-              <option value="" selected disabled hidden>All</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+          <div class="flex gap-2 my-2">
+            <!-- batch -->
+            <select id="aomMonth" class=" border border-gray-300 rounded-md py-3">
+              <option value="" selected>Month</option>
             </select>
 
-            <!-- range -->
-            <div class="w-full flex justify-evenly border p-2 mx-2">
-              <input type="text" name="aomdaterange" id="aomdaterange" value="01/01/2018 - 01/15/2018" />
-              <label class="" for="aomdaterange">
-                <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
-              </label>
-            </div>
-
-            <!-- batch -->
-            <select name="batch" id="aomBatch" class="w-full p-1">
-              <option value="" selected disabled hidden>Batch</option>
+            <!-- year filter -->
+            <select id="aomYr" class=" border border-gray-300 rounded-md px-3">
+              <option value="" selected>Year</option>
             </select>
 
             <!-- college -->
-            <select name="employment" id="aomCollege" class="w-full p-1">
-              <option value="" selected disabled hidden>College</option>
+            <select id="aomCollege" class=" border border-gray-300 rounded-md ">
+              <option value="" selected>College</option>
               <?php
               require_once '../PHP_process/connection.php';
               $query = "SELECT * FROM `college`";
@@ -1096,76 +1145,17 @@ function dateInText($date)
           </div>
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin text-greyish_black center-shadow">
+          <table id="aomTable" class="table-auto w-full mt-16 text-xs font-thin text-greyish_black center-shadow">
             <thead>
               <tr class="bg-accent text-white">
-                <th class="text-start rounded-tl-lg">NAME</th>
+                <th class="text-start rounded-tl-lg w-5"></th>
+                <th>NAME</th>
                 <th>EMAIL</th>
                 <th>STUDENT NUMBER</th>
-                <th>COLLEGE</th>
-                <th class="rounded-tr-lg">DETAILS</th>
+                <th class=" rounded-tr-lg">COLLEGE</th>
               </tr>
             </thead>
-            <tbody class="text-sm">
-              <tr class="h-14 text-xs">
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/alumni-pic2.png"></img>
-                    <span class="ml-2">Wade Warren</span>
-                  </div>
-                </td>
-                <td class="text-center">wadeWarren@gmail.com</td>
-                <td class="text-center">2020183209</td>
-                <td class="text-center">CICT</td>
-                <td class="text-center viewProfile text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">
-                  VIEW PROFILE</td>
-              </tr>
-
-              <tr class="h-14 text-xs">
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/avatar-prof.png"></img>
-                    <span class="ml-2">Leslie Alexander</span>
-                  </div>
-                </td>
-                <td class="text-center">lesliealexander12@gmail.com</td>
-                <td class="text-center">2020183233</td>
-                <td>COED</td>
-                <td class="text-center viewProfile text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">
-                  VIEW PROFILE</td>
-              </tr>
-
-              <tr class="h-14 text-xs">
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/footer-img.png"></img>
-                    <span class="ml-2">Floyd Miles</span>
-                  </div>
-                </td>
-                <td class="text-center">mile_floyd@gmail.com</td>
-                <td class="text-center">2020183211</td>
-                <td class="text-center">CIT</td>
-                <td class="text-center viewProfile text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">
-                  VIEW PROFILE</td>
-              </tr>
-
-
-              <tr class="h-14 text-xs">
-                <td>
-                  <div class="flex items-center justify-start">
-                    <img class="w-10 h-10 rounded-full border-2 border-accent" src=""></img>
-                    <span class="ml-2">Cameron Williamson</span>
-                  </div>
-                </td>
-                <td class="text-center">cameron_williamson@gmail.com</td>
-                <td class="text-center">2020183236</td>
-                <td class="text-center">CHTM</td>
-                <td class="text-center viewProfile text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue">
-                  VIEW PROFILE</td>
-              </tr>
-
-
-            </tbody>
+            <tbody class="text-sm text-gray-500 rounded-b-lg"></tbody>
           </table>
         </div>
 
@@ -1218,7 +1208,7 @@ function dateInText($date)
         </div>
 
         <!-- job opportunities content -->
-        <div id="jobOpportunities-tab" class="p-5">
+        <div id="jobOpportunities-tab" class="p-5 h-full">
           <img class="jobPostingBack inline cursor-pointer hidden" src="../images/back.png" alt="">
           <h1 class="text-xl font-extrabold">Job Opportunities </h1>
           <p class="text-grayish  ">Check all the pending job post to be posted</p>
@@ -1232,21 +1222,17 @@ function dateInText($date)
 
               <div class=" items-center flex">
 
-                <select name="" id="">
+                <select id="authorFilter">
                   <option value="all" selected>All</option>
                   <option value="admin">Admin</option>
                   <option value="alumni">Alumni</option>
                 </select>
 
-                <div class="border border-accent rounded-md">
-                  <img class="inline" src="../images/search-icon.png" alt="">
-                  <input id="jobSearchTitle" type="text" placeholder="Search title">
-                </div>
               </div>
 
             </div>
 
-            <table class="w-full mt-10 center-shadow">
+            <table id="jobTable" class="w-full mt-10 center-shadow">
               <thead class="bg-accent text-sm text-white p-3">
                 <tr>
                   <th class="rounded-tl-lg">Company</th>
@@ -1258,13 +1244,9 @@ function dateInText($date)
                 </tr>
               </thead>
 
-              <tbody class="text-sm" id="jobTBContent"></tbody>
+              <tbody class="text-sm"></tbody>
             </table>
-            <div id="jobNavigation" class="flex justify-end gap-2 px-2 mt-2">
-              <button id="prevJob" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
-              <button id="nextJob" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
-            </div>
-            <p class="hidden jobErrorMsg text-center mt-5 text-accent ">No available data yet</p>
+
           </div>
 
           <!-- job posting -->
@@ -1278,7 +1260,7 @@ function dateInText($date)
                   <div class="mb-3">
                     <label for="collegeJob" class="font-bold text-greyish_black block">College</label>
                     <!-- college selection -->
-                    <select name="collegeJob" id="collegeJob" class=" border border-grayish p-2 rounded-lg w-4/5 outline-none text-gray-400">
+                    <select name="collegeJob" id="collegeJob" class=" border border-gray-400 p-2 rounded-lg w-4/5 outline-none text-gray-400 jobField">
                       <option value="" selected disabled hidden>All</option>
                       <?php
                       require_once '../PHP_process/connection.php';
@@ -1371,7 +1353,15 @@ function dateInText($date)
                 <div id="skillDiv" class="flex flex-wrap">
                   <div>
                     <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                    <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
+                    <input id="inputSkill" class="inputSkill skillInput jobField" type="text" placeholder="Add skill/s that needed">
+                  </div>
+                  <div>
+                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
+                    <input id="inputSkill2" class="inputSkill skillInput jobField" type="text" placeholder="Add skill/s that needed">
+                  </div>
+                  <div>
+                    <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
+                    <input id="inputSkill2" class="inputSkill skillInput jobField" type="text" placeholder="Add skill/s that needed">
                   </div>
                 </div>
               </div>
@@ -1384,9 +1374,10 @@ function dateInText($date)
           </div>
 
           <!-- admin job post -->
-          <div id="adminJobPost" class="mt-10 w-full hidden">
+          <div id="adminJobPost" class="mt-10 w-full hidden h-4/5 overflow-y-auto">
             <div id="adminJobPostCont" class="grid grid-cols-4 gap-4 p-7"></div>
           </div>
+
         </div>
       </main>
     </div>
@@ -1465,7 +1456,7 @@ function dateInText($date)
       <form id="emailForm" class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
         <div class="w-full h-full">
           <div class="modal-header py-5">
-            <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
+            <h1 class="text-accent text-2xl text-center font-bold">Send Mail</h1>
           </div>
           <div class="modal-body px-3 h-1/2">
 
@@ -1481,9 +1472,9 @@ function dateInText($date)
 
 
             <div id="groupEmail" class="flex gap-1">
-              <div class=" border border-gray-400 rounded flex px-2 py-2">
+              <div class=" border border-gray-400 rounded flex px-2 py-2 selectColWrapper">
                 <select name="selectColToEmail" id="selectColToEmail" class="w-full outline-none">
-                  <option value="all" selected>All colleges</option>
+                  <option value="" disabled selected>College</option>
                   <?php
                   require_once '../PHP_process/connection.php';
                   $query = "SELECT * FROM `college`";
@@ -1553,8 +1544,8 @@ function dateInText($date)
 
           <!-- Footer -->
           <div class="modal-footer flex items-end flex-row-reverse px-3 mt-2">
-            <button type="submit" id="sendEmail" class="bg-accent h-full py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
-            <button class="cancelEmail py-2 rounded px-5  hover:bg-slate-400 hover:text-white">Cancel</button>
+            <button type="submit" id="sendEmail" class="bg-accent h-full py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Send</button>
+            <button type="button" class="cancelEmail py-2 rounded px-5  hover:bg-slate-400 hover:text-white">Cancel</button>
           </div>
         </div>
       </form>
@@ -1610,45 +1601,65 @@ function dateInText($date)
 
     <!-- View job post modal -->
     <div id="viewJob" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
-        top-0 left-0 p-5 hidden overflow-y-auto">
+          top-0 left-0 p-5 hidden overflow-y-auto">
       <!-- modal body -->
-      <div class="w-2/5 bg-white rounded-lg h-max p-5">
-        <!-- content -->
-        <div class="headerJob flex">
-          <img id="jobCompanyLogo" class="h-20 w-20 inline" src="" alt="">
-          <div class="w-3/5 ps-3">
-            <span id="viewJobColText" class="text-lg font-semibold"></span>
-            <div class="flex items-center">
-              <p class="text-sm text-gray-600 pr-1">Posted by: </p>
-              <p id="viewJobAuthor" class="text-sm font-semibold text-green-500"></p>
+      <div id="viewingJobModal" class="w-2/5 bg-white rounded-lg h-4/5 slide-bottom">
+
+        <div class="flex flex-col justify-between h-full">
+          <div class=" overflow-y-auto no-scrollbar">
+            <!-- content -->
+            <div class="headerJob flex rounded-t-lg p-5 w-full bg-accent">
+              <div class="w-3/5 ps-3">
+                <span id="viewJobColText" class="text-2xl font-bold text-gray-200"></span>
+                <div class="flex gap-2 items-center">
+                  <p class="text-sm text-white">Company Name: </p>
+                  <p id="viewJobColCompany" class="text-sm font-bold text-white">Admin</p>
+                </div>
+                <div id="skillSets" class="flex flex-wrap gap-2 text-white text-xs my-1 "></div>
+              </div>
+
+
             </div>
 
-            <div class="flex items-center">
-              <p class="text-sm text-gray-600 pr-1">Company Name: </p>
-              <p id="viewJobColCompany" class="text-sm text-green-500 font-semibold">Admin</p>
-            </div>
+            <div class="p-5">
+              <p class="text-gray-500 font-bold text-xl">Project Overview</p>
+              <pre id="jobOverview" class="text-sm h-max w-full indented text-gray-500 mb-2 mt-1"></pre>
 
-            <p id="viewPostedDate" class="text-sm text-gray-600 pr-1"></p>
+              <p class="text-gray-500 font-bold text-xl">Qualification</p>
+              <pre id="jobQualification" class="text-sm h-max indented text-gray-500 mb-2 mt-1"></pre>
+
+              <p class="text-gray-500 font-bold text-xl">LOCATION</p>
+              <span id="locationJobModal" class="text-gray-500 text-sm my-1"></span>
+            </div>
           </div>
 
+          <div class="p-3 text-gray-400 border-t border-gray-400 flex justify-between">
+            <button id="aplicantListBtn" class="flex items-center gap-2 cursor-text">
+              <iconify-icon icon="uiw:user" style="color: #868e96;" width="18" height="18"></iconify-icon>
+              <span id="jobApplicant"></span>
+            </button>
+
+            <div class="flex items-center gap-2">
+              <iconify-icon icon="ri:verified-badge-line" style="color: #868e96;" width="18" height="18"></iconify-icon>
+              <span id="statusJob"></span>
+            </div>
+
+          </div>
         </div>
-        <hr class="p-1 border-gray-400 mt-5">
 
+      </div>
+    </div>
 
-        <p class="text-black font-bold my-3">Project Overview</p>
-        <p id="jobOverview" class="text-sm h-max w-full text-gray-600"></p>
+    <!-- list of applicant -->
+    <div id="listOfApplicantModal" class="post modal fixed inset-0 flex justify-center p-3 hidden">
+      <div class="modaListApplicant modal-container w-1/3 h-max bg-white rounded-md relative slide-bottom p-5">
+        <button class="p-1 text-gray-300 items-center justify-center flex border border-gray-400 rounded-full hover:bg-accent absolute top-0 -right-11">
+          <iconify-icon icon="ei:close" width="24" height="24"></iconify-icon>
+        </button>
+        <h3 class="text-center font-bold text-xl py-2 text-greyish_black border-b border-gray-300">Applicant List</h3>
 
-        <p class="text-black font-bold text-sm my-3">Skills</p>
-        <div id="skillSets" class="flex flex-wrap gap-2 text-gray-600 text-sm"></div>
+        <div id="listApplicantContainer" class="modaListApplicant overflow-y-auto h-max p-3 flex flex-col gap-3"></div>
 
-        <p class="text-black font-bold my-3">Qualification</p>
-        <p id="jobQualification" class="text-sm h-max text-gray-600"></p>
-
-
-        <p class="text-black font-bold my-3">REQUIREMENTS</p>
-        <div id="reqCont" class="text-gray-600 text-sm"></div>
-
-        <button class="bg-green-400 text-white px-8 py-3 mt-5 rounded-md block ml-auto">Apply Now</button>
       </div>
     </div>
 
@@ -1765,9 +1776,7 @@ function dateInText($date)
           </div>
 
           <!-- comments -->
-          <div id="commentContainer" class=" h-3/4 p-2 overflow-auto">
-
-          </div>
+          <div id="commentContainer" class=" h-3/4 p-2 overflow-auto"></div>
         </div>
       </div>
     </div>
@@ -1893,7 +1902,7 @@ function dateInText($date)
     <div id="delete-modal" class="modal hidden fixed inset-0 z-50 h-full w-full flex items-center justify-center ">
       <div class="relative w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow">
-          <button onclick="closeReport()" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+          <button type="button" class="closeDeleteBtn absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
             </svg>
@@ -1907,7 +1916,7 @@ function dateInText($date)
             <button id="deletePostbtn" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
               Yes, I'm sure
             </button>
-            <button type="button" class="text-gray-400" onclick="closeReport()">No, cancel</button>
+            <button type="button" class="closeDeleteBtn text-gray-400">No, cancel</button>
           </div>
         </div>
       </div>
@@ -1939,7 +1948,7 @@ function dateInText($date)
         </div>
 
         <!-- headline image -->
-        <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" src="../images/bsu-header5.jpg" alt="">
+        <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" alt="">
 
         <p class="text-sm text-gray-500">Date Posted: <span id="announceDatePosted"></span></p>
         <p class="text-sm text-gray-500">By: <span id="announcementAuthor" class="text-accent"></span></p>
@@ -2086,12 +2095,19 @@ function dateInText($date)
 
       <div id="modalConfirmDeployment" class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3">
         <h3 class="text-xl font-semibold text-gray-900 border-b border-gray-300 py-3">Tracer Deploy Confirmation</h3>
-        <p class="p-4"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi laudantium natus accusamus aperiam quas,
-          assumenda placeat vero quia temporibus? Autem doloribus asperiores veritatis reiciendis? Aliquam tenetur provident
-          officiis? Eveniet, ipsa.</p>
+        <p class="p-4 text-sm">You are about to deploy the Graduate Tracer, which will be accessible to all alumni users in the system.
+          Please be aware that this deployment is valid for a limited period of 4 months. </p>
+
+        <p class="p-4 text-sm">By confirming this action, you are distributing
+          the Graduate Tracer to all alumni, enabling them to access valuable information and insights.
+          It's essential to ensure that the data and content within the tracer are up-to-date and accurate for the
+          benefit of our alumni community. </p>
+
+        <p class="p-4 text-sm">Remember, this deployment is a significant step in keeping our alumni engaged and informed.
+          Are you sure you want to proceed?</p>
 
         <div class="flex w-full justify-end items-center gap-2 my-3 border-t border-gray-300 py-2">
-          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button id="cancelDeployBtn" class="text-gray-400 hover:text-gray-500">Cancel</button>
           <button id="confirmDeployTracerBtn" class="px-4 py-2 rounded-lg bg-blue-400 hover:bg-blue-500 text-white font-bold">Deploy</button>
         </div>
       </div>
@@ -2104,7 +2120,7 @@ function dateInText($date)
         <input id="categoryInputVal" type="text" placeholder="Enter a new category..." class="w-full border-b border-gray-300 p-3 my-3">
 
         <div class="flex justify-end gap-2">
-          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button id="cancelCatInsertion" class="text-gray-400 hover:text-gray-500">Cancel</button>
           <button id="addNewCategoryBtn" class="text-white bg-green-400 rounded-lg py-2 px-4 hover:bg-green-500 font-bold">Create</button>
         </div>
       </div>
@@ -2116,17 +2132,170 @@ function dateInText($date)
         <h3 class="text-lg text-greyish_black text-center ">Are you sure you want to delete post this post?</h3>
         <input id="reasonForDel" class="text-gray-400 py-2 w-full text-center" type="text" placeholder="State your reason for deleting">
         <div class="flex items-center justify-end my-2 gap-2">
-          <button class="text-gray-400 hover:text-gray-500">Cancel</button>
+          <button class="text-gray-400 hover:text-gray-500 cancelDeletionAdmin">Cancel</button>
           <button id="deleteByAdminBtn" class="bg-accent py-1 px-4 text-white hover:bg-darkAccent rounded-lg">Delete</button>
         </div>
       </div>
     </div>
 
+    <!-- deletion question modal -->
+    <div class="deleteQuestionPost modal fixed inset-0 z-50 flex justify-center p-3 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg text-greyish_black p-3 center-shadow slide-bottom">
+        <h3 class="text-lg text-greyish_black text-center ">Are you sure you want to delete this question?</h3>
+        <div class="flex flex-col justify-end mt-7 gap-2 w-4/5 mx-auto">
+          <button id="deleteQuestionBtn" class="bg-accent py-1 px-4 text-white hover:bg-darkAccent rounded-lg">Delete</button>
+          <button id="cancelDelQuestionBtn" class="text-gray-400 hover:text-gray-500">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="viewResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+      <div class="fixed h-max w-full bg-black bg-opacity-50  flex justify-between p-3 top-0 gap-2">
+        <button id="closeViewResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+          <iconify-icon icon="fluent-mdl2:back" style="color: white;" width="24" height="24"></iconify-icon>
+        </button>
+
+        <div class="flex gap-2">
+          <button id="downloadResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+            <iconify-icon icon="teenyicons:download-outline" style="color: white;" width="24" height="24"></iconify-icon>
+          </button>
+          <button id="printResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+            <iconify-icon icon="fluent:print-32-regular" style="color: white;" width="24" height="24"></iconify-icon>
+          </button>
+        </div>
+
+      </div>
+      <div class="bg-white p-5 h-full overflow-y-auto w-2/3">
+        <div id="resumeWrapperModal">
+          <main class="flex">
+            <aside class="w-2/6 text-greyish_black p-3 flex flex-col gap-4 text-xs">
+              <header id="fullnameResume" class="text-3xl block font-bold"></header>
+              <!-- contact Section -->
+              <section class="flex flex-col gap-2">
+                <h1 class="font-bold text-base">CONTACT</h1>
+
+                <!-- contact number -->
+                <span class="flex gap-4 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <g fill="none" fill-rule="evenodd">
+                      <path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
+                      <path fill="#555" d="M16.552 22.133c-1.44-.053-5.521-.617-9.795-4.89c-4.273-4.274-4.836-8.354-4.89-9.795c-.08-2.196 1.602-4.329 3.545-5.162a1.47 1.47 0 0 1 1.445.159c1.6 1.166 2.704 2.93 3.652 4.317a1.504 1.504 0 0 1-.256 1.986l-1.951 1.449a.48.48 0 0 0-.142.616c.442.803 1.228 1.999 2.128 2.899c.901.9 2.153 1.738 3.012 2.23a.483.483 0 0 0 .644-.162l1.27-1.933a1.503 1.503 0 0 1 2.056-.332c1.407.974 3.049 2.059 4.251 3.598a1.47 1.47 0 0 1 .189 1.485c-.837 1.953-2.955 3.616-5.158 3.535Z" />
+                    </g>
+                  </svg>
+                  <span id="contactNoResume" class="font-thin">09104905440</span>
+                </span>
+
+                <!-- email address -->
+                <span class="flex gap-4 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <path fill="#555" d="M19 14.5v-9c0-.83-.67-1.5-1.5-1.5H3.49c-.83 0-1.5.67-1.5 1.5v9c0 .83.67 1.5 1.5 1.5H17.5c.83 0 1.5-.67 1.5-1.5zm-1.31-9.11c.33.33.15.67-.03.84L13.6 9.95l3.9 4.06c.12.14.2.36.06.51c-.13.16-.43.15-.56.05l-4.37-3.73l-2.14 1.95l-2.13-1.95l-4.37 3.73c-.13.1-.43.11-.56-.05c-.14-.15-.06-.37.06-.51l3.9-4.06l-4.06-3.72c-.18-.17-.36-.51-.03-.84s.67-.17.95.07l6.24 5.04l6.25-5.04c.28-.24.62-.4.95-.07z" />
+                  </svg>
+                  <span id="emailAddResume" class=" font-thin">lapiraisagani@gmail.com</span>
+                </span>
+
+                <!-- location -->
+                <span class="flex gap-4 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
+                    <path fill="#555" d="M9.156 14.544C10.899 13.01 14 9.876 14 7A6 6 0 0 0 2 7c0 2.876 3.1 6.01 4.844 7.544a1.736 1.736 0 0 0 2.312 0ZM6 7a2 2 0 1 1 4 0a2 2 0 0 1-4 0Z" />
+                  </svg>
+                  <span id="addressResume" class="font-thin">56 Vinta Street, Mabolo, Malolos Bulacan</span>
+                </span>
+              </section>
+
+              <!-- education -->
+              <section id="educationContainer" class="flex flex-col gap-2 z-50">
+                <h1 class="font-bold text-base">EDUCATION</h1>
+
+                <div id="primaryLvl" class="font-thin"></div>
+                <div id="secondaryLvl" class="font-thin"></div>
+                <div id="tertiaryLvl" class="font-thin"></div>
+              </section>
+
+
+              <!-- skills -->
+              <section>
+                <h1 class="font-bold text-base">SKILLS</h1>
+
+                <div id="skillWrapper" class="flex flex-col gap-2 z-50"></div>
+              </section>
+            </aside>
+
+            <aside class="w-4/6 text-greyish_black text-xs p-3">
+              <!-- objective -->
+              <section>
+                <h1 class="font-bold text-base">OBJECTIVE</h1>
+                <p id="objectiveResume" class="my-2"></p>
+              </section>
+
+              <!-- work experience -->
+              <section class="my-2">
+                <h1 class="font-bold text-base mt-5">WORK EXPERIENCE</h1>
+                <ul id="workExpList" class="p-3 flex flex-col gap-2"></ul>
+              </section>
+
+              <!-- reference -->
+              <section class="my-2">
+                <h1 class="font-bold text-base">REFERENCES</h1>
+
+                <div id="referenceContainer" class="flex flex-col gap-4 my-2"></div>
+              </section>
+            </aside>
+          </main>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- comment -->
+    <div id="commentPost" class="post modal fixed inset-0 flex justify-center p-3 z-50 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 flex flex-col gap-1 slide-bottom">
+        <!-- close button -->
+        <span class="flex justify-end">
+          <iconify-icon id="closeComment" class="rounded-full cursor-pointer p-2 hover:bg-gray-300" icon="ep:close" style="color: #686b6f;" width="20" height="20"></iconify-icon>
+        </span>
+
+        <div class="flex gap-2 items-center">
+          <img id="postProfile" class="h-10 w-10 rounded-full" src="../assets/icons/person.png" alt="">
+          <div>
+            <p id="postFullname" class="text-black"></p>
+            <p id="postUsername" class="text-xs text-gray-400 font-thin"></p>
+          </div>
+        </div>
+
+        <div id="replacementComment" class="border-l-2 border-gray-400 w-max ml-5 p-3">
+          <p class="text-center text-sm italic text-gray-400">Reply to
+            <span id="replyToUsername" class=" font-semibold text-blue-500">username</span>
+          </p>
+        </div>
+        <div class="flex gap-2 ">
+          <?php
+          if ($profilepicture == "") {
+            echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon rounded-full" />';
+          } else {
+            $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+            echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon rounded-full" />';
+          }
+          ?>
+          <textarea id="commentArea" class="w-full h-28 outline-none text-gray-400" placeholder="Comment your thought!"></textarea>
+        </div>
+
+        <button id="commentBtn" class="px-3 py-2 rounded-lg bg-red-950 text-white font-semibold block ml-auto text-sm" disabled>Comment</button>
+      </div>
+    </div>
+
+    <div id="loadingScreen" class="post modal fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden">
+      <span class="loader w-36 h-36"></span>
+      <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
+    </div>
   </div>
 
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/jobposted.js"></script>
+  <script src="../js/tracerchart.js"></script>
+  <script src="../js/alumni_of_the_month.js"></script>
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>
   <script src="../js/alumnirecord.js"></script>

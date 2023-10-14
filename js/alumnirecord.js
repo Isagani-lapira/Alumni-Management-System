@@ -2,26 +2,43 @@ $(document).ready(function () {
     let offset = 0;
     let tempOffsetRecord = 0;
     let countNextRecord = 0;
+
+    let batchFilter = "";
+    let collegeFilter = "";
+    let empStatusFilter = ""
     $('#alumniLi').on('click', function () {
         offset = 0
-        getAlumniRecord()
+        getAlumniRecord(alumniDataDefault)
+        $('#batchAlumRecord option:not(:first-child)').remove()
+        addBatchOption()
     })
 
-    // retrieve alumni record
-    function getAlumniRecord() {
-        let actionAlumni = {
-            action: "readAll",
-        };
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const startYear = 1904;
+    // create option for select batch from today's year down to 1945
+    function addBatchOption() {
+        for (let i = currentYear; i > startYear; i--) {
+            const option = $('<option>').val(i).text(i);
+            $('#batchAlumRecord').append(option)
+        }
+    }
+    let actionAlumni = {
+        action: "readAll",
+    };
 
-        let alumniData = new FormData();
-        alumniData.append("action", JSON.stringify(actionAlumni));
-        alumniData.append('offset', offset)
+    let alumniDataDefault = new FormData();
+    alumniDataDefault.append("action", JSON.stringify(actionAlumni));
+    alumniDataDefault.append('offset', offset)
+
+    // retrieve alumni record
+    function getAlumniRecord(alumniDataDefault) {
         let alumniTB = $("#alumniTB");
         let prompt = $("#alumniNoRecMsg");
         $.ajax({
             url: "../PHP_process/alumniData.php",
             method: "POST",
-            data: alumniData,
+            data: alumniDataDefault,
             processData: false,
             contentType: false,
             success: (response) => {
@@ -85,4 +102,38 @@ $(document).ready(function () {
             getAlumniRecord();
         }
     })
+
+
+    let actionAlumniFilter = {
+        action: 'filterRecord'
+    }
+    let alumniFilter = new FormData();
+    alumniFilter.append("action", JSON.stringify(actionAlumniFilter))
+    alumniFilter.append("offset", offset)
+    alumniFilter.append("batchYr", batchFilter)
+    alumniFilter.append("college", collegeFilter)
+    alumniFilter.append("status", empStatusFilter)
+
+    // filter data
+    $('#batchAlumRecord').on('change', function () {
+        batchFilter = $(this).val();
+        offset = 0;
+        alumniFilter.set('batchYr', batchFilter);
+        getAlumniRecord(alumniFilter) //retrieve alumni with batch filter
+    })
+
+    $('#alumniCollege').on('change', function () {
+        collegeFilter = $(this).val();
+        offset = 0;
+        alumniFilter.set('college', collegeFilter);
+        getAlumniRecord(alumniFilter); //retrieve alumni with college filter
+    })
+
+    $('#employmentStat').on('change', function () {
+        empStatusFilter = $(this).val();
+        offset = 0;
+        alumniFilter.set('status', empStatusFilter);
+        getAlumniRecord(alumniFilter) //retrieve alumni with batch filter
+    })
+
 })

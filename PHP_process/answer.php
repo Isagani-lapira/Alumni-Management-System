@@ -32,6 +32,10 @@ if (isset($_POST['action'])) {
         $answerID = $_POST['answerID'];
         updateStatusToDone($answerID, $mysql_con);
     } else if ($action == 'checkUserTracerStatus') {
+    } else if ($action == 'completionStatus') {
+        countAnswer($mysql_con);
+    } else if ($action == 'countDonePerCollege') {
+        countCollegeParticipation($mysql_con);
     }
 }
 
@@ -196,4 +200,77 @@ function checkUserTracerStatus($answerID, $con)
     }
 
     return $isDone;
+}
+
+function countAnswer($con)
+{
+    $tracerID = retrievedDeployment($con); //latest graduate tracer form deployment
+
+    // get the count of who already finish answering the form
+    $query = "SELECT COUNT(*) FROM `answer` WHERE `tracer_deployID` = ? AND status = 'done'";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('s', $tracerID);
+    $stmt->execute();
+    $stmt->bind_result($completed);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Second, retrieve the total count from the alumni table
+    $queryAlumni = "SELECT COUNT(*) FROM `alumni`";
+    $stmtAlumni = mysqli_prepare($con, $queryAlumni);
+    $stmtAlumni->execute();
+    $stmtAlumni->bind_result($totalAlumniCount);
+    $stmtAlumni->fetch();
+    $stmtAlumni->close();
+
+    $waiting = $totalAlumniCount - $completed;
+    $data = array(
+        "completed" => $completed,
+        "waiting" => $waiting,
+    );
+    echo json_encode($data);
+}
+
+
+function countCollegeParticipation($con)
+{
+    $tracerID = retrievedDeployment($con); //latest graduate tracer form deployment
+    $queryCollege = "SELECT `colCode` FROM `college`"; //get all the colleges in the system
+    $stmt = mysqli_prepare($con, $queryCollege);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $collegesCount = array();
+
+    if ($result) {
+        while ($data = $result->fetch_assoc()) {
+            $colCode = $data['colCode']; //retrieve every college in the database
+
+            // count the alumni of every colleges that finish answering latest tracer
+            $queryCount = "SELECT COUNT(a.colCode)
+            FROM alumni a
+            JOIN (
+                SELECT personID
+                FROM answer
+                WHERE tracer_deployID = ? AND status = 'done'
+            ) b ON a.personID = b.personID
+            WHERE a.colCode = ? ";
+
+            $stmtCount = mysqli_prepare($con, $queryCount);
+            $stmtCount->bind_param('ss', $tracerID, $colCode);
+            $stmtCount->execute();
+            $stmtCount->bind_result($count);
+            $stmtCount->fetch();
+
+            $participant = array(
+                "colCode" => $colCode,
+                "alumniCountFinished" => $count
+            );
+
+            $collegesCount[] = $participant;
+            $stmtCount->close();
+        }
+        $result->close();
+    }
+
+    echo json_encode($collegesCount);
 }

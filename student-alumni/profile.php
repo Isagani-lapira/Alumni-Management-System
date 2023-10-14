@@ -149,11 +149,12 @@ function dateInText($date)
         </a>
 
         <!-- Search Bar -->
-        <div class="col-span-1 flex items-center justify-center">
+        <div class="col-span-1 flex items-center justify-center relative">
             <div class="relative w-full">
-                <input type="text" placeholder="Search" class="pl-10 pr-4 py-3 w-full border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none transparent-search-bar" />
+                <input type="text" id="searchUser" placeholder="Search" class="pl-10 pr-4 py-3 w-full border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none transparent-search-bar" />
                 <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
             </div>
+            <div id="searchProfile" class="absolute top-16 bg-white rounded-b-lg p-3 z-50 w-full hidden"></div>
         </div>
 
         <!-- Menu Items -->
@@ -350,6 +351,71 @@ function dateInText($date)
     </div>
 
     <!-- MODALS -->
+
+    <div id="profileModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div id="profileModalUser" class="bg-white rounded shadow-lg w-2/5 max-h-screen h-max overflow-y-auto slide-bottom">
+            <!-- Cover Photo -->
+            <div class="coverPhotoContainer">
+                <img id="profileModalCover" alt="Cover Photo" class=" w-4/5 h-full md:h-56 mb-4 object-cover block mx-auto object-center">
+            </div>
+            <div class="px-4 md:px-6">
+
+                <!-- Profile Picture and Info -->
+                <div class="flex items-start mb-4">
+                    <img id="profileModalProfile" alt="Profile Picture" class=" w-16 h-16 md:w-28 md:h-28 rounded-full md:-mt-20 mr-4 ml-2 bg-white border-2">
+                    <div class="flex-grow">
+                        <h2 id="profileModalFN" class=" md:text-lg font-bold text-gray-700"></h2>
+                        <p id="profileModalUN" class="text-gray-500 text-sm"></p>
+                    </div>
+
+                    <button class="px-3 md:px-4 py-2 text-xs md:text-sm bg-red-800 text-white rounded-md">Send Email</button>
+                </div>
+
+                <h2 class="text-md md:text-lg font-bold mb-2 text-greyish_black">Social Media</h2>
+
+                <!-- social media links -->
+                <div class="flex gap-2 border-b border-gray-300 text-sm text-gray-500 py-2 mb-2">
+
+                    <div class="flex-1 flex-col gap-4 justify-center items-center">
+                        <!-- facebook -->
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="formkit:facebook" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                            <span id="facebookUN" class="text-center"></span>
+                        </div>
+
+                        <!-- instagram -->
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="formkit:instagram" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                            <span id="instagramUN" class="text-center"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex-col gap-3 justify-center items-center">
+                        <!-- twitter -->
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="simple-icons:twitter" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                            <span id="twitterUN" class="text-center"></span>
+                        </div>
+
+                        <!-- linkedIN -->
+                        <div class="flex items-center gap-3">
+                            <iconify-icon icon="uiw:linkedin" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                            <span id="linkedInUN" class="text-center"></span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- user post -->
+                <div id="userPostContainer" class="max-h-48 md:max-h-64 overflow-y-auto no-scrollbar">
+                    <div id="userPostModal" class="grid grid-cols-3 gap-4 p-2"></div>
+                    <p id="noProfileMsgSearch" class="text-center text-blue-400 my-2 hidden">No available Post</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- EDIT PROFILE -->
     <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
@@ -751,18 +817,18 @@ function dateInText($date)
                     <!-- personal information -->
                     <div class="personInfoSection">
                         <h1 class=" text-greyish_black font-black">Personal Details</h1>
-                        <p class="text-sm text-gray-500">Note: the information provided is dependent on the account's personal data.
-                            If there are any details that need to be changed, please edit your profile.</p>
+                        <p class="text-sm text-gray-500">Note: The information provided below depends on your account's personal data.
+                            If there are any details that need to be changed, please update your profile.</p>
                         <?php
                         echo '<div class="flex items-center gap-2 mt-4">
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                             <span class="font-bold">First name</span>
-                            <input id="firstname" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $firstName . '"
+                            <input id="firstnameEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $firstName . '"
                             placeholder="' . $firstName . '"/>
                         </div>
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                            <span class="font-bold">Last name</span>
-                           <input id="lastname" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $lastName . '"
+                           <input id="lastnameEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $lastName . '"
                             placeholder="' . $lastName . '"/>
                         </div>
                         </div>';
@@ -770,12 +836,12 @@ function dateInText($date)
                         echo '<div class="flex items-center gap-2 mt-2">
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                             <span class="font-bold">Address</span>
-                            <input id="address" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $address . '"
+                            <input id="addressEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $address . '"
                             placeholder="' . $address . '"/>
                         </div>
                         <div class="flex-1 flex flex-col text-sm text-gray-500">
                            <span class="font-bold">Contact No.</span>
-                           <input id="contactNo" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $contactNo . '"
+                           <input id="contactNoEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md personalInput" value="' . $contactNo . '"
                             placeholder="' . $contactNo . '"/>
                         </div>
                         </div>';
@@ -783,7 +849,7 @@ function dateInText($date)
                         echo '
                         <div class="flex flex-col w-full text-sm text-gray-500 mt-2">
                             <span class="font-bold">Email Address</span>
-                            <input id="emailAdd" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md" value="' . $personal_email . '"
+                            <input id="emailAddEdit" type="text" disabled class="p-2 w-full bg-gray-300 rounded-md" value="' . $personal_email . '"
                             placeholder="' . $personal_email . '"/>
                         </div>'
                         ?>
@@ -793,26 +859,26 @@ function dateInText($date)
                     <div class="academicBackground">
                         <h1 class=" text-greyish_black font-black">Academic Background</h1>
                         <!-- primary education -->
-                        <div class="flex gap-2 text-sm text-gray-500 mt-2">
+                        <div class="primary flex gap-2 text-sm text-gray-500 mt-2 education">
                             <div class="w-1/2">
                                 <p class="font-bold px-2">Education Level</p>
-                                <input id="degree0" type="text" class="primary p-2 w-full rounded-md requiredValue" placeholder="Primary education">
+                                <input id="degree0" type="text" class=" p-2 w-full rounded-md requiredValue" placeholder="Primary education">
                             </div>
 
                             <div class="w-1/4">
                                 <p class="font-bold text-center">Start year</p>
-                                <select id="startYr0" class="primary yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="startYr0" class=" yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
 
                             <div class="w-1/4">
                                 <p class="font-bold text-center">End Year</p>
-                                <select id="endYr0" class="primary yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="endYr0" class=" yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
 
                         </div>
 
                         <!-- secondary education -->
-                        <div class="flex gap-2 text-sm text-gray-500">
+                        <div class="flex gap-2 text-sm text-gray-500 education">
                             <div class="w-1/2">
                                 <input id="degree1" type="text" class="secondary p-2 w-full rounded-md requiredValue" placeholder="Secondary education">
                             </div>
@@ -828,7 +894,7 @@ function dateInText($date)
                         </div>
 
                         <!-- tertiary education -->
-                        <div class="flex gap-2 text-sm text-gray-500">
+                        <div class="flex gap-2 text-sm text-gray-500 education">
                             <div class="w-1/2">
                                 <input id="degree2" type="text" class="tertiary p-2 w-full rounded-md requiredValue" placeholder="Tertiary education">
                             </div>
@@ -842,7 +908,7 @@ function dateInText($date)
                             </div>
                         </div>
 
-                        <p class="text-gray-400 italic text-sm">Note: If you are still a student, please include your anticipated graduation year.</p>
+                        <p class="text-gray-400 italic text-sm">Note: if you are still a student, please include your anticipated graduate year.</p>
                     </div>
 
                 </div>
@@ -855,7 +921,7 @@ function dateInText($date)
                         <p class="italic text-xs">Note: Maximum work experience you can add is 4</p>
 
                         <!-- first work experience -->
-                        <div class="flex flex-wrap gap-1 items-center py-2 border-b border-gray-400">
+                        <div class="flex flex-wrap gap-1 items-center py-2 border-b border-gray-400 experience">
                             <svg id="addWorkExp3" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -882,7 +948,7 @@ function dateInText($date)
                         </div>
 
                         <!-- second work experience -->
-                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400">
+                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400 experience">
                             <svg id="addWorkExp3" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -907,7 +973,7 @@ function dateInText($date)
                         </div>
 
                         <!-- third work experience -->
-                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400">
+                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400 experience">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -932,7 +998,7 @@ function dateInText($date)
                         </div>
 
                         <!-- fourth work experience -->
-                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400">
+                        <div class="flex flex-wrap gap-2 items-center py-2 border-b border-gray-400 experience">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -963,15 +1029,12 @@ function dateInText($date)
                 <div id="pageNo2" id="skillPage" class="hidden">
                     <h1 class=" text-greyish_black font-black">Skills you have</h1>
                     <p class="text-sm text-gray-500">
-                        Provide only the skills that is related to what you are applying for you to stand out
-                    </p>
-                    <p class="text-sm text-gray-500">
-                        Note: Provide minimum of 3 and maximum of 6 skills
+                        Note: Please provide only the skills that are relevant to the job you are applying for, in order to make yourself stand out. Please also note that the minimum for this part is 3, and the maximum is 6
                     </p>
 
                     <div class="flex flex-col gap-3 mt-4">
                         <!-- first skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -983,7 +1046,7 @@ function dateInText($date)
                         </div>
 
                         <!-- second skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -995,7 +1058,7 @@ function dateInText($date)
                         </div>
 
                         <!-- third skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -1007,7 +1070,7 @@ function dateInText($date)
                         </div>
 
                         <!-- fourth skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -1019,7 +1082,7 @@ function dateInText($date)
                         </div>
 
                         <!-- fifth skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -1031,7 +1094,7 @@ function dateInText($date)
                         </div>
 
                         <!-- sixth skill -->
-                        <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
                                 <g id="galaAdd0" fill="none" stroke="#686b6f" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-opacity="1" stroke-width="16">
                                     <circle id="galaAdd1" cx="128" cy="128" r="112" />
@@ -1049,15 +1112,14 @@ function dateInText($date)
                 <div id="pageNo3" class="hidden">
                     <h1 class=" text-greyish_black font-black">References</h1>
                     <p class="text-sm text-gray-500">
-                        You should make sure you have obtained permission from
-                        your references before listing their contact information
-                        on your resume. It's also a good practice to choose references
-                        who can speak positively about your professional abilities and
-                        work experiences.
+                        Please ensure that you have obtained permission to include individuals
+                        as your references before listing their contact details on your resume.
+                        It is also good practice to select references who can speak positively
+                        about your professional abilities and work experiences
                     </p>
 
                     <!-- first person -->
-                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2">
+                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 referenceData">
                         <header class="font-bold text-blue-500">Person 1</header>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <div class="flex flex-col">
@@ -1084,7 +1146,7 @@ function dateInText($date)
                     </div>
 
                     <!-- second person -->
-                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2">
+                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 referenceData">
                         <header class="font-bold text-blue-500">Person 2</header>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <div class="flex flex-col">
@@ -1110,7 +1172,7 @@ function dateInText($date)
                         </div>
                     </div>
 
-                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2">
+                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 referenceData">
                         <header class="font-bold text-blue-500">Person 3</header>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <div class="flex flex-col">
@@ -1143,10 +1205,11 @@ function dateInText($date)
                 <div id="pageNo4" class="hidden">
                     <h1 class=" text-greyish_black font-black">Objective</h1>
                     <p class="text-sm text-gray-500">
-                        A brief statement highlighting your career goals, skills,
-                        and what you can bring to the table for potential employers.
-                        A summary is typically used for those with some work experience,
-                        while an objective is more suitable for entry-level candidates.
+                        It is a brief statement that highlights your career goals,
+                        skills, and what you can bring to the table for potential
+                        employers. A summary is typically used for those with some
+                        work experience, while an objective is more suitable for
+                        entry-level candidates.
                     </p>
                     <textarea id="objectiveInput" class="requiredValue w-full h-40 p-3 border border-gray-300 mt-4 rounded-md text-gray-500 outline-none" placeholder="Add an amazing summary about you"></textarea>
                 </div>
@@ -1285,6 +1348,7 @@ function dateInText($date)
 
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="../student-alumni/js/profile.js"></script>
+    <script src="../student-alumni/js/searchProfile.js"></script>
     <script src="../student-alumni/js/resumescript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </body>

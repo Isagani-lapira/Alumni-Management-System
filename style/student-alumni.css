@@ -284,26 +284,6 @@ body {
   }
 }
 
-#image-header-con {
-  background-image: url("../images/event_header.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
-}
-
-.event-carousel img {
-  box-shadow: rgba(7, 185, 255, 0.3) 0px 19px 38px,
-    rgba(57, 199, 255, 0.22) 0px 15px 12px;
-}
-
-#eventNameHeader,
-#eventName {
-  background: #ff6f9a;
-  background: linear-gradient(to right, #ff6f9a 7%, #e33a19 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 pre {
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -370,4 +350,77 @@ pre {
 
 .modaListApplicant {
   max-height: 80%;
+}
+
+#modalGuidelines {
+  height: 90%;
+}
+
+#jobRepo {
+  max-height: 100%;
+}
+
+.calendar-logo {
+  margin-left: 70%;
+}
+.diagonalBg {
+  position: relative;
+  width: 100%;
+
+  /* Create the diagonal line using a pseudo-element */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom right,
+      transparent 50%,
+      #121328 50%
+    ); /* Adjust the gradient angle as needed */
+  }
+
+  background-color: white; /* Set the background color for the white half */
+}
+
+.darkened-image {
+  filter: brightness(
+    0.5
+  ); /* Adjust the value to make it darker (0.5 makes it 50% darker) */
+}
+
+.typewriter {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: 0.15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  /* margin: 0 auto; Gives that scrolling effect as the typing happens */
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
+}
+
+.bdayInput {
+  border: none;
+  outline: none;
 }

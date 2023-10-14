@@ -18,8 +18,8 @@ class Career
         $skill,
         $personID,
         $location,
+        $con,
         $status = "verified", //default for admins
-        $con
     ) {
         $date_posted = date('y-m-d');
         $query = "INSERT INTO `career`(`careerID`, `jobTitle`, `companyName`, `jobDescript`,`jobqualification`,
@@ -331,14 +331,14 @@ class Career
             echo 'error';
     }
 
-    public function userPost($username, $offset, $con)
+    public function userPost($personID, $offset, $con)
     {
         $maxLimit = 10;
-        $query = "SELECT * FROM `career` WHERE `author` = ? ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit ";
+        $query = "SELECT * FROM `career` WHERE  `personID`= ? ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit ";
         $stmt = mysqli_prepare($con, $query);
 
         if ($stmt) {
-            mysqli_stmt_bind_param($stmt, 's', $username);
+            mysqli_stmt_bind_param($stmt, 's', $personID);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $row = mysqli_num_rows($result);

@@ -16,10 +16,10 @@ if (isset($_POST['action'])) {
             insertData($mysql_con);
             break;
         case 'read':
-            $startgDate = $_POST['startDate'];
+            $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
             $offset = $_POST['offset'];
-            $post->getPostAdmin($username, $startgDate, $endDate, $offset, $mysql_con);
+            $post->getPostAdmin($username, $startDate, $endDate, $offset, $mysql_con);
             break;
         case 'readColPost':
             $college = $_SESSION['colCode'];
@@ -80,6 +80,13 @@ if (isset($_POST['action'])) {
             $username = $_POST['username'];
             $reason = $_POST['reason'];
             $post->removeUserPost($postID, $username, $reason, $mysql_con);
+            break;
+        case 'filterDataPost':
+            $offset = $_POST['offset'];
+            $colCode = ($_POST['colCode'] != '') ? $_POST['colCode'] : "";
+            $startingDate = ($_POST['startingDate'] != '') ? $_POST['startingDate'] : "";
+            $endDate = ($_POST['endDate'] != '') ? $_POST['endDate'] : "";
+            $post->filterPost($username, $offset, $colCode, $startingDate, $endDate, $mysql_con);
             break;
     }
 }

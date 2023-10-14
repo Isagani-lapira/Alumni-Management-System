@@ -36,7 +36,6 @@ class User_Table
 
     public function checkUsername($username, $connection)
     {
-        session_start();
         $query = 'SELECT * FROM `user` WHERE `username` = "' . $username . '"';
         $result = mysqli_query($connection, $query);
 

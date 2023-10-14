@@ -22,7 +22,6 @@ $(document).ready(function () {
   let validExtension = ["jpeg", "jpg", "png"]; //only allowed extension
   let fileExtension;
 
-  const decodedPersonID = decodeURIComponent($("#accPersonID").val());
   //change the tab appearance when active and not
   $(".tabs li").click(function () {
     $(".tabs li").removeClass("ui-tabs-active");
@@ -32,14 +31,6 @@ $(document).ready(function () {
   // //open modal post
   $("#btnAnnouncement").click(function () {
     prompt("#modal", true);
-  });
-  // //open modal email
-  $("#btnEmail").click(function () {
-    prompt("#modalEmail", true);
-  });
-  // //close modal email
-  $(".cancelEmail").click(function () {
-    prompt("#modalEmail", false);
   });
 
   //go to creating college page
@@ -86,10 +77,6 @@ $(document).ready(function () {
     $("#jobList").show();
     $(".jobPostingBack").hide();
     $("#adminJobPost").hide();
-  });
-
-  $(".inputSkill").on("input", function () {
-    addNewField(skillDiv, holderSkill, true);
   });
 
   //error handling for logo
@@ -171,12 +158,7 @@ $(document).ready(function () {
                 $("#emailTBody").append(tr);
               }
             } else {
-              let tr = $("<tr>");
-              let tdRecipient = $("<td>")
-                .text("No available email")
-                .addClass("text-start text-blue-400 text-base");
-              tr.append(tdRecipient);
-              $("#emailTBody").append(tr);
+              $('#noEmailMsg').removeClass('hidden')
             }
           },
           error: (error) => {
@@ -241,208 +223,6 @@ $(document).ready(function () {
     },
   });
 
-  //go back button in job tab
-  $("#goBack").click(function () {
-    $("#promptMessage").addClass("hidden");
-    $("#jobPosting").hide();
-    $("#jobList").show();
-    $(".jobPostingBack").hide();
-  });
-
-  //job form
-  $("#jobForm").on("submit", function (e) {
-    e.preventDefault();
-
-    var skills = skillArray();
-
-    //check first if all input field are complete
-    if (jobField()) {
-      var data = new FormData(this);
-      var action = {
-        action: "create",
-      };
-
-      //data to be sent in the php
-      data.append("action", JSON.stringify(action));
-      data.append("author", "University Admin");
-      data.append("skills", JSON.stringify(skills));
-      data.append("personID", decodedPersonID);
-
-      $.ajax({
-        url: "../PHP_process/jobTable.php",
-        type: "Post",
-        data: data,
-        processData: false,
-        contentType: false,
-        success: function (success) {
-          $("#promptMessage").removeClass("hidden");
-          $("#insertionMsg").html(success);
-        },
-        error: function (error) {
-          $("#promptMessage").removeClass("hidden");
-          $("#insertionMsg").html(error);
-        },
-      });
-    }
-  });
-
-  let offset = 0;
-  let tempOffsetJob = 0;
-  let countNext = 0;
-  //job table listing
-  $("#jobLI").on("click", function () {
-    offset = 0;
-    $("#jobTBContent").find("tr").remove();
-    jobList(offset);
-  });
-
-  function jobList(offset) {
-    let jobAction = {
-      action: "read", //read the data
-    };
-    const jobData = new FormData();
-    jobData.append("action", JSON.stringify(jobAction));
-    jobData.append("offset", offset);
-    $.ajax({
-      url: "../PHP_process/jobTable.php",
-      type: "POST",
-      data: jobData,
-      processData: false,
-      contentType: false,
-      dataType: "json",
-      success: function (response) {
-        //check if there's a value
-        if (response.result === "Success") {
-          $("#jobNavigation").find("button").remove();
-          $(".jobErrorMsg").addClass("hidden"); //hide the message
-          let data = response;
-          let jobTitles = data.jobTitle; //job title is a property that is an array, all data is an array that we can use it as reference to get the lengh
-
-          for (let i = 0; i < jobTitles.length; i++) {
-            //fetch all the data
-            let jobTitle = jobTitles[i];
-            let author = data.author[i];
-            let companyName = data.companyName[i];
-            let jobDescript = data.jobDescript[i];
-            let jobQuali = data.jobQuali[i];
-            let college = data.colCode[i];
-            let datePosted = data.date_posted[i];
-            let companyLogo = data.companyLogo[i];
-            let skills = data.skills[i];
-            let logo = imgFormat + companyLogo;
-
-            //add data to a table data
-            let row = $("<tr>").addClass("text-xs");
-            let tdTitle = $("<td>").text(jobTitle);
-            let tdAuthor = $("<td>").text(author);
-            let tdCollege = $("<td>").text(college);
-            let tdDatePosted = $("<td>").text(datePosted);
-            let tdLogo = $("<td>").append(
-              $("<img>")
-                .attr("src", logo)
-                .addClass("w-16 h-16 mx-auto rounded-full")
-            );
-
-            //set up the value if th button view was clicked to view the details of the job
-            let btnView = $("<td>").append(
-              $("<button>")
-                .text("View")
-                .addClass(
-                  "py-2 px-4 bg-postButton rounded-lg text-white hover:bg-postHoverButton"
-                )
-                .on("click", function () {
-                  //remove the recent added skill and requirements
-                  $("#skillSets").empty();
-
-                  //set value to the view modal
-                  $("#viewJob").removeClass("hidden");
-                  $("#jobCompanyLogo").attr("src", logo);
-                  $("#viewJobColText").text(jobTitle);
-                  $("#viewJobAuthor").text(author);
-                  $("#viewJobColCompany").text(companyName);
-                  $("#viewPostedDate").text(datePosted);
-                  $("#jobOverview").text(jobDescript);
-                  $("#jobQualification").text(jobQuali);
-
-                  //retrieve the skills
-                  skills.forEach((skill) => {
-                    //create a span and append it in the div
-                    spSkill = $("<span>").html("&#x2022; " + skill);
-                    $("#skillSets").append(spSkill);
-                  });
-                })
-            );
-
-            //display every data inside the table
-            row.append(
-              tdLogo,
-              tdTitle,
-              tdAuthor,
-              tdCollege,
-              tdDatePosted,
-              btnView
-            );
-            $("#jobTBContent").append(row);
-          }
-          offset += jobTitles.length;
-          tempOffsetJob = jobTitles.length;
-          const nextBtn = $("<button>")
-            .addClass("bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md")
-            .text("Next")
-            .on("click", function () {
-              $("#jobTBContent").find("tr").remove();
-              jobList(offset);
-              countNext += tempOffsetJob;
-            });
-          const prevBtn = $("<button>")
-            .addClass("border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md")
-            .text("Previous")
-            .on("click", function () {
-              countNext -= tempOffsetJob;
-              //check if there are still to be back
-              if (countNext >= 0) {
-                $("#jobTBContent").find("tr").remove();
-                jobList(countNext);
-              } else prevBtn.addClass("hidden");
-            });
-
-          $("#jobNavigation").append(prevBtn, nextBtn);
-        } else {
-          $(".jobErrorMsg").removeClass("hidden"); //add message to the user
-          $("#nextJob").attr("disabled", true).addClass("hidden");
-        }
-      },
-      error: function (xhr, status, error) {
-        console.log("AJAX request error:", error);
-      },
-    });
-  }
-
-  //admin job list post
-  $("#jobMyPost").on("click", function () {
-    console.log("napindot");
-  });
-  //retrieve all the skills have been written
-  function skillArray() {
-    var skills = [];
-    $(".skillInput").each(function () {
-      skills.push($(this).val());
-    });
-
-    return skills;
-  }
-
-  //check if the forms in the job field is all answered
-  function jobField() {
-    var allFieldCompleted = true;
-    $(".jobField").each(function () {
-      if (!$(this).val()) {
-        $(this).removeClass("border-gray-400").addClass("border-accent");
-        allFieldCompleted = false;
-      } else $(this).addClass("border-grayish").removeClass("border-accent");
-    });
-    return allFieldCompleted;
-  }
 
   $(".college").on("click", function () {
     var colName = $(this).data("colname");
@@ -946,194 +726,153 @@ $(document).ready(function () {
     $('#newQuestionModal').addClass('hidden')
     $('#newQuestionInputName, .choicesVal').val('')
   })
-});
 
-let typingTimeout = null;
 
-//
-function addNewField(container, holder, isSkill) {
-  clearTimeout(typingTimeout);
+  retrievedLast5YearResponse()
 
-  var field = isSkill == true ? true : false;
+  // retrieve dashboard response
+  function retrievedLast5YearResponse() {
+    const action = "retrieveRespondent";
+    const formData = new FormData();
+    formData.append('action', action);
 
-  typingTimeout = setTimeout(function () {
-    const containerSkill = document.getElementById(container);
+    $.ajax({
+      url: '../PHP_process/deploymentTracer.php',
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      dataType: 'json',
+      success: response => {
+        let labels = [];
+        let dataCount = [];
+        if (response.response == 'Success') {
+          const data = response
+          let length = data.year.length;
+          let lastYear = 0;
+          for (let i = 0; i < length; i++) {
+            let year = data.year[i];
+            let respondent = data.respondent[i];
 
-    //image element
-    const imageSkill = document.createElement("img");
-    const srcAddIcon = "../assets/icons/add-circle.png";
-    imageSkill.className = "h-12 w-12 inline cursor-pointer";
-    imageSkill.setAttribute("src", srcAddIcon);
+            lastYear = year
+            labels.push(year);
+            dataCount.push(respondent);
+          }
 
-    //input element
-    const inputField = document.createElement("input");
-    inputField.setAttribute("placeholder", holder);
-    inputField.setAttribute("type", "text");
-    inputField.setAttribute("oninput", "checkField(" + field + ")");
+          const maxPrevYear = 4;
+          const defaultRespondentCount = 0
+          // if the data doesnt have 5 year previous set it as default zero
+          if (length != maxPrevYear) {
+            while (length <= maxPrevYear) {
+              lastYear-- //decreasing year from the last year retrieve
+              labels.push(lastYear);
+              dataCount.push(defaultRespondentCount);
+              length++
+            }
+          }
 
-    //add className for getting the value later
-    if (isSkill) inputField.setAttribute("class", "skillInput");
-    else inputField.setAttribute("class", "reqInput");
+          // update the graph
+          objResponse.data.labels = labels;
+          objResponse.data.datasets[0].data = dataCount;
+          objResponse.update()
+        }
 
-    //add to the parent div to be display
-    const fieldContainer = document.createElement("div");
-    fieldContainer.appendChild(imageSkill);
-    fieldContainer.appendChild(inputField);
-    containerSkill.appendChild(fieldContainer);
-  }, 3000);
-}
+      },
+      error: error => { console.log(error) }
+    })
+  }
 
-//checker which value should be pass
-function checkField(checker) {
-  var containerDiv = checker == true ? skillDiv : reqDiv;
-  var placeHolder = checker == true ? holderSkill : holderReq;
-  var field = checker == true ? true : false;
-
-  addNewField(containerDiv, placeHolder, field);
-}
-
-//chart for response by year
-const responseByYear = document.getElementById("responseByYear");
-const responseByYear_labels = [
-  "2021",
-  "2020",
-  "2019",
-  "2018",
-  "2017",
-  "2016",
-  "2015",
-  "2014",
-];
-const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860];
-const responseByYear_type = "line";
-chartConfig(
-  responseByYear,
-  responseByYear_type,
-  responseByYear_labels,
-  responseByYear_data,
-  false,
-  redAccent,
-  false
-);
-
-//tracer status
-const tracerStatus = document.getElementById("myChart");
-const tracerType = "bar";
-const tracerLabels = ["Already answered", "Haven't answer yet"];
-const tracerData = [12, 5];
-const color = [blueAccent, redAccent];
-
-chartConfig(
-  tracerStatus,
-  tracerType,
-  tracerLabels,
-  tracerData,
-  false,
-  color,
-  false
-);
-
-//chart for employement status
-const empStatus = document.getElementById("empStatus");
-const empStatus_labels = [
-  "2021",
-  "2020",
-  "2019",
-  "2018",
-  "2017",
-  "2016",
-  "2015",
-  "2014",
-];
-const empStatus_data = [1000, 500, 247, 635, 323, 393, 290, 860];
-const empStatus_type = "line";
-const empStatus_color = [redAccent, blueAccent];
-chartConfig(
-  empStatus,
-  empStatus_type,
-  empStatus_labels,
-  empStatus_data,
-  true,
-  empStatus_color,
-  false
-);
-
-//chart for salary
-const salaryChart = document.getElementById("salaryChart");
-const salaryChart_labels = [
-  "₱10k-20k",
-  "₱21k-30k",
-  "₱31k-40k",
-  "₱51k-60k",
-  "₱60k-70k",
-  "₱71k-80k",
-];
-const salaryChart_data = [1000, 500, 247, 635, 323, 393];
-const salaryChart_type = "bar";
-const lightBlue = "#ACCEE9";
-const lightGreen = "#BAC3B0";
-const lightRed = "#F2AA84";
-const lightYellow = "#E7E7A1";
-const lightPink = "#F0B3C3";
-const lightPurple = "#CBB5CA";
-const salaryChart_color = [
-  lightBlue,
-  lightGreen,
-  lightRed,
-  lightYellow,
-  lightPink,
-  lightPurple,
-];
-chartConfig(
-  salaryChart,
-  salaryChart_type,
-  salaryChart_labels,
-  salaryChart_data,
-  true,
-  salaryChart_color,
-  false
-);
-
-//for creation of chart
-function chartConfig(
-  chartID,
-  type,
-  labels,
-  data,
-  responsive,
-  colors,
-  displayLegend
-) {
-  //the chart
-  new Chart(chartID, {
-    type: type,
+  const responseByYear = $('#responseByYear')[0].getContext('2d');
+  const objResponse = new Chart(responseByYear, {
+    type: 'line',
     data: {
-      labels: labels,
-      datasets: [
-        {
-          backgroundColor: colors,
-          data: data,
-          borderColor: redAccent, // Set the line color
-          borderWidth: 1,
-          tension: 0.1,
-        },
-      ],
+      datasets: [{
+        label: '# of Votes',
+        borderWidth: 1,
+        borderColor: redAccent, // Set the line color
+        backgroundColor: '#991b1b',
+        borderWidth: 1,
+        tension: 0.1,
+      }]
     },
     options: {
-      responsive: responsive, // Disable responsiveness
-      maintainAspectRatio: false, // Disable aspect ratio
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  })
 
-      plugins: {
-        legend: {
-          display: displayLegend,
-          position: "bottom",
-          labels: {
-            font: {
-              weight: "bold",
-            },
-          },
-        },
-      },
-    },
-  });
-}
+});
+
+
+// //chart for response by year
+// const responseByYear = document.getElementById("responseByYear");
+// const responseByYear_labels = [
+//   "2021",
+//   "2020",
+//   "2019",
+//   "2018",
+//   "2017",
+//   "2016",
+//   "2015",
+//   "2014",
+// ];
+// const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860];
+// const responseByYear_type = "line";
+// chartConfig(
+//   responseByYear,
+//   responseByYear_type,
+//   responseByYear_labels,
+//   responseByYear_data,
+//   false,
+//   redAccent,
+//   false
+// );
+
+
+// //for creation of chart
+// function chartConfig(
+//   chartID,
+//   type,
+//   labels,
+//   data,
+//   responsive,
+//   colors,
+//   displayLegend
+// ) {
+//   //the chart
+//   new Chart(chartID, {
+//     type: type,
+//     data: {
+//       labels: labels,
+//       datasets: [
+//         {
+//           backgroundColor: colors,
+//           data: data,
+//           borderColor: redAccent, // Set the line color
+//           borderWidth: 1,
+//           tension: 0.1,
+//         },
+//       ],
+//     },
+//     options: {
+//       responsive: responsive, // Disable responsiveness
+//       maintainAspectRatio: false, // Disable aspect ratio
+
+//       plugins: {
+//         legend: {
+//           display: displayLegend,
+//           position: "bottom",
+//           labels: {
+//             font: {
+//               weight: "bold",
+//             },
+//           },
+//         },
+//       },
+//     },
+//   });
+// }

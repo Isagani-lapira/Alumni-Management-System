@@ -770,7 +770,7 @@ $(document).ready(function () {
       success: response => {
         //data that has been retrieved
         const aboutEvent = response.about_event
-        const images = response.images
+        const headerImg = imgFormat + response.aboutImg
         const eventPlace = response.eventPlace
         const eventStartTime = response.eventStartTime
         const expectation = response.expectation
@@ -779,18 +779,7 @@ $(document).ready(function () {
         $('#eventDescript').text(aboutEvent)
         $('#eventPlaceModal').text(eventPlace)
         $('#eventTimeModal').text(eventStartTime)
-
-        $('#eventImgWrapper').empty(); //remove the previously display images
-        //show images
-        images.forEach(value => {
-          const imgSrc = imgFormat + value //convert into base64 format
-          const imgElement = $('<img>')
-            .addClass('rounded-md w-40')
-            .attr('src', imgSrc)
-
-          $('#eventImgWrapper').append(imgElement);
-        })
-
+        $('#headerImg').attr('src', headerImg)
         $('#expectationList').empty() //remove the previously display list of expectation
         // show expectation
         const expectationData = expectation.expectation

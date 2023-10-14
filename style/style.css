@@ -223,3 +223,55 @@ tbody tr:nth-child(odd) {
 #printLogsBtn:hover iconify-icon {
   filter: brightness(0) invert(1); /* Change the icon color to white on hover */
 }
+
+.dataTables_wrapper .dataTables_filter input {
+  border: 1px solid #991b1b !important;
+  margin: 5px 0px;
+}
+
+#displayChart.off {
+  background-color: #c7c7c7;
+  color: rgb(138, 138, 138);
+  cursor: default !important;
+}
+
+#displayChart.on {
+  background-color: #991b1b;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+#displayChart.on:hover {
+  background-color: #601010;
+  font-weight: bold;
+}
+
+#promptMsgComment {
+  left: 35%;
+}
+
+/* loader */
+
+.loader {
+  border: 5px solid;
+  border-color: #ffffff transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Change the hover color of DataTables pagination buttons */
+#jobTable_wrapper .dataTables_paginate a:hover {
+  background-color: #007bff !important; /* Change the background color on hover */
+  color: #fff !important; /* Change text color on hover */
+}

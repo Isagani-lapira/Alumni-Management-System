@@ -23,6 +23,10 @@ if (isset($_POST['action'])) {
             $notifID = $_POST['notifID'];
             $notificationObj->updateStat($notifID, $mysql_con);
             break;
+        case 'unreadNotif':
+            $offset = $_POST['offset'];
+            $notificationObj->unreadNotification($username, $offset, $mysql_con);
+            break;
         default:
             echo 'nothing';
             break;

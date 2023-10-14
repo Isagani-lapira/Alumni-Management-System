@@ -105,6 +105,7 @@ function getAccDetails($con, $personID)
   <link href="../css/main.css" rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
   <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
@@ -326,7 +327,7 @@ function getAccDetails($con, $personID)
               </div>
 
               <!-- Job Post Feed -->
-              <div id="jobRepo" class="hidden h-full grid grid-cols-3 gap-2 overflow-y-auto no-scrollbar py-3"></div>
+              <div id="jobRepo" class="hidden h-max grid grid-cols-3 gap-2 overflow-y-auto no-scrollbar py-3"></div>
 
             </div>
 
@@ -621,12 +622,16 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- container questions -->
-          <div id="questionsContainer" class="h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3 hidden">
-            <div class="w-1/2">
+          <div id="questionsContainer" class="h-full w-1/2 overflow-y-auto flex flex-col gap-3 border-t-4 border-accent rounded-t-lg center-shadow mx-auto items-center p-3 hidden">
+            <div class="w-full">
               <h3 id="categoryNameQuestion" class="text-3xl font-extrabold text-accent text-center">Category Name</h3>
             </div>
-            <div class="questions h-full w-1/2 p-2 overflow-y-auto"></div>
-            <div id="navigationWrapper" class="w-1/2"></div>
+            <div class="questions h-full w-full p-2 overflow-y-auto "></div>
+            <div id="navigationWrapper" class="w-full">
+              <div class="border border-gray-300 rounded-lg w-full mb-2">
+                <div class="progressBar bg-green-600 h-full rounded-lg p-1"></div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -758,7 +763,7 @@ function getAccDetails($con, $personID)
             </div>
 
             <!-- headline image -->
-            <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" src="../images/bsu-header5.jpg" alt="">
+            <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" alt="">
 
             <p class="text-sm text-gray-500">Date Posted: <span id="announceDatePosted"></span></p>
             <p class="text-sm text-gray-500">By: <span id="announcementAuthor" class="text-accent"></span></p>
@@ -771,28 +776,6 @@ function getAccDetails($con, $personID)
               <p class="font-semibold text-blue-400">More images available</p>
               <div id="imagesWrapper" class="flex flex-wrap gap-2"></div>
             </div>
-          </div>
-        </div>
-
-        <!-- event modal -->
-        <div id="eventModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-          <div id="eventContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-7 px-12 
-          text-greyish_black flex flex-col gap-2">
-
-            <!-- Event images -->
-            <div id="eventImgWrapper" class="flex flex-wrap justify-center gap-1">
-
-            </div>
-
-            <p id="eventTitleModal" class="text-center text-2xl text-accent font-black"></p>
-            <pre id="eventDescript" class="text-gray-500 text-justify w-full indented"></pre>
-            <p class="text-lg font-bold text-greyish_black">WHEN AND WHERE</p>
-            <p class="text-sm text-gray-500">Date: <span id="eventDateModal"></span></p>
-            <p class="text-sm text-gray-500">Place: <span id="eventPlaceModal"></span></p>
-            <p class="text-sm text-gray-500">Start time: <span id="eventTimeModal"></span></p>
-            <!-- <p id="author" class="text-sm text-gray-500">By: <span class="text-accent">Media Relations Office</span></p> -->
-            <p class="text-lg text-greyish_black font-bold">EXPECTATION</p>
-            <div id="expectationList" class="flex flex-col gap-2"></div>
           </div>
         </div>
 
@@ -869,7 +852,7 @@ function getAccDetails($con, $personID)
 
               <!-- user post -->
               <div id="userPostContainer" class="max-h-48 md:max-h-64 overflow-y-auto no-scrollbar">
-                <div id="userPost" class="grid grid-cols-3 gap-4 p-2"></div>
+                <div id="userPostModal" class="grid grid-cols-3 gap-4 p-2"></div>
                 <p id="noProfileMsgSearch" class="text-center text-blue-400 my-2 hidden">No available Post</p>
               </div>
 
@@ -895,68 +878,319 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
-      </div>
+        <div id="reportedPostModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
+          <div class="bg-white rounded shadow-lg w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
 
-      <!-- TAB 2 -->
-      <div id="tabs-2" class=" h-2/3">
-        <!--IMAGE HEADER-->
-        <div id="image-header-con" class="relative top-24 mt-1 z-10 h-full">
-          <div class="flex items-center justify-center h-full">
-            <div class="w-2/5 p-5">
-              <h1 id="headerEvent" class=" text-gray-800 text-5xl lg:text-6xl font-bold">Get Ready to Dance with</h1>
-              <p id="eventNameHeader" class=" text-4xl font-bold mb-2">Rainbow Pop</p>
-              <button class="text-white font-bold bg-blue-300 px-5 py-3 my-2">
-                <a id="connectURL" target="_blank">CONNECT WITH US</a>
+            <!-- head -->
+            <div class="flex gap-2 items-center">
+              <iconify-icon class="text-accent" icon="fe:warning" width="32" height="32"></iconify-icon>
+              <div class="text-gray-500">
+                <p class="text-lg font-medium">Your post was removed by admin.</p>
+                <p id="reportedTime" class="text-sm">Date</p>
+              </div>
+            </div>
+
+            <!-- post details -->
+            <div class="mt-5">
+              <div class="flex justify-between items-center">
+                <div class="flex gap-2 items-center">
+                  <?php
+                  if ($profilepicture == "") {
+                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                  } else {
+                    $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
+                  }
+                  echo '<span class="text-gray-600 ">' . $username . '</span>';
+                  ?>
+                </div>
+
+                <span id="postDate" class="text-xs text-gray-500"></span>
+              </div>
+
+              <p id="reportedPostCap" class="text-center p-3 mt-3 text-sm"></p>
+              <p id="reasonForDel" class="text-accent text-center font-semibold text-sm p-3"></p>
+            </div>
+
+            <div class="flex justify-end gap-3 p-3">
+              <button id="closeReportedPost" class="text-accent px-2 hover:text-darkAccent hover:font-semibold">Ok</button>
+              <button id="learnMoreBtn" class="text-white py-2 px-4 bg-accent rounded-md hover:bg-darkAccent">Learn more</button>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="viewResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+          <div class="fixed h-max w-full bg-black bg-opacity-50  flex justify-between p-3 top-0 gap-2">
+            <button id="closeViewResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+              <iconify-icon icon="fluent-mdl2:back" style="color: white;" width="24" height="24"></iconify-icon>
+            </button>
+
+            <div class="flex gap-2">
+              <button id="downloadResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+                <iconify-icon icon="teenyicons:download-outline" style="color: white;" width="24" height="24"></iconify-icon>
+              </button>
+              <button id="printResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
+                <iconify-icon icon="fluent:print-32-regular" style="color: white;" width="24" height="24"></iconify-icon>
               </button>
             </div>
 
-            <!-- swiper -->
-            <div class="w-1/2 flex justify-center items-center p-3 h-full">
-              <div class="swiper mySwiper w-1/2 h-1/2">
-                <div id="swiperWrapperEvent" class="swiper-wrapper"></div>
-                <div class="swiper-pagination"></div>
+          </div>
+          <div class="bg-white p-5 h-full overflow-y-auto w-2/3">
+            <div id="resumeWrapperModal">
+              <main class="flex">
+                <aside class="w-2/6 text-greyish_black p-3 flex flex-col gap-4 text-xs">
+                  <header id="fullnameResume" class="text-3xl block font-bold"></header>
+                  <!-- contact Section -->
+                  <section class="flex flex-col gap-2">
+                    <h1 class="font-bold text-base">CONTACT</h1>
+
+                    <!-- contact number -->
+                    <span class="flex gap-4 items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                        <g fill="none" fill-rule="evenodd">
+                          <path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
+                          <path fill="#555" d="M16.552 22.133c-1.44-.053-5.521-.617-9.795-4.89c-4.273-4.274-4.836-8.354-4.89-9.795c-.08-2.196 1.602-4.329 3.545-5.162a1.47 1.47 0 0 1 1.445.159c1.6 1.166 2.704 2.93 3.652 4.317a1.504 1.504 0 0 1-.256 1.986l-1.951 1.449a.48.48 0 0 0-.142.616c.442.803 1.228 1.999 2.128 2.899c.901.9 2.153 1.738 3.012 2.23a.483.483 0 0 0 .644-.162l1.27-1.933a1.503 1.503 0 0 1 2.056-.332c1.407.974 3.049 2.059 4.251 3.598a1.47 1.47 0 0 1 .189 1.485c-.837 1.953-2.955 3.616-5.158 3.535Z" />
+                        </g>
+                      </svg>
+                      <span id="contactNoResume" class="font-thin">09104905440</span>
+                    </span>
+
+                    <!-- email address -->
+                    <span class="flex gap-4 items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                        <path fill="#555" d="M19 14.5v-9c0-.83-.67-1.5-1.5-1.5H3.49c-.83 0-1.5.67-1.5 1.5v9c0 .83.67 1.5 1.5 1.5H17.5c.83 0 1.5-.67 1.5-1.5zm-1.31-9.11c.33.33.15.67-.03.84L13.6 9.95l3.9 4.06c.12.14.2.36.06.51c-.13.16-.43.15-.56.05l-4.37-3.73l-2.14 1.95l-2.13-1.95l-4.37 3.73c-.13.1-.43.11-.56-.05c-.14-.15-.06-.37.06-.51l3.9-4.06l-4.06-3.72c-.18-.17-.36-.51-.03-.84s.67-.17.95.07l6.24 5.04l6.25-5.04c.28-.24.62-.4.95-.07z" />
+                      </svg>
+                      <span id="emailAddResume" class=" font-thin">lapiraisagani@gmail.com</span>
+                    </span>
+
+                    <!-- location -->
+                    <span class="flex gap-4 items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
+                        <path fill="#555" d="M9.156 14.544C10.899 13.01 14 9.876 14 7A6 6 0 0 0 2 7c0 2.876 3.1 6.01 4.844 7.544a1.736 1.736 0 0 0 2.312 0ZM6 7a2 2 0 1 1 4 0a2 2 0 0 1-4 0Z" />
+                      </svg>
+                      <span id="addressResume" class="font-thin">56 Vinta Street, Mabolo, Malolos Bulacan</span>
+                    </span>
+                  </section>
+
+                  <!-- education -->
+                  <section id="educationContainer" class="flex flex-col gap-2 z-50">
+                    <h1 class="font-bold text-base">EDUCATION</h1>
+
+                    <div id="primaryLvl" class="font-thin"></div>
+                    <div id="secondaryLvl" class="font-thin"></div>
+                    <div id="tertiaryLvl" class="font-thin"></div>
+                  </section>
+
+
+                  <!-- skills -->
+                  <section>
+                    <h1 class="font-bold text-base">SKILLS</h1>
+
+                    <div id="skillWrapper" class="flex flex-col gap-2 z-50"></div>
+                  </section>
+                </aside>
+
+                <aside class="w-4/6 text-greyish_black text-xs p-3">
+                  <!-- objective -->
+                  <section>
+                    <h1 class="font-bold text-base">OBJECTIVE</h1>
+                    <p id="objectiveResume" class="my-2"></p>
+                  </section>
+
+                  <!-- work experience -->
+                  <section class="my-2">
+                    <h1 class="font-bold text-base mt-5">WORK EXPERIENCE</h1>
+                    <ul id="workExpList" class="p-3 flex flex-col gap-2"></ul>
+                  </section>
+
+                  <!-- reference -->
+                  <section class="my-2">
+                    <h1 class="font-bold text-base">REFERENCES</h1>
+
+                    <div id="referenceContainer" class="flex flex-col gap-4 my-2"></div>
+                  </section>
+                </aside>
+              </main>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- community guidelines -->
+        <div class="communityGuideline fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 h-full hidden">
+          <div id="modalGuidelines" class="bg-white rounded-lg shadow-lg w-2/5">
+
+            <div class="w-full h-full">
+              <!-- head -->
+              <div class="bg-accent p-5 gap-2 flex items-center text-white rounded-t-lg">
+                <iconify-icon icon="gridicons:notice-outline" width="36" height="36"></iconify-icon>
+                <h3 class="text-xl font-bold">BulSU Connect Community Guidelines</h3>
               </div>
+              <!-- content -->
+              <div class="p-4 flex flex-col gap-2 text-sm text-greyish_black overflow-y-auto no-scrollbar h-4/5">
+                <p class="text-justify">
+                  <span class="font-bold">1.) Reporting Threshold:</span>
+                  Any post that receives 10 or more reports from community members will be subject to review and
+                  may be removed if found to violate these guidelines. Reporting plays a crucial role in maintaining
+                  the quality and safety of our community, so please use this feature responsibly.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">2.) Be Respectful and Inclusive:</span>
+                  Treat every user with respect, kindness, and inclusivity. We encourage diverse opinions and
+                  discussions but do not engage in hate speech, harassment, or bullying of any kind.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">3.) No Offensive or Harmful Content:</span>
+                  Do not post or share content that is offensive, discriminatory, or explicit.
+                  This includes hate speech, nudity, violence, or any content that may be considered harmful or offensive to others.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">4.) Respect Privacy:</span>
+                  Always respect the privacy of others. Do not share personal information, such as phone numbers, addresses,
+                  or financial details, without the explicit consent of the individuals involved.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">5.) Safety First:</span>
+                  Ensure a safe environment for all. Do not post content that promotes violence, threats, or criminal behavior.
+                  Bullying, harassment, and self-harm content are strictly prohibited.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">6.) Thoughtful and Constructive Engagement:</span>
+                  When sharing your thoughts, opinions, or ideas, be constructive and considerate of others' perspectives.
+                  Engage in healthy discussions and avoid trolling or flame wars.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">7.) Respect Intellectual Property:</span>
+                  Only share content that you have the right to distribute. Do not infringe upon
+                  copyrights, trademarks, or intellectual property rights.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">8.) No Spam or Self-Promotion:</span>
+                  Do not post spammy content, advertisements, or self-promotional material. If you have a business or product to promote,
+                  please use designated channels or contact the administrators for permission.
+
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">9.) Reporting Content:</span>
+                  If you come across content that violates these guidelines, use the report feature to notify the administrators.
+                  Do not engage in public arguments or retaliation.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">10.) Photo Sharing:</span>
+                  You can share photos that are appropriate and relevant to the community's interests. Ensure you have the necessary
+                  rights or permissions to share any images.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">11.) User Safety and Authenticity: </span>
+                  Help maintain the integrity of our community by reporting fake accounts, spam, or misleading information.
+                  We do not tolerate fake news or misinformation.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">12.) Respect for Diverse Opinions:</span>
+                  While we encourage healthy debates, do not engage in credible threats or direct harassment,
+                  even when discussing public figures or organizations.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">13.) Child Safety:</span>
+                  We are committed to child safety. Do not share or promote content that involves minors in harmful or abusive situations.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">14.) Legal Compliance: </span>
+                  Adhere to all applicable laws and regulations in your area when using our platform,
+                  including but not limited to copyright, defamation, and privacy laws.
+                </p>
+
+                <p class="text-justify">
+                  <span class="font-bold">15.) Account Responsibility: </span>
+                  You are responsible for all activity conducted under your account.
+                  Keep your login credentials secure and do not share your account with others.
+                </p>
+
+              </div>
+
+              <button class="closeGuidelines px-4 py-2 rounded-md block ml-auto m-3 text-gray-400 hover:text-gray-500">Close</button>
             </div>
+
           </div>
         </div>
 
-        <div class="separator h-10 mt-16"></div>
+      </div>
 
-        <h1 id="eventName" class="text-5xl p-5 indented font-bold">RAINBOX POP</h1>
-        <div class="flex flex-nowrap px-5">
-          <!-- about image -->
-          <div class="w-1/2 flex justify-center">
-            <img id="aboutImg" class="h-3/4 w-3/4 rounded-md center-shadow object-contain bg-black">
-          </div>
-
-          <!-- about the event -->
-          <div class="flex flex-col p-5 w-1/2">
-            <h1 class="w-4/5 text-end text-3xl text-greyish_black font-bold">About the Event</h1>
-            <p id="aboutEvent" class=" w-4/5 text-gray-500 text-justify">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum."</p>
-
-            <!-- event details -->
-            <div class="my-10 w-full">
-              <h1 class="w-4/5 text-3xl text-greyish_black font-bold">Event Details</h1>
-              <p class="w-4/5 text-gray-500">Date: <span id="eventDate"></span></p>
-              <p class="w-4/5 text-gray-500">Place: <span id="eventPlace"></span></p>
-              <p class="w-4/5 text-gray-500">Start time: <span id="eventStartTime"></span></p>
+      <!-- TAB 2 -->
+      <div id="tabs-2" class="h-full">
+        <div id="eventView" class="h-full">
+          <div class=" h-2/3 top-72">
+            <div class="relative w-full h-full flex items-center">
+              <img class=" object-cover object-top darkened-image" src="../assets/bg_event.jpg" alt="">
+              <h1 class=" md:text-8xl sm:text-2xl text-white font-black w-full text-center absolute typewriter">Let's Connect <span class="text-accent"> BulSUAN!</span></h1>
             </div>
           </div>
 
+          <!-- body -->
+          <div class="p-10">
+            <span class="text-gray-500">Get excited for the upcoming</span>
+            <h3 id="eventName" class="font-bold text-gray-700 text-4xl"></h3>
+
+            <div class="date flex flex-col items-end text-gray-700">
+              <span>Starts on</span>
+              <span id="eventStartDate" class="font-bold"></span>
+            </div>
+
+            <!-- description -->
+            <p id="eventDescriptData" class="text-gray-700 my-4 text-lg w-4/5"></p>
+
+            <!-- view more details -->
+            <div class="viewDetailCont flex justify-end">
+              <button id="viewInDetailsEvent" class="bg-accent px-4 py-2 rounded-md text-white font-semibold">See Event Details</button>
+            </div>
+
+
+            <!-- college event -->
+            <div class="m-4 rounded-md border border-gray-300 p-5 text-gray-600">
+              <h3 class="font-bold text-2xl mb-5">College Future Events</h3>
+              <!-- top 3 incoming college event -->
+              <div id="upcomingColEvent" class="flex justify-evenly flex-wrap"></div>
+            </div>
+
+            <!-- alumni event -->
+            <div class="m-4 rounded-md border border-gray-300 p-5 text-gray-600">
+              <h3 class="font-bold text-2xl mb-5">Alumni Future Events</h3>
+              <!-- top 3 upcoming event for alumni -->
+              <div id="upcomingAlumniEvent" class="flex justify-evenly flex-wrap"></div>
+            </div>
+          </div>
 
         </div>
 
+        <!-- default view -->
+        <div id="defaultEvent" class="h-full flex flex-col justify-center p-5 relative hidden">
+          <h3 class="w-1/2 font-bold text-lg md:text-6xl mb-2 text-gray-800">No Upcoming Event On Our Calendar</h3>
+          <p class="w-1/2 text-lg text-gray-800">Thank you for your interest! While there are no upcoming events right now,
+            we're constantly working to bring you exciting experiences. Please stay tuned</p>
+          <div class="w-56 h-56 relative"></div>
 
-        <!-- Expectation for event -->
-        <div class="p-10 mb-10 bg-red-400 relative">
-          <h1 class="w-full px-5 indented text-4xl text-center text-white font-bold">Expectation for this event</h1>
 
-          <div id="expectContainer" class="flex flex-nowrap justify-center gap-3 my-5"></div>
-
+          <img class="absolute left-2/3 z-50" src="../assets/3d_images/Chat Emoji 1.png" alt="">
+          <img class="absolute top-1/3 right-16 z-50" src="../assets/3d_images/Music Player 1.png" alt="">
+          <img class="absolute translate-y-1/2 calendar-logo w-56 h-56 block z-40" src="../assets/3d_images/Calendar 1.png" alt="calendar image">
+          <img class="absolute translate-y-2/3 left-2/3 z-50" src="../assets/3d_images/Microphone 1.png" alt="">
+          <img class="absolute top-3/4 right-10 z-50" src="../assets/3d_images/look_left chat.png" alt="">
+          <div class="absolute diagonalBg bottom-0 right-0 h-1/2 w-1/2"></div>
         </div>
       </div>
 
@@ -1094,7 +1328,7 @@ function getAccDetails($con, $personID)
             <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
             </lord-icon>
             <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
-            <p class=" text-center text-gray-500">You appear to have forgotten to include a résumé. Before applying for a position, please edit your resume. Click the link below to be forwarded to the resume area.</p>
+            <p class=" text-center text-gray-500">It appears that you have forgotten to include your resume. Please do not forget to review and revise your resume to make it relevant to the position you are applying for. To access the resume editing area, simply click the link below.</p>
             <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 my-5 text-center w-full cursor-pointer">Click Me</span>
           </div>
 
@@ -1221,6 +1455,25 @@ function getAccDetails($con, $personID)
 
       </div>
 
+      <!-- event modal -->
+      <div id="eventModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+        <div id="eventContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-7 px-12 
+          text-greyish_black flex flex-col gap-2">
+
+          <!-- Event images -->
+          <img id="headerImg" class="w-full h-44 object-contain bg-red-200 rounded-md" src="" alt="">
+
+          <p id="eventTitleModal" class="text-center text-2xl text-accent font-black"></p>
+          <pre id="eventDescript" class="text-gray-500 text-justify w-full indented"></pre>
+          <p class="text-lg font-bold text-greyish_black">WHEN AND WHERE</p>
+          <p class="text-sm text-gray-500">Date: <span id="eventDateModal"></span></p>
+          <p class="text-sm text-gray-500">Place: <span id="eventPlaceModal"></span></p>
+          <p class="text-sm text-gray-500">Start time: <span id="eventTimeModal"></span></p>
+          <!-- <p id="author" class="text-sm text-gray-500">By: <span class="text-accent">Media Relations Office</span></p> -->
+          <p class="text-lg text-greyish_black font-bold">EXPECTATION</p>
+          <div id="expectationList" class="flex flex-col gap-2"></div>
+        </div>
+      </div>
     </div>
 
   </div>

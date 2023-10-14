@@ -75,7 +75,7 @@ $(document).ready(function () {
 
                 reader.readAsDataURL(file)
             }
-            else $('#errorMsgEM').removeClass('hidden').text(filename + ' file size maximum of 1mb')
+            else $('#errorMsgEM').removeClass('hidden').text(filename + ' file size greater than 1mb')
         }
         else
             $('#errorMsgEM').removeClass('hidden').text('Sorry we only allow images that has file extension of jpg, jpeg, png') //if the file is not based on the img extension we looking for
@@ -106,7 +106,7 @@ $(document).ready(function () {
             fileContainerPrev.append(fileName, xBtn)
             $('#fileContEmail').show().append(fileContainerPrev)
         }
-        else $('#errorMsgEM').removeClass('hidden').text(nameOfFile + ' file size maximum of 5mb')
+        else $('#errorMsgEM').removeClass('hidden').text(nameOfFile + ' file size greater than 5mb')
 
     })
 
@@ -139,6 +139,13 @@ $(document).ready(function () {
             let college = $('#selectColToEmail').val();
             formSend.append('college', college);
             formSend.append('user', user);
+
+            if (college === null) {
+                $('.selectColWrapper').removeClass('border-gray-400').addClass('border-accent')
+                return //for avoiding unselected college
+            }
+            else $('.selectColWrapper').addClass('border-gray-400').removeClass('border-accent')
+
         }
 
         let message = $('#TxtAreaEmail').val();
@@ -154,31 +161,48 @@ $(document).ready(function () {
             formSend.append('files[]', selectedFileEM[i]);
         }
 
-        $.ajax({
-            url: '../PHP_process/sendEmail.php',
-            type: 'POST',
-            data: formSend,
-            processData: false,
-            contentType: false,
-            success: (response) => {
-                $('#promptMsg').removeClass('hidden')
-                $('#message').text('Sending email..')
-                if (response == 'user is not existing')
-                    $('#userNotExist').show()
-                else {
-                    //success sending
-                    $('#message').text('Email sent!')
-                    $('#userNotExist').hide()
-                    $('#modalEmail').hide()
-                    setTimeout(() => {
-                        $('#promptMsg').addClass('hidden')
-                    }, 4000)
-                }
-            },
-            error: (error) => console.log(error)
-        })
+        // submit email
+        if (checkerInput(emailSubj, message)) {
+            $('#loadingScreen').removeClass('hidden') //open loading animation
+            $.ajax({
+                url: '../PHP_process/sendEmail.php',
+                type: 'POST',
+                data: formSend,
+                processData: false,
+                contentType: false,
+                success: (response) => {
+                    $('#loadingScreen').addClass('hidden')
+                    if (response == 'user is not existing')
+                        $('#userNotExist').show()
+                    else {
+                        $('#promptMsg').removeClass('hidden')
+                        // restart email
+                        emailOffset = 0;
+                        countNextEmail = 0;
+                        tempOffsetEmail = 0;
+                        //retrieve emails
+                        getEmailSent(actionDefault)
+                        actionTracker = actionDefault
+                        //success sending
+                        $('#message').text('Email sent!')
+                        $('#userNotExist').hide()
+                        $('#modalEmail').addClass('hidden')
+                        setTimeout(() => {
+                            $('#promptMsg').addClass('hidden')
+                        }, 4000)
+                    }
+                },
+                error: (error) => console.log(error)
+            })
+        }
+
+
     })
 
+    $('#btnEmail').on('click', function () {
+        $('#emailForm')[0].reset() // restart everything
+        $("#modalEmail").removeClass('hidden')
+    })
 
     let emailOffset = 0;
     let tempOffsetEmail = 0;
@@ -196,6 +220,26 @@ $(document).ready(function () {
         getEmailSent(actionDefault)
         actionTracker = actionDefault
     })
+
+
+    function checkerInput(emailSubj, message) {
+        let isComplete = true
+        // check first if the fields are complete
+        if (emailSubj === '') {
+            $('#emailSubj').removeClass('border-gray-400').addClass('border-accent')
+            isComplete = false
+
+        } else $('#emailSubj').addClass('border-gray-400').removeClass('border-accent')
+
+        if (message === '') {
+            $('.modal-descript').removeClass('border-gray-400').addClass('border-accent')
+            isComplete = false
+
+        } else $('.modal-descript').addClass('border-gray-400').removeClass('border-accent')  // back to normal, remove error red indicator
+
+
+        return isComplete
+    }
 
     function getEmailSent(actionData, colCode = "") {
         //perform ajax operation 
@@ -284,4 +328,10 @@ $(document).ready(function () {
         }
     })
 
+
+
+    //close modal email
+    $(".cancelEmail").click(function () {
+        $("#modalEmail").addClass('hidden')
+    });
 })

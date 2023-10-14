@@ -12,7 +12,11 @@ class Notification
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
+        $this->notificationDetails($result, $row, $con);
+    }
 
+    public function notificationDetails($result, $row, $con)
+    {
         //data that will retrieve
         $response = "";
         $notifID = array();
@@ -23,6 +27,7 @@ class Notification
         $timestamp = array();
         $is_read = array();
         $profile = array();
+        $details = array();
 
 
         if ($result && $row > 0) {
@@ -35,6 +40,7 @@ class Notification
                 $date_notification[] = $this->dateInText($data['date_notification']);
                 $timestamp[] = $data['timestamp'];
                 $is_read[] = $data['is_read'];
+                $details[] = $data['details'];
 
                 //get user personID
                 //get the person ID of that user
@@ -85,6 +91,7 @@ class Notification
             "timestamp" => $timestamp,
             "is_read" => $is_read,
             "profile" => $profile,
+            "details" => $details,
         );
 
         echo json_encode($notification);
@@ -159,5 +166,18 @@ class Notification
 
         if ($result) return true;
         else return false;
+    }
+
+    public function unreadNotification($username, $offset, $con)
+    {
+        $maxLimit = 10;
+        $query = "SELECT * FROM `notification` WHERE `is_read` = 0 AND `username` = ? AND `added_by`!= ?  ORDER BY `timestamp` DESC LIMIT $offset,$maxLimit";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('ss', $username, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = mysqli_num_rows($result);
+
+        $this->notificationDetails($result, $row, $con); //details of notification
     }
 }

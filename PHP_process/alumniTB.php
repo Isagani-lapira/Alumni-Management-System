@@ -19,7 +19,25 @@ class Alumni
         $query = "SELECT * FROM `alumni` ORDER BY `batchYr` DESC LIMIT $offset,$maxLimit";
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
+        $this->alumniDetails($result, $row, $con);
+    }
 
+    function getAlumniCount($con)
+    {
+        $count = 0;
+        $query = "SELECT COUNT(*) AS 'total' FROM `alumni`";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result)
+            $count = $result->fetch_assoc()['total'];
+
+        return $count;
+    }
+
+
+    function alumniDetails($result, $row, $con)
+    {
         $response = "";
         $studNo = array();
         $fullname = array();
@@ -58,16 +76,53 @@ class Alumni
         echo json_encode($alumniData);
     }
 
-    function getAlumniCount($con)
+    function alumniByFilter($offset, $batchYr, $college, $status, $con)
     {
-        $count = 0;
-        $query = "SELECT COUNT(*) AS 'total' FROM `alumni`";
-        $stmt = mysqli_prepare($con, $query);
+        $maxLimit = 10;
+        $query = "";
+        $stmt = null;
+
+        // batch only filter
+        if ($batchYr != "" && $college == "" && $status == "") {
+            //batch only available
+            $query = "SELECT * FROM `alumni` WHERE `batchYr` = ? LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('s', $batchYr);
+        } else if ($batchYr != "" && $college != "" && $status == "") {
+            // batch and college are available
+            $query = "SELECT * FROM `alumni` WHERE `batchYr` = ? AND `colCode`= ? LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('ss', $batchYr, $college);
+        } else if ($batchYr != "" && $college != "" && $status != "") {
+            // all of them are available
+            $query = "SELECT * FROM `alumni` WHERE `batchYr` = ? AND `colCode`= ? AND `employment_status`= ? LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('sss', $batchYr, $college, $status);
+        } else if ($batchYr == "" && $college == "" && $status != "") {
+            // status only available
+            $query = "SELECT * FROM `alumni` WHERE `employment_status` = ? LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('s', $status);
+        } else if ($batchYr != "" && $college == "" && $status != "") {
+            // status and batch only available
+            $query = "SELECT * FROM `alumni` WHERE `employment_status` = ? AND `batchYr` = ? LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('ss', $status, $batchYr);
+        } else if ($batchYr == "" && $college != "" && $status == "") {
+            // college only available
+            $query = "SELECT * FROM `alumni` WHERE `colCode` = ? LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('s', $college);
+        } else if ($batchYr == "" && $college != "" && $status != "") {
+            // college and status only available
+            $query = "SELECT * FROM `alumni` WHERE `colCode` = ? AND employment_status = ? LIMIT $offset,$maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('ss', $college, $status);
+        }
+
         $stmt->execute();
         $result = $stmt->get_result();
-        if ($result)
-            $count = $result->fetch_assoc()['total'];
-
-        return $count;
+        $row = mysqli_num_rows($result);
+        $this->alumniDetails($result, $row, $con);
     }
 }

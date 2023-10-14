@@ -32,14 +32,19 @@ $(document).ready(function () {
                         const date_notification = response.date_notification[i];
                         const is_read = response.is_read[i];
                         const profile = response.profile[i];
-                        let content = "";
+                        const details = (response.details[i] == "") ? "" : response.details[i];
 
+                        let content = "";
+                        let isDeleted = false
                         if (typeOfNotif == "comment") content = "Commented on your post"
                         else if (typeOfNotif == "like") content = "Liked on your post"
                         else if (typeOfNotif == "added post") content = "added a post"
-                        else if (typeOfNotif == "delete") content = "Admin deleted your post"
+                        else if (typeOfNotif == "delete") {
+                            content = "Admin deleted your post"
+                            isDeleted = true
+                        }
 
-                        displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID)
+                        displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID, details, isDeleted)
                     }
 
                     //increase the offset based on length so it can produce new sets of notification
@@ -57,7 +62,7 @@ $(document).ready(function () {
     }
 
     const imgFormat = 'data:image/jpeg;base64,';
-    function displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID) {
+    function displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID, details, isDeleted) {
         const notifContainer = $('<div>').addClass('notifContainer flex items-center ' +
             'gap-3 border-b border-gray-300 p-2 bg-blue-200 rounded-md my-1 cursor-pointer')
         if (is_read == '1') notifContainer.removeClass("bg-blue-200")//check if the notification already read
@@ -65,7 +70,6 @@ $(document).ready(function () {
         //image of the user
         const defaultProfile = "../assets/icons/person.png"
         const dbProfile = imgFormat + profile
-        console.log(dbProfile)
         const src = (profile !== '') ? dbProfile : defaultProfile
         const imgProfile = $('<img>')
             .addClass('h-12 w-12 rounded-full border border-accent')
@@ -86,7 +90,10 @@ $(document).ready(function () {
         //put in place the content
         descriptContainer.append(accName, contentElement);
         notifContainer.append(imgProfile, descriptContainer, dateElement)
-            .on('click', function () {
+
+        // showing normal view if the notification is not deleted
+        if (!isDeleted) {
+            notifContainer.on('click', function () {
                 //show the modal
                 $('#viewingPost').removeClass('hidden')
                 //get primary details of user
@@ -99,6 +106,23 @@ $(document).ready(function () {
                 //update the total number of unread notification
                 updateStatusNotification(notifID);
             })
+        }
+        else {
+            // post deleted by admin
+            notifContainer.on('click', function () {
+                $('#reportedPostModal').removeClass('hidden') // display the reported post modal
+                $('#notif-btn').click() //hide the display again
+                const timestamp = formattedTimestamp(date_notification) //formatted date
+                // update the data of reported post
+                $('#reportedTime').text(timestamp)
+                getReportedPostDetails(postID) //post details
+                $("#reasonForDel").text(details)
+
+                //update the total number of unread notification
+                updateStatusNotification(notifID);
+            })
+        }
+
         $('.notification-content').append(notifContainer)
     }
 
@@ -155,6 +179,36 @@ $(document).ready(function () {
             error: error => { console.log(error) }
         })
     }
+
+    function getReportedPostDetails(postID) {
+        let action = {
+            action: 'readWithPostID'
+        }
+
+        //data to be send in database
+        const data = new FormData();
+        data.append('action', JSON.stringify(action))
+        data.append('postID', postID);
+
+        //process retrieval of post
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                //data to be receive
+                const timestamp = formattedTimestamp(response.timestamp);
+                const caption = response.caption;
+
+                $('#postDate').text(timestamp)
+                $('#reportedPostCap').text(caption)
+            }
+        })
+    }
+
     //display the notification tab
     $('#notif-btn').on('click', function () {
         //restart first
@@ -177,7 +231,7 @@ $(document).ready(function () {
     function getUnreadNotification() {
 
         let action = {
-            action: 'readNotif',
+            action: 'unreadNotif',
         }
 
         let formData = new FormData();
@@ -198,19 +252,27 @@ $(document).ready(function () {
                     //store data that has been process
                     for (let i = 0; i < length; i++) {
                         const notifID = response.notifID[i];
+                        const postID = response.postID[i];
                         const added_by = response.added_by[i];
                         const typeOfNotif = response.typeOfNotif[i];
                         const date_notification = response.date_notification[i];
                         const is_read = response.is_read[i];
                         const profile = response.profile[i];
+                        const details = (response.details[i] == "") ? "" : response.details[i];
                         let content = "";
+                        let isDeleted = false
 
                         if (typeOfNotif == "comment") content = "Commented on your post"
                         else if (typeOfNotif == "like") content = "Liked on your post"
                         else if (typeOfNotif == "added post") content = "added a post"
+                        else if (typeOfNotif == "delete") {
+                            content = "Admin deleted your post"
+                            isDeleted = true
+                        }
 
-                        if (is_read == 0)
-                            displayNotification(profile, added_by, content, date_notification, is_read)
+
+                        displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID, details, isDeleted)
+
                     }
 
                     //increase the offset based on length so it can produce new sets of notification
@@ -448,4 +510,25 @@ $(document).ready(function () {
             error: (error) => { console.log(error) }
         })
     }
+
+    function formattedTimestamp(dateTimeString) {
+        const date = new Date(dateTimeString);
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
+
+        const formattedDate = date.toLocaleString('en-US', options);
+
+        return formattedDate
+    }
+
+    // hide the report modal again
+    $('#closeReportedPost').on('click', function () {
+        $('#reportedPostModal').addClass('hidden')
+    })
+
+    $('#learnMoreBtn').on('click', function () {
+        $('.communityGuideline').removeClass('hidden')
+    })
+    $('.closeGuidelines').on('click', function () {
+        $('.communityGuideline').addClass('hidden')
+    })
 })

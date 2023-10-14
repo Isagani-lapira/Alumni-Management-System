@@ -14,19 +14,26 @@ if (isset($_POST['action'])) {
     } else if ($action == "retrieveSpecificEvent") {
         $eventID = $_POST['eventID'];
         retrieveSpecificEvent($eventID, $mysql_con);
+    } else if ($action == 'nextEvents') {
+        $colCode = $_POST['colCode'];
+        $category = $_POST['category'];
+        getNextCollegeEvent($colCode, $category, $mysql_con);
     }
 } else echo 'ayaw';
 
 function reatrieveEvent($colCode, $con)
 {
     $currentDate = $_POST['currentDate'];
-    $query = "SELECT * FROM `event` WHERE `eventDate`>= '$currentDate' AND `colCode` = '$colCode'
-    ORDER by `eventDate` ASC LIMIT 0, 1";
-    $result = mysqli_query($con, $query);
+    $query = "SELECT * FROM `event` WHERE `eventDate`>= ? AND `colCode` = ?
+    ORDER by `eventDate` ASC LIMIT 1";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('ss', $currentDate, $colCode);
+    $stmt->execute();
+    $result = $stmt->get_result();
     $row = mysqli_num_rows($result);
 
     if ($result && $row > 0) getDetail($result, $con);
-    else echo 'ayaw';
+    else echo 'Failed';
 }
 
 function retrieveSpecificEvent($eventID, $con)
@@ -41,43 +48,29 @@ function retrieveSpecificEvent($eventID, $con)
 
 function getDetail($result, $con)
 {
+    $response = "Success";
     $data = mysqli_fetch_assoc($result);
     $eventID  = $data['eventID'];
-    $headerPhrase  = $data['headerPhrase'];
     $eventName = $data['eventName'];
     $eventDate = $data['eventDate'];
     $date_posted  = $data['date_posted'];
     $about_event = $data['about_event'];
-    $contactLink = $data['contactLink'];
     $eventPlace = $data['eventPlace'];
     $eventStartTime = $data['eventStartTime'];
     $aboutImg = $data['aboutImg'];
-    $images = array();
 
-    //retrieve images for carousel
-    $query = "SELECT * FROM `eventimg` WHERE `eventID`= '$eventID'";
-    $resultImg = mysqli_query($con, $query);
-
-    if ($resultImg) {
-        while ($data = mysqli_fetch_assoc($resultImg)) {
-            $imgSrc = $data['event_img'];
-            $images[] = base64_encode($imgSrc);
-        }
-    }
 
     // get expectation
     $expectationJSON = getEventExpectation($eventID, $con);
     $data = array(
-        "headerPhrase" => $headerPhrase,
+        "response" => $response,
         "eventName" => $eventName,
         "eventDate" => $eventDate,
         "date_posted" => $date_posted,
         "about_event" => $about_event,
-        "contactLink" => $contactLink,
         "eventPlace" => $eventPlace,
         "eventStartTime" => $eventStartTime,
         "aboutImg" => base64_encode($aboutImg),
-        "images" => $images,
         "expectation" => $expectationJSON
     );
 
@@ -153,4 +146,66 @@ function dateInText($date)
     $month = $months[$month];
     //return in a formatted date
     return $month . ' ' . $day . ', ' . $year;
+}
+
+function getNextCollegeEvent($colCode, $category, $con)
+{
+    $query = "";
+    // filter by college and alumni
+    if ($colCode != "") { //for next college event
+        $query = "SELECT * FROM `event` WHERE `colCode` = ? 
+        AND `eventDate`>= CURRENT_DATE()
+        ORDER BY `eventDate` ASC LIMIT 3";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $colCode);
+    } else { //for next alumni event
+        $query = "SELECT * FROM `event` WHERE `event_category` = ? 
+        AND `eventDate`>= CURRENT_DATE()
+        ORDER BY `eventDate` ASC LIMIT 3";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $category);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_num_rows($result);
+
+    $response = "Unsuccess";
+    $eventID  = array();
+    $eventName = array();
+    $eventDate = array();
+    $date_posted  = array();
+    $about_event = array();
+    $eventPlace = array();
+    $eventStartTime = array();
+    $aboutImg = array();
+
+
+    if ($result && $row > 0) {
+        $response = "Success";
+        while ($data = $result->fetch_assoc()) {
+            $eventID[]  = $data['eventID'];
+            $eventName[] = $data['eventName'];
+            $eventDate[] = $data['eventDate'];
+            $date_posted[]  = $data['date_posted'];
+            $about_event[] = $data['about_event'];
+            $eventPlace[] = $data['eventPlace'];
+            $eventStartTime[] = $data['eventStartTime'];
+            $aboutImg[] = base64_encode($data['aboutImg']);
+        }
+    }
+
+
+    $data = array(
+        "response" => $response,
+        "eventName" => $eventName,
+        "eventDate" => $eventDate,
+        "date_posted" => $date_posted,
+        "about_event" => $about_event,
+        "eventPlace" => $eventPlace,
+        "eventStartTime" => $eventStartTime,
+        "aboutImg" => $aboutImg,
+    );
+
+    echo json_encode($data);
 }

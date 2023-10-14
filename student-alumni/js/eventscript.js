@@ -1,16 +1,5 @@
 $(document).ready(function () {
     const imgFormat = "data:image/jpeg;base64,"
-    var swiper = new Swiper(".mySwiper", {
-        effect: "cards",
-        pagination: {
-            el: ".swiper-pagination",
-        },
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        grabCursor: true,
-    });
 
     function getCurrentDate() {
         var today = new Date();
@@ -38,64 +27,49 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
-                const headerPhrase = response.headerPhrase
-                const eventName = response.eventName
-                const eventDate = response.eventDate
-                const about_event = response.about_event
-                const contactLink = response.contactLink
-                const eventPlace = response.eventPlace
-                const eventStartTime = response.eventPlace
-                const aboutImg = response.aboutImg
-                const images = response.images
-                const expectation = response.expectation
+                if (response.response == 'Success') {
 
-                displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, eventPlace, aboutImg, images, eventStartTime, expectation)
+                    const eventName = response.eventName
+                    const eventDate = formatDate(response.eventDate)
+                    const about_event = response.about_event
+                    const eventPlace = response.eventPlace
+                    const eventStartTime = response.eventPlace
+                    const aboutImg = response.aboutImg
+                    const expectation = response.expectation
+
+                    // mark up for event
+                    displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime, expectation)
+
+                    // for avoiding duplication of entry
+                    $('#upcomingColEvent').empty()
+                    $('#upcomingAlumniEvent').empty()
+
+                    // get the upcoming event
+                    let colCode = $('#colCode').text();
+                    let category = "col_event_alumni"
+                    retrieveNextCollegeEvent(colCode); //for college
+                    retrieveNextCollegeEvent("", category); //alumni
+                }
+
+
             },
-            error: error => { console.log(error) }
+            error: () => {
+                $('#eventView').addClass('hidden');
+                $('#defaultEvent').removeClass('hidden')
+            }
         })
     }
 
-    function displayEvent(headerPhrase, eventName, eventDate, about_event, contactLink, eventPlace, aboutImg, images, eventStartTime, expectation) {
-        //display it on the content of event
-        $('#headerEvent').html(headerPhrase)
-        $('#eventName').html(eventName)
-        $('#eventNameHeader').html(eventName)
-        $('#aboutEvent').html(about_event)
-        $('#connectURL').attr('href', contactLink)
+    function displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime, expectation) {
+        $('#eventName').text(eventName)
+        $('#eventStartDate').text(eventDate)
+        $('#eventDescriptData').text(about_event)
 
-        //set image for about event
-        const imgSrc = imgFormat + aboutImg
-        $('#aboutImg').attr('src', imgSrc);
-        $('#eventDate').html(eventDate)
-        $('#eventPlace').html(eventPlace)
-        $('#eventStartTime').html(eventStartTime)
-
-        // set up the carousel
-        images.forEach(element => {
-            const swiperSlider = $('<div>').addClass("swiper-slide event-carousel flex justify-center")
-            const imgElement = $('<img>').addClass("rounded-md");
-            const carouselImg = imgFormat + element
-            imgElement.attr('src', carouselImg); //set source of image
-
-            swiperSlider.append(imgElement)
-            $('#swiperWrapperEvent').append(swiperSlider) // append to the root container
-        });
-
-        const expectationLength = expectation.expectation.length;
-        $('#expectContainer').empty();
-        for (let i = 0; i < expectationLength; i++) {
-            const description = expectation.expectation[i];
-            const imgSrc = imgFormat + expectation.sampleImg[i];
-
-            //create a markup for expectation
-            const wrapper = $('<div>').addClass('rounded-md center-shadow text-sm bg-white w-72 p-3 text-gray-600 text-justify')
-            const img = $('<img>').addClass("h-36 w-full object-contain bg-gray-300 rounded-t-md my-2")
-                .attr('src', imgSrc)
-            const descriptElement = $('<p>').text(description)
-
-            wrapper.append(img, descriptElement)
-            $('#expectContainer').append(wrapper)
-        }
+        // for viewing in details
+        $('#viewInDetailsEvent').on('click', function () {
+            $('#eventModal').removeClass('hidden')
+            seeEventDetails(eventName, about_event, eventDate, eventPlace, eventStartTime, aboutImg, expectation)
+        })
     }
 
 
@@ -108,4 +82,102 @@ $(document).ready(function () {
             $('#eventModal').addClass('hidden')
         }
     })
+
+    function formatDate(inputDate) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(inputDate);
+        return date.toLocaleDateString(undefined, options);
+    }
+
+    function seeEventDetails(eventTitle, aboutEvent, eventDate, eventPlace, eventStartTime, headerImg, expectation) {
+        //display the data
+        $('#eventTitleModal').text(eventTitle)
+        $('#eventDescript').text(aboutEvent)
+        $('#eventDateModal').text(eventDate)
+        $('#eventPlaceModal').text(eventPlace)
+        $('#eventTimeModal').text(eventStartTime)
+
+        // header
+        let src = imgFormat + headerImg
+        $('#headerImg').attr('src', src)
+        $('#expectationList').empty() //remove the previously display list of expectation
+        // show expectation
+        const expectationData = expectation.expectation
+        expectationData.forEach(value => {
+            const wrapper = $('<div>')
+                .addClass('flex gap-2 items-center text-gray-500')
+
+            const bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+            const expectationElement = $('<p>')
+                .addClass('text-sm')
+                .text(value)
+            wrapper.append(bulletIcon, expectationElement)
+
+            $('#expectationList').append(wrapper)
+        })
+    }
+
+    function retrieveNextCollegeEvent(colCode = "", categoryVal = "") {
+        const action = "nextEvents";
+        const formatData = new FormData();
+        formatData.append('action', action)
+        formatData.append('colCode', colCode)
+        formatData.append('category', categoryVal)
+
+        $.ajax({
+            url: '../PHP_process/event.php',
+            method: 'POST',
+            data: formatData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                if (response.response = "Success") {
+                    // for avoiding duplication of retrieval
+
+                    let length = response.eventName.length;
+
+                    for (let i = 0; i < length; i++) {
+                        const eventName = response.eventName[i]
+                        const eventDate = formatDate(response.eventDate[i])
+                        const about_event = response.about_event[i].substring(0, 150)
+                        const aboutImg = imgFormat + response.aboutImg[i]
+
+                        const eventWrapper = $('<div>')
+                            .addClass('rounded-md w-64 center-shadow')
+
+                        const header = $('<div>')
+                            .addClass('rounded-t-md relative')
+                            .css({ 'background-color': '#495057' })
+
+                        const img = $('<img>')
+                            .addClass('w-full h-48 object-contain')
+                            .attr('src', aboutImg)
+                        const date = $('<span>')
+                            .addClass('p-2 rounded-tr-md text-xs text-white bg-black absolute bottom-0 left-0')
+                            .css({ 'background-color': '#A54500' })
+                            .text(eventDate);
+
+                        const body = $('<div>')
+                            .addClass('p-3 rounded-b-md')
+
+                        const name = $('<h3>').addClass('text-greyish_black font-bold').text(eventName);
+                        const description = $('<p>').addClass('text-gray-400 text-xs text-justify').text(about_event);
+
+
+                        header.append(img, date);
+                        body.append(name, description)
+                        eventWrapper.append(header, body)
+
+                        if (colCode != "")
+                            $('#upcomingColEvent').append(eventWrapper)
+                        else
+                            $('#upcomingAlumniEvent').append(eventWrapper)
+                    }
+
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
 })
