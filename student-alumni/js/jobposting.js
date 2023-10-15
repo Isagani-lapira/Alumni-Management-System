@@ -55,7 +55,6 @@ $(document).ready(function () {
     })
 
     let offsetUserJob = 0;
-    let lengthChecker = 0;
     // current user job post
     $('#verif-btn').on('click', function () {
         offsetUserJob = 0;
@@ -66,10 +65,11 @@ $(document).ready(function () {
     function retrieveUserPost() {
         //process retrieval
         const action = { action: 'currentUserJobPost' };
-
+        const maxLimit = 9
         const formData = new FormData();
         formData.append('action', JSON.stringify(action));
         formData.append('offset', offsetUserJob)
+        formData.append('maxLimit', maxLimit)
         $.ajax({
             url: '../PHP_process/jobTable.php',
             method: 'POST',

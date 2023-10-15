@@ -331,9 +331,8 @@ class Career
             echo 'error';
     }
 
-    public function userPost($personID, $offset, $con)
+    public function userPost($personID, $offset, $con, $maxLimit)
     {
-        $maxLimit = 10;
         $query = "SELECT * FROM `career` WHERE  `personID`= ? ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit ";
         $stmt = mysqli_prepare($con, $query);
 
