@@ -2228,7 +2228,7 @@ function dateInText($date)
               </section>
 
               <!-- work experience -->
-              <section class="my-2">
+              <section class="my-2 workExp">
                 <h1 class="font-bold text-base mt-5">WORK EXPERIENCE</h1>
                 <ul id="workExpList" class="p-3 flex flex-col gap-2"></ul>
               </section>

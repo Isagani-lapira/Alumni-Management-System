@@ -4,17 +4,20 @@ $(document).ready(function () {
 
     //admin job list post
     $("#jobMyPost").on("click", function () {
-        offsetUserJob = 0;
-        retrieveUserPost()
+        // restart everything
+        offsetUserJob = 0; //retrieve from the beginning
+        $('#adminJobPostCont').empty() //avoid duplication of data
+        retrieveUserPost() //display job post
     });
 
     function retrieveUserPost() {
         //process retrieval
         const action = { action: 'currentUserJobPost' };
-
+        const maxLimit = 12;
         const formData = new FormData();
         formData.append('action', JSON.stringify(action));
         formData.append('offset', offsetUserJob)
+        formData.append('maxLimit', maxLimit)
         $.ajax({
             url: '../PHP_process/jobTable.php',
             method: 'POST',
@@ -52,13 +55,12 @@ $(document).ready(function () {
         })
     }
 
-
     //mark up for job repository in verified post
     function displayJobRepo(careerID, jobTitle, skills, status, companyName,
         jobDescript, jobQuali, location, applicantcount) {
 
         //sets of color
-        const colorBG = 'gray-400'
+        const colorBG = 'accent'
 
         const wrapper = $('<div>')
             .addClass('rounded-md max-w-sm flex flex-col center-shadow')
@@ -112,7 +114,7 @@ $(document).ready(function () {
                 $("#jobQualification").text(jobQuali);
                 $("#statusJob").text(status);
                 $("#jobApplicant").text('Applicant: ' + applicantcount);
-                console.log(applicantcount)
+
                 $('#aplicantListBtn').addClass('cursor-text') //default
                 if (parseInt(applicantcount) > 0) {
                     $('#aplicantListBtn').removeClass('cursor-text')
@@ -235,13 +237,16 @@ $(document).ready(function () {
         const threshold = 50; // Define the threshold in pixels
 
         //once the bottom ends, it will reach another sets of data (post)
-        if (scrollOffset + containerHeight + threshold >= contentHeight && lengthChecker == 10)
+        if (scrollOffset + containerHeight + threshold >= contentHeight && lengthChecker == 12)
             retrieveUserPost()//get another set of post
 
     })
 
     function setResumeDetails(objective, fullname, contactNo, address, emailadd,
         skills, educations, workExp, references) {
+
+        // restart data that already retrieved and displayed
+        restartResumeDetails()
         $('#fullnameResume').text(fullname)
         $('#contactNoResume').text(contactNo)
         $('#addressResume').text(address)
@@ -290,7 +295,7 @@ $(document).ready(function () {
         //check first if there's a value
         if (workExp !== null) {
             //set up the work experience
-
+            $('.workExp').removeClass('hidden')
             const lengthWorkExp = workExp.jobTitle.length;
             for (let i = 0; i < lengthWorkExp; i++) {
 
@@ -333,7 +338,8 @@ $(document).ready(function () {
 
 
         }
-        else console.log('ala')
+        else $('.workExp').addClass('hidden') // hide the work experience
+
 
         //add references
         const refLength = references.jobTitle.length;
@@ -363,14 +369,20 @@ $(document).ready(function () {
 
             $('#referenceContainer').append(refWrapper) //root
         }
-
-        $("#referenceContainer").append()
     }
 
     $('#closeViewResume').on('click', function () {
         $('#viewResumeModal').addClass('hidden')
     })
 
+    function restartResumeDetails() {
+        $('#primaryLvl').empty()
+        $('#secondaryLvl').empty()
+        $('#tertiaryLvl').empty()
+        $('#workExpList').empty()
+        $('#referenceContainer').empty()
+        $('#skillWrapper').empty()
+    }
     $('#printResume').on('click', function () {
         const resumeWrapperModal = $('#resumeWrapperModal')
         const printWindow = window.open('', '_blank');
@@ -442,7 +454,7 @@ $(document).ready(function () {
         // Apply the filter based on the selected author type
         if (selectedVal === 'all') {
             // Clear the filter and show all rows
-            table.search('').draw();
+            table.column(2).search('').draw();
         } else if (selectedVal === 'admin') {
             // Apply a filter to show only rows with the selected author type
             table.column(2).search(selectedVal).draw();
@@ -622,7 +634,7 @@ $(document).ready(function () {
         var allFieldCompleted = true;
         $(".jobField").each(function () {
             let currentElement = $(this)
-            if (!currentElement.val()) {
+            if (!currentElement.val() === "") {
                 currentElement.removeClass("border-gray-400").addClass("border-accent");
                 allFieldCompleted = false;
             } else currentElement.addClass("border-grayish").removeClass("border-accent");

@@ -104,7 +104,10 @@ $(document).ready(function () {
 
   //allows modal to be close when Click else where
   $("#viewJob").on("click", function (e) {
-    if (!e.target.closest("#viewJob").length) $("#viewJob").addClass("hidden");
+    const modal = $('#viewingJobModal')
+    const target = e.target
+    if (!modal.is(target) && modal.has(target).length === 0)
+      $("#viewJob").addClass("hidden");
   });
 
   $(function () {
