@@ -33,7 +33,7 @@ function getAnnouncement($currentDate, $maxLimit, $con)
     $offset = 0;
 
     $query = "SELECT * FROM `university_announcement` WHERE 
-    `date_end`>='$currentDate' ORDER BY `date_posted`ASC LIMIT $offset, $maxLimit";
+    `date_end`>='$currentDate' ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit";
     $result = mysqli_query($con, $query);
 
     getDetails($result, $con);
@@ -43,7 +43,7 @@ function getAdminAnnouncement($univAdminID, $offset, $con)
 {
     $maxLimit = 10;
     $query = "SELECT * FROM `university_announcement` WHERE `univAdminID` = '$univAdminID'
-     ORDER BY `date_posted` DESC LIMIT $offset,$maxLimit";
+    ORDER BY `date_posted` DESC LIMIT $offset,$maxLimit";
     $result = mysqli_query($con, $query);
 
     getDetails($result, $con);

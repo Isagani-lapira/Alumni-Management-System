@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     const announcementTb = $('.announcementTable').DataTable({
         "paging": true,
-        "ordering": true,
+        "ordering": false,
         "info": false,
         "lengthChange": false,
         "searching": true,
