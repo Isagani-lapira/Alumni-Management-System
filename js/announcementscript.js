@@ -1,10 +1,26 @@
 $(document).ready(function () {
     const imgFormat = "data:image/jpeg;base64,"
-    $('#newsAndUpdate').on('click', retrievedAnnouncement)
+    $('#newsAndUpdate').on('click', function () {
+        // restart everything first
+        announcementTb.clear()
+        offsetAnnouncement = 0
+        retrievedList = 0
+        retrievedAnnouncement()
+    })
 
     let offsetAnnouncement = 0;
     let retrievedList = 0;
 
+    const announcementTb = $('.announcementTable').DataTable({
+        "paging": true,
+        "ordering": true,
+        "info": false,
+        "lengthChange": false,
+        "searching": true,
+        "pageLength": 8
+    });
+
+    $('.announcementTable').removeClass('dataTable').addClass('rounded-lg')
     //retrieve the announcement data
     function retrievedAnnouncement() {
         let action = "readAdminPost"
@@ -24,7 +40,6 @@ $(document).ready(function () {
                 if (response.result == 'Success') {
                     const data = response
                     $('#announcementList').empty() //remove the previously displayed
-                    $('#noAvailMsgAnnouncement').addClass('hidden')
 
                     //get all the data retrieved from the processing
                     const length = data.title.length
@@ -39,56 +54,49 @@ $(document).ready(function () {
                             const headline_img = response.headline_img[i];
                             const fullname = response.fullname[i];
 
-                            // create markup for table
-                            const row = $('<tr>')
-                                .addClass('border-b border-gray-300')
-                            const titleTD = $('<td>')
-                                .addClass('font-semibold')
-                                .text(title);
-                            const descriptTD = $('<td>')
-                                .text(tempDescription);
-                            const datePostedTD = $('<td>').text(date_posted);
+                            const row = [
+                                title,
+                                tempDescription,
+                                date_posted,
+                                `<button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-3 py-1 text-xs view-button"
+                                data-announcementID="${announcementID}"
+                                data-description="${description}"
+                                data-title="${title}"
+                                data-date_posted="${date_posted}"
+                                data-headline_img="${headline_img}"
+                                data-fullname="${fullname}">View</button>`
+                            ]
 
-                            const viewBtn = $('<button>')
-                                .addClass('bg-postButton hover:bg-postHoverButton rounded-sm text-white px-3 py-1 text-xs')
-                                .text('View')
-                                .on('click', function () {
-                                    $('#announcementModal').removeClass('hidden')
-                                    const imgSrc = imgFormat + headline_img
-                                    displayAnnouncementDetails(announcementID, imgSrc, date_posted, fullname, title, description)
-                                })
-
-                            const actionContainer = $('<div>')
-                                .addClass('flex flex-wrap justify-center gap-2')
-                                .append(viewBtn)
-
-                            //action data
-                            const actionTD = $('<td>')
-                                .append(actionContainer)
-
-                            //attach every data to the table
-                            row.append(titleTD, descriptTD, datePostedTD, actionTD);
-                            $('#announcementList').append(row)
+                            announcementTb.row.add(row)
                         }
+
+                        announcementTb.draw();
 
                         offsetAnnouncement += length
                         retrievedList = length
-                        //if the retrieved data is not get to 10 then it's because there's no more data left
-                        if (retrievedList < 10) {
-                            $('#nextAnnouncement').addClass('hidden')
-                        }
-                        else {
-                            $('#nextAnnouncement').removeClass('hidden')
-                            $('#prevAnnouncement').removeClass('hidden')
-                        }
+
+                        // retrieve more
+                        if (retrievedList == 10) retrievedAnnouncement()
+
                     }
-                    else $('#noAvailMsgAnnouncement').removeClass('hidden')
                 }
 
             }
 
         })
     }
+
+    // open the announcement
+    $('.announcementTable').on('click', ".view-button", function () {
+        const announcementID = $(this).data('announcementid');
+        const title = $(this).data('title');
+        const description = $(this).data('description');
+        const date_posted = $(this).data('date_posted');
+        const headline_img = imgFormat + $(this).data('headline_img');
+        const fullname = $(this).data('fullname');
+
+        displayAnnouncementDetails(announcementID, headline_img, date_posted, fullname, title, description)
+    })
 
     // format the date into easy to read date
     function getFormattedDate(date) {
@@ -119,6 +127,8 @@ $(document).ready(function () {
 
     // assign value in the announcement modal
     function displayAnnouncementDetails(ID, headline, date_posted, author, title, description) {
+        $('#announcementModal').removeClass('hidden') //open modal
+        // details set up
         $('#headline_img').attr('src', headline)
         $('#announceDatePosted').text(date_posted)
         $('#announcementAuthor').text(author)
@@ -168,14 +178,170 @@ $(document).ready(function () {
         $("#imagesWrapper").append(imgElement);
     }
 
-    //close the announcement modal
+    // Close the announcement modal
     $('#announcementModal').on('click', function (e) {
-        const target = e.target
-        let container = $('#announcementContainer')
+        const target = e.target;
+        const container = $('#announcementDetails');
 
-        //check if the clicked is outside the container
-        if (!container.is(target) && !container.has(target).length) {
-            $('#announcementModal').addClass('hidden')
+        // Check if the clicked element is outside the container
+        if (!container.is(target) && container.has(target).length === 0)
+            $('#announcementModal').addClass('hidden');
+    });
+
+
+    // make news and announcement
+    $("#headerImg").on("change", function () {
+        const file = this.files[0]; //get the first file selected
+
+        if (file) {
+            const reader = new FileReader();
+
+            //display the file on image element
+            reader.onload = (e) => {
+                $("#imgHeader")
+                    .addClass('cursor-pointer')
+                    .attr("src", e.target.result)
+                    .on('click', function () {
+                        $('#headerImg').click()
+                    })
+
+                //hide the label
+                $(".headerLbl").addClass("hidden");
+            };
+
+            //read the selected file to trigger onload
+            reader.readAsDataURL(file);
         }
-    })
+    });
+
+    $("#newsTitle, #newstTxtArea").on("input", enableAnnouncementBtn);
+    $("#headerImg").on("change", enableAnnouncementBtn);
+
+    function enableAnnouncementBtn() {
+        const fieldToTest = ["#newsTitle", "#newstTxtArea", "#headerImg"];
+        let isComplete = false;
+        $.each(fieldToTest, function (index, field) {
+            let value = $(field).val().trim();
+            if (value === "") {
+                isComplete = false; // If any field is empty, set isComplete to false
+                return false; // Exit the loop early if we find an empty field
+            } else isComplete = true;
+        });
+
+        const enabledBtn = "text-white bg-accent";
+        const disabledBnt = "text-gray-300  bg-red-300";
+        //if everything is added then remove the disabled in button
+        if (isComplete) {
+            $("#postNewsBtn")
+                .prop("disabled", false)
+                .addClass(enabledBtn)
+                .removeClass(disabledBnt);
+        } else {
+            //disable again the button
+            $("#postNewsBtn")
+                .prop("disabled", true)
+                .addClass(disabledBnt)
+                .removeClass(enabledBtn);
+        }
+    }
+
+    let imageCollection = [];
+    $("#collectionFile").on("change", function () {
+        let imgSrc = this.files[0];
+
+        imageCollection.push(imgSrc);
+        //get image selected
+        if (imgSrc) {
+            var reader = new FileReader();
+
+            //load the selected file
+            reader.onload = (e) => {
+                //create a new container
+                const imgWrapper = $("<div>").addClass(
+                    "imgWrapper w-24 h-24 rounded-md"
+                );
+                const imgElement = $("<img>")
+                    .addClass("h-full w-full rounded-md")
+                    .attr("src", e.target.result);
+
+                //attach everything
+                imgWrapper.append(imgElement);
+                $("#collectionContainer").append(imgWrapper); //attach to the root
+            };
+
+            //read the file for onload to be trigger
+            reader.readAsDataURL(imgSrc);
+        }
+    });
+
+    $("#closeNewsModal").on("click", function () {
+        $("#newsUpdateModal").addClass("hidden");
+        restartNewsModal();
+    });
+
+    //restart the news modal
+    function restartNewsModal() {
+        $("#imgHeader").removeAttr('src')
+        $(".headerLbl").removeClass("hidden");
+        $("#newsTitle").val("");
+        $("#newstTxtArea").val("");
+        $(".imgWrapper").remove();
+
+        imageCollection = [];
+    }
+    //open announcement modal
+    $("#newsBtn").on("click", function () {
+        $("#newsUpdateModal").removeClass("hidden");
+    });
+
+    $("#postNewsBtn").on("click", function () {
+        let imgHeader = $("#headerImg").prop("files")[0]; //get the header
+        let action = "insertData";
+        let title = $("#newsTitle").val();
+        let description = $("#newstTxtArea").val();
+
+        //data to be send
+        const formData = new FormData();
+        formData.append("action", action);
+        formData.append("imgHeader", imgHeader);
+        formData.append("title", title);
+        formData.append("description", description);
+
+        //send images when there's a collection added
+        if (imageCollection.length != 0) {
+            for (let i = 0; i < imageCollection.length; i++) {
+                formData.append("file[]", imageCollection[i]);
+            }
+        }
+
+        //process the insertion
+        $.ajax({
+            url: "../PHP_process/announcement.php",
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (response) => {
+                //close the modal
+                $("#newsUpdateModal").addClass("hidden");
+                restartNewsModal();
+                if (response == "Success") {
+                    announcementTb.clear()
+                    offsetAnnouncement = 0;
+                    retrievedList = 0;
+                    retrievedAnnouncement()
+                    setTimeout(function () {
+                        $("#successModal").removeClass("hidden");
+
+                        setTimeout(function () {
+                            $("#successModal").addClass("hidden");
+                        }, 5000);
+                    }, 1000);
+                }
+            },
+            error: (error) => {
+                console.log(error);
+            },
+        });
+    });
 })

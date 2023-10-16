@@ -468,7 +468,7 @@ function dateInText($date)
           <div class="flex justify-end py-2 border-b border-gray-300">
             <button id="newsBtn" class="text-sm text-white rounded-md bg-accent p-2">Make announcement</button>
           </div>
-          <table class="w-full text-sm mt-5 center-shadow">
+          <table class="w-full text-sm mt-5 center-shadow announcementTable">
             <thead>
               <tr class="bg-accent text-white">
                 <th class=" rounded-tl-lg">Title</th>
@@ -480,10 +480,6 @@ function dateInText($date)
             <tbody id="announcementList" class="text-xs"></tbody>
           </table>
           <p id="noAvailMsgAnnouncement" class="text-center text-blue-400 text-lg hidden">No available data</p>
-          <div class="flex flex-wrap gap-2 justify-end my-2">
-            <button id="prevAnnouncement" class="tex-sm px-3 py-1 rounded-md border border-accent">Previous</button>
-            <button id="nextAnnouncement" class="text-white bg-accent tex-sm px-4 py-1 rounded-md">Next</button>
-          </div>
         </div>
 
         <!-- Email content -->
@@ -1940,7 +1936,7 @@ function dateInText($date)
 
     <!-- announcement modal -->
     <div id="announcementModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-      <div id="announcementContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
+      <div id="announcementDetails" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
         <!-- header -->
         <div class="flex gap-2 items-center py-2">
           <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
