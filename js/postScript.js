@@ -152,7 +152,6 @@ $(document).ready(function () {
     $('.totalPost').text(totalPostCount)
     // //show post of admin
     function getPostAdmin(data, isTable) {
-        $('#postTBody').empty()
         $.ajax({
             url: '../PHP_process/postDB.php',
             method: 'POST',
@@ -168,7 +167,6 @@ $(document).ready(function () {
                     let username = data.username;
                     let fullname = $('#userFullname').html(); //change base on the full name of the user
                     for (let i = 0; i < length; i++) {
-                        data.response[i]
                         let postID = data.postID[i]
                         let collegeCode = data.colCode[i]
                         let caption = data.caption[i]
@@ -180,11 +178,16 @@ $(document).ready(function () {
 
                         if (isTable)
                             announcementTbDisplay(postID, collegeCode, fullname, username, caption, imagesObj, date, i, comment, likes, length) //add post in table;
-                        else
-                            displayToProfile();
+                        else displayToProfile();
                     }
                     toAddProfile = false //won't be affected by date range 
                     offsetPost += length
+
+                    // Check if the table row count is equal to 10
+                    if (isTable && table.rows().count() === 10) {
+                        postData.set('offset', offsetPost);
+                        getPostAdmin(postData, true);
+                    }
                 }
                 else {
                     $('#noPostMsg').show();
@@ -223,6 +226,7 @@ $(document).ready(function () {
     });
 
     let table = $('#postTable').DataTable(); // Get the DataTable instance
+    $('#postTable').removeClass('dataTable').addClass('rounded-lg')
     function announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments, likes, length) {
 
         // Create a new row
@@ -231,28 +235,72 @@ $(document).ready(function () {
             likes,
             comments,
             postdate,
-            `<button class="text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white">Archive</button>
-            <button class="bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500 view-button" data-postID="${postID}">View</button>`
+            `<button class="text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white delCommunityPost"
+            data-postid="${postID}">Archive</button>
+
+            <button class="bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500 view-button"
+            data-postid="${postID}"
+            data-name="${name}"
+            data-accUN="${accUN}"
+            data-postcaption="${postcaption}"
+            data-position="${position}"
+            data-likes="${likes}"
+            >View</button>`
+
         ];
 
         // Add the new row to the DataTable
         table.row.add(row).draw();
 
-        // Attach click event handler to the specific "View" button using the data-postID attribute
-        $(`button.view-button[data-postID="${postID}"]`).on('click', function () {
-            $('#modalPost').removeClass('hidden');
-            viewingOfPost(postID, name, accUN, postcaption, images, position, likes);
+    }
+
+
+    $('#postTable').on('click', '.view-button', function () {
+        const postID = $(this).data('postid');
+        const name = $(this).data('name');
+        const accUN = $(this).data('accUN');
+        const postcaption = $(this).data('postcaption');
+        const likes = $(this).data('likes');
+
+        // get images
+        const action = { action: "getPostImages" };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('postID', postID);
+
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                const images = response;
+                viewingOfPost(postID, name, accUN, postcaption, images, likes)
+            },
+            error: error => { console.log(error) }
         });
 
-        // Check if the table has exactly 10 rows
-        if (table.rows().count() === 10) {
-            offsetPost += length
-            postData.set('offset', offsetPost)
-            // Your code for when there are 10 rows
-            getPostAdmin(postData, true)
+    });
 
-        }
-    }
+    $('.closeDeleteBtn').on('click', function () {
+        $('#delete-modal').addClass('hidden')
+    })
+
+    $('#postTable').on('click', '.delCommunityPost', function () {
+        let postID = $(this).data('postid')
+
+        //open the delete prompt
+        $('#delete-modal').removeClass('hidden')
+        //update the post status into deleted
+        $('#deletePostbtn').on('click', function () {
+            const status = "deleted"
+            updatePostStatus(status, postID, false)
+        })
+    })
+
 
     let collegeFilter = "";
     let startDateFilter = "";
@@ -274,7 +322,8 @@ $(document).ready(function () {
     })
 
 
-    function viewingOfPost(postID, name, accUN, description, images, position, likes) {
+    function viewingOfPost(postID, name, accUN, description, images, likes) {
+        $('#modalPost').removeClass('hidden');
         $('#profilePic').attr('src', profilePic);
         $('#postFullName').text(name);
         $('#postUN').text(accUN);
@@ -284,8 +333,8 @@ $(document).ready(function () {
         const carouselWrapper = $('#carousel-wrapper');
         const carouselIndicators = $('#carousel-indicators');
 
-        let totalImgNo = images[position].length;
-        images[position].forEach((image, index) => {
+        let totalImgNo = images.length;
+        images.forEach((image, index) => {
             let imageName = 'item-' + index;
             const item = $('<div>')
                 .addClass('relative duration-700 ease-in-out h-full')
@@ -771,6 +820,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
+                console.log(response)
                 //close the modal
                 $('#delete-modal').addClass('hidden')
                 if (isProfile) {
@@ -779,12 +829,15 @@ $(document).ready(function () {
                     $('#restoreModal').addClass('hidden') //hide the modal again
                 }
                 else {
+                    // restart everything
                     offsetPost = 0;
                     postData.append('action', JSON.stringify(postAction));
                     postData.set('startDate', "")
                     postData.set('endDate', "")
                     postData.set('offset', offsetPost)
+                    table.clear().draw();
                     getPostAdmin(postData, true)
+
                 }
 
             },

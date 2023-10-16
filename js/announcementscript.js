@@ -174,7 +174,6 @@ $(document).ready(function () {
             .addClass('w-40 object-contain bg-gray-500 rounded-md')
             .attr('src', imgSrc);
 
-        console.log('rar')
         $("#imagesWrapper").append(imgElement);
     }
 
