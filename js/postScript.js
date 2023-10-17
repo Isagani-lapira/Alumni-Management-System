@@ -251,7 +251,7 @@ $(document).ready(function () {
             <button class="bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500 view-button"
             data-postid="${postID}"
             data-name="${name}"
-            data-accUN="${accUN}"
+            data-username="${accUN}"
             data-postcaption="${postcaption}"
             data-position="${position}"
             data-postdate="${postdate}"
@@ -269,7 +269,7 @@ $(document).ready(function () {
     $('#postTable').on('click', '.view-button', function () {
         const postID = $(this).data('postid');
         const name = $(this).data('name');
-        const accUN = $(this).data('accUN');
+        const accUN = $(this).data('username');
         const postcaption = $(this).data('postcaption');
         const postDate = $(this).data('postdate');
         const likes = $(this).data('likes');
@@ -293,7 +293,7 @@ $(document).ready(function () {
                 if (images.length !== 0)
                     viewingOfPost(postID, name, accUN, postcaption, images, likes)
                 else
-                    viewStatusPost(postID, name, postDate, postcaption, likes)
+                    viewStatusPost(postID, name, postDate, postcaption, likes, accUN)
             },
             error: error => { console.log(error) }
         });
@@ -407,10 +407,11 @@ $(document).ready(function () {
         )
     }
 
-    function viewStatusPost(postID, name, postDate, postcaption, likes) {
+    function viewStatusPost(postID, name, postDate, postcaption, likes, username) {
         $('#postStatusModal').removeClass('hidden')
         $('#statusFullnameUser').text(name)
         $('#statusDate').text(postDate)
+        $('.accountUN').text(username)
         $('#statusDescript').html(postcaption)
         $('#statusLikes').text(likes)
 
@@ -741,7 +742,17 @@ $(document).ready(function () {
                 },
             });
 
-        } else { postWrapper.css('min-height', '155px') }
+        } else {
+            postWrapper.css('min-height', '155px')
+                .on('click', function (e) {
+                    const target = e.target
+                    const button = deleteElement
+
+                    if (!button.is(target) && button.has(target).length === 0)
+                        viewStatusPost(postID, fullname, date, caption, likes, username)
+
+                })
+        }
 
 
         date = getFormattedDate(date)
@@ -911,7 +922,11 @@ $(document).ready(function () {
                     displayToProfile(actionTracker, isAvailable) //reload the post again
                     $('#restoreModal').addClass('hidden') //hide the modal again
                 }
-                else restartTableContent()// restart everything
+                else {
+                    // restart everything
+                    restartTableContent()
+                    getPostAdmin(postData, true)
+                }
 
 
             },
@@ -987,6 +1002,10 @@ $(document).ready(function () {
 
     })
 
+
+    $('.closeStatusPost').on('click', function () {
+        $('#postStatusModal').addClass('hidden')
+    })
 
     function viewingOfPost1(postID, name, accUN, description, images, likes, imgProfile) {
         $('#profilePic').attr('src', imgProfile);
@@ -1228,7 +1247,17 @@ $(document).ready(function () {
                 },
             });
 
-        } else { postWrapper.css('min-height', '155px') }
+        } else {
+            postWrapper.css('min-height', '155px')
+                .on('click', function (e) {
+                    const target = e.target
+                    const button = deleteElement
+
+                    if (!button.is(target) && button.has(target).length === 0)
+                        viewStatusPost(postID, fullname, date, caption, likes, username)
+
+                })
+        }
 
 
         date = getFormattedDate(date)

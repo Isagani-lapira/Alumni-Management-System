@@ -1781,14 +1781,15 @@ function dateInText($date)
       <div class="postStatus bg-white rounded-md w-2/6 p-5 flex flex-col gap-3">
         <div class="flex justify-between">
           <div class="flex items-center">
-            <img id="profileStatusImg" class="w-14 h-14 rounded-full" alt="" srcset="">
+            <img id="profileStatusImg" class="w-10 h-10 rounded-full" alt="" srcset="">
 
             <div class="px-2 text-greyish_black">
               <p id="statusFullnameUser" class="font-bold text-sm"></p>
-              <span id="statusDate" class="text-sm"></span>
+              <span class="italic accountUN text-gray-400 text-sm"></span>
             </div>
           </div>
 
+          <iconify-icon class="closeStatusPost cursor-pointer text-gray-400 hover:text-gray-500 hover:h-7 hover:w-7" icon="ei:close" width="24" height="24"></iconify-icon>
         </div>
 
         <!-- description -->
@@ -1796,9 +1797,12 @@ function dateInText($date)
           <pre id="statusDescript"></pre>
         </div>
 
+        <!-- date -->
+        <span id="statusDate" class="text-xs text-gray-500"></span>
+
         <!-- comment -->
         <div class="flex-col text-sm border-t border-gray-400 py-2 commentStatus">
-          <div class="flex gap-2 text-gray-500 justify-end text-xs">
+          <div class="flex gap-2 text-gray-500 text-xs">
             <p>Likes: <span id="statusLikes"></span></p>
             <p>Comments: <span id="statusComment"></span></p>
           </div>

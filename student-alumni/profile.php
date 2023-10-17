@@ -1330,6 +1330,40 @@ function dateInText($date)
         </div>
     </div>
 
+    <!-- status modal -->
+    <div id="postStatusModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div class="postStatus bg-white rounded-md w-2/6 p-5 flex flex-col gap-3">
+            <div class="flex justify-between">
+                <div class="flex items-center">
+                    <img id="profileStatusImg" class="w-10 h-10 rounded-full" alt="" srcset="">
+
+                    <div class="px-2 text-greyish_black text-sm ">
+                        <p id="statusFullnameUser" class="font-bold"></p>
+                        <span class="italic accountUN text-gray-400"></span>
+                    </div>
+                </div>
+
+                <iconify-icon class="closeStatusPost cursor-pointer text-gray-400 hover:text-gray-500 hover:h-7 hover:w-7" icon="ei:close" width="24" height="24"></iconify-icon>
+            </div>
+
+            <!-- description -->
+            <div>
+                <pre id="statusDescript"></pre>
+            </div>
+            <!-- date -->
+            <span id="statusDate" class="text-xs text-gray-500"></span>
+            <!-- comment -->
+            <div class="flex-col text-sm border-t border-gray-400 py-2 commentStatus">
+                <div class="flex gap-2 text-gray-500 text-xs">
+                    <p>Likes: <span id="statusLikes"></span></p>
+                    <p>Comments: <span id="statusComment"></span></p>
+                </div>
+
+                <div id="commentStatus" class="flex flex-col gap-2 p-2 mt-2"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- success prompt -->
     <div id="successModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
         <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
