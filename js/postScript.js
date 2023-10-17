@@ -84,20 +84,39 @@ $(document).ready(function () {
 
     })
 
+    // //open modal post
+    $("#btnAnnouncement").click(function () {
+        $('#modal').removeClass('hidden')
+    });
+
     //make a post
     $('#postBtn').on('click', function () {
         let caption = $('#TxtAreaAnnouncement').val();
         let college = $('#collegePost').val();
 
-        if (college == "all") {
-            $('#collegePost option').slice(1).each(function () { // to skip the index 0 (all)
-                const collegeVal = $(this).val();
-                postInsertion(caption, collegeVal);
-            })
+        // check if the post has atleast have description or 1 image
+        if (caption != "" || selectedFiles.length != 0) {
+            if (college == "all") {
+                $('#collegePost option').slice(1).each(function () { // to skip the index 0 (all)
+                    const collegeVal = $(this).val();
+                    postInsertion(caption, collegeVal);
+                })
+            }
+            else postInsertion(caption, college);
+
+            //refresh a table list
+            restartTableContent()
+            getPostAdmin(postData, true)
+
+            // restart the form
+            //remove the images
+            while (imgContPost.firstChild) {
+                imgContPost.removeChild(imgContPost.firstChild)
+                selectedFiles = [];
+            }
+            $('#TxtAreaAnnouncement').val('')
         }
-        else {
-            postInsertion(caption, college);
-        }
+
     })
 
     function postInsertion(caption, college) {
@@ -121,8 +140,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
-                console.log(response)
-                $('#modal').hide();
+                $('#modal').addClass('hidden');
                 $('#promptMsg').removeClass('hidden')
                 $('#message').text('Announcement successfully posted!')
                 setTimeout(() => {
@@ -130,7 +148,6 @@ $(document).ready(function () {
                 }, 4000)
                 selectedFiles = [];
             },
-            error: (error) => { console.log(error) }
         })
     }
 
@@ -145,11 +162,10 @@ $(document).ready(function () {
     postData.append('offset', offsetPost)
 
     $('#announcementLI').on('click', function () {
+        restartTableContent()
         getPostAdmin(postData, true)
     })
 
-    let totalPostCount = $('#totalPosted').html();
-    $('.totalPost').text(totalPostCount)
     // //show post of admin
     function getPostAdmin(data, isTable) {
         $.ajax({
@@ -174,26 +190,19 @@ $(document).ready(function () {
                         let comment = data.comments[i];
                         let likes = data.likes[i];
                         date = textDateFormat(date) //change to text format
-                        let imagesObj = data.images;
 
-                        if (isTable)
-                            announcementTbDisplay(postID, collegeCode, fullname, username, caption, imagesObj, date, i, comment, likes, length) //add post in table;
+                        if (isTable) announcementTbDisplay(postID, collegeCode, fullname, username, caption, date, i, comment, likes, length) //add post in table;
                         else displayToProfile();
                     }
                     toAddProfile = false //won't be affected by date range 
                     offsetPost += length
 
                     // Check if the table row count is equal to 10
-                    if (isTable && table.rows().count() === 10) {
+                    if (isTable && length === 10) {
                         postData.set('offset', offsetPost);
                         getPostAdmin(postData, true);
                     }
-                }
-                else {
-                    $('#noPostMsg').show();
-                    //disable the next button
-                    $('#nextPost').attr('disabled', true)
-                        .addClass('hidden')
+                    $('.totalPost').text(table.rows().count())
                 }
 
             },
@@ -219,15 +228,16 @@ $(document).ready(function () {
 
     $('#postTable').DataTable({
         "paging": true,
-        "ordering": true,
+        "ordering": false,
         "info": false,
         "lengthChange": false,
         "searching": false,
+        "pageLength": 10
     });
 
     let table = $('#postTable').DataTable(); // Get the DataTable instance
     $('#postTable').removeClass('dataTable').addClass('rounded-lg')
-    function announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments, likes, length) {
+    function announcementTbDisplay(postID, colCode, name, accUN, postcaption, postdate, position, comments, likes) {
 
         // Create a new row
         let row = [
@@ -244,6 +254,7 @@ $(document).ready(function () {
             data-accUN="${accUN}"
             data-postcaption="${postcaption}"
             data-position="${position}"
+            data-postdate="${postdate}"
             data-likes="${likes}"
             >View</button>`
 
@@ -260,8 +271,10 @@ $(document).ready(function () {
         const name = $(this).data('name');
         const accUN = $(this).data('accUN');
         const postcaption = $(this).data('postcaption');
+        const postDate = $(this).data('postdate');
         const likes = $(this).data('likes');
 
+        console.log(postDate)
         // get images
         const action = { action: "getPostImages" };
         const formData = new FormData();
@@ -278,7 +291,10 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 const images = response;
-                viewingOfPost(postID, name, accUN, postcaption, images, likes)
+                if (images.length !== 0)
+                    viewingOfPost(postID, name, accUN, postcaption, images, likes)
+                else
+                    viewStatusPost(name, postDate, postcaption, likes)
             },
             error: error => { console.log(error) }
         });
@@ -317,7 +333,6 @@ $(document).ready(function () {
         formData.append('colCode', collegeFilter);
         formData.append('startingDate', startDateFilter);
         formData.append('endDate', endDateFilter);
-
         getPostAdmin(formData, true);
     })
 
@@ -393,6 +408,12 @@ $(document).ready(function () {
         )
     }
 
+    function viewStatusPost(name, postDate, postcaption, likes) {
+        $('#postStatusModal').removeClass('hidden')
+        $('#statusFullnameUser').text(name)
+        $('#statusDate').text(postDate)
+        $('#statusDescript').html(postcaption)
+    }
 
     //close the post modal view
     $('#closePostModal').on('click', function () {
@@ -828,21 +849,20 @@ $(document).ready(function () {
                     displayToProfile(actionTracker, isAvailable) //reload the post again
                     $('#restoreModal').addClass('hidden') //hide the modal again
                 }
-                else {
-                    // restart everything
-                    offsetPost = 0;
-                    postData.append('action', JSON.stringify(postAction));
-                    postData.set('startDate', "")
-                    postData.set('endDate', "")
-                    postData.set('offset', offsetPost)
-                    table.clear().draw();
-                    getPostAdmin(postData, true)
+                else restartTableContent()// restart everything
 
-                }
 
             },
             error: error => { console.log(error) }
         })
+    }
+    function restartTableContent() {
+        offsetPost = 0;
+        postData.append('action', JSON.stringify(postAction));
+        postData.set('startDate', "")
+        postData.set('endDate', "")
+        postData.set('offset', offsetPost)
+        table.clear().draw();
     }
     function restartPost() {
         offsetProfile = 0

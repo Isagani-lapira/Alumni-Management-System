@@ -28,11 +28,6 @@ $(document).ready(function () {
     $(this).addClass("ui-tabs-active");
   });
 
-  // //open modal post
-  $("#btnAnnouncement").click(function () {
-    prompt("#modal", true);
-  });
-
   //go to creating college page
   $("#btnNewCol").click(function () {
     window.location.href = "../admin/NewCollege.php";

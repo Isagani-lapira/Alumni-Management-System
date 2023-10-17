@@ -408,7 +408,7 @@ function dateInText($date)
               <p class="text-sm font-thin">College</p>
               <!-- college selection -->
               <select name="college" id="announcementCol" class="w-full border border-grayish p-2 rounded-lg">
-                <option value="" selected>BS Computer Science</option>
+                <option value="" selected>All</option>
                 <?php
                 require_once '../PHP_process/connection.php';
                 $query = "SELECT * FROM `college`";
@@ -453,9 +453,8 @@ function dateInText($date)
                   <th class="rounded-tr-lg">Action</th>
                 </tr>
               </thead>
-              <tbody id="postTBody"></tbody>
+              <tbody></tbody>
             </table>
-            <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
           </div>
 
 
@@ -1774,6 +1773,28 @@ function dateInText($date)
           <!-- comments -->
           <div id="commentContainer" class=" h-3/4 p-2 overflow-auto"></div>
         </div>
+      </div>
+    </div>
+
+    <!-- status modal -->
+    <div id="postStatusModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+      <div class="bg-white rounded-md w-2/6 h-max p-5 flex flex-col gap-3">
+        <header class="flex justify-between">
+          <div class="flex items-center">
+            <img class="w-14 h-14 rounded-full" src="" alt="" srcset="">
+
+            <div class="px-2 text-greyish_black">
+              <p id="statusFullnameUser" class="font-bold text-lg">Fullname</p>
+              <span id="statusDate" class="text-sm">Date</span>
+            </div>
+          </div>
+
+        </header>
+
+        <!-- description -->
+        <section>
+          <pre id="statusDescript"></pre>
+        </section>
       </div>
     </div>
 
