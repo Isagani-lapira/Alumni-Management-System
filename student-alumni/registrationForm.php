@@ -341,7 +341,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="studAccountPass">Password</label>
                         <div class="flex justify-evenly items-center gap-2">
-                            <input id="studAccountPass" type="password" class="p-3 flex-1 rounded-lg border border-gray-400 flex justify-center gap-2 requiredAlumni2" id="password" name="password" placeholder="********">
+                            <input id="studAccountPass" type="password" class="p-3 flex-1 rounded-lg border border-gray-400 flex justify-center gap-2" id="password" name="password" placeholder="********">
                             <iconify-icon id="studentPassEye" class="cursor-pointer text-gray-500 hover:text-accent" icon="bi:eye-fill" width="18" height="18"></iconify-icon>
                         </div>
 
@@ -358,7 +358,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="studConfirmPass">Confirm Password</label>
                         <div class="flex justify-evenly items-center gap-2">
-                            <input id="studConfirmPass" type="password" class="p-3 flex-1 rounded-lg border border-gray-400 flex justify-center gap-2 requiredAlumni2" id="password" name="password">
+                            <input id="studConfirmPass" type="password" class="p-3 flex-1 rounded-lg border border-gray-400 flex justify-center gap-2" id="password" name="password">
                             <iconify-icon id="studentConfirmPassEye" class="cursor-pointer text-gray-500 hover:text-accent" icon="bi:eye-fill" width="18" height="18"></iconify-icon>
                         </div>
                     </div>
