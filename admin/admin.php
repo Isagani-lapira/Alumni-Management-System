@@ -1778,23 +1778,33 @@ function dateInText($date)
 
     <!-- status modal -->
     <div id="postStatusModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-      <div class="bg-white rounded-md w-2/6 h-max p-5 flex flex-col gap-3">
-        <header class="flex justify-between">
+      <div class="postStatus bg-white rounded-md w-2/6 p-5 flex flex-col gap-3">
+        <div class="flex justify-between">
           <div class="flex items-center">
-            <img class="w-14 h-14 rounded-full" src="" alt="" srcset="">
+            <img id="profileStatusImg" class="w-14 h-14 rounded-full" alt="" srcset="">
 
             <div class="px-2 text-greyish_black">
-              <p id="statusFullnameUser" class="font-bold text-lg">Fullname</p>
-              <span id="statusDate" class="text-sm">Date</span>
+              <p id="statusFullnameUser" class="font-bold text-sm"></p>
+              <span id="statusDate" class="text-sm"></span>
             </div>
           </div>
 
-        </header>
+        </div>
 
         <!-- description -->
-        <section>
+        <div>
           <pre id="statusDescript"></pre>
-        </section>
+        </div>
+
+        <!-- comment -->
+        <div class="flex-col text-sm border-t border-gray-400 py-2 commentStatus">
+          <div class="flex gap-2 text-gray-500 justify-end text-xs">
+            <p>Likes: <span id="statusLikes"></span></p>
+            <p>Comments: <span id="statusComment"></span></p>
+          </div>
+
+          <div id="commentStatus" class="flex flex-col gap-2 p-2 mt-2"></div>
+        </div>
       </div>
     </div>
 
