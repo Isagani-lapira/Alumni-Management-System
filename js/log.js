@@ -126,7 +126,9 @@ $(document).ready(function () {
         displayActivities(offset, false, logListContainer)
 
     })
-
+    let college = "";
+    let startDate = "";
+    let endDate = "";
     $(function () {
         $('input[name="logdaterange"]').daterangepicker(
             {
@@ -135,21 +137,36 @@ $(document).ready(function () {
                 endDate: defaultEnd,
             },
             function (start, end, label) {
-                start = start.format('YYYY-MM-DD')
-                end = end.format('YYYY-MM-DD')
+                startDate = start.format('YYYY-MM-DD')
+                endDate = end.format('YYYY-MM-DD')
                 $('.lds-roller').removeClass('hidden') // hide the loading
-                getFilteredDateAction(start, end)
+                getFilteredDateAction(startDate, endDate, college)
             }
         );
     });
 
+    $('#logCollege').on('change', function () {
+        college = $(this).val();
+        if (college != "")
+            getFilteredDateAction(startDate, endDate, college)
+        else {
+            offset = 0;
+            $('#logHistoryModal').removeClass('hidden')
+            $('#logList').find('.actionWrapper').remove() //remove the previously retrieve logs (not duplicate)
+            // display the history log today
+            displayActivities(offset, false, logListContainer)
 
-    function getFilteredDateAction(startDate, endDate) {
+        }
+    })
+
+    // get the filtered log data
+    function getFilteredDateAction(startDate, endDate, college) {
         const action = "retrieveByDate"
         const formdata = new FormData();
         formdata.append('action', action)
         formdata.append('startDate', startDate)
         formdata.append('endDate', endDate)
+        formdata.append('colCode', college)
 
         $.ajax({
             url: '../PHP_process/log.php',
