@@ -27,10 +27,10 @@
             </h2>
             <!-- selection -->
             <div class="flex flex-col md:flex-row items-center justify-center gap-2 h-1/2">
-                <div id="alumniStatus" class="p-5 w-1/3 h-4/5 bg-gray-300 center-shadow cursor-pointer text-greyish_black hover:bg-accent hover:text-white rounded-lg flex items-center justify-center">
+                <div id="alumniStatus" class="p-5 w-1/3 h-4/5 bg-gray-300 center-shadow cursor-pointer text-greyish_black hover:bg-accent transition duration-300 delay-200 ease-in-out hover:text-white rounded-lg flex items-center justify-center">
                     <span class="font-bold text-sm md:text-xl">ALUMNI</span>
                 </div>
-                <div id="studentStatus" class="p-5 w-1/3 h-4/5 cursor-pointer bg-gray-300 center-shadow text-greyish_black hover:bg-accent hover:text-white rounded-lg flex items-center justify-center">
+                <div id="studentStatus" class="p-5 w-1/3 h-4/5 cursor-pointer bg-gray-300 center-shadow text-greyish_black hover:bg-accent transition duration-300 delay-200 ease-in-out hover:text-white rounded-lg flex items-center justify-center">
                     <span class="font-bold text-sm md:text-xl">STUDENT</span>
                 </div>
             </div>
