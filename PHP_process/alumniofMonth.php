@@ -47,7 +47,7 @@ function getAOTMByFilter($month, $colCode, $year, $con)
     if ($month != "" && $colCode != "" && $year != "") { //all filter included
         $query .= "WHERE MONTH(a.date_assigned) = ? AND YEAR(a.date_assigned) = ? AND `colCode` = ?";
         $stmt = mysqli_prepare($con, $query);
-        $stmt->bind_param('ss', $month, $year, $colCode);
+        $stmt->bind_param('sss', $month, $year, $colCode);
     } else if ($month != "" && $colCode == "" && $year == "") { //only month filtered
         $query .= "WHERE MONTH(a.date_assigned) = ?";
         $stmt = mysqli_prepare($con, $query);

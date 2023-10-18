@@ -1096,10 +1096,6 @@ function dateInText($date)
         <!-- alumni of the month content -->
         <div id="alumnMonth-tab" class="p-5">
           <h1 class="text-xl font-extrabold">Alumni of the Month</h1>
-          <button class="block bg-accent py-1 px-3 text-white ml-auto rounded-md">
-            Export List
-          </button>
-
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
           <div class="flex gap-2 my-2">
@@ -1139,7 +1135,7 @@ function dateInText($date)
           <table id="aomTable" class="table-auto w-full mt-16 text-xs font-thin text-greyish_black center-shadow">
             <thead>
               <tr class="bg-accent text-white">
-                <th class="text-start rounded-tl-lg w-5"></th>
+                <th class="text-start rounded-tl-lg w-12"></th>
                 <th>NAME</th>
                 <th>EMAIL</th>
                 <th>STUDENT NUMBER</th>
