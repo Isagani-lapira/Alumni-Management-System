@@ -580,13 +580,13 @@ function dateInText($date)
 
             <!-- batch selection -->
             <select id="batchAlumRecord" class="w-full p-1">
-              <option selected value="" disabled>Batch</option>
-              <!-- php function on batch -->
+              <option selected disabled>Batch</option>
             </select>
 
             <!-- college selection -->
             <select id="alumniCollege" class="w-full p-1">
-              <option value="" selected>Course</option>
+              <option selected disabled>Course</option>
+              <option value="">All</option>
               <?php
               require_once '../PHP_process/connection.php';
               $query = "SELECT * FROM `college`";
@@ -606,7 +606,8 @@ function dateInText($date)
 
             <!-- employment status selection -->
             <select id="employmentStat" class="w-full p-1">
-              <option selected value="">Employment Status</option>
+              <option selected value="" disabled>Employment Status</option>
+              <option value="">All</option>
               <option value="Employed">Employed</option>
               <option value="Unemployed">Unemployed</option>
               <option value="Self-employed">Self-employed</option>
@@ -617,7 +618,7 @@ function dateInText($date)
 
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
+          <table id="alumRecord" class="table-auto w-full mt-10 text-xs font-thin center-shadow">
             <thead>
               <tr class="bg-accent text-white">
                 <th class="rounded-tl-lg">Student Number</th>
@@ -627,15 +628,10 @@ function dateInText($date)
                 <th class="rounded-tr-lg">Employment Status</th>
               </tr>
             </thead>
-            <tbody id="alumniTB" class="text-sm">
+            <tbody class="text-sm">
             </tbody>
           </table>
-          <div class="navigationAlumniRecord flex justify-end items-center gap-2 mt-2">
-            <button class="prevBtnAlumRecord text-gray-400 hover:text-gray-500">Previous</button>
-            <button class="nextBtnAlumRecord bg-accent text-white hover:bg-darkAccent px-3 py-2 rounded-md">Next</button>
-          </div>
 
-          <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
         </div>
 
         <!-- college content -->
