@@ -2,6 +2,9 @@ $(document).ready(function () {
   // Constants
   const SIGN_IN_URL = "./index.php";
 
+  // TODO make the loaders load upon section click.
+  
+
   // Initial Load
   initialLoad();
   function initialLoad() {
