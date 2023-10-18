@@ -23,11 +23,6 @@ $(document).ready(function () {
         },
         options: {
             responsive: false,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
         }
     });
 
@@ -47,8 +42,12 @@ $(document).ready(function () {
             responsive: true, // Make the chart responsive
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1, // Specify the step size for Y-axis values
+                    }
                 }
+
             }
         }
     };
@@ -229,6 +228,8 @@ $(document).ready(function () {
                 if (typeChartSelection != "")
                     updateQuestionChartData(labels, counts, typeChartSelection)
                 else updateQuestionChartData(labels, counts)
+                labels = []
+                counts = []
             },
         })
     }
@@ -249,13 +250,25 @@ $(document).ready(function () {
         for (let i = 0; i < data.length; i++) {
             backgroundColors.push(colors[i]);
         }
+
+        if (typeChartSelection !== "pie") {
+            console.log('pumasok')
+            questionChartObj.options.scales = {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1, // Specify the step size for Y-axis values
+                    }
+                }
+            }
+        }
         questionChartObj.data.datasets[0].backgroundColor = backgroundColors
         questionChartObj.update();
     }
 
     const questionChart = $('#chartPerQuestion')[0].getContext('2d');
     const questionChartObj = new Chart(questionChart, {
-        type: 'pie',
+        type: 'bar',
         data: {
             datasets: [{
                 label: '# of Votes',
@@ -264,11 +277,6 @@ $(document).ready(function () {
         },
         options: {
             responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
         }
     });
 })

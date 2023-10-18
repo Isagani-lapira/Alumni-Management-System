@@ -817,7 +817,7 @@ function dateInText($date)
             </div>
 
             <div class="center-shadow rounded-lg p-3 m-2 h-full flex justify-center">
-              <canvas class="w-full h-full" id="chartPerQuestion"></canvas>
+              <canvas id="chartPerQuestion"></canvas>
             </div>
           </div>
 
