@@ -28,12 +28,33 @@ $(document).ready(function () {
     $(this).addClass("ui-tabs-active");
   });
 
+  $('#profileTabAdmin').on('click', function () {
+    $('#profile-tab').removeClass('hidden')
+  })
+
+  $('#aoyLi').on('click', function () {
+    $('#alumnYear-tab').removeClass('hidden')
+  })
+
+  $('#aomLi').on('click', function () {
+    $('#alumnMonth-tab').removeClass('hidden')
+  })
+
+  $('#communityLi').on('click', function () {
+    $('#community-tab').removeClass('hidden')
+  })
+  $('#jobLI').on('click', function () {
+    $('#jobOpportunities-tab').removeClass('hidden')
+  })
+
   //go to creating college page
   $("#btnNewCol").click(function () {
     window.location.href = "../admin/NewCollege.php";
   });
 
-
+  $('collegeLi').on('click', function () {
+    $('#colleges-tab').removeClass('hidden')
+  })
   $(".back-icon").click(() => {
     $(".individual-col").addClass("hidden");
     $(".college-content").removeClass("hidden");

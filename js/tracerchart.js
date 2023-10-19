@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     // get the total completion chart
     $('#formLi').on('click', function () {
-        $('#formReport').removeClass('hidden')
+        $('#forms-tab').removeClass('hidden')
         retrieveCompletionData()
         retrieveCollegeParticipation()
         addCategorySelection()

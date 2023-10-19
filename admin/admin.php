@@ -164,7 +164,7 @@ function dateInText($date)
             </li>
 
             <!-- COLLEGES -->
-            <li class="rounded-lg p-2"><a href="#colleges-tab">
+            <li id="collegeLi" class="rounded-lg p-2"><a href="#colleges-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M14 11q1.25 0 2.125-.875T17 8q0-1.25-.875-2.125T14 5q-1.25 0-2.125.875T11 8q0 1.25.875 2.125T14 11Zm-6 7q-.825 0-1.413-.588T6 16V4q0-.825.588-1.413T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.588 1.413T20 18H8Zm-4 4q-.825 0-1.413-.588T2 20V7q0-.425.288-.713T3 6q.425 0 .713.288T4 7v13h13q.425 0 .713.288T18 21q0 .425-.288.713T17 22H4Zm4-6h12q-1.1-1.475-2.65-2.238T14 13q-1.8 0-3.35.763T8 16Z" />
                 </svg>
@@ -194,7 +194,7 @@ function dateInText($date)
             <span class="mt-4">ALUMNI</span>
 
             <!-- Alumni of the year -->
-            <li class="rounded-lg p-2 "><a href="#alumnYear-tab">
+            <li id="aoyLi" class="rounded-lg p-2 "><a href="#alumnYear-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                   <path fill="currentColor" d="M256 25c-11.594 0-23 12.8-23 31s11.406 31 23 31s23-12.8 23-31s-11.406-31-23-31zm-103.951 2.975l-16.098 8.05c15.092 30.185 51.37 56.81 82.188 74.442L232.334 295H247V192h18v103h14.666l14.195-184.533c30.818-17.632 67.096-44.257 82.188-74.442l-16.098-8.05c-19.91 29.9-44.891 49.148-71.334 57.77C281.311 97.28 269.75 105 256 105c-13.75 0-25.31-7.72-32.617-19.256c-26.443-8.62-51.424-27.87-71.334-57.77zM169 313v96H25v78h462v-30H343V313H169z" />
                 </svg>
@@ -385,7 +385,7 @@ function dateInText($date)
         </div>
 
         <!-- POST CONTENT -->
-        <div id="announcement-tab" class="px-5">
+        <div id="announcement-tab" class="px-5 hidden">
           <h1 class="text-xl font-extrabold">POST</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
@@ -461,7 +461,7 @@ function dateInText($date)
         </div>
 
         <!-- NEWS AND UPDATE -->
-        <div id="newsAndUpdate-tab" class="p-5">
+        <div id="newsAndUpdate-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">NEWS AND UPDATE</h1>
           <p class="text-grayish">Here you can make announcement that everyone can see, it can be news or events</p>
           <div class="flex justify-end py-2 border-b border-gray-300">
@@ -482,7 +482,7 @@ function dateInText($date)
         </div>
 
         <!-- Email content -->
-        <div id="email-tab" class="p-5">
+        <div id="email-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">EMAIL</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
@@ -564,7 +564,7 @@ function dateInText($date)
         </div>
 
         <!-- alumni record content -->
-        <div id="alumnRecord-tab" class="p-5">
+        <div id="alumnRecord-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">ALUMNI RECORD</h1>
           <div class="flex justify-end text-xs text-greyish_black">
             <!-- EXPORT PDF -->
@@ -635,7 +635,7 @@ function dateInText($date)
         </div>
 
         <!-- college content -->
-        <div id="colleges-tab" class="h-full">
+        <div id="colleges-tab" class="h-full hidden">
           <div class="college-content">
             <h1 class="text-xl font-extrabold">ACCOUNT</h1>
             <p class="text-grayish">Here you can check all colleges available in the University</p>
@@ -750,7 +750,7 @@ function dateInText($date)
         </div>
 
         <!-- forms content -->
-        <div id="forms-tab" class="p-5 h-full">
+        <div id="forms-tab" class="p-5 h-full hidden">
           <h1 class="text-xl font-extrabold">Alumni Tracer Form</h1>
           <p class="text-grayish">See the relevant information that are gathered</p>
 
@@ -759,7 +759,7 @@ function dateInText($date)
             <button id="deployTracerBtn" class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
           </div>
 
-          <div id="formReport" class="border border-t-grayish h-full overflow-y-auto hidden">
+          <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
             <div class="flex gap-2 justify-evenly">
               <div class="h-2/5 w-1/2 p-5 flex flex-col">
                 <h1 class="text-lg font-extrabold">Completion Chart</h1>
@@ -870,7 +870,7 @@ function dateInText($date)
         </div>
 
         <!-- profile content -->
-        <div id="profile-tab">
+        <div id="profile-tab" class="hidden">
           <div class="p-3 rounded-md bg-accent flex items-center">
             <img class="profilePic h-36 w-36 rounded-full border-2 border-white" alt="">
             <div class="ms-6">
@@ -950,7 +950,7 @@ function dateInText($date)
         </div>
 
         <!-- alumni of the year content -->
-        <div id="alumnYear-tab" class="p-5">
+        <div id="alumnYear-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">Alumni of the Year</h1>
           <p class="text-grayish mb-10">Make post for a newly awarded alumni of the year</p>
 
@@ -1134,7 +1134,7 @@ function dateInText($date)
         </div>
 
         <!-- alumni of the month content -->
-        <div id="alumnMonth-tab" class="p-5">
+        <div id="alumnMonth-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">Alumni of the Month</h1>
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
@@ -1187,7 +1187,7 @@ function dateInText($date)
         </div>
 
         <!--community content -->
-        <div id="community-tab" class="p-5">
+        <div id="community-tab" class="p-5 hidden">
           <div class="flex">
             <div class="w-4/6">
               <!-- college -->
@@ -1235,7 +1235,7 @@ function dateInText($date)
         </div>
 
         <!-- job opportunities content -->
-        <div id="jobOpportunities-tab" class="p-5 h-full">
+        <div id="jobOpportunities-tab" class="p-5 h-full hidden">
           <img class="jobPostingBack inline cursor-pointer hidden" src="../images/back.png" alt="">
           <h1 class="text-xl font-extrabold">Job Opportunities </h1>
           <p class="text-grayish  ">Check all the pending job post to be posted</p>

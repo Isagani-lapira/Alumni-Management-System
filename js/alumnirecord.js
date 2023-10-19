@@ -6,6 +6,7 @@ $(document).ready(function () {
     let empStatusFilter = ""
     $('#alumniLi').on('click', function () {
         offset = 0
+        $('#alumnRecord-tab').removeClass('hidden')
         getAlumniRecord(alumniDataDefault)
         $('#batchAlumRecord option:not(:first-child)').remove()
         addBatchOption()

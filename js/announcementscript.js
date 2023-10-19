@@ -2,6 +2,7 @@ $(document).ready(function () {
     const imgFormat = "data:image/jpeg;base64,"
     $('#newsAndUpdate').on('click', function () {
         // restart everything first
+        $('#newsAndUpdate-tab').removeClass('hidden')
         announcementTb.clear()
         offsetAnnouncement = 0
         retrievedList = 0

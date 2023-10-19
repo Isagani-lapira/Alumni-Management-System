@@ -164,6 +164,7 @@ $(document).ready(function () {
     $('#announcementLI').on('click', function () {
         restartTableContent()
         getPostAdmin(postData, true)
+        $('#announcement-tab').removeClass('hidden')
     })
 
     // //show post of admin

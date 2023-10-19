@@ -217,6 +217,7 @@ $(document).ready(function () {
         countNextEmail = 0;
         tempOffsetEmail = 0;
         //retrieve emails
+        $('#newsAndUpdate-tab').removeClass('hidden')
         getEmailSent(actionDefault)
         actionTracker = actionDefault
     })
