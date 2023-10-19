@@ -244,8 +244,6 @@ $(document).ready(function () {
             choices.forEach(choice => {
                 const choiceID = choice.choiceID
                 const choice_text = choice.choice_text
-                const choicequestionID = choice.questionID
-                const sectionQuestion = choice.sectionQuestion
                 const isSectionChoice = choice.isSectionChoice
 
                 const choicesWrapper = $('<div>')

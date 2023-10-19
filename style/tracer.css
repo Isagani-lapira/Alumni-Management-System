@@ -59,3 +59,8 @@ main {
 #sectionModal {
   width: 45% !important;
 }
+
+.prevInput:hover {
+  border-bottom: 2px solid #991b1b !important;
+  transition: border-bottom ease-in-out 0.3s;
+}

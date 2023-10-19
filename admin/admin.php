@@ -759,7 +759,7 @@ function dateInText($date)
             <button id="deployTracerBtn" class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
           </div>
 
-          <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
+          <div id="formReport" class="border border-t-grayish h-full overflow-y-auto hidden">
             <div class="flex gap-2 justify-evenly">
               <div class="h-2/5 w-1/2 p-5 flex flex-col">
                 <h1 class="text-lg font-extrabold">Completion Chart</h1>
@@ -823,7 +823,15 @@ function dateInText($date)
 
           <!-- repository -->
           <div id="tracerRepo" class="h-full border border-t-grayish p-5 w-full hidden">
+            <div class="flex justify-end my-2">
+              <div id="previewFormBtn" class="w-max cursor-pointer hover:font-bold hover:text-accent flex items-center gap-2">
+                <iconify-icon icon="icon-park-outline:preview-open" width="24" height="24"></iconify-icon>
+                <span>Preview</span>
+              </div>
+            </div>
+
             <div id="TracerWrapper" class="flex w-full h-full mx-auto p-2 gap-2">
+
               <div id="categoryWrapper" class="flex flex-col gap-2 w-1/3 p-1  h-full"></div>
               <!-- question set -->
               <div class="flex-1 h-full center-shadow p-3 relative">
@@ -835,6 +843,28 @@ function dateInText($date)
               </div>
 
             </div>
+          </div>
+
+          <!-- preview -->
+          <div id="previewForm" class="p-3 flex flex-col border-t border-gray-500 h-full overflow-y-auto hidden">
+            <div>
+              <div id="backFromPreviewBtn" class="flex items-center gap-3 w-max">
+                <iconify-icon icon="fluent-mdl2:back" class="text-gray-800 cursor-pointer" width="24" height="24"></iconify-icon>
+                <span class="font-semibold">Back</span>
+              </div>
+
+            </div>
+
+            <h2 class="font-bold text-center text-lg">Alumni Tracer Form</h2>
+            <div id="previewContainer" class="flex flex-col p-5 gap-3 border border-gray-300 rounded-md">
+              <h3 id="categoryNamePrev" class="font-bold text-lg text-start"></h3>
+            </div>
+
+            <div class="mt-2">
+              <button id="previousPreviewBtn" class="hidden text-gray-500 hover:text-lg">Previous</button>
+              <button id="nextPreviewBtn" class="mt-2 w-max py-2 px-5 rounded-md bg-accent text-white hover:bg-darkAccent">Next</button>
+            </div>
+
           </div>
 
         </div>
@@ -2321,6 +2351,7 @@ function dateInText($date)
       <span class="loader w-36 h-36"></span>
       <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
     </div>
+
   </div>
 
 
@@ -2334,6 +2365,7 @@ function dateInText($date)
   <script src="../js/alumnirecord.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
+  <script src="../js/previewcontainer.js"></script>
   <script src="../js/postScript.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
