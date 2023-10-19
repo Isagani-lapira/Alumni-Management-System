@@ -394,7 +394,7 @@ $(document).ready(function () {
   //profile
   let profileLbl = "";
   let profileBtn = "";
-
+  let currentProfile = $('#profileImgEdit').attr('src')
   let profileImg = $("#profileImgEdit");
 
   //change the current profile displayed to new selected profile
@@ -426,6 +426,13 @@ $(document).ready(function () {
     processImgUpdate(action, newProfile, profileBtn, label);
   });
 
+  // bring back the current profile
+  $('#cancelProfileImg').on('click', function () {
+    profileImg.attr('src', currentProfile)
+    profileBtn.addClass("hidden");
+    profileLbl.removeClass("hidden");
+  })
+
   function processImgUpdate(action, img, confirmationCont, editIcon) {
     let formData = new FormData();
     formData.append("action", JSON.stringify(action));
@@ -449,6 +456,7 @@ $(document).ready(function () {
     });
   }
 
+  let currentLocation = $('#editAddress').val()
   //edit location
   $("#editAddLabel").on("click", function () {
     $("#editAddress")
@@ -458,6 +466,16 @@ $(document).ready(function () {
     $("#locBtn").removeClass("hidden"); //show the save button
     $("#editAddLabel").addClass("hidden"); //remove the edit label
   });
+
+  $('#cancelLocation').on('click', function () {
+    $('#editAddress')
+      .attr("disabled", true) //disable editting
+      .removeClass("border-b border-gray-400")
+      .val(currentLocation)
+
+    $("#locBtn").addClass("hidden"); //hide the save button
+    $("#editAddLabel").removeClass("hidden"); //display the edit label
+  })
 
   $("#saveLocation").on("click", function () {
     let newAddress = $("#editAddress").val();
@@ -472,6 +490,7 @@ $(document).ready(function () {
   });
 
   //edit email address
+  let currentEmail = $('#editEmail').val();
   $("#editEmailLbl").on("click", function () {
     $("#editEmail")
       .removeAttr("disabled") //allows to be edit
@@ -481,6 +500,17 @@ $(document).ready(function () {
     $("#editEmailLbl").addClass("hidden"); //remove the edit label
   });
 
+  $('#cancelEmail').on('click', function () {
+    $("#editEmail")
+      .attr("disabled", true) //allows to be edit
+      .removeClass("border-b border-gray-400")
+      .val(currentEmail)
+
+    $("#emailBtn").addClass("hidden");
+    $("#editEmailLbl").removeClass("hidden");
+  })
+
+  // save changes
   $("#saveEmail").on("click", function () {
     let newEmail = $("#editEmail").val();
 
@@ -493,7 +523,9 @@ $(document).ready(function () {
     processPersonalInfo(action, newEmail, btnCont, label);
   });
 
+
   //edit contact Number
+  let currentContact = $('#editContact').val()
   $("#editContactLbl").on("click", function () {
     $("#editContact")
       .removeAttr("disabled") //allows to be edit
@@ -502,6 +534,17 @@ $(document).ready(function () {
     $("#contactBtn").removeClass("hidden"); //show the save button
     $("#editContactLbl").addClass("hidden"); //remove the edit label
   });
+
+  // cancel editting
+  $('#cancelContact').on('click', function () {
+    $("#editContact")
+      .attr("disabled", true) //allows to be edit
+      .removeClass("border-b border-gray-400")
+      .val(currentContact)
+
+    $("#contactBtn").addClass("hidden"); //show the save button
+    $("#editContactLbl").removeClass("hidden"); //remove the edit label
+  })
 
   $("#saveContact").on("click", function () {
     let newEmail = $("#editContact").val();

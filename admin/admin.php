@@ -1828,7 +1828,7 @@ function dateInText($date)
         </div>
 
         <div id="profileBtn" class="flex justify-end gap-2 hidden">
-          <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+          <button id="cancelProfileImg" class="text-postButton hover:text-postHoverButton px-4 rounded-md py-2">Cancel</button>
           <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveProfile">Save</button>
         </div>
 
@@ -1851,8 +1851,8 @@ function dateInText($date)
             <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
           </label>
           <div id="locBtn" class="text-sm hidden">
-            <button class="px-2 py-1">cancel</button>
-            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLocation">Save</button>
+            <button id="cancelLocation" class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveLocation">Save</button>
           </div>
 
         </div>
@@ -1874,8 +1874,8 @@ function dateInText($date)
             <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
           </label>
           <div id="emailBtn" class="text-sm hidden">
-            <button class="px-2 py-1">cancel</button>
-            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveEmail">Save</button>
+            <button id="cancelEmail" class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveEmail">Save</button>
           </div>
 
         </div>
@@ -1897,8 +1897,8 @@ function dateInText($date)
             <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
           </label>
           <div id="contactBtn" class="text-sm hidden">
-            <button class="px-2 py-1">cancel</button>
-            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveContact">Save</button>
+            <button class="px-2 py-1" id="cancelContact">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveContact">Save</button>
           </div>
 
         </div>
