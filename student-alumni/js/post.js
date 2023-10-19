@@ -185,7 +185,7 @@ $(document).ready(function () {
                     const button = reportElement
 
                     if (!button.is(target) && button.has(target).length === 0)
-                        viewStatusPost(postID, fullname, date, caption, username)
+                        viewStatusPost(postID, fullname, date, caption, likes, username)
 
                 })
         }
@@ -203,7 +203,8 @@ $(document).ready(function () {
 
         let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
         heartIcon.addClass('cursor-pointer flex items-center')
-            .on('click', function () {
+            .on('click', function (e) {
+                e.stopPropagation()
                 //toggle like button
                 if (isLiked) {
                     //decrease the current total number of likes by 1
@@ -230,7 +231,8 @@ $(document).ready(function () {
         let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
 
         //make comment
-        commentIcon.on('click', function () {
+        commentIcon.on('click', function (e) {
+            e.stopPropagation()
             $('#commentPost').removeClass('hidden') //open the comment modal
 
             //set up the details for comment to be display
@@ -743,6 +745,7 @@ $(document).ready(function () {
     })
 
     function viewStatusPost(postID, name, postDate, postcaption, likes, username) {
+        $('#commentStatus').empty()
         $('#postStatusModal').removeClass('hidden')
         $('#statusFullnameUser').text(name)
         $('#statusDate').text(postDate)
@@ -793,7 +796,7 @@ $(document).ready(function () {
                 for (let i = 0; i < length; i++) {
                     let fullname = response.fullname[i];
                     let comment = response.comment[i];
-                    let profile = imgFormat + response.profile[i];
+                    let profile = (response.profile[i] === '') ? '../assets/icons/person.png' : imgFormat + response.profile[i];
 
                     // display the comments
                     let wrapper = $('<div>').addClass('flex gap-2 text-sm text-greyish_black')
