@@ -840,6 +840,8 @@ $(document).ready(function () {
         }
         else {
             $('.editIcon').addClass('hidden')
+            leftContainer.addClass('hidden')
+            interactionContainer.removeClass('justify-between').addClass('justify-end')
             deleteElement.addClass('text-green-400')
                 .text('Restore')
                 .on('click', function () {
