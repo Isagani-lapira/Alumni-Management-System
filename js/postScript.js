@@ -630,6 +630,7 @@ $(document).ready(function () {
             processData: false,
             success: response => {
                 if (response != 'none') {
+                    $('.loadingProfile').addClass('hidden')
                     const parsedData = JSON.parse(response)
                     const length = parsedData.username.length
                     //get all the data that gather
@@ -1114,6 +1115,7 @@ $(document).ready(function () {
 
     //show archieved post
     $('#archievedBtnProfile').on('click', function () {
+        $('.loadingProfile').removeClass('hidden') //loading screen
         $(this).addClass('activeBtn')
         $('#availablePostBtn').removeClass('activeBtn')
         restartPost() //restart everything
@@ -1125,6 +1127,7 @@ $(document).ready(function () {
 
     $('#availablePostBtn').on('click', function () {
         $(this).addClass('activeBtn')
+        $('.loadingProfile').removeClass('hidden') //loading screen
         $('#archievedBtnProfile').removeClass('activeBtn')
         restartPost() //restart everything
 

@@ -898,12 +898,22 @@ function dateInText($date)
               </div>
             </div>
 
-            <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar z-0">
+            <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar z-0 ">
               <div class="flex gap-2 text-greyish_black text-sm my-2 border-b border-gray-300 p-3">
                 <button id="availablePostBtn" class="activeBtn rounded-md px-5 py-1">Post</button>
                 <button id="archievedBtnProfile" class="rounded-md px-5 py-1">Archived</button>
               </div>
 
+              <div class="loadingProfile w-full h-full flex justify-center">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             </div>
           </div>
 
