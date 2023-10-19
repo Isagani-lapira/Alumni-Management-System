@@ -1461,7 +1461,7 @@ function getAccDetails($con, $personID)
           text-greyish_black flex flex-col gap-2">
 
           <!-- Event images -->
-          <img id="headerImg" class="w-full h-44 object-contain bg-red-200 rounded-md" src="" alt="">
+          <img id="headerImg" class="w-44 h-44 block mx-auto  rounded-full" src="" alt="">
 
           <p id="eventTitleModal" class="text-center text-2xl text-accent font-black"></p>
           <pre id="eventDescript" class="text-gray-500 text-justify w-full indented"></pre>

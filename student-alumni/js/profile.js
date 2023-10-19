@@ -181,16 +181,13 @@ $(document).ready(function () {
       })
     } else {
       postWrapper.css('min-height', '100px')
-        .on('click', function (e) {
-          const target = e.target
-          const button = deletePost
-
-          if (!button.is(target) && button.has(target).length === 0)
-            viewStatusPost(postID, fullname, date, caption, likes, username)
+        .on('click', function () {
+          // check if editting to avoid clicking on description
+          if (!isEditting) viewStatusPost(postID, fullname, date, caption, likes, username)
 
         })
     }
-
+    let isEditting = false
     date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
 
     let newlyAddedLike = parseInt(likes);
@@ -204,7 +201,8 @@ $(document).ready(function () {
 
     let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
     heartIcon.addClass('cursor-pointer flex items-center')
-      .on('click', function () {
+      .on('click', function (e) {
+        e.stopPropagation(); // Stop event propagation
         //toggle like button
         if (isLiked) {
           //decrease the current total number of likes by 1
@@ -226,6 +224,26 @@ $(document).ready(function () {
 
     let commentIcon = $('<span>').html('<iconify-icon icon="uil:comment" style="color: #626262;" width="20" height="20"></iconify-icon>')
       .addClass('cursor-pointer flex items-center comment')
+      .on('click', function (e) {
+        e.stopPropagation()
+
+        // make comment
+        $('#commentPost').removeClass('hidden') //open the comment modal
+
+        //set up the details for comment to be display
+        $('#postProfile').attr('src', img)
+        $('#postFullname').text(fullname)
+        $('#postUsername').text(username)
+        $('#replyToUsername').text(username)
+
+        //insert a comment to database
+        $('#commentBtn').on('click', function () {
+          let commentVal = $('#commentArea').val()
+          insertComment(postID, commentVal, commentElement)
+        })
+
+      })
+
     let likesElement = $('<p>').addClass('text-xs text-gray-500').text(likes)
     let commentElement = $('<p>').addClass('text-xs text-gray-500 comment').text(comments)
     let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
@@ -237,7 +255,8 @@ $(document).ready(function () {
     if (isDeleted) {
       deletePost.addClass('text-green-400 ')
         .text('Restore')
-        .on('click', function () {
+        .on('click', function (e) {
+          e.stopPropagation()
           $('#restoreModal').removeClass('hidden')
           //when click the restore button then process the restoration
           $('#restorePost').on('click', function () {
@@ -249,8 +268,9 @@ $(document).ready(function () {
     }
     else {
       deletePost.addClass('text-red-400 ')
-        .text('Delete')
-        .on('click', function () {
+        .text('Archive')
+        .on('click', function (e) {
+          e.stopPropagation()
           //update the status of the post into delete
           //open the delete prompt
           $('#delete-modal').removeClass('hidden')
@@ -263,7 +283,7 @@ $(document).ready(function () {
         })
     }
     //approve update
-    const approvedIcon = $('<iconify-icon class="cursor-pointer" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
+    const approvedIcon = $('<iconify-icon class="cursor-pointer hidden" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
       .on('click', function () {
         //data to be sent
         const action = { action: 'updatePost' }
@@ -282,36 +302,107 @@ $(document).ready(function () {
             if (response == 'Successful') {
               //go back to normal
               description.attr('contenteditable', false)
-              const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
-              approvedIcon.replaceWith(icon)
+              approvedIcon.addClass('hidden')
               exitEdit.addClass('hidden')
+              editIcon.removeClass('hidden')
             }
           },
           error: error => { console.log(error) }
         })
       })
+
+    let currentCaption = description.text()
     //update description
     editIcon.on('click', function () {
-      $(this).replaceWith(approvedIcon)
+      isEditting = true
+      $(this).addClass('hidden')
+      // open editing state
+      approvedIcon.removeClass('hidden');
+      exitEdit.removeClass('hidden')
       description.attr('contenteditable', true)
         .focus()
-      exitEdit.removeClass('hidden')
     })
     const editingWrapper = $('<div>').addClass('flex gap-2 flex-col')
     interactionContainer.append(leftContainer, deletePost)
 
     exitEdit.on('click', function () {
-      const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
-      approvedIcon.replaceWith(icon)
+      // back to default view
       $(this).addClass('hidden')
-      description.attr('contenteditable', false)
+      approvedIcon.addClass('hidden');
+      editIcon.removeClass('hidden');
+
+      // return back the caption
+      description
+        .attr('contenteditable', false)
+        .text(currentCaption)
     })
-    editingWrapper.append(editIcon, exitEdit)
+    editingWrapper.append(editIcon, approvedIcon, exitEdit)
     //set up the details of the post
     postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
     container.append(postWrapper, editingWrapper)
     $('#feedContainer').append(container);
 
+  }
+
+  $('#closeComment').on('click', function () {
+    $('#commentPost').addClass('hidden')
+  })
+
+
+  $('#commentArea').on('input', function () {
+    let commentVal = $(this).val();
+    //enable the comment button
+    if (commentVal != "") {
+      $('#commentBtn').removeAttr('disabled')
+        .addClass('bg-accent')
+        .removeClass('bg-red-950')
+    }
+    else {
+      $('#commentBtn').attr('disabled', true) //disabled the button again
+        .addClass('bg-red-950')
+        .removeClass('bg-accent')
+    }
+  })
+
+  function displayPostPrompt(message) {
+    $('#promptMsgComment').removeClass('hidden')//display the prompt
+      .text(message)
+
+    //hide again after 4 seconds
+    setTimeout(() => {
+      $('#promptMsgComment').addClass('hidden')
+    }, 4000)
+  }
+
+  function insertComment(postID, comment, commentElement) {
+    const action = {
+      action: 'insertComment'
+    }
+
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action))
+    formData.append('postID', postID);
+    formData.append('comment', comment);
+
+    $.ajax({
+      url: '../PHP_process/commentData.php',
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: (response) => {
+        if (response === 'Success') {
+          $('#commentPost').addClass('hidden') //hide modal
+          displayPostPrompt('Comment successfully added')
+          $('#commentArea').val('') //restart the value of comment
+          let commentCount = parseInt(commentElement.text()) + 1
+          commentElement.text(commentCount) //update the count of comment of ta certain post
+        }
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
   }
 
   //add the likes to a post
@@ -378,8 +469,6 @@ $(document).ready(function () {
       data: formData,
       processData: false,
       contentType: false,
-      success: (response) => { console.log(response) },
-      error: (error) => { console.log(error) }
     })
   }
 
