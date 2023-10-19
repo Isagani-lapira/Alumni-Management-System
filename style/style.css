@@ -284,3 +284,7 @@ tbody tr:nth-child(odd) {
 .postStatus {
   max-height: 80%;
 }
+
+#commentStatus {
+  max-height: 80%;
+}

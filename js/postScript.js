@@ -454,6 +454,7 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
+                $('#commentStatus').empty() //remove previously displayed comment
                 let length = response.fullname.length;
                 for (let i = 0; i < length; i++) {
                     let fullname = response.fullname[i];
@@ -743,18 +744,24 @@ $(document).ready(function () {
             });
 
         } else {
+            // status only
             postWrapper.css('min-height', '155px')
                 .on('click', function (e) {
                     const target = e.target
-                    const button = deleteElement
 
-                    if (!button.is(target) && button.has(target).length === 0)
-                        viewStatusPost(postID, fullname, date, caption, likes, username)
+                    // check if the clicked is not on the different icon element (comment, delete, and heart)
+                    if (!deleteElement.is(target) && deleteElement.has(target).length === 0 &&
+                        !commentIcon.is(target) && commentIcon.has(target).length === 0 &&
+                        !heartIcon.is(target) && heartIcon.has(target).length === 0) {
+
+                        // check if editting to avoid clicking on description
+                        if (!isEditting) viewStatusPost(postID, fullname, date, caption, likes, username)
+                    }
 
                 })
         }
 
-
+        let isEditting = false
         date = getFormattedDate(date)
         date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
 
@@ -810,7 +817,7 @@ $(document).ready(function () {
             //insert a comment to database
             $('#commentBtn').on('click', function () {
                 let commentVal = $('#commentArea').val()
-                insertComment(postID, commentVal)
+                insertComment(postID, commentVal, commentElement)
             })
 
         })
@@ -845,7 +852,7 @@ $(document).ready(function () {
         }
 
         //approve update
-        const approvedIcon = $('<iconify-icon class="cursor-pointer" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
+        const approvedIcon = $('<iconify-icon class="cursor-pointer hidden" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
             .on('click', function () {
                 //data to be sent
                 const action = { action: 'updatePost' }
@@ -864,20 +871,24 @@ $(document).ready(function () {
                         if (response == 'Successful') {
                             //go back to normal
                             description.attr('contenteditable', false)
-                            const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
-                            approvedIcon.replaceWith(icon)
+                            approvedIcon.addClass('hidden')
                             exitEdit.addClass('hidden')
+                            editIcon.removeClass('hidden')
                         }
                     },
                     error: error => { console.log(error) }
                 })
             })
         //update description
+        let currentDescript = description.text()
         editIcon.on('click', function () {
-            $(this).replaceWith(approvedIcon)
             description.attr('contenteditable', true)
                 .focus()
+            $(this).addClass('hidden')
+            approvedIcon.removeClass('hidden')
             exitEdit.removeClass('hidden')
+            isEditting = true
+
         })
         const editingWrapper = $('<div>').addClass('flex gap-2 flex-col')
         //attach all details to a postwrapper and to the root
@@ -885,12 +896,14 @@ $(document).ready(function () {
         postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
 
         exitEdit.on('click', function () {
-            const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
-            approvedIcon.replaceWith(icon)
+            // back to default view
             $(this).addClass('hidden')
+            approvedIcon.addClass('hidden')
+            editIcon.removeClass('hidden')
             description.attr('contenteditable', false)
+                .text(currentDescript)
         })
-        editingWrapper.append(editIcon, exitEdit)
+        editingWrapper.append(editIcon, approvedIcon, exitEdit)
         container.append(postWrapper, editingWrapper)
         feedContainer.append(container);
 
@@ -898,6 +911,10 @@ $(document).ready(function () {
         postWrapper.width(percent);
 
     }
+
+    $('#closeComment').on('click', function () {
+        $('#commentPost').addClass('hidden')
+    })
 
     function updatePostStatus(status, postID, isProfile) {
         let action = { action: 'updatePostStatus' };
@@ -1251,9 +1268,10 @@ $(document).ready(function () {
             postWrapper.css('min-height', '155px')
                 .on('click', function (e) {
                     const target = e.target
-                    const button = deleteElement
 
-                    if (!button.is(target) && button.has(target).length === 0)
+                    if (!deleteElement.is(target) && deleteElement.has(target).length === 0 &&
+                        !heartIcon.is(target) && heartIcon.has(target).length === 0 &&
+                        !commentIcon.is(target) && commentIcon.has(target).length === 0)
                         viewStatusPost(postID, fullname, date, caption, likes, username)
 
                 })
@@ -1308,7 +1326,6 @@ $(document).ready(function () {
 
                 //insert a comment to database
                 $('#commentBtn').on('click', function () {
-                    console.log('clicked')
                     let commentVal = $('#commentArea').val()
                     insertComment(postID, commentVal, commentElement)
                 })
