@@ -419,7 +419,7 @@ function dateInText($date)
     </div>
 
     <!-- EDIT PROFILE -->
-    <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+    <div id="profileModalEdit" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
         <div class="formUpdate bg-white rounded-md w-2/5 h-4/5 p-5 flex flex-col gap-3 overflow-y-auto">
             <!-- profile picture -->
             <div class="flex justify-between text-greyish_black items-center">
@@ -442,7 +442,7 @@ function dateInText($date)
             </div>
 
             <div id="profileBtn" class="flex justify-end gap-2 hidden">
-                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2" id="cancelProfile">Cancel</button>
                 <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveProfile">Save</button>
             </div>
 
@@ -467,7 +467,7 @@ function dateInText($date)
             </div>
 
             <div id="coverBtn" class="flex justify-end gap-2 hidden">
-                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2" id="cancelCover">Cancel</button>
                 <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveCover">Save</button>
             </div>
 
@@ -491,8 +491,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="locBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLocation">Save</button>
+                    <button class="px-2 py-1" id="cancelLocation">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 rounded-md py-1" id="saveLocation">Save</button>
                 </div>
 
             </div>
@@ -514,8 +514,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="emailBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveEmail">Save</button>
+                    <button class="px-2 py-1" id="cancelEmail">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveEmail">Save</button>
                 </div>
 
             </div>
@@ -537,8 +537,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="contactBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveContact">Save</button>
+                    <button class="px-2 py-1" id="cancelContact">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1 rounded-md" id="saveContact">Save</button>
                 </div>
 
             </div>
@@ -562,8 +562,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="fbBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveFB">Save</button>
+                    <button class="px-2 py-1" id="cancelFB">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1 rounded-md" id="saveFB">Save</button>
                 </div>
 
             </div>
@@ -585,8 +585,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="igBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveIG">Save</button>
+                    <button class="px-2 py-1" id="cancelIG">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1 rounded-md" id="saveIG">Save</button>
                 </div>
 
             </div>
@@ -609,8 +609,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="tweetBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveTweet">Save</button>
+                    <button class="px-2 py-1" id="cancelTweet">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveTweet">Save</button>
                 </div>
 
             </div>
@@ -632,8 +632,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="linkedBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLinkedIn">Save</button>
+                    <button class="px-2 py-1" id="cancelLinkedIn">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveLinkedIn">Save</button>
                 </div>
 
             </div>

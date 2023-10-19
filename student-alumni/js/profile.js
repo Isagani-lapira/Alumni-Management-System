@@ -794,7 +794,7 @@ $(document).ready(function () {
 
   //open modal
   $('#modal-openBtn').on('click', function () {
-    $('#profileModal').removeClass('hidden');
+    $('#profileModalEdit').removeClass('hidden');
   })
 
 
@@ -804,7 +804,7 @@ $(document).ready(function () {
 
   //change picture if user edit it
   var profileImg = $("#profileImg");
-
+  let currentProfileImg = profileImg.attr('src')
   $('#profilePic').on('change', function () {
     let selectedFile = $(this).prop("files")[0];
     profileLbl = $('#profileLbl')
@@ -820,6 +820,13 @@ $(document).ready(function () {
       reader.readAsDataURL(selectedFile)
     }
 
+  })
+
+  // cancel editing of profile
+  $('#cancelProfile').on('click', function () {
+    profileImg.attr('src', currentProfileImg)
+    $('#profileBtn').addClass('hidden')
+    $('#profileLbl').removeClass('hidden')
   })
 
   $('#saveProfile').on('click', function () {
@@ -857,6 +864,8 @@ $(document).ready(function () {
 
   //change cover if the user edit it
   var coverImg = $("#coverImg");
+  let currentCoverImg = coverImg.attr('src');
+
   $('#coverPic').on('change', function () {
     let selectedFile = $(this).prop("files")[0];
 
@@ -875,6 +884,13 @@ $(document).ready(function () {
     }
   })
 
+  // cancel editing
+  $('#cancelCover').on('click', function () {
+    coverImg.attr('src', currentCoverImg)
+    $('#coverLbl').removeClass('hidden');
+    $('#coverBtn').addClass('hidden')
+  })
+
   $('#saveCover').on('click', function () {
     let newCoverPhoto = $('#coverPic').prop('files')[0];
 
@@ -889,16 +905,28 @@ $(document).ready(function () {
   })
 
   //edit location
+  let location = $('#editAddress')
+  let currentLocation = location.val();
   $('#editAddLabel').on('click', function () {
-    $('#editAddress').removeAttr('disabled') //allows to be edit
+    location.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#locBtn').removeClass('hidden') //show the save button
     $('#editAddLabel').addClass('hidden'); //remove the edit label
   })
 
+  $('#cancelLocation').on('click', function () {
+    location.attr('disabled', true)
+      .removeClass('border-b border-gray-400')
+      .val(currentLocation)
+
+    $('#locBtn').addClass('hidden') //show the save button
+    $('#editAddLabel').removeClass('hidden'); //remove the edit label
+  })
+
   $('#saveLocation').on('click', function () {
-    let newAddress = $('#editAddress').val();
+    let newAddress = location.val();
+    location.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
 
     let action = {
       action: 'updatePersonDetails',
@@ -912,17 +940,28 @@ $(document).ready(function () {
 
 
   //edit email address
+  let email = $('#editEmail')
+  let currentEmail = email.val()
   $('#editEmailLbl').on('click', function () {
-    $('#editEmail').removeAttr('disabled') //allows to be edit
+    email.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#emailBtn').removeClass('hidden') //show the save button
     $('#editEmailLbl').addClass('hidden'); //remove the edit label
   })
 
-  $('#saveEmail').on('click', function () {
-    let newEmail = $('#editEmail').val();
+  $('#cancelEmail').on('click', function () {
+    email.attr('disabled', true) //allows to be edit
+      .removeClass('border-b border-gray-400')
+      .val(currentEmail)
 
+    $('#emailBtn').addClass('hidden') //show the save button
+    $('#editEmailLbl').removeClass('hidden'); //remove the edit label
+  })
+
+  $('#saveEmail').on('click', function () {
+    let newEmail = email.val();
+    email.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
     let action = {
       action: 'updatePersonDetails',
       dataUpdate: 'personal_email'
@@ -935,16 +974,28 @@ $(document).ready(function () {
 
 
   //edit contact Number
+  let contactNo = $('#editContact')
+  let currentContactNo = contactNo.val()
   $('#editContactLbl').on('click', function () {
-    $('#editContact').removeAttr('disabled') //allows to be edit
+    contactNo.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#contactBtn').removeClass('hidden') //show the save button
     $('#editContactLbl').addClass('hidden'); //remove the edit label
   })
 
+  $('#cancelContact').on('click', function () {
+    contactNo.attr('disabled', true)
+      .removeClass('border-b border-gray-400')
+      .val(currentContactNo)
+
+    $('#contactBtn').addClass('hidden');
+    $('#editContactLbl').removeClass('hidden');
+  })
+
   $('#saveContact').on('click', function () {
-    let newEmail = $('#editContact').val();
+    let newEmail = contactNo.val();
+    contactNo.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
 
     let action = {
       action: 'updatePersonDetails',
@@ -958,16 +1009,28 @@ $(document).ready(function () {
 
 
   //edit facebook
+  let facebook = $('#editFacebook')
+  let currentFb = facebook.val()
   $('#editFBLbl').on('click', function () {
-    $('#editFacebook').removeAttr('disabled') //allows to be edit
+    facebook.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#fbBtn').removeClass('hidden') //show the save button
     $('#editFBLbl').addClass('hidden'); //remove the edit label
   })
 
+  $('#cancelFB').on('click', function () {
+    facebook.attr('disabled', true)
+      .removeClass('border-b border-gray-400')
+      .val(currentFb)
+
+    $('#fbBtn').addClass('hidden')
+    $('#editFBLbl').removeClass('hidden');
+  })
+
   $('#saveFB').on('click', function () {
-    let newEmail = $('#editFacebook').val();
+    let newEmail = facebook.val();
+    facebook.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
 
     let action = {
       action: 'updatePersonDetails',
@@ -980,17 +1043,29 @@ $(document).ready(function () {
   })
 
   //edit instagram
+  let instagram = $('#editInstagram')
+  let currentIG = instagram.val()
   $('#editIGLbl').on('click', function () {
-    $('#editInstagram').removeAttr('disabled') //allows to be edit
+    instagram.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#igBtn').removeClass('hidden') //show the save button
     $('#editIGLbl').addClass('hidden'); //remove the edit label
   })
 
-  $('#saveIG').on('click', function () {
-    let newUN = $('#editInstagram').val();
+  $('#cancelIG').on('click', function () {
+    instagram.attr('disabled', true) //allows to be edit
+      .removeClass('border-b border-gray-400')
+      .val(currentIG)
 
+    $('#igBtn').addClass('hidden')
+    $('#editIGLbl').removeClass('hidden');
+  })
+
+  $('#saveIG').on('click', function () {
+    let newUN = instagram.val();
+
+    instagram.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
     let action = {
       action: 'updatePersonDetails',
       dataUpdate: 'instagramUN'
@@ -1002,6 +1077,8 @@ $(document).ready(function () {
   })
 
   //edit twitter
+  let twitter = $('#editTwitter')
+  let currentTwitter = twitter.val()
   $('#editTweetLbl').on('click', function () {
     $('#editTwitter').removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
@@ -1010,8 +1087,18 @@ $(document).ready(function () {
     $('#editTweetLbl').addClass('hidden'); //remove the edit label
   })
 
+  $('#cancelTweet').on('click', function () {
+    $('#editTwitter').attr('disabled', true)
+      .removeClass('border-b border-gray-400')
+      .val(currentTwitter)
+
+    $('#tweetBtn').addClass('hidden')
+    $('#editTweetLbl').removeClass('hidden');
+  })
+
   $('#saveTweet').on('click', function () {
     let newUN = $('#editTwitter').val();
+    $('#editTwitter').attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
 
     let action = {
       action: 'updatePersonDetails',
@@ -1025,17 +1112,30 @@ $(document).ready(function () {
 
 
   //edit linkedIn
+  let linkedIn = $('#editLinked')
+  let currentLinkedIn = linkedIn.val()
   $('#editLinkedLbl').on('click', function () {
-    $('#editLinked').removeAttr('disabled') //allows to be edit
+    linkedIn.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#linkedBtn').removeClass('hidden') //show the save button
     $('#editLinkedLbl').addClass('hidden'); //remove the edit label
   })
 
-  $('#saveLinkedIn').on('click', function () {
-    let newUN = $('#editLinked').val();
 
+  $('#cancelLinkedIn').on('click', function () {
+    linkedIn.attr('disabled', true) //allows to be edit
+      .removeClass('border-b border-gray-400')
+      .val(currentLinkedIn)
+
+    $('#linkedBtn').addClass('hidden')
+    $('#editLinkedLbl').removeClass('hidden');
+  })
+
+  $('#saveLinkedIn').on('click', function () {
+    let newUN = linkedIn.val();
+
+    linkedIn.attr('disabled', true).removeClass('border-b border-gray-400')//back to normal
     let action = {
       action: 'updatePersonDetails',
       dataUpdate: 'linkedInUN'
@@ -1069,7 +1169,7 @@ $(document).ready(function () {
 
 
   //close the modal
-  $('#profileModal').on('click', function (event) {
+  $('#profileModalEdit').on('click', function (event) {
     const target = event.target
     const formUpdate = $('.formUpdate')
 
