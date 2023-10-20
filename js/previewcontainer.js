@@ -75,14 +75,15 @@ $(document).ready(function () {
                     response.dataSet.forEach(element => {
                         const categoryName = element.categoryName
                         const questionSets = element.questionSet;
-                        displayQuestion(categoryName, questionSets)
+                        const previewContainer = '#previewContainer'
+                        displayQuestion(categoryName, questionSets, previewContainer)
                     })
                 }
             }
         })
     }
 
-    function displayQuestion(categoryName, questionSets) {
+    function displayQuestion(categoryName, questionSets, container) {
         $('#categoryNamePrev').text(categoryName)
 
         let countQuestion = 1; //for counting question
@@ -107,10 +108,21 @@ $(document).ready(function () {
                 value.choices.forEach(choice => {
                     const choiceID = choice.choiceID
                     const choice_text = choice.choice_text
+                    const hasSectionQuestion = choice.isSectionChoice;
+
                     // radio type question
                     if (inputType === 'Radio') {
                         const choiceWrapper = $('<div>').addClass('flex gap-2 items-center')
-                        const radio = $('<input>').attr('type', 'radio').attr('id', choiceID).attr('name', questionID)
+                        const radio = $('<input>')
+                            .attr('type', 'radio')
+                            .attr('id', choiceID)
+                            .attr('name', questionID)
+                            .on('click', function () {
+                                if (hasSectionQuestion) {
+                                    // get the other section question for this choice
+                                    retrievedSectionData(choiceID, categoryName)
+                                }
+                            })
                         const choiceTxt = $('<label>').attr('for', choiceID).text(choice_text)
 
                         choiceWrapper.append(radio, choiceTxt)
@@ -118,8 +130,21 @@ $(document).ready(function () {
                     }
                     // dropdown question
                     else if (inputType === 'DropDown') {
-                        const option = $('<option>').val(choiceID).text(choice_text)
+                        const option = $('<option>').val(choiceID).text(choice_text).attr('data-sectionchoice', hasSectionQuestion)
                         selectWrapper.append(option)
+                    }
+
+                    // check box
+                    else if (inputType === 'Checkbox') {
+                        const choiceWrapper = $('<div>').addClass('flex gap-2 items-center')
+                        const checkbox = $('<input>')
+                            .attr('type', 'checkbox')
+                            .attr('id', choiceID)
+
+                        const choiceTxt = $('<label>').attr('for', choiceID).text(choice_text)
+
+                        choiceWrapper.append(checkbox, choiceTxt)
+                        choiceContainer.append(choiceWrapper)
                     }
                 })
             }
@@ -133,10 +158,23 @@ $(document).ready(function () {
             }
 
 
-            if (inputType === 'DropDown') choiceContainer.append(selectWrapper)
+            if (inputType === 'DropDown') {
+                choiceContainer.append(selectWrapper)
+                selectWrapper.on('change', function () {
+                    const selectedOption = $(this).find('option:selected')
+                    const isSectionChoice = selectedOption.attr('data-sectionchoice')
+
+                    // display the additional question for that choice
+                    if (isSectionChoice) {
+                        const choiceID = selectedOption.val()
+                        retrievedSectionData(choiceID, categoryName)
+                    }
+
+                })
+            }
 
             questionWrapper.append(question, choiceContainer)
-            $('#previewContainer').append(questionWrapper)
+            $(container).append(questionWrapper)
             countQuestion++
         })
     }
@@ -168,4 +206,41 @@ $(document).ready(function () {
         else $(this).removeClass('hidden')
     })
 
+
+    function retrievedSectionData(choiceID, categoryName) {
+        const action = "getSectionData";
+        const formData = new FormData();
+        formData.append('action', action)
+        formData.append('choiceID', choiceID);
+
+        $.ajax({
+            url: '../PHP_process/graduatetracer.php',
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: response => {
+                response.forEach(value => {
+                    let questionSets = value
+
+                    questionSets.forEach(data => {
+                        $('#sectionModalPreview').removeClass('hidden')
+                        const container = '#previewSectionQuestion'
+                        let myArray = [data]
+                        displayQuestion(categoryName, myArray, container)
+                    })
+
+                })
+
+            }
+        })
+    }
+
+    // close the preview of additional modal
+    $('.sectionModalPreview button').on('click', function () {
+        // reset everything
+        $('#previewSectionQuestion').empty()
+        $('#sectionModalPreview').addClass('hidden')
+    })
 })

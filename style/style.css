@@ -318,3 +318,11 @@ tbody tr:nth-child(odd) {
     transform: rotate(360deg);
   }
 }
+
+.sectionModalPreview {
+  max-height: 80%;
+}
+
+#previewSectionQuestion {
+  max-height: 80%;
+}

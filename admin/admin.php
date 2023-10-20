@@ -2352,6 +2352,21 @@ function dateInText($date)
       <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
     </div>
 
+    <div id="sectionModalPreview" class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 hidden">
+      <div class="sectionModalPreview bg-white rounded shadow-lg w-2/5 h-max slide-bottom p-5">
+        <h3 class="font-bold text-xl text-accent py-2 text-center">Additional Question</h3>
+
+        <!-- close button -->
+        <button class="closeSectionModal absolute top-1 right-1">
+          <iconify-icon class="text-gray-400 hover:text-accent" icon="carbon:close-outline" width="24" height="24"></iconify-icon>
+        </button>
+
+        <div id="previewSectionQuestion" class="p-3 flex flex-col gap-3 border border-gray-300 rounded-md overflow-y-auto"></div>
+        <button class="text-gray-500 border hover:font-semibold py-2 px-4 rounded-md my-2 block ml-auto">Close</button>
+      </div>
+    </div>
+
+
   </div>
 
 
