@@ -163,23 +163,20 @@
             <header class=" text-center py-2">
                 <h3 class="font-bold text-accent text-xl">Your Activities</h3>
             </header>
-            <button id="printLogsBtn" class="transition-colors group p-2 m-2 border border-grayish text-grayish rounded-md ml-auto block hover:bg-accent">
+            <button id="printLogsBtn" class="transition-colors group p-2 m-2 border border-grayish font-medium text-accent hover:text-white text-sm  rounded-md ml-auto block hover:bg-accent">
                 <i class="transition-colors fa-solid fa-print fa-xl group-hover:text-white text-accent"></i>
+                PRINT
             </button>
 
             <hr class="border-gray-400">
 
             <!-- Filter Options -->
             <div class="filter flex gap-2 mt-2">
-
-                <!-- date range -->
-                <input type="text" name="logdaterange" id="logdaterange" value="01/01/2018 - 01/15/2018" class="form-input rounded ">
-
-                <!-- college selection -->
-                <select name="logCollege" id="logCollege" class="form-select w-full border border-grayish p-2 rounded-lg">
-                    <option value="" selected="">All</option>
-                    <option value="CICT">College of Information and Communication Technology</option>
-                    <option value="CON">College of Nursing</option>
+                <!--  selection date -->
+                <select name="logSelect" id="logSelect" class="form-select w-full border border-grayish p-2 rounded-lg">
+                    <option value="today" selected="">Today</option>
+                    <option value="past-week">Past Week</option>
+                    <option value="past-month">Past Month</option>
                 </select>
 
             </div>
