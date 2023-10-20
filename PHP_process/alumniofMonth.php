@@ -13,8 +13,15 @@ if (isset($_POST['action'])) {
             $month = ($_POST['month'] == '') ? '' : $_POST['month'];
             $colCode = ($_POST['colCode'] == '') ? '' : $_POST['colCode'];
             $year = ($_POST['year'] == '') ? '' : $_POST['year'];
-
             getAOTMByFilter($month, $colCode, $year, $mysql_con);
+            break;
+        case 'thisYearAOM':
+            listOfAOMThisYear($mysql_con);
+            break;
+        case 'searchAlumniOfTheMonth':
+            $aomID = $_POST['aomID'];
+            getSelectedAOM($aomID, $mysql_con);
+            break;
     }
 }
 
@@ -113,6 +120,83 @@ function alumniOfMonthDetails($result)
         "colCode" => $colCode,
         "personalEmail" => $personalEmail,
         "fullname" => $fullname,
+    );
+
+    echo json_encode($data);
+}
+
+function listOfAOMThisYear($con)
+{
+    // query to get all the alumni of the month list on assigned this year
+    $query = "SELECT a.`AOMID`, a.`colCode`, p.personID, p.fname, p.lname
+    FROM alumni_of_the_month AS a
+    INNER JOIN person AS p ON a.personID = p.personID
+    WHERE YEAR(a.`date_assigned`) = YEAR(CURDATE())";
+
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_num_rows($result);
+
+    $response = "Unsuccess";
+    $names = array();
+    $aomID = array();
+    $personID = array();
+    $colCode = array();
+
+    if ($result && $row > 0) {
+        // data about the alumni of the month
+        $response = "Success";
+        while ($data = $result->fetch_assoc()) {
+            $names[] = $data['fname'] . ' ' . $data['lname'];
+            $aomID[] = $data['AOMID'];
+            $personID[] = $data['personID'];
+            $colCode[] = $data['colCode'];
+        }
+    }
+
+    $data = array(
+        "response" => $response,
+        "names" => $names,
+        "aomID" => $aomID,
+        "personID" => $personID,
+        "colCode" => $colCode,
+    );
+
+    echo json_encode($data);
+}
+
+function getSelectedAOM($aomID, $con)
+{
+    $query = "SELECT a.`quote`,a.`cover_img`, p.fname, p.lname
+    FROM alumni_of_the_month AS a
+    INNER JOIN person AS p ON a.personID = p.personID
+    WHERE a.`AOMID` = ?";
+
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('s', $aomID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $response = "Unsuccess";
+
+    $fullname = "";
+    $quote = "";
+    $cover_img = "";
+
+    if ($result) {
+        $response = "Success";
+        $data = $result->fetch_assoc();
+        $fullname = $data['fname'] . ' ' . $data['lname'];
+        $quote = $data['quote'];
+        $cover_img = base64_encode($data['cover_img']);
+    }
+
+    $data = array(
+        "response" => $response,
+        "fullname" => $fullname,
+        "quote" => $quote,
+        "cover" => $cover_img
     );
 
     echo json_encode($data);

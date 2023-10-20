@@ -946,187 +946,28 @@ function dateInText($date)
         </div>
 
         <!-- alumni of the year content -->
-        <div id="alumnYear-tab" class="p-5 hidden">
+        <div id="alumnYear-tab" class="p-5 hidden h-full">
           <h1 class="text-xl font-extrabold">Alumni of the Year</h1>
           <p class="text-grayish mb-10">Make post for a newly awarded alumni of the year</p>
 
-          <!-- make alumni of the year post -->
-          <div id="aoyRegister" class="hidden text-greyish_black">
-            <label class="font-bold" for="aoyFN">Fullname</label>
-            <input id="aoyFN" class="block p-2 border border-grayish w-1/2 focus:outline-none rounded-lg mb-5" type="text" placeholder="e.g Patrick Joseph Pronuevo">
-
-            <label class="font-bold" for="aoyQuotation">Quotation</label>
-            <input id="aoyQuotation" class="block p-2 border border-grayish w-1/2 focus:outline-none rounded-lg mb-5" type="text" placeholder="">
-
-            <label class="font-bold block" for="aoyBatch">Batch</label>
-            <select id="aoyBatch" class="p-2 px-3 outline-none border border-grayish rounded-lg mb-5">
-              <option selected disabled value="">Batch of 2021</option>
-            </select>
-
-            <p class="font-bold block">Image to be showcase</p>
-
-            <label for="imgShow" class="bg-accent text-white p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md">
-              Choose Image
-              <input class="hidden" id="imgShow" type="file">
-            </label>
-
-            <p class="font-bold block">Social media links</p>
-            <div class="flex">
-              <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
-              <input id="socmedFb" class="focus:outline-none px-3" type="text" placeholder="Add Facebook link">
+          <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
+          <div id="aoyRecord" class="h-full">
+            <div class="flex items-center justify-between">
+              <h3 class=" text-greyish_black font-semibold">Choose Alumni To View Details</h3>
+              <select id="aomSelection" class="border border-gray-400 rounded-md p-2">
+                <option value="">Select Alumni of the month</option>
+              </select>
             </div>
 
-            <div class="flex mt-2">
-              <img class="m-2" src="../assets/socmed-icons/instagram.png" alt="">
-              <input id="socmedIG" class="focus:outline-none px-3" type="text" placeholder="Add Instagram link">
+            <div id="aomRecord" class="p-3 overflow-y-auto flex flex-col items-center gap-2">
+              <img id="aomCover" src="../images/univ-post.jpg" alt="" class="rounded-md object-fill h-2/5 w-1/2">
+              <h2 class="text-xl aomFullname font-semibold text-greyish_black w-1/2 text-center"></h2>
+              <span id="aomQuotation" class="italic text-gray-500 w-1/2 text-center text-sm"></span>
+              <span class="italic text-sm text-blue-400 aomFullname">Orlando Pimentel 2013</span>
             </div>
 
-            <div class="flex mt-2">
-              <img class="m-2" src="../assets/socmed-icons/twitter.png" alt="">
-              <input id="socmedTwitter" class="focus:outline-none px-3" type="text" placeholder="Add Twitter link">
-            </div>
-
-            <p class="font-bold block" for="">Description</p>
-            <div class="message-area border rounded-md border-grayish h-40 w-1/2">
-              <textarea class="w-full h-full resize-none p-3 rounded-md focus:outline-none text-grayish" name="" id="aoyDescript"></textarea>
-            </div>
-
-            <button class="rounded-md py-3 px-5 bg-postButton text-white mt-2 block cursor-pointer hover:bg-postHoverButton ml-auto">Make
-              a post</button>
           </div>
 
-          <!-- alumni of the year record -->
-          <div id="aoyRecord">
-            <div class="flex justify-end items-end">
-              <button class=" border border-accent py-1 px-3  ml-auto rounded-md text-accent hover:bg-accent hover:text-white">
-                Export List
-              </button>
-              <button id="aoyNew" class="py-2 px-3 ml-3 rounded-md bg-postButton text-white hover:bg-postHoverButton">
-                New Alumni of the year
-              </button>
-            </div>
-
-
-            <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
-
-            <div class="flex justify-evenly text-xs">
-
-              <div class="flex border border-grayish w-1/2 rounded-md p-1">
-                <img class="inline " src="../images/search-icon.png" alt="">
-                <input class="outline-none w-full" type="text" name="" id="aoySearch" placeholder="Typing!">
-              </div>
-
-              <!-- gender -->
-              <select name="aoyGender" id="aoyGender" class="px-3 py-2">
-                <option value="" selected disabled hidden>All</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-
-
-              <!-- Year -->
-              <div class="p-1 w-1/5 flex">
-                <select name="aoyFrom" id="aoyFrom" class="px-3 py-2">
-                  <option value="" selected disabled hidden>From</option>
-                </select>
-                <select name="aoyTo" id="aoyTo" class="px-3 py-2">
-                  <option value="" selected disabled hidden>To</option>
-                </select>
-              </div>
-
-              <div class="p-1 w-1/5 flex"></div>
-
-              <!-- college -->
-              <select name="aoyCol" id="aoyCol" class="w-1/2 p-1">
-                <option value="" selected disabled hidden>College</option>
-                <?php
-                require_once '../PHP_process/connection.php';
-                $query = "SELECT * FROM `college`";
-                $result = mysqli_query($mysql_con, $query);
-                $rows = mysqli_num_rows($result);
-
-                if ($rows > 0) {
-                  while ($data = mysqli_fetch_assoc($result)) {
-                    $colCode = $data['colCode'];
-                    $colName = $data['colname'];
-
-                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
-                  }
-                } else echo '<option>No college available</option>';
-                ?>
-              </select>
-
-            </div>
-
-            <!-- record of name-->
-            <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
-              <thead>
-                <tr class="bg-accent text-white">
-                  <th class="text-start rounded-tl-lg">Student Number</th>
-                  <th>NAME</th>
-                  <th>Email Address</th>
-                  <th>College</th>
-                </tr>
-              </thead>
-              <tbody class="text-sm">
-                <tr class="h-14 text-xs">
-                  <td class="text-start font-bold">2020101933</td>
-                  <td>
-                    <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/alumni-pic2.png"></img>
-                      <span class="ml-2">Wade Warren</span>
-                    </div>
-                  </td>
-                  <td class="text-center">wadewarren@gmail.com</td>
-                  <td class="text-center">CEE</td>
-
-                </tr>
-
-                <tr class="h-14 text-xs">
-                  <td class="text-start font-bold">2020101933</td>
-                  <td>
-                    <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/avatar-prof.png"></img>
-                      <span class="ml-2">Leslie Alexander</span>
-                    </div>
-                  </td>
-                  <td class="text-center">leslieAlex@gmail.com</td>
-                  <td class="text-center">CHTM</td>
-
-                </tr>
-
-                <tr class="h-14 text-xs">
-                  <td class="text-start font-bold">2020101933</td>
-                  <td>
-                    <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/footer-img.png"></img>
-                      <span class="ml-2">Floyd Miles</span>
-                    </div>
-                  </td>
-                  <td class="text-center">floymiles@gmail.com</td>
-                  <td class="text-center">CICT</td>
-
-                </tr>
-
-
-                <tr class="h-14 text-xs">
-                  <td class="text-start font-bold">2020101933</td>
-                  <td>
-                    <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src=""></img>
-                      <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                  </td>
-                  <td class="text-center">cameronwilliamson@gmail.com</td>
-                  <td class="text-center">COED</td>
-
-                </tr>
-
-
-              </tbody>
-            </table>
-
-          </div>
         </div>
 
         <!-- alumni of the month content -->
@@ -2368,6 +2209,7 @@ function dateInText($date)
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/alumni_of_the_year.js"></script>
   <script src="../js/jobposted.js"></script>
   <script src="../js/tracerchart.js"></script>
   <script src="../js/alumni_of_the_month.js"></script>

@@ -329,3 +329,7 @@ tbody tr:nth-child(odd) {
 #emailTable_wrapper td {
   text-align: left;
 }
+
+#aomRecord {
+  height: 95%;
+}

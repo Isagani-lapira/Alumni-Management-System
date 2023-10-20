@@ -146,11 +146,6 @@ $(document).ready(function () {
     );
   });
 
-  $("#aoyNew").on("click", () => {
-    $("#aoyRecord").hide();
-    $("#aoyRegister").show();
-  });
-
   $("#jobMyPost").on("click", () => {
     $("#jobList").hide();
     $("#jobPosting").hide();
