@@ -172,11 +172,20 @@
 
             <!-- Filter Options -->
             <div class="filter flex gap-2 mt-2">
-                <!--  selection date -->
-                <select name="logSelect" id="logSelect" class="form-select w-full border border-grayish p-2 rounded-lg">
-                    <option value="today" selected="">Today</option>
-                    <option value="past-week">Past Week</option>
-                    <option value="past-month">Past Month</option>
+                <!-- With Range -->
+                <!-- <div class="w-max flex border border-grayish p-2 rounded-lg">
+                    <input type="text" name="logdaterange" id="logdaterange" value="01/01/2018 - 01/15/2018">
+                    <label for="logdaterange">
+                        <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
+                    </label>
+                </div> -->
+                <!-- With Preselected  -->
+                <select name="logDateSelect" id="logDateSelect" class="form-select  border border-grayish p-2 rounded-lg">
+                    <option value="today" selected>Today</option>
+                    <option value="week">Past Week</option>
+                    <option value="month">Past Month</option>
+                    <option value="year">Past Year</option>
+                    <option value="all">All Logs</option>
                 </select>
 
             </div>

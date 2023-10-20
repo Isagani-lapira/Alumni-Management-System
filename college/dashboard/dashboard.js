@@ -1,3 +1,5 @@
+import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
+
 $(document).ready(() => {
   const redAccent = "#991B1B";
   const blueAccent = "#2E59C6";
@@ -62,6 +64,31 @@ $(document).ready(() => {
       },
     });
   }
+
+  // Handles the logs
+  $("#logDateSelect").on("change", async function () {
+    const selectedDate = $(this).val();
+    console.log("changed the date!", selectedDate);
+
+    const formData = new FormData();
+    formData.append("action", "filterDate");
+    formData.append("date", selectedDate);
+
+    // send the request to the server
+    const result = await postJSONFromURL("dashboard/logData.php", formData);
+
+    console.log(result);
+
+    // change the DOM to display the logs
+  });
+
+  /**
+   * Make a request to the server to retrieve the logs
+   *
+   * on change, the data will be filtered by the selected date
+   *
+   *
+   */
 });
 
 // TODO add function to be easier later
