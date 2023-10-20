@@ -99,36 +99,23 @@
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <!-- <div class="dash-content p-3 pt-0   rounded-md">
-                    <div class="recent-announcement flex justify-stretch my-5">
-                        <div class="circle rounded-full bg-gray-400 p-5"></div>
-                        <div class="text-sm ms-2 font-extralight">
-                            <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
-                                <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">POST</span>
-                            </p>
-                            <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                <!-- Open the modal using ID.showModal() method -->
+                <div class="flex justify-end">
+                    <button class="text-sm text-accent font-semibold mt-3 text-end cursor-pointer" onclick="viewMoreModal.showModal()">View More</button>
+                </div>
+                <dialog id="viewMoreModal" class="daisy-modal">
+                    <div class="daisy-modal-box">
+                        <h3 class="font-bold text-lg">Hello!</h3>
+                        <p class="py-4">Press ESC key or click the button below to close</p>
+                        <div class="daisy-modal-action">
+                            <form method="dialog">
+                                <!-- if there is a button in form, it will close the modal -->
+                                <button class="daisy-btn">Close</button>
+                            </form>
                         </div>
+
                     </div>
-                    <div class="recent-announcement flex justify-stretch my-5">
-                        <div class="circle rounded-full bg-red-400 p-5"></div>
-                        <div class="text-sm ms-2 font-extralight">
-                            <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                                <span class="bg-green-600 text-white font-semibold p-2 rounded-md">ANNOUNCEMENT</span>
-                            </p>
-                            <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                        </div>
-                    </div>
-                    <div class="recent-announcement flex justify-stretch my-5">
-                        <div class="circle rounded-full bg-yellow-200 p-5"></div>
-                        <div class="text-sm ms-2 font-extralight">
-                            <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                                <span class="bg-violet-400 text-white font-semibold p-2 rounded-md">UPDATE</span>
-                            </p>
-                            <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                        </div>
-                    </div>
-                     view more -->
-                <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
+                </dialog>
             </div>
         </div>
     </div>
