@@ -507,7 +507,7 @@ function dateInText($date)
             </div>
 
             <div class="m-2 p-1">
-              <p class="text-sm font-thin">Course</p>
+              <p class="text-sm font-thin">College</p>
               <!-- college selection -->
               <select name="college" id="emCol" class="w-full border border-grayish p-2 rounded-lg">
                 <option value="" selected>All</option>
@@ -531,9 +531,9 @@ function dateInText($date)
 
 
             <div class="m-2 p-1">
-              <p>Show post (from - to)</p>
-              <div class="w-full flex border border-grayish p-2 rounded-lg">
-                <input type="text" name="emDateRange" id="emDateRange" value="01/01/2018 - 01/15/2018" />
+              <p>Show email (from - to)</p>
+              <div class="w-full flex items-center border border-grayish p-2 rounded-lg">
+                <input type="text" name="emDateRange" id="emDateRange" value="Select a date" />
                 <label class="" for="emDateRange">
                   <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
                 </label>
@@ -546,7 +546,7 @@ function dateInText($date)
 
           <!-- recent email -->
           <p class="mt-5 font-semibold text-greyish_black">Recent Email</p>
-          <table class="table-auto w-full text-xs font-thin text-greyish_black center-shadow">
+          <table id="emailTable" class="table-auto w-full text-xs font-thin text-greyish_black center-shadow">
             <thead class="bg-accent text-white">
               <tr>
                 <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
@@ -554,13 +554,9 @@ function dateInText($date)
                 <th class="text-start rounded-tr-md">DATE</th>
               </tr>
             </thead>
-            <tbody id="emailTBody"></tbody>
+            <tbody></tbody>
           </table>
-          <p id="noEmailMsg" class="text-center text-blue-400 text-lg hidden">No email available</p>
-          <div class="flex justify-end items-center gap-2 mt-2">
-            <button id="prevEmail" class="rounded-md border border-accent text-accent hover:bg-darkAccent hover:text-white px-4 py-2">Previous</button>
-            <button id="nextEmail" class="rounded-md bg-accent hover:bg-darkAccent text-white px-4 py-2">Next</button>
-          </div>
+
         </div>
 
         <!-- alumni record content -->

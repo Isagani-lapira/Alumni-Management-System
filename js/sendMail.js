@@ -176,13 +176,9 @@ $(document).ready(function () {
                         $('#userNotExist').show()
                     else {
                         $('#promptMsg').removeClass('hidden')
-                        // restart email
-                        emailOffset = 0;
-                        countNextEmail = 0;
-                        tempOffsetEmail = 0;
                         //retrieve emails
                         getEmailSent(actionDefault)
-                        actionTracker = actionDefault
+
                         //success sending
                         $('#message').text('Email sent!')
                         $('#userNotExist').hide()
@@ -205,21 +201,14 @@ $(document).ready(function () {
     })
 
     let emailOffset = 0;
-    let tempOffsetEmail = 0;
-    let countNextEmail = 0;
 
-    const actionByFilter = "retrieveByFilter"
     const actionDefault = "retrieveEmails"
-    let colCodeTracker = ""
-    let actionTracker = ""
+
     $('#emailLi').on('click', function () {
         emailOffset = 0;
-        countNextEmail = 0;
-        tempOffsetEmail = 0;
         //retrieve emails
         $('#newsAndUpdate-tab').removeClass('hidden')
         getEmailSent(actionDefault)
-        actionTracker = actionDefault
     })
 
 
@@ -258,7 +247,6 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'JSON',
             success: response => {
-                $('#emailTBody').empty(); //remove the data previously retrieved
                 //check for the data retrieved
                 if (response.result == "Success") {
                     const length = response.recipient.length;
@@ -266,25 +254,18 @@ $(document).ready(function () {
                     for (let i = 0; i < length; i++) {
                         const recipient = response.recipient[i];
                         const colCode = response.colCode[i];
-                        const dateSent = response.dateSent[i];
+                        const dateSent = getFormattedDate(response.dateSent[i]);
 
                         //row data
-                        const row = $('<tr>')
-                        const recip = $("<td>").text(recipient)
-                            .addClass('text-start')
-                        const college = $("<td>").text(colCode)
-                            .addClass('text-start')
-                        const date = $("<td>").text(dateSent)
-                            .addClass('text-start')
-
-                        row.append(recip, college, date);
-
-                        $('#emailTBody').append(row)
+                        let row = [recipient, colCode, dateSent]
+                        table.row.add(row)
                     }
+
+                    table.draw() //display the newly retrieved email data
                     emailOffset += length
-                    tempOffsetEmail = length
-                    //disable next if the length didn't rich 10
-                    if (length < 10) $('#nextEmail').addClass('hidden')
+                    // retrieve another data
+                    if (length === 10) getEmailSent(actionDefault)
+
                 }
             },
             error: error => { console.log(error) }
@@ -292,47 +273,91 @@ $(document).ready(function () {
     }
 
 
-    //previous sets of email
-    $('#prevEmail').on('click', function () {
-        countNextEmail -= countNextEmail
-        emailOffset = countNextEmail
-        if (countNextEmail >= 0) {
-            countNextEmail -= tempOffsetEmail
-            $('#nextEmail').removeClass('hidden')
-            getEmailSent(actionTracker, colCodeTracker)
-        }
+    let college = ""
+    let startDate = ""
+    let endDate = ""
+    const table = $('#emailTable').DataTable({
+        "pageLength": 10,
+        "paging": true,
+        "info": false,
+        "lengthChange": false,
+        "ordering": false
     })
-
-    //retrieve new sets of emails
-    $('#nextEmail').on('click', function () {
-        countNextEmail += tempOffsetEmail
-        getEmailSent(actionTracker, colCodeTracker)
-        $('#prevEmail').removeClass('hidden')
-    })
+    $('#emailTable').removeClass('dataTable').addClass('rounded-md')
 
     $('#emCol').on('change', function () {
-        // restart email counting
-        emailOffset = 0;
-        countNextEmail = 0;
-        tempOffsetEmail = 0;
-        let colCode = $(this).val();
-
-        if (colCode == '') {
-            getEmailSent(actionDefault)
-            actionTracker = actionDefault
-            colCodeTracker = ""
-        }
-        else {
-            getEmailSent(actionByFilter, colCode) //filter data
-            actionTracker = actionByFilter
-            colCodeTracker = colCode
-        }
+        college = $(this).val()
+        filterTable()
     })
 
 
+    // filtering date
+    $(function () {
+        $('input[name="emDateRange"]').daterangepicker(
+            {
+                opens: "left",
+                startDate: defaultStart,
+                endDate: defaultEnd,
+            },
+            function (start, end, label) {
+                startDate = start.format('MMMM DD, YYYY');
+                endDate = end.format('MMMM DD, YYYY')
+
+                filterTable()
+            }
+        );
+    });
+
+    function filterTable() {
+        if (college !== '' && startDate === '' && endDate === '') {
+            // college filtering only
+            table.column(1).search(college)
+            table.column(2).search('')
+
+        } else if (startDate !== '' && endDate !== '' && college === '') {
+            // Date filtering
+            table.columns(2).search(startDate + '|' + endDate, true, false, true).draw();
+
+        } else if (college !== '' && startDate !== '' && endDate !== '') {
+            // college and range
+            table.column(1).search(college)
+            table.column(2).search(startDate + '|' + endDate, true, false, true)
+
+        } else table.column(1).search('').column(2).search('') // back to default
+
+
+        table.draw() //display the filtered table
+    }
 
     //close modal email
     $(".cancelEmail").click(function () {
         $("#modalEmail").addClass('hidden')
     });
+
+
+    // format the date into easy to read date
+    function getFormattedDate(date) {
+        //parts out the date
+        let year = date.substring(0, 4);
+        let dateMonth = parseInt(date.substring(5, 7));
+        let day = date.substring(8, 10);
+
+        const listOfMonths = ['', 'January', 'February', 'March', 'April', 'May',
+            'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        let month = listOfMonths[dateMonth];
+
+        return month + ' ' + day + ', ' + year
+    }
+
+    // back to default button
+    const defaultButton = $('<button class="hover:bg-accent rounded-md hover:text-white px-2">Default</button>')
+        .on('click', function () {
+            startDate = ''
+            endDate = ''
+            $('#emDateRange').val('Select date')
+            filterTable()
+        })
+
+    $('#emDateRange').parent().append(defaultButton)
 })
+

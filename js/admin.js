@@ -126,67 +126,6 @@ $(document).ready(function () {
       $("#viewJob").addClass("hidden");
   });
 
-  $(function () {
-    $('input[name="emDateRange"]').daterangepicker(
-      {
-        opens: "left",
-        startDate: defaultStart,
-        endDate: defaultEnd,
-      },
-      function (start, end, label) {
-        let dateStart = start.format("YYYY-MM-DD");
-        let dateEnd = end.format("YYYY-MM-DD");
-
-        let dateRangeData = new FormData();
-        let action = {
-          action: "readFromDate",
-        };
-
-        dateRangeData.append("action", JSON.stringify(action));
-        dateRangeData.append("dateStart", dateStart);
-        dateRangeData.append("dateEnd", dateEnd);
-
-        //show new data
-        $.ajax({
-          url: "../PHP_process/emailDB.php",
-          type: "POST",
-          data: dateRangeData,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: (response) => {
-            let data = response;
-            $("#emailTBody").empty();
-            if (response.result == "Success") {
-              //display the data as content of the table
-              $length = data.recipient.length;
-
-              for (let i = 0; i < $length; i++) {
-                let recipient = data.recipient[i];
-                let colCode = data.colCode[i];
-                let dateSent = data.dateSent[i];
-
-                let tr = $("<tr>");
-                let tdRecipient = $("<td>")
-                  .text(recipient)
-                  .addClass("text-start");
-                let tdColCode = $("<td>").text(colCode).addClass("text-start");
-                let tdDate = $("<td>").text(dateSent).addClass("text-start");
-
-                tr.append(tdRecipient, tdColCode, tdDate);
-                $("#emailTBody").append(tr);
-              }
-            } else {
-              $('#noEmailMsg').removeClass('hidden')
-            }
-          },
-          error: (error) => {
-            console.log(error);
-          },
-        });
-      }
-    );
-  });
 
 
   $(function () {

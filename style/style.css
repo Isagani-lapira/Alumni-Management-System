@@ -326,3 +326,6 @@ tbody tr:nth-child(odd) {
 #previewSectionQuestion {
   max-height: 80%;
 }
+#emailTable_wrapper td {
+  text-align: left;
+}
