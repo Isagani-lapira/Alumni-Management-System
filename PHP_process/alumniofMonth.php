@@ -22,6 +22,10 @@ if (isset($_POST['action'])) {
             $aomID = $_POST['aomID'];
             getSelectedAOM($aomID, $mysql_con);
             break;
+        case 'getTestimonials':
+            $aomID = $_POST['aomID'];
+            getTestimony($aomID, $mysql_con);
+            break;
     }
 }
 
@@ -183,6 +187,7 @@ function getSelectedAOM($aomID, $con)
     $fullname = "";
     $quote = "";
     $cover_img = "";
+    $testimonies = array();
 
     if ($result) {
         $response = "Success";
@@ -197,6 +202,42 @@ function getSelectedAOM($aomID, $con)
         "fullname" => $fullname,
         "quote" => $quote,
         "cover" => $cover_img
+    );
+
+    echo json_encode($data);
+}
+
+function getTestimony($aomID, $con)
+{
+    // get testimonials
+    $testimony = "SELECT `message`,`person_name`,`position`,`profile_img` FROM `testimonials` WHERE `AOMID` = ?";
+    $stmtTestimony = mysqli_prepare($con, $testimony);
+    $stmtTestimony->bind_param('s', $aomID);
+    $stmtTestimony->execute();
+    $resultTestimony = $stmtTestimony->get_result();
+    $row = mysqli_num_rows($resultTestimony);
+
+    $response = "Unsuccess";
+    $message = array();
+    $personName = array();
+    $position = array();
+    $profile = array();
+    if ($resultTestimony && $row > 0) {
+        while ($data = $resultTestimony->fetch_assoc()) {
+            $response = "Success";
+            $message[] = $data['message'];
+            $personName[] = $data['person_name'];
+            $position[] = $data['position'];
+            $profile[] = base64_encode($data['profile_img']);
+        }
+    }
+
+    $data = array(
+        "response" => $response,
+        "message" => $message,
+        "personName" => $personName,
+        "position" => $position,
+        "profile" => $profile
     );
 
     echo json_encode($data);

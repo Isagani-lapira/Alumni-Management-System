@@ -963,7 +963,12 @@ function dateInText($date)
               <img id="aomCover" src="../images/univ-post.jpg" alt="" class="rounded-md object-fill h-2/5 w-1/2">
               <h2 class="text-xl aomFullname font-semibold text-greyish_black w-1/2 text-center"></h2>
               <span id="aomQuotation" class="italic text-gray-500 w-1/2 text-center text-sm"></span>
-              <span class="italic text-sm text-blue-400 aomFullname">Orlando Pimentel 2013</span>
+              <span class="italic text-sm text-blue-400 aomFullname"></span>
+
+              <!-- testimonials -->
+              <h2 class="w-1/2 text-greyish_black font-bold text-xl text-center mt-10 subtitle hidden">Testimonials</h2>
+              <div class="testimonyContainer w-100 h-1/2 flex gap-5 flex-row flex-wrap justify-center mb-10"></div>
+
             </div>
 
           </div>
