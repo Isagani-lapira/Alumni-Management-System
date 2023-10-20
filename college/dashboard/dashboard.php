@@ -1,12 +1,11 @@
 <!-- dashboard content -->
-<?php session_start();
-?>
+<?php session_start(); ?>
 
-<section id="dashboard-tab" class="container">
-
+<section id="dashboard-tab" class="container lg:mx-auto">
 
 
-    <div class="flex m-10 h-2/3 p-2 flex-wrap gap-4">
+
+    <div class="flex m-10 h-2/3  flex-wrap gap-4">
         <!-- Left Welcome Part -->
         <div class="flex-1">
             <!-- Welcome Card -->
@@ -73,8 +72,8 @@
         <!-- End Left Welcome Part -->
 
         <!-- Start recent activities -->
-        <div class="flex-1">
-            <div class=" max-lg:relative mx-auto lg:w-4/5  font-semibold  border  center-shadow p-5 rounded-lg">
+        <div class="flex-1 flex justify-end">
+            <div class=" max-lg:relative  lg:w-4/5  font-semibold  border  center-shadow p-5 rounded-lg">
                 <p class="  text-accent font-bold">RECENT ACTIVITIES
                     <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
                 </p>
@@ -135,26 +134,22 @@
     </div>
     <!-- End recent-announcement -->
 
-
-
-
-    </div>
-
-
     <!-- Middle Part -->
     <div class="flex flex-wrap m-10">
         <!-- Response by year -->
-        <div class=" max-lg: relative pb-3 font-semibold">
+        <div class="flex-1 max-lg: relative pb-3 font-semibold">
             <p class=" mb-2 text-subheading">RESPONSE BY YEAR </p>
             <div class="w-[40rem] h-96">
                 <canvas class="" id="responseByYear"></canvas>
             </div>
 
         </div>
+        <!-- End Response by Year -->
+
         <!-- Start Non Chart Information -->
-        <div class="flex-1">
-            <div>
-                <div class="w-4/5 p-5 rounded-lg ms-3">
+        <div class="flex-1 flex flex-col lg:items-end">
+            <div class="border w-4/5">
+                <div class=" p-5 rounded-lg ms-3">
                     <p class="text-accent font-semibold">TRACER STATUS </p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                         <p class="font-normal text-greyish_black">Already Answered</p>
@@ -165,9 +160,6 @@
                         <span class="text-accent">27%</span>
                     </div>
                 </div>
-            </div>
-
-            <div>
                 <div class="w-4/5 p-5 rounded-lg ms-3">
                     <p class="text-accent font-semibold">Personal Logs</p>
                     <div class=" flex justify-between px-2 py-1 text-sm">

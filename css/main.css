@@ -2727,6 +2727,10 @@ div.input-container input[type="text"],
   place-content: center;
 }
 
+.content-end {
+  align-content: flex-end;
+}
+
 .items-start {
   align-items: flex-start;
 }
@@ -4533,6 +4537,10 @@ body {
     flex-direction: row;
   }
 
+  .md\:items-end {
+    align-items: flex-end;
+  }
+
   .md\:rounded-l-2xl {
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
@@ -4599,6 +4607,11 @@ body {
     margin-right: 2rem;
   }
 
+  .lg\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .lg\:w-3\/4 {
     width: 75%;
   }
@@ -4609,6 +4622,10 @@ body {
 
   .lg\:w-4\/5 {
     width: 80%;
+  }
+
+  .lg\:items-end {
+    align-items: flex-end;
   }
 }
 
