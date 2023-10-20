@@ -72,70 +72,65 @@
         <!-- end quick stats -->
         <!-- End Left Welcome Part -->
 
-        <!-- recent announcement -->
-        <div class=" max-lg: relative font-semibold  border  center-shadow p-5 rounded-lg">
-            <p class="  text-accent font-bold">RECENT ACTIVITIES
-                <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
-            </p>
-            <?php
-            require_once('../php/connection.php');
-            require_once('../php/logging.php');
-
-            $logs = getRecentCollegeAcivity($mysql_con, $_SESSION['adminID']);
-
-
-
-
-            ?>
-            <?php foreach ($logs as  $item) : ?>
-                <div class="recent-announcement flex justify-stretch my-5">
-                    <div class="circle rounded-full bg-gray-400 p-5"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                        <p class="">
-                            <span class="font-extrabold text-black"></span>
-                            <?= $item['details'] ?>
-                            <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">
-                                <?= $item['action'] ?>
-                            </span>
-                        </p>
-                        <span class="text-grayish text-xs"></span>
-                    </div>
+        <!-- Start recent activities -->
+        <div class="flex-1">
+            <div class=" max-lg:relative mx-auto lg:w-4/5  font-semibold  border  center-shadow p-5 rounded-lg">
+                <p class="  text-accent font-bold">RECENT ACTIVITIES
+                    <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
+                </p>
+                <?php
+                require_once('../php/connection.php');
+                require_once('../php/logging.php');
+                $logs = getRecentCollegeAcivity($mysql_con, $_SESSION['adminID']);
+                ?>
+                <div class="flex flex-col items-start gap-2">
+                    <?php foreach ($logs as  $item) : ?>
+                        <div class="recent-announcement  flex justify-stretch actionWrapper items-center">
+                            <img class="circle rounded-full bg-gray-400 p-5 h-10 w-10"></img>
+                            <div class="text-sm ms-2 ">
+                                <p class=" text-gray-600">
+                                    <span class="font-extrabold "></span>
+                                    <?= ucwords($item['details']) ?>
+                                    <span class=" text-white font-semibold p-2 rounded-md">
+                                        <?= ucwords($item['action']) ?>
+                                    </span>
+                                </p>
+                                <span class="text-gray-500 font-light "><?= date("F j, Y, \a\t g:i a", strtotime($item['timestamp'])) ?></span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-            <?php endforeach; ?>
-
-            <!-- <div class="dash-content p-3 pt-0   rounded-md">
-                <div class="recent-announcement flex justify-stretch my-5">
-                    <div class="circle rounded-full bg-gray-400 p-5"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                        <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
-                            <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">POST</span>
-                        </p>
-                        <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                <!-- <div class="dash-content p-3 pt-0   rounded-md">
+                    <div class="recent-announcement flex justify-stretch my-5">
+                        <div class="circle rounded-full bg-gray-400 p-5"></div>
+                        <div class="text-sm ms-2 font-extralight">
+                            <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
+                                <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">POST</span>
+                            </p>
+                            <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="recent-announcement flex justify-stretch my-5">
-                    <div class="circle rounded-full bg-red-400 p-5"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                        <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                            <span class="bg-green-600 text-white font-semibold p-2 rounded-md">ANNOUNCEMENT</span>
-                        </p>
-                        <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    <div class="recent-announcement flex justify-stretch my-5">
+                        <div class="circle rounded-full bg-red-400 p-5"></div>
+                        <div class="text-sm ms-2 font-extralight">
+                            <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
+                                <span class="bg-green-600 text-white font-semibold p-2 rounded-md">ANNOUNCEMENT</span>
+                            </p>
+                            <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="recent-announcement flex justify-stretch my-5">
-                    <div class="circle rounded-full bg-yellow-200 p-5"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                        <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                            <span class="bg-violet-400 text-white font-semibold p-2 rounded-md">UPDATE</span>
-                        </p>
-                        <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                    <div class="recent-announcement flex justify-stretch my-5">
+                        <div class="circle rounded-full bg-yellow-200 p-5"></div>
+                        <div class="text-sm ms-2 font-extralight">
+                            <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
+                                <span class="bg-violet-400 text-white font-semibold p-2 rounded-md">UPDATE</span>
+                            </p>
+                            <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
+                        </div>
                     </div>
-                </div>
-
-                 view more -->
-            <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
+                     view more -->
+                <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
+            </div>
         </div>
     </div>
     <!-- End recent-announcement -->

@@ -4413,6 +4413,12 @@ body {
   }
 }
 
+@media not all and (min-width: 1024px) {
+  .max-lg\:relative {
+    position: relative;
+  }
+}
+
 @media (min-width: 640px) {
   .sm\:top-24 {
     top: 6rem;
@@ -4599,6 +4605,10 @@ body {
 
   .lg\:w-3\/6 {
     width: 50%;
+  }
+
+  .lg\:w-4\/5 {
+    width: 80%;
   }
 }
 
