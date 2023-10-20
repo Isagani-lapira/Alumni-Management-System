@@ -164,7 +164,7 @@ function dateInText($date)
             </li>
 
             <!-- COLLEGES -->
-            <li class="rounded-lg p-2"><a href="#colleges-tab">
+            <li id="collegeLi" class="rounded-lg p-2"><a href="#colleges-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M14 11q1.25 0 2.125-.875T17 8q0-1.25-.875-2.125T14 5q-1.25 0-2.125.875T11 8q0 1.25.875 2.125T14 11Zm-6 7q-.825 0-1.413-.588T6 16V4q0-.825.588-1.413T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.588 1.413T20 18H8Zm-4 4q-.825 0-1.413-.588T2 20V7q0-.425.288-.713T3 6q.425 0 .713.288T4 7v13h13q.425 0 .713.288T18 21q0 .425-.288.713T17 22H4Zm4-6h12q-1.1-1.475-2.65-2.238T14 13q-1.8 0-3.35.763T8 16Z" />
                 </svg>
@@ -194,7 +194,7 @@ function dateInText($date)
             <span class="mt-4">ALUMNI</span>
 
             <!-- Alumni of the year -->
-            <li class="rounded-lg p-2 "><a href="#alumnYear-tab">
+            <li id="aoyLi" class="rounded-lg p-2 "><a href="#alumnYear-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                   <path fill="currentColor" d="M256 25c-11.594 0-23 12.8-23 31s11.406 31 23 31s23-12.8 23-31s-11.406-31-23-31zm-103.951 2.975l-16.098 8.05c15.092 30.185 51.37 56.81 82.188 74.442L232.334 295H247V192h18v103h14.666l14.195-184.533c30.818-17.632 67.096-44.257 82.188-74.442l-16.098-8.05c-19.91 29.9-44.891 49.148-71.334 57.77C281.311 97.28 269.75 105 256 105c-13.75 0-25.31-7.72-32.617-19.256c-26.443-8.62-51.424-27.87-71.334-57.77zM169 313v96H25v78h462v-30H343V313H169z" />
                 </svg>
@@ -385,7 +385,7 @@ function dateInText($date)
         </div>
 
         <!-- POST CONTENT -->
-        <div id="announcement-tab" class="px-5">
+        <div id="announcement-tab" class="px-5 hidden">
           <h1 class="text-xl font-extrabold">POST</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
@@ -408,7 +408,7 @@ function dateInText($date)
               <p class="text-sm font-thin">College</p>
               <!-- college selection -->
               <select name="college" id="announcementCol" class="w-full border border-grayish p-2 rounded-lg">
-                <option value="" selected>BS Computer Science</option>
+                <option value="" selected>All</option>
                 <?php
                 require_once '../PHP_process/connection.php';
                 $query = "SELECT * FROM `college`";
@@ -453,22 +453,21 @@ function dateInText($date)
                   <th class="rounded-tr-lg">Action</th>
                 </tr>
               </thead>
-              <tbody id="postTBody"></tbody>
+              <tbody></tbody>
             </table>
-            <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
           </div>
 
 
         </div>
 
         <!-- NEWS AND UPDATE -->
-        <div id="newsAndUpdate-tab" class="p-5">
+        <div id="newsAndUpdate-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">NEWS AND UPDATE</h1>
           <p class="text-grayish">Here you can make announcement that everyone can see, it can be news or events</p>
           <div class="flex justify-end py-2 border-b border-gray-300">
             <button id="newsBtn" class="text-sm text-white rounded-md bg-accent p-2">Make announcement</button>
           </div>
-          <table class="w-full text-sm mt-5 center-shadow">
+          <table class="w-full text-sm mt-5 center-shadow announcementTable">
             <thead>
               <tr class="bg-accent text-white">
                 <th class=" rounded-tl-lg">Title</th>
@@ -480,14 +479,10 @@ function dateInText($date)
             <tbody id="announcementList" class="text-xs"></tbody>
           </table>
           <p id="noAvailMsgAnnouncement" class="text-center text-blue-400 text-lg hidden">No available data</p>
-          <div class="flex flex-wrap gap-2 justify-end my-2">
-            <button id="prevAnnouncement" class="tex-sm px-3 py-1 rounded-md border border-accent">Previous</button>
-            <button id="nextAnnouncement" class="text-white bg-accent tex-sm px-4 py-1 rounded-md">Next</button>
-          </div>
         </div>
 
         <!-- Email content -->
-        <div id="email-tab" class="p-5">
+        <div id="email-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">EMAIL</h1>
           <p class="text-grayish">Here you can check all the post you have and can create new post</p>
           <div class="mt-5 text-end">
@@ -512,7 +507,7 @@ function dateInText($date)
             </div>
 
             <div class="m-2 p-1">
-              <p class="text-sm font-thin">Course</p>
+              <p class="text-sm font-thin">College</p>
               <!-- college selection -->
               <select name="college" id="emCol" class="w-full border border-grayish p-2 rounded-lg">
                 <option value="" selected>All</option>
@@ -536,9 +531,9 @@ function dateInText($date)
 
 
             <div class="m-2 p-1">
-              <p>Show post (from - to)</p>
-              <div class="w-full flex border border-grayish p-2 rounded-lg">
-                <input type="text" name="emDateRange" id="emDateRange" value="01/01/2018 - 01/15/2018" />
+              <p>Show email (from - to)</p>
+              <div class="w-full flex items-center border border-grayish p-2 rounded-lg">
+                <input type="text" name="emDateRange" id="emDateRange" value="Select a date" />
                 <label class="" for="emDateRange">
                   <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
                 </label>
@@ -551,7 +546,7 @@ function dateInText($date)
 
           <!-- recent email -->
           <p class="mt-5 font-semibold text-greyish_black">Recent Email</p>
-          <table class="table-auto w-full text-xs font-thin text-greyish_black center-shadow">
+          <table id="emailTable" class="table-auto w-full text-xs font-thin text-greyish_black center-shadow">
             <thead class="bg-accent text-white">
               <tr>
                 <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
@@ -559,17 +554,13 @@ function dateInText($date)
                 <th class="text-start rounded-tr-md">DATE</th>
               </tr>
             </thead>
-            <tbody id="emailTBody"></tbody>
+            <tbody></tbody>
           </table>
-          <p id="noEmailMsg" class="text-center text-blue-400 text-lg hidden">No email available</p>
-          <div class="flex justify-end items-center gap-2 mt-2">
-            <button id="prevEmail" class="rounded-md border border-accent text-accent hover:bg-darkAccent hover:text-white px-4 py-2">Previous</button>
-            <button id="nextEmail" class="rounded-md bg-accent hover:bg-darkAccent text-white px-4 py-2">Next</button>
-          </div>
+
         </div>
 
         <!-- alumni record content -->
-        <div id="alumnRecord-tab" class="p-5">
+        <div id="alumnRecord-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">ALUMNI RECORD</h1>
           <div class="flex justify-end text-xs text-greyish_black">
             <!-- EXPORT PDF -->
@@ -585,13 +576,13 @@ function dateInText($date)
 
             <!-- batch selection -->
             <select id="batchAlumRecord" class="w-full p-1">
-              <option selected value="" disabled>Batch</option>
-              <!-- php function on batch -->
+              <option selected disabled>Batch</option>
             </select>
 
             <!-- college selection -->
             <select id="alumniCollege" class="w-full p-1">
-              <option value="" selected>Course</option>
+              <option selected disabled>Course</option>
+              <option value="">All</option>
               <?php
               require_once '../PHP_process/connection.php';
               $query = "SELECT * FROM `college`";
@@ -611,7 +602,8 @@ function dateInText($date)
 
             <!-- employment status selection -->
             <select id="employmentStat" class="w-full p-1">
-              <option selected value="">Employment Status</option>
+              <option selected value="" disabled>Employment Status</option>
+              <option value="">All</option>
               <option value="Employed">Employed</option>
               <option value="Unemployed">Unemployed</option>
               <option value="Self-employed">Self-employed</option>
@@ -622,7 +614,7 @@ function dateInText($date)
 
 
           <!-- record of name-->
-          <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
+          <table id="alumRecord" class="table-auto w-full mt-10 text-xs font-thin center-shadow">
             <thead>
               <tr class="bg-accent text-white">
                 <th class="rounded-tl-lg">Student Number</th>
@@ -632,19 +624,14 @@ function dateInText($date)
                 <th class="rounded-tr-lg">Employment Status</th>
               </tr>
             </thead>
-            <tbody id="alumniTB" class="text-sm">
+            <tbody class="text-sm">
             </tbody>
           </table>
-          <div class="navigationAlumniRecord flex justify-end items-center gap-2 mt-2">
-            <button class="prevBtnAlumRecord text-gray-400 hover:text-gray-500">Previous</button>
-            <button class="nextBtnAlumRecord bg-accent text-white hover:bg-darkAccent px-3 py-2 rounded-md">Next</button>
-          </div>
 
-          <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
         </div>
 
         <!-- college content -->
-        <div id="colleges-tab" class="h-full">
+        <div id="colleges-tab" class="h-full hidden">
           <div class="college-content">
             <h1 class="text-xl font-extrabold">ACCOUNT</h1>
             <p class="text-grayish">Here you can check all colleges available in the University</p>
@@ -759,7 +746,7 @@ function dateInText($date)
         </div>
 
         <!-- forms content -->
-        <div id="forms-tab" class="p-5 h-full">
+        <div id="forms-tab" class="p-5 h-full hidden">
           <h1 class="text-xl font-extrabold">Alumni Tracer Form</h1>
           <p class="text-grayish">See the relevant information that are gathered</p>
 
@@ -826,13 +813,21 @@ function dateInText($date)
             </div>
 
             <div class="center-shadow rounded-lg p-3 m-2 h-full flex justify-center">
-              <canvas class="w-full h-full" id="chartPerQuestion"></canvas>
+              <canvas id="chartPerQuestion"></canvas>
             </div>
           </div>
 
           <!-- repository -->
           <div id="tracerRepo" class="h-full border border-t-grayish p-5 w-full hidden">
+            <div class="flex justify-end my-2">
+              <div id="previewFormBtn" class="w-max cursor-pointer hover:font-bold hover:text-accent flex items-center gap-2">
+                <iconify-icon icon="icon-park-outline:preview-open" width="24" height="24"></iconify-icon>
+                <span>Preview</span>
+              </div>
+            </div>
+
             <div id="TracerWrapper" class="flex w-full h-full mx-auto p-2 gap-2">
+
               <div id="categoryWrapper" class="flex flex-col gap-2 w-1/3 p-1  h-full"></div>
               <!-- question set -->
               <div class="flex-1 h-full center-shadow p-3 relative">
@@ -846,10 +841,32 @@ function dateInText($date)
             </div>
           </div>
 
+          <!-- preview -->
+          <div id="previewForm" class="p-3 flex flex-col border-t border-gray-500 h-full overflow-y-auto hidden">
+            <div>
+              <div id="backFromPreviewBtn" class="flex items-center gap-3 w-max">
+                <iconify-icon icon="fluent-mdl2:back" class="text-gray-800 cursor-pointer" width="24" height="24"></iconify-icon>
+                <span class="font-semibold">Back</span>
+              </div>
+
+            </div>
+
+            <h2 class="font-bold text-center text-lg">Alumni Tracer Form</h2>
+            <div id="previewContainer" class="flex flex-col p-5 gap-3 border border-gray-300 rounded-md">
+              <h3 id="categoryNamePrev" class="font-bold text-lg text-start"></h3>
+            </div>
+
+            <div class="mt-2">
+              <button id="previousPreviewBtn" class="hidden text-gray-500 hover:text-lg">Previous</button>
+              <button id="nextPreviewBtn" class="mt-2 w-max py-2 px-5 rounded-md bg-accent text-white hover:bg-darkAccent">Next</button>
+            </div>
+
+          </div>
+
         </div>
 
         <!-- profile content -->
-        <div id="profile-tab">
+        <div id="profile-tab" class="hidden">
           <div class="p-3 rounded-md bg-accent flex items-center">
             <img class="profilePic h-36 w-36 rounded-full border-2 border-white" alt="">
             <div class="ms-6">
@@ -907,19 +924,29 @@ function dateInText($date)
               </div>
             </div>
 
-            <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar z-0">
+            <div id="feedContainer" class="flex flex-col gap-2 w-full no-scrollbar z-0 ">
               <div class="flex gap-2 text-greyish_black text-sm my-2 border-b border-gray-300 p-3">
                 <button id="availablePostBtn" class="activeBtn rounded-md px-5 py-1">Post</button>
                 <button id="archievedBtnProfile" class="rounded-md px-5 py-1">Archived</button>
               </div>
 
+              <div class="loadingProfile w-full h-full flex justify-center">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             </div>
           </div>
 
         </div>
 
         <!-- alumni of the year content -->
-        <div id="alumnYear-tab" class="p-5">
+        <div id="alumnYear-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">Alumni of the Year</h1>
           <p class="text-grayish mb-10">Make post for a newly awarded alumni of the year</p>
 
@@ -1103,12 +1130,8 @@ function dateInText($date)
         </div>
 
         <!-- alumni of the month content -->
-        <div id="alumnMonth-tab" class="p-5">
+        <div id="alumnMonth-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">Alumni of the Month</h1>
-          <button class="block bg-accent py-1 px-3 text-white ml-auto rounded-md">
-            Export List
-          </button>
-
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
           <div class="flex gap-2 my-2">
@@ -1148,7 +1171,7 @@ function dateInText($date)
           <table id="aomTable" class="table-auto w-full mt-16 text-xs font-thin text-greyish_black center-shadow">
             <thead>
               <tr class="bg-accent text-white">
-                <th class="text-start rounded-tl-lg w-5"></th>
+                <th class="text-start rounded-tl-lg w-12"></th>
                 <th>NAME</th>
                 <th>EMAIL</th>
                 <th>STUDENT NUMBER</th>
@@ -1160,7 +1183,7 @@ function dateInText($date)
         </div>
 
         <!--community content -->
-        <div id="community-tab" class="p-5">
+        <div id="community-tab" class="p-5 hidden">
           <div class="flex">
             <div class="w-4/6">
               <!-- college -->
@@ -1208,7 +1231,7 @@ function dateInText($date)
         </div>
 
         <!-- job opportunities content -->
-        <div id="jobOpportunities-tab" class="p-5 h-full">
+        <div id="jobOpportunities-tab" class="p-5 h-full hidden">
           <img class="jobPostingBack inline cursor-pointer hidden" src="../images/back.png" alt="">
           <h1 class="text-xl font-extrabold">Job Opportunities </h1>
           <p class="text-grayish  ">Check all the pending job post to be posted</p>
@@ -1781,6 +1804,42 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- status modal -->
+    <div id="postStatusModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+      <div class="postStatus bg-white rounded-md w-2/6 p-5 flex flex-col gap-3">
+        <div class="flex justify-between">
+          <div class="flex items-center">
+            <img id="profileStatusImg" class="w-10 h-10 rounded-full" alt="" srcset="">
+
+            <div class="px-2 text-greyish_black">
+              <p id="statusFullnameUser" class="font-bold text-sm"></p>
+              <span class="italic accountUN text-gray-400 text-sm"></span>
+            </div>
+          </div>
+
+          <iconify-icon class="closeStatusPost cursor-pointer text-gray-400 hover:text-gray-500 hover:h-7 hover:w-7" icon="ei:close" width="24" height="24"></iconify-icon>
+        </div>
+
+        <!-- description -->
+        <div>
+          <pre id="statusDescript"></pre>
+        </div>
+
+        <!-- date -->
+        <span id="statusDate" class="text-xs text-gray-500"></span>
+
+        <!-- comment -->
+        <div class="flex-col text-sm border-t border-gray-400 py-2 h-full overflow-y-auto">
+          <div class="flex gap-2 text-gray-500 text-xs">
+            <p>Likes: <span id="statusLikes"></span></p>
+            <p>Comments: <span id="statusComment"></span></p>
+          </div>
+
+          <div id="commentStatus" class="flex flex-col gap-2 p-2 mt-2"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- EDIT PROFILE -->
     <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
       <div class="formUpdate bg-white rounded-md w-2/6 h-max p-5 flex flex-col gap-3">
@@ -1805,7 +1864,7 @@ function dateInText($date)
         </div>
 
         <div id="profileBtn" class="flex justify-end gap-2 hidden">
-          <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+          <button id="cancelProfileImg" class="text-postButton hover:text-postHoverButton px-4 rounded-md py-2">Cancel</button>
           <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveProfile">Save</button>
         </div>
 
@@ -1828,8 +1887,8 @@ function dateInText($date)
             <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
           </label>
           <div id="locBtn" class="text-sm hidden">
-            <button class="px-2 py-1">cancel</button>
-            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLocation">Save</button>
+            <button id="cancelLocation" class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveLocation">Save</button>
           </div>
 
         </div>
@@ -1851,8 +1910,8 @@ function dateInText($date)
             <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
           </label>
           <div id="emailBtn" class="text-sm hidden">
-            <button class="px-2 py-1">cancel</button>
-            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveEmail">Save</button>
+            <button id="cancelEmail" class="px-2 py-1">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveEmail">Save</button>
           </div>
 
         </div>
@@ -1874,8 +1933,8 @@ function dateInText($date)
             <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
           </label>
           <div id="contactBtn" class="text-sm hidden">
-            <button class="px-2 py-1">cancel</button>
-            <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveContact">Save</button>
+            <button class="px-2 py-1" id="cancelContact">cancel</button>
+            <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveContact">Save</button>
           </div>
 
         </div>
@@ -1940,7 +1999,7 @@ function dateInText($date)
 
     <!-- announcement modal -->
     <div id="announcementModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-      <div id="announcementContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
+      <div id="announcementDetails" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
         <!-- header -->
         <div class="flex gap-2 items-center py-2">
           <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
@@ -2036,8 +2095,8 @@ function dateInText($date)
       <div id="modalLogContainer" class="modal-container w-1/2 h-3/4 bg-white rounded-lg text-greyish_black p-3">
         <header class="font-bold text-accent text-xl text-center py-2">College Admin Activities</header>
         <!-- HISTORY LOGS -->
-        <button id="printLogsBtn" class="pt-1 px-2 m-2 border border-grayish text-grayish rounded-md ml-auto block hover:bg-blue-300">
-          <iconify-icon icon="mdi:download" style="color: #686b6f;" width="24" height="24"></iconify-icon>
+        <button id="printLogsBtn" class="pt-1 px-2 m-2 border border-grayish text-grayish rounded-md ml-auto block hover:bg-accent">
+          <iconify-icon icon="mingcute:print-fill" style="color: #afafaf;" width="24" height="24"></iconify-icon>
         </button>
 
 
@@ -2054,7 +2113,7 @@ function dateInText($date)
 
           <!-- college selection -->
           <select name="logCollege" id="logCollege" class="w-full border border-grayish p-2 rounded-lg">
-            <option value="" selected disabled hidden>All</option>
+            <option value="" selected>All</option>
             <?php
             require_once '../PHP_process/connection.php';
             $query = "SELECT * FROM `college`";
@@ -2228,7 +2287,7 @@ function dateInText($date)
               </section>
 
               <!-- work experience -->
-              <section class="my-2">
+              <section class="my-2 workExp">
                 <h1 class="font-bold text-base mt-5">WORK EXPERIENCE</h1>
                 <ul id="workExpList" class="p-3 flex flex-col gap-2"></ul>
               </section>
@@ -2288,6 +2347,22 @@ function dateInText($date)
       <span class="loader w-36 h-36"></span>
       <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
     </div>
+
+    <div id="sectionModalPreview" class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 hidden">
+      <div class="sectionModalPreview bg-white rounded shadow-lg w-2/5 h-max slide-bottom p-5">
+        <h3 class="font-bold text-xl text-accent py-2 text-center">Additional Question</h3>
+
+        <!-- close button -->
+        <button class="closeSectionModal absolute top-1 right-1">
+          <iconify-icon class="text-gray-400 hover:text-accent" icon="carbon:close-outline" width="24" height="24"></iconify-icon>
+        </button>
+
+        <div id="previewSectionQuestion" class="p-3 flex flex-col gap-3 border border-gray-300 rounded-md overflow-y-auto"></div>
+        <button class="text-gray-500 border hover:font-semibold py-2 px-4 rounded-md my-2 block ml-auto">Close</button>
+      </div>
+    </div>
+
+
   </div>
 
 
@@ -2301,6 +2376,7 @@ function dateInText($date)
   <script src="../js/alumnirecord.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
+  <script src="../js/previewcontainer.js"></script>
   <script src="../js/postScript.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 

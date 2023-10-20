@@ -88,6 +88,11 @@ if (isset($_POST['action'])) {
             $endDate = ($_POST['endDate'] != '') ? $_POST['endDate'] : "";
             $post->filterPost($username, $offset, $colCode, $startingDate, $endDate, $mysql_con);
             break;
+        case 'getPostImages':
+            $postID = $_POST['postID'];
+            $images = $post->getPostImages($postID, $mysql_con);
+            echo json_encode($images);
+            break;
     }
 }
 

@@ -141,6 +141,7 @@ function dateInText($date)
 
 <body class="bg-gray-100 scrollable-container">
 
+    <span id="promptMsgComment" class="hidden rounded-md slide-bottom fixed bottom-28 px-4 py-2 z-50 bg-accent text-white font-bold">Comment successfully added</span>
     <!-- Navbar -->
     <nav class=" z-50 w-full fixed top-0 grid grid-cols-3 gap-4 p-3 bg-white text-black shadow-lg">
         <!-- Logo -->
@@ -418,7 +419,7 @@ function dateInText($date)
     </div>
 
     <!-- EDIT PROFILE -->
-    <div id="profileModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+    <div id="profileModalEdit" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
         <div class="formUpdate bg-white rounded-md w-2/5 h-4/5 p-5 flex flex-col gap-3 overflow-y-auto">
             <!-- profile picture -->
             <div class="flex justify-between text-greyish_black items-center">
@@ -441,7 +442,7 @@ function dateInText($date)
             </div>
 
             <div id="profileBtn" class="flex justify-end gap-2 hidden">
-                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2" id="cancelProfile">Cancel</button>
                 <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveProfile">Save</button>
             </div>
 
@@ -466,7 +467,7 @@ function dateInText($date)
             </div>
 
             <div id="coverBtn" class="flex justify-end gap-2 hidden">
-                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2">Cancel</button>
+                <button class="text-postButton hover:bg-gray-400 px-4 rounded-md py-2" id="cancelCover">Cancel</button>
                 <button class=" bg-postButton hover:bg-postHoverButton px-4 rounded-md text-white py-2" id="saveCover">Save</button>
             </div>
 
@@ -490,8 +491,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="locBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLocation">Save</button>
+                    <button class="px-2 py-1" id="cancelLocation">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 rounded-md py-1" id="saveLocation">Save</button>
                 </div>
 
             </div>
@@ -513,8 +514,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="emailBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveEmail">Save</button>
+                    <button class="px-2 py-1" id="cancelEmail">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveEmail">Save</button>
                 </div>
 
             </div>
@@ -536,8 +537,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="contactBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveContact">Save</button>
+                    <button class="px-2 py-1" id="cancelContact">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1 rounded-md" id="saveContact">Save</button>
                 </div>
 
             </div>
@@ -561,8 +562,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="fbBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveFB">Save</button>
+                    <button class="px-2 py-1" id="cancelFB">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1 rounded-md" id="saveFB">Save</button>
                 </div>
 
             </div>
@@ -584,8 +585,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="igBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveIG">Save</button>
+                    <button class="px-2 py-1" id="cancelIG">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1 rounded-md" id="saveIG">Save</button>
                 </div>
 
             </div>
@@ -608,8 +609,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="tweetBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveTweet">Save</button>
+                    <button class="px-2 py-1" id="cancelTweet">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveTweet">Save</button>
                 </div>
 
             </div>
@@ -631,8 +632,8 @@ function dateInText($date)
                     <iconify-icon class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
                 </label>
                 <div id="linkedBtn" class="text-sm hidden">
-                    <button class="px-2 py-1">cancel</button>
-                    <button class="bg-postButton hover:bg-postHoverButton text-white px-2 py-1" id="saveLinkedIn">Save</button>
+                    <button class="px-2 py-1" id="cancelLinkedIn">cancel</button>
+                    <button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-2 py-1" id="saveLinkedIn">Save</button>
                 </div>
 
             </div>
@@ -1330,6 +1331,40 @@ function dateInText($date)
         </div>
     </div>
 
+    <!-- status modal -->
+    <div id="postStatusModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div class="postStatus bg-white rounded-md w-2/6 p-5 flex flex-col gap-3">
+            <div class="flex justify-between">
+                <div class="flex items-center">
+                    <img id="profileStatusImg" class="w-10 h-10 rounded-full" alt="" srcset="">
+
+                    <div class="px-2 text-greyish_black text-sm ">
+                        <p id="statusFullnameUser" class="font-bold"></p>
+                        <span class="italic accountUN text-gray-400"></span>
+                    </div>
+                </div>
+
+                <iconify-icon class="closeStatusPost cursor-pointer text-gray-400 hover:text-gray-500 hover:h-7 hover:w-7" icon="ei:close" width="24" height="24"></iconify-icon>
+            </div>
+
+            <!-- description -->
+            <div>
+                <pre id="statusDescript"></pre>
+            </div>
+            <!-- date -->
+            <span id="statusDate" class="text-xs text-gray-500"></span>
+            <!-- comment -->
+            <div class="flex-col text-sm border-t border-gray-400 py-2 commentStatus">
+                <div class="flex gap-2 text-gray-500 text-xs">
+                    <p>Likes: <span id="statusLikes"></span></p>
+                    <p>Comments: <span id="statusComment"></span></p>
+                </div>
+
+                <div id="commentStatus" class="flex flex-col gap-2 p-2 mt-2"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- success prompt -->
     <div id="successModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
         <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
@@ -1343,6 +1378,43 @@ function dateInText($date)
             </svg>
             <h1 class=" text-3xl font-bold text-green-500 text-center">Resume done!</h1>
             <p class=" text-lg text-center text-gray-500">"Your resume is a powerful tool that will help you stand out in the competitive job market."</p>
+        </div>
+    </div>
+
+    <!-- comment -->
+    <div id="commentPost" class="post modal fixed inset-0 flex justify-center p-3 z-50 hidden">
+        <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 flex flex-col gap-1 slide-bottom">
+            <!-- close button -->
+            <span class="flex justify-end">
+                <iconify-icon id="closeComment" class="rounded-full cursor-pointer p-2 hover:bg-gray-300" icon="ep:close" style="color: #686b6f;" width="20" height="20"></iconify-icon>
+            </span>
+
+            <div class="flex gap-2 items-center">
+                <img id="postProfile" class="h-10 w-10 rounded-full" src="../assets/icons/person.png" alt="">
+                <div>
+                    <p id="postFullname" class="text-black"></p>
+                    <p id="postUsername" class="text-xs text-gray-400 font-thin"></p>
+                </div>
+            </div>
+
+            <div id="replacementComment" class="border-l-2 border-gray-400 w-max ml-5 p-3">
+                <p class="text-center text-sm italic text-gray-400">Reply to
+                    <span id="replyToUsername" class=" font-semibold text-blue-500">username</span>
+                </p>
+            </div>
+            <div class="flex gap-2 ">
+                <?php
+                if ($profilepicture == "") {
+                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon rounded-full" />';
+                } else {
+                    $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon rounded-full" />';
+                }
+                ?>
+                <textarea id="commentArea" class="w-full h-28 outline-none text-gray-400" placeholder="Comment your thought!"></textarea>
+            </div>
+
+            <button id="commentBtn" class="px-3 py-2 rounded-lg bg-red-950 text-white font-semibold block ml-auto text-sm" disabled>Comment</button>
         </div>
     </div>
 

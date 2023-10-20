@@ -58,6 +58,7 @@ input {
 }
 
 .promptMsg {
+  background-color: white;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   -webkit-animation-name: slideInDown;
   animation-name: slideInDown;
@@ -173,6 +174,10 @@ pre {
   text-align: justify;
 }
 
+.comment-text {
+  display: block;
+  white-space: pre-wrap;
+}
 tbody tr:nth-child(odd) {
   background-color: #cececeb0;
 }
@@ -274,4 +279,53 @@ tbody tr:nth-child(odd) {
 #jobTable_wrapper .dataTables_paginate a:hover {
   background-color: #007bff !important; /* Change the background color on hover */
   color: #fff !important; /* Change text color on hover */
+}
+
+.postStatus {
+  max-height: 80%;
+}
+
+#commentStatus {
+  max-height: 80%;
+}
+
+.loadingProfile div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  margin: 8px;
+  border: 5px solid #991b1b;
+  border-radius: 50%;
+  animation: loadingProfile 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #991b1b transparent transparent transparent;
+}
+.loadingProfile div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.loadingProfile div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.loadingProfile div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes loadingProfile {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.sectionModalPreview {
+  max-height: 80%;
+}
+
+#previewSectionQuestion {
+  max-height: 80%;
+}
+#emailTable_wrapper td {
+  text-align: left;
 }

@@ -28,17 +28,33 @@ $(document).ready(function () {
     $(this).addClass("ui-tabs-active");
   });
 
-  // //open modal post
-  $("#btnAnnouncement").click(function () {
-    prompt("#modal", true);
-  });
+  $('#profileTabAdmin').on('click', function () {
+    $('#profile-tab').removeClass('hidden')
+  })
+
+  $('#aoyLi').on('click', function () {
+    $('#alumnYear-tab').removeClass('hidden')
+  })
+
+  $('#aomLi').on('click', function () {
+    $('#alumnMonth-tab').removeClass('hidden')
+  })
+
+  $('#communityLi').on('click', function () {
+    $('#community-tab').removeClass('hidden')
+  })
+  $('#jobLI').on('click', function () {
+    $('#jobOpportunities-tab').removeClass('hidden')
+  })
 
   //go to creating college page
   $("#btnNewCol").click(function () {
     window.location.href = "../admin/NewCollege.php";
   });
 
-
+  $('collegeLi').on('click', function () {
+    $('#colleges-tab').removeClass('hidden')
+  })
   $(".back-icon").click(() => {
     $(".individual-col").addClass("hidden");
     $(".college-content").removeClass("hidden");
@@ -104,70 +120,12 @@ $(document).ready(function () {
 
   //allows modal to be close when Click else where
   $("#viewJob").on("click", function (e) {
-    if (!e.target.closest("#viewJob").length) $("#viewJob").addClass("hidden");
+    const modal = $('#viewingJobModal')
+    const target = e.target
+    if (!modal.is(target) && modal.has(target).length === 0)
+      $("#viewJob").addClass("hidden");
   });
 
-  $(function () {
-    $('input[name="emDateRange"]').daterangepicker(
-      {
-        opens: "left",
-        startDate: defaultStart,
-        endDate: defaultEnd,
-      },
-      function (start, end, label) {
-        let dateStart = start.format("YYYY-MM-DD");
-        let dateEnd = end.format("YYYY-MM-DD");
-
-        let dateRangeData = new FormData();
-        let action = {
-          action: "readFromDate",
-        };
-
-        dateRangeData.append("action", JSON.stringify(action));
-        dateRangeData.append("dateStart", dateStart);
-        dateRangeData.append("dateEnd", dateEnd);
-
-        //show new data
-        $.ajax({
-          url: "../PHP_process/emailDB.php",
-          type: "POST",
-          data: dateRangeData,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: (response) => {
-            let data = response;
-            $("#emailTBody").empty();
-            if (response.result == "Success") {
-              //display the data as content of the table
-              $length = data.recipient.length;
-
-              for (let i = 0; i < $length; i++) {
-                let recipient = data.recipient[i];
-                let colCode = data.colCode[i];
-                let dateSent = data.dateSent[i];
-
-                let tr = $("<tr>");
-                let tdRecipient = $("<td>")
-                  .text(recipient)
-                  .addClass("text-start");
-                let tdColCode = $("<td>").text(colCode).addClass("text-start");
-                let tdDate = $("<td>").text(dateSent).addClass("text-start");
-
-                tr.append(tdRecipient, tdColCode, tdDate);
-                $("#emailTBody").append(tr);
-              }
-            } else {
-              $('#noEmailMsg').removeClass('hidden')
-            }
-          },
-          error: (error) => {
-            console.log(error);
-          },
-        });
-      }
-    );
-  });
 
 
   $(function () {
@@ -396,7 +354,7 @@ $(document).ready(function () {
   //profile
   let profileLbl = "";
   let profileBtn = "";
-
+  let currentProfile = $('#profileImgEdit').attr('src')
   let profileImg = $("#profileImgEdit");
 
   //change the current profile displayed to new selected profile
@@ -428,6 +386,13 @@ $(document).ready(function () {
     processImgUpdate(action, newProfile, profileBtn, label);
   });
 
+  // bring back the current profile
+  $('#cancelProfileImg').on('click', function () {
+    profileImg.attr('src', currentProfile)
+    profileBtn.addClass("hidden");
+    profileLbl.removeClass("hidden");
+  })
+
   function processImgUpdate(action, img, confirmationCont, editIcon) {
     let formData = new FormData();
     formData.append("action", JSON.stringify(action));
@@ -451,6 +416,7 @@ $(document).ready(function () {
     });
   }
 
+  let currentLocation = $('#editAddress').val()
   //edit location
   $("#editAddLabel").on("click", function () {
     $("#editAddress")
@@ -460,6 +426,16 @@ $(document).ready(function () {
     $("#locBtn").removeClass("hidden"); //show the save button
     $("#editAddLabel").addClass("hidden"); //remove the edit label
   });
+
+  $('#cancelLocation').on('click', function () {
+    $('#editAddress')
+      .attr("disabled", true) //disable editting
+      .removeClass("border-b border-gray-400")
+      .val(currentLocation)
+
+    $("#locBtn").addClass("hidden"); //hide the save button
+    $("#editAddLabel").removeClass("hidden"); //display the edit label
+  })
 
   $("#saveLocation").on("click", function () {
     let newAddress = $("#editAddress").val();
@@ -474,6 +450,7 @@ $(document).ready(function () {
   });
 
   //edit email address
+  let currentEmail = $('#editEmail').val();
   $("#editEmailLbl").on("click", function () {
     $("#editEmail")
       .removeAttr("disabled") //allows to be edit
@@ -483,6 +460,17 @@ $(document).ready(function () {
     $("#editEmailLbl").addClass("hidden"); //remove the edit label
   });
 
+  $('#cancelEmail').on('click', function () {
+    $("#editEmail")
+      .attr("disabled", true) //allows to be edit
+      .removeClass("border-b border-gray-400")
+      .val(currentEmail)
+
+    $("#emailBtn").addClass("hidden");
+    $("#editEmailLbl").removeClass("hidden");
+  })
+
+  // save changes
   $("#saveEmail").on("click", function () {
     let newEmail = $("#editEmail").val();
 
@@ -495,7 +483,9 @@ $(document).ready(function () {
     processPersonalInfo(action, newEmail, btnCont, label);
   });
 
+
   //edit contact Number
+  let currentContact = $('#editContact').val()
   $("#editContactLbl").on("click", function () {
     $("#editContact")
       .removeAttr("disabled") //allows to be edit
@@ -504,6 +494,17 @@ $(document).ready(function () {
     $("#contactBtn").removeClass("hidden"); //show the save button
     $("#editContactLbl").addClass("hidden"); //remove the edit label
   });
+
+  // cancel editting
+  $('#cancelContact').on('click', function () {
+    $("#editContact")
+      .attr("disabled", true) //allows to be edit
+      .removeClass("border-b border-gray-400")
+      .val(currentContact)
+
+    $("#contactBtn").addClass("hidden"); //show the save button
+    $("#editContactLbl").removeClass("hidden"); //remove the edit label
+  })
 
   $("#saveContact").on("click", function () {
     let newEmail = $("#editContact").val();
@@ -548,153 +549,6 @@ $(document).ready(function () {
     if (!formUpdate.is(target) && !formUpdate.has(target).length) {
       $(this).addClass("hidden");
     }
-  });
-
-  // make news and announcement
-  $("#headerImg").on("change", function () {
-    const file = this.files[0]; //get the first file selected
-
-    if (file) {
-      const reader = new FileReader();
-
-      //display the file on image element
-      reader.onload = (e) => {
-        $("#imgHeader").attr("src", e.target.result);
-
-        //hide the label
-        $(".headerLbl").addClass("hidden");
-      };
-
-      //read the selected file to trigger onload
-      reader.readAsDataURL(file);
-    }
-  });
-
-  $("#newsTitle, #newstTxtArea").on("input", enableAnnouncementBtn);
-  $("#headerImg").on("change", enableAnnouncementBtn);
-
-  function enableAnnouncementBtn() {
-    const fieldToTest = ["#newsTitle", "#newstTxtArea", "#headerImg"];
-    let isComplete = false;
-    $.each(fieldToTest, function (index, field) {
-      let value = $(field).val().trim();
-      if (value === "") {
-        isComplete = false; // If any field is empty, set isComplete to false
-        return false; // Exit the loop early if we find an empty field
-      } else isComplete = true;
-    });
-
-    const enabledBtn = "text-white bg-accent";
-    const disabledBnt = "text-gray-300  bg-red-300";
-    //if everything is added then remove the disabled in button
-    if (isComplete) {
-      $("#postNewsBtn")
-        .prop("disabled", false)
-        .addClass(enabledBtn)
-        .removeClass(disabledBnt);
-    } else {
-      //disable again the button
-      $("#postNewsBtn")
-        .prop("disabled", true)
-        .addClass(disabledBnt)
-        .removeClass(enabledBtn);
-    }
-  }
-
-  let imageCollection = [];
-  $("#collectionFile").on("change", function () {
-    let imgSrc = this.files[0];
-
-    imageCollection.push(imgSrc);
-    //get image selected
-    if (imgSrc) {
-      var reader = new FileReader();
-
-      //load the selected file
-      reader.onload = (e) => {
-        //create a new container
-        const imgWrapper = $("<div>").addClass(
-          "imgWrapper w-24 h-24 rounded-md"
-        );
-        const imgElement = $("<img>")
-          .addClass("h-full w-full rounded-md")
-          .attr("src", e.target.result);
-
-        //attach everything
-        imgWrapper.append(imgElement);
-        $("#collectionContainer").append(imgWrapper); //attach to the root
-      };
-
-      //read the file for onload to be trigger
-      reader.readAsDataURL(imgSrc);
-    }
-  });
-
-  $("#closeNewsModal").on("click", function () {
-    $("#newsUpdateModal").addClass("hidden");
-    restartNewsModal();
-  });
-
-  //restart the news modal
-  function restartNewsModal() {
-    $("#imgHeader").attr("src", "");
-    $(".headerLbl").removeClass("hidden");
-    $("#newsTitle").val("");
-    $("#newstTxtArea").val("");
-    $(".imgWrapper").remove();
-
-    imageCollection = [];
-  }
-  //open announcement modal
-  $("#newsBtn").on("click", function () {
-    $("#newsUpdateModal").removeClass("hidden");
-  });
-
-  $("#postNewsBtn").on("click", function () {
-    let imgHeader = $("#headerImg").prop("files")[0]; //get the header
-    let action = "insertData";
-    let title = $("#newsTitle").val();
-    let description = $("#newstTxtArea").val();
-
-    //data to be send
-    const formData = new FormData();
-    formData.append("action", action);
-    formData.append("imgHeader", imgHeader);
-    formData.append("title", title);
-    formData.append("description", description);
-
-    //send images when there's a collection added
-    if (imageCollection.length != 0) {
-      for (let i = 0; i < imageCollection.length; i++) {
-        formData.append("file[]", imageCollection[i]);
-      }
-    }
-
-    //process the insertion
-    $.ajax({
-      url: "../PHP_process/announcement.php",
-      method: "POST",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: (response) => {
-        //close the modal
-        $("#newsUpdateModal").addClass("hidden");
-        restartNewsModal();
-        if (response == "Success") {
-          setTimeout(function () {
-            $("#successModal").removeClass("hidden");
-
-            setTimeout(function () {
-              $("#successModal").addClass("hidden");
-            }, 5000);
-          }, 1000);
-        }
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
   });
 
   let isClose = false
@@ -787,7 +641,7 @@ $(document).ready(function () {
     type: 'line',
     data: {
       datasets: [{
-        label: '# of Votes',
+        label: '# of Response',
         borderWidth: 1,
         borderColor: redAccent, // Set the line color
         backgroundColor: '#991b1b',
@@ -807,72 +661,3 @@ $(document).ready(function () {
 
 });
 
-
-// //chart for response by year
-// const responseByYear = document.getElementById("responseByYear");
-// const responseByYear_labels = [
-//   "2021",
-//   "2020",
-//   "2019",
-//   "2018",
-//   "2017",
-//   "2016",
-//   "2015",
-//   "2014",
-// ];
-// const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860];
-// const responseByYear_type = "line";
-// chartConfig(
-//   responseByYear,
-//   responseByYear_type,
-//   responseByYear_labels,
-//   responseByYear_data,
-//   false,
-//   redAccent,
-//   false
-// );
-
-
-// //for creation of chart
-// function chartConfig(
-//   chartID,
-//   type,
-//   labels,
-//   data,
-//   responsive,
-//   colors,
-//   displayLegend
-// ) {
-//   //the chart
-//   new Chart(chartID, {
-//     type: type,
-//     data: {
-//       labels: labels,
-//       datasets: [
-//         {
-//           backgroundColor: colors,
-//           data: data,
-//           borderColor: redAccent, // Set the line color
-//           borderWidth: 1,
-//           tension: 0.1,
-//         },
-//       ],
-//     },
-//     options: {
-//       responsive: responsive, // Disable responsiveness
-//       maintainAspectRatio: false, // Disable aspect ratio
-
-//       plugins: {
-//         legend: {
-//           display: displayLegend,
-//           position: "bottom",
-//           labels: {
-//             font: {
-//               weight: "bold",
-//             },
-//           },
-//         },
-//       },
-//     },
-//   });
-// }

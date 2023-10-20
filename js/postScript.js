@@ -84,20 +84,39 @@ $(document).ready(function () {
 
     })
 
+    // //open modal post
+    $("#btnAnnouncement").click(function () {
+        $('#modal').removeClass('hidden')
+    });
+
     //make a post
     $('#postBtn').on('click', function () {
         let caption = $('#TxtAreaAnnouncement').val();
         let college = $('#collegePost').val();
 
-        if (college == "all") {
-            $('#collegePost option').slice(1).each(function () { // to skip the index 0 (all)
-                const collegeVal = $(this).val();
-                postInsertion(caption, collegeVal);
-            })
+        // check if the post has atleast have description or 1 image
+        if (caption != "" || selectedFiles.length != 0) {
+            if (college == "all") {
+                $('#collegePost option').slice(1).each(function () { // to skip the index 0 (all)
+                    const collegeVal = $(this).val();
+                    postInsertion(caption, collegeVal);
+                })
+            }
+            else postInsertion(caption, college);
+
+            //refresh a table list
+            restartTableContent()
+            getPostAdmin(postData, true)
+
+            // restart the form
+            //remove the images
+            while (imgContPost.firstChild) {
+                imgContPost.removeChild(imgContPost.firstChild)
+                selectedFiles = [];
+            }
+            $('#TxtAreaAnnouncement').val('')
         }
-        else {
-            postInsertion(caption, college);
-        }
+
     })
 
     function postInsertion(caption, college) {
@@ -121,8 +140,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
-                console.log(response)
-                $('#modal').hide();
+                $('#modal').addClass('hidden');
                 $('#promptMsg').removeClass('hidden')
                 $('#message').text('Announcement successfully posted!')
                 setTimeout(() => {
@@ -130,7 +148,6 @@ $(document).ready(function () {
                 }, 4000)
                 selectedFiles = [];
             },
-            error: (error) => { console.log(error) }
         })
     }
 
@@ -145,14 +162,13 @@ $(document).ready(function () {
     postData.append('offset', offsetPost)
 
     $('#announcementLI').on('click', function () {
+        restartTableContent()
         getPostAdmin(postData, true)
+        $('#announcement-tab').removeClass('hidden')
     })
 
-    let totalPostCount = $('#totalPosted').html();
-    $('.totalPost').text(totalPostCount)
     // //show post of admin
     function getPostAdmin(data, isTable) {
-        $('#postTBody').empty()
         $.ajax({
             url: '../PHP_process/postDB.php',
             method: 'POST',
@@ -168,7 +184,6 @@ $(document).ready(function () {
                     let username = data.username;
                     let fullname = $('#userFullname').html(); //change base on the full name of the user
                     for (let i = 0; i < length; i++) {
-                        data.response[i]
                         let postID = data.postID[i]
                         let collegeCode = data.colCode[i]
                         let caption = data.caption[i]
@@ -176,21 +191,19 @@ $(document).ready(function () {
                         let comment = data.comments[i];
                         let likes = data.likes[i];
                         date = textDateFormat(date) //change to text format
-                        let imagesObj = data.images;
 
-                        if (isTable)
-                            announcementTbDisplay(postID, collegeCode, fullname, username, caption, imagesObj, date, i, comment, likes, length) //add post in table;
-                        else
-                            displayToProfile();
+                        if (isTable) announcementTbDisplay(postID, collegeCode, fullname, username, caption, date, i, comment, likes, length) //add post in table;
+                        else displayToProfile();
                     }
                     toAddProfile = false //won't be affected by date range 
                     offsetPost += length
-                }
-                else {
-                    $('#noPostMsg').show();
-                    //disable the next button
-                    $('#nextPost').attr('disabled', true)
-                        .addClass('hidden')
+
+                    // Check if the table row count is equal to 10
+                    if (isTable && length === 10) {
+                        postData.set('offset', offsetPost);
+                        getPostAdmin(postData, true);
+                    }
+                    $('.totalPost').text(table.rows().count())
                 }
 
             },
@@ -216,14 +229,16 @@ $(document).ready(function () {
 
     $('#postTable').DataTable({
         "paging": true,
-        "ordering": true,
+        "ordering": false,
         "info": false,
         "lengthChange": false,
         "searching": false,
+        "pageLength": 10
     });
 
     let table = $('#postTable').DataTable(); // Get the DataTable instance
-    function announcementTbDisplay(postID, colCode, name, accUN, postcaption, images, postdate, position, comments, likes, length) {
+    $('#postTable').removeClass('dataTable').addClass('rounded-lg')
+    function announcementTbDisplay(postID, colCode, name, accUN, postcaption, postdate, position, comments, likes) {
 
         // Create a new row
         let row = [
@@ -231,28 +246,77 @@ $(document).ready(function () {
             likes,
             comments,
             postdate,
-            `<button class="text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white">Archive</button>
-            <button class="bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500 view-button" data-postID="${postID}">View</button>`
+            `<button class="text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white delCommunityPost"
+            data-postid="${postID}">Archive</button>
+
+            <button class="bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500 view-button"
+            data-postid="${postID}"
+            data-name="${name}"
+            data-username="${accUN}"
+            data-postcaption="${postcaption}"
+            data-position="${position}"
+            data-postdate="${postdate}"
+            data-likes="${likes}"
+            >View</button>`
+
         ];
 
         // Add the new row to the DataTable
         table.row.add(row).draw();
 
-        // Attach click event handler to the specific "View" button using the data-postID attribute
-        $(`button.view-button[data-postID="${postID}"]`).on('click', function () {
-            $('#modalPost').removeClass('hidden');
-            viewingOfPost(postID, name, accUN, postcaption, images, position, likes);
+    }
+
+
+    $('#postTable').on('click', '.view-button', function () {
+        const postID = $(this).data('postid');
+        const name = $(this).data('name');
+        const accUN = $(this).data('username');
+        const postcaption = $(this).data('postcaption');
+        const postDate = $(this).data('postdate');
+        const likes = $(this).data('likes');
+
+        // get images
+        const action = { action: "getPostImages" };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('postID', postID);
+
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                const images = response;
+                if (images.length !== 0)
+                    viewingOfPost(postID, name, accUN, postcaption, images, likes)
+                else
+                    viewStatusPost(postID, name, postDate, postcaption, likes, accUN)
+            },
+            error: error => { console.log(error) }
         });
 
-        // Check if the table has exactly 10 rows
-        if (table.rows().count() === 10) {
-            offsetPost += length
-            postData.set('offset', offsetPost)
-            // Your code for when there are 10 rows
-            getPostAdmin(postData, true)
+    });
 
-        }
-    }
+    $('.closeDeleteBtn').on('click', function () {
+        $('#delete-modal').addClass('hidden')
+    })
+
+    $('#postTable').on('click', '.delCommunityPost', function () {
+        let postID = $(this).data('postid')
+
+        //open the delete prompt
+        $('#delete-modal').removeClass('hidden')
+        //update the post status into deleted
+        $('#deletePostbtn').on('click', function () {
+            const status = "deleted"
+            updatePostStatus(status, postID, false)
+        })
+    })
+
 
     let collegeFilter = "";
     let startDateFilter = "";
@@ -269,12 +333,12 @@ $(document).ready(function () {
         formData.append('colCode', collegeFilter);
         formData.append('startingDate', startDateFilter);
         formData.append('endDate', endDateFilter);
-
         getPostAdmin(formData, true);
     })
 
 
-    function viewingOfPost(postID, name, accUN, description, images, position, likes) {
+    function viewingOfPost(postID, name, accUN, description, images, likes) {
+        $('#modalPost').removeClass('hidden');
         $('#profilePic').attr('src', profilePic);
         $('#postFullName').text(name);
         $('#postUN').text(accUN);
@@ -284,8 +348,8 @@ $(document).ready(function () {
         const carouselWrapper = $('#carousel-wrapper');
         const carouselIndicators = $('#carousel-indicators');
 
-        let totalImgNo = images[position].length;
-        images[position].forEach((image, index) => {
+        let totalImgNo = images.length;
+        images.forEach((image, index) => {
             let imageName = 'item-' + index;
             const item = $('<div>')
                 .addClass('relative duration-700 ease-in-out h-full')
@@ -344,7 +408,78 @@ $(document).ready(function () {
         )
     }
 
+    function viewStatusPost(postID, name, postDate, postcaption, likes, username) {
+        $('#postStatusModal').removeClass('hidden')
+        $('#statusFullnameUser').text(name)
+        $('#statusDate').text(postDate)
+        $('.accountUN').text(username)
+        $('#statusDescript').html(postcaption)
+        $('#statusLikes').text(likes)
 
+        const action = { action: 'readWithPostID' }
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID)
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                const commentCount = response.comments
+                const imgProfile = imgFormat + response.profilePic
+
+                $('#statusComment').text(commentCount)
+                $('#profileStatusImg').attr('src', imgProfile)
+
+                if (commentCount > 0) displayComments(postID)
+
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function displayComments(postID) {
+        const action = { action: 'read', postID: postID };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+
+        $.ajax({
+            url: '../PHP_process/commentData.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                $('#commentStatus').empty() //remove previously displayed comment
+                let length = response.fullname.length;
+                for (let i = 0; i < length; i++) {
+                    let fullname = response.fullname[i];
+                    let comment = response.comment[i];
+                    let profile = imgFormat + response.profile[i];
+
+                    // display the comments
+                    let wrapper = $('<div>').addClass('flex gap-2 text-sm text-greyish_black')
+                    let profilePic = $('<img>')
+                        .attr('src', profile)
+                        .addClass('rounded-full w-10 h-10')
+
+                    let nameElement = $('<p>').addClass('font-bold').text(fullname)
+                    let commentElement = $('<pre>').addClass('text-gray-500').text(comment)
+                    let commentDetail = $('<div>').addClass('flex-1 flex-col w-4/5 bg-gray-300 rounded-md p-2 ')
+                        .append(nameElement, commentElement)
+
+                    wrapper.append(profilePic, commentDetail)
+                    $('#commentStatus').append(wrapper)
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
     //close the post modal view
     $('#closePostModal').on('click', function () {
         $('#modalPost').addClass('hidden')
@@ -496,6 +631,7 @@ $(document).ready(function () {
             processData: false,
             success: response => {
                 if (response != 'none') {
+                    $('.loadingProfile').addClass('hidden')
                     const parsedData = JSON.parse(response)
                     const length = parsedData.username.length
                     //get all the data that gather
@@ -609,9 +745,25 @@ $(document).ready(function () {
                 },
             });
 
-        } else { postWrapper.css('min-height', '155px') }
+        } else {
+            // status only
+            postWrapper.css('min-height', '155px')
+                .on('click', function (e) {
+                    const target = e.target
 
+                    // check if the clicked is not on the different icon element (comment, delete, and heart)
+                    if (!deleteElement.is(target) && deleteElement.has(target).length === 0 &&
+                        !commentIcon.is(target) && commentIcon.has(target).length === 0 &&
+                        !heartIcon.is(target) && heartIcon.has(target).length === 0) {
 
+                        // check if editting to avoid clicking on description
+                        if (!isEditting) viewStatusPost(postID, fullname, date, caption, likes, username)
+                    }
+
+                })
+        }
+
+        let isEditting = false
         date = getFormattedDate(date)
         date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
 
@@ -667,7 +819,7 @@ $(document).ready(function () {
             //insert a comment to database
             $('#commentBtn').on('click', function () {
                 let commentVal = $('#commentArea').val()
-                insertComment(postID, commentVal)
+                insertComment(postID, commentVal, commentElement)
             })
 
         })
@@ -690,6 +842,8 @@ $(document).ready(function () {
         }
         else {
             $('.editIcon').addClass('hidden')
+            leftContainer.addClass('hidden')
+            interactionContainer.removeClass('justify-between').addClass('justify-end')
             deleteElement.addClass('text-green-400')
                 .text('Restore')
                 .on('click', function () {
@@ -702,7 +856,7 @@ $(document).ready(function () {
         }
 
         //approve update
-        const approvedIcon = $('<iconify-icon class="cursor-pointer" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
+        const approvedIcon = $('<iconify-icon class="cursor-pointer hidden" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
             .on('click', function () {
                 //data to be sent
                 const action = { action: 'updatePost' }
@@ -721,20 +875,24 @@ $(document).ready(function () {
                         if (response == 'Successful') {
                             //go back to normal
                             description.attr('contenteditable', false)
-                            const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
-                            approvedIcon.replaceWith(icon)
+                            approvedIcon.addClass('hidden')
                             exitEdit.addClass('hidden')
+                            editIcon.removeClass('hidden')
                         }
                     },
                     error: error => { console.log(error) }
                 })
             })
         //update description
+        let currentDescript = description.text()
         editIcon.on('click', function () {
-            $(this).replaceWith(approvedIcon)
             description.attr('contenteditable', true)
                 .focus()
+            $(this).addClass('hidden')
+            approvedIcon.removeClass('hidden')
             exitEdit.removeClass('hidden')
+            isEditting = true
+
         })
         const editingWrapper = $('<div>').addClass('flex gap-2 flex-col')
         //attach all details to a postwrapper and to the root
@@ -742,12 +900,14 @@ $(document).ready(function () {
         postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
 
         exitEdit.on('click', function () {
-            const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
-            approvedIcon.replaceWith(icon)
+            // back to default view
             $(this).addClass('hidden')
+            approvedIcon.addClass('hidden')
+            editIcon.removeClass('hidden')
             description.attr('contenteditable', false)
+                .text(currentDescript)
         })
-        editingWrapper.append(editIcon, exitEdit)
+        editingWrapper.append(editIcon, approvedIcon, exitEdit)
         container.append(postWrapper, editingWrapper)
         feedContainer.append(container);
 
@@ -755,6 +915,10 @@ $(document).ready(function () {
         postWrapper.width(percent);
 
     }
+
+    $('#closeComment').on('click', function () {
+        $('#commentPost').addClass('hidden')
+    })
 
     function updatePostStatus(status, postID, isProfile) {
         let action = { action: 'updatePostStatus' };
@@ -771,6 +935,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
+                console.log(response)
                 //close the modal
                 $('#delete-modal').addClass('hidden')
                 if (isProfile) {
@@ -779,17 +944,23 @@ $(document).ready(function () {
                     $('#restoreModal').addClass('hidden') //hide the modal again
                 }
                 else {
-                    offsetPost = 0;
-                    postData.append('action', JSON.stringify(postAction));
-                    postData.set('startDate', "")
-                    postData.set('endDate', "")
-                    postData.set('offset', offsetPost)
+                    // restart everything
+                    restartTableContent()
                     getPostAdmin(postData, true)
                 }
+
 
             },
             error: error => { console.log(error) }
         })
+    }
+    function restartTableContent() {
+        offsetPost = 0;
+        postData.append('action', JSON.stringify(postAction));
+        postData.set('startDate', "")
+        postData.set('endDate', "")
+        postData.set('offset', offsetPost)
+        table.clear().draw();
     }
     function restartPost() {
         offsetProfile = 0
@@ -852,6 +1023,10 @@ $(document).ready(function () {
 
     })
 
+
+    $('.closeStatusPost').on('click', function () {
+        $('#postStatusModal').addClass('hidden')
+    })
 
     function viewingOfPost1(postID, name, accUN, description, images, likes, imgProfile) {
         $('#profilePic').attr('src', imgProfile);
@@ -941,6 +1116,7 @@ $(document).ready(function () {
 
     //show archieved post
     $('#archievedBtnProfile').on('click', function () {
+        $('.loadingProfile').removeClass('hidden') //loading screen
         $(this).addClass('activeBtn')
         $('#availablePostBtn').removeClass('activeBtn')
         restartPost() //restart everything
@@ -952,6 +1128,7 @@ $(document).ready(function () {
 
     $('#availablePostBtn').on('click', function () {
         $(this).addClass('activeBtn')
+        $('.loadingProfile').removeClass('hidden') //loading screen
         $('#archievedBtnProfile').removeClass('activeBtn')
         restartPost() //restart everything
 
@@ -1093,7 +1270,18 @@ $(document).ready(function () {
                 },
             });
 
-        } else { postWrapper.css('min-height', '155px') }
+        } else {
+            postWrapper.css('min-height', '155px')
+                .on('click', function (e) {
+                    const target = e.target
+
+                    if (!deleteElement.is(target) && deleteElement.has(target).length === 0 &&
+                        !heartIcon.is(target) && heartIcon.has(target).length === 0 &&
+                        !commentIcon.is(target) && commentIcon.has(target).length === 0)
+                        viewStatusPost(postID, fullname, date, caption, likes, username)
+
+                })
+        }
 
 
         date = getFormattedDate(date)
@@ -1144,7 +1332,6 @@ $(document).ready(function () {
 
                 //insert a comment to database
                 $('#commentBtn').on('click', function () {
-                    console.log('clicked')
                     let commentVal = $('#commentArea').val()
                     insertComment(postID, commentVal, commentElement)
                 })

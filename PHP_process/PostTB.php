@@ -76,10 +76,10 @@ class PostData
         //check if it the post retrieve based on date
         if ($startingDate != null && $endDate != null)
             $query = "SELECT * FROM `post` WHERE `date` BETWEEN '$startingDate' AND '$endDate' 
-            AND `username`='$username' AND `status` = 'available' ORDER by `date` DESC LIMIT $offset,$maxLimit";
-        else {
-            $query = "SELECT * FROM `post` WHERE `username`= '$username' AND`status`='available' ORDER by `date` DESC LIMIT $offset ,$maxLimit";
-        }
+            AND `username`='$username' AND `status` = 'available' ORDER by `timestamp` DESC LIMIT $offset,$maxLimit";
+
+        else $query = "SELECT * FROM `post` WHERE `username`= '$username' AND `status`='available' ORDER by `timestamp` DESC LIMIT $offset ,$maxLimit";
+
 
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
@@ -545,6 +545,11 @@ class PostData
             ORDER BY `date` DESC LIMIT $offset,$maxLimit";
             $stmt = mysqli_prepare($con, $query);
             $stmt->bind_param('sss', $username, $startingDate, $endDate);
+        } else {
+            //no filter
+            $query = "SELECT * FROM `post` WHERE `username`= ? AND status = 'available' ORDER BY `date` DESC LIMIT $offset, $maxLimit";
+            $stmt = mysqli_prepare($con, $query);
+            $stmt->bind_param('s', $username);
         }
 
         $stmt->execute();

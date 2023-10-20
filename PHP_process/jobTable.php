@@ -138,7 +138,8 @@ if (isset($_POST['action'])) {
         } else if ($action == 'currentUserJobPost') {
             $personID = $_SESSION['personID'];
             $offset = $_POST['offset'];
-            $readCareer->userPost($personID, $offset, $mysql_con);
+            $maxLimit = $_POST['maxLimit'];
+            $readCareer->userPost($personID, $offset, $mysql_con, $maxLimit);
         } else if ($action == 'applicantDetails') {
             $careerID = $_POST['careerID'];
             $apply->getApplicantDetails($careerID, $mysql_con);

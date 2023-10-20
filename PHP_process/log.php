@@ -9,7 +9,8 @@ if (isset($_POST['action'])) {
     else if ($action == "retrieveByDate") {
         $startDate = $_POST['startDate'];
         $endDate = $_POST['endDate'];
-        getActionByDate($startDate, $endDate, $mysql_con);
+        $college = $_POST['colCode'];
+        getActionByDate($startDate, $endDate, $college, $mysql_con);
     }
 }
 function getCollegeAction($con)
@@ -79,13 +80,39 @@ function getDetails($result, $row, $con)
 }
 
 
-function getActionByDate($startDate, $endDate, $con)
+function getActionByDate($startDate, $endDate, $college, $con)
 {
-    $query = "SELECT * FROM `collegeadmin_log` WHERE DATE(timestamp) >= ? 
-    AND DATE(timestamp) <= ? ORDER BY `timestamp` DESC";
 
-    $stmt = mysqli_prepare($con, $query);
-    $stmt->bind_param('ss', $startDate, $endDate);
+    if ($startDate != "" && $college == "") {
+        // filter by date
+        $query = "SELECT * FROM `collegeadmin_log` WHERE DATE(timestamp) >= ? 
+        AND DATE(timestamp) <= ? ORDER BY `timestamp` DESC";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('ss', $startDate, $endDate);
+    } else if ($startDate == "" && $college != "") {
+        // filter by college
+        $query = "SELECT `collegeadmin_log`.*
+        FROM `collegeadmin_log`
+        JOIN `coladmin` ON `collegeadmin_log`.`colAdmin` = `coladmin`.`adminID`
+        WHERE `coladmin`.colCode = ? ";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $college);
+    } else if ($startDate != "" && $college != "") {
+
+        // filter by both college and date
+        $query = "SELECT `collegeadmin_log`.*
+        FROM `collegeadmin_log`
+        JOIN `coladmin` ON `collegeadmin_log`.`colAdmin` = `coladmin`.`adminID`
+        WHERE `coladmin`.`colCode` = ? AND DATE(`collegeadmin_log`.`timestamp`) >= ? 
+        AND DATE(`collegeadmin_log`.`timestamp`) <= ? ORDER BY `collegeadmin_log`.`timestamp` DESC";
+
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('sss', $college, $startDate, $endDate);
+    } else {
+        // no filter
+        getCollegeAction($con);
+    }
+
     $stmt->execute();
     $result = $stmt->get_result();
     $row = mysqli_num_rows($result);

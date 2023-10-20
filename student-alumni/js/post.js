@@ -178,7 +178,17 @@ $(document).ready(function () {
                 }
             });
 
-        } else { postWrapper.css('min-height', '100px') }
+        } else {
+            postWrapper.css('min-height', '100px')
+                .on('click', function (e) {
+                    const target = e.target
+                    const button = reportElement
+
+                    if (!button.is(target) && button.has(target).length === 0)
+                        viewStatusPost(postID, fullname, date, caption, likes, username)
+
+                })
+        }
 
         date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
 
@@ -193,7 +203,8 @@ $(document).ready(function () {
 
         let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
         heartIcon.addClass('cursor-pointer flex items-center')
-            .on('click', function () {
+            .on('click', function (e) {
+                e.stopPropagation()
                 //toggle like button
                 if (isLiked) {
                     //decrease the current total number of likes by 1
@@ -220,7 +231,8 @@ $(document).ready(function () {
         let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
 
         //make comment
-        commentIcon.on('click', function () {
+        commentIcon.on('click', function (e) {
+            e.stopPropagation()
             $('#commentPost').removeClass('hidden') //open the comment modal
 
             //set up the details for comment to be display
@@ -549,7 +561,6 @@ $(document).ready(function () {
                     $('#commentMsg').addClass('hidden')
                     //display every comments
                     for (let i = 0; i < length; i++) {
-                        const commentID = parsedResponse.commentID[i];
                         const fullname = parsedResponse.fullname[i];
                         const comment = parsedResponse.comment[i];
                         let img = (parsedResponse.profile[i] == '') ? '../assets/icons/person.png' : imgFormat + parsedResponse.profile[i]
@@ -727,4 +738,82 @@ $(document).ready(function () {
             error: (error) => { console.log(error) }
         })
     })
+
+
+    $('.closeStatusPost').on('click', function () {
+        $('#postStatusModal').addClass('hidden')
+    })
+
+    function viewStatusPost(postID, name, postDate, postcaption, likes, username) {
+        $('#commentStatus').empty()
+        $('#postStatusModal').removeClass('hidden')
+        $('#statusFullnameUser').text(name)
+        $('#statusDate').text(postDate)
+        $('.accountUN').text(username)
+        $('#statusDescript').html(postcaption)
+        $('#statusLikes').text(likes)
+
+        const action = { action: 'readWithPostID' }
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID)
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                const commentCount = response.comments
+                const imgProfile = imgFormat + response.profilePic
+
+                $('#statusComment').text(commentCount)
+                $('#profileStatusImg').attr('src', imgProfile)
+
+                if (commentCount > 0) displayComments(postID)
+
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function displayComments(postID) {
+        const action = { action: 'read', postID: postID };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+
+        $.ajax({
+            url: '../PHP_process/commentData.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                let length = response.fullname.length;
+                for (let i = 0; i < length; i++) {
+                    let fullname = response.fullname[i];
+                    let comment = response.comment[i];
+                    let profile = (response.profile[i] === '') ? '../assets/icons/person.png' : imgFormat + response.profile[i];
+
+                    // display the comments
+                    let wrapper = $('<div>').addClass('flex gap-2 text-sm text-greyish_black')
+                    let profilePic = $('<img>')
+                        .attr('src', profile)
+                        .addClass('rounded-full w-10 h-10')
+
+                    let nameElement = $('<p>').addClass('font-bold').text(fullname)
+                    let commentElement = $('<pre>').addClass('text-gray-500').text(comment)
+                    let commentDetail = $('<div>').addClass('flex-1 flex-col w-4/5 bg-gray-300 rounded-md p-2 ')
+                        .append(nameElement, commentElement)
+
+                    wrapper.append(profilePic, commentDetail)
+                    $('#commentStatus').append(wrapper)
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
 })
