@@ -103,19 +103,8 @@
                 <div class="flex justify-end">
                     <button class="text-sm text-accent font-semibold mt-3 text-end cursor-pointer" onclick="viewMoreModal.showModal()">View More</button>
                 </div>
-                <dialog id="viewMoreModal" class="daisy-modal">
-                    <div class="daisy-modal-box">
-                        <h3 class="font-bold text-lg">Hello!</h3>
-                        <p class="py-4">Press ESC key or click the button below to close</p>
-                        <div class="daisy-modal-action">
-                            <form method="dialog">
-                                <!-- if there is a button in form, it will close the modal -->
-                                <button class="daisy-btn">Close</button>
-                            </form>
-                        </div>
 
-                    </div>
-                </dialog>
+
             </div>
         </div>
     </div>
@@ -168,7 +157,56 @@
         <!-- End Non Chart Information -->
     </div>
     <!-- End Middle Part -->
+    <!-- View More Modal -->
+    <dialog id="viewMoreModal" class="daisy-modal">
+        <div class="daisy-modal-box w-11/12 max-w-5xl">
+            <header class=" text-center py-2">
+                <h3 class="font-bold text-accent text-xl">Your Activities</h3>
+            </header>
+            <button id="printLogsBtn" class="transition-colors group p-2 m-2 border border-grayish text-grayish rounded-md ml-auto block hover:bg-accent">
+                <i class="transition-colors fa-solid fa-print fa-xl group-hover:text-white text-accent"></i>
+            </button>
 
+            <hr class="border-gray-400">
+
+            <!-- Filter Options -->
+            <div class="filter flex gap-2 mt-2">
+
+                <!-- date range -->
+                <input type="text" name="logdaterange" id="logdaterange" value="01/01/2018 - 01/15/2018" class="form-input rounded ">
+
+                <!-- college selection -->
+                <select name="logCollege" id="logCollege" class="form-select w-full border border-grayish p-2 rounded-lg">
+                    <option value="" selected="">All</option>
+                    <option value="CICT">College of Information and Communication Technology</option>
+                    <option value="CON">College of Nursing</option>
+                </select>
+
+            </div>
+
+            <div class="flex justify-stretch actionWrapper items-center">
+                <img src="circle rounded-full bg-gray-400 h-10 w-10 p-5 " alt="" class="">
+                <div class="text-sm ms-2 font-extralight flex-1">
+                    <div class="flex gap-2 items-center"><span class="text-gray-700 font-bold text-lg">CICT</span>
+                        <p class="text-gray-500">signed in</p>
+                    </div><span class="text-gray-500 text-xs">Jayson Batoon <span class="text-accent font-bold">Administrator</span></span>
+                </div>
+                <span class="text-gray-500 text-xs">October 20, 2023 at 01:32:16 PM</span>
+            </div>
+
+            <div class="daisy-modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="daisy-btn">Close</button>
+                </form>
+            </div>
+
+        </div>
+        <form method="dialog" class="daisy-modal-backdrop">
+            <!-- if there is a button in form, it will close the modal -->
+            <button>Close</button>
+        </form>
+    </dialog>
 </section>
 
 <script type="module" src="./dashboard/dashboard.js"></script>
