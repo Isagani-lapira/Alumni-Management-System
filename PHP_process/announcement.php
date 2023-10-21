@@ -130,8 +130,9 @@ function insertNews($title, $description, $univAdminID, $headerImg, $imgCollecti
     $datePosted = date('Y-m-d');
     $date_end = date('Y-m-d', strtotime('+2 weeks'));
 
-    $tempName = $headerImg['tmp_name'];
-    $fileContent = addslashes(file_get_contents($tempName));
+    // Header image
+    $headerTempName = $headerImg['tmp_name'];
+    $fileContent = file_get_contents($headerTempName);
     $query = "INSERT INTO `university_announcement`(`announcementID`, `title`, `Descrip`, `univAdminID`,
      `date_posted`, `headline_img`, `date_end`) VALUES (?,?,?,?,?,?,?)";
 

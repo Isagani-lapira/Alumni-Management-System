@@ -295,7 +295,7 @@ $(document).ready(function () {
     });
 
     $("#postNewsBtn").on("click", function () {
-        let imgHeader = $("#headerImg").prop("files")[0]; //get the header
+        let imgHeader = $("#headerImg")[0].files[0]; //get the header
         let action = "insertData";
         let title = $("#newsTitle").val();
         let description = $("#newstTxtArea").val();
@@ -322,6 +322,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
+                console.log(response)
                 //close the modal
                 $("#newsUpdateModal").addClass("hidden");
                 restartNewsModal();
