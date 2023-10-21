@@ -89,17 +89,16 @@ function get_all()
 
     $posts = array();
     // $sql = "SELECT * FROM post WHERE username = '$username' ORDER BY timestamp DESC";
-    // $sql = "SELECT * FROM post  ORDER BY timestamp DESC";
     $sql = "SELECT p.*,
                COUNT(pl.likeID) AS like_count,
                COUNT(c.commentID) AS comment_count
         FROM post p
         LEFT JOIN postlike pl ON p.postID = pl.postID
         LEFT JOIN comment c ON p.postID = c.postID
+        WHERE p.username = '$username'
         GROUP BY p.postID
         ORDER BY p.timestamp DESC";
 
-    // WHERE p.username = 'example_user';
     $result = mysqli_query($mysql_con, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $posts[] = $row;

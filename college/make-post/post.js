@@ -23,7 +23,7 @@ $(document).ready(function () {
       paging: true,
       ordering: true,
       info: false,
-      lengthChange: true,
+      lengthChange: false,
       searching: true,
       pageLength: 10,
       columns: [
