@@ -59,21 +59,15 @@
                  </tr>
              </thead>
              <tbody id="postTBody">
-
-
-                 <!-- Add some dummy data -->
-                 <tr class="odd">
-                     <td>Hello there</td>
-                     <td>1</td>
-                     <td>6</td>
-                     <td>October 17 2023</td>
-                     <td>
-                         <button class="text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white delCommunityPost" data-postid="652dc2f9b2433-9">Archive</button>
-                         <button class="bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500 view-button" data-postid="652dc2f9b2433-9" data-name="Isagani Lapira Jr" data-username="isaganilapiraI@123" data-postcaption="This is a new post postsdf" data-position="0" data-postdate="October 17 2023" data-likes="1">View</button>
+                 <tr class="loading-row">
+                     <td colspan="5" class="text-center">
+                         <span class="loading-table daisy-loading daisy-loading-dots daisy-loading-lg"></span>
+                         <div class="spinner-border text-primary" role="status">
+                             <span class="sr-only">Loading...</span>
+                         </div>
+                         <p>Loading...</p>
                      </td>
                  </tr>
-
-
              </tbody>
          </table>
          <!-- Table End -->
@@ -161,6 +155,32 @@
 
              </div>
          </div>
+     </div>
+
+     <input type="checkbox" id="archive-modal" class="daisy-modal-toggle" />
+     <div class="daisy-modal">
+         <div class="daisy-modal-box w-11/12 max-w-6xl">
+             <h3 class="text-lg font-bold">Hello!</h3>
+             <p class="py-4">This modal works with a hidden checkbox!</p>
+
+             <div class="daisy-modal-action">
+                 <label for="archive-modal" class="daisy-btn">Close!</label>
+             </div>
+         </div>
+         <label class="daisy-modal-backdrop" for="archive-modal">Close</label>
+     </div>
+     <!-- Put this part before </body> tag -->
+
+     <input type="checkbox" id="view-modal" class="daisy-modal-toggle" />
+     <div class="daisy-modal">
+         <div class="daisy-modal-box w-11/12 max-w-6xl">
+             <h3 class="text-lg font-bold">Hello!</h3>
+             <p class="py-4">This modal works with a hidden checkbox!</p>
+             <div class="daisy-modal-action">
+                 <label for="view-modal" class="daisy-btn">Close!</label>
+             </div>
+         </div>
+         <label class="daisy-modal-backdrop" for="view-modal">Close</label>
      </div>
  </section>
 
