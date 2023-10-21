@@ -967,8 +967,27 @@ function dateInText($date)
 
               <!-- testimonials -->
               <h2 class="w-1/2 text-greyish_black font-bold text-xl text-center mt-10 subtitle hidden">Testimonials</h2>
-              <div class="testimonyContainer w-100 h-1/2 flex gap-5 flex-row flex-wrap justify-center mb-10"></div>
+              <div class="testimonyContainer w-full h-max flex gap-5 flex-row flex-wrap justify-center mb-10 hidden"></div>
 
+              <!-- achievements -->
+              <h2 class="w-1/2 text-greyish_black font-bold text-xl text-center mt-5 subtitle hidden">Achievements</h2>
+              <div class="achievementsContainer w-full h-max flex flex-row flex-wrap justify-center mb-10  p-5 gap-5 hidden"></div>
+
+              <!-- skills and education -->
+              <div class="w-1/2 h-max flex hidden">
+                <!-- skills -->
+                <div class="w-1/2">
+                  <h2 class="text-greyish_black font-bold text-xl mb-5">Skills that I have:</h2>
+                  <div id="skillContainer" class="flex flex-col gap-2"></div>
+                </div>
+
+                <!-- education -->
+                <div class="w-1/2">
+                  <h2 class="text-greyish_black font-bold text-xl mb-5">Connect with me:</h2>
+                  <div id="socMedContainer" class="flex flex-col gap-2"></div>
+                </div>
+
+              </div>
             </div>
 
           </div>

@@ -1,6 +1,7 @@
 <?php
 
 require_once 'connection.php';
+require 'personDB.php';
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
@@ -25,6 +26,19 @@ if (isset($_POST['action'])) {
         case 'getTestimonials':
             $aomID = $_POST['aomID'];
             getTestimony($aomID, $mysql_con);
+            break;
+        case 'getAchievements':
+            $aomID = $_POST['aomID'];
+            getAchievements($aomID, $mysql_con);
+            break;
+        case 'getSkills':
+            $aomID = $_POST['aomID'];
+            getSkills($aomID, $mysql_con);
+            break;
+        case 'getAOMSocMed':
+            $personID = $_POST['personID'];
+            $person = new personDB();
+            $person->getSocialMedia($personID, $mysql_con);
             break;
     }
 }
@@ -187,7 +201,6 @@ function getSelectedAOM($aomID, $con)
     $fullname = "";
     $quote = "";
     $cover_img = "";
-    $testimonies = array();
 
     if ($result) {
         $response = "Success";
@@ -201,7 +214,7 @@ function getSelectedAOM($aomID, $con)
         "response" => $response,
         "fullname" => $fullname,
         "quote" => $quote,
-        "cover" => $cover_img
+        "cover" => $cover_img,
     );
 
     echo json_encode($data);
@@ -238,6 +251,65 @@ function getTestimony($aomID, $con)
         "personName" => $personName,
         "position" => $position,
         "profile" => $profile
+    );
+
+    echo json_encode($data);
+}
+
+
+function getAchievements($aomID, $con)
+{
+    // get achievements
+    $query = "SELECT `achievement`,`description`, `date` FROM `achievement` WHERE `AOMID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('s', $aomID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_num_rows($result);
+
+    $response = "Unsuccess";
+    $achievements = array();
+    $description = array();
+    $date = array();
+
+    if ($result && $row) {
+        $response = "Success";
+        while ($data = $result->fetch_assoc()) {
+            $achievements[] = $data['achievement'];
+            $description[] = $data['description'];
+            $date[] = $data['date'];
+        }
+    }
+
+    $data = array(
+        "response" => $response,
+        "achievements" => $achievements,
+        "description" => $description,
+        "date" => $date
+    );
+
+    echo json_encode($data);
+}
+
+function getSkills($aomID, $con)
+{
+    $query = "SELECT `skill` FROM `aomskill` WHERE `AOMID` = ?";
+    $stmt = mysqli_prepare($con, $query);
+    $stmt->bind_param('s', $aomID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_num_rows($result);
+
+    $response = "Unsuccess";
+    $skills = array();
+    if ($result && $row > 0) {
+        $response = "Success";
+        while ($data = $result->fetch_assoc()) $skills[] = $data['skill'];
+    }
+
+    $data = array(
+        "response" => $response,
+        "skills" => $skills,
     );
 
     echo json_encode($data);
