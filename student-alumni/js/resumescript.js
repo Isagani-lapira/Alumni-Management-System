@@ -298,6 +298,13 @@ $(document).ready(function () {
         work = []
         skills = []
         currentPage = 1;
+
+        $('#primaryLvl').empty();
+        $('#secondaryLvl').empty();
+        $('#tertiaryLvl').empty();
+        $('#workExpList').empty();
+        $('#skillWrapper').empty();
+        $('#referenceContainer').empty();
     }
 
 
@@ -539,6 +546,7 @@ $(document).ready(function () {
 
     function setResumeDetails(objective, fullname, contactNo, address, emailadd,
         skills, educations, workExp, references) {
+        restartResume()
         $('#fullnameResume').text(fullname)
         $('#contactNoResume').text(contactNo)
         $('#addressResume').text(address)
@@ -660,8 +668,6 @@ $(document).ready(function () {
 
             $('#referenceContainer').append(refWrapper) //root
         }
-
-        $("#referenceContainer").append()
     }
 
     $('#printResume').on('click', function () {
