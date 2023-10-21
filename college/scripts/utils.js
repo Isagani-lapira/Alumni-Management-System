@@ -10,7 +10,7 @@ export async function getJSONFromURL(url) {
   return result;
 }
 
-export async function postJSONFromURL(url, formData) {
+export async function postJSONFromURL(url, formData = null) {
   const response = await fetch(url, {
     method: "POST",
     body: formData,

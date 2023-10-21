@@ -190,7 +190,7 @@
 
             </div>
 
-            <ul id="logListContainer" class="overflow-y-auto h-40  border rounded-lg m-2 p-2 max-h-40">
+            <ul id="logListContainer" class="overflow-y-auto   border rounded-lg m-2 p-2 max-h-80 space-y-2">
 
             </ul>
 
