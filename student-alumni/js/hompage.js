@@ -712,7 +712,7 @@ $(document).ready(function () {
       dataType: 'json',
       success: response => {
         if (response.result == 'Success') {
-
+          $('.noavailableEvent').addClass('hidden')
           // retrieve data 
           const length = response.eventName.length
           for (let i = 0; i < length; i++) {
@@ -744,9 +744,9 @@ $(document).ready(function () {
             $('#upcomingEventroot').append(eventWrapper);
           }
 
-        }
-      },
-      error: error => { console.log(error) }
+        } else $('.noavailableEvent').removeClass('hidden') // display message
+
+      }
     })
   }
 

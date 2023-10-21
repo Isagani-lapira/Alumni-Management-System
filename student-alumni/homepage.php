@@ -286,6 +286,7 @@ function getAccDetails($con, $personID)
             <div class="py-4">
               <h3 class="text-lg font-bold text-grayish_black">Upcoming Events:</h3>
               <div id="upcomingEventroot" class="px-3 flex flex-col gap-1 mt-2"></div>
+              <span class="text-gray-400 italic text-sm noavailableEvent hidden">No upcoming events at the moment</span>
             </div>
           </div>
 
@@ -350,7 +351,7 @@ function getAccDetails($con, $personID)
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
           <!-- Notifications Tab -->
           <div id="notification-tab" class="notification-tab hidden fixed top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
-            <div class="notification-content bg-white center-shadow border-2 px-4 pt-4 pb-20 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
+            <div class="notification-content bg-white border-2 px-4 pt-4 pb-20 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
               <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
 
               <div class="flex space-x-4 mb-4">
