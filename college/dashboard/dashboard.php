@@ -180,7 +180,7 @@
                     </label>
                 </div> -->
                 <!-- With Preselected  -->
-                <select name="logDateSelect" id="logDateSelect" class="form-select  border border-grayish p-2 rounded-lg">
+                <select name="logDateSelect" id="logDateSelect" class="form-select  border border-grayish rounded-lg">
                     <option value="today" selected>Today</option>
                     <option value="week">Past Week</option>
                     <option value="month">Past Month</option>
@@ -190,15 +190,10 @@
 
             </div>
 
-            <div class="flex justify-stretch actionWrapper items-center">
-                <img src="circle rounded-full bg-gray-400 h-10 w-10 p-5 " alt="" class="">
-                <div class="text-sm ms-2 font-extralight flex-1">
-                    <div class="flex gap-2 items-center"><span class="text-gray-700 font-bold text-lg">CICT</span>
-                        <p class="text-gray-500">signed in</p>
-                    </div><span class="text-gray-500 text-xs">Jayson Batoon <span class="text-accent font-bold">Administrator</span></span>
-                </div>
-                <span class="text-gray-500 text-xs">October 20, 2023 at 01:32:16 PM</span>
-            </div>
+            <ul id="logListContainer" class="overflow-y-auto h-40  border rounded-lg m-2 p-2 max-h-40">
+
+            </ul>
+
 
             <div class="daisy-modal-action">
                 <form method="dialog">

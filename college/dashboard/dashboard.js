@@ -68,27 +68,39 @@ $(document).ready(() => {
   // Handles the logs
   $("#logDateSelect").on("change", async function () {
     const selectedDate = $(this).val();
-    console.log("changed the date!", selectedDate);
 
     const formData = new FormData();
     formData.append("action", "filterDate");
     formData.append("date", selectedDate);
 
     // send the request to the server
-    const result = await postJSONFromURL("dashboard/logData.php", formData);
+    try {
+      const response = await postJSONFromURL("dashboard/logData.php", formData);
 
-    console.log(result);
-
-    // change the DOM to display the logs
+      console.log(selectedDate, response);
+      const logListContainer = $("#logListContainer");
+      logListContainer.empty();
+      // change the DOM to display the logs
+      for (const data of response.result) {
+        const datetime = moment(data.timestamp).format(
+          "MMMM D, YYYY [at] hh:mm:ss A"
+        );
+        const element = `
+            <li class="">
+              <div class="flex justify-stretch actionWrapper items-center log-item">
+                  <img src="circle rounded-full bg-gray-400 h-10 w-10 p-5 " alt="" class="">
+                  <div class=" ms-2 font-light flex-1">
+                      <p class="text-accent">${data.details}</p>
+                  </div>
+                  <span class="text-gray-500 ">${datetime}</span>
+              </div>
+            </li>
+            `;
+        logListContainer.append(element);
+      }
+      console.log(logListContainer);
+    } catch (error) {
+      // TODO error handling
+    }
   });
-
-  /**
-   * Make a request to the server to retrieve the logs
-   *
-   * on change, the data will be filtered by the selected date
-   *
-   *
-   */
 });
-
-// TODO add function to be easier later
