@@ -48,7 +48,7 @@
          <table id="postTable" class="w-full center-shadow">
              <thead>
                  <tr class="bg-accent text-white">
-                     <th class="rounded-tl-lg">College code</th>
+                     <th class="rounded-tl-lg">Message</th>
                      <th>No. of likes</th>
                      <th>No. of comments</th>
                      <th>Date posted</th>

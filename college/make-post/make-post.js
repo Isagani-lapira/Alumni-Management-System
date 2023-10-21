@@ -2,7 +2,6 @@ import { getJSONFromURL, postJSONFromURL } from "../scripts/utils";
 
 /**
  * Copied script from postscript.js
- *
  */
 
 $(document).ready(function () {
@@ -10,6 +9,7 @@ $(document).ready(function () {
   let validExtension = ["jpeg", "jpg", "png"]; //only allowed extension
   let fileExtension;
   const imgFormat = "data:image/jpeg;base64,";
+
   // profile of the current user
   let imgProfileVal = $(".profilePicVal").html();
   let profilePic = imgFormat + imgProfileVal;
@@ -209,7 +209,8 @@ $(document).ready(function () {
                 comment,
                 likes,
                 length
-              ); //add post in table;
+              );
+            //add post in table;
             else displayToProfile();
           }
           toAddProfile = false; //won't be affected by date range
