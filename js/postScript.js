@@ -291,6 +291,17 @@ $(document).ready(function () {
         );
     });
 
+    // back to default button
+    const defaultButton = $('<button class="hover:bg-accent rounded-md hover:text-white px-2">Default</button>')
+        .on('click', function () {
+            startDateFilter = ''
+            endDateFilter = ''
+            $('#daterange').val('Select date')
+            filterTable()
+        })
+
+    $('#daterange').parent().append(defaultButton)
+
     function filterTable() {
         table.column(0).search('').column(3).search('')// reset as default
         if (collgeFilter !== '' && startDateFilter === '' && endDateFilter === '') //college filtering
