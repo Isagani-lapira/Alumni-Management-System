@@ -5,9 +5,9 @@
 
 
 
-    <div class="flex m-10 h-2/3  flex-wrap gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 m-10 h-2/3   gap-4 ">
         <!-- Left Welcome Part -->
-        <div class="flex-1">
+        <div class=" ">
             <!-- Welcome Card -->
             <div class="relative rounded-lg h-max p-10 bg-gradient-to-r from-accent to-darkAccent">
                 <img class="absolute -left-2 -top-20" src="/images/standing-2.png" alt="" srcset="" />
@@ -72,8 +72,8 @@
         <!-- End Left Welcome Part -->
 
         <!-- Start recent activities -->
-        <div class="flex-1 flex justify-end">
-            <div class=" max-lg:relative  lg:w-4/5  font-semibold  border  center-shadow p-5 rounded-lg">
+        <div class=" flex lg:justify-end  ">
+            <div class=" max-lg:relative w-full  lg:w-4/5  font-semibold  border  center-shadow p-5 rounded-lg">
                 <p class="  text-accent font-bold">RECENT ACTIVITIES
                     <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
                 </p>
