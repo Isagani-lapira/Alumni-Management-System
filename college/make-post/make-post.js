@@ -1,18 +1,10 @@
 import { getJSONFromURL, postJSONFromURL } from "../scripts/utils";
 
-//   $(document).ready(function() {
-//      $('#daterange').daterangepicker();
-//  });
-//  //  Handles button clicks
-//  $('#announcementBtn').on("click", function() {
-//      $('#createNewPostModal').removeClass("hidden");
-//  })
-//  $('.cancel').on("click", function() {
-//      $('#createNewPostModal').addClass("hidden")
-//  })
+/**
+ * Copied script from postscript.js
+ *
+ */
 
-// Start of the copied script
-//  TODO ask for clarification
 $(document).ready(function () {
   const imgContPost = document.getElementById("imgContPost");
   let validExtension = ["jpeg", "jpg", "png"]; //only allowed extension
@@ -96,21 +88,39 @@ $(document).ready(function () {
     }
   });
 
+  // //open modal post
+  $("#btnAnnouncement").click(function () {
+    $("#modal").removeClass("hidden");
+  });
+
   //make a post
   $("#postBtn").on("click", function () {
     let caption = $("#TxtAreaAnnouncement").val();
     let college = $("#collegePost").val();
 
-    if (college == "all") {
-      $("#collegePost option")
-        .slice(1)
-        .each(function () {
-          // to skip the index 0 (all)
-          const collegeVal = $(this).val();
-          postInsertion(caption, collegeVal);
-        });
-    } else {
-      postInsertion(caption, college);
+    // check if the post has atleast have description or 1 image
+    if (caption != "" || selectedFiles.length != 0) {
+      if (college == "all") {
+        $("#collegePost option")
+          .slice(1)
+          .each(function () {
+            // to skip the index 0 (all)
+            const collegeVal = $(this).val();
+            postInsertion(caption, collegeVal);
+          });
+      } else postInsertion(caption, college);
+
+      //refresh a table list
+      restartTableContent();
+      getPostAdmin(postData, true);
+
+      // restart the form
+      //remove the images
+      while (imgContPost.firstChild) {
+        imgContPost.removeChild(imgContPost.firstChild);
+        selectedFiles = [];
+      }
+      $("#TxtAreaAnnouncement").val("");
     }
   });
 
@@ -129,23 +139,19 @@ $(document).ready(function () {
     }
 
     $.ajax({
-      url: "../postDB.php",
+      url: "../PHP_process/postDB.php",
       type: "POST",
       data: formData,
       processData: false,
       contentType: false,
       success: (response) => {
-        console.log(response);
-        $("#modal").hide();
+        $("#modal").addClass("hidden");
         $("#promptMsg").removeClass("hidden");
         $("#message").text("Announcement successfully posted!");
         setTimeout(() => {
           $("#promptMsg").addClass("hidden");
         }, 4000);
         selectedFiles = [];
-      },
-      error: (error) => {
-        console.log(error);
       },
     });
   }
@@ -161,16 +167,15 @@ $(document).ready(function () {
   postData.append("offset", offsetPost);
 
   $("#announcementLI").on("click", function () {
+    restartTableContent();
     getPostAdmin(postData, true);
+    $("#announcement-tab").removeClass("hidden");
   });
 
-  let totalPostCount = $("#totalPosted").html();
-  $(".totalPost").text(totalPostCount);
   // //show post of admin
   function getPostAdmin(data, isTable) {
-    $("#postTBody").empty();
     $.ajax({
-      url: "../postDB.php",
+      url: "../PHP_process/postDB.php",
       method: "POST",
       data: data,
       processData: false,
@@ -184,7 +189,6 @@ $(document).ready(function () {
           let username = data.username;
           let fullname = $("#userFullname").html(); //change base on the full name of the user
           for (let i = 0; i < length; i++) {
-            data.response[i];
             let postID = data.postID[i];
             let collegeCode = data.colCode[i];
             let caption = data.caption[i];
@@ -192,7 +196,6 @@ $(document).ready(function () {
             let comment = data.comments[i];
             let likes = data.likes[i];
             date = textDateFormat(date); //change to text format
-            let imagesObj = data.images;
 
             if (isTable)
               announcementTbDisplay(
@@ -201,20 +204,23 @@ $(document).ready(function () {
                 fullname,
                 username,
                 caption,
-                imagesObj,
                 date,
                 i,
                 comment,
-                likes
+                likes,
+                length
               ); //add post in table;
             else displayToProfile();
           }
           toAddProfile = false; //won't be affected by date range
           offsetPost += length;
-        } else {
-          $("#noPostMsg").show();
-          //disable the next button
-          $("#nextPost").attr("disabled", true).addClass("hidden");
+
+          // Check if the table row count is equal to 10
+          if (isTable && length === 10) {
+            postData.set("offset", offsetPost);
+            getPostAdmin(postData, true);
+          }
+          $(".totalPost").text(table.rows().count());
         }
       },
       error: (error) => {
@@ -222,27 +228,6 @@ $(document).ready(function () {
       },
     });
   }
-
-  //show next set of post
-  $("#nextPost").on("click", function () {
-    postData.delete("offset");
-    postData.append("offset", offsetPost);
-    getPostAdmin(postData, true);
-  });
-
-  //show prev set of post
-  $("#prevPost").on("click", function () {
-    //check if it still not 0
-    if (offsetPost != 0) {
-      offsetPost -= offsetPost;
-      postData.delete("offset");
-      postData.append("offset", offsetPost); //set new offset that is increase by 10
-      getPostAdmin(postData, true); //retrieve new sets of data
-
-      //enable the next button
-      $("#nextPost").removeAttr("disabled").removeClass("hidden");
-    }
-  });
 
   function textDateFormat(date) {
     //extract parts of date
@@ -271,56 +256,121 @@ $(document).ready(function () {
     return textDate;
   }
 
+  $("#postTable").DataTable({
+    paging: true,
+    ordering: false,
+    info: false,
+    lengthChange: false,
+    searching: false,
+    pageLength: 10,
+  });
+
+  let table = $("#postTable").DataTable(); // Get the DataTable instance
+  $("#postTable").removeClass("dataTable").addClass("rounded-lg");
   function announcementTbDisplay(
     postID,
     colCode,
     name,
     accUN,
     postcaption,
-    images,
     postdate,
     position,
     comments,
     likes
   ) {
-    let tbody = $("#postTBody");
+    // Create a new row
+    let row = [
+      colCode,
+      likes,
+      comments,
+      postdate,
+      `<button class="text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white delCommunityPost"
+            data-postid="${postID}">Archive</button>
 
-    //create of rows
-    let row = $("<tr>");
-    let colCodeData = $("<td>").text(colCode);
-    let likesData = $("<td>").text(likes);
-    let commentsData = $("<td>").text(comments);
-    let postdateData = $("<td>").text(postdate);
-    let action = $("<td>").addClass("flex justify-center gap-2");
+            <button class="bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500 view-button"
+            data-postid="${postID}"
+            data-name="${name}"
+            data-username="${accUN}"
+            data-postcaption="${postcaption}"
+            data-position="${position}"
+            data-postdate="${postdate}"
+            data-likes="${likes}"
+            >View</button>`,
+    ];
 
-    let delBtn = $("<button>")
-      .addClass(
-        " text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white"
-      )
-      .text("Archive");
-    let viewBtn = $("<button>")
-      .addClass(
-        "bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500"
-      )
-      .text("View");
-    viewBtn.on("click", function () {
-      $("#modalPost").removeClass("hidden");
-      viewingOfPost(postID, name, accUN, postcaption, images, position, likes);
-    });
-    action.append(delBtn, viewBtn);
-    row.append(colCodeData, likesData, commentsData, postdateData, action);
-    tbody.append(row);
+    // Add the new row to the DataTable
+    table.row.add(row).draw();
   }
 
-  function viewingOfPost(
-    postID,
-    name,
-    accUN,
-    description,
-    images,
-    position,
-    likes
-  ) {
+  $("#postTable").on("click", ".view-button", function () {
+    const postID = $(this).data("postid");
+    const name = $(this).data("name");
+    const accUN = $(this).data("username");
+    const postcaption = $(this).data("postcaption");
+    const postDate = $(this).data("postdate");
+    const likes = $(this).data("likes");
+
+    // get images
+    const action = { action: "getPostImages" };
+    const formData = new FormData();
+    formData.append("action", JSON.stringify(action));
+    formData.append("postID", postID);
+
+    $.ajax({
+      url: "../PHP_process/postDB.php",
+      method: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: (response) => {
+        const images = response;
+        if (images.length !== 0)
+          viewingOfPost(postID, name, accUN, postcaption, images, likes);
+        else viewStatusPost(postID, name, postDate, postcaption, likes, accUN);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  });
+
+  $(".closeDeleteBtn").on("click", function () {
+    $("#delete-modal").addClass("hidden");
+  });
+
+  $("#postTable").on("click", ".delCommunityPost", function () {
+    let postID = $(this).data("postid");
+
+    //open the delete prompt
+    $("#delete-modal").removeClass("hidden");
+    //update the post status into deleted
+    $("#deletePostbtn").on("click", function () {
+      const status = "deleted";
+      updatePostStatus(status, postID, false);
+    });
+  });
+
+  let collegeFilter = "";
+  let startDateFilter = "";
+  let endDateFilter = "";
+
+  $("#announcementCol").on("change", function () {
+    collegeFilter = $(this).val();
+    offsetPost = 0;
+    table.clear().draw();
+    const action = { action: "filterDataPost" };
+    const formData = new FormData();
+    formData.append("action", JSON.stringify(action));
+    formData.append("offset", offsetPost);
+    formData.append("colCode", collegeFilter);
+    formData.append("startingDate", startDateFilter);
+    formData.append("endDate", endDateFilter);
+    getPostAdmin(formData, true);
+  });
+
+  function viewingOfPost(postID, name, accUN, description, images, likes) {
+    $("#modalPost").removeClass("hidden");
     $("#profilePic").attr("src", profilePic);
     $("#postFullName").text(name);
     $("#postUN").text(accUN);
@@ -330,8 +380,8 @@ $(document).ready(function () {
     const carouselWrapper = $("#carousel-wrapper");
     const carouselIndicators = $("#carousel-indicators");
 
-    let totalImgNo = images[position].length;
-    images[position].forEach((image, index) => {
+    let totalImgNo = images.length;
+    images.forEach((image, index) => {
       let imageName = "item-" + index;
       const item = $("<div>")
         .addClass("relative duration-700 ease-in-out h-full")
@@ -392,6 +442,93 @@ $(document).ready(function () {
     );
   }
 
+  function viewStatusPost(
+    postID,
+    name,
+    postDate,
+    postcaption,
+    likes,
+    username
+  ) {
+    $("#postStatusModal").removeClass("hidden");
+    $("#statusFullnameUser").text(name);
+    $("#statusDate").text(postDate);
+    $(".accountUN").text(username);
+    $("#statusDescript").html(postcaption);
+    $("#statusLikes").text(likes);
+
+    const action = { action: "readWithPostID" };
+    const formData = new FormData();
+    formData.append("action", JSON.stringify(action));
+    formData.append("postID", postID);
+
+    $.ajax({
+      url: "../PHP_process/postDB.php",
+      method: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: (response) => {
+        const commentCount = response.comments;
+        const imgProfile = imgFormat + response.profilePic;
+
+        $("#statusComment").text(commentCount);
+        $("#profileStatusImg").attr("src", imgProfile);
+
+        if (commentCount > 0) displayComments(postID);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  function displayComments(postID) {
+    const action = { action: "read", postID: postID };
+    const formData = new FormData();
+    formData.append("action", JSON.stringify(action));
+
+    $.ajax({
+      url: "../PHP_process/commentData.php",
+      method: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: (response) => {
+        $("#commentStatus").empty(); //remove previously displayed comment
+        let length = response.fullname.length;
+        for (let i = 0; i < length; i++) {
+          let fullname = response.fullname[i];
+          let comment = response.comment[i];
+          let profile = imgFormat + response.profile[i];
+
+          // display the comments
+          let wrapper = $("<div>").addClass(
+            "flex gap-2 text-sm text-greyish_black"
+          );
+          let profilePic = $("<img>")
+            .attr("src", profile)
+            .addClass("rounded-full w-10 h-10");
+
+          let nameElement = $("<p>").addClass("font-bold").text(fullname);
+          let commentElement = $("<pre>")
+            .addClass("text-gray-500")
+            .text(comment);
+          let commentDetail = $("<div>")
+            .addClass("flex-1 flex-col w-4/5 bg-gray-300 rounded-md p-2 ")
+            .append(nameElement, commentElement);
+
+          wrapper.append(profilePic, commentDetail);
+          $("#commentStatus").append(wrapper);
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
   //close the post modal view
   $("#closePostModal").on("click", function () {
     $("#modalPost").addClass("hidden");
@@ -417,18 +554,19 @@ $(document).ready(function () {
       },
       function (start, end, label) {
         //get the start date and end date
-        let startDate = start.format("YYYY-MM-DD");
-        let endDate = end.format("YYYY-MM-DD");
+        startDateFilter = start.format("YYYY-MM-DD");
+        endDateFilter = end.format("YYYY-MM-DD");
 
-        offsetPost = 0; //restart the offset
-        //set data to be sent in the back end for filtering
-        let formData = new FormData();
-        formData.append("action", JSON.stringify(postAction));
-        formData.append("startDate", startDate);
-        formData.append("endDate", endDate);
+        offsetPost = 0;
+        table.clear().draw();
+        const action = { action: "filterDataPost" };
+        const formData = new FormData();
+        formData.append("action", JSON.stringify(action));
         formData.append("offset", offsetPost);
+        formData.append("colCode", collegeFilter);
+        formData.append("startingDate", startDateFilter);
+        formData.append("endDate", endDateFilter);
         getPostAdmin(formData, true);
-        $("#paginationBtnPost").addClass("hidden");
       }
     );
   });
@@ -554,6 +692,7 @@ $(document).ready(function () {
       processData: false,
       success: (response) => {
         if (response != "none") {
+          $(".loadingProfile").addClass("hidden");
           const parsedData = JSON.parse(response);
           const length = parsedData.username.length;
           //get all the data that gather
@@ -635,8 +774,11 @@ $(document).ready(function () {
     isLikedByUser
   ) {
     const feedContainer = $("#feedContainer");
+    const container = $("<div>").addClass(
+      "containerPostProfile flex gap-1 justify-center p-4"
+    );
     const postWrapper = $("<div>").addClass(
-      "postWrapper rounded-md center-shadow p-4 mx-auto"
+      "postWrapper rounded-md center-shadow p-4"
     );
 
     //adding details for header
@@ -660,9 +802,11 @@ $(document).ready(function () {
     header.append(headerWrapper);
 
     //for body
-    let description = $("<p>")
-      .addClass("text-sm text-gray-500 my-2")
+    let description = $("<pre>")
+      .addClass("text-sm text-gray-500 my-2 w-full outline-none")
+      .attr("contenteditable", false)
       .text(caption);
+
     let swiperContainer = null;
     //check if post is status only or with image
     if (images.length > 0) {
@@ -725,9 +869,27 @@ $(document).ready(function () {
         },
       });
     } else {
-      postWrapper.css("min-height", "155px");
+      // status only
+      postWrapper.css("min-height", "155px").on("click", function (e) {
+        const target = e.target;
+
+        // check if the clicked is not on the different icon element (comment, delete, and heart)
+        if (
+          !deleteElement.is(target) &&
+          deleteElement.has(target).length === 0 &&
+          !commentIcon.is(target) &&
+          commentIcon.has(target).length === 0 &&
+          !heartIcon.is(target) &&
+          heartIcon.has(target).length === 0
+        ) {
+          // check if editting to avoid clicking on description
+          if (!isEditting)
+            viewStatusPost(postID, fullname, date, caption, likes, username);
+        }
+      });
     }
 
+    let isEditting = false;
     date = getFormattedDate(date);
     date_posted = $("<p>").addClass("text-xs text-gray-500 my-2").text(date);
 
@@ -800,10 +962,15 @@ $(document).ready(function () {
       //insert a comment to database
       $("#commentBtn").on("click", function () {
         let commentVal = $("#commentArea").val();
-        insertComment(postID, commentVal);
+        insertComment(postID, commentVal, commentElement);
       });
     });
-
+    const editIcon = $(
+      '<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>'
+    );
+    const exitEdit = $(
+      '<iconify-icon class="hidden cursor-pointer" icon="mdi:cancel-bold" style="color: #d0342c;" width="24" height="24"></iconify-icon>'
+    );
     let status = "";
     let deleteElement = $("<p>").addClass("text-xs cursor-pointer font-bold");
     if (isAvailable) {
@@ -816,10 +983,15 @@ $(document).ready(function () {
           //update the post status into deleted
           $("#deletePostbtn").on("click", function () {
             status = "deleted";
-            updatePostStatus(status, postID);
+            updatePostStatus(status, postID, true);
           });
         });
     } else {
+      $(".editIcon").addClass("hidden");
+      leftContainer.addClass("hidden");
+      interactionContainer
+        .removeClass("justify-between")
+        .addClass("justify-end");
       deleteElement
         .addClass("text-green-400")
         .text("Restore")
@@ -827,11 +999,52 @@ $(document).ready(function () {
           $("#restoreModal").removeClass("hidden");
           $("#restorePost").on("click", function () {
             status = "available";
-            updatePostStatus(status, postID);
+            updatePostStatus(status, postID, true);
           });
         });
     }
 
+    //approve update
+    const approvedIcon = $(
+      '<iconify-icon class="cursor-pointer hidden" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>'
+    ).on("click", function () {
+      //data to be sent
+      const action = { action: "updatePost" };
+      const formdata = new FormData();
+      formdata.append("action", JSON.stringify(action));
+      formdata.append("postID", postID);
+      formdata.append("caption", description.text());
+
+      $.ajax({
+        url: "../PHP_process/postDB.php",
+        method: "POST",
+        data: formdata,
+        processData: false,
+        contentType: false,
+        success: (response) => {
+          if (response == "Successful") {
+            //go back to normal
+            description.attr("contenteditable", false);
+            approvedIcon.addClass("hidden");
+            exitEdit.addClass("hidden");
+            editIcon.removeClass("hidden");
+          }
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    });
+    //update description
+    let currentDescript = description.text();
+    editIcon.on("click", function () {
+      description.attr("contenteditable", true).focus();
+      $(this).addClass("hidden");
+      approvedIcon.removeClass("hidden");
+      exitEdit.removeClass("hidden");
+      isEditting = true;
+    });
+    const editingWrapper = $("<div>").addClass("flex gap-2 flex-col");
     //attach all details to a postwrapper and to the root
     interactionContainer.append(leftContainer, deleteElement);
     postWrapper.append(
@@ -841,16 +1054,28 @@ $(document).ready(function () {
       date_posted,
       interactionContainer
     );
-    feedContainer.append(postWrapper);
+
+    exitEdit.on("click", function () {
+      // back to default view
+      $(this).addClass("hidden");
+      approvedIcon.addClass("hidden");
+      editIcon.removeClass("hidden");
+      description.attr("contenteditable", false).text(currentDescript);
+    });
+    editingWrapper.append(editIcon, approvedIcon, exitEdit);
+    container.append(postWrapper, editingWrapper);
+    feedContainer.append(container);
 
     var percent = feedContainer.width() * 0.8;
     postWrapper.width(percent);
   }
 
-  function updatePostStatus(status, postID) {
-    let action = {
-      action: "updatePostStatus",
-    };
+  $("#closeComment").on("click", function () {
+    $("#commentPost").addClass("hidden");
+  });
+
+  function updatePostStatus(status, postID, isProfile) {
+    let action = { action: "updatePostStatus" };
     const formdata = new FormData();
     formdata.append("action", JSON.stringify(action));
     formdata.append("postID", postID);
@@ -864,22 +1089,36 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: (response) => {
+        console.log(response);
         //close the modal
         $("#delete-modal").addClass("hidden");
-        restartPost();
-        displayToProfile(actionTracker, isAvailable); //reload the post again
-        $("#restoreModal").addClass("hidden"); //hide the modal again
+        if (isProfile) {
+          restartPost();
+          displayToProfile(actionTracker, isAvailable); //reload the post again
+          $("#restoreModal").addClass("hidden"); //hide the modal again
+        } else {
+          // restart everything
+          restartTableContent();
+          getPostAdmin(postData, true);
+        }
       },
       error: (error) => {
         console.log(error);
       },
     });
   }
-
+  function restartTableContent() {
+    offsetPost = 0;
+    postData.append("action", JSON.stringify(postAction));
+    postData.set("startDate", "");
+    postData.set("endDate", "");
+    postData.set("offset", offsetPost);
+    table.clear().draw();
+  }
   function restartPost() {
     offsetProfile = 0;
     //remove the currently displayed
-    $(".postWrapper").remove();
+    $(".containerPostProfile").remove();
   }
   //add the likes to a post
   function addLikes(postID) {
@@ -942,6 +1181,10 @@ $(document).ready(function () {
     if (scrollOffset + containerHeight >= contentHeight) {
       displayToProfile(actionTracker, isAvailable);
     }
+  });
+
+  $(".closeStatusPost").on("click", function () {
+    $("#postStatusModal").addClass("hidden");
   });
 
   function viewingOfPost1(
@@ -1042,6 +1285,7 @@ $(document).ready(function () {
 
   //show archieved post
   $("#archievedBtnProfile").on("click", function () {
+    $(".loadingProfile").removeClass("hidden"); //loading screen
     $(this).addClass("activeBtn");
     $("#availablePostBtn").removeClass("activeBtn");
     restartPost(); //restart everything
@@ -1053,6 +1297,7 @@ $(document).ready(function () {
 
   $("#availablePostBtn").on("click", function () {
     $(this).addClass("activeBtn");
+    $(".loadingProfile").removeClass("hidden"); //loading screen
     $("#archievedBtnProfile").removeClass("activeBtn");
     restartPost(); //restart everything
 
@@ -1094,7 +1339,10 @@ $(document).ready(function () {
             const length = data.colCode.length;
             for (let i = 0; i < length; i++) {
               const postID = data.postID[i];
-              const profilePic = data.profilePic[i];
+              const profilePic =
+                data.profilePic[i] == ""
+                  ? "../assets/icons/person.png"
+                  : imgFormat + data.profilePic[i];
               const username = data.username[i];
               const isLiked = data.isLiked[i];
               const fullname = data.fullname[i];
@@ -1152,7 +1400,7 @@ $(document).ready(function () {
     report
   ) {
     const feedContainer = $("#communityContainer");
-    const container = $("<div>").addClass("flex gap-1");
+    const container = $("<div>").addClass("communityPost flex gap-1");
     const postWrapper = $("<div>").addClass(
       "communityWrapper rounded-md center-shadow p-4"
     );
@@ -1160,7 +1408,7 @@ $(document).ready(function () {
     //adding details for header
     let header = $("<div>");
     let headerWrapper = $("<div>").addClass("flex gap-2 items-center");
-    let img = imgFormat + imgProfile;
+    let img = imgProfile;
     let userProfile = $("<img>")
       .addClass("h-10 w-10 rounded-full")
       .attr("src", img);
@@ -1243,7 +1491,19 @@ $(document).ready(function () {
         },
       });
     } else {
-      postWrapper.css("min-height", "155px");
+      postWrapper.css("min-height", "155px").on("click", function (e) {
+        const target = e.target;
+
+        if (
+          !deleteElement.is(target) &&
+          deleteElement.has(target).length === 0 &&
+          !heartIcon.is(target) &&
+          heartIcon.has(target).length === 0 &&
+          !commentIcon.is(target) &&
+          commentIcon.has(target).length === 0
+        )
+          viewStatusPost(postID, fullname, date, caption, likes, username);
+      });
     }
 
     date = getFormattedDate(date);
@@ -1295,7 +1555,22 @@ $(document).ready(function () {
       .html(
         '<iconify-icon icon="uil:comment" style="color: #626262;" width="20" height="20"></iconify-icon>'
       )
-      .addClass("cursor-pointer flex items-center comment");
+      .addClass("cursor-pointer flex items-center comment")
+      .on("click", function () {
+        $("#commentPost").removeClass("hidden"); //open the comment modal
+
+        //set up the details for comment to be display
+        $("#postProfile").attr("src", img);
+        $("#postFullname").text(fullname);
+        $("#postUsername").text(username);
+        $("#replyToUsername").text(username);
+
+        //insert a comment to database
+        $("#commentBtn").on("click", function () {
+          let commentVal = $("#commentArea").val();
+          insertComment(postID, commentVal, commentElement);
+        });
+      });
     let likesElement = $("<p>").addClass("text-xs text-gray-500").text(likes);
     let commentElement = $("<p>")
       .addClass("text-xs text-gray-500 comment")
@@ -1308,33 +1583,12 @@ $(document).ready(function () {
       .text("Archive post")
       .on("click", function () {
         //open the delete prompt
-        $("#delete-modal").removeClass("hidden");
+        $(".deleteModalPost").removeClass("hidden");
         //update the post status into deleted
-        $("#deletePostbtn").on("click", function () {
-          let action = {
-            action: "deletePost",
-          };
-          const formdata = new FormData();
-          formdata.append("action", JSON.stringify(action));
-          formdata.append("postID", postID);
-
-          //process the deletion
-          $.ajax({
-            url: "../PHP_process/postDB.php",
-            method: "POST",
-            data: formdata,
-            processData: false,
-            contentType: false,
-            success: (response) => {
-              //close the modal
-              $("#delete-modal").addClass("hidden");
-              restartPost();
-              displayToProfile(); //reload the post again
-            },
-            error: (error) => {
-              console.log(error);
-            },
-          });
+        $("#deleteByAdminBtn").on("click", function () {
+          const reasonForDel = $("#reasonForDel").val();
+          if (reasonForDel !== "")
+            removePostByAdmin(postID, username, reasonForDel);
         });
       });
 
@@ -1413,6 +1667,100 @@ $(document).ready(function () {
     postWrapper.width(percent);
   }
 
+  $("#commentArea").on("input", function () {
+    let commentVal = $(this).val();
+    //enable the comment button
+    if (commentVal != "") {
+      $("#commentBtn")
+        .removeAttr("disabled")
+        .addClass("bg-accent")
+        .removeClass("bg-red-950");
+    } else {
+      $("#commentBtn")
+        .attr("disabled", true) //disabled the button again
+        .addClass("bg-red-950")
+        .removeClass("bg-accent");
+    }
+  });
+
+  function displayPostPrompt(message) {
+    $("#promptMsgComment")
+      .removeClass("hidden") //display the prompt
+      .text(message);
+
+    //hide again after 4 seconds
+    setTimeout(() => {
+      $("#promptMsgComment").addClass("hidden");
+    }, 4000);
+  }
+
+  function insertComment(postID, comment, commentElement) {
+    const action = {
+      action: "insertComment",
+    };
+
+    const formData = new FormData();
+    formData.append("action", JSON.stringify(action));
+    formData.append("postID", postID);
+    formData.append("comment", comment);
+
+    $.ajax({
+      url: "../PHP_process/commentData.php",
+      method: "POST",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: (response) => {
+        if (response === "Success") {
+          $("#commentPost").addClass("hidden"); //hide modal
+          displayPostPrompt("Comment successfully added");
+          $("#commentArea").val(""); //restart the value of comment
+          let commentCount = parseInt(commentElement.text()) + 1;
+          commentElement.text(commentCount); //update the count of comment of ta certain post
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  $(".cancelDeletionAdmin").on("click", function () {
+    $(".deleteModalPost").addClass("hidden");
+  });
+
+  function removePostByAdmin(postID, username, reason) {
+    let action = { action: "removePostByAlumAdmin" };
+    const formdata = new FormData();
+    formdata.append("action", JSON.stringify(action));
+    formdata.append("postID", postID);
+    formdata.append("username", username);
+    formdata.append("reason", reason);
+
+    //process the deletion
+    $.ajax({
+      url: "../PHP_process/postDB.php",
+      method: "POST",
+      data: formdata,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        console.log(response);
+        if (response == "Success") {
+          // //close the modal
+          $(".deleteModalPost").addClass("hidden");
+          offsetCommunity = 0;
+          lengthRetrieved = 0;
+          const feedContainer = $("#communityContainer");
+          feedContainer.find(".communityPost").remove();
+          getCommunityPost();
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
   $("#communityContainer").on("scroll", function () {
     var container = $(this);
     var scrollPosition = container.scrollTop();
@@ -1595,9 +1943,3 @@ $(document).ready(function () {
     });
   }
 });
-
-function closeReport() {
-  $("#delete-modal").addClass("hidden");
-}
-
-// End of the copied script
