@@ -1,3 +1,5 @@
+import { getJSONFromURL, postJSONFromURL } from "../scripts/utils";
+
 $(document).ready(async function () {
   const CONFIRM_COLOR = "#991B1B";
   const CANCEL_COLOR = "#6A6A6A";
@@ -464,20 +466,4 @@ $(document).ready(async function () {
     offset = 0;
     refreshList(category);
   });
-
-  // // handles the total posts
-  // TODO configure later
-  // async function getTotalPosts() {
-  //   const response = await fetch(API_URL + "?total=true", {
-  //     headers: {
-  //       method: "GET",
-  //       "Content-Type": "application/json",
-  //       cache: "no-cache",
-  //     },
-  //   });
-
-  //   const result = await response.json();
-
-  //   return result;
-  // }
 });

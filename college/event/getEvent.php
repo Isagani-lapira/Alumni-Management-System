@@ -4,33 +4,13 @@ session_start();
 
 require '../php/connection.php';
 require '../model/Event.php';
-
-
-
-//    check if college admin is logged in
-if ($_SESSION['accountType'] !== 'ColAdmin') {
-    // TODO redirect to error page.
-    header("Location: ../index.php");
-    exit();
-}
-
-// check if session admin is set
-if (!isset($_SESSION['college_admin']) && !isset($_SESSION['adminID'])) {
-    // TODO redirect to error page.
-    header("Location: ../index.php");
-    exit();
-}
+require_once '../php/checkLogin.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     $result = null;
     $event = new Event($mysql_con);
-
-
-
-
-
 
     if (isset($_GET['partial']) &&   $_GET['partial'] === 'true') {
         // get the offset from the url

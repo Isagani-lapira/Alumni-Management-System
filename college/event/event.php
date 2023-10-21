@@ -262,9 +262,4 @@ session_start();
 
 <!-- END Preview Event -->
 
-<script>
-    $(document).ready(function() {
-        $.getScript("./event/event.js");
-        // resize text area jquery
-    });
-</script>
+<script type="module" src="./event/event.js"></script>
