@@ -2609,6 +2609,10 @@ div.input-container input[type="text"],
   max-width: 20rem;
 }
 
+.max-w-6xl {
+  max-width: 72rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
