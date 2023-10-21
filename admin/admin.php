@@ -431,7 +431,7 @@ function dateInText($date)
             <div class="m-2 p-1">
               <p>Show post (from - to)</p>
               <div class="w-full flex border border-grayish p-2 rounded-lg">
-                <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" />
+                <input type="text" name="daterange" id="daterange" value="Select a date" />
                 <label class="" for="daterange">
                   <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
                 </label>

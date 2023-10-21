@@ -232,7 +232,6 @@ $(document).ready(function () {
         "ordering": false,
         "info": false,
         "lengthChange": false,
-        "searching": false,
         "pageLength": 10
     });
 
@@ -264,6 +263,46 @@ $(document).ready(function () {
         // Add the new row to the DataTable
         table.row.add(row).draw();
 
+    }
+
+    let collgeFilter = ""
+    let startDateFilter = ""
+    let endDateFilter = ""
+
+    $('#announcementCol').on('change', function () {
+        collgeFilter = $(this).val()
+        filterTable();
+    })
+
+    // filtering date
+    $(function () {
+        $('input[name="daterange"]').daterangepicker(
+            {
+                opens: "left",
+                startDate: defaultStart,
+                endDate: defaultEnd,
+            },
+            function (start, end, label) {
+                startDateFilter = start.format('MMMM DD YYYY');
+                endDateFilter = end.format('MMMM DD YYYY')
+
+                filterTable()
+            }
+        );
+    });
+
+    function filterTable() {
+        table.column(0).search('').column(3).search('')// reset as default
+        if (collgeFilter !== '' && startDateFilter === '' && endDateFilter === '') //college filtering
+            table.column(0).search(collgeFilter);
+        else if (collgeFilter === '' && startDateFilter !== '' && endDateFilter !== '') //date filtering
+            table.column(3).search(startDateFilter + '|' + endDateFilter, true, false, true).draw();
+        else if (collgeFilter !== '' && startDateFilter !== '' && endDateFilter !== '') {
+            // search both college and date
+            table.column(0).search(collgeFilter);
+            table.column(3).search(startDateFilter + '|' + endDateFilter, true, false, true);
+        }
+        table.draw()
     }
 
 
@@ -315,25 +354,6 @@ $(document).ready(function () {
             const status = "deleted"
             updatePostStatus(status, postID, false)
         })
-    })
-
-
-    let collegeFilter = "";
-    let startDateFilter = "";
-    let endDateFilter = "";
-
-    $('#announcementCol').on('change', function () {
-        collegeFilter = $(this).val();
-        offsetPost = 0;
-        table.clear().draw();
-        const action = { action: 'filterDataPost' };
-        const formData = new FormData();
-        formData.append('action', JSON.stringify(action));
-        formData.append('offset', offsetPost);
-        formData.append('colCode', collegeFilter);
-        formData.append('startingDate', startDateFilter);
-        formData.append('endDate', endDateFilter);
-        getPostAdmin(formData, true);
     })
 
 
@@ -486,39 +506,6 @@ $(document).ready(function () {
         $('#carousel-wrapper').empty()
         $("#carousel-indicators").empty();
     })
-
-
-    //get today's date
-    const datePicker = new Date()
-    const thisyear = datePicker.getFullYear();
-    const thismonth = datePicker.getMonth() + 1;
-    const thisday = datePicker.getDate();
-    let defaultStart = thismonth + '/' + thisday + '/' + thisyear
-    let defaultEnd = thismonth + 1 + '/' + thisday + '/' + thisyear
-
-    //filter the post using date picker
-    $(function () {
-        $('input[name="daterange"]').daterangepicker({
-            opens: 'left',
-            startDate: defaultStart,
-            endDate: defaultEnd
-        }, function (start, end, label) {
-            //get the start date and end date
-            startDateFilter = start.format('YYYY-MM-DD')
-            endDateFilter = end.format('YYYY-MM-DD')
-
-            offsetPost = 0;
-            table.clear().draw();
-            const action = { action: 'filterDataPost' };
-            const formData = new FormData();
-            formData.append('action', JSON.stringify(action));
-            formData.append('offset', offsetPost);
-            formData.append('colCode', collegeFilter);
-            formData.append('startingDate', startDateFilter);
-            formData.append('endDate', endDateFilter);
-            getPostAdmin(formData, true);
-        });
-    });
 
 
     //retrieving the comments
