@@ -42,11 +42,14 @@
      </section>
      <!-- End Total Post -->
 
+     <!-- <tr class="hidden">
+                     <td class="text-center" colspan="5">No available post</td>
+                 </tr> -->
 
      <!-- Table Start -->
      <div id="announcementContainer" class="w-full text-xs ">
          <table id="postTable" class="w-full center-shadow">
-             <thead>
+             <thead class="rounded-tl-lg sorting_disabled">
                  <tr class="bg-accent text-white">
                      <th class="rounded-tl-lg">Message</th>
                      <th>No. of likes</th>
@@ -57,13 +60,28 @@
              </thead>
              <tbody id="postTBody">
 
+
+                 <!-- Add some dummy data -->
+                 <tr class="odd">
+                     <td>Hello there</td>
+                     <td>1</td>
+                     <td>6</td>
+                     <td>October 17 2023</td>
+                     <td>
+                         <button class="text-sm text-red-400 rounded-lg p-1 hover:bg-red-400 hover:text-white delCommunityPost" data-postid="652dc2f9b2433-9">Archive</button>
+                         <button class="bg-blue-400 text-sm text-white rounded-lg py-1 px-2 hover:bg-blue-500 view-button" data-postid="652dc2f9b2433-9" data-name="Isagani Lapira Jr" data-username="isaganilapiraI@123" data-postcaption="This is a new post postsdf" data-position="0" data-postdate="October 17 2023" data-likes="1">View</button>
+                     </td>
+                 </tr>
+
+
              </tbody>
          </table>
-         <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
+         <!-- Table End -->
+         <!-- <p id="noPostMsg" class="text-blue-400 hidden text-lg text-center">No available post</p>
          <div id="paginationBtnPost" class="flex justify-end gap-2 px-2 mt-2">
              <button id="prevPost" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
              <button id="nextPost" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
-         </div>
+         </div> -->
      </div>
      <!-- Table End -->
 
@@ -146,4 +164,5 @@
      </div>
  </section>
 
- <!-- TODO Ask Isagani for clarification in this part -->
+
+ <script src="./make-post/post.js" type="module"></script>

@@ -99,6 +99,8 @@ if (
     <link rel="stylesheet" href="../css/main.css">
     <!-- Utilities stylesheet -->
     <link rel="stylesheet" href="./assets/css/util.css">
+
+
     <!-- End Stylesheets -->
 
     <!-- Javascript Scripts -->
@@ -126,6 +128,10 @@ if (
     <!-- Sweet Alert Notification Plugin -->
     <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js "></script>
     <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css " rel="stylesheet">
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <!-- End JS Plugins -->
     <!-- System Script -->

@@ -1,4 +1,4 @@
-import { getJSONFromURL, postJSONFromURL } from "../scripts/utils";
+import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
 
 /**
  * Copied script from postscript.js
@@ -259,15 +259,16 @@ $(document).ready(function () {
 
   $("#postTable").DataTable({
     paging: true,
-    ordering: false,
+    ordering: true,
     info: false,
-    lengthChange: false,
-    searching: false,
+    lengthChange: true,
+    searching: true,
     pageLength: 10,
   });
 
   let table = $("#postTable").DataTable(); // Get the DataTable instance
   $("#postTable").removeClass("dataTable").addClass("rounded-lg");
+
   function announcementTbDisplay(
     postID,
     colCode,
