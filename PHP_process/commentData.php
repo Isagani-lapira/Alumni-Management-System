@@ -20,5 +20,10 @@ if (isset($_POST['action'])) {
             $username = $_SESSION['username'];
             $comment = $_POST['comment'];
             $commentObj->insertComment($username, $postID, $comment, $mysql_con);
+            break;
+        case 'deleteComment':
+            $commendID = $_POST['commentID'];
+            $commentObj->deleteComment($commendID, $mysql_con);
+            break;
     }
-} else echo 'not pumasok';
+}

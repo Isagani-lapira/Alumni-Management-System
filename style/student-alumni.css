@@ -60,7 +60,7 @@ body {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Fixed position */
-  z-index: 9999; /* Ensure it appears on top of other elements */
+  z-index: 9998; /* Ensure it appears on top of other elements */
   left: 0;
   top: 0;
   width: 100%;
@@ -423,4 +423,8 @@ pre {
 .bdayInput {
   border: none;
   outline: none;
+}
+
+#delete-modal {
+  z-index: 9999;
 }

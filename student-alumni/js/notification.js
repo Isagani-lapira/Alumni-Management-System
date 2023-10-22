@@ -578,11 +578,12 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
+                $('#commentStatus').empty()
                 let length = response.fullname.length;
                 for (let i = 0; i < length; i++) {
                     let fullname = response.fullname[i];
                     let comment = response.comment[i];
-                    let profile = imgFormat + response.profile[i];
+                    let profile = (response.profile[i] === '') ? '../assets/icons/person.png' : imgFormat + response.profile[i]
 
                     // display the comments
                     let wrapper = $('<div>').addClass('flex gap-2 text-sm text-greyish_black')
