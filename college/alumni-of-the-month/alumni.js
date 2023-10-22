@@ -8,12 +8,13 @@ $(document).ready(function () {
   const handleSearchList = _.debounce(searchAlumniListener, 500);
 
   // Initial load
-  refreshList();
+  // refreshList();
   setHandlers();
+  updateDataTable();
 
   // Binds the section link in order to reload the list whenever the section is clicked
   $('a[data-link="alumni-of-the-month"]').on("click", function () {
-    refreshList();
+    // refreshList();
     setHandlers();
     console.log('refreshed the handlers of "alumni-of-the-month"');
   });
@@ -250,5 +251,44 @@ $(document).ready(function () {
         },
         300
       );
+  }
+
+  function updateDataTable() {
+    // remove the loading screen
+
+    $("#alumni-month-table").DataTable({
+      ajax: {
+        url: "./alumni-of-the-month/getAlumni.php?getAll=true",
+        dataSrc: "data",
+      },
+      paging: true,
+      ordering: true,
+      info: false,
+      lengthChange: false,
+      searching: true,
+      pageLength: 10,
+      columns: [
+        { data: "date_assigned", width: "25%" },
+        { data: "studentNo" },
+        { data: "fullname" },
+        {
+          data: null,
+          render: function (data, type, row) {
+            // Define the buttons for the Actions column
+            return `
+                        <label for="view-modal" class="daisy-btn" data-id="${row.postID}">View</label>
+                    `;
+          },
+        },
+      ],
+      columnDefs: [
+        {
+          targets: [0],
+          render: function (data, type, row) {
+            return moment(data).format("MMMM YYYY");
+          },
+        },
+      ],
+    });
   }
 });

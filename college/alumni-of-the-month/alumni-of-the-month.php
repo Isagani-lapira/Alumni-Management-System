@@ -62,10 +62,11 @@
         </button>
     </div> -->
     <!-- Record Table-->
-    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg bg-white">
+    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg bg-white" id="alumni-month-table">
         <thead class="bg-accent text-white rounded-t-lg">
             <tr class=" rounded-t-lg">
-                <th class="text-start uppercase">Student Number</th>
+                <th class="text-start ">DATE AWARDED</th>
+                <th class="text-start uppercase">STUDENT NUMBER</th>
                 <th>NAME</th>
                 <th>DETAILS</th>
             </tr>
