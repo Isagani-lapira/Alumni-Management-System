@@ -27,41 +27,39 @@
             <!-- php function on batch -->
         </select>
         <!-- search-bar -->
-        <div class="relative">
+        <!-- <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-2 top-0 mt-3 text-gray-400 "></i>
             <input class="border border-greyish_black w-full rounded-md p-2 pl-7" type="text" name="" id="" placeholder="Typing!">
-        </div>
+        </div> -->
         <!-- end search-bar -->
         <!-- daterangepicker input -->
-        <div class="relative">
+        <!-- <div class="relative">
             <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018" class="input-text py-2 px-2">
             <i class="fa-solid fa-calendar  absolute mr-2 right-0 top-3"></i>
-        </div>
+        </div> -->
         <!-- end daterangepicker input -->
         <!-- batch selection -->
-        <select name="" id="batch" class=" form-select rounded ">
+        <!-- <select name="" id="batch" class=" form-select rounded ">
             <option value="" selected disabled hidden>Batch</option>
-            <!-- php function on batch -->
-        </select>
+        </select> -->
 
 
         <!-- college selection -->
-        <select name="college" id="college" class=" form-select rounded">
+        <!-- <select name="college" id="college" class=" form-select rounded">
             <option value="" selected disabled hidden>Course</option>
             <option value="">BS IT</option>
             <option value="">BS IS</option>
-            <!-- <option value="" >BS </option> -->
-        </select>
+        </select> -->
 
         <!-- employment status selection -->
-        <select name="employment" id="employment" class=" form-select rounded">
+        <!-- <select name="employment" id="employment" class=" form-select rounded">
             <option value="" selected disabled hidden>Employment Status</option>
             <option value="">Employed</option>
             <option value="">Unemployed</option>
             <option value="">Self-employed</option>
             <option value="">Student</option>
             <option value="">Retired</option>
-        </select>
+        </select> -->
 
     </div>
 
