@@ -457,15 +457,29 @@ $(document).ready(function () {
                     for (let i = 0; i < length; i++) {
                         const fullname = parsedResponse.fullname[i];
                         const comment = parsedResponse.comment[i];
+                        const commentID = parsedResponse.commentID[i];
                         const img = imgFormat + parsedResponse.profile[i];
 
                         let commentContainer = $('<div>').addClass("flex gap-2 my-2")
                         let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full").attr('src', img);
                         let commentDescript = $('<div>').addClass("bg-gray-300 rounded-md p-3 flex-grow text-sm flex flex-col gap-1 text-greyish_black");
                         let commentor = $('<p>').text(fullname)
+                        let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+                            .on('click', function () {
+                                $('#delete-modal').removeClass('hidden')
+                                // delete the comment
+                                $('#deletePostbtn').on('click', function () {
+                                    deleteComment(commentID, commentContainer);
+                                    // update the count
+                                    let newCountComment = parseInt($('#noOfComment').text()) - 1
+                                    $('#noOfComment').text(newCountComment)
+                                })
+                            })
+
+                        let container = $('<div>').addClass('flex justify-between').append(commentor, delComment)
                         let postComment = $('<p>').text(comment).addClass('text-xs text-gray-500');
 
-                        commentDescript.append(commentor, postComment);
+                        commentDescript.append(container, postComment);
                         commentContainer.append(imgProfile, commentDescript)
 
                         $('#commentContainer').append(commentContainer);
@@ -583,6 +597,7 @@ $(document).ready(function () {
                 for (let i = 0; i < length; i++) {
                     let fullname = response.fullname[i];
                     let comment = response.comment[i];
+                    let commentID = response.commentID[i];
                     let profile = (response.profile[i] === '') ? '../assets/icons/person.png' : imgFormat + response.profile[i]
 
                     // display the comments
@@ -592,15 +607,50 @@ $(document).ready(function () {
                         .addClass('rounded-full w-10 h-10')
 
                     let nameElement = $('<p>').addClass('font-bold').text(fullname)
+                    let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+                        .on('click', function () {
+                            $('#delete-modal').removeClass('hidden')
+                            // delete the comment
+                            $('#deletePostbtn').on('click', function () {
+                                deleteComment(commentID, wrapper);
+                                // update the count
+                                let newCountComment = parseInt($('#statusComment').text()) - 1
+                                $('#statusComment').text(newCountComment)
+                            })
+                        })
+
+                    let container = $('<div>').addClass('flex items-center justify-between').append(nameElement, delComment)
+
                     let commentElement = $('<pre>').addClass('text-gray-500').text(comment)
                     let commentDetail = $('<div>').addClass('flex-1 flex-col w-4/5 bg-gray-300 rounded-md p-2 ')
-                        .append(nameElement, commentElement)
+                        .append(container, commentElement)
 
                     wrapper.append(profilePic, commentDetail)
                     $('#commentStatus').append(wrapper)
                 }
             },
             error: error => { console.log(error) }
+        })
+    }
+
+    function deleteComment(commentID, wrapper) {
+        const action = { action: "deleteComment" };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('commentID', commentID);
+
+        $.ajax({
+            url: '../PHP_process/commentData.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response === 'Success') {
+                    $('#delete-modal').addClass('hidden')
+                    wrapper.remove()
+                }
+            }
         })
     }
 })
