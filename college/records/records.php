@@ -3,11 +3,6 @@
     <h1 class="text-xl font-extrabold uppercase">Records</h1>
 
     <div class="flex justify-end text-sm text-greyish_black">
-        <!-- HISTORY LOGS -->
-        <button class="p-2 m-2 border border-grayish text-grayish rounded-md font-semibold">
-            Download history logs
-            <img class="inline" src="/images/download.png" alt="">
-        </button>
 
         <!-- EXPORT PDF -->
         <button class="p-2 px-4 m-2 border border-accent rounded-md 
