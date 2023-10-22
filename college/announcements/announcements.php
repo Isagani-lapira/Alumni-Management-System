@@ -16,23 +16,22 @@
              <p id="totalPost" class="totalPost text-5xl font-bold">0</p>
          </div>
 
-         <div class="m-2 p-1">
+         <!-- <div class="m-2 p-1">
              <p class="text-sm font-thin">Course</p>
-             <!-- college selection -->
              <select name="college" id="announcementCol" class="w-full border border-grayish p-2 rounded-lg">
                  <option value="" selected disabled hidden>BS Computer Science</option>
              </select>
-         </div>
+         </div> -->
 
 
-         <div class="m-2 p-1">
+         <!-- <div class="m-2 p-1">
              <p>Show post (from - to)</p>
              <div class="relative border-black">
                  <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" class="rounded  w-full p-2" />
                  <i class="fa-solid fa-calendar-days absolute right-4 top-3"></i>
              </div>
 
-         </div>
+         </div> -->
 
      </section>
 
