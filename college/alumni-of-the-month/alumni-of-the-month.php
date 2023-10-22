@@ -18,21 +18,21 @@
     <!-- Filter  -->
     <div class="flex flex-wrap gap-4">
 
-        <div class="relative rounded">
+        <!-- <div class="relative rounded">
             <i class="fa-solid fa-magnifying-glass absolute top-3 left-3"></i>
             <input class="pl-8 py-2 px-4 rounded border border-zinc-500" type="text" name="" id="aomSearch" placeholder="Search name">
-        </div>
+        </div> -->
 
         <!-- Sex -->
-        <select name="sex-option" id="" class="rounded border bg-transparent px-2 border-zinc-500">
+        <!-- <select name="sex-option" id="" class="rounded border bg-transparent px-2 border-zinc-500">
             <option value="">All</option>
             <option value="">Male</option>
             <option value="">Female</option>
-        </select>
+        </select> -->
 
 
         <!-- range -->
-        <div class="relative">
+        <!-- <div class="relative">
             <input class="pr-8 rounded px-4 py-2
             border  border-zinc-500
             
@@ -40,14 +40,14 @@
             <label class="absolute top-2 right-3" for="aoydaterange">
                 <i class="fa-solid fa-calendar"></i>
             </label>
-        </div>
+        </div> -->
 
         <!-- batch -->
-        <select name="batch" id="aomBatch" class="p-1 w-64 rounded px-4 py-2 bg-transparent
+        <!-- <select name="batch" id="aomBatch" class="p-1 w-64 rounded px-4 py-2 bg-transparent
             border  border-zinc-500">
             <option value="" selected="" disabled="" hidden="">Batch</option>
             <option value="">2023</option>
-        </select>
+        </select> -->
 
 
 
