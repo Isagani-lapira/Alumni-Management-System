@@ -16,6 +16,8 @@ $(document).ready(function () {
   $('a[data-link="alumni-of-the-month"]').on("click", function () {
     // refreshList();
     setHandlers();
+
+    updateDataTable();
     console.log('refreshed the handlers of "alumni-of-the-month"');
   });
 
