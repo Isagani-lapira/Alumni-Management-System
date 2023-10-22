@@ -5,63 +5,125 @@ $(document).ready(function () {
   const API_URL = "./alumni-of-the-month/getAlumni.php?";
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   let offset = 0;
+
   // Initial load
   refreshList();
+  setHandlers();
   // Binds the section link in order to reload the list whenever the section is clicked
   $('a[data-link="alumni-of-the-month"]').on("click", function () {
     refreshList();
-
-    console.log("i ran");
+    setHandlers();
+    console.log('refreshed the handlers of "alumni-of-the-month"');
   });
 
-  // TODO get the details and show the details.
+  /**
+   * Adds all the event listeners for the page
+   */
+  function setHandlers() {
+    // Date picker
+    $("#aoydaterange").daterangepicker();
 
-  // Date picker
-  $("#aoydaterange").daterangepicker();
-
-  // preview the image after changing the input
-  $("#cover-image").change(function () {
-    let reader = new FileReader();
-    reader.onload = (e) => {
-      $("#cover-img-preview").attr("src", e.target.result);
-    };
-    reader.readAsDataURL(this.files[0]);
-  });
-
-  // on form submit
-  $("#add-aotm-form").submit(async function (e) {
-    e.preventDefault();
-    let formData = new FormData(this);
-    // add some sweet alert dialog
-    const confirmation = await Swal.fire({
-      title: "Confirm?",
-      text: "Are you sure to add alumni with these details?",
-      icon: "info",
-      showCancelButton: true,
-      // confirmButtonColor: CONFIRM_COLOR,
-      // cancelButtonColor: CANCEL_COLOR,
-      confirmButtonText: "Yes, Add it!",
+    // preview the image after changing the input
+    $("#cover-image").on("change", function () {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        $("#cover-img-preview").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(this.files[0]);
     });
-    if (confirmation.isConfirmed) {
-      console.log("submitting add alumni form");
+    // TODO get the details and show the details.
 
-      const isSuccessful = await postNewAlumni(this);
-      console.log(isSuccessful);
-      if (isSuccessful.response === "Successful") {
-        // show the success message
-        Swal.fire("Success!", "Alumni has been added.", "success");
-        // remove the form data
-        $("#add-aotm-form")[0].reset();
-        $("#cover-image-preview").attr("src", "");
-        // $("#profile-image-preview").attr("src", "");
-        $("#add-alumni-modal").prop("checked", false);
+    // on form submit
+    $("#add-aotm-form").submit(async function (e) {
+      e.preventDefault();
+      let formData = new FormData(this);
+      // add some sweet alert dialog
+      const confirmation = await Swal.fire({
+        title: "Confirm?",
+        text: "Are you sure to add alumni with these details?",
+        icon: "info",
+        showCancelButton: true,
+        // confirmButtonColor: CONFIRM_COLOR,
+        // cancelButtonColor: CANCEL_COLOR,
+        confirmButtonText: "Yes, Add it!",
+      });
+      if (confirmation.isConfirmed) {
+        console.log("submitting add alumni form");
+
+        const isSuccessful = await postNewAlumni(this);
+        console.log(isSuccessful);
+        if (isSuccessful.response === "Successful") {
+          // show the success message
+          Swal.fire("Success!", "Alumni has been added.", "success");
+          // remove the form data
+          $("#add-aotm-form")[0].reset();
+          $("#cover-image-preview").attr("src", "");
+          // $("#profile-image-preview").attr("src", "");
+          $("#add-alumni-modal").prop("checked", false);
+        } else {
+          Swal.fire("Error", "Alumni is not added due to error.", "info");
+        }
       } else {
-        Swal.fire("Error", "Alumni is not added due to error.", "info");
+        Swal.fire("Cancelled", "Add alumni cancelled.", "info");
       }
-    } else {
-      Swal.fire("Cancelled", "Add alumni cancelled.", "info");
-    }
-  });
+    });
+    // add event handler to the cancel button
+    $(".cancelModal").click(function () {
+      hideDisplay("#modalAlumni");
+    });
+
+    $("#addAlumniBtn").on("click", function () {
+      showDisplay("#modalAlumni");
+    });
+
+    // Event handler for the search bar
+    $("#searchQuery").on("keyup", async function () {
+      const search = $(this).val();
+      await handleSearchList(search);
+    });
+
+    // Search bar remove suggestions when clicked outside except on search suggestions
+    $(document).on("click", function (e) {
+      if (!$(e.target).closest("#searchList").length) {
+        $("#searchList").addClass("hidden");
+        $("#searchList").empty();
+      }
+    });
+    // Event handler for clicking list item
+    $("#searchList").on("click", "li", async function () {
+      console.log("clicked");
+      const id = $(this).data("personid");
+      const result = await getJSONFromURL(
+        API_URL + "&getPersonId=1" + "&personId=" + id
+      );
+      console.log(result);
+
+      try {
+        if (result.data.length > 0) {
+          const data = result.data[0];
+          console.log("data", data);
+          $("#detail-fullname").text(data.fname + " " + data.lname);
+          // $("#detail-student-id").text(data.studNo);
+          $("#detail-personal-email").text(data.personal_email);
+          $("#detail-profile-picture").attr("src", data.profileImage);
+          $("#searchList").addClass("hidden");
+          $("#searchList").empty();
+          $("#alumni-details").removeClass("hidden");
+          $("#studentId").val(data.studNo);
+          $("#personId").val(data.personID);
+        }
+        $("#searchList").addClass("hidden");
+        $("#searchList").empty();
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
+    //  add event handler to the refresh button
+    $("#refreshRecord").on("click", async function () {
+      refreshList();
+    });
+  }
 
   async function postNewAlumni(
     form,
@@ -76,60 +138,7 @@ $(document).ready(function () {
     return response.json();
   }
 
-  // add event handler to the cancel button
-  $(".cancelModal").click(function () {
-    hideDisplay("#modalAlumni");
-  });
-
-  $("#addAlumniBtn").on("click", function () {
-    showDisplay("#modalAlumni");
-  });
-
   const handleSearchList = _.debounce(searchAlumniListener, 500);
-
-  // Event handler for the search bar
-  $("#searchQuery").on("keyup", async function () {
-    const search = $(this).val();
-    await handleSearchList(search);
-  });
-
-  // Search bar remove suggestions when clicked outside except on search suggestions
-  $(document).on("click", function (e) {
-    if (!$(e.target).closest("#searchList").length) {
-      $("#searchList").addClass("hidden");
-      $("#searchList").empty();
-    }
-  });
-
-  // Event handler for clicking list item
-  $("#searchList").on("click", "li", async function () {
-    console.log("clicked");
-    const id = $(this).data("personid");
-    const result = await getJSONFromURL(
-      API_URL + "&getPersonId=1" + "&personId=" + id
-    );
-    console.log(result);
-
-    try {
-      if (result.data.length > 0) {
-        const data = result.data[0];
-        console.log("data", data);
-        $("#detail-fullname").text(data.fname + " " + data.lname);
-        // $("#detail-student-id").text(data.studNo);
-        $("#detail-personal-email").text(data.personal_email);
-        $("#detail-profile-picture").attr("src", data.profileImage);
-        $("#searchList").addClass("hidden");
-        $("#searchList").empty();
-        $("#alumni-details").removeClass("hidden");
-        $("#studentId").val(data.studNo);
-        $("#personId").val(data.personID);
-      }
-      $("#searchList").addClass("hidden");
-      $("#searchList").empty();
-    } catch (error) {
-      console.log(error);
-    }
-  });
 
   async function searchAlumniListener(searchStr) {
     if (searchStr.trim().length === 0) {
@@ -176,13 +185,6 @@ $(document).ready(function () {
     }
   }
 
-  // refreshList();
-
-  //  add event handler to the refresh button
-  $("#refreshRecord").on("click", async function () {
-    refreshList();
-  });
-
   // refresh the list
   async function refreshList(category = "all") {
     //   get the event details
@@ -219,7 +221,6 @@ $(document).ready(function () {
     });
   }
 
-  // end
   function hideDisplay(hide = "") {
     $(hide)
       .css({
