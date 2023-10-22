@@ -25,7 +25,8 @@ $(document).ready(function () {
         return year + '-' + month + '-' + day;
     }
 
-    getAnnouncement()
+    setTimeout(getAnnouncement, 6000)
+    // setTimeout(getAnnouncement, 5000);
     function getAnnouncement() {
         const currentDate = getCurrentDate();
         let action = 'readAnnouncement'
@@ -70,7 +71,7 @@ $(document).ready(function () {
     function displayAnnouncement(announcementID, headline_img, title, date_posted, author, description) {
 
         // set up the markup for slides
-        const swiper_slide = $('<div>').addClass('swiper-slide h-auto')
+        const swiper_slide = $('<div>').addClass('swiper-slide w-full h-auto')
         const imgSrc = imgFormat + headline_img
         const img = $('<img>').attr('src', imgSrc)
             .addClass('rounded-md object-contain bg-gray-300 max-h-80')

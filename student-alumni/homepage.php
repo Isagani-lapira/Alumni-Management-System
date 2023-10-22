@@ -323,6 +323,14 @@ function getAccDetails($con, $personID)
                     </div>
                   </div>
 
+                  <div class="flex flex-col items-center justify-center">
+                    <div class="lds-facebook">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+
                   <p id="noPostMsgFeed" class="text-blue-400 text-center hidden">No available post</p>
                 </div>
               </div>
