@@ -1,6 +1,16 @@
 import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
 
 $(document).ready(() => {
+  // Add onchange whenever the dashboard is clicked
+  $('a[href="#dashboard"]').on("click", function () {
+    setTimeout(function () {
+      getInitialLogs();
+      loadHandlers();
+    }, 1000);
+  });
+
+  loadHandlers();
+
   const redAccent = "#991B1B";
   const blueAccent = "#2E59C6";
 
@@ -85,28 +95,33 @@ $(document).ready(() => {
 
   getInitialLogs();
 
-  // Handles the logs
-  $("#logDateSelect").on("change", async function () {
-    const selectedDate = $(this).val();
+  function loadHandlers() {
+    // Handles the logs
+    $("#logDateSelect").on("change", async function () {
+      const selectedDate = $(this).val();
 
-    const formData = new FormData();
-    formData.append("action", "filterDate");
-    formData.append("date", selectedDate);
+      const formData = new FormData();
+      formData.append("action", "filterDate");
+      formData.append("date", selectedDate);
 
-    // send the request to the server
-    try {
-      const response = await postJSONFromURL("dashboard/logData.php", formData);
+      // send the request to the server
+      try {
+        const response = await postJSONFromURL(
+          "dashboard/logData.php",
+          formData
+        );
 
-      console.log(selectedDate, response);
-      const logListContainer = $("#logListContainer");
-      logListContainer.empty();
-      addLogs(logListContainer, response.result);
-      console.log("done");
-    } catch (error) {
-      // TODO error handling
-      console.log("error", error);
-    }
-  });
+        console.log(selectedDate, response);
+        const logListContainer = $("#logListContainer");
+        logListContainer.empty();
+        addLogs(logListContainer, response.result);
+        console.log("done");
+      } catch (error) {
+        // TODO error handling
+        console.log("error", error);
+      }
+    });
+  }
 
   // handles the DOM manipulation of the logs
   function addLogs(container, datalist) {
