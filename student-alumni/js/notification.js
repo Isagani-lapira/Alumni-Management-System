@@ -347,6 +347,7 @@ $(document).ready(function () {
         })
     }
     function viewingOfPost(postID, name, accUN, description, images, likes, imgProfile) {
+        buttonColor()
         $('#viewingPost').removeClass('hidden')  //show the modal
         $('#profilePic').attr('src', imgProfile);
         $('#postFullName').text(name);
@@ -547,6 +548,7 @@ $(document).ready(function () {
     })
 
     function viewStatusPost(postID, name, postDate, postcaption, likes, accountUN) {
+        buttonColor()
         $('#postStatusModal').removeClass('hidden')
         $('#statusFullnameUser').text(name)
         $('#statusDate').text(postDate)
@@ -654,3 +656,22 @@ $(document).ready(function () {
         })
     }
 })
+
+
+function buttonColor() {
+    var targetDiv = document.getElementById("target-div");
+    targetDiv.classList.toggle("red-color");
+
+    var icon = document.querySelector("#notif-btn .fa");
+    var text = document.querySelector("#notif-btn .text-greyish_black");
+
+    if (targetDiv.classList.contains("red-color")) {
+        icon.style.color = "white";
+        text.style.color = "white";
+        targetDiv.classList.add("hover:bg-red-900");
+    } else {
+        icon.style.color = "";
+        text.style.color = "";
+        targetDiv.classList.remove("hover:bg-red-900");
+    }
+}
