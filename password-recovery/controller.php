@@ -71,8 +71,8 @@ if (isset($_POST['check-email'])) {
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 // ! Add the username and password first
-                $mail->Username = '';
-                $mail->Password = '';
+                $mail->Username = 'bulsualumnioffice@gmail.com';
+                $mail->Password = 'vloe qwyq tyxi tacv';
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
 
@@ -90,9 +90,9 @@ if (isset($_POST['check-email'])) {
                 echo "Mail has been sent successfully!";
                 exit();
             } catch (Exception $error) {
-                $errors['otp-error'] = "Failed sending the email!!";
+                $errors['otp-error'] = "Failed sending the email!! Mailer Error: {$error->errorMessage()} ";
 
-                echo "Message could not be sent. Mailer Error: {$error->errorMessage()}";
+                // echo "Message could not be sent. Mailer Error: {$error->errorMessage()}";
             }
         } else {
             $errors['db-error'] = "Something went wrong!";
