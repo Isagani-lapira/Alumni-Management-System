@@ -123,7 +123,7 @@ if (isset($_POST['check-reset-otp'])) {
             // Check if the code is still valid and not expired
             $current_time = date('Y-m-d H:i:s');
             $code_expiration = $fetch_data['code_expiration'];
-            if ($code_expiration > $current_time) {
+            if ($code_expiration < $current_time) {
                 $errors['otp-error'] = "Your reset code has expired! Please request a new one.";
             } else {
                 // compare the code with the one in the database

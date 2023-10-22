@@ -5238,6 +5238,19 @@ body {
     width: 50%;
   }
 
+  .lg\:w-max {
+    width: -moz-max-content;
+    width: max-content;
+  }
+
+  .lg\:w-\[200\%\] {
+    width: 200%;
+  }
+
+  .lg\:max-w-lg {
+    max-width: 32rem;
+  }
+
   .lg\:flex-row {
     flex-direction: row;
   }

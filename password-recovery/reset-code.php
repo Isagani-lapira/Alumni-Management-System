@@ -27,7 +27,7 @@ if ($email == false) {
         <div class="daisy-hero-content flex-col ">
             <div class="daisy-card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
 
-                <form class="daisy-card-body">
+                <form class="daisy-card-body" action="index.php" method="POST">
                     <?php
                     if (isset($_SESSION['info'])) {
                     ?>
