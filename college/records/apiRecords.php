@@ -1,0 +1,43 @@
+<?php
+session_start();
+
+require "../php/connection.php";
+require_once "../php/checkLogin.php";
+// Path: college/make-post/apiPosts.php
+
+/**
+ * Make a api response for the post table
+ */
+
+
+header("Content-Type: application/json");
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+    if (isset($_GET['alumni'])) {
+
+        if ($_GET['alumni'] === 'all') {
+            echo json_encode(query_all_alumni_record());
+        }
+    }
+}
+
+function query_all_alumni_record()
+{
+    require "../php/connection.php";
+    $colCode = $_SESSION["colCode"];
+
+    $data = array();
+    $sql = "SELECT alumni.*, CONCAT(person.fname, ' ', person.lname) AS full_name, contactNo
+    FROM alumni
+    JOIN person ON alumni.personID = person.personID
+    WHERE alumni.colCode = '$colCode';";
+
+    $result = mysqli_query($mysql_con, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+    return $data;
+}
+
+// Path: college/make-post/apiPosts.php

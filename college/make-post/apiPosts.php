@@ -13,7 +13,7 @@ header("Content-Type: application/json");
 
 
 if (isset($_GET["all"])) {
-    apiPosts();
+    get_all_alumni();
 } else if (isset($_GET["id"])) {
     apiGet($_GET["id"]);
 } else if (isset($_GET["edit"])) {
@@ -21,10 +21,10 @@ if (isset($_GET["all"])) {
 } else if (isset($_GET["delete"])) {
     apiPostDelete($_GET["delete"]);
 } else {
-    apiPosts();
+    get_all_alumni();
 }
 
-function apiPosts()
+function get_all_alumni()
 {
     $posts = get_all();
 

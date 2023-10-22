@@ -65,202 +65,15 @@
 
     </div>
 
-
-    <!-- OLD Record Table-->
-    <!-- <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
-        <thead class="bg-accent text-white rounded-t-lg">
-            <tr class=" rounded-t-lg">
-                <th class="text-start uppercase">Student Number</th>
-                <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th>USER TYPE</th>
-                <th>DETAILS</th>
-            </tr>
-        </thead>
-        <tbody class="text-sm">
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Wade Warren</span>
-                    </div>
-                </td>
-                <td class="text-center">09104905440</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Leslie Alexander</span>
-                    </div>
-                </td>
-                <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Floyd Miles</span>
-                    </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Wade Warren</span>
-                    </div>
-                </td>
-                <td class="text-center">09104905440</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Leslie Alexander</span>
-                    </div>
-                </td>
-                <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Floyd Miles</span>
-                    </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Floyd Miles</span>
-                    </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-        </tbody>
-    </table> -->
-
-    <!-- End Record Table -->
-
     <!-- Start Record Table -->
-    <!-- record of name-->
-    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra hidden">
-        <thead class="">
-            <tr class="bg-accent text-white  rounded-tl-md text-sm">
-                <th class="rounded-tl-lg">Student Number</th>
-                <th>NAME</th>
-                <th>BATCH</th>
-                <th class="rounded-tr-lg">Employment Status</th>
-            </tr>
-        </thead>
-        <!-- To be filled later -->
-        <tbody id="alumniTB" class="text-sm">
-        </tbody>
-    </table>
-    <!-- End Record Table -->
-    <!-- Start Record Table -->
-    <!-- record of name-->
-    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra  ">
+    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="record-table">
         <thead class="">
             <tr class="bg-accent text-white  rounded-tl-md">
                 <th class="rounded-tl-lg">STUDENT NUMBER</th>
                 <th>NAME</th>
                 <th>CONTACT NUMBER</th>
+                <th>BATCH YEAR</th>
+                <th>EMPLOYEMENT STATUS</th>
                 <th>DETAILS</th>
             </tr>
         </thead>
@@ -320,8 +133,5 @@
     </div>
 </div>
 
-<script>
-    // Date picker
-    $('#reportdaterange').daterangepicker();
-    $.getScript("records/record.js");
-</script>
+
+<script type="module" src="./records/record.js"></script>
