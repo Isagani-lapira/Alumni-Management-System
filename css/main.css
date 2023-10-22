@@ -1657,6 +1657,10 @@ div.input-container input[type="text"],
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+/* Data Tables Plugin */
+
+/* Search Bar */
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -3364,11 +3368,6 @@ div.input-container input[type="text"],
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-yellow-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
-}
-
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
@@ -3947,11 +3946,6 @@ div.input-container input[type="text"],
   color: rgb(22 163 74 / var(--tw-text-opacity));
 }
 
-.text-green-700 {
-  --tw-text-opacity: 1;
-  color: rgb(21 128 61 / var(--tw-text-opacity));
-}
-
 .text-greyish_black {
   --tw-text-opacity: 1;
   color: rgb(71 70 69 / var(--tw-text-opacity));
@@ -3965,6 +3959,11 @@ div.input-container input[type="text"],
 .text-postButton {
   --tw-text-opacity: 1;
   color: rgb(96 165 250 / var(--tw-text-opacity));
+}
+
+.text-primary {
+  --tw-text-opacity: 1;
+  color: hsl(var(--p) / var(--tw-text-opacity));
 }
 
 .text-red-400 {
@@ -4000,16 +3999,6 @@ div.input-container input[type="text"],
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-yellow-500 {
-  --tw-text-opacity: 1;
-  color: rgb(234 179 8 / var(--tw-text-opacity));
-}
-
-.text-primary {
-  --tw-text-opacity: 1;
-  color: hsl(var(--p) / var(--tw-text-opacity));
 }
 
 .underline {

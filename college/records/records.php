@@ -15,12 +15,15 @@
 
     <div class="flex flex-wrap gap-4">
 
-        <select name="type" id="select-user-filter" class=" form-select rounded">
-            <option value="all" selected>All</option>
-            <option value="student">Student</option>
-            <option value="alumni">Alumni</option>
-            <!-- php function on batch -->
-        </select>
+        <div class="form-container">
+            <label class="block" for="select-user-filter">Filter By: </label>
+            <select name="type" id="select-user-filter" class=" form-select rounded">
+                <option value="all" selected>All</option>
+                <option value="student">Student</option>
+                <option value="alumni">Alumni</option>
+                <!-- php function on batch -->
+            </select>
+        </div>
         <!-- search-bar -->
         <!-- <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-2 top-0 mt-3 text-gray-400 "></i>
