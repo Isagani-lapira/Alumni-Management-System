@@ -5,10 +5,12 @@ $(document).ready(function () {
   const API_URL = "./alumni-of-the-month/getAlumni.php?";
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   let offset = 0;
+  const handleSearchList = _.debounce(searchAlumniListener, 500);
 
   // Initial load
   refreshList();
   setHandlers();
+
   // Binds the section link in order to reload the list whenever the section is clicked
   $('a[data-link="alumni-of-the-month"]').on("click", function () {
     refreshList();
@@ -137,8 +139,6 @@ $(document).ready(function () {
     });
     return response.json();
   }
-
-  const handleSearchList = _.debounce(searchAlumniListener, 500);
 
   async function searchAlumniListener(searchStr) {
     if (searchStr.trim().length === 0) {
