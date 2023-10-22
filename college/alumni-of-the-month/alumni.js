@@ -15,10 +15,12 @@ $(document).ready(function () {
   // Binds the section link in order to reload the list whenever the section is clicked
   $('a[data-link="alumni-of-the-month"]').on("click", function () {
     // refreshList();
-    setHandlers();
+    setTimeout(function () {
+      updateDataTable();
+      setHandlers();
 
-    updateDataTable();
-    console.log('refreshed the handlers of "alumni-of-the-month"');
+      console.log('refreshed the handlers of "alumni-of-the-month"');
+    }, 1000);
   });
 
   /**
@@ -257,7 +259,6 @@ $(document).ready(function () {
 
   function updateDataTable() {
     // remove the loading screen
-
     $("#alumni-month-table").DataTable({
       ajax: {
         url: "./alumni-of-the-month/getAlumni.php?getAll=true",
