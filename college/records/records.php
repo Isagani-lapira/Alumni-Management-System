@@ -65,25 +65,50 @@
 
     </div>
 
-    <!-- Start Record Table -->
-    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="record-table">
-        <thead class="">
-            <tr class="bg-accent text-white  rounded-tl-md">
-                <th class="rounded-tl-lg">STUDENT NUMBER</th>
-                <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th>BATCH YEAR</th>
-                <th>EMPLOYEMENT STATUS</th>
-                <th>DETAILS</th>
-            </tr>
-        </thead>
-        <!-- To be filled later -->
-        <tbody id="studentTB" class="text-sm">
-        </tbody>
-    </table>
-    <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
-    <!-- End Record Table -->
 
+    <!-- Table Container -->
+    <div id="table-container">
+        <div class="student-table-container">
+            <table class=" table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="student-record-table">
+                <thead class="">
+                    <tr class="bg-accent text-white  rounded-tl-md">
+                        <th class="rounded-tl-lg">STUDENT NUMBER</th>
+                        <th>NAME</th>
+                        <th>CONTACT NUMBER</th>
+                        <th>YEAR LEVEL</th>
+                        <th>DETAILS</th>
+                    </tr>
+                </thead>
+                <!-- To be filled later -->
+                <tbody id="studentTB" class="text-sm">
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div class="alumni-table-container hidden">
+            <!-- Start Record Table -->
+            <table class="  table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="alumni-record-table">
+                <thead class="">
+                    <tr class="bg-accent text-white  rounded-tl-md">
+                        <th class="rounded-tl-lg">STUDENT NUMBER</th>
+                        <th>NAME</th>
+                        <th>CONTACT NUMBER</th>
+                        <th>BATCH YEAR</th>
+                        <th>EMPLOYEMENT STATUS</th>
+                        <th>DETAILS</th>
+                    </tr>
+                </thead>
+                <!-- To be filled later -->
+                <tbody id="alumniTB" class="text-sm">
+                </tbody>
+            </table>
+        </div>
+        <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
+        <!-- End Record Table -->
+
+    </div>
 
 
 </section>

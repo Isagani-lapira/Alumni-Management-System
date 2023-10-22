@@ -82,12 +82,43 @@ $(document).ready(function () {
   // sets the table
   // setStudentTB(result.result);
 
-  updateTable();
+  updateAlumniTable();
+  updateStudentTable();
 
-  function updateTable() {
+  function updateStudentTable() {
+    $("#student-record-table").DataTable({
+      ajax: {
+        url: "./records/apiRecords.php?student=all",
+        dataSrc: "",
+      },
+      paging: true,
+      ordering: true,
+      info: false,
+      lengthChange: false,
+      searching: true,
+      pageLength: 10,
+      columns: [
+        { data: "studNo", width: "25%" },
+        { data: "full_name" },
+        { data: "contactNo" },
+        { data: "currentYear" },
+        {
+          data: null,
+          render: function (data, type, row) {
+            // Define the buttons for the Actions column
+            return `
+                        <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
+                    `;
+          },
+        },
+      ],
+    });
+  }
+
+  function updateAlumniTable() {
     // remove the loading screen
 
-    $("#record-table").DataTable({
+    $("#alumni-record-table").DataTable({
       ajax: {
         url: "./records/apiRecords.php?alumni=all",
         dataSrc: "",
