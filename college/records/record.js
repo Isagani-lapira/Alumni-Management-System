@@ -4,6 +4,17 @@ import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
 $(document).ready(function () {
   $("#reportdaterange").daterangepicker();
 
+  // add onchange whenever the link is clicked
+  $('a[href="#records"]').on("click", function () {
+    setTimeout(function () {
+      // loadHandlers();
+      updateAlumniTable();
+      updateStudentTable();
+      updateAllTable();
+      setHandlers();
+    }, 1000);
+  });
+
   function setStudentInfo() {}
 
   function setAlumniInfo(data) {
@@ -74,21 +85,77 @@ $(document).ready(function () {
     }
   }
 
-  // function fetchStudentRecord()
-
-  // const result = await getJSONFromURL();
-  // console.log(result);
-  // remove loading
-  // sets the table
-  // setStudentTB(result.result);
-
   updateAlumniTable();
   updateStudentTable();
+  updateAllTable();
+
+  setHandlers();
+
+  function setHandlers() {
+    $("#select-user-filter").on("change", function () {
+      const selected = $(this).val();
+      console.log(selected);
+      if (selected == "student") {
+        $(".alumni-table-container").addClass("hidden");
+        $(".all-table-container").addClass("hidden");
+
+        $(".student-table-container")
+          .removeClass("hidden")
+          // Remove the width of the table. Datatable makes the width 0 by default
+          .find("table")
+          .css("width", "");
+      } else if (selected == "alumni") {
+        $(".student-table-container").addClass("hidden");
+        $(".alumni-table-container")
+          .removeClass("hidden")
+          .find("table")
+          .css("width", "");
+        $(".all-table-container").addClass("hidden");
+      } else if (selected == "all") {
+        $(".student-table-container").addClass("hidden");
+        $(".alumni-table-container").addClass("hidden");
+        $(".all-table-container")
+          .removeClass("hidden")
+          .find("table")
+          .css("width", "");
+      }
+    });
+  }
+
+  function updateAllTable() {
+    console.log("updating all table");
+    $("#all-record-table").DataTable({
+      ajax: {
+        url: "./records/apiRecords.php?filter=all",
+        dataSrc: "",
+      },
+      paging: true,
+      ordering: true,
+      info: false,
+      lengthChange: false,
+      searching: true,
+      pageLength: 10,
+      columns: [
+        { data: "studNo", width: "25%" },
+        { data: "full_name" },
+        { data: "contactNo" },
+        {
+          data: null,
+          render: function (data, type, row) {
+            // Define the buttons for the Actions column
+            return `
+                        <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
+                    `;
+          },
+        },
+      ],
+    });
+  }
 
   function updateStudentTable() {
     $("#student-record-table").DataTable({
       ajax: {
-        url: "./records/apiRecords.php?student=all",
+        url: "./records/apiRecords.php?filter=student",
         dataSrc: "",
       },
       paging: true,
@@ -120,7 +187,7 @@ $(document).ready(function () {
 
     $("#alumni-record-table").DataTable({
       ajax: {
-        url: "./records/apiRecords.php?alumni=all",
+        url: "./records/apiRecords.php?filter=alumni",
         dataSrc: "",
       },
       paging: true,

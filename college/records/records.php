@@ -20,7 +20,7 @@
 
     <div class="flex flex-wrap gap-4">
 
-        <select name="type" id="type-user" class=" form-select rounded">
+        <select name="type" id="select-user-filter" class=" form-select rounded">
             <option value="all" selected>All</option>
             <option value="student">Student</option>
             <option value="alumni">Alumni</option>
@@ -68,7 +68,25 @@
 
     <!-- Table Container -->
     <div id="table-container">
-        <div class="student-table-container">
+
+
+        <div class="all-table-container">
+            <table class=" table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="all-record-table">
+                <thead class="">
+                    <tr class="bg-accent text-white  rounded-tl-md">
+                        <th class="rounded-tl-lg">STUDENT NUMBER</th>
+                        <th>NAME</th>
+                        <th>CONTACT NUMBER</th>
+                        <th>DETAILS</th>
+                    </tr>
+                </thead>
+                <!-- To be filled later -->
+                <tbody id="allTB" class="text-sm">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="student-table-container hidden">
             <table class=" table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="student-record-table">
                 <thead class="">
                     <tr class="bg-accent text-white  rounded-tl-md">
