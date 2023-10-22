@@ -26,12 +26,12 @@ if (isset($_POST['action'])) {
         // match based from the date
         $sql_statement = match ($_POST['date']) {
 
-            'today' => "SELECT * FROM collegeadmin_log WHERE DATE(timestamp) = CURDATE() AND colAdmin = '$id';",
-            'week' => "SELECT * FROM collegeadmin_log WHERE timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) AND timestamp < CURDATE() AND colAdmin = '$id';",
-            'month' => "SELECT * FROM collegeadmin_log WHERE timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) AND timestamp < CURDATE() AND colAdmin = '$id';",
-            'year' => "SELECT * FROM collegeadmin_log WHERE timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND timestamp < CURDATE() AND colAdmin = '$id';",
-            'all' => "SELECT * FROM collegeadmin_log;",
-            default => "SELECT * FROM collegeadmin_log WHERE DATE(timestamp) = CURDATE() AND colAdmin = '$id';",
+            'today' => "SELECT * FROM collegeadmin_log WHERE DATE(timestamp) = CURDATE() AND colAdmin = '$id' ORDER BY timestamp DESC;",
+            'week' => "SELECT * FROM collegeadmin_log WHERE YEARWEEK(timestamp, 1) = YEARWEEK(CURDATE(), 1) AND colAdmin = '$id' ORDER BY timestamp DESC;",
+            'month' => "SELECT * FROM collegeadmin_log WHERE YEAR(timestamp) = YEAR(CURDATE()) AND MONTH(timestamp) = MONTH(CURDATE()) AND colAdmin = '$id' ORDER BY timestamp DESC;",
+            'year' => "SELECT * FROM collegeadmin_log WHERE timestamp >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)  AND colAdmin = '$id' ORDER BY timestamp DESC;",
+            'all' => "SELECT * FROM collegeadmin_log WHERE colAdmin = '$id';",
+            default => "SELECT * FROM collegeadmin_log WHERE DATE(timestamp) = CURDATE() AND colAdmin = '$id' ORDER BY timestamp DESC;",
         };
 
         try {

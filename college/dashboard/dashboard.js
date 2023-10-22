@@ -87,7 +87,7 @@ $(document).ready(() => {
       console.log(response);
       const logListContainer = $("#logListContainer");
       logListContainer.empty();
-      addLogs(logListContainer);
+      addLogs(logListContainer, response.result);
     } catch (error) {
       // TODO error handling
     }
