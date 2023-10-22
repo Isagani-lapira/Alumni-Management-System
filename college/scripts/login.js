@@ -22,6 +22,17 @@ function toggleInputClassInvalid(input) {
 }
 
 $(document).ready(function () {
+  // Animation
+  const loginPanel = $("#loginPanel");
+  const stillConnected = $("#stillConnected");
+  // for large screen
+  loginPanel.removeClass("lg:-translate-x-1/2");
+  stillConnected.removeClass("lg:translate-x-1/2");
+
+  // for mobile
+  stillConnected.removeClass("translate-y-1/2");
+  loginPanel.removeClass("-translate-y-1/2");
+
   let usernameAvailable = true;
   let passwordReqFulFill = true;
 
