@@ -175,7 +175,6 @@ $(document).ready(function () {
       });
 
       swiperContainer.on('click', function () {
-        console.log('may problem')
         $('#viewingPost').removeClass("hidden");
         viewingOfPost(postID, fullname, username, caption, images, likes, img)
       })
@@ -610,15 +609,29 @@ $(document).ready(function () {
             let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full").attr('src', img);
             let commentDescript = $('<div>').addClass("bg-gray-300 rounded-md p-3 flex-grow text-sm flex flex-col gap-1 text-greyish_black");
             let commentor = $('<p>').text(fullname)
+            let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+              .on('click', function () {
+                $('#delete-comment').removeClass('hidden')
+                // delete the comment
+                $('#deleteCommentBtn').on('click', function () {
+                  deleteComment(commentID, commentContainer);
+                  // update the count
+                  let newCountComment = parseInt($('#noOfComment').text()) - 1
+                  $('#noOfComment').text(newCountComment)
+                })
+              })
+
+            let container = $('<div>').addClass('flex justify-between').append(commentor, delComment)
+
             let postComment = $('<p>').text(comment).addClass('text-xs text-gray-500');
 
-            commentDescript.append(commentor, postComment);
+            commentDescript.append(container, postComment);
             commentContainer.append(imgProfile, commentDescript)
 
             $('#commentContainer').append(commentContainer);
           }
         } else {
-          let noCommentMsg = $('<p>').addClass('text-gray-500').text('No available comment')
+          let noCommentMsg = $('<p>').addClass('text-gray-500 text-center').text('No available comment')
           $('#commentContainer').append(noCommentMsg) //show no comment
         }
       },
@@ -626,6 +639,26 @@ $(document).ready(function () {
     })
   }
 
+  function deleteComment(commentID, wrapper) {
+    const action = { action: "deleteComment" };
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action));
+    formData.append('commentID', commentID);
+
+    $.ajax({
+      url: '../PHP_process/commentData.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: response => {
+        if (response === 'Success') {
+          $('#delete-comment').addClass('hidden')
+          wrapper.remove()
+        }
+      }
+    })
+  }
 
   function getLikes(postID) {
     let action = {
@@ -1246,6 +1279,7 @@ $(document).ready(function () {
         let length = response.fullname.length;
         for (let i = 0; i < length; i++) {
           let fullname = response.fullname[i];
+          let commentID = response.commentID[i];
           let comment = response.comment[i];
           let profile = imgFormat + response.profile[i];
 
@@ -1256,9 +1290,22 @@ $(document).ready(function () {
             .addClass('rounded-full w-10 h-10')
 
           let nameElement = $('<p>').addClass('font-bold').text(fullname)
+          let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+            .on('click', function () {
+              $('#delete-comment').removeClass('hidden')
+              // delete the comment
+              $('#deleteCommentBtn').on('click', function () {
+                deleteComment(commentID, wrapper);
+                // update the count
+                let newCountComment = parseInt($('#statusComment').text()) - 1
+                $('#statusComment').text(newCountComment)
+              })
+            })
+
+          let container = $('<div>').addClass('flex items-center justify-between').append(nameElement, delComment)
           let commentElement = $('<pre>').addClass('text-gray-500').text(comment)
           let commentDetail = $('<div>').addClass('flex-1 flex-col w-4/5 bg-gray-300 rounded-md p-2 ')
-            .append(nameElement, commentElement)
+            .append(container, commentElement)
 
           wrapper.append(profilePic, commentDetail)
           $('#commentStatus').append(wrapper)

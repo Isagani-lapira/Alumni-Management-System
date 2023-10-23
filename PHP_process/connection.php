@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$username = 'u673355866.eliamarg';
-$password = "Ga#1%L*DHFdR5&";
-$database = "u673355866_eliamarg";
+$username = 'root';
+$password = "";
+$database = "Alumni_Management_System";
 
 $mysql_con = new mysqli($host, $username, $password, $database);
 
