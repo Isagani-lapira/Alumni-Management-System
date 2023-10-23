@@ -331,6 +331,7 @@ function getAccDetails($con, $personID)
                     </div>
                   </div>
 
+                  <p id="loadingDataFeed" class="text-gray-400 text-center">Loading data...</p>
                   <p id="noPostMsgFeed" class="text-blue-400 text-center hidden">No available post</p>
                 </div>
               </div>
@@ -347,6 +348,7 @@ function getAccDetails($con, $personID)
           <div class="right-div fixed top-32 right-2 w-1/4 h-full px-8">
             <!-- Content for the right div -->
             <p class="font-medium border-b-2 border-grayish ml-auto block text-sm pb-2 mb-4 text-greyish_black">University News</p>
+            <p id="loadingDataAnnouncement" class="text-gray-400 text-center">Loading data</p>
             <div class="h-1/3">
               <div class="swiper announcementSwiper">
                 <div id="announcementWrapper" class="swiper-wrapper"></div>
@@ -367,6 +369,7 @@ function getAccDetails($con, $personID)
                 <button id="btnNotifUnread" class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">Unread</button>
               </div>
 
+              <p id="loadingDataNotif" class="text-gray-400 text-center">Loading data...</p>
               <p id="noNotifMsg" class="text-center my-4 text-blue-400 hidden">No available notification</p>
             </div>
           </div>

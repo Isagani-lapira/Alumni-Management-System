@@ -46,6 +46,7 @@ $(document).ready(function () {
             processData: false,
             dataType: 'json',
             success: response => {
+                $('#loadingDataAnnouncement').addClass('hidden')
                 if (response.result == "Success") {
                     const length = response.announcementID.length;
 

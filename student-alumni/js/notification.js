@@ -20,9 +20,9 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: (response) => {
+                $('#loadingDataNotif').addClass('hidden')
                 if (response.result == 'Success') {
                     let length = response.notifID.length; //total length of the data retrieved
-
                     //store data that has been process
                     for (let i = 0; i < length; i++) {
                         const notifID = response.notifID[i];
@@ -56,8 +56,8 @@ $(document).ready(function () {
                     $('#noNotifMsg').removeClass('hidden')
                     $('#noNotifMsg').appendTo('.notification-content')
                 }
-            },
-            error: (error) => { console.log(error) }
+            }
+
         })
     }
 
@@ -224,6 +224,7 @@ $(document).ready(function () {
     //get new sets of notification
     $('.notification-content').on('scroll', function () {
         if (templength != 0) {
+            $('#loadingDataNotif').removeClass('hidden').appendTo('.notification-content')
             getNotification()
         }
     })
@@ -247,6 +248,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: (response) => {
                 if (response.result == 'Success') {
+                    $('#loadingDataNotif').addClass('hidden')
                     let length = response.notifID.length; //total length of the data retrieved
 
                     //store data that has been process
@@ -294,7 +296,6 @@ $(document).ready(function () {
     $('#btnNotifUnread').on('click', function () {
         $(this).addClass('bg-accent text-white') //highlight the button unread
         $('#btnNotifAll').removeClass('bg-accent text-white') //remove highlighted button all 
-
         //remove the previously displayed list
         $('.notifContainer').each(function () {
             $(this).remove()
@@ -311,7 +312,7 @@ $(document).ready(function () {
     $('#btnNotifAll').on('click', function () {
         $(this).addClass('bg-accent text-white') //highlight the button unread
         $('#btnNotifUnread').removeClass('bg-accent text-white') //remove highlighted button all 
-
+        $('#loadingDataNotif').removeClass('hidden')
         //remove the current display so that the unread data will be remove
         $('.notifContainer').each(function () {
             $(this).remove()

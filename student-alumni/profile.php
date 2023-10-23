@@ -308,6 +308,7 @@ function dateInText($date)
                         </div>
                     </div>
                 </div>
+                <p id="loadingData" class="text-gray-400 text-center">Loading data...</p>
                 <p id="noProfPostMsg" class="text-blue-400 text-center hidden">No available post</p>
             </div>
         </div>

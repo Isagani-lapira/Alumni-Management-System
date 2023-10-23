@@ -45,12 +45,14 @@ $(document).ready(function () {
             success: (response) => {
                 //no data available for the day
                 if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 150) {
+                    $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer')
                     retrievalDate = getPreviousDate(noOfDaySubtract);
                     getPost()
                     noOfDaySubtract++ //if no more the day will be increasing to get the previous date
                     stoppingPostRetrieval++
                 }
                 else if (response != 'none') {
+                    $('#loadingDataFeed').addClass('hidden')
                     $('.lds-facebook').parent().addClass('hidden')
                     const parsedResponse = JSON.parse(response); //parsed the json data
                     //check for response
@@ -76,24 +78,26 @@ $(document).ready(function () {
                         dataRetrieved = length; // get how many data has been retrieve for that day
                         maxRetrieve = maxRetrieve - dataRetrieved;
                         if (maxRetrieve != 0) {
+                            $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer')
                             retrievalDate = getPreviousDate(noOfDaySubtract);
                             stoppingPostRetrieval = 0;
                             getPost()
                         } else maxRetrieve = 10;
                     }
                     else {
+                        $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer')
                         retrievalDate = getPreviousDate(noOfDaySubtract);
                         getPost()
                     }
                 }
                 else {
+                    $('#loadingDataFeed').addClass('hidden')
                     $('.lds-facebook').parent().addClass('hidden')
                     $('#noPostMsgFeed').removeClass('hidden')
                         .appendTo('#feedContainer');
                 }
 
-            },
-            error: (error) => { console.log(error) }
+            }
         })
 
 
@@ -441,10 +445,15 @@ $(document).ready(function () {
         const contentHeight = $(this)[0].scrollHeight;
         const scrollOffset = $(this).scrollTop();
         const threshold = 50;
+
         //once the bottom ends, it will reach another sets of data (post)
         if (scrollOffset + containerHeight + threshold >= contentHeight) {
+            // reload the loading 
+            $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer');
             getPost();
         }
+        else $('#loadingDataFeed').addClass('hidden')
+
     })
 
 

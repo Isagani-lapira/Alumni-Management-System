@@ -26,6 +26,7 @@ $(document).ready(function () {
       contentType: false,
       success: (response) => {
         if (response != "none") {
+          $('#loadingData').addClass('hidden')
           const parsedResponse = JSON.parse(response); //parsed the json data
           const length = parsedResponse.username.length;
           for (let i = 0; i < length; i++) {
@@ -58,8 +59,9 @@ $(document).ready(function () {
 
   function restartPost() {
     //reset everything
-    $('#noProfPostMsg').addClass('hidden')
-    $('.containerPostProfile').remove() // remove the current displayed post
+    $('#loadingData').removeClass('hidden');
+    $('#noProfPostMsg').addClass('hidden');
+    $('.containerPostProfile').remove(); // remove the current displayed post
     offsetPost = 0
   }
 
@@ -446,8 +448,8 @@ $(document).ready(function () {
         restartPost()
         getPost(actionTracker, typeTracker) //reload the post again
         $('#restoreModal').addClass('hidden') //hide the modal again
-      },
-      error: error => { console.log(error) }
+      }
+
     })
   }
 
@@ -481,6 +483,8 @@ $(document).ready(function () {
 
     isScrolled = true
     if (scrollPosition + containerHeight >= contentHeight - scrollThreshold) {
+      $('#loadingData').removeClass('hidden')
+        .appendTo('#feedContainer')
       getPost(actionTracker, typeTracker)
     }
   })
