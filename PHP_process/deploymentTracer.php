@@ -24,7 +24,7 @@ function insertNewTracerDeployment($con)
     $tracerID = $tracerID['formID'];
 
     $deploymentID = substr(md5(uniqid()), 0, 29);
-    $endDate = date('Y-m-d', strtotime('+4 months'));
+    $endDate = date('Y-12-31');
     // insert deployment data
     $query = "INSERT INTO `tracer_deployment`(`tracer_deployID`, `formID`,
     `end_date`) VALUES (? ,? ,?)";
