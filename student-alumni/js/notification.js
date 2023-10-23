@@ -217,6 +217,7 @@ $(document).ready(function () {
 
         $('.notifContainer').remove();
         const notificationTab = $('#notification-tab')
+        $('#loadingDataNotif').removeClass('hidden')
         getNotification()
         notificationTab.toggle()
     })
