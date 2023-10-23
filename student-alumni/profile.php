@@ -1354,7 +1354,7 @@ function dateInText($date)
             <!-- date -->
             <span id="statusDate" class="text-xs text-gray-500"></span>
             <!-- comment -->
-            <div class="flex-col text-sm border-t border-gray-400 py-2 commentStatus">
+            <div class="flex-col text-sm border-t border-gray-400 py-2 commentStatus overflow-y-auto">
                 <div class="flex gap-2 text-gray-500 text-xs">
                     <p>Likes: <span id="statusLikes"></span></p>
                     <p>Comments: <span id="statusComment"></span></p>

@@ -577,6 +577,8 @@ $(document).ready(function () {
 
   //retrieving the comments
   function getComment(postID) {
+    $('#commentContainer').empty(); //remove the comment of the firstly view
+    $('#noOfComment').text('0') //default
     const action = {
       action: 'read',
       postID: postID
@@ -593,7 +595,6 @@ $(document).ready(function () {
       contentType: false,
       success: (response) => {
         const parsedResponse = JSON.parse(response);
-        $('#commentContainer').empty(); //remove the comment of the firstly view
         if (parsedResponse.result == 'Success') {
           const length = parsedResponse.commentID.length;
           $('#noOfComment').text(length) //set the number of comments
@@ -1231,6 +1232,9 @@ $(document).ready(function () {
 
   function viewStatusPost(postID, name, postDate, postcaption, likes, accountUN) {
     $('#postStatusModal').removeClass('hidden')
+    $('#commentStatus').empty() //remove previous data retrieved
+
+    // set up details
     $('#statusFullnameUser').text(name)
     $('#statusDate').text(postDate)
     $('.accountUN').text(accountUN)
@@ -1258,8 +1262,7 @@ $(document).ready(function () {
 
         if (commentCount > 0) displayComments(postID)
 
-      },
-      error: error => { console.log(error) }
+      }
     })
   }
 
@@ -1310,8 +1313,8 @@ $(document).ready(function () {
           wrapper.append(profilePic, commentDetail)
           $('#commentStatus').append(wrapper)
         }
-      },
-      error: error => { console.log(error) }
+      }
+
     })
   }
 
