@@ -173,7 +173,12 @@ $(document).on('ready', function () {
 
             })
 
-        $('.confirmAOY').parent().removeClass('hidden')
+        isValidToAssign()
+            .then(isValid => {
+                if (isValid === '1') //allows only one time per year
+                    $('.confirmAOY').parent().removeClass('hidden')
+            })
+
         $('.assignAOY').on('click', function () {
             const reason = $('#reasonForAOY').val()
 
@@ -316,4 +321,21 @@ $(document).on('ready', function () {
         })
     }
 
+    function isValidToAssign() {
+        const action = "checkForThisYearAOY";
+        const formData = new FormData();
+        formData.append('action', action);
+
+        return new Promise((resolve) => {
+            $.ajax({
+                url: '../PHP_process/alumniOfYear.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: response => { resolve(response) }
+            })
+        })
+
+    }
 })

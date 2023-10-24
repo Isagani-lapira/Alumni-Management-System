@@ -10,6 +10,9 @@ if (isset($_POST['action'])) {
             $reason = $_POST['reason'];
             insertAOY($aomID, $reason, $mysql_con);
             break;
+        case 'checkForThisYearAOY':
+            echo checkForThisYearAOY($mysql_con);
+            break;
     }
 }
 
@@ -24,4 +27,21 @@ function insertAOY($aomID, $reason, $con)
 
     if ($result) echo 'Success';
     else echo 'Failed';
+}
+
+function checkForThisYearAOY($con)
+{
+    $query = "SELECT COUNT(*) FROM `alumni_of_the_year` WHERE `year` = YEAR(CURRENT_DATE)";
+    $stmt = mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $stmt->execute();
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+
+        if ($count == 0) return true;
+
+        return false;
+    }
 }
