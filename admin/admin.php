@@ -960,7 +960,7 @@ function dateInText($date)
             </div>
 
             <div id="aomRecord" class="p-3 overflow-y-auto flex flex-col items-center gap-2">
-              <img id="aomCover" src="../images/univ-post.jpg" alt="" class="rounded-md object-fill h-2/5 w-1/2">
+              <img id="aomCover" alt="" class="rounded-md object-fill h-2/5 w-1/2 hidden">
               <h2 class="text-xl aomFullname font-semibold text-greyish_black w-1/2 text-center"></h2>
               <span id="aomQuotation" class="italic text-gray-500 w-1/2 text-center text-sm"></span>
               <span class="italic text-sm text-blue-400 aomFullname"></span>
@@ -987,6 +987,10 @@ function dateInText($date)
                   <div id="socMedContainer" class="flex flex-col gap-2"></div>
                 </div>
 
+              </div>
+
+              <div class="flex justify-end w-full hidden">
+                <button class="confirmAOY rounded-md px-4 py-2 text-white bg-postButton hover:bg-postHoverButton">Confirm</button>
               </div>
             </div>
 
@@ -2227,6 +2231,15 @@ function dateInText($date)
       </div>
     </div>
 
+    <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 hidden">
+      <div class="alumniOfYearModal bg-white rounded shadow-lg w-2/5 h-max slide-bottom p-5">
+        <h2 class="text-center text-lg italic text-green-400 font-bold">Alumni of the Year! </h2>
+        <p class="text-center text-gray-500 text-sm">Assigning this person will be permanently in the list of Alumni of the year. Add reason why you choosed this person</p>
+        <input id="reasonForAOY" type="text" placeholder="Reason for assigning this alumni as Alumni of the year" class="w-full p-5 border-b border-gray-400 text-center">
+        <button class="text-white bg-blue-400 hover:bg-postHoverButton rounded-md mt-5 w-full py-2 assignAOY">Assign</button>
+        <button class="text-gray-400 hover:text-gray-500 hover:font-semibold w-full mt-2 cancelAOY">Cancel</button>
+      </div>
+    </div>
 
   </div>
 

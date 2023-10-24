@@ -65,7 +65,7 @@ $(document).on('ready', function () {
     })
 
     function displaySelectedAOM(aomID, cover_img, quotation, fullname, personID) {
-        $('#aomCover').attr('src', cover_img);
+        $('#aomCover').attr('src', cover_img).removeClass('hidden');
         $('.aomFullname').text(fullname);
         $('#aomQuotation').text(quotation);
 
@@ -172,6 +172,19 @@ $(document).on('ready', function () {
                 }
 
             })
+
+        $('.confirmAOY').parent().removeClass('hidden')
+        $('.assignAOY').on('click', function () {
+            const reason = $('#reasonForAOY').val()
+
+            if (reason !== '') {
+                // assign new alumni of the year
+                addAOY(aomID, reason)
+                $('#reasonForAOY').addClass('border-gray-400').removeClass('border-red-400').val('')
+            }
+            else
+                $('#reasonForAOY').removeClass('border-gray-400').addClass('border-red-400')
+        })
     }
 
     function displaySocialMedia(socMed, logo) {
@@ -271,6 +284,36 @@ $(document).on('ready', function () {
         let formattedDate = date.toLocaleDateString('en-US', options);
 
         return formattedDate
+    }
+
+
+    $('.confirmAOY').on('click', function () {
+        $('.alumniOfYearModal').parent().removeClass('hidden')
+    })
+
+    $('.cancelAOY').on('click', function () {
+        $('.alumniOfYearModal').parent().addClass('hidden')
+    })
+
+    function addAOY(aomID, reason) {
+        const action = "insertAOY";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('aomID', aomID);
+        formData.append('reason', reason);
+
+        $.ajax({
+            url: '../PHP_process/alumniOfYear.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response === 'Success')
+                    $('.alumniOfYearModal').parent().addClass('hidden')
+
+            }
+        })
     }
 
 })
