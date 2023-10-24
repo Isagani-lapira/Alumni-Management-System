@@ -215,15 +215,35 @@ if (
                     <li><a data-link="community" href="#community" class=" flex justify-left flex-nowrap rounded p-2">
                             <i class=" fa-xl fa-solid fa-users"></i>
                             <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">COMMUNITY HUB</span></a></li>
-                    <li><a data-link="job-opportunities" href="#job-opportunities" class=" flex justify-left flex-nowrap rounded p-2">
-                            <i class="fa-xl  fa-solid fa-briefcase"></i>
-                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">JOB OPPORTUNITIES</span></a></li>
+                    <li>
+                        <a data-link="job-opportunities" href="#job-opportunities" class=" flex justify-left flex-nowrap rounded p-2"> <i class="fa-xl  fa-solid fa-briefcase"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">JOB OPPORTUNITIES</span>
+                        </a>
+                    </li>
                 </ul>
+                <!-- Bottom Buttons  -->
+                <div class="absolute bottom-2">
+                    <ul class="space-y-2 w-full font-light ">
+                        <li>
+
+                            <a data-link="account-settings" href="#account-settings" class="flex justify-left flex-nowrap rounded p-2">
+                                <i class="fa-xl fa-solid fa-gear"></i>
+                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">Account Settings</span>
+                            </a>
+                        </li>
+                        <li> <button class="btn-accent flex justify-left flex-nowrap rounded p-2  " id="signOutPromptBtn">
+                                <i class="fa-xl fa-solid fa-right-from-bracket"></i>
+                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150 ">Sign Out</span>
+                            </button></li>
+                    </ul>
+
+                </div>
 
             </nav>
-            <!-- Sign out Button -->
-            <button class="btn-accent absolute bottom-2" id="signOutPromptBtn"><i class="px-2 fa-solid fa-right-from-bracket"></i><span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150 ">Sign Out</span></button>
+
         </aside>
+
+
 
         <main class="flex-1 mx-auto mt-10">
             <div id="main-root">
