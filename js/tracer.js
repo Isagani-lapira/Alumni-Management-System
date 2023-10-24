@@ -769,7 +769,7 @@ $(document).ready(function () {
                 "InputType": inputTypeVal,
                 "choices": choices
             }
-            insertNewCategoryQuestion(data) //process insertion of question for non section question
+            insertNewCategoryQuestion(data, categoryID, formID) //process insertion of question for non section question
         }
         else {
             const data = {
@@ -781,6 +781,9 @@ $(document).ready(function () {
             insertNewQuestionSection(data, choiceID) //insertion of section question
         }
 
+
+        choices = []
+        QuestionSet = [];
     }
 
     function insertNewQuestionSection(data, choiceID) {
@@ -811,7 +814,7 @@ $(document).ready(function () {
         })
     }
 
-    function insertNewCategoryQuestion(data) {
+    function insertNewCategoryQuestion(data, categoryID, formID) {
         const action = "addNewQuestionForCategory";
         const formData = new FormData();
         formData.append('action', action);
@@ -832,9 +835,11 @@ $(document).ready(function () {
                     setTimeout(() => {
                         $('#promptMsgNewQuestion').addClass('hidden')
                     }, 3000)
+                    $('#questionSetContainer').empty()
+                    retrieveCategoryQuestion(categoryID, formID);
                 }
-            },
-            error: error => { console.log(error) }
+            }
+
         })
     }
 
