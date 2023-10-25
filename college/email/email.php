@@ -49,44 +49,16 @@
 
     <!--Start Email Table  -->
     <p class="mt-10 font-semibold">Recent Email</p>
-    <table class="table-auto w-8/12  font-normal text-gray-600">
+    <table class="table-auto w-8/12  font-normal text-gray-600" id="emailTable">
         <thead class="bg-accent text-white">
             <tr>
                 <th class="text-start">EMAIL ADDRESS</th>
-                <th class="text-start">COLLEGE</th>
                 <th class="text-start">DATE</th>
                 <th class="text-start">ACTION</th>
             </tr>
         </thead>
         <tbody>
-            <?php
-            require_once '../php/connection.php';
-            $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION["personID"] . '" ORDER BY `dateSent` DESC LIMIT 12';
-            $result = mysqli_query($mysql_con, $query);
-            $row = mysqli_num_rows($result);
-            if ($result && $row > 0) {
-                while ($data = mysqli_fetch_assoc($result)) {
-                    $recipient = $data['recipient'];
-                    $colCode  = $data['colCode'];
-                    $dateSent  = $data['dateSent'];
 
-                    echo '
-                    <tr>
-                      <td class="text-start">' . $recipient . '</td>
-                      <td class="text-start">' . $colCode . '</td>
-                      <td class="text-start">' . $dateSent . '</td>
-                      <td class="flex justify-center gap-2">
-                        <button class="text-red-400 hover:bg-red-400 hover:text-white px-3 py-1 rounded-md text-xs">Delete</button>
-                        <button class="bg-blue-400 text-white hover:bg-blue-500 rounded-md text-xs px-3 py-1">View</button>
-                      </td>
-                    </tr>';
-                }
-            } else {
-                echo '<tr>
-                      <td class="text-blue-400 text-lg text-center w-full">No available email sent</td>
-                    </tr>';
-            }
-            ?>
         </tbody>
     </table>
     <!-- End Email Table -->
@@ -310,17 +282,5 @@
 
 </section>
 
-<script>
-    $(document).ready(function() {
-        $('#daterange').daterangepicker();
-    });
-
-    $('#createNewEmailBtn').on("click", function() {
-        $('#modalEmail').removeClass("hidden");
-    })
-    $('.cancelEmail').on('click', function() {
-        console.log('hello')
-        $('#modalEmail').addClass("hidden");
-    })
-    $.getScript("./email/sendMail.js");
+<script type="module" src="./email/email.js">
 </script>

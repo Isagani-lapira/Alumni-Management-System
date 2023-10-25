@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 updatePostDataTable();
 
-$('a[href="#make-post"]').on("click", function () {
+$('a[href="#email"]').on("click", function () {
   setTimeout(function () {
     // remove the loading screen
     $(".loading-row").addClass("hidden");
@@ -18,9 +18,9 @@ $('a[href="#make-post"]').on("click", function () {
 function updatePostDataTable() {
   // remove the loading screen
 
-  $("#postTable").DataTable({
+  $("#emailTable").DataTable({
     ajax: {
-      url: "./make-post/apiPosts.php?all=true",
+      url: "./email/apiEmail.php?all=true",
       dataSrc: "",
     },
     paging: true,
@@ -30,18 +30,23 @@ function updatePostDataTable() {
     searching: true,
     pageLength: 10,
     columns: [
-      { data: "caption", width: "25%" },
-      { data: "like_count" },
-      { data: "comment_count" },
-      { data: "timestamp" },
+      { data: "recipient", width: "25%" },
+      { data: "dateSent" },
       {
         data: null,
         render: function (data, type, row) {
           // Define the buttons for the Actions column
           return `
-                        <label for="archive-modal" class="daisy-btn" data-id="${row.postID}">Archive</label>
-                        <label for="view-modal" class="daisy-btn" data-id="${row.postID}">View</label>
+                        <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
                     `;
+        },
+      },
+    ],
+    columnDefs: [
+      {
+        targets: [1],
+        render: function (data, type, row) {
+          return moment(data).format("MMMM DD, YYYY");
         },
       },
     ],
