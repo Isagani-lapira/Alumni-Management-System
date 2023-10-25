@@ -1,42 +1,26 @@
  <!-- ANNOUNCEMENT CONTENT -->
  <section id="announcement-tab" class=" mx-auto lg:mx-8">
-     <h1 class="text-xl font-extrabold">NEWS AND UPDATE</h1>
+     <h1 class="text-xl font-extrabold">ANNOUNCEMENT</h1>
      <p class="text-grayish">
-         Here you can make announcement that everyone can see, it can be news or events
+         Here you can make announcement that everyone can see.
      </p>
      <button id="announcementBtn" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE NEW POST
      </button>
 
 
      <!-- Total Post Content -->
-     <section class="flex items-center border-t-2 border-gray-400 mt-10">
+     <!-- <section class="flex items-center border-t-2 border-gray-400 mt-10">
 
          <div class="m-2 p-1">
              <span class="font-semibold">Total Post</span>
              <p id="totalPost" class="totalPost text-5xl font-bold">0</p>
          </div>
 
-         <!-- <div class="m-2 p-1">
-             <p class="text-sm font-thin">Course</p>
-             <select name="college" id="announcementCol" class="w-full border border-grayish p-2 rounded-lg">
-                 <option value="" selected disabled hidden>BS Computer Science</option>
-             </select>
-         </div> -->
 
-
-         <!-- <div class="m-2 p-1">
-             <p>Show post (from - to)</p>
-             <div class="relative border-black">
-                 <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" class="rounded  w-full p-2" />
-                 <i class="fa-solid fa-calendar-days absolute right-4 top-3"></i>
-             </div>
-
-         </div> -->
-
-     </section>
+     </section> -->
 
      <!-- Table for the announcement -->
-     <table class="w-full text-sm mt-5 center-shadow">
+     <table class="w-full text-sm mt-5 center-shadow daisy-table daisy-table-zebra" id="annoucementTable">
          <thead>
              <tr class="bg-accent text-white">
                  <th class=" rounded-tl-lg">Title</th>
@@ -48,10 +32,10 @@
          <tbody id="announcementList" class="text-xs"></tbody>
      </table>
      <p id="noAvailMsgAnnouncement" class="text-center text-blue-400 text-lg hidden">No available data</p>
-     <div class="flex flex-wrap gap-2 justify-end my-2">
+     <!-- <div class="flex flex-wrap gap-2 justify-end my-2">
          <button id="prevAnnouncement" class="tex-sm px-3 py-1 rounded-md border border-accent">Previous</button>
          <button id="nextAnnouncement" class="text-white bg-accent tex-sm px-4 py-1 rounded-md">Next</button>
-     </div>
+     </div> -->
      <!-- End table for the announcement  -->
 
 
@@ -98,16 +82,5 @@
  </section>
 
 
- <script>
-     $(document).ready(function() {
-         $('#daterange').daterangepicker();
-     });
-     //  Handles button clicks
-     $('#announcementBtn').on("click", function() {
-         $('#createNewPostModal').removeClass("hidden");
-     })
-     $('.cancel').on("click", function() {
-         $('#createNewPostModal').addClass("hidden")
-     })
-     $.getScript('./php/announcements/announcement.js');
- </script>
+
+ <script type="module" src="./announcements/announcement.js"></script>
