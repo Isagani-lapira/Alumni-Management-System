@@ -1,8 +1,11 @@
 $(document).on('ready', function () {
 
     $('#aoyLi').on('click', function () {
-        $('#aomSelection').find('option:not([value=""])').remove()
-        getAlumniOfTheMonth()
+        $('#aomSelection').find('option:not([value=""])').remove() //back to default
+
+        let offset = 0;
+        retrieveAOY(offset)
+        // getAlumniOfTheMonth()
     })
     function getAlumniOfTheMonth() {
         let action = "thisYearAOM";
@@ -337,5 +340,56 @@ $(document).on('ready', function () {
             })
         })
 
+    }
+
+
+    const table = $('#AOYID').DataTable({
+        "info": false,
+        "pageLength": 12,
+        "ordering": false,
+        "paging": false,
+    })
+    $('#AOYID').removeClass('dataTable').addClass('rounded-lg')
+
+    function retrieveAOY(offset) {
+        const action = "retrieveAOY";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('offset', offset);
+
+        $.ajax({
+            url: '../PHP_process/alumniOfYear.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                if (response.response == 'Success') {
+                    const length = response.year.length;
+
+                    // add all the data retrieve to the table
+                    for (let i = 0; i < length; i++) {
+                        let aoyID = response.aoyID[i];
+                        let aomID = response.aomID[i];
+                        let fullname = response.fullname[i];
+                        let reason = response.reason[i];
+                        let year = response.year[i];
+
+                        let row = [
+                            fullname,
+                            reason,
+                            year,
+                            '<button class="bg-postButton hover:bg-postHoverButton text-white rounded-md px-4 py-2">View</button>'
+                        ];
+                        table.row.add(row).draw();
+                    }
+
+                    offset += length
+                    if (length === 10) retrieveAOY(offset); //retrieve another set of alumni of the year
+
+                }
+            }
+        })
     }
 })

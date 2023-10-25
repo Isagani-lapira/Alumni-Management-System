@@ -951,7 +951,24 @@ function dateInText($date)
           <p class="text-grayish mb-10">Make post for a newly awarded alumni of the year</p>
 
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
-          <div id="aoyRecord" class="h-full">
+
+          <!-- alumni of the year table -->
+          <div class="h-full">
+            <table id="AOYID" class="w-full text-sm center-shadow">
+              <thead class="bg-accent text-white">
+                <tr>
+                  <th class="rounded-tl-lg">Full name</th>
+                  <th>College</th>
+                  <th>Year</th>
+                  <th class="rounded-tr-lg">Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-xs"></tbody>
+            </table>
+          </div>
+
+          <!-- alumni -->
+          <div id="aoyRecord" class="h-full hidden">
             <div class="flex items-center justify-between">
               <h3 class=" text-greyish_black font-semibold">Choose Alumni To View Details</h3>
               <select id="aomSelection" class="border border-gray-400 rounded-md p-2">
