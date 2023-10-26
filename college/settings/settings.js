@@ -10,6 +10,19 @@ $(document).ready(function () {
   bindHandlers();
 
   function bindHandlers() {
+    // preview the image after changing the input
+
+    console.log("binded");
+    $("#cover-img").on("change", function () {
+      console.log("i rannn");
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        $("#cover-img-preview").attr("src", e.target.result);
+        console.log("i ran");
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
+
     $("#setting-tab-container .daisy-tab").click(function () {
       // get the value of the href
       const url = $(this).attr("href");

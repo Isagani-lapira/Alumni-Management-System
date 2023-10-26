@@ -76,9 +76,9 @@ $colDeanImg = $data['colDeanImg'];
                     <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
                     <!-- Cover Image Input -->
                     <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <label for="cover-image" class="daisy-label">
+                        <label for="cover-img" class="daisy-label">
                         </label>
-                        <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-image" type="file" accept=".jpg" name="cover-image">
+                        <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-img" type="file" accept=".jpg" name="cover-image">
                         <label class="daisy-label">
                             <span class="daisy-label-text-alt">Use JPG File Format</span>
                         </label>
