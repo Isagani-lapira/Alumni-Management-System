@@ -33,50 +33,52 @@ if ($email == false) {
 </head>
 
 <body>
-
+    <div class="daisy-navbar bg-base-100 p-4">
+        <img class="w-32 h-16" src="../images/BulSU-Connect-Logo.png" alt="">
+    </div>
     <div class="daisy-hero min-h-screen bg-base-200">
         <div class="daisy-hero-content flex-col ">
             <div class="daisy-card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
 
                 <form class="daisy-card-body" action="index.php" method="POST">
                     <?php
-                    if (isset($_SESSION['info'])) {
+                        if (isset($_SESSION['info'])) {
+                        ?>
+                            <div class="daisy-alert daisy-alert-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>
+                                    <?php echo $_SESSION['info']; ?>
+                                </span>
+                            </div>
+
+                        <?php
+                        }
+                        ?>
+                        <?php
+
+                        if (isset($errors) &&  count($errors) > 0) {
+                        ?>
+                            <div class="daisy-alert daisy-alert-error">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>
+
+                                    <?php
+                                    foreach ($errors as $showerror) {
+                                        echo $showerror;
+                                    }
+                                    ?>
+                                </span>
+                            </div>
+
+                        <?php
+                        }
                     ?>
-                        <div class="daisy-alert daisy-alert-success">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>
-                                <?php echo $_SESSION['info']; ?>
-                            </span>
-                        </div>
 
-                    <?php
-                    }
-                    ?>
-                    <?php
-
-                    if (isset($errors) &&  count($errors) > 0) {
-                    ?>
-                        <div class="daisy-alert daisy-alert-error">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>
-
-                                <?php
-                                foreach ($errors as $showerror) {
-                                    echo $showerror;
-                                }
-                                ?>
-                            </span>
-                        </div>
-
-                    <?php
-                    }
-                    ?>
-
-                    <h1 class="text-xl font-bold">Verify Your Email</h1>
+                    <h1 class="text-3xl font-bold text-accent">Verify Your Email</h1>
                     <p class="py6 daisy-prose">Please Enter The 6 Digit Code Sent To
                         <span class="text-accent">'<?= isset($_SESSION['email']) ?  $_SESSION['email'] : 'No email found in session.' ?>'</span>
                     </p>
@@ -89,13 +91,13 @@ if ($email == false) {
                         [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
                         " type="number" name="otp" maxlength="6" placeholder="Enter code" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     </div>
-                    <div class="daisy-form-control">
+                    <div class="daisy-form-control hover:underline">
                         <label class="daisy-label">
-                            <a href="index.php" class="daisy-label-text-alt daisy-link daisy-link-hover">Resend Code</a>
+                            <a href="index.php" class="daisy-label-text-alt text-accent ">Resend Code</a>
                         </label>
                     </div>
                     <div class="daisy-form-control mt-6">
-                        <button class="daisy-btn daisy-btn-primary bg-accent" type="submit" name="check-reset-otp" value="Submit">Verify</button>
+                        <button class="daisy-btn bg-accent text-white hover:bg-darkAccent" type="submit" name="check-reset-otp" value="Submit">Verify</button>
                     </div>
                 </form>
             </div>

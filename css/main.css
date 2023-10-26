@@ -1075,6 +1075,19 @@ video {
   overflow: hidden;
 }
 
+.daisy-navbar {
+  display: flex;
+  align-items: center;
+  padding: var(--navbar-padding, 0.5rem);
+  min-height: 4rem;
+  width: 100%;
+}
+
+:where(.daisy-navbar > *) {
+  display: inline-flex;
+  align-items: center;
+}
+
 .daisy-table {
   position: relative;
   width: 100%;
@@ -2761,6 +2774,11 @@ div.input-container input[type="text"],
   height: 100vh;
 }
 
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .max-h-20 {
   max-height: 5rem;
 }
@@ -3290,6 +3308,18 @@ div.input-container input[type="text"],
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
+.space-y-10 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
+}
+
+.-space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(-1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(-1rem * var(--tw-space-y-reverse));
 }
 
 .overflow-auto {
@@ -4221,6 +4251,10 @@ div.input-container input[type="text"],
   text-transform: capitalize;
 }
 
+.normal-case {
+  text-transform: none;
+}
+
 .italic {
   font-style: italic;
 }
@@ -4422,6 +4456,10 @@ div.input-container input[type="text"],
 
 .line-through {
   text-decoration-line: line-through;
+}
+
+.underline-offset-2 {
+  text-underline-offset: 2px;
 }
 
 .opacity-0 {
@@ -4800,6 +4838,10 @@ body {
 
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+
+.hover\:underline-offset-2:hover {
+  text-underline-offset: 2px;
 }
 
 .hover\:opacity-70:hover {
