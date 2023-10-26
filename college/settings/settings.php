@@ -91,14 +91,21 @@ $colDeanImg = $data['colDeanImg'];
                 <!-- Profile Picture -->
                 <div class="flex flex-wrap justify-between gap-4 my-4">
                     <div class="flex flex-wrap gap-4">
-                        <div class="w-24 h-24 rounded-full bg-gray-300"></div>
+                        <!-- <div class="w-24 h-24 rounded-full bg-gray-300"></div> -->
+
+                        <div class="daisy-avatar">
+                            <div class="w-24 rounded-full">
+                                <img id="personal-img-preview" class=" bg-gray-100 object-contain  " src="" alt="">
+                            </div>
+                        </div>
+
                         <div class="flex flex-col justify-center">
                             <h3 class="font-bold text-lg">Profile Picture</h3>
                             <p class="text-gray-400">Upload a profile picture to be displayed on your profile</p>
                         </div>
 
                         <div class="flex flex-col justify-center">
-                            <button class="bg-slate-600 text-white px-4 py-2 rounded-full">Upload</button>
+                            <input type="file" class=" text-white px-4 py-2 rounded-full daisy-file-input " id="personal-img-pic" />
                         </div>
                     </div>
 
@@ -109,11 +116,11 @@ $colDeanImg = $data['colDeanImg'];
                     <div class="flex flex-wrap gap-4">
                         <div class="flex flex-col gap-2">
                             <label for="firstName" class="font-bold">First Name</label>
-                            <input type="text" name="firstName" id="firstName" class="border border-gray-300 rounded-md p-2">
+                            <input value="<?= $alumniData['fname'] ?>" required type="text" name="firstName" id="firstName" class="border border-gray-300 rounded-md p-2">
                         </div>
                         <div class="flex flex-col gap-2">
                             <label for="lastName" class="font-bold">Last Name</label>
-                            <input type="text" name="lastName" id="lastName" class="border border-gray-300 rounded-md p-2">
+                            <input value="<?= $alumniData['lname'] ?>" required type="text" name="lastName" id="lastName" class="border border-gray-300 rounded-md p-2">
                         </div>
                     </div>
                 </div>
@@ -123,7 +130,7 @@ $colDeanImg = $data['colDeanImg'];
                 <div class="flex flex-row gap-4">
                     <div class="flex flex-col gap-2">
                         <label for="birthday" class="font-bold">Birth Day</label>
-                        <input type="date" name="birthday" id="firstName" class="form-input border border-gray-300 rounded-md p-2">
+                        <input required type="date" name="birthday" id="firstName" class="form-input border border-gray-300 rounded-md p-2" value="<?= $alumniData['bday'] ?>">
                     </div>
 
 
@@ -131,12 +138,13 @@ $colDeanImg = $data['colDeanImg'];
                 <p class="daisy-label font-bold">Gender</p>
                 <div class="flex flex-row gap-2">
                     <label for="maleRadio" class="daisy-label">
-                        <input type="radio" name="gender" value="male" class="daisy-radio" id="maleRadio" />
+                        <input type="radio" name="gender" value="male" class="daisy-radio" id="maleRadio" <?php if ($alumniData['gender'] === 'male') echo 'checked'; ?> />
 
                         Male
                     </label>
                     <label for="femaleRadio" class="daisy-label">
-                        <input type="radio" name="gender" value="female" class="daisy-radio" id="femaleRadio" />
+                        <input type="radio" name="gender" value="female" class="daisy-radio" id="femaleRadio" <?php if ($alumniData['gender'] === 'female') echo 'checked'; ?> />
+
                         Female
                     </label>
                 </div>
@@ -169,8 +177,8 @@ $colDeanImg = $data['colDeanImg'];
                 <!-- Address -->
                 <div class="flex flex-row gap-4">
                     <div class="flex flex-col gap-2">
-                        <label for="birthday" class="font-bold">Address</label>
-                        <input type="text" name="address" id="address" class="form-input border border-gray-300 rounded-md p-2">
+                        <label for="address" class="font-bold">Address</label>
+                        <input type="text" name="address" id="address" class="form-input border border-gray-300 rounded-md p-2" value="<?= $alumniData['address'] ?>">
                     </div>
                 </div>
 
@@ -180,7 +188,7 @@ $colDeanImg = $data['colDeanImg'];
                     <div class="flex flex-wrap gap-4">
                         <div class="flex flex-col gap-2">
                             <label for="contactNo" class="font-bold">Contact Number</label>
-                            <input type="text" name="contactNo" id="contactNo" class="border border-gray-300 rounded-md p-2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <input type="text" name="contactNo" id="contactNo" value="<?= $alumniData['contactNo'] ?>" class="border border-gray-300 rounded-md p-2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
                     </div>
 
@@ -190,21 +198,21 @@ $colDeanImg = $data['colDeanImg'];
                         <div class="flex flex-wrap gap-4">
                             <div class="flex flex-col gap-2">
                                 <label for="facebook" class="font-bold">Facebook</label>
-                                <input type="text" name="facebook" id="facebook" class="border border-gray-300 rounded-md p-2">
+                                <input type="text" name="facebook" id="facebook" class="border border-gray-300 rounded-md p-2" value="<?= $alumniData['facebookUN'] ?>">
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="instagram" class="font-bold">Instagram</label>
-                                <input type="text" name="instagram" id="instagram" class="border border-gray-300 rounded-md p-2">
+                                <input type="text" name="instagram" id="instagram" class="border border-gray-300 rounded-md p-2" value="<?= $alumniData['instagramUN'] ?>">
                             </div>
                         </div>
                         <div class="flex flex-wrap gap-4">
                             <div class="flex flex-col gap-2">
                                 <label for="twitter" class="font-bold">Twitter</label>
-                                <input type="text" name="twitter" id="twitter" class="border border-gray-300 rounded-md p-2">
+                                <input type="text" name="twitter" id="twitter" value="<?= $alumniData['twitterUN'] ?>" class="border border-gray-300 rounded-md p-2">
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="linkedin" class="font-bold">LinkedIn</label>
-                                <input type="text" name="linkedin" id="linkedin" class="border border-gray-300 rounded-md p-2">
+                                <input value="<?= $alumniData['linkedInUN'] ?>" type="text" name="linkedin" id="linkedin" class="border border-gray-300 rounded-md p-2">
                             </div>
                         </div>
 

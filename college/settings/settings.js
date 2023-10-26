@@ -22,6 +22,15 @@ $(document).ready(function () {
       };
       reader.readAsDataURL(this.files[0]);
     });
+    $("#personal-img-pic").on("change", function () {
+      console.log("i rannn");
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        $("#personal-img-preview").attr("src", e.target.result);
+        console.log("i ran");
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
 
     $("#setting-tab-container .daisy-tab").click(function () {
       // get the value of the href
