@@ -633,7 +633,7 @@ function dateInText($date)
         <!-- college content -->
         <div id="colleges-tab" class="h-full hidden">
           <div class="college-content">
-            <h1 class="text-xl font-extrabold">ACCOUNT</h1>
+            <h1 class="text-xl font-extrabold">COLLEGE</h1>
             <p class="text-grayish">Here you can check all colleges available in the University</p>
 
             <div class="flex justify-between mt-4">
@@ -735,10 +735,9 @@ function dateInText($date)
 
 
               <div class="courses-offered my-10 w-8/12">
-                <h1 class="text-xl font-extrabold mb-5">Courses Offered</h1>
-                <P>Bachelor of Science in Information Technology</P>
-                <P>Bachelor of Library and Information Science</P>
-                <P>Bachelor of Science in Information System</P>
+                <h2 class="text-xl font-extrabold mb-5">Courses Offered</h2>
+                <div></div>
+                <p class="text-gray-500">No available course set</p>
               </div>
             </div>
 
@@ -2267,6 +2266,7 @@ function dateInText($date)
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/college.js"></script>
   <script src="../js/alumni_of_the_year.js"></script>
   <script src="../js/jobposted.js"></script>
   <script src="../js/tracerchart.js"></script>

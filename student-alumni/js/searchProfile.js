@@ -17,6 +17,7 @@ $(document).ready(function () {
         formdata.append('action', JSON.stringify(action));
         formdata.append('personName', profileName);
 
+        $('#retrieveDataMsg').removeClass('hidden')
         $.ajax({
             url: '../PHP_process/person.php',
             method: 'POST',
@@ -25,7 +26,8 @@ $(document).ready(function () {
             processData: false,
             dataType: 'json',
             success: response => {
-                $('#searchProfile').empty()
+                $('#retrieveDataMsg').addClass('hidden')
+                $('#searchProfile').children(':not(#retrieveDataMsg)').remove()
                 if (response.response = "Success") {
                     let length = response.personID.length
 

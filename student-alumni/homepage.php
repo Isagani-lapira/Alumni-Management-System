@@ -133,7 +133,9 @@ function getAccDetails($con, $personID)
               <input type="text" id="searchUser" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-black border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none" />
               <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
             </div>
-            <div id="searchProfile" class="absolute top-16 bg-white rounded-b-lg p-3 z-50 w-full hidden"></div>
+            <div id="searchProfile" class="absolute top-16 bg-white rounded-b-lg p-3 z-50 w-full hidden">
+              <p id="retrieveDataMsg" class="text-sm italic text-gray-400">Retrieving data</p>
+            </div>
           </div>
 
           <div class="col-span-2 md:col-span-1 flex items-center justify-end">
