@@ -2,6 +2,8 @@ $(document).on('ready', function () {
 
     $('#aoyLi').on('click', function () {
         $('#aomSelection').find('option:not([value=""])').remove() //back to default
+        $('#aoyRecord').addClass('hidden')
+        $('#aoydata').removeClass('hidden')
 
         let offset = 0;
         table.clear().draw() //remove the previously retrieved
@@ -14,7 +16,6 @@ $(document).on('ready', function () {
         alumniCollege.find('option').each(function () {
             aoyCollege.append($(this).clone());
         })
-        // getAlumniOfTheMonth()
     })
     function getAlumniOfTheMonth() {
         let action = "thisYearAOM";
@@ -406,4 +407,21 @@ $(document).on('ready', function () {
             }
         })
     }
+
+    $('#aoyCollege').on('change',function(){
+        const college = $(this).val();
+        filterTable(college); //filter data in the table
+    })
+
+    function filterTable(college){
+        if(college !== '')table.column(1).search(college).draw() //search particular college
+        else table.column(1).search('').draw() //back to default view
+    }
+
+    $('#assigningAOYbtn').on('click',function(){
+        $('#aoyRecord').removeClass('hidden')
+        $('#aoydata').addClass('hidden')
+
+        getAlumniOfTheMonth() //retrieve alumni of the month
+    })
 })

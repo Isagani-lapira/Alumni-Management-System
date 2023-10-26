@@ -948,7 +948,10 @@ function dateInText($date)
         <!-- alumni of the year content -->
         <div id="alumnYear-tab" class="p-5 hidden h-full">
           <h1 class="text-xl font-extrabold">Alumni of the Year</h1>
-          <p class="text-grayish mb-10">Make post for a newly awarded alumni of the year</p>
+          <p class="text-grayish">Make post for a newly awarded alumni of the year</p>
+          <div class = "flex justify-end w-full">
+            <button id="assigningAOYbtn" class="bg-postButton hover:bg-postHoverButton text-white rounded-md p-2">Assign Alumni of the year</button>
+          </div>
 
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 

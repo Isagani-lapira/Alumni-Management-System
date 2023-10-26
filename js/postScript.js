@@ -1546,6 +1546,7 @@ $(document).ready(function () {
                 const SOS = response.SOS;
                 const harassment = response.harassment;
 
+                console.log(typeof(nudity))
                 //show data in pie chart format
                 const chart = $('#reportChart');
                 currentReportChart = new Chart(chart, {
@@ -1583,10 +1584,17 @@ $(document).ready(function () {
                             hoverOffset: 4
                         }]
                     },
+                    options: {
+                        elements: {
+                            arc: {
+                                borderWidth: 0
+                            }
+                        },
+                        showZero: true, // Display zero values in the chart
+                    }
                 });
 
-            },
-            error: error => { console.log(error) }
+            }
         })
     }
 
@@ -1638,7 +1646,7 @@ $(document).ready(function () {
 
                             //data retrieved
                             const postID = data.postID[i]
-                            const profilePic = data.profilePic[i]
+                            const profilePic = imgFormat+data.profilePic[i]
                             const username = data.username[i]
                             const isLiked = data.isLiked[i];
                             const fullname = data.fullname[i]

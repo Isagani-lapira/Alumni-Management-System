@@ -749,7 +749,7 @@ $(document).ready(function () {
     function retrieveNewQuestionData(questionName, formID, categoryID, isSectionQuestion = false, choiceID = "") {
         const inputTypeVal = $('#inputTypeModalNew').val();
         // Get all the option choices
-        const choices = [];
+        let choices = [];
         $('.fieldWrapper').each(function () {
             let choiceVal = $(this).find('input[type="text"]').val();
             choices.push(choiceVal);

@@ -58,7 +58,7 @@ function retrieveAOY($offset, $con)
     $maxLimit = 10;
 
     // query for retrieving data about alumni of the year
-    $query = "SELECT ay.*, p.fname, p.lname
+    $query = "SELECT ay.*, p.fname, p.lname,ay.`colCode`
     FROM alumni_of_the_year AS ay
     JOIN alumni_of_the_month AS am ON ay.aomid = am.aomid
     JOIN person AS p ON am.personID = p.personID
@@ -74,6 +74,7 @@ function retrieveAOY($offset, $con)
     $fullname = array();
     $reason = array();
     $year = array();
+    $colCode = array();
 
     if ($stmt) {
         $stmt->bind_param('dd', $offset, $maxLimit);
@@ -88,6 +89,7 @@ function retrieveAOY($offset, $con)
                 $fullname[] = $data['fname'] . ' ' . $data['lname'];
                 $reason[] = $data['reason'];
                 $year[] = $data['year'];
+                $colCode[] = $data['colCode'];
             }
         }
     }
@@ -98,7 +100,8 @@ function retrieveAOY($offset, $con)
         "aomID" => $AOMID,
         "fullname" => $fullname,
         "reason" => $reason,
-        "year" => $year
+        "year" => $year,
+        "colCode"=>$colCode
     );
 
     echo json_encode($data);
