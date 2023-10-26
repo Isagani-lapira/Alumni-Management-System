@@ -48,6 +48,18 @@ if (
         $personal_email = $personData['personal_email'];
         $bulsu_email = $personData['bulsu_email'];
         $profilepicture = $personData['profilepicture'];
+        // Add session info from the college info
+        $query = "SELECT colLogo,colname FROM college WHERE colCode = '$colCode';";
+        $result = mysqli_query($mysql_con, $query);
+        $data = mysqli_fetch_assoc($result);
+
+        // $colLogo = base64_encode($data['colLogo']);
+        $_SESSION['colLogo'] = base64_encode($data['colLogo']);
+
+
+        // $_SESSION['colLogo'] = $data['colLogo'];
+        $_SESSION['colname'] = $data['colname'];
+
 
 
         if (!isset($_SESSION['adminID'])) {
@@ -58,6 +70,11 @@ if (
             $_SESSION['fullName'] = $fullname;
             $_SESSION['adminID'] = $adminID;
             $_SESSION['colCode'] = $colCode;
+
+
+
+
+
             $action = "signin";
             $details = "signed in";
             setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
@@ -224,11 +241,15 @@ if (
                 <div class="h-48"></div>
 
                 <!-- Bottom Buttons  -->
-                <div class="absolute bottom-2">
+                <div class="absolute bottom-2 w-4/5">
                     <ul class="space-y-2 w-full font-light ">
-                        <li><a data-link="profile" href="#profile" class=" flex justify-left flex-nowrap rounded p-2">
-                                <i class="fa-solid fa-circle-user  fa-xl"></i>
-                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">PROFILE</span>
+                        <li><a data-link="profile" href="#profile" class=" flex justify-left flex-nowrap rounded p-2 items-center">
+                                <!-- get the session image  -->
+                                <img src="data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?>" alt="picture of college logo" class="w-10 h-10 rounded-full object-cover">
+                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">
+                                    <span class="block font-bold"><?= $_SESSION['colCode'] ?></span>
+                                    <span class="font-light"> <?= $fullname ?></span>
+                                </span>
 
                             </a></li>
 
