@@ -36,7 +36,7 @@ if ($email == false) {
     <div class="daisy-navbar bg-base-100 p-4">
         <img class="w-32 h-16" src="../images/BulSU-Connect-Logo.png" alt="">
     </div>
-    <div class="daisy-hero min-h-screen bg-base-200">
+    <div class="daisy-hero min-h-screen">
         <div class="daisy-hero-content flex-col ">
             <div class="daisy-card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
 

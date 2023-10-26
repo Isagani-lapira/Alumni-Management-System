@@ -48,7 +48,7 @@
               <input name="password" class="logInput flex-1 outline-none italic-placeholder" placeholder="e.g patrickPron625" type="password" id="password">
               <span id="toggleLoginPassword" class="fa-regular fa-eye-slash cursor-pointer" style="color: #969696;"></span>
             </div>
-            <p class="italic text-accent text-sm text-end">Forgot password?</p>
+            <a href="../password-recovery/" class="italic text-accent text-sm text-end">Forgot password?</a>
             <button type="submit" class="rounded-md bg-accent text-white py-3 mt-3 hover:bg-darkAccent">
               Sign in
             </button>

@@ -72,7 +72,7 @@
                                 <button class="daisy-btn bg-accent text-white hover:bg-darkAccent" value="Continue" name="check-email">Send Code to Email</button>
                             </div>
                             <div class="daisy-form-control">
-                                <a class="daisy-btn ">Login Instead</a>
+                                <a href="../student-alumni/login.php" class="daisy-btn ">Login Instead</a>
                             </div>
                         </div>  
                     </form>

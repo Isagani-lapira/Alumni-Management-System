@@ -468,3 +468,18 @@ $(document).ready(function () {
 
   })
 })
+
+$(document).ready(function () {
+  $("#toggleLoginPassword").on("click", function () {
+      var passwordField = $("#password");
+      var passwordIcon = $("#toggleLoginPassword");
+
+      if (passwordField.attr("type") === "password") {
+          passwordField.attr("type", "text");
+          passwordIcon.removeClass("fa-eye-slash").addClass("fa-eye");
+      } else {
+          passwordField.attr("type", "password");
+          passwordIcon.removeClass("fa-eye").addClass("fa-eye-slash");
+      }
+  });
+});
