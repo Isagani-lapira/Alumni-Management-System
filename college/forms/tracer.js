@@ -3,6 +3,8 @@ $(document).ready(function () {
   const sectionQuestion = [];
 
   const GRADUATE_TRACER_LINK = "../../PHP_process/graduatetracer.php";
+  const DEPLOYMENT_TRACER_LINK = "../../PHP_process/deploymentTracer.php";
+  const ANSWER_LINK = "../../PHP_process/answer.php";
 
   $("#tracerbtn").on("click", function () {
     $("#formReport").addClass("hidden");
@@ -23,7 +25,7 @@ $(document).ready(function () {
     formData.append("action", action);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -168,7 +170,7 @@ $(document).ready(function () {
 
     //process retrieval of data for category questions
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -453,7 +455,7 @@ $(document).ready(function () {
     formData.append("sectionData", JSON.stringify(sectionData));
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -599,7 +601,7 @@ $(document).ready(function () {
     formData.append("choiceID", choiceID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -685,7 +687,7 @@ $(document).ready(function () {
 
     // process archiving the question
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -707,7 +709,7 @@ $(document).ready(function () {
     formData.append("isSectionQuestion", isSectionQuestion);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -728,7 +730,7 @@ $(document).ready(function () {
     formData.append("choiceID", choiceID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -769,7 +771,7 @@ $(document).ready(function () {
     formData.append("choiceID", choiceID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -787,7 +789,7 @@ $(document).ready(function () {
 
     //perform removal
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -896,7 +898,7 @@ $(document).ready(function () {
     formData.append("newQuestion", JSON.stringify(data));
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -924,7 +926,7 @@ $(document).ready(function () {
     formData.append("data", JSON.stringify(data));
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -964,7 +966,7 @@ $(document).ready(function () {
     formData.append("questionID", questionID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -1009,7 +1011,7 @@ $(document).ready(function () {
     formData.append("action", action);
 
     $.ajax({
-      url: "../PHP_process/deploymentTracer.php",
+      url: DEPLOYMENT_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -1035,7 +1037,7 @@ $(document).ready(function () {
 
     //proccess insertion
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -1183,7 +1185,7 @@ $(document).ready(function () {
     formData.append("action", action);
 
     $.ajax({
-      url: "../PHP_process/answer.php",
+      url: ANSWER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -1209,7 +1211,7 @@ $(document).ready(function () {
     const formData = new FormData();
     formData.append("action", action);
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -1245,7 +1247,7 @@ $(document).ready(function () {
 
     // retrieve all question that is in category
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -1296,7 +1298,7 @@ $(document).ready(function () {
     let counts = [];
     // get all the choices in  a particular question
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
