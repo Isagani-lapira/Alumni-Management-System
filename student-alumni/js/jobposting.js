@@ -58,14 +58,15 @@ $(document).ready(function () {
     // current user job post
     $('#verif-btn').on('click', function () {
         offsetUserJob = 0;
-        $('#jobRepo').empty()
+        $('#jobRepo').children(':not(p)').empty()
+        $('#loadingDataJobRepo').removeClass('hidden')
         retrieveUserPost()
     })
 
     function retrieveUserPost() {
         //process retrieval
         const action = { action: 'currentUserJobPost' };
-        const maxLimit = 9
+        const maxLimit = 12
         const formData = new FormData();
         formData.append('action', JSON.stringify(action));
         formData.append('offset', offsetUserJob)
@@ -78,6 +79,7 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'JSON',
             success: response => {
+                $('#loadingDataJobRepo').addClass('hidden')
                 if (response.result === 'Success') {
                     const length = response.jobTitle.length;
                     //data that has been retrieved
@@ -99,8 +101,12 @@ $(document).ready(function () {
                     offsetUserJob += length
                     lengthChecker = length;
                 }
-            },
-            error: error => { console.log(error) }
+
+            }, error: () => {
+                $('#loadingDataJobRepo').addClass('hidden')
+                $('#nojobrepo').removeClass('hidden')
+            }
+
         })
     }
     //mark up for job repository in verified post
@@ -215,8 +221,10 @@ $(document).ready(function () {
         const threshold = 50; // Define the threshold in pixels
 
         //once the bottom ends, it will reach another sets of data (post)
-        if (scrollOffset + containerHeight + threshold >= contentHeight)
+        if (scrollOffset + containerHeight + threshold >= contentHeight) {
+            $('#loadingDataJobRepo').removeClass('hidden').appendTo('#jobRepo')
             retrieveUserPost()//get another set of post
+        }
 
     })
 

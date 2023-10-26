@@ -13,6 +13,7 @@ class Comment
         $fullname  = array();
         $comment = array();
         $profilePic = array();
+        $username = array();
 
         if ($result && $row > 0) {
             $response = "Success";
@@ -20,7 +21,7 @@ class Comment
                 $commentID[] = $data['commentID'];
                 $comment[] = $data['comment'];
                 $user = $data['username'];
-
+                $username[] = $user;
 
                 $queryPerson = "SELECT 'univadmin' AS user_type, p.fname, p.lname, p.profilepicture
                 FROM univadmin ua
@@ -54,7 +55,8 @@ class Comment
             'commentID' => $commentID,
             'fullname' => $fullname,
             'comment' => $comment,
-            'profile' => $profilePic
+            'profile' => $profilePic,
+            'username' => $username
         );
 
         echo json_encode($data);
@@ -98,5 +100,16 @@ class Comment
                 } else echo 'Success';
             } else 'Unsuccess';
         } else echo 'Unsuccess';
+    }
+
+    public function deleteComment($commendID, $con)
+    {
+        $query = "DELETE FROM `comment` WHERE `commentID` = ?";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $commendID);
+        $stmt->execute();
+
+        if ($stmt) echo 'Success';
+        else echo 'Failed';
     }
 }

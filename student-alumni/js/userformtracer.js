@@ -338,6 +338,7 @@ $(document).ready(function () {
                 let questionType = $('<input>')
                     .addClass('border-b border-gray-400 p-2 w-full outline-none userinputData')
                     .attr('type', 'text')
+                    .attr('placeholder', 'Enter your answer')
                     .on('change', function () {
                         const answer = $(this).val();
                         addAnswer(answerID, questionID, answer);

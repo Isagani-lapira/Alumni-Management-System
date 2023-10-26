@@ -2,6 +2,7 @@ $(document).ready(function () {
     const imgFormat = "data:image/jpeg;base64,"
     // show the alumni of the month
     $('#aomLi').on('click', function () {
+        table.clear().draw(); //remove the previous display
         $('#aomMonth option:not(:first-child)').remove() //avoid duplication of option
         $('#aomYr option:not(:first-child)').remove()
         addMonths()
@@ -23,7 +24,6 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response == 'Success') {
-                    table.clear().draw(); //remove the previous display
                     let length = response.profile.length; //lengt of the data
                     for (let i = 0; i < length; i++) {
                         let profile = (response.profile[i] != "") ? imgFormat + response.profile[i] : '../assets/icons/person.png';
@@ -34,6 +34,8 @@ $(document).ready(function () {
                         displayOnTable(profile, personalEmail, studentNo, colCode, fullname)
                     }
 
+                    // retrieve more
+                    if (length === 10) retrieveAlumniOfMonth()
                 }
             },
             error: error => { console.log(error) }
@@ -43,16 +45,17 @@ $(document).ready(function () {
     // Initialize the DataTable with options
     let table = $('#aomTable').DataTable({
         "paging": false,
-        "ordering": true,
+        "ordering": false,
         "info": false,
         "lengthChange": false,
         "searching": false,
-        // Add more options as needed
+        "pageLength": 12
     });
+    $('#aomTable').removeClass('dataTable').addClass('rounded-lg')
     function displayOnTable(profile, personalEmail, studentNo, colCode, fullname) {
         //add the data to the table
         let row = [
-            `<img src="${profile}" alt="Profile Image" class="w-12 h-12 mx-auto rounded-full" />`,
+            `<img src="${profile}" alt="Profile Image" class="w-12 h-12 mx-auto rounded-full object-cover" />`,
             fullname,
             personalEmail,
             studentNo,
@@ -93,6 +96,7 @@ $(document).ready(function () {
         filterForm.set('month', monthVal)
         filterForm.set('colCode', colCodeVal)
         filterForm.set('year', yearVal)
+        table.clear().draw(); //remove the previous display
         filterAlumni(filterForm)
 
     })
@@ -102,6 +106,7 @@ $(document).ready(function () {
         filterForm.set('month', monthVal)
         filterForm.set('colCode', colCodeVal)
         filterForm.set('year', yearVal)
+        table.clear().draw(); //remove the previous display
         filterAlumni(filterForm)
     })
 
@@ -110,6 +115,7 @@ $(document).ready(function () {
         filterForm.set('month', monthVal)
         filterForm.set('colCode', colCodeVal)
         filterForm.set('year', yearVal)
+        table.clear().draw(); //remove the previous display
         filterAlumni(filterForm)
     })
 
@@ -125,7 +131,6 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response == 'Success') {
-                    table.clear().draw(); //remove the previous display
                     let length = response.profile.length; //lengt of the data
                     for (let i = 0; i < length; i++) {
                         let profile = (response.profile[i] != "") ? imgFormat + response.profile[i] : '../assets/icons/person.png';
@@ -135,6 +140,8 @@ $(document).ready(function () {
                         let fullname = response.fullname[i];
                         displayOnTable(profile, personalEmail, studentNo, colCode, fullname)
                     }
+                    // retrieve more
+                    if (length === 10) filterAlumni()
 
                 }
                 else table.clear().draw(); //remove the previous display

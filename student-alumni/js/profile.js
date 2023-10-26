@@ -26,6 +26,7 @@ $(document).ready(function () {
       contentType: false,
       success: (response) => {
         if (response != "none") {
+          $('#loadingData').addClass('hidden')
           const parsedResponse = JSON.parse(response); //parsed the json data
           const length = parsedResponse.username.length;
           for (let i = 0; i < length; i++) {
@@ -58,8 +59,9 @@ $(document).ready(function () {
 
   function restartPost() {
     //reset everything
-    $('#noProfPostMsg').addClass('hidden')
-    $('.containerPostProfile').remove() // remove the current displayed post
+    $('#loadingData').removeClass('hidden');
+    $('#noProfPostMsg').addClass('hidden');
+    $('.containerPostProfile').remove(); // remove the current displayed post
     offsetPost = 0
   }
 
@@ -175,22 +177,18 @@ $(document).ready(function () {
       });
 
       swiperContainer.on('click', function () {
-        console.log('may problem')
         $('#viewingPost').removeClass("hidden");
         viewingOfPost(postID, fullname, username, caption, images, likes, img)
       })
     } else {
       postWrapper.css('min-height', '100px')
-        .on('click', function (e) {
-          const target = e.target
-          const button = deletePost
-
-          if (!button.is(target) && button.has(target).length === 0)
-            viewStatusPost(postID, fullname, date, caption, likes, username)
+        .on('click', function () {
+          // check if editting to avoid clicking on description
+          if (!isEditting) viewStatusPost(postID, fullname, date, caption, likes, username)
 
         })
     }
-
+    let isEditting = false
     date_posted = $('<p>').addClass('text-xs text-gray-500 my-2').text(date);
 
     let newlyAddedLike = parseInt(likes);
@@ -204,7 +202,8 @@ $(document).ready(function () {
 
     let interactionContainer = $('<div>').addClass('border-t border-gray-400 p-2 flex items-center justify-between')
     heartIcon.addClass('cursor-pointer flex items-center')
-      .on('click', function () {
+      .on('click', function (e) {
+        e.stopPropagation(); // Stop event propagation
         //toggle like button
         if (isLiked) {
           //decrease the current total number of likes by 1
@@ -226,6 +225,26 @@ $(document).ready(function () {
 
     let commentIcon = $('<span>').html('<iconify-icon icon="uil:comment" style="color: #626262;" width="20" height="20"></iconify-icon>')
       .addClass('cursor-pointer flex items-center comment')
+      .on('click', function (e) {
+        e.stopPropagation()
+
+        // make comment
+        $('#commentPost').removeClass('hidden') //open the comment modal
+
+        //set up the details for comment to be display
+        $('#postProfile').attr('src', img)
+        $('#postFullname').text(fullname)
+        $('#postUsername').text(username)
+        $('#replyToUsername').text(username)
+
+        //insert a comment to database
+        $('#commentBtn').on('click', function () {
+          let commentVal = $('#commentArea').val()
+          insertComment(postID, commentVal, commentElement)
+        })
+
+      })
+
     let likesElement = $('<p>').addClass('text-xs text-gray-500').text(likes)
     let commentElement = $('<p>').addClass('text-xs text-gray-500 comment').text(comments)
     let leftContainer = $('<div>').addClass('flex gap-2 items-center').append(heartIcon, likesElement, commentIcon, commentElement)
@@ -237,7 +256,8 @@ $(document).ready(function () {
     if (isDeleted) {
       deletePost.addClass('text-green-400 ')
         .text('Restore')
-        .on('click', function () {
+        .on('click', function (e) {
+          e.stopPropagation()
           $('#restoreModal').removeClass('hidden')
           //when click the restore button then process the restoration
           $('#restorePost').on('click', function () {
@@ -249,8 +269,9 @@ $(document).ready(function () {
     }
     else {
       deletePost.addClass('text-red-400 ')
-        .text('Delete')
-        .on('click', function () {
+        .text('Archive')
+        .on('click', function (e) {
+          e.stopPropagation()
           //update the status of the post into delete
           //open the delete prompt
           $('#delete-modal').removeClass('hidden')
@@ -263,7 +284,7 @@ $(document).ready(function () {
         })
     }
     //approve update
-    const approvedIcon = $('<iconify-icon class="cursor-pointer" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
+    const approvedIcon = $('<iconify-icon class="cursor-pointer hidden" icon="radix-icons:check" style="color: #3cb043;" width="24" height="24"></iconify-icon>')
       .on('click', function () {
         //data to be sent
         const action = { action: 'updatePost' }
@@ -282,36 +303,107 @@ $(document).ready(function () {
             if (response == 'Successful') {
               //go back to normal
               description.attr('contenteditable', false)
-              const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
-              approvedIcon.replaceWith(icon)
+              approvedIcon.addClass('hidden')
               exitEdit.addClass('hidden')
+              editIcon.removeClass('hidden')
             }
           },
           error: error => { console.log(error) }
         })
       })
+
+    let currentCaption = description.text()
     //update description
     editIcon.on('click', function () {
-      $(this).replaceWith(approvedIcon)
+      isEditting = true
+      $(this).addClass('hidden')
+      // open editing state
+      approvedIcon.removeClass('hidden');
+      exitEdit.removeClass('hidden')
       description.attr('contenteditable', true)
         .focus()
-      exitEdit.removeClass('hidden')
     })
     const editingWrapper = $('<div>').addClass('flex gap-2 flex-col')
     interactionContainer.append(leftContainer, deletePost)
 
     exitEdit.on('click', function () {
-      const icon = $('<iconify-icon class="editIcon cursor-pointer" icon="akar-icons:edit" style="color: #626262;" width="24" height="24"></iconify-icon>');
-      approvedIcon.replaceWith(icon)
+      // back to default view
       $(this).addClass('hidden')
-      description.attr('contenteditable', false)
+      approvedIcon.addClass('hidden');
+      editIcon.removeClass('hidden');
+
+      // return back the caption
+      description
+        .attr('contenteditable', false)
+        .text(currentCaption)
     })
-    editingWrapper.append(editIcon, exitEdit)
+    editingWrapper.append(editIcon, approvedIcon, exitEdit)
     //set up the details of the post
     postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
     container.append(postWrapper, editingWrapper)
     $('#feedContainer').append(container);
 
+  }
+
+  $('#closeComment').on('click', function () {
+    $('#commentPost').addClass('hidden')
+  })
+
+
+  $('#commentArea').on('input', function () {
+    let commentVal = $(this).val();
+    //enable the comment button
+    if (commentVal != "") {
+      $('#commentBtn').removeAttr('disabled')
+        .addClass('bg-accent')
+        .removeClass('bg-red-950')
+    }
+    else {
+      $('#commentBtn').attr('disabled', true) //disabled the button again
+        .addClass('bg-red-950')
+        .removeClass('bg-accent')
+    }
+  })
+
+  function displayPostPrompt(message) {
+    $('#promptMsgComment').removeClass('hidden')//display the prompt
+      .text(message)
+
+    //hide again after 4 seconds
+    setTimeout(() => {
+      $('#promptMsgComment').addClass('hidden')
+    }, 4000)
+  }
+
+  function insertComment(postID, comment, commentElement) {
+    const action = {
+      action: 'insertComment'
+    }
+
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action))
+    formData.append('postID', postID);
+    formData.append('comment', comment);
+
+    $.ajax({
+      url: '../PHP_process/commentData.php',
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: (response) => {
+        if (response === 'Success') {
+          $('#commentPost').addClass('hidden') //hide modal
+          displayPostPrompt('Comment successfully added')
+          $('#commentArea').val('') //restart the value of comment
+          let commentCount = parseInt(commentElement.text()) + 1
+          commentElement.text(commentCount) //update the count of comment of ta certain post
+        }
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
   }
 
   //add the likes to a post
@@ -356,8 +448,8 @@ $(document).ready(function () {
         restartPost()
         getPost(actionTracker, typeTracker) //reload the post again
         $('#restoreModal').addClass('hidden') //hide the modal again
-      },
-      error: error => { console.log(error) }
+      }
+
     })
   }
 
@@ -378,8 +470,6 @@ $(document).ready(function () {
       data: formData,
       processData: false,
       contentType: false,
-      success: (response) => { console.log(response) },
-      error: (error) => { console.log(error) }
     })
   }
 
@@ -393,6 +483,8 @@ $(document).ready(function () {
 
     isScrolled = true
     if (scrollPosition + containerHeight >= contentHeight - scrollThreshold) {
+      $('#loadingData').removeClass('hidden')
+        .appendTo('#feedContainer')
       getPost(actionTracker, typeTracker)
     }
   })
@@ -489,6 +581,8 @@ $(document).ready(function () {
 
   //retrieving the comments
   function getComment(postID) {
+    $('#commentContainer').empty(); //remove the comment of the firstly view
+    $('#noOfComment').text('0') //default
     const action = {
       action: 'read',
       postID: postID
@@ -505,7 +599,6 @@ $(document).ready(function () {
       contentType: false,
       success: (response) => {
         const parsedResponse = JSON.parse(response);
-        $('#commentContainer').empty(); //remove the comment of the firstly view
         if (parsedResponse.result == 'Success') {
           const length = parsedResponse.commentID.length;
           $('#noOfComment').text(length) //set the number of comments
@@ -521,15 +614,29 @@ $(document).ready(function () {
             let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full").attr('src', img);
             let commentDescript = $('<div>').addClass("bg-gray-300 rounded-md p-3 flex-grow text-sm flex flex-col gap-1 text-greyish_black");
             let commentor = $('<p>').text(fullname)
+            let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+              .on('click', function () {
+                $('#delete-comment').removeClass('hidden')
+                // delete the comment
+                $('#deleteCommentBtn').on('click', function () {
+                  deleteComment(commentID, commentContainer);
+                  // update the count
+                  let newCountComment = parseInt($('#noOfComment').text()) - 1
+                  $('#noOfComment').text(newCountComment)
+                })
+              })
+
+            let container = $('<div>').addClass('flex justify-between').append(commentor, delComment)
+
             let postComment = $('<p>').text(comment).addClass('text-xs text-gray-500');
 
-            commentDescript.append(commentor, postComment);
+            commentDescript.append(container, postComment);
             commentContainer.append(imgProfile, commentDescript)
 
             $('#commentContainer').append(commentContainer);
           }
         } else {
-          let noCommentMsg = $('<p>').addClass('text-gray-500').text('No available comment')
+          let noCommentMsg = $('<p>').addClass('text-gray-500 text-center').text('No available comment')
           $('#commentContainer').append(noCommentMsg) //show no comment
         }
       },
@@ -537,6 +644,26 @@ $(document).ready(function () {
     })
   }
 
+  function deleteComment(commentID, wrapper) {
+    const action = { action: "deleteComment" };
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action));
+    formData.append('commentID', commentID);
+
+    $.ajax({
+      url: '../PHP_process/commentData.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: response => {
+        if (response === 'Success') {
+          $('#delete-comment').addClass('hidden')
+          wrapper.remove()
+        }
+      }
+    })
+  }
 
   function getLikes(postID) {
     let action = {
@@ -705,7 +832,7 @@ $(document).ready(function () {
 
   //open modal
   $('#modal-openBtn').on('click', function () {
-    $('#profileModal').removeClass('hidden');
+    $('#profileModalEdit').removeClass('hidden');
   })
 
 
@@ -715,7 +842,7 @@ $(document).ready(function () {
 
   //change picture if user edit it
   var profileImg = $("#profileImg");
-
+  let currentProfileImg = profileImg.attr('src')
   $('#profilePic').on('change', function () {
     let selectedFile = $(this).prop("files")[0];
     profileLbl = $('#profileLbl')
@@ -731,6 +858,13 @@ $(document).ready(function () {
       reader.readAsDataURL(selectedFile)
     }
 
+  })
+
+  // cancel editing of profile
+  $('#cancelProfile').on('click', function () {
+    profileImg.attr('src', currentProfileImg)
+    $('#profileBtn').addClass('hidden')
+    $('#profileLbl').removeClass('hidden')
   })
 
   $('#saveProfile').on('click', function () {
@@ -768,6 +902,8 @@ $(document).ready(function () {
 
   //change cover if the user edit it
   var coverImg = $("#coverImg");
+  let currentCoverImg = coverImg.attr('src');
+
   $('#coverPic').on('change', function () {
     let selectedFile = $(this).prop("files")[0];
 
@@ -786,6 +922,13 @@ $(document).ready(function () {
     }
   })
 
+  // cancel editing
+  $('#cancelCover').on('click', function () {
+    coverImg.attr('src', currentCoverImg)
+    $('#coverLbl').removeClass('hidden');
+    $('#coverBtn').addClass('hidden')
+  })
+
   $('#saveCover').on('click', function () {
     let newCoverPhoto = $('#coverPic').prop('files')[0];
 
@@ -800,16 +943,28 @@ $(document).ready(function () {
   })
 
   //edit location
+  let location = $('#editAddress')
+  let currentLocation = location.val();
   $('#editAddLabel').on('click', function () {
-    $('#editAddress').removeAttr('disabled') //allows to be edit
+    location.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#locBtn').removeClass('hidden') //show the save button
     $('#editAddLabel').addClass('hidden'); //remove the edit label
   })
 
+  $('#cancelLocation').on('click', function () {
+    location.attr('disabled', true)
+      .removeClass('border-b border-gray-400')
+      .val(currentLocation)
+
+    $('#locBtn').addClass('hidden') //show the save button
+    $('#editAddLabel').removeClass('hidden'); //remove the edit label
+  })
+
   $('#saveLocation').on('click', function () {
-    let newAddress = $('#editAddress').val();
+    let newAddress = location.val();
+    location.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
 
     let action = {
       action: 'updatePersonDetails',
@@ -823,17 +978,28 @@ $(document).ready(function () {
 
 
   //edit email address
+  let email = $('#editEmail')
+  let currentEmail = email.val()
   $('#editEmailLbl').on('click', function () {
-    $('#editEmail').removeAttr('disabled') //allows to be edit
+    email.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#emailBtn').removeClass('hidden') //show the save button
     $('#editEmailLbl').addClass('hidden'); //remove the edit label
   })
 
-  $('#saveEmail').on('click', function () {
-    let newEmail = $('#editEmail').val();
+  $('#cancelEmail').on('click', function () {
+    email.attr('disabled', true) //allows to be edit
+      .removeClass('border-b border-gray-400')
+      .val(currentEmail)
 
+    $('#emailBtn').addClass('hidden') //show the save button
+    $('#editEmailLbl').removeClass('hidden'); //remove the edit label
+  })
+
+  $('#saveEmail').on('click', function () {
+    let newEmail = email.val();
+    email.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
     let action = {
       action: 'updatePersonDetails',
       dataUpdate: 'personal_email'
@@ -846,16 +1012,28 @@ $(document).ready(function () {
 
 
   //edit contact Number
+  let contactNo = $('#editContact')
+  let currentContactNo = contactNo.val()
   $('#editContactLbl').on('click', function () {
-    $('#editContact').removeAttr('disabled') //allows to be edit
+    contactNo.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#contactBtn').removeClass('hidden') //show the save button
     $('#editContactLbl').addClass('hidden'); //remove the edit label
   })
 
+  $('#cancelContact').on('click', function () {
+    contactNo.attr('disabled', true)
+      .removeClass('border-b border-gray-400')
+      .val(currentContactNo)
+
+    $('#contactBtn').addClass('hidden');
+    $('#editContactLbl').removeClass('hidden');
+  })
+
   $('#saveContact').on('click', function () {
-    let newEmail = $('#editContact').val();
+    let newEmail = contactNo.val();
+    contactNo.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
 
     let action = {
       action: 'updatePersonDetails',
@@ -869,16 +1047,28 @@ $(document).ready(function () {
 
 
   //edit facebook
+  let facebook = $('#editFacebook')
+  let currentFb = facebook.val()
   $('#editFBLbl').on('click', function () {
-    $('#editFacebook').removeAttr('disabled') //allows to be edit
+    facebook.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#fbBtn').removeClass('hidden') //show the save button
     $('#editFBLbl').addClass('hidden'); //remove the edit label
   })
 
+  $('#cancelFB').on('click', function () {
+    facebook.attr('disabled', true)
+      .removeClass('border-b border-gray-400')
+      .val(currentFb)
+
+    $('#fbBtn').addClass('hidden')
+    $('#editFBLbl').removeClass('hidden');
+  })
+
   $('#saveFB').on('click', function () {
-    let newEmail = $('#editFacebook').val();
+    let newEmail = facebook.val();
+    facebook.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
 
     let action = {
       action: 'updatePersonDetails',
@@ -891,17 +1081,29 @@ $(document).ready(function () {
   })
 
   //edit instagram
+  let instagram = $('#editInstagram')
+  let currentIG = instagram.val()
   $('#editIGLbl').on('click', function () {
-    $('#editInstagram').removeAttr('disabled') //allows to be edit
+    instagram.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#igBtn').removeClass('hidden') //show the save button
     $('#editIGLbl').addClass('hidden'); //remove the edit label
   })
 
-  $('#saveIG').on('click', function () {
-    let newUN = $('#editInstagram').val();
+  $('#cancelIG').on('click', function () {
+    instagram.attr('disabled', true) //allows to be edit
+      .removeClass('border-b border-gray-400')
+      .val(currentIG)
 
+    $('#igBtn').addClass('hidden')
+    $('#editIGLbl').removeClass('hidden');
+  })
+
+  $('#saveIG').on('click', function () {
+    let newUN = instagram.val();
+
+    instagram.attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
     let action = {
       action: 'updatePersonDetails',
       dataUpdate: 'instagramUN'
@@ -913,6 +1115,8 @@ $(document).ready(function () {
   })
 
   //edit twitter
+  let twitter = $('#editTwitter')
+  let currentTwitter = twitter.val()
   $('#editTweetLbl').on('click', function () {
     $('#editTwitter').removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
@@ -921,8 +1125,18 @@ $(document).ready(function () {
     $('#editTweetLbl').addClass('hidden'); //remove the edit label
   })
 
+  $('#cancelTweet').on('click', function () {
+    $('#editTwitter').attr('disabled', true)
+      .removeClass('border-b border-gray-400')
+      .val(currentTwitter)
+
+    $('#tweetBtn').addClass('hidden')
+    $('#editTweetLbl').removeClass('hidden');
+  })
+
   $('#saveTweet').on('click', function () {
     let newUN = $('#editTwitter').val();
+    $('#editTwitter').attr('disabled', true).removeClass('border-b border-gray-400') //back to normal
 
     let action = {
       action: 'updatePersonDetails',
@@ -936,17 +1150,30 @@ $(document).ready(function () {
 
 
   //edit linkedIn
+  let linkedIn = $('#editLinked')
+  let currentLinkedIn = linkedIn.val()
   $('#editLinkedLbl').on('click', function () {
-    $('#editLinked').removeAttr('disabled') //allows to be edit
+    linkedIn.removeAttr('disabled') //allows to be edit
       .addClass('border-b border-gray-400')
 
     $('#linkedBtn').removeClass('hidden') //show the save button
     $('#editLinkedLbl').addClass('hidden'); //remove the edit label
   })
 
-  $('#saveLinkedIn').on('click', function () {
-    let newUN = $('#editLinked').val();
 
+  $('#cancelLinkedIn').on('click', function () {
+    linkedIn.attr('disabled', true) //allows to be edit
+      .removeClass('border-b border-gray-400')
+      .val(currentLinkedIn)
+
+    $('#linkedBtn').addClass('hidden')
+    $('#editLinkedLbl').removeClass('hidden');
+  })
+
+  $('#saveLinkedIn').on('click', function () {
+    let newUN = linkedIn.val();
+
+    linkedIn.attr('disabled', true).removeClass('border-b border-gray-400')//back to normal
     let action = {
       action: 'updatePersonDetails',
       dataUpdate: 'linkedInUN'
@@ -980,7 +1207,7 @@ $(document).ready(function () {
 
 
   //close the modal
-  $('#profileModal').on('click', function (event) {
+  $('#profileModalEdit').on('click', function (event) {
     const target = event.target
     const formUpdate = $('.formUpdate')
 
@@ -1009,6 +1236,9 @@ $(document).ready(function () {
 
   function viewStatusPost(postID, name, postDate, postcaption, likes, accountUN) {
     $('#postStatusModal').removeClass('hidden')
+    $('#commentStatus').empty() //remove previous data retrieved
+
+    // set up details
     $('#statusFullnameUser').text(name)
     $('#statusDate').text(postDate)
     $('.accountUN').text(accountUN)
@@ -1036,8 +1266,7 @@ $(document).ready(function () {
 
         if (commentCount > 0) displayComments(postID)
 
-      },
-      error: error => { console.log(error) }
+      }
     })
   }
 
@@ -1057,6 +1286,7 @@ $(document).ready(function () {
         let length = response.fullname.length;
         for (let i = 0; i < length; i++) {
           let fullname = response.fullname[i];
+          let commentID = response.commentID[i];
           let comment = response.comment[i];
           let profile = imgFormat + response.profile[i];
 
@@ -1067,15 +1297,28 @@ $(document).ready(function () {
             .addClass('rounded-full w-10 h-10')
 
           let nameElement = $('<p>').addClass('font-bold').text(fullname)
+          let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+            .on('click', function () {
+              $('#delete-comment').removeClass('hidden')
+              // delete the comment
+              $('#deleteCommentBtn').on('click', function () {
+                deleteComment(commentID, wrapper);
+                // update the count
+                let newCountComment = parseInt($('#statusComment').text()) - 1
+                $('#statusComment').text(newCountComment)
+              })
+            })
+
+          let container = $('<div>').addClass('flex items-center justify-between').append(nameElement, delComment)
           let commentElement = $('<pre>').addClass('text-gray-500').text(comment)
           let commentDetail = $('<div>').addClass('flex-1 flex-col w-4/5 bg-gray-300 rounded-md p-2 ')
-            .append(nameElement, commentElement)
+            .append(container, commentElement)
 
           wrapper.append(profilePic, commentDetail)
           $('#commentStatus').append(wrapper)
         }
-      },
-      error: error => { console.log(error) }
+      }
+
     })
   }
 

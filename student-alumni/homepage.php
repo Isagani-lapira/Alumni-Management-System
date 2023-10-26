@@ -238,16 +238,20 @@ function getAccDetails($con, $personID)
             </div>
 
             <!-- Verification Job Post -->
-            <div id="target-div-job" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
+            <?php
+            if ($user_type == "alumni") {
+              echo '
+              <div id="target-div-job" class="div-btn flex items-center hover:bg-gray-100 rounded-md h-10 p-2 mt-1">
               <button id="verif-btn" onclick="toggleColorJob(), toggleJobPost()">
                 <svg class="inline fa" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                   <path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4l4.25 4.25ZM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z" />
                 </svg>
                 <span class="ps-3 text-sm text-greyish_black font-medium">Job Repository</span>
               </button>
-            </div>
+            </div>';
+            }
+            ?>
 
-            <!-- Yearbook -->
             <!-- show only yearbook for alumni -->
             <?php
             if ($user_type == "alumni") {
@@ -286,6 +290,7 @@ function getAccDetails($con, $personID)
             <div class="py-4">
               <h3 class="text-lg font-bold text-grayish_black">Upcoming Events:</h3>
               <div id="upcomingEventroot" class="px-3 flex flex-col gap-1 mt-2"></div>
+              <span class="text-gray-400 italic text-sm noavailableEvent hidden">No upcoming events at the moment</span>
             </div>
           </div>
 
@@ -322,12 +327,24 @@ function getAccDetails($con, $personID)
                     </div>
                   </div>
 
+                  <div class="flex flex-col items-center justify-center">
+                    <div class="lds-facebook">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+
+                  <p id="loadingDataFeed" class="text-gray-400 text-center">Loading data...</p>
                   <p id="noPostMsgFeed" class="text-blue-400 text-center hidden">No available post</p>
                 </div>
               </div>
 
               <!-- Job Post Feed -->
-              <div id="jobRepo" class="hidden h-max grid grid-cols-3 gap-2 overflow-y-auto no-scrollbar py-3"></div>
+              <div id="jobRepo" class="hidden h-max grid grid-cols-3 gap-2 overflow-y-auto no-scrollbar py-3">
+                <p id="loadingDataJobRepo" class="text-gray-400 text-center">Loading repository</p>
+                <p id="nojobrepo" class="text-gray-400 text-center">No data to be display</p>
+              </div>
 
             </div>
 
@@ -338,6 +355,7 @@ function getAccDetails($con, $personID)
           <div class="right-div fixed top-32 right-2 w-1/4 h-full px-8">
             <!-- Content for the right div -->
             <p class="font-medium border-b-2 border-grayish ml-auto block text-sm pb-2 mb-4 text-greyish_black">University News</p>
+            <p id="loadingDataAnnouncement" class="text-gray-400 text-center">Loading data</p>
             <div class="h-1/3">
               <div class="swiper announcementSwiper">
                 <div id="announcementWrapper" class="swiper-wrapper"></div>
@@ -350,7 +368,7 @@ function getAccDetails($con, $personID)
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
           <!-- Notifications Tab -->
           <div id="notification-tab" class="notification-tab hidden fixed top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
-            <div class="notification-content bg-white center-shadow border-2 px-4 pt-4 pb-20 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
+            <div class="notification-content bg-white border-2 px-4 pt-4 pb-20 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
               <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
 
               <div class="flex space-x-4 mb-4">
@@ -358,6 +376,7 @@ function getAccDetails($con, $personID)
                 <button id="btnNotifUnread" class="hover:bg-gray-500 rounded-full text-greyish px-4 py-2 text-sm font-semibold">Unread</button>
               </div>
 
+              <p id="loadingDataNotif" class="text-gray-400 text-center">Loading data...</p>
               <p id="noNotifMsg" class="text-center my-4 text-blue-400 hidden">No available notification</p>
             </div>
           </div>
@@ -1461,7 +1480,7 @@ function getAccDetails($con, $personID)
           text-greyish_black flex flex-col gap-2">
 
           <!-- Event images -->
-          <img id="headerImg" class="w-full h-44 object-contain bg-red-200 rounded-md" src="" alt="">
+          <img id="headerImg" class="w-44 h-44 block mx-auto  rounded-full" src="" alt="">
 
           <p id="eventTitleModal" class="text-center text-2xl text-accent font-black"></p>
           <pre id="eventDescript" class="text-gray-500 text-justify w-full indented"></pre>
@@ -1507,6 +1526,30 @@ function getAccDetails($con, $personID)
             </div>
 
             <div id="commentStatus" class="flex flex-col gap-2 p-2 mt-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- deletion modal -->
+      <div id="delete-modal" class="modal hidden fixed inset-0 h-full w-full flex items-center justify-center ">
+        <div class="relative w-full max-w-md max-h-full">
+          <div class="relative bg-white rounded-lg shadow">
+            <button type="button" class="closeDeleteBtn absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-6 text-center">
+              <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete your comment?</h3>
+              <button id="deletePostbtn" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                Yes, I'm sure
+              </button>
+              <button type="button" class="closeDeleteBtn text-gray-400">No, cancel</button>
+            </div>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ $(document).ready(function () {
     const imgFormat = "data:image/jpeg;base64,"
     $('#newsAndUpdate').on('click', function () {
         // restart everything first
+        $('#newsAndUpdate-tab').removeClass('hidden')
         announcementTb.clear()
         offsetAnnouncement = 0
         retrievedList = 0
@@ -294,7 +295,7 @@ $(document).ready(function () {
     });
 
     $("#postNewsBtn").on("click", function () {
-        let imgHeader = $("#headerImg").prop("files")[0]; //get the header
+        let imgHeader = $("#headerImg")[0].files[0]; //get the header
         let action = "insertData";
         let title = $("#newsTitle").val();
         let description = $("#newstTxtArea").val();
@@ -321,6 +322,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
+                console.log(response)
                 //close the modal
                 $("#newsUpdateModal").addClass("hidden");
                 restartNewsModal();

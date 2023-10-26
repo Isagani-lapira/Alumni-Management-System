@@ -127,8 +127,8 @@ $(document).ready(function () {
     description = description.substring(0, 103) //slice the description to make small description
 
     //mark up for card job
-    const cardWrapper = $('<div>').addClass('max-w-sm p-3 bg-white border border-gray-200 rounded-lg' +
-      ' bg-accent card-job');
+    const cardWrapper = $('<div>').addClass('max-w-sm p-3 bg-white border border-gray-200 rounded-lg bg-accent card-job flex flex-col h-full');
+
 
     //company logo
     const imgContainer = $('<div>')
@@ -162,7 +162,7 @@ $(document).ready(function () {
       '</svg>'
 
     const navigationBtn = $('<button>')
-      .addClass('inline-flex items-center px-3 py-2 mt-2 text-sm font-medium ' +
+      .addClass('inline-flex items-center px-3 py-4 mt-2 text-sm font-medium ' +
         'text-center text-white bg-postButton rounded-lg bg-postButton hover:bg-postHoverButton')
       .html('Read more' + arrowIcon)
       .on('click', function () {
@@ -171,8 +171,11 @@ $(document).ready(function () {
         viewOfCareer(careerID);
       })
 
+    const detailsContainer = $('<div>')
+      .addClass('flex flex-col flex-1 justify-between h-full')
+      .append(title, details, skillsWrapper)
 
-    cardWrapper.append(imgContainer, title, details, skillsWrapper, navigationBtn);
+    cardWrapper.append(imgContainer, detailsContainer, navigationBtn);
     $('#jobCard').append(cardWrapper); //display it on the root
   }
 
@@ -712,7 +715,7 @@ $(document).ready(function () {
       dataType: 'json',
       success: response => {
         if (response.result == 'Success') {
-
+          $('.noavailableEvent').addClass('hidden')
           // retrieve data 
           const length = response.eventName.length
           for (let i = 0; i < length; i++) {
@@ -744,9 +747,9 @@ $(document).ready(function () {
             $('#upcomingEventroot').append(eventWrapper);
           }
 
-        }
-      },
-      error: error => { console.log(error) }
+        } else $('.noavailableEvent').removeClass('hidden') // display message
+
+      }
     })
   }
 

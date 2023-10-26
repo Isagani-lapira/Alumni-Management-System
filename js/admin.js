@@ -28,12 +28,33 @@ $(document).ready(function () {
     $(this).addClass("ui-tabs-active");
   });
 
+  $('#profileTabAdmin').on('click', function () {
+    $('#profile-tab').removeClass('hidden')
+  })
+
+  $('#aoyLi').on('click', function () {
+    $('#alumnYear-tab').removeClass('hidden')
+  })
+
+  $('#aomLi').on('click', function () {
+    $('#alumnMonth-tab').removeClass('hidden')
+  })
+
+  $('#communityLi').on('click', function () {
+    $('#community-tab').removeClass('hidden')
+  })
+  $('#jobLI').on('click', function () {
+    $('#jobOpportunities-tab').removeClass('hidden')
+  })
+
   //go to creating college page
   $("#btnNewCol").click(function () {
     window.location.href = "../admin/NewCollege.php";
   });
 
-
+  $('collegeLi').on('click', function () {
+    $('#colleges-tab').removeClass('hidden')
+  })
   $(".back-icon").click(() => {
     $(".individual-col").addClass("hidden");
     $(".college-content").removeClass("hidden");
@@ -105,67 +126,6 @@ $(document).ready(function () {
       $("#viewJob").addClass("hidden");
   });
 
-  $(function () {
-    $('input[name="emDateRange"]').daterangepicker(
-      {
-        opens: "left",
-        startDate: defaultStart,
-        endDate: defaultEnd,
-      },
-      function (start, end, label) {
-        let dateStart = start.format("YYYY-MM-DD");
-        let dateEnd = end.format("YYYY-MM-DD");
-
-        let dateRangeData = new FormData();
-        let action = {
-          action: "readFromDate",
-        };
-
-        dateRangeData.append("action", JSON.stringify(action));
-        dateRangeData.append("dateStart", dateStart);
-        dateRangeData.append("dateEnd", dateEnd);
-
-        //show new data
-        $.ajax({
-          url: "../PHP_process/emailDB.php",
-          type: "POST",
-          data: dateRangeData,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: (response) => {
-            let data = response;
-            $("#emailTBody").empty();
-            if (response.result == "Success") {
-              //display the data as content of the table
-              $length = data.recipient.length;
-
-              for (let i = 0; i < $length; i++) {
-                let recipient = data.recipient[i];
-                let colCode = data.colCode[i];
-                let dateSent = data.dateSent[i];
-
-                let tr = $("<tr>");
-                let tdRecipient = $("<td>")
-                  .text(recipient)
-                  .addClass("text-start");
-                let tdColCode = $("<td>").text(colCode).addClass("text-start");
-                let tdDate = $("<td>").text(dateSent).addClass("text-start");
-
-                tr.append(tdRecipient, tdColCode, tdDate);
-                $("#emailTBody").append(tr);
-              }
-            } else {
-              $('#noEmailMsg').removeClass('hidden')
-            }
-          },
-          error: (error) => {
-            console.log(error);
-          },
-        });
-      }
-    );
-  });
 
 
   $(function () {
@@ -184,11 +144,6 @@ $(document).ready(function () {
         );
       }
     );
-  });
-
-  $("#aoyNew").on("click", () => {
-    $("#aoyRecord").hide();
-    $("#aoyRegister").show();
   });
 
   $("#jobMyPost").on("click", () => {
@@ -394,7 +349,7 @@ $(document).ready(function () {
   //profile
   let profileLbl = "";
   let profileBtn = "";
-
+  let currentProfile = $('#profileImgEdit').attr('src')
   let profileImg = $("#profileImgEdit");
 
   //change the current profile displayed to new selected profile
@@ -426,6 +381,13 @@ $(document).ready(function () {
     processImgUpdate(action, newProfile, profileBtn, label);
   });
 
+  // bring back the current profile
+  $('#cancelProfileImg').on('click', function () {
+    profileImg.attr('src', currentProfile)
+    profileBtn.addClass("hidden");
+    profileLbl.removeClass("hidden");
+  })
+
   function processImgUpdate(action, img, confirmationCont, editIcon) {
     let formData = new FormData();
     formData.append("action", JSON.stringify(action));
@@ -449,6 +411,7 @@ $(document).ready(function () {
     });
   }
 
+  let currentLocation = $('#editAddress').val()
   //edit location
   $("#editAddLabel").on("click", function () {
     $("#editAddress")
@@ -458,6 +421,16 @@ $(document).ready(function () {
     $("#locBtn").removeClass("hidden"); //show the save button
     $("#editAddLabel").addClass("hidden"); //remove the edit label
   });
+
+  $('#cancelLocation').on('click', function () {
+    $('#editAddress')
+      .attr("disabled", true) //disable editting
+      .removeClass("border-b border-gray-400")
+      .val(currentLocation)
+
+    $("#locBtn").addClass("hidden"); //hide the save button
+    $("#editAddLabel").removeClass("hidden"); //display the edit label
+  })
 
   $("#saveLocation").on("click", function () {
     let newAddress = $("#editAddress").val();
@@ -472,6 +445,7 @@ $(document).ready(function () {
   });
 
   //edit email address
+  let currentEmail = $('#editEmail').val();
   $("#editEmailLbl").on("click", function () {
     $("#editEmail")
       .removeAttr("disabled") //allows to be edit
@@ -481,6 +455,17 @@ $(document).ready(function () {
     $("#editEmailLbl").addClass("hidden"); //remove the edit label
   });
 
+  $('#cancelEmail').on('click', function () {
+    $("#editEmail")
+      .attr("disabled", true) //allows to be edit
+      .removeClass("border-b border-gray-400")
+      .val(currentEmail)
+
+    $("#emailBtn").addClass("hidden");
+    $("#editEmailLbl").removeClass("hidden");
+  })
+
+  // save changes
   $("#saveEmail").on("click", function () {
     let newEmail = $("#editEmail").val();
 
@@ -493,7 +478,9 @@ $(document).ready(function () {
     processPersonalInfo(action, newEmail, btnCont, label);
   });
 
+
   //edit contact Number
+  let currentContact = $('#editContact').val()
   $("#editContactLbl").on("click", function () {
     $("#editContact")
       .removeAttr("disabled") //allows to be edit
@@ -502,6 +489,17 @@ $(document).ready(function () {
     $("#contactBtn").removeClass("hidden"); //show the save button
     $("#editContactLbl").addClass("hidden"); //remove the edit label
   });
+
+  // cancel editting
+  $('#cancelContact').on('click', function () {
+    $("#editContact")
+      .attr("disabled", true) //allows to be edit
+      .removeClass("border-b border-gray-400")
+      .val(currentContact)
+
+    $("#contactBtn").addClass("hidden"); //show the save button
+    $("#editContactLbl").removeClass("hidden"); //remove the edit label
+  })
 
   $("#saveContact").on("click", function () {
     let newEmail = $("#editContact").val();
