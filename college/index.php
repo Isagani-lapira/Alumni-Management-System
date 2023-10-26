@@ -219,6 +219,10 @@ if (
                         </a>
                     </li>
                 </ul>
+
+                <!-- Add padding for the absolute bottom buttons -->
+                <div class="h-48"></div>
+
                 <!-- Bottom Buttons  -->
                 <div class="absolute bottom-2">
                     <ul class="space-y-2 w-full font-light ">
