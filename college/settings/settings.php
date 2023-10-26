@@ -312,7 +312,7 @@ $colDeanImg = $data['colDeanImg'];
 
                     </div>
 
-                    <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-col gap-2 w-8/12 max-w-lg">
                         <div class="flex flex-col gap-2">
                             <label for="colCode" class="font-bold">College Code</label>
                             <input type="text" value="<?= $colCode ?>" id="colCode" class="border border-gray-300 rounded-md p-2">
@@ -323,12 +323,12 @@ $colDeanImg = $data['colDeanImg'];
 
                 <!-- add form for number  -->
                 <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-wrap gap-4 w-8/12 max-w-lg">
                         <div class="flex flex-col gap-2">
                             <label for="colContactNo" class="font-bold">Contact Number</label>
                             <input type="text" value="<?= $colContactNo ?>" name="colContactNo" id="colContactNo" class="form-input border border-gray-300 rounded-md p-2">
                         </div>
-                        <div class="flex flex-col gap-2">
+                        <div class="flex flex-col gap-2 w-8/12 max-w-lg">
                             <label for="colEmailAdd" class="font-bold">Email Address</label>
                             <input type="text" value="<?= $colEmailAdd ?>" name="colEmailAdd" id="colEmailAdd" class="border border-gray-300 rounded-md p-2">
                         </div>
@@ -337,7 +337,7 @@ $colDeanImg = $data['colDeanImg'];
 
                 <!-- add for email address -->
                 <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-wrap gap-4 w-8/12 max-w-lg">
                         <div class="flex flex-col gap-2">
                             <label for="colWebLink" class="font-bold">Website Link</label>
                             <input type="text" value="<?= $colWebLink ?>" name="colWebLink" id="colWebLink" class="form-input border border-gray-300 rounded-md p-2">
@@ -347,28 +347,38 @@ $colDeanImg = $data['colDeanImg'];
                 </div>
                 <!-- add for description -->
                 <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-wrap gap-4 w-8/12 max-w-lg">
                         <div class="flex flex-col gap-2">
                             <label for="colDescription" class="font-bold">Description</label>
-                            <textarea name="colDescription" id="colDescription" cols="30" rows="10" class="form-input border border-gray-300 rounded-md p-2"><?= $data['description'] ?></textarea>
+                            <textarea name="colDescription" id="colDescription" cols="60" rows="10" class="form-textarea border border-gray-300 rounded-md p-2"><?= $data['description'] ?></textarea>
                         </div>
                     </div>
                 </div>
 
                 <!--    add for dean image -->
-                <div class="flex flex-col gap-4">
+                <!-- Dean Picture -->
+                <div class="flex flex-wrap justify-between gap-4 my-4">
                     <div class="flex flex-wrap gap-4">
-                        <div class="flex flex-col gap-2">
-                            <label for="colDeanImg" class="font-bold">Dean Image</label>
-                            <input type="text" value="<?= $colDeanImg ?>" name="colDeanImg" id="colDeanImg" class="form-input border border-gray-300 rounded-md p-2">
+
+                        <img id="colLogoPreview" class="w-24 h-24 block mx-auto rounded-full" src="
+                            data:image/jpeg;base64,<?= $colDeanImg ?> 
+                            " alt="">
+                        <div class="flex flex-col justify-center">
+                            <h3 class="font-bold text-lg">College Dean Picture</h3>
+                            <p class="text-gray-400">Upload the picture to be displayed on the dean of the college.</p>
+                        </div>
+
+                        <div class="flex flex-col justify-center">
+                            <button class="bg-slate-600 text-white px-4 py-2 rounded-full">Upload</button>
                         </div>
                     </div>
+
                 </div>
 
                 <!-- add for college dean name -->
                 <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
-                        <div class="flex flex-col gap-2">
+                    <div class="flex flex-wrap gap-4 w-8/12 max-w-lg">
+                        <div class="flex flex-col gap-2  w-8/12 max-w-lg">
                             <label for="colDean" class="font-bold">Dean Name</label>
                             <input type="text" value="<?= $colDean ?>" name="colDean" id="colDean" class="form-input border border-gray-300 rounded-md p-2">
                         </div>
@@ -376,82 +386,15 @@ $colDeanImg = $data['colDeanImg'];
                 </div>
 
 
-                <div class="individual-col h-full ">
-                    <div class="px-10">
-                        <div class="grid grid-cols-2 h-max p-5">
 
-
-                            <div class="college-info text-xs">
-                                <!-- add colName input text -->
-
-                                <p class="text-gray-600 mt-3 font-medium">Number</p>
-                                <p id="colContact" class="text-greyish_black text-sm font-semibold">
-                                    <?= $colContactNo ?>
-                                </p>
-
-                                <p class="text-gray-600 mt-2 font-medium">Email Address</p>
-                                <p id="colEmail" class="text-greyish_black text-sm font-semibold">
-                                    <?= $colEmailAdd ?>
-                                </p>
-
-                                <p class="text-gray-600 mt-2 font-medium">Website</p>
-                                <a id="colWebLink" target="_blank" class="text-sm text-blue-600 font-semibold">
-                                    <?= $colWebLink ?>
-                                </a>
-                            </div>
-
-                        </div>
-
-                        <div class="flex justify-center gap-5 my-7">
-                            <div class="dean">
-                                <div class="text-center">
-                                    <img id="deanImg" src="<?= $colDeanImg ?>" class="w-32 h-32 mx-auto rounded-md" alt="">
-                                    <p id="colDean" class="text-accent font-medium"></p>
-                                    <p class="text-gray-500 text-sm">DEAN, <?= $_SESSION['colCode'] ?></p>
-                                </div>
-                            </div>
-
-                            <div class="coordinator">
-                                <div class="text-center">
-                                    <img id="adminImg" src="<?= $colDeanImg ?>
-                                    " class="w-32 h-32  mx-auto rounded-md" alt="">
-                                    <p id="colAdminName" class="text-accent font-medium"></p>
-                                    <p class="text-gray-500 text-sm">Alumni Coordinator, <?= $_SESSION['colCode'] ?></p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="description mt-3 w-9/12">
-                            <h1 class="text-xl font-extrabold ">ABOUT US <span id="collegeCode">
-                                </span></h1>
-                            <p class="py-3">
-
-                                <?= $data['description'] ?>
-                            </p>
-                        </div>
-
-
-                        <div class="courses-offered my-10 w-8/12">
-                            <h3 class="text-xl font-extrabold mb-5">Courses Offered</h3>
-
-                            <h1>TODO: Add Courses</h1>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-
-                <!-- Update Button
+                <!-- Update Button -->
                 <div class="flex flex-col gap-4 ">
                     <div class="flex flex-wrap gap-4 justify-end">
                         <div class="flex flex-col gap-2">
-                            <button class=" btn-primary">Update Account</button>
+                            <button name="update-college" value="update-college" id="update-college-submit-btn" class=" btn-primary">Update College Profile</button>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
 
 
