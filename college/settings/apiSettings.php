@@ -109,9 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             array(
                 "message" => "Post data",
                 "status" => true,
-                "data" => [
-                    var_dump($_POST)
-                ]
+                "response" => "success"
 
             )
         );
@@ -119,7 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(
             array(
                 "message" => "No post data",
-                "status" => false
+                "status" => false,
+                "response" => "failed"
             )
         );
     }
