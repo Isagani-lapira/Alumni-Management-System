@@ -953,7 +953,8 @@ function dateInText($date)
           <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
           <!-- alumni of the year table -->
-          <div class="h-full">
+          <div id="aoydata" class="h-full">
+            <select id="aoyCollege" class="rounded-md border border-gray-400 py-2"></select>
             <table id="AOYID" class="w-full text-sm center-shadow">
               <thead class="bg-accent text-white">
                 <tr>

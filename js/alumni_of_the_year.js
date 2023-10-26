@@ -4,7 +4,16 @@ $(document).on('ready', function () {
         $('#aomSelection').find('option:not([value=""])').remove() //back to default
 
         let offset = 0;
+        table.clear().draw() //remove the previously retrieved
         retrieveAOY(offset)
+
+        let aoyCollege = $('#aoyCollege')
+        let alumniCollege = $('#alumniCollege')
+        // Copy all the options from the alumni college dropdown to the alumni of the year college
+        $('#aoyCollege').empty()
+        alumniCollege.find('option').each(function () {
+            aoyCollege.append($(this).clone());
+        })
         // getAlumniOfTheMonth()
     })
     function getAlumniOfTheMonth() {
@@ -60,14 +69,14 @@ $(document).on('ready', function () {
                     const cover_img = imgFormat + data.cover;
                     const quotation = data.quote;
                     const fullname = data.fullname;
-
-                    displaySelectedAOM(aomID, cover_img, quotation, fullname, personID)
+                    const colCode = data.colCode;
+                    displaySelectedAOM(aomID, cover_img, quotation, fullname, personID, colCode)
                 }
             }
         })
     })
 
-    function displaySelectedAOM(aomID, cover_img, quotation, fullname, personID) {
+    function displaySelectedAOM(aomID, cover_img, quotation, fullname, personID, colCode) {
         $('#aomCover').attr('src', cover_img).removeClass('hidden');
         $('.aomFullname').text(fullname);
         $('#aomQuotation').text(quotation);
@@ -187,7 +196,7 @@ $(document).on('ready', function () {
 
             if (reason !== '') {
                 // assign new alumni of the year
-                addAOY(aomID, reason)
+                addAOY(aomID, personID, colCode, reason)
                 $('#reasonForAOY').addClass('border-gray-400').removeClass('border-red-400').val('')
             }
             else
@@ -303,11 +312,13 @@ $(document).on('ready', function () {
         $('.alumniOfYearModal').parent().addClass('hidden')
     })
 
-    function addAOY(aomID, reason) {
+    function addAOY(aomID, personID, colCode, reason) {
         const action = "insertAOY";
         const formData = new FormData();
         formData.append('action', action);
         formData.append('aomID', aomID);
+        formData.append('personID', personID);
+        formData.append('colCode', colCode);
         formData.append('reason', reason);
 
         $.ajax({
@@ -319,7 +330,6 @@ $(document).on('ready', function () {
             success: response => {
                 if (response === 'Success')
                     $('.alumniOfYearModal').parent().addClass('hidden')
-
             }
         })
     }
@@ -349,7 +359,10 @@ $(document).on('ready', function () {
         "ordering": false,
         "paging": false,
     })
+
+
     $('#AOYID').removeClass('dataTable').addClass('rounded-lg')
+    $('#AOYID_filter').addClass('w-full flex gap-2 items-center').prepend($('#aoyCollege'))
 
     function retrieveAOY(offset) {
         const action = "retrieveAOY";
@@ -373,12 +386,13 @@ $(document).on('ready', function () {
                         let aoyID = response.aoyID[i];
                         let aomID = response.aomID[i];
                         let fullname = response.fullname[i];
+                        let collegeCode = response.colCode[i];
                         let reason = response.reason[i];
                         let year = response.year[i];
 
                         let row = [
                             fullname,
-                            reason,
+                            collegeCode,
                             year,
                             '<button class="bg-postButton hover:bg-postHoverButton text-white rounded-md px-4 py-2">View</button>'
                         ];

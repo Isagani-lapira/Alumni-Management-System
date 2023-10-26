@@ -7,8 +7,10 @@ if (isset($_POST['action'])) {
     switch ($action) {
         case 'insertAOY':
             $aomID = $_POST['aomID'];
+            $personID = $_POST['personID'];
+            $colCode = $_POST['colCode'];
             $reason = $_POST['reason'];
-            insertAOY($aomID, $reason, $mysql_con);
+            insertAOY($aomID, $personID, $colCode, $reason, $mysql_con);
             break;
         case 'checkForThisYearAOY':
             echo checkForThisYearAOY($mysql_con);
@@ -21,12 +23,12 @@ if (isset($_POST['action'])) {
 }
 
 
-function insertAOY($aomID, $reason, $con)
+function insertAOY($aomID, $personID, $colCode, $reason, $con)
 {
-    $query = "INSERT INTO `alumni_of_the_year`( `AOMID`, `reason`) 
-    VALUES (?,?)";
+    $query = "INSERT INTO `alumni_of_the_year`( `AOMID`, `personID`, `colCode`, `reason`) 
+    VALUES (?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
-    $stmt->bind_param('ss', $aomID, $reason);
+    $stmt->bind_param('ssss', $aomID, $personID, $colCode, $reason);
     $result = $stmt->execute();
 
     if ($result) echo 'Success';
@@ -82,7 +84,6 @@ function retrieveAOY($offset, $con)
         if ($result && $row > 0) {
             $response = "Success";
             while ($data = $result->fetch_assoc()) {
-                $AOYID[] = $data['AOYID'];
                 $AOMID[] = $data['AOMID'];
                 $fullname[] = $data['fname'] . ' ' . $data['lname'];
                 $reason[] = $data['reason'];
