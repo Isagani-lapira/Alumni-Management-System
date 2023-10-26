@@ -9,9 +9,10 @@ $colCode = $_SESSION['colCode'];
 $model = new PersonModel($mysql_con, $_SESSION['colCode']);
 $alumniData = $model->getOneById($_SESSION['personID']);
 
+// username
+$username = $_SESSION['username'];
 
 // Login Security Data
-
 
 // College Profile Info 
 
@@ -39,7 +40,6 @@ $colDeanImg = $data['colDeanImg'];
 
 
 
-
 ?>
 
 <section class="container p-4">
@@ -62,62 +62,6 @@ $colDeanImg = $data['colDeanImg'];
         </div>
 
         <div class="text-slate-600 col-span-5 p-4 " id="content-container">
-            <section id="login-security-content" class="hidden">
-                <h2 class="font-bold text-xl">Edit Account Settings</h2>
-                <!-- Form for email, change password section with password and confirm password and update button  -->
-
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
-                        <div class="flex flex-col gap-2">
-                            <label for="email" class="font-bold daisy-label font-label-text ">Personal Email</label>
-                            <div>
-                                <input type="email" name="email" id="email" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered">
-                                <button id="changeEmailButton" class="daisy-btn ">Change Personal Email</button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="felx flex-col gap-4">
-                    <div class="flex flex-col gap-2">
-                        <label for="bulsuemail" class="font-bold daisy-label font-label-text ">BulSu Email</label>
-                        <div>
-                            <input type="email" name="bulsuemail" id="bulsuemail" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered">
-                            <button id="changeEmailButton" class="daisy-btn ">Change BulSu Email</button>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-                <!-- Change password button -->
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
-                        <div class="flex flex-col gap-2">
-
-                            <p class=" font-bold daisy-label font-label-text  ">Change Password</p>
-                            <label for="changePassModal" class="daisy-btn ">Change Password</label>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Update Button -->
-                <!-- <div class="flex flex-col gap-4 ">
-                    <div class="flex flex-wrap gap-4 justify-end">
-                        <div class="flex flex-col gap-2">
-                            <button class=" btn-primary">Update Account</button>
-                        </div>
-                    </div>
-                </div> -->
-
-
-
-            </section>
-
             <!-- Start personal info -->
             <section id="personal-info-content" class="">
                 <h2 class="font-bold text-xl mb-12">Edit Personal Information</h2>
@@ -275,6 +219,80 @@ $colDeanImg = $data['colDeanImg'];
                     </div>
                 </div>
             </section>
+
+
+            <!-- Start Login Info -->
+            <section id="login-security-content" class="hidden">
+                <h2 class="font-bold text-xl">Edit Account Settings</h2>
+                <!-- Form for email, change password section with password and confirm password and update button  -->
+
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label for="email" class="font-bold daisy-label font-label-text ">Username</label>
+                            <div>
+                                <input type="text" disabled class="border border-gray-300 rounded  p-2 form-input  daisy-input-bordered daisy-input-disabled disabled:bg-gray-100 " value="<?= $username ?>">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label for="email" class="font-bold daisy-label font-label-text ">Personal Email</label>
+                            <div>
+                                <input type="email" name="email" id="email" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered" value="<?= $alumniData['personal_email'] ?>">
+                                <button id="changeEmailButton" class="daisy-btn ">Change Personal Email</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="felx flex-col gap-4">
+                    <div class="flex flex-col gap-2">
+                        <label for="bulsuemail" class="font-bold daisy-label font-label-text ">BulSu Email</label>
+                        <div>
+                            <input type="email" name="bulsuemail" id="bulsuemail" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered" value="<?= $alumniData['bulsu_email'] ?>">
+                            <button id="changeEmailButton" class="daisy-btn ">Change BulSu Email</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Change password button -->
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex flex-col gap-2">
+
+                            <p class=" font-bold daisy-label font-label-text  ">Change Password</p>
+                            <label for="changePassModal" class="daisy-btn ">Change Password</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Update Button -->
+                <!-- <div class="flex flex-col gap-4 ">
+                    <div class="flex flex-wrap gap-4 justify-end">
+                        <div class="flex flex-col gap-2">
+                            <button class=" btn-primary">Update Account</button>
+                        </div>
+                    </div>
+                </div> -->
+
+
+
+            </section>
+
+
+
 
             <!-- start college pprofile -->
             <section id="college-profile-content" class="hidden">
