@@ -11,6 +11,7 @@ $(document).ready(function () {
   // refreshList();
   setHandlers();
   updateDataTable();
+  checkIfAlumniExists();
 
   // Binds the section link in order to reload the list whenever the section is clicked
   $('a[data-link="alumni-of-the-month"]').on("click", function () {
@@ -18,6 +19,7 @@ $(document).ready(function () {
     setTimeout(function () {
       updateDataTable();
       setHandlers();
+      checkIfAlumniExists();
 
       console.log('refreshed the handlers of "alumni-of-the-month"');
     }, 1000);
@@ -130,6 +132,19 @@ $(document).ready(function () {
     $("#refreshRecord").on("click", async function () {
       refreshList();
     });
+
+    // Make the button be disabled when there's a record of this month's alumni
+  }
+
+  async function checkIfAlumniExists() {
+    const result = await getJSONFromURL(API_URL + "latest=month");
+    console.log(result);
+    console.log("alumni of the month", result.data);
+    if (result.data.length > 0) {
+      $("#addAlumniBtn").attr("disabled", true);
+    } else {
+      $("#addAlumniBtn").attr("disabled", false);
+    }
   }
 
   async function postNewAlumni(
