@@ -200,11 +200,7 @@ if (
                             <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">TRACER FORM</span>
 
                         </a></li>
-                    <li><a data-link="profile" href="#profile" class=" flex justify-left flex-nowrap rounded p-2">
-                            <i class="fa-solid fa-circle-user  fa-xl"></i>
-                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">PROFILE</span>
 
-                        </a></li>
                 </ul>
 
                 <!-- Alumni Navigation -->
@@ -226,6 +222,12 @@ if (
                 <!-- Bottom Buttons  -->
                 <div class="absolute bottom-2">
                     <ul class="space-y-2 w-full font-light ">
+                        <li><a data-link="profile" href="#profile" class=" flex justify-left flex-nowrap rounded p-2">
+                                <i class="fa-solid fa-circle-user  fa-xl"></i>
+                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">PROFILE</span>
+
+                            </a></li>
+
                         <li>
 
                             <a data-link="account-settings" href="#account-settings" class="flex justify-left flex-nowrap rounded p-2">
