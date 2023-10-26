@@ -234,9 +234,9 @@ if (
 
                         <li>
 
-                            <a data-link="account-settings" href="#account-settings" class="flex justify-left flex-nowrap rounded p-2">
+                            <a data-link="settings" href="#settings" class="flex justify-left flex-nowrap rounded p-2">
                                 <i class="fa-xl fa-solid fa-gear"></i>
-                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">Account Settings</span>
+                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">Settings</span>
                             </a>
                         </li>
                         <li> <button class="btn-accent flex justify-left flex-nowrap rounded p-2  " id="signOutPromptBtn">

@@ -239,4 +239,4 @@
         </div>
     </div>
 </div>
-<script type="module" src="./account-settings/account.js"></script>
+<script type="module" src="./settings/settings.js"></script>
