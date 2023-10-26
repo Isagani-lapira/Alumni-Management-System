@@ -141,9 +141,14 @@ $(document).ready(function () {
     console.log(result);
     console.log("alumni of the month", result.data);
     if (result.data.length > 0) {
-      $("#addAlumniBtn").attr("disabled", true);
+      console.log("disabled");
+      $("#add-alumni-modal").attr("disabled", true);
+      $("#add-alumni-label").addClass("daisy-btn-disabled");
     } else {
-      $("#addAlumniBtn").attr("disabled", false);
+      console.log("not disabled");
+      $("#add-alumni-modal").attr("disabled", false);
+
+      $("#add-alumni-label").removeClass("daisy-btn-disabled");
     }
   }
 

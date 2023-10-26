@@ -11,7 +11,7 @@
         </button> -->
         <!-- <button class="daisy-btn btn-primary " onclick="my_modal_4.showModal()">Add Alumni</button> -->
         <!-- The button to open modal -->
-        <label for="add-alumni-modal" class="daisy-btn">Add This Month's Alumni</label>
+        <label for="add-alumni-modal" class="daisy-btn" id="add-alumni-label">Add This Month's Alumni</label>
 
     </div>
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
