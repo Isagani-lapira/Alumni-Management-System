@@ -10,6 +10,8 @@ $(document).ready(() => {
   });
 
   loadHandlers();
+  // get this later
+  getInitialLogs();
 
   const redAccent = "#991B1B";
   const blueAccent = "#2E59C6";
@@ -28,14 +30,15 @@ $(document).ready(() => {
   ];
   const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860];
   const responseByYear_type = "line";
-  chartConfig(
-    responseByYear,
-    responseByYear_type,
-    responseByYear_labels,
-    responseByYear_data,
-    true,
-    redAccent
-  );
+  // FIXME change later
+  // chartConfig(
+  //   responseByYear,
+  //   responseByYear_type,
+  //   responseByYear_labels,
+  //   responseByYear_data,
+  //   true,
+  //   redAccent
+  // );
 
   function chartConfig(chartID, type, labels, data, responsive, colors) {
     //the chart
@@ -92,8 +95,6 @@ $(document).ready(() => {
       // TODO error handling
     }
   }
-
-  getInitialLogs();
 
   function loadHandlers() {
     // Handles the logs
