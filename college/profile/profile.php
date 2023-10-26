@@ -10,6 +10,49 @@ if (isset($_SESSION['personID'])) {
     $model = new PersonModel($mysql_con, $_SESSION['colCode']);
     // todo refactor later
     $alumniData = $model->getOneById($_SESSION['personID']);
+    // Get college data
+    // Add session info from the college info
+    $colCode = $_SESSION['colCode'];
+    $query = "SELECT * FROM college WHERE colCode = '$colCode';";
+    $result = mysqli_query($mysql_con, $query);
+    $data = mysqli_fetch_assoc($result);
+
+
+    $colName = $data['colname'];
+    // colEmailAdd` varchar(70) DEFAULT NULL,
+    /**
+     *   `colContactNo` 
+     * `colWebLink` 
+     *    `colLogo` 
+     * `colDean` 
+     * `colDeanImg` 
+     */
+    // get the columns
+    $colEmailAdd = $data['colEmailAdd'];
+    $colContactNo = $data['colContactNo'];
+    $colWebLink = $data['colWebLink'];
+    $colLogo = $data['colLogo'];
+    $colDean = $data['colDean'];
+    $colDeanImg = $data['colDeanImg'];
+
+
+    // add a default image if image is null
+    if ($alumniData['profilepicture'] == null) {
+        $alumniData['profilePicture'] = "https://www.w3schools.com/howto/img_avatar.png";
+    } else {
+
+        // encode
+        $alumniData['profilepicture'] = base64_encode($alumniData['profilepicture']);
+    }
+
+    if ($colDeanImg == null) {
+        $colDeanImg = "base64https://www.w3schools.com/howto/img_avatar.png";
+    } else {
+
+        // encode
+        $colDeanImg = base64_encode($colDeanImg);
+    }
+    $description = $data['description'];
 } else {
     echo "<h1>" . "No person ID" .  "</h1>";
     die();
@@ -20,7 +63,7 @@ if (isset($_SESSION['personID'])) {
     <div class="flex flex-col ">
         <section class="daisy-tabs" id="profile-tab-container">
             <a class="daisy-tab daisy-tab-lg daisy-tab-bordered daisy-tab-active" href="#college-profile-container">College Profile</a>
-            <a class="daisy-tab daisy-tab-lg daisy-tab-bordered " href="#account-profile-container">Account Profile</a>
+            <a class="daisy-tab daisy-tab-lg daisy-tab-bordered " href="#account-profile-container">Community Profile</a>
         </section>
 
         <section id="content-container">
@@ -33,18 +76,28 @@ if (isset($_SESSION['personID'])) {
                     </h1>
                     <div class="px-10">
                         <div class="grid grid-cols-2 h-max p-5">
-                            <img id="colLogo" class="w-1/2 block mx-auto" src="" alt="">
+                            <img id="colLogo" class="w-1/2 block mx-auto" src="
+                            data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?> 
+                            " alt="">
 
                             <div class="college-info text-xs">
-                                <h1 id="colName" class="text-2xl font-extrabold"></h1>
+                                <h1 id="colName" class="text-2xl font-extrabold">
+                                    <?= $colName ?>
+                                </h1>
                                 <p class="text-gray-600 mt-3 font-medium">Number</p>
-                                <p id="colContact" class="text-greyish_black text-sm font-semibold"></p>
+                                <p id="colContact" class="text-greyish_black text-sm font-semibold">
+                                    <?= $colContactNo ?>
+                                </p>
 
                                 <p class="text-gray-600 mt-2 font-medium">Email Address</p>
-                                <p id="colEmail" class="text-greyish_black text-sm font-semibold"></p>
+                                <p id="colEmail" class="text-greyish_black text-sm font-semibold">
+                                    <?= $colEmailAdd ?>
+                                </p>
 
                                 <p class="text-gray-600 mt-2 font-medium">Website</p>
-                                <a id="colWebLink" target="_blank" class="text-sm text-blue-600 font-semibold"></a>
+                                <a id="colWebLink" target="_blank" class="text-sm text-blue-600 font-semibold">
+                                    <?= $colWebLink ?>
+                                </a>
                             </div>
 
                         </div>
@@ -52,36 +105,37 @@ if (isset($_SESSION['personID'])) {
                         <div class="flex justify-center gap-5 my-7">
                             <div class="dean">
                                 <div class="text-center">
-                                    <img id="deanImg" class="w-32 h-32 mx-auto rounded-md" alt="">
+                                    <img id="deanImg" src="<?= $colDeanImg ?>" class="w-32 h-32 mx-auto rounded-md" alt="">
                                     <p id="colDean" class="text-accent font-medium"></p>
-                                    <p class="text-gray-500 text-sm">DEAN, CICT</p>
+                                    <p class="text-gray-500 text-sm">DEAN, <?= $_SESSION['colCode'] ?></p>
                                 </div>
                             </div>
 
                             <div class="coordinator">
                                 <div class="text-center">
-                                    <img id="adminImg" class="w-32 h-32  mx-auto rounded-md" alt="">
+                                    <img id="adminImg" src="<?= $colDeanImg ?>
+                                    " class="w-32 h-32  mx-auto rounded-md" alt="">
                                     <p id="colAdminName" class="text-accent font-medium"></p>
-                                    <p class="text-gray-500 text-sm">Alumni Coordinator, CICT</p>
+                                    <p class="text-gray-500 text-sm">Alumni Coordinator, <?= $_SESSION['colCode'] ?></p>
                                 </div>
                             </div>
 
                         </div>
 
                         <div class="description mt-3 w-9/12">
-                            <h1 class="text-xl font-extrabold ">ABOUT US <span id="collegeCode"></span></h1>
-                            <P class="py-3">Bulacan State University's College of Information and Communications
-                                Technology is the premier institution in Bulacan when it comes to effective and efficient
-                                ICT education and a leader in pioneering research and extension services.
-                            </P>
+                            <h1 class="text-xl font-extrabold ">ABOUT US <span id="collegeCode">
+                                </span></h1>
+                            <p class="py-3">
+
+                                <?= $data['description'] ?>
+                            </p>
                         </div>
 
 
                         <div class="courses-offered my-10 w-8/12">
                             <h3 class="text-xl font-extrabold mb-5">Courses Offered</h3>
-                            <P>Bachelor of Science in Information Technology</P>
-                            <P>Bachelor of Library and Information Science</P>
-                            <P>Bachelor of Science in Information System</P>
+
+                            <h1>TODO: Add Courses</h1>
                         </div>
                     </div>
 
