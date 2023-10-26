@@ -1,11 +1,13 @@
 $(document).ready(function () {
   // bind handlers when the anchor link is clicked
   // Add onchange whenever the dashboard is clicked
-  $('a[href="#profile"]').on("click", function () {
+  $('a[href="#account-settings"]').on("click", function () {
     setTimeout(function () {
       bindHandlers();
     }, 500);
   });
+
+  bindHandlers();
 
   function bindHandlers() {
     $("#setting-tab-container .daisy-tab").click(function () {
