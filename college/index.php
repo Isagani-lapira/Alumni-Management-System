@@ -243,7 +243,7 @@ if (
                 <!-- Bottom Buttons  -->
                 <div class="absolute bottom-2 w-4/5">
                     <ul class="space-y-2 w-full font-light ">
-                        <li><a data-link="profile" href="#profile" class=" flex justify-left flex-nowrap rounded p-2 items-center">
+                        <li><a data-link="profile" href="#profile" class="  flex justify-left flex-nowrap rounded p-2 items-center">
                                 <!-- get the session image  -->
                                 <img src="data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?>" alt="picture of college logo" class="w-10 h-10 rounded-full object-cover">
                                 <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">

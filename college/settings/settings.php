@@ -12,13 +12,14 @@
 
         <!-- Content will be displayed here when buttons are clicked -->
         <div class="daisy-tabs" id="setting-tab-container">
-            <a class="daisy-tab daisy-tab-bordered" href="#personal-info-content">Personal Info</a>
-            <a class="daisy-tab daisy-tab-bordered daisy-tab-active" href="#login-security-content">Login and Security</a>
+            <a class="daisy-tab daisy-tab-bordered daisy-tab-active" href="#personal-info-content">Personal Information</a>
+            <a class="daisy-tab daisy-tab-bordered " href="#login-security-content">Login and Security</a>
+            <a class="daisy-tab daisy-tab-bordered " href="#college-profile-content">College Profile</a>
         </div>
 
         <div class="text-slate-600 col-span-5 p-4 bg-gray-100" id="content-container">
-            <section id="login-security-content">
-                <h2 class="font-bold text-xl">Manage Account Settings</h2>
+            <section id="login-security-content" class="hidden">
+                <h2 class="font-bold text-xl">Edit Account Settings</h2>
                 <!-- Form for email, change password section with password and confirm password and update button  -->
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-wrap gap-4">
@@ -57,8 +58,8 @@
 
 
 
-            <section id="personal-info-content" class="hidden">
-                <h2 class="font-bold text-xl">Manage Personal Information</h2>
+            <section id="personal-info-content" class="">
+                <h2 class="font-bold text-xl">Edit Personal Information</h2>
 
                 <!-- Profile Picture -->
                 <div class="flex flex-wrap justify-between gap-4">
@@ -172,6 +173,43 @@
                     </div>
 
                 </div>
+            </section>
+
+            <section id="college-profile-content" class="hidden">
+                <h2 class="font-bold text-xl">Edit College Information</h2>
+                <!-- Form for email, change password section with password and confirm password and update button  -->
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label for="email" class="font-bold daisy-label font-label-text ">Email</label>
+                            <input type="email" name="email" id="email" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Change password button -->
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex flex-col gap-2">
+
+                            <label for="changePassModal" class="daisy-btn btn-primary">Change Password</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Update Button -->
+                <div class="flex flex-col gap-4 ">
+                    <div class="flex flex-wrap gap-4 justify-end">
+                        <div class="flex flex-col gap-2">
+                            <button class=" btn-primary">Update Account</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </section>
 
         </div>

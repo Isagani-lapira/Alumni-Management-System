@@ -1,7 +1,7 @@
 $(document).ready(function () {
   // bind handlers when the anchor link is clicked
   // Add onchange whenever the dashboard is clicked
-  $('a[href="#account-settings"]').on("click", function () {
+  $('a[href="#settings"]').on("click", function () {
     setTimeout(function () {
       bindHandlers();
     }, 500);
