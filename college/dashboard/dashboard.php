@@ -74,7 +74,7 @@
         <!-- Start recent activities -->
         <div class=" flex lg:justify-end  ">
             <div class=" max-lg:relative w-full  lg:w-4/5  font-semibold  border  center-shadow p-5 rounded-lg">
-                <p class="  text-accent font-bold">RECENT ACTIVITIES
+                <p class="  text-accent font-bold">YOUR RECENT ACTIVITIES
                     <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
                 </p>
                 <?php
@@ -85,7 +85,6 @@
                 <div class="flex flex-col items-start gap-2">
                     <?php foreach ($logs as  $item) : ?>
                         <div class="recent-announcement  flex justify-stretch actionWrapper items-center">
-                            <img class="circle rounded-full bg-gray-400 p-5 h-10 w-10"></img>
                             <div class="text-sm ms-2 ">
                                 <p class=" text-gray-600">
                                     <span class="font-extrabold "></span>

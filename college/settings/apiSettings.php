@@ -105,6 +105,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
+        setNewActivity(
+            $mysql_con,
+            $_SESSION['colAdmin'],
+            "Update",
+            "Updated Personal Information"
+        );
+
         echo json_encode(
             array(
                 "message" => "Post data",

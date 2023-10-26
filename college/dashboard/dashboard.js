@@ -147,7 +147,6 @@ $(document).ready(() => {
       const element = `
             <li class="">
               <div class="flex justify-stretch actionWrapper items-center log-item">
-                  <img src="" alt="" class="circle rounded-full bg-gray-400 h-10 w-10 p-5 ">
                   <div class=" ms-2 font-light flex-1">
                       <p class="text-accent">${data.details}</p>
                   </div>
