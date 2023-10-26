@@ -1,4 +1,4 @@
-<section class=" mx-auto   p-5 lg:mx-8">
+<section class=" mx-auto   p-5 lg:mx-8 overflow-auto">
     <h1 class="text-xl font-extrabold">Alumni Tracer Form</h1>
     <p class="text-grayish">See the relevant information that are gathered</p>
 
@@ -117,6 +117,81 @@
 
 
 
+    <!-- MODAL -->
+    <!-- section modal -->
+    <div id="sectionModalcontainer" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+        <input type="hidden" id="catIDHolder">
+        <input type="hidden" id="formIDHolder">
+        <input type="hidden" id="choiceIDHolder">
+        <div id="sectionModal" class="modal-container h-4/5 bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2 border-t-8 border-accent relative">
+            <iconify-icon id="addSectionQuestion" title="Add new question for this section" class="iconAddModal p-3 rounded-md center-shadow h-max absolute top-1 right-1" icon="gala:add" style="color: #AFAFAF;" width="24" height="24"></iconify-icon>
+            <header class="font-bold text-4xl text-center text-accent py-2 border-b border-gray-300">
+                Section
+            </header>
+            <div id="sectionBody" class="h-full overflow-y-auto py-2 flex flex-col gap-2"></div>
+        </div>
+    </div>
+
+    <!-- add new question -->
+    <div id="newQuestionModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+        <div class="modal-container w-1/3 h-max bg-white rounded-lg text-greyish_black">
+            <header class="text-center text-lg font-bold py-3 mb-2">Add new Question</header>
+            <div class="wrapper p-3 w-full mx-auto m-2">
+                <input id="newQuestionInputName" type="text" class="w-full text-center text-lg border-b border-gray-300" placeholder="Untitled Question" />
+                <!-- body -->
+                <div class="p-3 text-gray-400 mb-2">
+                    <select id="inputTypeModalNew" class="w-full p-2 outline-none center-shadow mb-2">
+                        <option value="Radio">Radio Type</option>
+                        <option value="Input">Input Type</option>
+                        <option value="Checkbox">Chexbox Type</option>
+                        <option value="DropDown">Dropdown Type</option>
+                    </select>
+                    <!-- options -->
+                    <div class="optionContainer">
+                        <div class="fieldWrapper flex items-center gap-2">
+                            <iconify-icon icon="bx:circle" style="color: #afafaf;" width="24" height="24"></iconify-icon>
+                            <input type="text" class="py-2 choicesVal w-full" placeholder="Add choice">
+                        </div>
+                    </div>
+                </div>
+
+                <button id="addOptionmodal" class="flex items-center gap-2 text-gray-400">
+                    <iconify-icon icon="gala:add" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    Add option
+                </button>
+
+                <div class="flex items-center justify-end gap-2">
+                    <button id="closeQuestionModal" class="text-gray-400 hover:bg-gray-300 py-2 px-3">Cancel</button>
+                    <button id="saveNewQuestion" class="bg-blue-400 hover:bg-blue-500 px-4 py-2 rounded-md text-white">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="deploymentModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+
+        <div id="modalConfirmDeployment" class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3">
+            <h3 class="text-xl font-semibold text-gray-900 border-b border-gray-300 py-3">Tracer Deploy Confirmation</h3>
+            <p class="p-4 text-sm">You are about to deploy the Graduate Tracer, which will be accessible to all alumni users in the system.
+                Please be aware that this deployment is valid for a limited period of 4 months. </p>
+
+            <p class="p-4 text-sm">By confirming this action, you are distributing
+                the Graduate Tracer to all alumni, enabling them to access valuable information and insights.
+                It's essential to ensure that the data and content within the tracer are up-to-date and accurate for the
+                benefit of our alumni community. </p>
+
+            <p class="p-4 text-sm">Remember, this deployment is a significant step in keeping our alumni engaged and informed.
+                Are you sure you want to proceed?</p>
+
+            <div class="flex w-full justify-end items-center gap-2 my-3 border-t border-gray-300 py-2">
+                <button id="cancelDeployBtn" class="text-gray-400 hover:text-gray-500">Cancel</button>
+                <button id="confirmDeployTracerBtn" class="px-4 py-2 rounded-lg bg-blue-400 hover:bg-blue-500 text-white font-bold">Deploy</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
 
 
 </section>
@@ -125,63 +200,5 @@
 
 <script type="module" src="./forms/tracer.js"></script>
 <script type="module" src="./forms/tracerchart.js"></script>
-
-
-
-
-<script>
-    $(document).ready(function() {
-
-        // Chart Canvas Elements
-        const empStatusCanvas = document.querySelector('#empStatusPieChart');
-        const annualSalCanvas = document.querySelector('#annualSalCanvas');
-        // configure chart js functions here.
-
-        // First Graph
-        const data = {
-            labels: [
-                'Employed',
-                'Unemployed',
-                'Not yet answered'
-            ],
-            datasets: [{
-                label: 'Employment Status',
-                data: [300, 50, 100] // actual data,
-
-            }]
-        }
-        new Chart(
-            empStatusCanvas, { // config
-                type: 'pie',
-                data: data
-
-            }
-        )
-
-
-        const salaryChart_labels = ["₱10k-20k", "₱21k-30k", "₱31k-40k", "₱51k-60k", "₱60k-70k", "₱71k-80k"];
-        const salaryChart_data = [1000, 500, 247, 635, 323, 393];
-
-        new Chart(
-            annualSalCanvas, {
-                type: 'bar',
-                data: {
-                    labels: salaryChart_labels,
-                    datasets: [{
-                        data: salaryChart_data,
-                        borderWidth: 1,
-                    }],
-
-                },
-                options: {
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-
-                }
-            }
-        )
-    })
-</script>
+<script type="module" src="./forms/previewcontainer.js"></script>
+<script type="module" src="./forms/edittracer.js"></script>
