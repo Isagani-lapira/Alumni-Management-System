@@ -106,11 +106,14 @@ function dateInText($date)
     ?>
     <div id="tabs" class="flex font-Montserrat text-greyish_black">
       <aside id="listOfPanels" class="w-3/12 top-0 h-screen p-5 border border-r-gray-300 relative">
-        <iconify-icon id="burgerBtn" class="absolute top-0 -right-8" icon="mdi:hamburger-menu" style="color: #991b1b;" width="28" height="28"></iconify-icon>
         <div class="h-full relative">
-          <h1 class="font-extrabold text-18sm my-5">
-            Alumni <span class="font-normal">System</span>
-          </h1>
+          <div class="flex justify-start gap-2 items-center">
+            <iconify-icon id="burgerBtn" icon="mdi:hamburger-menu" style="color: #991b1b;" width="28" height="28"></iconify-icon>
+            <h1 class="font-extrabold my-5">
+              Alumni <span class="font-normal">System</span>
+            </h1>
+          </div>
+          
           <ul class="w-3/4 text-sm">
 
             <!-- DASHBOARD -->
@@ -2255,6 +2258,30 @@ function dateInText($date)
         <input id="reasonForAOY" type="text" placeholder="Reason for assigning this alumni as Alumni of the year" class="w-full p-5 border-b border-gray-400 text-center">
         <button class="text-white bg-blue-400 hover:bg-postHoverButton rounded-md mt-5 w-full py-2 assignAOY">Assign</button>
         <button class="text-gray-400 hover:text-gray-500 hover:font-semibold w-full mt-2 cancelAOY">Cancel</button>
+      </div>
+    </div>
+
+    <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 hidden aoyModal">
+      <div class="w-1/2 rounded-md h-4/5 bg-white p-5 overflow-y-auto">
+        <h3 class="text-center text-greyish_black font-semibold text-xl">Alumni of the year</h3>
+        <!-- content -->
+        <div class=" flex flex-col gap-2 items-center">
+          <img class="rounded-full h-44 w-44 border border-accent coverImgAOY" src="" alt="">
+          <p class="text-lg font-bold text-greyish_black fullnameAOY">Full name</p>
+          <p class="w-1/2 italic quotationAOY text-center"></p>
+          <h2 class="text-greyish_black font-bold text-center text-lg">Testimonials</h2>
+          <div class="flex flex-wrap justify-center gap-2 testimonyWrapper p-3"></div>
+          <h2 class="text-greyish_black font-bold text-center text-lg">Achievements</h2>
+          <div class="flex justify-center flex-wrap gap-2 achievementWrapper"></div>
+          <!-- skills -->
+          <h2 class="text-greyish_black font-bold text-center text-lg">Skills</h2>
+          <div class="flex flex-wrap gap-2 justify-center skillWrapper flex-1 mb-5"></div>
+
+          <!-- social media -->
+          <h2 class="text-greyish_black font-bold text-center text-lg">Social Media</h2>
+          <div class="flex flex-wrap justify-center gap-2 socMedWrapper flex-1"></div>
+
+        </div>
       </div>
     </div>
 

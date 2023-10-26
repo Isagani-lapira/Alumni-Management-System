@@ -71,6 +71,7 @@ function retrieveAOY($offset, $con)
     $response = "Unsuccess";
     $AOYID = array();
     $AOMID = array();
+    $personID = array();
     $fullname = array();
     $reason = array();
     $year = array();
@@ -86,6 +87,7 @@ function retrieveAOY($offset, $con)
             $response = "Success";
             while ($data = $result->fetch_assoc()) {
                 $AOMID[] = $data['AOMID'];
+                $personID[] = $data['personID'];
                 $fullname[] = $data['fname'] . ' ' . $data['lname'];
                 $reason[] = $data['reason'];
                 $year[] = $data['year'];
@@ -97,6 +99,7 @@ function retrieveAOY($offset, $con)
     $data = array(
         "response" => $response,
         "aoyID" => $AOYID,
+        "personID"=>$personID,
         "aomID" => $AOMID,
         "fullname" => $fullname,
         "reason" => $reason,

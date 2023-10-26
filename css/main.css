@@ -3687,11 +3687,6 @@ div.input-container input[type="text"],
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
 
-.bg-postHoverButton {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
-}
-
 .bg-purple-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(168 85 247 / var(--tw-bg-opacity));
