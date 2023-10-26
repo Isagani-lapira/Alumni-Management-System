@@ -1,3 +1,28 @@
+<?php
+session_start();
+require_once('../model/PersonModel.php');
+require_once("../../PHP_process/connection.php");
+
+$colCode = $_SESSION['colCode'];
+
+// Personal Info Data
+$model = new PersonModel($mysql_con, $_SESSION['colCode']);
+$alumniData = $model->getOneById($_SESSION['personID']);
+
+
+// Login Security Data
+
+
+// College Profile Info 
+
+$query = "SELECT * FROM college WHERE colCode = '$colCode';";
+$result = mysqli_query($mysql_con, $query);
+$data = mysqli_fetch_assoc($result);
+
+// var_dump($data);
+
+?>
+
 <section class="container p-4">
     <h1 class="font-bold text-2xl">Account Settings</h1>
     <p class="text-gray-400 font-bold text-sm">Manage your Account and Contact Information</p>
@@ -21,35 +46,54 @@
             <section id="login-security-content" class="hidden">
                 <h2 class="font-bold text-xl">Edit Account Settings</h2>
                 <!-- Form for email, change password section with password and confirm password and update button  -->
+
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-wrap gap-4">
                         <div class="flex flex-col gap-2">
-                            <label for="email" class="font-bold daisy-label font-label-text ">Email</label>
-                            <input type="email" name="email" id="email" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered">
+                            <label for="email" class="font-bold daisy-label font-label-text ">Personal Email</label>
+                            <div>
+                                <input type="email" name="email" id="email" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered">
+                                <button id="changeEmailButton" class="daisy-btn ">Change Personal Email</button>
+                            </div>
+                        </div>
 
+                    </div>
+
+                </div>
+
+                <div class="felx flex-col gap-4">
+                    <div class="flex flex-col gap-2">
+                        <label for="bulsuemail" class="font-bold daisy-label font-label-text ">BulSu Email</label>
+                        <div>
+                            <input type="email" name="bulsuemail" id="bulsuemail" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered">
+                            <button id="changeEmailButton" class="daisy-btn ">Change BulSu Email</button>
                         </div>
                     </div>
                 </div>
+
+
+
 
                 <!-- Change password button -->
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-wrap gap-4">
                         <div class="flex flex-col gap-2">
 
-                            <label for="changePassModal" class="daisy-btn btn-primary">Change Password</label>
+                            <p class=" font-bold daisy-label font-label-text  ">Change Password</p>
+                            <label for="changePassModal" class="daisy-btn ">Change Password</label>
                         </div>
                     </div>
 
                 </div>
 
                 <!-- Update Button -->
-                <div class="flex flex-col gap-4 ">
+                <!-- <div class="flex flex-col gap-4 ">
                     <div class="flex flex-wrap gap-4 justify-end">
                         <div class="flex flex-col gap-2">
                             <button class=" btn-primary">Update Account</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
 
@@ -193,20 +237,20 @@
                     <div class="flex flex-wrap gap-4">
                         <div class="flex flex-col gap-2">
 
-                            <label for="changePassModal" class="daisy-btn btn-primary">Change Password</label>
+                            <label for="changePassModal" class="daisy-btn btn-secondary">Change Password</label>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- Update Button -->
+                <!-- Update Button
                 <div class="flex flex-col gap-4 ">
                     <div class="flex flex-wrap gap-4 justify-end">
                         <div class="flex flex-col gap-2">
                             <button class=" btn-primary">Update Account</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
 
