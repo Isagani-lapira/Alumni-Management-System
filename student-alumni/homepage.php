@@ -1553,6 +1553,20 @@ function getAccDetails($con, $personID)
           </div>
         </div>
       </div>
+
+      <!-- loading modal -->
+      <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center hidden">
+        <div class="loadingProfile flex items-center justify-center">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
     </div>
 
   </div>

@@ -50,7 +50,7 @@ $(document).ready(function () {
             .addClass('p-3 flex items-center gap-2 hover:bg-red-300 hover:text-white text-gray-500 cursor-pointer')
             .on('click', function () {
                 //show profile of user
-                $('#profileModal').removeClass('hidden')
+                $('.loadingProfile').parent().removeClass('hidden')
                 retrieveUserDetails(personID, roundedColor);
             })
 
@@ -90,6 +90,7 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
+                $('#profileModal').removeClass('hidden')
                 if (response.response == 'Success') {
                     $('#userPostModal').empty()
                     const data = response
@@ -145,6 +146,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response == "Success") {
+                    $('.loadingProfile').parent().addClass('hidden')
                     const data = response
                     const length = data.images.length
                     let tempCount = 0;
