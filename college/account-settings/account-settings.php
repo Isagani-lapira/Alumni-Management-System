@@ -8,17 +8,16 @@
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
     <!-- Filter  -->
 
-    <div class="grid grid-cols-6 grid-flow-row h-full">
-        <div class="col-span-6 lg:col-span-1  p-4  space-y-2">
-            <a class="block py-2 px-4  text-slate-600 font-bold rounded-full mb-2 cursor-pointer" id="accountButton">Account</a>
+    <div class="flex flex-col h-full">
 
-            <hr>
-            <a class="block py-2 px-4  text-slate-600 font-bold rounded-full cursor-pointer" id="profileButton">Profile</a>
+        <!-- Content will be displayed here when buttons are clicked -->
+        <div class="daisy-tabs" id="setting-tab-container">
+            <a class="daisy-tab daisy-tab-bordered" href="#personal-info-content">Personal Info</a>
+            <a class="daisy-tab daisy-tab-bordered daisy-tab-active" href="#login-security-content">Login and Security</a>
         </div>
-        <div class="text-slate-600 col-span-5 p-4 bg-gray-100" id="content">
-            <!-- Content will be displayed here when buttons are clicked -->
 
-            <section id="account-content">
+        <div class="text-slate-600 col-span-5 p-4 bg-gray-100" id="content-container">
+            <section id="login-security-content">
                 <h2 class="font-bold text-xl">Manage Account Settings</h2>
                 <!-- Form for email, change password section with password and confirm password and update button  -->
                 <div class="flex flex-col gap-4">
@@ -42,10 +41,6 @@
 
                 </div>
 
-
-
-
-
                 <!-- Update Button -->
                 <div class="flex flex-col gap-4 ">
                     <div class="flex flex-wrap gap-4 justify-end">
@@ -62,7 +57,7 @@
 
 
 
-            <section id="profile-content" class="hidden">
+            <section id="personal-info-content" class="hidden">
                 <h2 class="font-bold text-xl">Manage Personal Information</h2>
 
                 <!-- Profile Picture -->
@@ -184,65 +179,64 @@
 
         <!-- The button to open modal -->
 
-        <!-- Put this part before </body> tag -->
-        <input type="checkbox" id="changePassModal" class="daisy-modal-toggle" />
-        <div class="daisy-modal">
-            <div class="daisy-modal-box">
-                <h3 class="font-bold text-xl">Update Password</h3>
 
-                <div class="flex flex-col gap-2">
-                    <div class="daisy-form-control w-full max-w-sm">
-                        <label class=" font-bold daisy-label">
-                            <span class="daisy-label-text">Old Password</span>
-                        </label>
-                        <input type="password" name="old-password" id="old-password" class="form-input font-bold  daisy-input-bordered w-full">
-                        <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
-                        <label class="daisy-label">
-                            <span class="daisy-label-text-alt hidden">Bottom Right label</span>
-                        </label>
-                    </div>
-                    <div class="daisy-form-control w-full max-w-xs">
-                        <label class=" font-bold daisy-label">
-                            <span class="daisy-label-text">New Password</span>
-                        </label>
-                        <input type="password" name="password" id="password" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
-                        <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
-                        <label class="daisy-label">
-                            <span class="daisy-label-text-alt"> Password must contain both upper and lowercase and special character
-                            </span>
-                            <span class="daisy-label-text-alt hidden">Bottom Right label</span>
-                        </label>
-                    </div>
-                    <div class="daisy-form-control w-full max-w-xs">
-                        <label for="confirmPassword" class="font-bold daisy-label">
-                            <span class="daisy-label-text">Confirm Password</span>
-                        </label>
-                        <input type="password" name="confirmPassword" id="confirmPassword" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
+</section>
+<input type="checkbox" id="changePassModal" class="daisy-modal-toggle" />
+<div class="daisy-modal">
+    <div class="daisy-modal-box">
+        <h3 class="font-bold text-xl">Update Password</h3>
 
-                        <label class="daisy-label">
-                            <span class="daisy-label-text-alt">
-                            </span>
-                            <span class="daisy-label-text-alt hidden">Bottom Right label</span>
-                        </label>
-                    </div>
-                </div>
+        <div class="flex flex-col gap-2">
+            <div class="daisy-form-control w-full max-w-sm">
+                <label class=" font-bold daisy-label">
+                    <span class="daisy-label-text">Old Password</span>
+                </label>
+                <input type="password" name="old-password" id="old-password" class="form-input font-bold  daisy-input-bordered w-full">
+                <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
+                <label class="daisy-label">
+                    <span class="daisy-label-text-alt hidden">Bottom Right label</span>
+                </label>
+            </div>
+            <div class="daisy-form-control w-full max-w-xs">
+                <label class=" font-bold daisy-label">
+                    <span class="daisy-label-text">New Password</span>
+                </label>
+                <input type="password" name="password" id="password" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
+                <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
+                <label class="daisy-label">
+                    <span class="daisy-label-text-alt"> Password must contain both upper and lowercase and special character
+                    </span>
+                    <span class="daisy-label-text-alt hidden">Bottom Right label</span>
+                </label>
+            </div>
+            <div class="daisy-form-control w-full max-w-xs">
+                <label for="confirmPassword" class="font-bold daisy-label">
+                    <span class="daisy-label-text">Confirm Password</span>
+                </label>
+                <input type="password" name="confirmPassword" id="confirmPassword" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
 
-                <div class="flex flex-col gap-2">
-
-
-                </div>
-
-                <div class="flex flex-col gap-2">
-
-
-                </div>
-
-                <div class="daisy-modal-action">
-                    <label for="changePassModal" class="daisy-btn">Close</label>
-                    <button class="daisy-btn">Update Password</button>
-                </div>
+                <label class="daisy-label">
+                    <span class="daisy-label-text-alt">
+                    </span>
+                    <span class="daisy-label-text-alt hidden">Bottom Right label</span>
+                </label>
             </div>
         </div>
-</section>
 
-<!-- <script type="module" src="./account-settings/settings.js"></script> -->
+        <div class="flex flex-col gap-2">
+
+
+        </div>
+
+        <div class="flex flex-col gap-2">
+
+
+        </div>
+
+        <div class="daisy-modal-action">
+            <label for="changePassModal" class="daisy-btn">Close</label>
+            <button class="daisy-btn">Update Password</button>
+        </div>
+    </div>
+</div>
+<script type="module" src="./account-settings/account.js"></script>
