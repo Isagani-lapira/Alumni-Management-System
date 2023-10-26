@@ -711,7 +711,7 @@ function dateInText($date)
                   <div class="text-center">
                     <img id="deanImg" class="w-32 h-32 mx-auto rounded-md" alt="">
                     <p id="colDean" class="text-accent font-medium"></p>
-                    <p class="text-gray-500 text-sm">DEAN, CICT</p>
+                    <p class="text-gray-500 text-sm">DEAN, <span class="collegeCodeVal"></span></p>
                   </div>
                 </div>
 
@@ -719,7 +719,7 @@ function dateInText($date)
                   <div class="text-center">
                     <img id="adminImg" class="w-32 h-32  mx-auto rounded-md" alt="">
                     <p id="colAdminName" class="text-accent font-medium"></p>
-                    <p class="text-gray-500 text-sm">Alumni Coordinator, CICT</p>
+                    <p class="text-gray-500 text-sm">Alumni Coordinator, <span class="collegeCodeVal"></span></p>
                   </div>
                 </div>
 
@@ -727,10 +727,7 @@ function dateInText($date)
 
               <div class="description mt-3 w-9/12">
                 <h1 class="text-xl font-extrabold ">ABOUT US <span id="collegeCode"></span></h1>
-                <P class="py-3">Bulacan State University's College of Information and Communications
-                  Technology is the premier institution in Bulacan when it comes to effective and efficient
-                  ICT education and a leader in pioneering research and extension services.
-                </P>
+                <P class="py-3"></P>
               </div>
 
 

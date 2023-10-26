@@ -153,6 +153,7 @@ function querySelect($college, $con)
     $colDeanImg = "";
     $colAdmin = "";
     $colAdminImg = "";
+    $description = "";
     $courses = array();
 
     if ($result) {
@@ -169,7 +170,8 @@ function querySelect($college, $con)
                 $colDean = $row_data['colDean'];
                 $colWebLink = $row_data['colWebLink'];
                 $colDeanImg = base64_encode($row_data['colDeanImg']);
-
+                $description = $row_data['description'];
+                
                 //get the admin name
                 $queryPerson = 'SELECT * FROM `coladmin` WHERE `colCode` = "' . $colCode . '"';
                 $resultPerson = mysqli_query($con, $queryPerson);
@@ -216,7 +218,8 @@ function querySelect($college, $con)
             'colDeanImg' => $colDeanImg,
             'colAdminName' => $colAdmin,
             'colAdminImg' => $colAdminImg,
-            "courses"=>$courses
+            "courses"=>$courses,
+            "description"=>$description,
         );
 
         echo json_encode($colData);

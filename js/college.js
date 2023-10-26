@@ -36,7 +36,7 @@ $(document).ready(function(){
               let colAdmin = colData["colAdminName"];
               let colAdminImg = colData["colAdminImg"];
               let courses = colData['courses'];
-
+              let description = (colData['description'] === null)? 'No available description set': colData['description'];
               
               //add the images
               let logo = imgFormat + colLogo;
@@ -49,7 +49,7 @@ $(document).ready(function(){
               $("#colLogo").attr("src", logo);
               $("#deanImg").attr("src", deanImg);
               $("#adminImg").attr("src", adminImg);
-    
+              $('.collegeCodeVal').text(colCode)
               $("#colName").text(colName + "(" + colCode + ")");
               $("#collegeCode").text(colCode);
               $("#colContact").text(colContactNo);
@@ -58,7 +58,7 @@ $(document).ready(function(){
               colDean = colDean == null ? "No inserted dean yet" : "MR. " + colDean;
               $("#colDean").text(colDean);
               $("#colAdminName").text("MR. " + colAdmin);
-
+              $('.description p').text(description)
               // adding courses
               if(courses.length>0){
                 $('.courses-offered p').addClass('hidden')
