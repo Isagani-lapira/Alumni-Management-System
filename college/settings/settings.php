@@ -66,92 +66,97 @@ $colDeanImg = $data['colDeanImg'];
             <section id="personal-info-content" class="">
                 <h2 class="font-bold text-xl mb-12">Edit Personal Information</h2>
 
-                <!-- Cover Photo -->
-                <h3 class="font-bold text-lg">Cover Photo</h3>
-                <p class="text-gray-400">Upload a cover photo to be displayed on your profile</p>
+                <form name="personal-info-form" id="personal-info-form" enctype="multipart/form-data">
+                    <input type="hidden" name="personal-info-form" value="true">
+                    <!-- Cover Photo -->
+                    <h3 class="font-bold text-lg">Cover Photo</h3>
+                    <p class="text-gray-400">Upload a cover photo to be displayed on your profile</p>
 
 
-                <!-- Placeholder for Cover Image -->
-                <div class=" h-60 relative group rounded-sm">
-                    <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
-                    <!-- Cover Image Input -->
-                    <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <label for="cover-img" class="daisy-label">
-                        </label>
-                        <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-img" type="file" accept=".jpg" name="cover-image">
-                        <label class="daisy-label">
-                            <span class="daisy-label-text-alt">Use JPG File Format</span>
-                        </label>
+                    <!-- Placeholder for Cover Image -->
+                    <div class=" h-60 relative group rounded-sm">
+                        <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="
+                            data:image/jpeg;base64,<?= base64_encode($alumniData['cover_photo']) ?> 
+                        " alt="">
+                        <!-- Cover Image Input -->
+                        <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <label for="cover-img" class="daisy-label">
+                            </label>
+                            <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-img" type="file" accept=".jpg" name="cover-img">
+                            <label class="daisy-label">
+                                <span class="daisy-label-text-alt">Use JPG File Format</span>
+                            </label>
+                        </div>
                     </div>
-                </div>
 
 
 
 
-                <!-- Profile Picture -->
-                <div class="flex flex-wrap justify-between gap-4 my-4">
-                    <div class="flex flex-wrap gap-4">
-                        <!-- <div class="w-24 h-24 rounded-full bg-gray-300"></div> -->
+                    <!-- Profile Picture -->
+                    <div class="flex flex-wrap justify-between gap-4 my-4">
+                        <div class="flex flex-wrap gap-4">
+                            <!-- <div class="w-24 h-24 rounded-full bg-gray-300"></div> -->
 
-                        <div class="daisy-avatar">
-                            <div class="w-24 rounded-full">
-                                <img id="personal-img-preview" class=" bg-gray-100 object-contain  " src="" alt="">
+                            <div class="daisy-avatar">
+                                <div class="w-24 rounded-full">
+                                    <img id="personal-img-preview" class=" bg-gray-100 object-contain  " src="
+                                        data:image/jpeg;base64,<?= base64_encode($alumniData['profilepicture']) ?>" alt="">
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col justify-center">
+                                <h3 class="font-bold text-lg">Profile Picture</h3>
+                                <p class="text-gray-400">Upload a profile picture to be displayed on your profile</p>
+                            </div>
+
+                            <div class="flex flex-col justify-center">
+                                <input type="file" name="personal-img" class=" text-white px-4 py-2 rounded-full daisy-file-input " id="personal-img-pic" />
                             </div>
                         </div>
 
-                        <div class="flex flex-col justify-center">
-                            <h3 class="font-bold text-lg">Profile Picture</h3>
-                            <p class="text-gray-400">Upload a profile picture to be displayed on your profile</p>
-                        </div>
+                    </div>
 
-                        <div class="flex flex-col justify-center">
-                            <input type="file" class=" text-white px-4 py-2 rounded-full daisy-file-input " id="personal-img-pic" />
+                    <!-- Form that has first name, last name, birth date, gender, address -->
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="firstName" class="font-bold">First Name</label>
+                                <input value="<?= $alumniData['fname'] ?>" required type="text" name="firstName" id="firstName" class="border border-gray-300 rounded-md p-2">
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="lastName" class="font-bold">Last Name</label>
+                                <input value="<?= $alumniData['lname'] ?>" required type="text" name="lastName" id="lastName" class="border border-gray-300 rounded-md p-2">
+                            </div>
                         </div>
                     </div>
 
-                </div>
+                    <!-- birth date form input -->
 
-                <!-- Form that has first name, last name, birth date, gender, address -->
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-row gap-4">
                         <div class="flex flex-col gap-2">
-                            <label for="firstName" class="font-bold">First Name</label>
-                            <input value="<?= $alumniData['fname'] ?>" required type="text" name="firstName" id="firstName" class="border border-gray-300 rounded-md p-2">
+                            <label for="birthday" class="font-bold">Birth Day</label>
+                            <input required type="date" name="birthday" id="firstName" class="form-input border border-gray-300 rounded-md p-2" value="<?= $alumniData['bday'] ?>">
                         </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="lastName" class="font-bold">Last Name</label>
-                            <input value="<?= $alumniData['lname'] ?>" required type="text" name="lastName" id="lastName" class="border border-gray-300 rounded-md p-2">
-                        </div>
+
+
                     </div>
-                </div>
+                    <p class="daisy-label font-bold">Gender</p>
+                    <div class="flex flex-row gap-2">
+                        <label for="maleRadio" class="daisy-label">
+                            <input type="radio" name="gender" value="male" class="daisy-radio" id="maleRadio" <?php if ($alumniData['gender'] === 'male') echo 'checked'; ?> />
 
-                <!-- birth date form input -->
+                            Male
+                        </label>
+                        <label for="femaleRadio" class="daisy-label">
+                            <input type="radio" name="gender" value="female" class="daisy-radio" id="femaleRadio" <?php if ($alumniData['gender'] === 'female') echo 'checked'; ?> />
 
-                <div class="flex flex-row gap-4">
-                    <div class="flex flex-col gap-2">
-                        <label for="birthday" class="font-bold">Birth Day</label>
-                        <input required type="date" name="birthday" id="firstName" class="form-input border border-gray-300 rounded-md p-2" value="<?= $alumniData['bday'] ?>">
+                            Female
+                        </label>
                     </div>
 
 
-                </div>
-                <p class="daisy-label font-bold">Gender</p>
-                <div class="flex flex-row gap-2">
-                    <label for="maleRadio" class="daisy-label">
-                        <input type="radio" name="gender" value="male" class="daisy-radio" id="maleRadio" <?php if ($alumniData['gender'] === 'male') echo 'checked'; ?> />
-
-                        Male
-                    </label>
-                    <label for="femaleRadio" class="daisy-label">
-                        <input type="radio" name="gender" value="female" class="daisy-radio" id="femaleRadio" <?php if ($alumniData['gender'] === 'female') echo 'checked'; ?> />
-
-                        Female
-                    </label>
-                </div>
-
-
-                <!-- Old Address -->
-                <!-- <div class="flex flex-col gap-4">
+                    <!-- Old Address -->
+                    <!-- <div class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
                     <div class="flex flex-col gap-2">
                         <label for="street" class="font-bold">Street</label>
@@ -174,58 +179,63 @@ $colDeanImg = $data['colDeanImg'];
                 </div>
             </div> -->
 
-                <!-- Address -->
-                <div class="flex flex-row gap-4">
-                    <div class="flex flex-col gap-2">
-                        <label for="address" class="font-bold">Address</label>
-                        <input type="text" name="address" id="address" class="form-input border border-gray-300 rounded-md p-2" value="<?= $alumniData['address'] ?>">
-                    </div>
-                </div>
-
-
-                <!-- Add contact number -->
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
+                    <!-- Address -->
+                    <div class="flex flex-row gap-4">
                         <div class="flex flex-col gap-2">
-                            <label for="contactNo" class="font-bold">Contact Number</label>
-                            <input type="text" name="contactNo" id="contactNo" value="<?= $alumniData['contactNo'] ?>" class="border border-gray-300 rounded-md p-2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <label for="address" class="font-bold">Address</label>
+                            <input required type="text" name="address" id="address" class="form-input border border-gray-300 rounded-md p-2" value="<?= $alumniData['address'] ?>">
                         </div>
                     </div>
 
 
-                    <!-- Facebook, Instagram, Twitter, and LinkedIn Profile Input -->
+                    <!-- Add contact number -->
                     <div class="flex flex-col gap-4">
                         <div class="flex flex-wrap gap-4">
                             <div class="flex flex-col gap-2">
-                                <label for="facebook" class="font-bold">Facebook</label>
-                                <input type="text" name="facebook" id="facebook" class="border border-gray-300 rounded-md p-2" value="<?= $alumniData['facebookUN'] ?>">
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="instagram" class="font-bold">Instagram</label>
-                                <input type="text" name="instagram" id="instagram" class="border border-gray-300 rounded-md p-2" value="<?= $alumniData['instagramUN'] ?>">
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="flex flex-col gap-2">
-                                <label for="twitter" class="font-bold">Twitter</label>
-                                <input type="text" name="twitter" id="twitter" value="<?= $alumniData['twitterUN'] ?>" class="border border-gray-300 rounded-md p-2">
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="linkedin" class="font-bold">LinkedIn</label>
-                                <input value="<?= $alumniData['linkedInUN'] ?>" type="text" name="linkedin" id="linkedin" class="border border-gray-300 rounded-md p-2">
+                                <label for="contactNo" class="font-bold">Contact Number</label>
+                                <input required type="text" name="contactNo" id="contactNo" value="<?= $alumniData['contactNo'] ?>" class="border border-gray-300 rounded-md p-2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
 
-                    </div>
-                </div>
-                <!-- update profile button -->
-                <div class="flex flex-col gap-4 ">
-                    <div class="flex flex-wrap gap-4 justify-end">
-                        <div class="flex flex-col gap-2">
-                            <button class=" btn-primary">Update Account</button>
+
+                        <!-- Facebook, Instagram, Twitter, and LinkedIn Profile Input -->
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-wrap gap-4">
+                                <div class="flex flex-col gap-2">
+                                    <label for="facebook" class="font-bold">Facebook</label>
+                                    <input type="text" name="facebook" id="facebook" class="border border-gray-300 rounded-md p-2" value="<?= $alumniData['facebookUN'] ?>">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label for="instagram" class="font-bold">Instagram</label>
+                                    <input type="text" name="instagram" id="instagram" class="border border-gray-300 rounded-md p-2" value="<?= $alumniData['instagramUN'] ?>">
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="flex flex-col gap-2">
+                                    <label for="twitter" class="font-bold">Twitter</label>
+                                    <input type="text" name="twitter" id="twitter" value="<?= $alumniData['twitterUN'] ?>" class="border border-gray-300 rounded-md p-2">
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label for="linkedin" class="font-bold">LinkedIn</label>
+                                    <input value="<?= $alumniData['linkedInUN'] ?>" type="text" name="linkedin" id="linkedin" class="border border-gray-300 rounded-md p-2">
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div>
+                    <!-- update profile button -->
+                    <div class="flex flex-col gap-4 ">
+                        <div class="flex flex-wrap gap-4 justify-end">
+                            <div class="flex flex-col gap-2">
+                                <button id="submitUpdateProfileBtn" type="submit" name="update-profile-account" value="update" class=" btn-primary">
+                                    Update Account
+                                    <!-- <span class="daisy-loading daisy-loading-spinner daisy-loading-sm"></span> -->
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </section>
 
 
