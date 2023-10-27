@@ -177,6 +177,8 @@ $(document).ready(function () {
                     else {
                         $('#promptMsg').removeClass('hidden')
                         //retrieve emails
+                        table.clear().draw()
+                        emailOffset = 0
                         getEmailSent(actionDefault)
 
                         //success sending

@@ -154,7 +154,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16" width="24" height="24">
                   <path d="M 18 0 H 2 C 0.9 0 0.00999999 0.9 0.00999999 2 L 0 14 C 0 15.1 0.9 16 2 16 H 18 C 19.1 16 20 15.1 20 14 V 2 C 20 0.9 19.1 0 18 0 Z M 18 4 L 10 9 L 2 4 V 2 L 10 7 L 18 2 V 4 Z" />
                 </svg>
-                <span>EMAIL</span></a>
+                <span>OUTBOX</span></a>
             </li>
 
             <!-- ALUMNI RECORD-->
@@ -568,7 +568,7 @@ function dateInText($date)
           <div class="flex justify-end text-xs text-greyish_black">
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 
-            bg-accent text-white hover:bg-darkAccent">Export as PDF
+            bg-accent text-white hover:bg-darkAccent hidden">Export as PDF
             </button>
 
           </div>
@@ -648,9 +648,6 @@ function dateInText($date)
 
               <div>
                 <button id="btnNewCol" style="margin-left: auto; margin-right: 10px" class="block rounded-lg  text-white bg-accent p-2 hover:bg-darkAccent">Create new college
-                </button>
-
-                <button id="btnRemoveCol" style="margin-left: auto; margin-right: 10px" class="block my-2 text-sm text-grayish px-2 py-1 hover:text-accent hover:font-medium">Remove a college
                 </button>
               </div>
 
@@ -1407,9 +1404,6 @@ function dateInText($date)
 
 
               <div class="flex gap-1 items-center">
-                <!-- all -->
-                <input id="allEM" name="selectedUser" type="radio" checked value="all">
-                <label for="allEM">All</label>
 
                 <!-- alumni -->
                 <input id="alumniEM" name="selectedUser" type="radio" value="alumni">

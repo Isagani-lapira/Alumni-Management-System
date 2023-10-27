@@ -446,7 +446,8 @@ $(document).ready(function () {
         $('.accountUN').text(username)
         $('#statusDescript').html(postcaption)
         $('#statusLikes').text(likes)
-
+        $('#commentStatus').empty() //remove previously displayed comment
+        
         const action = { action: 'readWithPostID' }
         const formData = new FormData();
         formData.append('action', JSON.stringify(action))
@@ -477,7 +478,6 @@ $(document).ready(function () {
         const action = { action: 'read', postID: postID };
         const formData = new FormData();
         formData.append('action', JSON.stringify(action));
-
         $.ajax({
             url: '../PHP_process/commentData.php',
             method: 'POST',
@@ -486,13 +486,12 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
-                $('#commentStatus').empty() //remove previously displayed comment
                 let length = response.fullname.length;
                 for (let i = 0; i < length; i++) {
                     let fullname = response.fullname[i];
                     let comment = response.comment[i];
-                    let profile = imgFormat + response.profile[i];
-
+                    let profile = (response.profile[i]=='')? '../assets/icons/person.png' : imgFormat + response.profile[i];
+                    
                     // display the comments
                     let wrapper = $('<div>').addClass('flex gap-2 text-sm text-greyish_black')
                     let profilePic = $('<img>')
