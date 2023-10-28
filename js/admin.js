@@ -562,8 +562,7 @@ $(document).ready(function () {
           objResponse.update()
         }
 
-      },
-      error: error => { console.log(error) }
+      }
     })
   }
 
@@ -584,7 +583,10 @@ $(document).ready(function () {
       responsive: true,
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1, // Specify the step size for Y-axis values
+          }
         }
       }
     }

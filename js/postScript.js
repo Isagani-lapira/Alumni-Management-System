@@ -346,7 +346,7 @@ $(document).ready(function () {
                 else
                     viewStatusPost(postID, name, postDate, postcaption, likes, accUN)
             },
-            error: error => { console.log(error) }
+
         });
 
     });
@@ -447,7 +447,7 @@ $(document).ready(function () {
         $('#statusDescript').html(postcaption)
         $('#statusLikes').text(likes)
         $('#commentStatus').empty() //remove previously displayed comment
-        
+
         const action = { action: 'readWithPostID' }
         const formData = new FormData();
         formData.append('action', JSON.stringify(action))
@@ -470,7 +470,7 @@ $(document).ready(function () {
                 if (commentCount > 0) displayComments(postID)
 
             },
-            error: error => { console.log(error) }
+
         })
     }
 
@@ -490,8 +490,8 @@ $(document).ready(function () {
                 for (let i = 0; i < length; i++) {
                     let fullname = response.fullname[i];
                     let comment = response.comment[i];
-                    let profile = (response.profile[i]=='')? '../assets/icons/person.png' : imgFormat + response.profile[i];
-                    
+                    let profile = (response.profile[i] == '') ? '../assets/icons/person.png' : imgFormat + response.profile[i];
+
                     // display the comments
                     let wrapper = $('<div>').addClass('flex gap-2 text-sm text-greyish_black')
                     let profilePic = $('<img>')
@@ -507,7 +507,7 @@ $(document).ready(function () {
                     $('#commentStatus').append(wrapper)
                 }
             },
-            error: error => { console.log(error) }
+
         })
     }
     //close the post modal view
@@ -649,9 +649,9 @@ $(document).ready(function () {
 
                     offsetProfile += length
                 }
-                else console.log('stopping point')
+
             },
-            error: error => { console.log(error) }
+
         })
     }
 
@@ -877,7 +877,7 @@ $(document).ready(function () {
                             editIcon.removeClass('hidden')
                         }
                     },
-                    error: error => { console.log(error) }
+
                 })
             })
         //update description
@@ -948,7 +948,7 @@ $(document).ready(function () {
 
 
             },
-            error: error => { console.log(error) }
+
         })
     }
     function restartTableContent() {
@@ -1141,6 +1141,8 @@ $(document).ready(function () {
         //load the data for community after the click
         offsetCommunity = 0
         $('#communityContainer').empty();
+        $('#communityCollege').val('')
+        $('#communityReportFilter').val('')
         getCommunityPost();
         getReport()
     })
@@ -1195,7 +1197,7 @@ $(document).ready(function () {
                 }
 
             },
-            error: error => { console.log(error) }
+
         })
     }
 
@@ -1501,8 +1503,8 @@ $(document).ready(function () {
                     getCommunityPost()
                 }
 
-            },
-            error: error => { console.log(error) }
+            }
+
         })
     }
     $('#communityContainer').on('scroll', function () {
@@ -1517,12 +1519,8 @@ $(document).ready(function () {
         }
     });
 
-    let currentReportChart = null
     //get report graph
     function getReport() {
-        if (currentReportChart) {
-            currentReportChart.destroy(); // Destroy the previous chart instance
-        }
         let action = {
             action: 'displayReportData'
         }
@@ -1545,53 +1543,13 @@ $(document).ready(function () {
                 const SOS = response.SOS;
                 const harassment = response.harassment;
 
-                console.log(typeof(nudity))
                 //show data in pie chart format
-                const chart = $('#reportChart');
-                currentReportChart = new Chart(chart, {
-                    type: 'pie',
-                    data: {
-                        labels: [
-                            'Nudity',
-                            'Violence',
-                            'Terrorism',
-                            'Hate Speech',
-                            'False Information',
-                            'Suicide or self-injury',
-                            'Harassment',
-                        ],
-                        datasets: [{
-                            label: 'Report Graph',
-                            data: [
-                                nudity,
-                                violence,
-                                Terrorism,
-                                HateSpeech,
-                                FalseInformation,
-                                SOS,
-                                harassment
-                            ],
-                            backgroundColor: [
-                                '#FFDAB9',
-                                '#8B0000',
-                                '#555555',
-                                '#800080',
-                                '#D3D3D3',
-                                '#008080',
-                                '#FF8C00',
-                            ],
-                            hoverOffset: 4
-                        }]
-                    },
-                    options: {
-                        elements: {
-                            arc: {
-                                borderWidth: 0
-                            }
-                        },
-                        showZero: true, // Display zero values in the chart
-                    }
-                });
+                typeChart = 'pie'
+                labels = ['Nudity', 'Violence', 'Terrorism', 'Hate Speech', 'False Information',
+                    'Suicide or self-injury', 'Harassment']
+                data = [nudity, violence, Terrorism, HateSpeech, FalseInformation, SOS, harassment]
+                backgroundColors = ['#FFDAB9', '#8B0000', '#555555', '#800080', '#D3D3D3', '#008080', '#FF8C00']
+                updateChartReport(labels, data, typeChart, backgroundColors)
 
             }
         })
@@ -1640,12 +1598,11 @@ $(document).ready(function () {
                     const data = JSON.parse(response)
                     if (data.response == 'Success') {
                         let length = data.colCode.length;
-                        console.log(length)
                         for (let i = 0; i < length; i++) {
 
                             //data retrieved
                             const postID = data.postID[i]
-                            const profilePic = imgFormat+data.profilePic[i]
+                            const profilePic = imgFormat + data.profilePic[i]
                             const username = data.username[i]
                             const isLiked = data.isLiked[i];
                             const fullname = data.fullname[i]
@@ -1673,9 +1630,110 @@ $(document).ready(function () {
                     $("#noPostMsgCommunity").removeClass('hidden')
                         .appendTo('#communityContainer')
                 }
+
+                if (colCodeFilter !== "" || reportCatFilter !== "")
+                    getFilteredReportCount(reportCatFilter, colCodeFilter)
+                else getReport()
             },
-            error: error => { console.log(error) }
+
         })
+    }
+
+    function reportTrendFiltered(data, reportCategory) {
+        const labels = ['January', 'February', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December']
+        const typeChart = 'line'
+        const backgroundColor = '#991b1b'
+        const label = reportCategory + " Report"
+        updateChartReport(labels, data, typeChart, backgroundColor, label)
+
+    }
+
+    function getFilteredReportCount(reportFilter, colCode) {
+        const action = "retrieveCountReportFiltered";
+        const form = new FormData();
+        form.append('action', action);
+        form.append('filter', reportFilter);
+        form.append('colCode', colCode)
+
+        $.ajax({
+            url: '../PHP_process/reportData.php',
+            method: 'POST',
+            data: form,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; //default value
+                if (response.response === 'Success') {
+                    let length = response.month.length;
+
+                    for (let i = 0; i < length; i++) {
+                        let value = response.month[i]
+                        let reportCount = response.reportCount[i];
+                        // check if the value contains 0 in the beginning to be remove
+                        if (value[0] === '0') value = value.substr(1)
+
+                        value -= 1 //decrease by one to match the indexing in the array
+                        data[value] = reportCount
+                    }
+
+                }
+
+                reportTrendFiltered(data, reportFilter) //display the new chart
+            }
+
+        })
+    }
+
+    //show data in pie chart format
+    const chart = $('#reportChart');
+    let currentReportChart = new Chart(chart, {
+        type: 'pie',
+        data: {
+            labels: [], // Set initial labels
+            datasets: [{
+                data: [], // Set initial data
+                backgroundColor: [], // Set initial background colors
+                borderWidth: 1,
+                borderWidth: 1,
+                tension: 0.1,
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+
+
+    function updateChartReport(labels, values, typeChart, colors, label) {
+        // changing the chart 
+        currentReportChart.data.labels = labels;
+        currentReportChart.data.datasets[0].data = values;
+        currentReportChart.config.type = typeChart; //type of chart
+        currentReportChart.data.datasets[0].backgroundColor = colors
+        currentReportChart.data.datasets[0].label = label
+        currentReportChart.data.datasets[0].borderColor = colors
+
+        if (typeChart !== 'pie') {
+            currentReportChart.options.scales = {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1, // Specify the step size for Y-axis values
+                    }
+                }
+            }
+        }
+        else {
+            currentReportChart.options.scales = {
+                y: {
+                    display: false
+                } // Set Y-axis scale to an empty object to effectively remove it
+            };
+        }
+
+        currentReportChart.update() //refresh the chart
     }
 })
 
