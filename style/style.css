@@ -333,3 +333,8 @@ tbody tr:nth-child(odd) {
 #aomRecord {
   height: 95%;
 }
+
+.emailModal,
+.emailModal pre {
+  height: 90%;
+}

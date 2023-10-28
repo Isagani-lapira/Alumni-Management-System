@@ -2,11 +2,11 @@
 require_once 'connection.php';
 class EmailTable
 {
-    public function insertEmail($emailID, $recipient, $colCode, $date, $personID, $con)
+    public function insertEmail($emailID, $recipient, $colCode, $date, $personID, $subject, $message, $con)
     {
         //query for inserting data for email
-        $query = "INSERT INTO `email`(`emailID`, `recipient`, `colCode`, `dateSent`, `personID`) 
-        VALUES ('$emailID','$recipient','$colCode','$date','$personID')";
+        $query = "INSERT INTO `email`(`emailID`, `recipient`, `colCode`, `dateSent`, `personID`,`subject`,`message`) 
+        VALUES ('$emailID','$recipient','$colCode','$date','$personID','$subject','$message')";
         $result = mysqli_query($con, $query);
 
         if ($result) echo 'Success';
@@ -32,6 +32,8 @@ class EmailTable
         $recipient = array();
         $colCode = array();
         $dateSent = array();
+        $subject = array();
+        $message = array();
 
         $operationResult = '';
         // //get data
@@ -40,6 +42,8 @@ class EmailTable
             while ($data = mysqli_fetch_assoc($result)) {
                 $recipient[] = $data['recipient'];
                 $colCode[] = $data['colCode'];
+                $subject[] = $data['subject'];
+                $message[] = $data['message'];
                 $dateSent[] = $data['dateSent'];
             }
         } else $operationResult = 'Unsuccess';
@@ -49,7 +53,9 @@ class EmailTable
             "result" => $operationResult,
             "recipient" => $recipient,
             "colCode" => $colCode,
-            "dateSent" => $dateSent
+            "subject" => $subject,
+            "message" => $message,
+            "dateSent" => $dateSent,
         );
 
         echo json_encode($data); //return data as json

@@ -257,14 +257,28 @@ $(document).ready(function () {
                         const recipient = response.recipient[i];
                         const colCode = response.colCode[i];
                         const dateSent = getFormattedDate(response.dateSent[i]);
+                        const subject = response.subject[i];
+                        const message = response.message[i];
 
                         //row data
-                        let row = [recipient, colCode, dateSent]
+                        let row = [
+                            recipient,
+                            colCode,
+                            dateSent,
+                            `<button class="rounded-md px-3 py-2 text-white bg-postButton hover:bg-postHoverButton view-button"
+                            data-recipient="${recipient}"
+                            data-colcode="${colCode}"
+                            data-subject="${subject}"
+                            data-message="${message}"
+                            data-date="${dateSent}"
+                            >View</buton>`
+                        ]
                         table.row.add(row)
                     }
 
                     table.draw() //display the newly retrieved email data
                     emailOffset += length
+                    $('#totalEmailed').text(emailOffset)
                     // retrieve another data
                     if (length === 10) getEmailSent(actionDefault)
 
@@ -292,6 +306,31 @@ $(document).ready(function () {
         filterTable()
     })
 
+    $('#emailTable').on('click', '.view-button', function () {
+        let recipient = $(this).attr('data-recipient');
+        let colcode = $(this).attr('data-colcode');
+        let subject = $(this).attr('data-subject');
+        let message = $(this).attr('data-message');
+        let date = $(this).attr('data-date')
+
+        //set up details for email modal
+        $('.subject').text(subject)
+        $('.to').text(recipient + ' ( ' + colcode + ' )')
+        $('.messageEmail').text(message)
+        $('.dateData').text(date)
+
+        // open modal for email details
+        $('.emailDetailModal').removeClass('hidden')
+    })
+
+    // close email sent modal
+    $('.closeEmailModal').on('click', function () {
+        $('.emailDetailModal').addClass('hidden')
+
+        // remove details in email
+        $('.emailDetailModal h2 span').text('')
+        $('.dateData').text('')
+    })
 
     // filtering date
     $(function () {

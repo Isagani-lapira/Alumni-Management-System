@@ -113,7 +113,7 @@ function dateInText($date)
               Alumni <span class="font-normal">System</span>
             </h1>
           </div>
-          
+
           <ul class="w-3/4 text-sm">
 
             <!-- DASHBOARD -->
@@ -505,7 +505,7 @@ function dateInText($date)
               $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ';
               $result = mysqli_query($mysql_con, $query);
               $row = mysqli_num_rows($result);
-              echo '<p class="text-5xl font-bold">' . $row . '</p>';
+              echo '<p class="text-5xl font-bold" id="totalEmailed">' . $row . '</p>';
               ?>
             </div>
 
@@ -554,7 +554,8 @@ function dateInText($date)
               <tr>
                 <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
                 <th class="text-start">COLLEGE</th>
-                <th class="text-start rounded-tr-md">DATE</th>
+                <th class="text-start">DATE</th>
+                <th class="text-start rounded-tr-md">VIEW</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -945,7 +946,7 @@ function dateInText($date)
         <div id="alumnYear-tab" class="p-5 hidden h-full">
           <h1 class="text-xl font-extrabold">Alumni of the Year</h1>
           <p class="text-grayish">Make post for a newly awarded alumni of the year</p>
-          <div class = "flex justify-end w-full">
+          <div class="flex justify-end w-full">
             <button id="assigningAOYbtn" class="bg-postButton hover:bg-postHoverButton text-white rounded-md p-2">Assign Alumni of the year</button>
           </div>
 
@@ -2245,6 +2246,7 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- alumni of the year confirmation -->
     <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 hidden">
       <div class="alumniOfYearModal bg-white rounded shadow-lg w-2/5 h-max slide-bottom p-5">
         <h2 class="text-center text-lg italic text-green-400 font-bold">Alumni of the Year! </h2>
@@ -2255,6 +2257,7 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- alumni of the year -->
     <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 hidden aoyModal">
       <div class="w-1/2 rounded-md h-4/5 bg-white p-5 overflow-y-auto">
         <h3 class="text-center text-greyish_black font-semibold text-xl">Alumni of the year</h3>
@@ -2275,6 +2278,30 @@ function dateInText($date)
           <h2 class="text-greyish_black font-bold text-center text-lg">Social Media</h2>
           <div class="flex flex-wrap justify-center gap-2 socMedWrapper flex-1"></div>
 
+        </div>
+      </div>
+    </div>
+
+    <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 emailDetailModal hidden">
+      <div class="w-4/5 rounded-md h-4/5 bg-white p-5 overflow-y-auto">
+        <header class="flex items-center justify-between">
+          <div class="flex gap-2 cursor-pointer closeEmailModal">
+            <iconify-icon icon="fluent-mdl2:back" class="text-gray-700" width="24" height="24"></iconify-icon>
+            <h2 class="font-bold text-gray-500">Back</h2>
+          </div>
+          <div class="text-sm text-gray-500 italic">
+            <span>Email sent: </span>
+            <span class="dateData"></span>
+          </div>
+        </header>
+        <!-- body -->
+        <div class="flex flex-col mt-3 text-gray-500 emailModal">
+          <h2 class="font-semibold">Subject: <span class="text-based font-normal subject"></span></h2>
+          <h2 class="font-semibold">To: <span class="text-based font-normal to"></span></h2>
+          <div class="h-4/5">
+            <h2 class="font-semibold">Message:</h2>
+            <pre class=" text-gray-500 text-justify w-full border border-gray-400 rounded-md overflow-y-auto p-5 messageEmail"></pre>
+          </div>
         </div>
       </div>
     </div>
