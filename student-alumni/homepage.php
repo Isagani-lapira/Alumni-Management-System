@@ -643,9 +643,9 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- container questions -->
-          <div id="questionsContainer" class="h-full w-1/2 overflow-y-auto flex flex-col gap-3 border-t-4 border-accent rounded-t-lg center-shadow mx-auto items-center p-3 hidden">
+          <div id="questionsContainer" class="h-full w-4/5 overflow-y-auto flex flex-col gap-3 rounded-md border border-gray-400 mx-auto items-center p-5 hidden">
             <div class="w-full">
-              <h3 id="categoryNameQuestion" class="text-3xl font-extrabold text-accent text-center">Category Name</h3>
+              <h3 id="categoryNameQuestion" class="text-lg font-extrabold text-accent">Category Name</h3>
             </div>
             <div class="questions h-full w-full p-2 overflow-y-auto "></div>
             <div id="navigationWrapper" class="w-full">

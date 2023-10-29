@@ -470,7 +470,6 @@ pre {
   }
 }
 
-
 .loadingProfile div {
   box-sizing: border-box;
   display: block;
@@ -499,4 +498,9 @@ pre {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.userinputData:hover {
+  border-bottom: 2px solid #991b1b;
+  transition: border-bottom 0.7s ease;
 }

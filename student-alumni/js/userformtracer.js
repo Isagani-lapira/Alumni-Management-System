@@ -24,6 +24,7 @@ $(document).ready(function () {
                     response.dataSet.forEach(data => {
                         const questionSet = data.questionSet
 
+                        let questionNo = 1; //for adding number for each question
                         // get the details of a question
                         questionSet.forEach(data => {
                             const questionID = data.questionID
@@ -32,7 +33,8 @@ $(document).ready(function () {
                             const choices = data.choices
 
                             //mark up for displaying question
-                            displayQuestion(answerID, questionID, questionTxt, inputType, choices, tracerQuestionWrapper)
+                            displayQuestion(answerID, questionID, questionTxt, inputType, choices, tracerQuestionWrapper, questionNo)
+                            questionNo++
                         })
 
                     })
@@ -304,15 +306,15 @@ $(document).ready(function () {
         });
     }
 
-    async function displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot) {
+    async function displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot, questionNo) {
         // wrapper container
         const questionWrapper = $('<div>')
-            .addClass('center-shadow rounded-md py-3 px-5 mb-5 userQuestionTracer');
+            .addClass('rounded-md userQuestionTracer');
 
         // question name
         const question = $('<h3>')
-            .addClass('text-center font-bold text-greyish_black')
-            .text(questionTxt);
+            .addClass('text-lg')
+            .text(questionNo + '.) ' + questionTxt);
 
         if (containerRoot == tracerQuestionWrapper) question.removeClass('text-center')
         questionWrapper.append(question);
@@ -335,7 +337,7 @@ $(document).ready(function () {
             if (inputType === 'Input') {
                 // input type
                 let questionType = $('<input>')
-                    .addClass('border-b border-gray-400 p-2 w-full outline-none userinputData')
+                    .addClass('border-b border-gray-400 p-2 w-1/2 rounded-b-md outline-none userinputData')
                     .attr('type', 'text')
                     .attr('placeholder', 'Enter your answer')
                     .on('change', function () {
@@ -347,7 +349,7 @@ $(document).ready(function () {
                 questionBody.append(questionType);
             } else {
                 const select = $('<select>')
-                    .addClass('w-full px-2 py-4 outline-none center-shadow rounded-lg dropdownQuestion')
+                    .addClass('w-1/2 px-2 py-4 outline-none border border-gray-400 rounded-lg dropdownQuestion')
                 const defaultOption = $('<option value="" selected disabled>--Please choose an option--</option>')
                 select.append(defaultOption)
                 // get all the choices
@@ -359,7 +361,7 @@ $(document).ready(function () {
                     // check again where it fall to three (radio,dropdown,checkbox)
                     if (inputType === "Radio") {
                         const inputFieldWrapper = $('<div>')
-                            .addClass('flex justify-start items-center gap-2 w-full p-2')
+                            .addClass('flex justify-start items-center gap-2 w-1/2 mt-3')
                         let name = questionTxt.replace(' ', '')
                         const max = 1000
                         let id = choiceID + Math.floor(Math.random() * (max + 1))
@@ -417,7 +419,7 @@ $(document).ready(function () {
                     }
                     else if (inputType == "Checkbox") {
                         const inputFieldWrapper = $('<div>')
-                            .addClass('flex justify-start items-center gap-2 w-full p-2')
+                            .addClass('flex justify-start items-center gap-2 w-1/2 p-2')
                         let name = questionTxt.replace(' ', '')
                         const max = 1000
                         let id = choiceID + Math.floor(Math.random() * (max + 1))
@@ -516,6 +518,7 @@ $(document).ready(function () {
                 $('#sectionModalcontainer').removeClass('hidden')
                 // Loop through the data and display questions
                 const length = response.length
+                let questionNo = 1;
                 for (let i = 0; i < length; i++) {
                     const questionID = response[i][0].questionID;
                     const questionTxt = response[i][0].questionTxt;
@@ -523,7 +526,8 @@ $(document).ready(function () {
                     const choices = response[i][0].choices;
 
                     const containerRoot = $('#sectionQuestionContainer'); //root container of section modal
-                    displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot)
+                    displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot, questionNo)
+                    questionNo++
                 }
 
                 $('#proceedBtnSection').on('click', function () {
