@@ -275,4 +275,21 @@ class personDB
 
         echo json_encode($data);
     }
+
+
+    function checkPersonEmailAddress($emailAdd, $column, $con)
+    {
+        $query = "SELECT COUNT( $column ) FROM `person` WHERE $column = ?";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('s', $emailAdd);
+            $stmt->execute();
+            $stmt->bind_result($count);
+            $stmt->fetch(); // Fetch the result
+
+            if ($count > 0) echo 'Existing';
+            else echo 'Available';
+        }
+    }
 }
