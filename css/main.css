@@ -2106,10 +2106,6 @@ div.input-container input[type="text"],
   right: -8rem;
 }
 
-.-right-8 {
-  right: -2rem;
-}
-
 .-top-10 {
   top: -2.5rem;
 }
@@ -3602,6 +3598,11 @@ div.input-container input[type="text"],
   background-color: rgb(191 219 254 / var(--tw-bg-opacity));
 }
 
+.bg-blue-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(147 197 253 / var(--tw-bg-opacity));
+}
+
 .bg-blue-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
@@ -4628,6 +4629,11 @@ body {
   background-color: rgb(153 27 27 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-blue-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-blue-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
@@ -4728,10 +4734,6 @@ body {
 
 .hover\:font-bold:hover {
   font-weight: 700;
-}
-
-.hover\:font-medium:hover {
-  font-weight: 510;
 }
 
 .hover\:font-semibold:hover {

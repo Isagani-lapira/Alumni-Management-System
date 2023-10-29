@@ -913,7 +913,18 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: response => { console.log(response) },
+            success: response => {
+                if (response === 'Success') {
+                    $('#deploymentModal').addClass('hidden')
+                    $('#message').text('Tracer successfully deployed')
+                    $('#promptMsg').removeClass('hidden')
+
+                    // hide the promp after 4seconds
+                    setTimeout(() => {
+                        $('#promptMsg').addClass('hidden')
+                    }, 4000)
+                }
+            },
             error: error => { console.log(error) }
         })
     })

@@ -748,8 +748,8 @@ function dateInText($date)
           <p class="text-grayish">See the relevant information that are gathered</p>
 
           <div class="flex gap-2 justify-end mb-2">
-            <button id="tracerbtn" class="text-gray-400 hover:text-gray-500">Tracer form</button>
-            <button id="deployTracerBtn" class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
+            <button id="tracerbtn" class="text-white hover:bg-blue-400 bg-blue-300 px-3 py-2 rounded-md">Tracer form</button>
+            <button id="deployTracerBtn" class="px-3 py-2 bg-green-400 hover:bg-green-500 text-white rounded-md font-bold">Deploy Tracer</button>
           </div>
 
           <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
@@ -2051,7 +2051,7 @@ function dateInText($date)
 
         <div class="flex w-full justify-end items-center gap-2 my-3 border-t border-gray-300 py-2">
           <button id="cancelDeployBtn" class="text-gray-400 hover:text-gray-500">Cancel</button>
-          <button id="confirmDeployTracerBtn" class="px-4 py-2 rounded-lg bg-blue-400 hover:bg-blue-500 text-white font-bold">Deploy</button>
+          <button id="confirmDeployTracerBtn" class="px-4 py-2 rounded-lg bg-green-400 hover:bg-green-500 text-white font-bold">Deploy</button>
         </div>
       </div>
 
@@ -2227,6 +2227,7 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- loading screen -->
     <div id="loadingScreen" class="post modal fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden">
       <span class="loader w-36 h-36"></span>
       <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
