@@ -48,6 +48,7 @@ $(document).ready(function () {
             success: response => {
                 $('#loadingDataAnnouncement').addClass('hidden')
                 if (response.result == "Success") {
+                    $('#announcementWrapper').empty();
                     const length = response.announcementID.length;
 
                     //data that retrieved
@@ -67,6 +68,10 @@ $(document).ready(function () {
             error: error => { console.log(error) }
         })
     }
+
+    $('.refresher').on('click', function () {
+        setTimeout(getAnnouncement, 6000)
+    })
 
     //display announcement content as carousel
     function displayAnnouncement(announcementID, headline_img, title, date_posted, author, description) {
@@ -99,7 +104,7 @@ $(document).ready(function () {
             slidesPerView: 1,
             spaceBetween: 30,
             autoplay: {
-                delay: 3000,
+                delay: 6000,
                 disableOnInteraction: false
             },
             pagination: {

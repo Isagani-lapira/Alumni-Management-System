@@ -24,6 +24,7 @@ $(document).ready(function () {
     var maxRetrieve = 10;
     let dataRetrieved = 0;
     var stoppingPostRetrieval = 0;
+    let postStatus = "normal";
 
     getPost()
     //retrieve post data
@@ -412,8 +413,7 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: (response) => { console.log(response) },
-            error: (error) => { console.log(error) }
+
         })
     }
 
@@ -434,8 +434,7 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: (response) => { console.log(response) },
-            error: (error) => { console.log(error) }
+
         })
     }
 
@@ -450,7 +449,8 @@ $(document).ready(function () {
         if (scrollOffset + containerHeight + threshold >= contentHeight) {
             // reload the loading 
             $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer');
-            getPost();
+            if (postStatus === 'normal') getPost();
+            else refreshPost()
         }
         else $('#loadingDataFeed').addClass('hidden')
 
@@ -610,7 +610,7 @@ $(document).ready(function () {
                     $('#commentContainer').append(noCommentMsg) //show no comment
                 }
             },
-            error: (error) => { console.log(error) }
+
         })
     }
 
@@ -643,7 +643,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            error: (error) => { console.log(error) }
+
         })
     }
 
@@ -764,7 +764,7 @@ $(document).ready(function () {
                 }
 
             },
-            error: (error) => { console.log(error) }
+
         })
     })
 
@@ -890,4 +890,57 @@ $(document).ready(function () {
     $('.closeDeleteBtn').on('click', function () {
         $('#delete-modal').addClass('hidden')
     })
+
+    $('.refresher').on('click', function () {
+        postStatus = "refresher"
+        refresherOffset = 0;
+        refreshPost(); //retrieve all post in college by post no restriction
+    })
+
+    let refresherOffset = 0;
+    function refreshPost() {
+        const action = { action: 'getAllCollegePost' };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('offset', refresherOffset);
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                if (response.response === 'Success') {
+                    $('#noPostMsgFeed').addClass('hidden')
+                    const length = response.username.length;
+                    for (let i = 0; i < length; i++) {
+                        //store data that retrieve
+                        const postID = response.postID[i];
+                        const fullname = response.fullname[i];
+                        const username = response.username[i];
+                        const isLiked = response.isLiked[i];
+                        const images = response.images[i];
+                        const imgProfile = (response.profilePic[i] == '') ? '../assets/icons/person.png' : imgFormat + response.profilePic[i]
+                        const caption = response.caption[i];
+                        let date = response.date[i];
+                        const likes = response.likes[i];
+                        const comments = response.comments[i];
+                        date = getFormattedDate(date) //formatted date for easy viewing of date
+                        displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isLiked); //display the post on the container
+                    }
+
+                    refresherOffset += length
+                }
+                else {
+                    $('#loadingDataFeed').addClass('hidden')
+                    $('.lds-facebook').parent().addClass('hidden')
+                    $('#noPostMsgFeed').removeClass('hidden')
+                        .appendTo('#feedContainer');
+                }
+            }
+
+        })
+    }
 })

@@ -518,4 +518,22 @@ class PostData
             mysqli_stmt_close($stmt);
         } else echo 'Error';
     }
+
+    function getAllCollegePost($colCode, $offset, $con)
+    {
+        $maxLimit = 10;
+        $status = "available";
+        $query = "SELECT * FROM `post` WHERE `status` = ? 
+        AND `colCode` = ? ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('ss', $status, $colCode);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $postResult = $this->getPostData($result, $con);
+            echo $postResult;
+        }
+    }
 }

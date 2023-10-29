@@ -338,7 +338,7 @@ function getAccDetails($con, $personID)
                   </div>
 
                   <p id="loadingDataFeed" class="text-gray-400 text-center">Loading data...</p>
-                  <p id="noPostMsgFeed" class="text-blue-400 text-center hidden">No available post</p>
+                  <p id="noPostMsgFeed" class="text-blue-400 text-center hidden">No available post <button class="refresher underline hover:text-blue-500">retrieve seen post</button></p>
                 </div>
               </div>
 

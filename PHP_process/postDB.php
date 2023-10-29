@@ -86,6 +86,12 @@ if (isset($_POST['action'])) {
             $images = $post->getPostImages($postID, $mysql_con);
             echo json_encode($images);
             break;
+
+        case 'getAllCollegePost':
+            $offset = $_POST['offset'];
+            $colCode = $_SESSION['colCode'];
+            $post->getAllCollegePost($colCode, $offset, $mysql_con);
+            break;
     }
 }
 
