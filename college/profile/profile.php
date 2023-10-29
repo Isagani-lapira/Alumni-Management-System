@@ -60,13 +60,24 @@ if (isset($_SESSION['personID'])) {
 
 ?>
 <section>
-    <div class="flex flex-col ">
-        <section class="daisy-tabs" id="profile-tab-container">
-            <a class="daisy-tab daisy-tab-lg daisy-tab-bordered daisy-tab-active" href="#college-profile-container">College Profile</a>
-            <a class="daisy-tab daisy-tab-lg daisy-tab-bordered " href="#account-profile-container">Community Profile</a>
+    <div class="flex flex-row  ">
+        <section class="px-4" id="">
+
+            <h2 class="daisy-menu-title text-xl text-slate-800">Profile</h2>
+            <ul class="daisy-menu daisy-menu-lg space-y-2 " id="profile-tab-container">
+                <li>
+                    <a class="daisy-menu-item daisy-active " href="#college-profile-container">College Profile</a>
+                </li>
+                <li>
+                    <a class=" daisy-menu-item  " href="#account-profile-container">Community Profile</a>
+                </li>
+            </ul>
+
         </section>
 
-        <section id="content-container">
+
+
+        <section id="content-container" class="flex-1 ">
 
 
             <section id="college-profile-container" class="">

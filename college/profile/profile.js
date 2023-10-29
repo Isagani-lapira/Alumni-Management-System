@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $("#profile-tab-container .daisy-tab").click(function () {
+  $("#profile-tab-container a.daisy-menu-item").click(function () {
     // get the value of the href
     const url = $(this).attr("href");
     const container = $("#content-container");
@@ -10,8 +10,8 @@ $(document).ready(function () {
 
     console.log(url);
     // remove all the active classes
-    $("#profile-tab-container .daisy-tab").removeClass("daisy-tab-active");
-    $(this).addClass("daisy-tab-active");
+    $("#profile-tab-container .daisy-menu-item").removeClass("daisy-active");
+    $(this).addClass("daisy-active");
 
     // get the linked element
     const elem = $(url);

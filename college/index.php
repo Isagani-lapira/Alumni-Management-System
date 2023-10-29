@@ -162,10 +162,10 @@ if (
 
 <body class="">
 
-    <div class="flex flex-row min-h-screen ">
+    <div class="flex flex-row min-h-screen max-h-screen ">
 
         <aside class="
-        border flex-initial relative w-80 px-5 py-5 transition-all group 
+        border flex-initial relative w-80 px-5 py-5 transition-all group flex flex-col
         " id="sidebar">
             <header class="my-2 p-2 flex gap-4 items-center justify-start">
                 <i class="fa-solid fa-bars " id="toggleSidebarIcon"></i>
@@ -173,10 +173,9 @@ if (
             </header>
             <!-- TODO make this sticky fixed left-0 top-8 z-0 -->
             <!-- TODO Adjust icons to fill up when changed -->
-            <nav class="">
+            <nav class="relative flex-1">
                 <!-- Main Navigation -->
-                <ul class="flex flex-col gap-2 mb-6 py-5 w-4/5 font-light text-sm ">
-
+                <ul class="flex flex-col gap-2 mb-6 py-5 w-4/5 font-light text-sm [&>*:hover]:bg-gray-100 ">
                     <li><a data-link="dashboard" href="#dashboard" class=" flex justify-left flex-nowrap rounded-lg p-2  font-bold bg-accent text-white ">
                             <svg class="block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z"></path>
@@ -221,8 +220,10 @@ if (
                 </ul>
 
                 <!-- Alumni Navigation -->
-                <div class="my-2 uppercase font-normal text-sm tracking-wider  group-[.is-collapsed]:opacity-0 group-[.is-collapsed]:invisible  transition-all   ">Alumni</div>
-                <ul class="space-y-2 w-4/5 font-light text-sm">
+                <ul class="space-y-2 w-4/5 font-light text-sm [&>*:hover]:bg-gray-100">
+                    <li>
+                        <div class="daisy-menu-title  my-2 uppercase font-medium text-sm tracking-wider  group-[.is-collapsed]:opacity-0 group-[.is-collapsed]:invisible  transition-all   ">Alumni</div>
+                    </li>
                     <li><a data-link="alumni-of-the-month" href="#alumni-of-the-month" class="
                      flex justify-left flex-nowrap rounded p-2">
                             <i class="fa-solid fa-user-graduate  fa-xl"></i>
@@ -238,23 +239,20 @@ if (
                 </ul>
 
                 <!-- Add padding for the absolute bottom buttons -->
-                <div class="h-48"></div>
-
                 <!-- Bottom Buttons  -->
-                <div class="absolute bottom-2 w-4/5">
-                    <ul class="space-y-2 w-full font-light ">
-                        <li><a data-link="profile" href="#profile" class="  flex justify-left flex-nowrap rounded p-2 items-center">
+                <div class="absolute bottom-2 w-full">
+                    <ul class="space-y-2 w-full font-light  ">
+                        <li>
+                            <a data-link="profile" href="#profile" class="  flex justify-left flex-nowrap rounded items-center p-2 group-[.is-collapsed]:p-0">
                                 <!-- get the session image  -->
-                                <img src="data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?>" alt="picture of college logo" class="w-10 h-10 rounded-full object-cover">
+                                <img src="data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?>" alt="picture of college logo" class="w-9 h-9 rounded-full object-cover  ">
                                 <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">
                                     <span class="block font-bold"><?= $_SESSION['colCode'] ?></span>
                                     <span class="font-light"> <?= $fullname ?></span>
                                 </span>
-
-                            </a></li>
-
+                            </a>
+                        </li>
                         <li>
-
                             <a data-link="settings" href="#settings" class="flex justify-left flex-nowrap rounded p-2">
                                 <i class="fa-xl fa-solid fa-gear"></i>
                                 <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">Settings</span>
@@ -265,7 +263,6 @@ if (
                                 <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150 ">Sign Out</span>
                             </button></li>
                     </ul>
-
                 </div>
 
             </nav>
@@ -275,7 +272,7 @@ if (
 
 
         <main class="flex-1 mx-auto mt-10">
-            <div id="main-root">
+            <div id="main-root" class="max-h-full overflow-auto">
 
             </div>
 
