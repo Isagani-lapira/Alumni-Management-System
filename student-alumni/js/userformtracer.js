@@ -201,7 +201,6 @@ $(document).ready(function () {
 
     function progressBarMovement(progress) {
         const progressGoal = categoryList.length;
-        console.log(progress)
         //calculating percentage
         const percentage = (progress / progressGoal) * 100;
         progressBar.css({ 'width': percentage + '%' }) //change the level of of progress

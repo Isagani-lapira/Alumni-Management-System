@@ -39,7 +39,7 @@ function insertNewTracerDeployment($con)
 function retrievedDeployment($con)
 {
     // get if there's tracer form available based on the current date
-    $query = "SELECT `tracer_deployID` FROM `tracer_deployment` WHERE CURRENT_DATE<=`end_date` ORDER BY `end_date` DESC LIMIT 1";
+    $query = "SELECT `tracer_deployID` FROM `tracer_deployment` WHERE CURRENT_DATE<=`end_date` ORDER BY `timstamp` DESC LIMIT 1";
     $stmt = mysqli_prepare($con, $query);
     $stmt->execute();
     $result = $stmt->get_result();
