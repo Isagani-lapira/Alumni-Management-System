@@ -59,12 +59,15 @@ if (isset($_SESSION['personID'])) {
 }
 
 ?>
-<section>
-    <div class="flex flex-row  ">
-        <section class="px-4" id="">
+<section class=" min-h-full">
 
-            <h2 class="daisy-menu-title text-xl text-slate-800">Profile</h2>
-            <ul class="daisy-menu daisy-menu-lg space-y-2 " id="profile-tab-container">
+    <h2 class="daisy-menu-title text-xl text-slate-800">Your Profile</h2>
+    <div class="flex flex-row h-full max-h-full  border">
+
+
+        <section class="px-4 mr-4 border border-t-0 " id="">
+
+            <ul class="daisy-menu daisy-menu-md space-y-2 " id="profile-tab-container">
                 <li>
                     <a class="daisy-menu-item daisy-active " href="#college-profile-container">College Profile</a>
                 </li>
@@ -77,17 +80,17 @@ if (isset($_SESSION['personID'])) {
 
 
 
-        <section id="content-container" class="flex-1 ">
+        <section id="content-container" class="flex-1 mt-4 overflow-auto">
 
 
             <section id="college-profile-container" class="">
                 <div class="individual-col h-full ">
-                    <h1 class="text-xl font-extrabold">
+                    <h1 class="text-lg font-extrabold">
                         College Profile
                     </h1>
                     <div class="px-10">
                         <div class="grid grid-cols-2 h-max p-5">
-                            <img id="colLogo" class="w-1/2 block mx-auto" src="
+                            <img id="colLogo" class="w-6/12 aspect-square block mx-auto" src="
                             data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?> 
                             " alt="">
 
