@@ -14,19 +14,20 @@ if (
 } else {
   require_once '../PHP_process/connection.php';
   require '../PHP_process/personDB.php';
+  require_once '../PHP_process/migration.php';
 
   $username = $_SESSION['username'];
 
   //get the person ID of that user
-  $query = "SELECT 'student' AS user_type, student.personID
+  $query = "SELECT 'student' AS user_type, student.personID, currentYear, studNo
   FROM student
   WHERE student.username = '$username'
   UNION
-  SELECT 'alumni' AS user_type, alumni.personID
+  SELECT 'alumni' AS user_type, alumni.personID, NULL,NULL
   FROM alumni
   WHERE alumni.username = '$username'
   UNION
-  SELECT 'not found' AS user_type, NULL
+  SELECT 'not found' AS user_type, NULL, NULL,NULL
   WHERE NOT EXISTS (
       SELECT 1 FROM student WHERE student.username = '$username'
   ) AND NOT EXISTS (
@@ -38,6 +39,9 @@ if (
     $data = mysqli_fetch_assoc($result);
     $personID = $data['personID'];
     $user_type = $data['user_type'];
+    $studentYr = $data['currentYear'];
+    $studentNo = $data['studNo'];
+
     //get person details
     $personObj = new personDB();
     $personDataJSON = $personObj->readPerson($personID, $mysql_con);
@@ -1571,6 +1575,59 @@ function getAccDetails($con, $personID)
       </div>
     </div>
 
+    <!-- migration modal -->
+    <?php
+    $today = date('F');
+
+    if ($user_type == 'student' && $today === 'October' && $studentYr == 4) {
+      $migration = new Migration($studentNo);
+      $isNotifShown = $migration->isNotifAlreadyShown($mysql_con); //for checking if the modal is already shown to the studen
+
+      if (!$isNotifShown) {
+        echo
+        '<div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center migrationModal">
+          <div class="bg-white w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+            <h2 class="text-2xl font-semibold">We noticed something about this account!</h2>
+            <p>Your account appears to be prepared for account migration to alumni.
+              Verify that you graduated from Bulacan State University before processing your immigration.</p>
+
+            <p class="mt-3">The following capabilities have been introduced to alumni accounts:
+              <span class="font-semibold italic"> job applications, job postings, and alumni graduate tracker.</span>
+            </p>
+            <!-- note -->
+            <div class="text-red-500 flex gap-2 border border-gray-300 rounded-md p-3">
+              <iconify-icon icon="ep:warning-filled" width="24" height="24"></iconify-icon>
+              <div class="flex gap-2">
+                <span class="font-semibold">Note:</span>
+                <p>You can\'t undo this confirmation. Make sure you\'re prepared to migrate your account before continuing.</p>
+              </div>
+
+            </div>
+
+            <div class="flex justify-end gap-2">
+              <button class="cancelMigration text-gray-400 hover:text-gray-500">Cancel</button>
+              <button class="rounded-md text-white bg-green-400 hover:bg-green-500 px-3 py-2">Confirm</button>
+            </div>
+          </div>
+        </div>';
+
+        // insert new data in migration
+        $migration->createEntry($mysql_con);
+      } else '<p>Dito pumasok</p>';
+    }
+
+    ?>
+    <!-- cancel migration -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center cancelMigrationModal hidden">
+      <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+        <h2 class="text-xl font-semibold">Confirmation</h2>
+        <p>In the edit profile area, you can see this if you chose to move your account.</p>
+        <div class="flex justify-end gap-2">
+          <button id="cancelMigrationBtn">Cancel</button>
+          <button id="closeMigrationModal" class="bg-blue-400 hover:bg-blue-500 text-white px-3 py-2 rounded-md">Okay</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 
@@ -1579,6 +1636,7 @@ function getAccDetails($con, $personID)
 
   <script src="../student-alumni/js/hompage.js"></script>
   <script src="../student-alumni/js/announcementscript.js"></script>
+  <script src="../student-alumni/js/migration.js"></script>
   <script src="../student-alumni/js/eventscript.js"></script>
   <script src="../student-alumni/js/jobposting.js"></script>
   <script src="../student-alumni/js/notification.js"></script>
