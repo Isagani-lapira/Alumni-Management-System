@@ -1695,6 +1695,7 @@ function getAccDetails($con, $personID)
 
   <script src="../student-alumni/js/hompage.js"></script>
   <script src="../student-alumni/js/announcementscript.js"></script>
+  <script src="../student-alumni/js/currentyear.js"></script>
   <script src="../student-alumni/js/migration.js"></script>
   <script src="../student-alumni/js/eventscript.js"></script>
   <script src="../student-alumni/js/jobposting.js"></script>

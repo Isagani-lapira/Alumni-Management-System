@@ -42,6 +42,11 @@ if (isset($_POST['action'])) {
                 }
             }
             break;
+        case 'updateCurrentYear':
+            $username = $_POST['username'];
+            $student = new Student();
+            $student->updateCurrentYear($username, $mysql_con);
+            break;
     }
 } else {
     echo 'cant Enter';
