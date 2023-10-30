@@ -35,4 +35,18 @@ class Migration
             return $count > 0;
         }
     }
+
+    public function deleteMigrationData($con)
+    {
+        $query = "DELETE FROM `migration_status` WHERE `studentNo` = ?";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('d', $this->studentNo);
+            $result = $stmt->execute();
+
+            if ($result) return 'Success';
+            else return 'Failed';
+        }
+    }
 }

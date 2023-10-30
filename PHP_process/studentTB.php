@@ -74,4 +74,18 @@ class Student
 
         echo json_encode($data);
     }
+
+    function deleteStudentRecord($username, $con)
+    {
+        $query = "DELETE FROM `student` WHERE `username`= ?";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('s', $username);
+            $result = $stmt->execute();
+
+            if ($result) echo 'Success';
+            else echo 'Failed';
+        }
+    }
 }

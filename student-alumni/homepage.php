@@ -1606,14 +1606,14 @@ function getAccDetails($con, $personID)
 
             <div class="flex justify-end gap-2">
               <button class="cancelMigration text-gray-400 hover:text-gray-500">Cancel</button>
-              <button class="rounded-md text-white bg-green-400 hover:bg-green-500 px-3 py-2">Confirm</button>
+              <button class="migrateConfirmBtn rounded-md text-white bg-green-400 hover:bg-green-500 px-3 py-2">Confirm</button>
             </div>
           </div>
         </div>';
 
         // insert new data in migration
         $migration->createEntry($mysql_con);
-      } else '<p>Dito pumasok</p>';
+      }
     }
 
     ?>
@@ -1628,6 +1628,65 @@ function getAccDetails($con, $personID)
         </div>
       </div>
     </div>
+
+    <!-- additional information for migrating -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center additionalInfo hidden">
+      <div class="bg-white rounded-md w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+        <h2 class="text-lg font-semibold border-b border-gray-400 py-2">Additional Information for Migrating</h2>
+        <form id="migrationForm">
+          <?php
+          echo '
+          <input name="studNoMigration" type="hidden" value="' . $studentNo . '">
+          <input name="personIDMigration" type="hidden" value="' . $personID . '">
+          <input name="colCodeMigration" type="hidden" value="' . $colCode . '">
+          <input name="usernameMigration" type="hidden" value="' . $username . '">
+          ';
+
+          ?>
+
+          <!-- employment status -->
+          <div class="flex flex-col">
+            <label for="empStatData">1. ) Employment Status</label>
+            <select name="empStatData" id="empStatData" class="py-2 text-gray-400 border-b border-gray-300 rounded-b-md hover:border-blue-500 hover:border-b-2">
+              <option value="Employed">Employed</option>
+              <option value="Unemployed">Unemployed</option>
+              <option value="Self-employed">Self-employed</option>
+              <option value="Retired">Retired</option>
+            </select>
+          </div>
+
+          <!-- batch year -->
+          <div class="flex flex-col mt-5">
+            <label for="batchYrData">2. ) Batch Year</label>
+            <select name="batchYrData" id="batchYrData" class="py-2 text-gray-400 border-b border-gray-300 rounded-b-md hover:border-blue-500 hover:border-b-2"></select>
+          </div>
+
+          <div class="flex flex-col mt-5 gap-2">
+            <button class="bg-green-400 hover:bg-green-500 text-white rounded-md py-2 font-bold">Migrate</button>
+            <button type="button" class="hover:text-lg hover:text-gray-500 text-gray-400 cancelAdditionalInfo">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- success migration -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center successMigrationModal hidden">
+      <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+        <!-- success animation -->
+        <div class="success-checkmark">
+          <div class="check-icon">
+            <span class="icon-line line-tip"></span>
+            <span class="icon-line line-long"></span>
+            <div class="icon-circle"></div>
+            <div class="icon-fix"></div>
+          </div>
+        </div>
+        <h2 class="text-xl text-center text-green-500 font-bold">Migration Successful</h2>
+        <p class="text-center text-gray-500">After 5 seconds this account will sign out automatically to refresh your account</p>
+      </div>
+    </div>
+
   </div>
 
 
