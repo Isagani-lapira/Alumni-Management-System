@@ -44,4 +44,16 @@ class User_Table
         if ($row > 0) echo 'exist';
         else echo 'available';
     }
+
+    public function updatePassword($newPassword, $username, $connection)
+    {
+        $query = "UPDATE `user` SET `password`= ? WHERE `username` = ? ";
+        $stmt = mysqli_prepare($connection, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('ss', $newPassword, $username);
+            $result = $stmt->execute();
+            echo $result;
+        }
+    }
 }

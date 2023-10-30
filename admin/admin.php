@@ -99,6 +99,9 @@ function dateInText($date)
         <p id="message" class="text-accent font-semibold text-center text-sm "></p>
       </div>
     </div>
+    <?php
+    echo '<input id="accountUN" type="hidden" value="' . $username . '"/>';
+    ?>
     <span id="promptMsgComment" class="hidden rounded-md slide-bottom fixed bottom-28 px-4 py-2 z-50 bg-accent text-white rounded-sm font-bold">Comment successfully added</span>
     <?php
     echo '<p class="profilePicVal hidden">' . $profilepicture . '</p>';
@@ -1271,7 +1274,7 @@ function dateInText($date)
                   </div>
                   <div>
                     <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                    <input id="inputSkill2" class="inputSkill skillInput jobField" type="text" placeholder="Add skill/s that needed">
+                    <input id="inputSkill3" class="inputSkill skillInput jobField" type="text" placeholder="Add skill/s that needed">
                   </div>
                 </div>
               </div>
@@ -1823,6 +1826,16 @@ function dateInText($date)
 
         </div>
 
+        <div class=" text-greyish_black text-sm flex flex-col gap-2">
+          <p class="text-lg font-bold">Account Setting</p>
+          <p>Username: <span class="font-bold">isaganilapira09</span></p>
+          <div class="flex justify-between items-center">
+            <p>Password: <span class="font-bold">*****</span></p>
+            <iconify-icon id="editPassword" class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+          </div>
+        </div>
+
+
       </div>
     </div>
 
@@ -2283,6 +2296,7 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- email details -->
     <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 emailDetailModal hidden">
       <div class="w-4/5 rounded-md h-4/5 bg-white p-5 overflow-y-auto">
         <header class="flex items-center justify-between">
@@ -2307,6 +2321,37 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- password edit -->
+    <div class="bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 passwordModal hidden">
+      <div class=" w-2/5 rounded-md h-max bg-white p-5 overflow-y-auto slide-bottom">
+        <h2 class="font-bold text-xl">Edit Password</h2>
+
+        <!-- current password -->
+        <div class="flex flex-col gap-2 text-greyish_black mt-5">
+          <label for="currentPassEdit" class="text-sm font-bold">Current password:</label>
+          <input id="currentPassEdit" type="password" placeholder="Enter password" class="rounded-md border border-gray-300 p-2 passwordInputEdit">
+          <span class="text-sm italic text-red-400 currentPassErrorMsg hidden">Password is incorrect</span>
+        </div>
+
+        <!-- New Password -->
+        <div class="flex flex-col gap-2 text-greyish_black mt-2">
+          <label for="newPassEdit" class="text-sm font-bold">New password:</label>
+          <input id="newPassEdit" type="password" placeholder="Enter password" class="rounded-md border border-gray-300 p-2 passwordInputEdit">
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="flex flex-col gap-2 text-greyish_black mt-2">
+          <label for="confirmPassEdit" class="text-sm font-bold">Confirm password:</label>
+          <input id="confirmPassEdit" type="password" placeholder="Enter password" class="rounded-md border border-gray-300 p-2 passwordInputEdit">
+          <span class="text-sm italic text-red-400 newPassErrorMsg hidden">New Password doest not match</span>
+        </div>
+
+        <div class="flex justify-end gap-2 mt-3">
+          <button class="cancelEditBtn text-gray-400 hover:text-gray-500">Cancel</button>
+          <button class="confirmEditBtn text-white bg-blue-400 hover:bg-blue-500 px-3 py-2 rounded-md">Save</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 
