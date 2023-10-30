@@ -1,31 +1,79 @@
 $(document).ready(function () {
-  $("#profile-tab-container a.daisy-menu-item").click(function () {
-    // get the value of the href
-    const url = $(this).attr("href");
-    const container = $("#content-container");
+  const URL_LINK = "./profile/apiProfile.php";
 
-    container.css({
-      opacity: "0.0",
+  bindHandlers();
+  $('a[href="#profile"]').on("click", function () {
+    setTimeout(function () {
+      bindHandlers();
+    }, 500);
+  });
+
+  function bindHandlers() {
+    console.log("i was binded");
+
+    // Show the edit college form when edit-college-profile-btn is clicked
+    $("#edit-college-profile-btn").on("click", function () {
+      console.log("edit college profile btn clicked");
+      $("#edit-college-profile").removeClass("hidden");
+      $("#view-college-profile").addClass("hidden");
     });
 
-    console.log(url);
-    // remove all the active classes
-    $("#profile-tab-container .daisy-menu-item").removeClass("daisy-active");
-    $(this).addClass("daisy-active");
+    // remove the edit college form when cancel-edit-college-profile-btn is clicked
+    $("#cancel-edit-college-profile-btn").on("click", function () {
+      $("#edit-college-profile").addClass("hidden");
+      $("#view-college-profile").removeClass("hidden");
+    });
 
-    // get the linked element
-    const elem = $(url);
-    // hide all the other elements from the container
-    elem.siblings().addClass("hidden");
-    //  remove the hide class
-    elem.removeClass("hidden");
+    // Submit College Profile
+    $("#submit-update-college-form").click(async function (e) {
+      e.preventDefault();
+      const form = $("#update-college-form");
+      const formData = new FormData(form[0]);
+      console.log(formData);
+      const response = await postJSONFromURL(URL_LINK, formData);
+      console.log(response);
+    });
 
-    // animate the container to show the new element
-    container.delay(50).animate(
-      {
-        opacity: "1.0",
-      },
-      300
-    );
-  });
+    // Show the preview of the image after changing the input
+
+    $("#cover-img").on("change", function () {
+      console.log("i rannn");
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        $("#cover-img-preview").attr("src", e.target.result);
+        console.log("i ran");
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
+
+    $("#profile-tab-container a.daisy-menu-item").click(function () {
+      // get the value of the href
+      const url = $(this).attr("href");
+      const container = $("#content-container");
+
+      container.css({
+        opacity: "0.0",
+      });
+
+      console.log(url);
+      // remove all the active classes
+      $("#profile-tab-container .daisy-menu-item").removeClass("daisy-active");
+      $(this).addClass("daisy-active");
+
+      // get the linked element
+      const elem = $(url);
+      // hide all the other elements from the container
+      elem.siblings().addClass("hidden");
+      //  remove the hide class
+      elem.removeClass("hidden");
+
+      // animate the container to show the new element
+      container.delay(50).animate(
+        {
+          opacity: "1.0",
+        },
+        300
+      );
+    });
+  }
 });
