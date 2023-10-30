@@ -24,7 +24,7 @@ function insertNewTracerDeployment($con)
     $tracerID = $tracerID['formID'];
 
     $deploymentID = substr(md5(uniqid()), 0, 29);
-    $endDate = date('Y-m-d', strtotime('+4 months'));
+    $endDate = date('Y-12-31');
     // insert deployment data
     $query = "INSERT INTO `tracer_deployment`(`tracer_deployID`, `formID`,
     `end_date`) VALUES (? ,? ,?)";
@@ -39,7 +39,7 @@ function insertNewTracerDeployment($con)
 function retrievedDeployment($con)
 {
     // get if there's tracer form available based on the current date
-    $query = "SELECT `tracer_deployID` FROM `tracer_deployment` WHERE CURRENT_DATE<=`end_date` ORDER BY `end_date` DESC LIMIT 1";
+    $query = "SELECT `tracer_deployID` FROM `tracer_deployment` WHERE CURRENT_DATE<=`end_date` ORDER BY `timstamp` DESC LIMIT 1";
     $stmt = mysqli_prepare($con, $query);
     $stmt->execute();
     $result = $stmt->get_result();

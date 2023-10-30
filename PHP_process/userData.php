@@ -40,6 +40,12 @@ if (isset($_POST['action'])) {
                 }
             }
             break;
+        case 'checkPersonEmail':
+            $emailAdd = $_POST['email'];
+            $column = $_POST['column'];
+            $personObj = new personDB();
+            $personObj->checkPersonEmailAddress($emailAdd, $column, $mysql_con);
+            break;
         default:
             echo 'not pumasok sa kahit saan';
             break;

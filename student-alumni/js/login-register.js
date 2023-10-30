@@ -140,11 +140,13 @@ $(document).ready(function () {
 
   // alumni is selected
   $('#alumniStatus').on('click', function () {
+    $('.emailExistingMsg').addClass('hidden')
     $('.selectionStatus').addClass('hidden')
     $('#alumniForm').removeClass('hidden')
   })
 
   $('#studentStatus').on('click', function () {
+    $('.emailExistingMsg').addClass('hidden')
     $('.selectionStatus').addClass('hidden')
     $('#studentForm').removeClass('hidden');
   })
@@ -152,6 +154,10 @@ $(document).ready(function () {
   $('.cancelBtnReg').on('click', function () {
     $('.selectionStatus').removeClass('hidden')
     $('.fieldFormReg').addClass('hidden')
+    //restart forms
+    $('#alumniForm')[0].reset();
+    $('#studentForm')[0].reset();
+
   })
 
   // password eye
@@ -185,10 +191,43 @@ $(document).ready(function () {
   $('#nextAlumni').on('click', function () {
     // check first if all the input fields are complete
     if (checkInputField('.requiredAlumni')) {
-      $('.personalInfo').addClass('hidden')
-      $('#accountInfoAlumni').removeClass('hidden')
+      // check if the email is already existing or not
+      const emailAdd = $('#personalEmail').val();
+      const column = 'personal_email';
+
+      checkEmailAddress(emailAdd, column)
+        .then(resolve => {
+          if (resolve !== 'Existing') { //proceed to the next
+            $('.emailExistingMsg').addClass('hidden')
+            $('.personalInfo').addClass('hidden')
+            $('#accountInfoAlumni').removeClass('hidden')
+          }
+          else $('.emailExistingMsg').removeClass('hidden')
+        })
+
     }
   })
+
+  // check if the input email is already existing
+  function checkEmailAddress(emailAdd, column) {
+    const action = { action: 'checkPersonEmail' };
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action));
+    formData.append('email', emailAdd);
+    formData.append('column', column)
+
+    return new Promise((resolve) => {
+      $.ajax({
+        url: '../PHP_process/userData.php',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: response => { resolve(response) },
+
+      })
+    })
+  }
 
   // back to personal information field
   $('#backAlumni').on('click', function () {
@@ -325,12 +364,36 @@ $(document).ready(function () {
       let isBulSUEmailValid = false
       isBulSUEmailValid = $('#studbulsuEmail').val().endsWith('bulsu.edu.ph')
 
-      // go to next page
-      if (isBulSUEmailValid) {
-        $('#bulsuEmailError').addClass('hidden')
-        $('.personalInfo').addClass('hidden')
-        $('#accountInfoStudent').removeClass('hidden')
-      } else $('#bulsuEmailError').removeClass('hidden')
+      // check if the email is existing or not
+      const studPersonEmail = $('#studPersonalEmail').val()
+      const column = 'personal_email';
+
+      checkEmailAddress(studPersonEmail, column)
+        .then(resolve => {
+          if (resolve !== 'Existing') {
+
+            if (isBulSUEmailValid) {
+              // check if the bulsu email is not already existing
+              let bulsuEmail = $('#studbulsuEmail').val()
+              let columnBulsu = 'bulsu_email';
+              $('.emailExistingMsg').addClass('hidden')
+
+              checkEmailAddress(bulsuEmail, columnBulsu)
+                .then(resolve => {
+                  if (resolve !== 'Existing') { //proceed to the next
+                    $('.emailExistingMsgBulsu').addClass('hidden')
+                    $('#bulsuEmailError').addClass('hidden')
+                    $('.personalInfo').addClass('hidden')
+                    $('#accountInfoStudent').removeClass('hidden')
+
+                  } else $('.emailExistingMsgBulsu').removeClass('hidden')
+                })
+            } else $('#bulsuEmailError').removeClass('hidden')
+
+          }
+          else $('.emailExistingMsg').removeClass('hidden')
+        })
+
     }
   })
 
@@ -468,3 +531,18 @@ $(document).ready(function () {
 
   })
 })
+
+$(document).ready(function () {
+  $("#toggleLoginPassword").on("click", function () {
+      var passwordField = $("#password");
+      var passwordIcon = $("#toggleLoginPassword");
+
+      if (passwordField.attr("type") === "password") {
+          passwordField.attr("type", "text");
+          passwordIcon.removeClass("fa-eye-slash").addClass("fa-eye");
+      } else {
+          passwordField.attr("type", "password");
+          passwordIcon.removeClass("fa-eye").addClass("fa-eye-slash");
+      }
+  });
+});

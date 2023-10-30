@@ -242,4 +242,54 @@ class personDB
 
         echo json_encode($data);
     }
+
+    function getSocialMedia($personID, $con)
+    {
+        $query = "SELECT `facebookUN`,`instagramUN`,`twitterUN`,`linkedInUN` 
+        FROM `person` WHERE `personID` = ?";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $personID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $facebookUN = "";
+        $instagramUN = "";
+        $twitterUN = "";
+        $linkedInUN = "";
+
+        if ($result) {
+            while ($data = $result->fetch_assoc()) {
+                $facebookUN = $data['facebookUN'];
+                $instagramUN = $data['instagramUN'];
+                $twitterUN = $data['twitterUN'];
+                $linkedInUN = $data['linkedInUN'];
+            }
+        }
+
+        $data = array(
+            "facebookUN" => $facebookUN,
+            "instagramUN" => $instagramUN,
+            "twitterUN" => $twitterUN,
+            "linkedInUN" => $linkedInUN,
+        );
+
+        echo json_encode($data);
+    }
+
+
+    function checkPersonEmailAddress($emailAdd, $column, $con)
+    {
+        $query = "SELECT COUNT( $column ) FROM `person` WHERE $column = ?";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('s', $emailAdd);
+            $stmt->execute();
+            $stmt->bind_result($count);
+            $stmt->fetch(); // Fetch the result
+
+            if ($count > 0) echo 'Existing';
+            else echo 'Available';
+        }
+    }
 }

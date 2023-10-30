@@ -24,6 +24,7 @@ $(document).ready(function () {
     var maxRetrieve = 10;
     let dataRetrieved = 0;
     var stoppingPostRetrieval = 0;
+    let postStatus = "normal";
 
     getPost()
     //retrieve post data
@@ -45,12 +46,15 @@ $(document).ready(function () {
             success: (response) => {
                 //no data available for the day
                 if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 150) {
+                    $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer')
                     retrievalDate = getPreviousDate(noOfDaySubtract);
                     getPost()
                     noOfDaySubtract++ //if no more the day will be increasing to get the previous date
                     stoppingPostRetrieval++
                 }
                 else if (response != 'none') {
+                    $('#loadingDataFeed').addClass('hidden')
+                    $('.lds-facebook').parent().addClass('hidden')
                     const parsedResponse = JSON.parse(response); //parsed the json data
                     //check for response
                     if (parsedResponse.response == "Success") {
@@ -75,23 +79,26 @@ $(document).ready(function () {
                         dataRetrieved = length; // get how many data has been retrieve for that day
                         maxRetrieve = maxRetrieve - dataRetrieved;
                         if (maxRetrieve != 0) {
+                            $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer')
                             retrievalDate = getPreviousDate(noOfDaySubtract);
                             stoppingPostRetrieval = 0;
                             getPost()
                         } else maxRetrieve = 10;
                     }
                     else {
+                        $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer')
                         retrievalDate = getPreviousDate(noOfDaySubtract);
                         getPost()
                     }
                 }
                 else {
+                    $('#loadingDataFeed').addClass('hidden')
+                    $('.lds-facebook').parent().addClass('hidden')
                     $('#noPostMsgFeed').removeClass('hidden')
                         .appendTo('#feedContainer');
                 }
 
-            },
-            error: (error) => { console.log(error) }
+            }
         })
 
 
@@ -112,7 +119,7 @@ $(document).ready(function () {
     }
 
     function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isLikedByUser) {
-        let postWrapper = $('<div>').addClass("postWrapper center-shadow w-full p-4 mb-2 rounded-md mx-auto");
+        let postWrapper = $('<div>').addClass("postWrapper center-shadow w-full p-4 mb-2 rounded-md");
 
         let header = $('<div>');
         let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
@@ -174,7 +181,7 @@ $(document).ready(function () {
                 // Check if the click event is coming from the navigation buttons
                 if (!$(event.target).hasClass('swiper-button-prev') && !$(event.target).hasClass('swiper-button-next')) {
                     $('#viewingPost').removeClass("hidden");
-                    viewingOfPost(postID, fullname, username, caption, images, likes, imgProfile);
+                    viewingOfPost(postID, fullname, username, caption, images, likes, imgProfile, commentElement);
                 }
             });
 
@@ -185,7 +192,7 @@ $(document).ready(function () {
                     const button = reportElement
 
                     if (!button.is(target) && button.has(target).length === 0)
-                        viewStatusPost(postID, fullname, date, caption, likes, username)
+                        viewStatusPost(postID, fullname, date, caption, likes, username, commentElement)
 
                 })
         }
@@ -406,8 +413,7 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: (response) => { console.log(response) },
-            error: (error) => { console.log(error) }
+
         })
     }
 
@@ -428,8 +434,7 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: (response) => { console.log(response) },
-            error: (error) => { console.log(error) }
+
         })
     }
 
@@ -439,10 +444,16 @@ $(document).ready(function () {
         const contentHeight = $(this)[0].scrollHeight;
         const scrollOffset = $(this).scrollTop();
         const threshold = 50;
+
         //once the bottom ends, it will reach another sets of data (post)
         if (scrollOffset + containerHeight + threshold >= contentHeight) {
-            getPost();
+            // reload the loading 
+            $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer');
+            if (postStatus === 'normal') getPost();
+            else refreshPost()
         }
+        else $('#loadingDataFeed').addClass('hidden')
+
     })
 
 
@@ -453,7 +464,7 @@ $(document).ready(function () {
         $("#carousel-indicators").empty();
     })
 
-    function viewingOfPost(postID, name, accUN, description, images, likes, imgProfile) {
+    function viewingOfPost(postID, name, accUN, description, images, likes, imgProfile, commentElement) {
         $('#profilePic').attr('src', imgProfile);
         $('#postFullName').text(name);
         $('#postUN').text(accUN);
@@ -520,7 +531,7 @@ $(document).ready(function () {
             $('#item-' + currentImageDisplay).removeClass('hidden'); // Show the previous image
         });
 
-        getComment(postID); //retrieve the comment if available
+        getComment(postID, commentElement); //retrieve the comment if available
 
         //display all the person who likes a specific post
         $('#noOfLikes').hover(
@@ -537,7 +548,7 @@ $(document).ready(function () {
 
 
     //retrieving the comments
-    function getComment(postID) {
+    function getComment(postID, commentCount) {
         const action = {
             action: 'read',
             postID: postID
@@ -562,6 +573,8 @@ $(document).ready(function () {
                     //display every comments
                     for (let i = 0; i < length; i++) {
                         const fullname = parsedResponse.fullname[i];
+                        const commentID = parsedResponse.commentID[i];
+                        const username = parsedResponse.username[i];
                         const comment = parsedResponse.comment[i];
                         let img = (parsedResponse.profile[i] == '') ? '../assets/icons/person.png' : imgFormat + parsedResponse.profile[i]
 
@@ -569,9 +582,25 @@ $(document).ready(function () {
                         let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full").attr('src', img);
                         let commentDescript = $('<div>').addClass("bg-gray-300 rounded-md p-3 flex-grow text-sm flex flex-col gap-1 text-greyish_black");
                         let commentor = $('<p>').text(fullname)
-                        let postComment = $('<p>').text(comment).addClass('text-xs text-gray-500');
+                        let container = $('<div>').addClass('flex justify-between').append(commentor)
+                        let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+                            .on('click', function () {
+                                $('#delete-modal').removeClass('hidden')
+                                // delete the comment
+                                $('#deletePostbtn').on('click', function () {
+                                    deleteComment(commentID, commentContainer);
+                                    // update the count
+                                    let newCountComment = parseInt(commentCount.text()) - 1
+                                    commentCount.text(newCountComment)
+                                    $('#noOfComment').text(newCountComment)
+                                })
+                            })
+                        let currentUser = $('#accUsername').text();
+                        if (username === currentUser)
+                            container.append(delComment)
 
-                        commentDescript.append(commentor, postComment);
+                        let postComment = $('<p>').text(comment).addClass('text-xs text-gray-500');
+                        commentDescript.append(container, postComment);
                         commentContainer.append(imgProfile, commentDescript)
 
                         $('#commentContainer').append(commentContainer);
@@ -581,7 +610,7 @@ $(document).ready(function () {
                     $('#commentContainer').append(noCommentMsg) //show no comment
                 }
             },
-            error: (error) => { console.log(error) }
+
         })
     }
 
@@ -614,7 +643,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            error: (error) => { console.log(error) }
+
         })
     }
 
@@ -735,7 +764,7 @@ $(document).ready(function () {
                 }
 
             },
-            error: (error) => { console.log(error) }
+
         })
     })
 
@@ -744,8 +773,7 @@ $(document).ready(function () {
         $('#postStatusModal').addClass('hidden')
     })
 
-    function viewStatusPost(postID, name, postDate, postcaption, likes, username) {
-        $('#commentStatus').empty()
+    function viewStatusPost(postID, name, postDate, postcaption, likes, username, commentElement) {
         $('#postStatusModal').removeClass('hidden')
         $('#statusFullnameUser').text(name)
         $('#statusDate').text(postDate)
@@ -772,14 +800,14 @@ $(document).ready(function () {
                 $('#statusComment').text(commentCount)
                 $('#profileStatusImg').attr('src', imgProfile)
 
-                if (commentCount > 0) displayComments(postID)
+                if (commentCount > 0) displayComments(postID, commentElement)
 
             },
             error: error => { console.log(error) }
         })
     }
 
-    function displayComments(postID) {
+    function displayComments(postID, commentCount) {
         const action = { action: 'read', postID: postID };
         const formData = new FormData();
         formData.append('action', JSON.stringify(action));
@@ -793,8 +821,11 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 let length = response.fullname.length;
+                $('#commentStatus').empty()
                 for (let i = 0; i < length; i++) {
                     let fullname = response.fullname[i];
+                    let commentID = response.commentID[i];
+                    let username = response.username[i];
                     let comment = response.comment[i];
                     let profile = (response.profile[i] === '') ? '../assets/icons/person.png' : imgFormat + response.profile[i];
 
@@ -805,15 +836,111 @@ $(document).ready(function () {
                         .addClass('rounded-full w-10 h-10')
 
                     let nameElement = $('<p>').addClass('font-bold').text(fullname)
+                    let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+                        .on('click', function () {
+                            $('#delete-modal').removeClass('hidden')
+                            // delete the comment
+                            $('#deletePostbtn').on('click', function () {
+                                deleteComment(commentID, wrapper);
+                                // update the count
+                                let newCountComment = parseInt(commentCount.text()) - 1
+                                commentCount.text(newCountComment)
+                                $('#statusComment').text(newCountComment)
+                            })
+                        })
+                    let container = $('<div>').addClass('flex items-center justify-between').append(nameElement)
+
+                    let currentUser = $('#accUsername').text();
+                    if (username === currentUser)
+                        container.append(delComment)
+
                     let commentElement = $('<pre>').addClass('text-gray-500').text(comment)
                     let commentDetail = $('<div>').addClass('flex-1 flex-col w-4/5 bg-gray-300 rounded-md p-2 ')
-                        .append(nameElement, commentElement)
+                        .append(container, commentElement)
 
                     wrapper.append(profilePic, commentDetail)
                     $('#commentStatus').append(wrapper)
                 }
             },
             error: error => { console.log(error) }
+        })
+    }
+
+    function deleteComment(commentID, wrapper) {
+        const action = { action: "deleteComment" };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('commentID', commentID);
+
+        $.ajax({
+            url: '../PHP_process/commentData.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response === 'Success') {
+                    $('#delete-modal').addClass('hidden')
+                    wrapper.remove()
+                }
+            }
+        })
+    }
+
+    $('.closeDeleteBtn').on('click', function () {
+        $('#delete-modal').addClass('hidden')
+    })
+
+    $('.refresher').on('click', function () {
+        postStatus = "refresher"
+        refresherOffset = 0;
+        refreshPost(); //retrieve all post in college by post no restriction
+    })
+
+    let refresherOffset = 0;
+    function refreshPost() {
+        const action = { action: 'getAllCollegePost' };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('offset', refresherOffset);
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                if (response.response === 'Success') {
+                    $('#noPostMsgFeed').addClass('hidden')
+                    const length = response.username.length;
+                    for (let i = 0; i < length; i++) {
+                        //store data that retrieve
+                        const postID = response.postID[i];
+                        const fullname = response.fullname[i];
+                        const username = response.username[i];
+                        const isLiked = response.isLiked[i];
+                        const images = response.images[i];
+                        const imgProfile = (response.profilePic[i] == '') ? '../assets/icons/person.png' : imgFormat + response.profilePic[i]
+                        const caption = response.caption[i];
+                        let date = response.date[i];
+                        const likes = response.likes[i];
+                        const comments = response.comments[i];
+                        date = getFormattedDate(date) //formatted date for easy viewing of date
+                        displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isLiked); //display the post on the container
+                    }
+
+                    refresherOffset += length
+                }
+                else {
+                    $('#loadingDataFeed').addClass('hidden')
+                    $('.lds-facebook').parent().addClass('hidden')
+                    $('#noPostMsgFeed').removeClass('hidden')
+                        .appendTo('#feedContainer');
+                }
+            }
+
         })
     }
 })

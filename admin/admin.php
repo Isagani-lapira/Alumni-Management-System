@@ -106,11 +106,14 @@ function dateInText($date)
     ?>
     <div id="tabs" class="flex font-Montserrat text-greyish_black">
       <aside id="listOfPanels" class="w-3/12 top-0 h-screen p-5 border border-r-gray-300 relative">
-        <iconify-icon id="burgerBtn" class="absolute top-0 -right-8" icon="mdi:hamburger-menu" style="color: #991b1b;" width="28" height="28"></iconify-icon>
         <div class="h-full relative">
-          <h1 class="font-extrabold text-18sm my-5">
-            Alumni <span class="font-normal">System</span>
-          </h1>
+          <div class="flex justify-start gap-2 items-center">
+            <iconify-icon id="burgerBtn" icon="mdi:hamburger-menu" style="color: #991b1b;" width="28" height="28"></iconify-icon>
+            <h1 class="font-extrabold my-5">
+              Alumni <span class="font-normal">System</span>
+            </h1>
+          </div>
+
           <ul class="w-3/4 text-sm">
 
             <!-- DASHBOARD -->
@@ -151,7 +154,7 @@ function dateInText($date)
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16" width="24" height="24">
                   <path d="M 18 0 H 2 C 0.9 0 0.00999999 0.9 0.00999999 2 L 0 14 C 0 15.1 0.9 16 2 16 H 18 C 19.1 16 20 15.1 20 14 V 2 C 20 0.9 19.1 0 18 0 Z M 18 4 L 10 9 L 2 4 V 2 L 10 7 L 18 2 V 4 Z" />
                 </svg>
-                <span>EMAIL</span></a>
+                <span>OUTBOX</span></a>
             </li>
 
             <!-- ALUMNI RECORD-->
@@ -431,7 +434,7 @@ function dateInText($date)
             <div class="m-2 p-1">
               <p>Show post (from - to)</p>
               <div class="w-full flex border border-grayish p-2 rounded-lg">
-                <input type="text" name="daterange" id="daterange" value="01/01/2018 - 01/15/2018" />
+                <input type="text" name="daterange" id="daterange" value="Select a date" />
                 <label class="" for="daterange">
                   <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
                 </label>
@@ -502,7 +505,7 @@ function dateInText($date)
               $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ';
               $result = mysqli_query($mysql_con, $query);
               $row = mysqli_num_rows($result);
-              echo '<p class="text-5xl font-bold">' . $row . '</p>';
+              echo '<p class="text-5xl font-bold" id="totalEmailed">' . $row . '</p>';
               ?>
             </div>
 
@@ -551,7 +554,8 @@ function dateInText($date)
               <tr>
                 <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
                 <th class="text-start">COLLEGE</th>
-                <th class="text-start rounded-tr-md">DATE</th>
+                <th class="text-start">DATE</th>
+                <th class="text-start rounded-tr-md">VIEW</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -565,7 +569,7 @@ function dateInText($date)
           <div class="flex justify-end text-xs text-greyish_black">
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 
-            bg-accent text-white hover:bg-darkAccent">Export as PDF
+            bg-accent text-white hover:bg-darkAccent hidden">Export as PDF
             </button>
 
           </div>
@@ -633,7 +637,7 @@ function dateInText($date)
         <!-- college content -->
         <div id="colleges-tab" class="h-full hidden">
           <div class="college-content">
-            <h1 class="text-xl font-extrabold">ACCOUNT</h1>
+            <h1 class="text-xl font-extrabold">COLLEGE</h1>
             <p class="text-grayish">Here you can check all colleges available in the University</p>
 
             <div class="flex justify-between mt-4">
@@ -645,9 +649,6 @@ function dateInText($date)
 
               <div>
                 <button id="btnNewCol" style="margin-left: auto; margin-right: 10px" class="block rounded-lg  text-white bg-accent p-2 hover:bg-darkAccent">Create new college
-                </button>
-
-                <button id="btnRemoveCol" style="margin-left: auto; margin-right: 10px" class="block my-2 text-sm text-grayish px-2 py-1 hover:text-accent hover:font-medium">Remove a college
                 </button>
               </div>
 
@@ -711,7 +712,7 @@ function dateInText($date)
                   <div class="text-center">
                     <img id="deanImg" class="w-32 h-32 mx-auto rounded-md" alt="">
                     <p id="colDean" class="text-accent font-medium"></p>
-                    <p class="text-gray-500 text-sm">DEAN, CICT</p>
+                    <p class="text-gray-500 text-sm">DEAN, <span class="collegeCodeVal"></span></p>
                   </div>
                 </div>
 
@@ -719,7 +720,7 @@ function dateInText($date)
                   <div class="text-center">
                     <img id="adminImg" class="w-32 h-32  mx-auto rounded-md" alt="">
                     <p id="colAdminName" class="text-accent font-medium"></p>
-                    <p class="text-gray-500 text-sm">Alumni Coordinator, CICT</p>
+                    <p class="text-gray-500 text-sm">Alumni Coordinator, <span class="collegeCodeVal"></span></p>
                   </div>
                 </div>
 
@@ -727,18 +728,14 @@ function dateInText($date)
 
               <div class="description mt-3 w-9/12">
                 <h1 class="text-xl font-extrabold ">ABOUT US <span id="collegeCode"></span></h1>
-                <P class="py-3">Bulacan State University's College of Information and Communications
-                  Technology is the premier institution in Bulacan when it comes to effective and efficient
-                  ICT education and a leader in pioneering research and extension services.
-                </P>
+                <P class="py-3"></P>
               </div>
 
 
               <div class="courses-offered my-10 w-8/12">
-                <h1 class="text-xl font-extrabold mb-5">Courses Offered</h1>
-                <P>Bachelor of Science in Information Technology</P>
-                <P>Bachelor of Library and Information Science</P>
-                <P>Bachelor of Science in Information System</P>
+                <h2 class="text-xl font-extrabold mb-5">Courses Offered</h2>
+                <div></div>
+                <p class="text-gray-500">No available course set</p>
               </div>
             </div>
 
@@ -751,8 +748,8 @@ function dateInText($date)
           <p class="text-grayish">See the relevant information that are gathered</p>
 
           <div class="flex gap-2 justify-end mb-2">
-            <button id="tracerbtn" class="text-gray-400 hover:text-gray-500">Tracer form</button>
-            <button id="deployTracerBtn" class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
+            <button id="tracerbtn" class="text-white hover:bg-blue-400 bg-blue-300 px-3 py-2 rounded-md">Tracer form</button>
+            <button id="deployTracerBtn" class="px-3 py-2 bg-green-400 hover:bg-green-500 text-white rounded-md font-bold">Deploy Tracer</button>
           </div>
 
           <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
@@ -946,187 +943,77 @@ function dateInText($date)
         </div>
 
         <!-- alumni of the year content -->
-        <div id="alumnYear-tab" class="p-5 hidden">
+        <div id="alumnYear-tab" class="p-5 hidden h-full">
           <h1 class="text-xl font-extrabold">Alumni of the Year</h1>
-          <p class="text-grayish mb-10">Make post for a newly awarded alumni of the year</p>
-
-          <!-- make alumni of the year post -->
-          <div id="aoyRegister" class="hidden text-greyish_black">
-            <label class="font-bold" for="aoyFN">Fullname</label>
-            <input id="aoyFN" class="block p-2 border border-grayish w-1/2 focus:outline-none rounded-lg mb-5" type="text" placeholder="e.g Patrick Joseph Pronuevo">
-
-            <label class="font-bold" for="aoyQuotation">Quotation</label>
-            <input id="aoyQuotation" class="block p-2 border border-grayish w-1/2 focus:outline-none rounded-lg mb-5" type="text" placeholder="">
-
-            <label class="font-bold block" for="aoyBatch">Batch</label>
-            <select id="aoyBatch" class="p-2 px-3 outline-none border border-grayish rounded-lg mb-5">
-              <option selected disabled value="">Batch of 2021</option>
-            </select>
-
-            <p class="font-bold block">Image to be showcase</p>
-
-            <label for="imgShow" class="bg-accent text-white p-2 mt-2 mb-5 inline-block cursor-pointer rounded-md">
-              Choose Image
-              <input class="hidden" id="imgShow" type="file">
-            </label>
-
-            <p class="font-bold block">Social media links</p>
-            <div class="flex">
-              <img class="m-2" src="../assets/socmed-icons/facebook.png" alt="">
-              <input id="socmedFb" class="focus:outline-none px-3" type="text" placeholder="Add Facebook link">
-            </div>
-
-            <div class="flex mt-2">
-              <img class="m-2" src="../assets/socmed-icons/instagram.png" alt="">
-              <input id="socmedIG" class="focus:outline-none px-3" type="text" placeholder="Add Instagram link">
-            </div>
-
-            <div class="flex mt-2">
-              <img class="m-2" src="../assets/socmed-icons/twitter.png" alt="">
-              <input id="socmedTwitter" class="focus:outline-none px-3" type="text" placeholder="Add Twitter link">
-            </div>
-
-            <p class="font-bold block" for="">Description</p>
-            <div class="message-area border rounded-md border-grayish h-40 w-1/2">
-              <textarea class="w-full h-full resize-none p-3 rounded-md focus:outline-none text-grayish" name="" id="aoyDescript"></textarea>
-            </div>
-
-            <button class="rounded-md py-3 px-5 bg-postButton text-white mt-2 block cursor-pointer hover:bg-postHoverButton ml-auto">Make
-              a post</button>
+          <p class="text-grayish">Make post for a newly awarded alumni of the year</p>
+          <div class="flex justify-end w-full">
+            <button id="assigningAOYbtn" class="bg-postButton hover:bg-postHoverButton text-white rounded-md p-2">Assign Alumni of the year</button>
           </div>
 
-          <!-- alumni of the year record -->
-          <div id="aoyRecord">
-            <div class="flex justify-end items-end">
-              <button class=" border border-accent py-1 px-3  ml-auto rounded-md text-accent hover:bg-accent hover:text-white">
-                Export List
-              </button>
-              <button id="aoyNew" class="py-2 px-3 ml-3 rounded-md bg-postButton text-white hover:bg-postHoverButton">
-                New Alumni of the year
-              </button>
-            </div>
+          <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
 
-
-            <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
-
-            <div class="flex justify-evenly text-xs">
-
-              <div class="flex border border-grayish w-1/2 rounded-md p-1">
-                <img class="inline " src="../images/search-icon.png" alt="">
-                <input class="outline-none w-full" type="text" name="" id="aoySearch" placeholder="Typing!">
-              </div>
-
-              <!-- gender -->
-              <select name="aoyGender" id="aoyGender" class="px-3 py-2">
-                <option value="" selected disabled hidden>All</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-
-
-              <!-- Year -->
-              <div class="p-1 w-1/5 flex">
-                <select name="aoyFrom" id="aoyFrom" class="px-3 py-2">
-                  <option value="" selected disabled hidden>From</option>
-                </select>
-                <select name="aoyTo" id="aoyTo" class="px-3 py-2">
-                  <option value="" selected disabled hidden>To</option>
-                </select>
-              </div>
-
-              <div class="p-1 w-1/5 flex"></div>
-
-              <!-- college -->
-              <select name="aoyCol" id="aoyCol" class="w-1/2 p-1">
-                <option value="" selected disabled hidden>College</option>
-                <?php
-                require_once '../PHP_process/connection.php';
-                $query = "SELECT * FROM `college`";
-                $result = mysqli_query($mysql_con, $query);
-                $rows = mysqli_num_rows($result);
-
-                if ($rows > 0) {
-                  while ($data = mysqli_fetch_assoc($result)) {
-                    $colCode = $data['colCode'];
-                    $colName = $data['colname'];
-
-                    echo '<option value="' . $colCode . '">' . $colName . '</option>';
-                  }
-                } else echo '<option>No college available</option>';
-                ?>
-              </select>
-
-            </div>
-
-            <!-- record of name-->
-            <table class="table-auto w-full mt-10 text-xs font-thin center-shadow">
-              <thead>
-                <tr class="bg-accent text-white">
-                  <th class="text-start rounded-tl-lg">Student Number</th>
-                  <th>NAME</th>
-                  <th>Email Address</th>
+          <!-- alumni of the year table -->
+          <div id="aoydata" class="h-full">
+            <select id="aoyCollege" class="rounded-md border border-gray-400 py-2"></select>
+            <table id="AOYID" class="w-full text-sm center-shadow">
+              <thead class="bg-accent text-white">
+                <tr>
+                  <th class="rounded-tl-lg">Full name</th>
                   <th>College</th>
+                  <th>Year</th>
+                  <th class="rounded-tr-lg">Action</th>
                 </tr>
               </thead>
-              <tbody class="text-sm">
-                <tr class="h-14 text-xs">
-                  <td class="text-start font-bold">2020101933</td>
-                  <td>
-                    <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/alumni-pic2.png"></img>
-                      <span class="ml-2">Wade Warren</span>
-                    </div>
-                  </td>
-                  <td class="text-center">wadewarren@gmail.com</td>
-                  <td class="text-center">CEE</td>
-
-                </tr>
-
-                <tr class="h-14 text-xs">
-                  <td class="text-start font-bold">2020101933</td>
-                  <td>
-                    <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/avatar-prof.png"></img>
-                      <span class="ml-2">Leslie Alexander</span>
-                    </div>
-                  </td>
-                  <td class="text-center">leslieAlex@gmail.com</td>
-                  <td class="text-center">CHTM</td>
-
-                </tr>
-
-                <tr class="h-14 text-xs">
-                  <td class="text-start font-bold">2020101933</td>
-                  <td>
-                    <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src="../assets/footer-img.png"></img>
-                      <span class="ml-2">Floyd Miles</span>
-                    </div>
-                  </td>
-                  <td class="text-center">floymiles@gmail.com</td>
-                  <td class="text-center">CICT</td>
-
-                </tr>
-
-
-                <tr class="h-14 text-xs">
-                  <td class="text-start font-bold">2020101933</td>
-                  <td>
-                    <div class="flex items-center justify-start">
-                      <img class="w-10 h-10 rounded-full border-2 border-accent" src=""></img>
-                      <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                  </td>
-                  <td class="text-center">cameronwilliamson@gmail.com</td>
-                  <td class="text-center">COED</td>
-
-                </tr>
-
-
-              </tbody>
+              <tbody class="text-xs"></tbody>
             </table>
+          </div>
+
+          <!-- alumni -->
+          <div id="aoyRecord" class="h-full hidden">
+            <div class="flex items-center justify-between">
+              <h3 class=" text-greyish_black font-semibold">Choose Alumni To View Details</h3>
+              <select id="aomSelection" class="border border-gray-400 rounded-md p-2">
+                <option value="">Select Alumni of the month</option>
+              </select>
+            </div>
+
+            <div id="aomRecord" class="p-3 overflow-y-auto flex flex-col items-center gap-2">
+              <img id="aomCover" alt="" class="rounded-md object-fill h-2/5 w-1/2 hidden">
+              <h2 class="text-xl aomFullname font-semibold text-greyish_black w-1/2 text-center"></h2>
+              <span id="aomQuotation" class="italic text-gray-500 w-1/2 text-center text-sm"></span>
+              <span class="italic text-sm text-blue-400 aomFullname"></span>
+
+              <!-- testimonials -->
+              <h2 class="w-1/2 text-greyish_black font-bold text-xl text-center mt-10 subtitle hidden">Testimonials</h2>
+              <div class="testimonyContainer w-full h-max flex gap-5 flex-row flex-wrap justify-center mb-10 hidden"></div>
+
+              <!-- achievements -->
+              <h2 class="w-1/2 text-greyish_black font-bold text-xl text-center mt-5 subtitle hidden">Achievements</h2>
+              <div class="achievementsContainer w-full h-max flex flex-row flex-wrap justify-center mb-10  p-5 gap-5 hidden"></div>
+
+              <!-- skills and education -->
+              <div class="w-1/2 h-max flex hidden">
+                <!-- skills -->
+                <div class="w-1/2">
+                  <h2 class="text-greyish_black font-bold text-xl mb-5">Skills that I have:</h2>
+                  <div id="skillContainer" class="flex flex-col gap-2"></div>
+                </div>
+
+                <!-- education -->
+                <div class="w-1/2">
+                  <h2 class="text-greyish_black font-bold text-xl mb-5">Connect with me:</h2>
+                  <div id="socMedContainer" class="flex flex-col gap-2"></div>
+                </div>
+
+              </div>
+
+              <div class="flex justify-end w-full hidden">
+                <button class="confirmAOY rounded-md px-4 py-2 text-white bg-postButton hover:bg-postHoverButton">Confirm</button>
+              </div>
+            </div>
 
           </div>
+
         </div>
 
         <!-- alumni of the month content -->
@@ -1518,9 +1405,6 @@ function dateInText($date)
 
 
               <div class="flex gap-1 items-center">
-                <!-- all -->
-                <input id="allEM" name="selectedUser" type="radio" checked value="all">
-                <label for="allEM">All</label>
 
                 <!-- alumni -->
                 <input id="alumniEM" name="selectedUser" type="radio" value="alumni">
@@ -2167,7 +2051,7 @@ function dateInText($date)
 
         <div class="flex w-full justify-end items-center gap-2 my-3 border-t border-gray-300 py-2">
           <button id="cancelDeployBtn" class="text-gray-400 hover:text-gray-500">Cancel</button>
-          <button id="confirmDeployTracerBtn" class="px-4 py-2 rounded-lg bg-blue-400 hover:bg-blue-500 text-white font-bold">Deploy</button>
+          <button id="confirmDeployTracerBtn" class="px-4 py-2 rounded-lg bg-green-400 hover:bg-green-500 text-white font-bold">Deploy</button>
         </div>
       </div>
 
@@ -2343,6 +2227,7 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- loading screen -->
     <div id="loadingScreen" class="post modal fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden">
       <span class="loader w-36 h-36"></span>
       <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
@@ -2362,12 +2247,73 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- alumni of the year confirmation -->
+    <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 hidden">
+      <div class="alumniOfYearModal bg-white rounded shadow-lg w-2/5 h-max slide-bottom p-5">
+        <h2 class="text-center text-lg italic text-green-400 font-bold">Alumni of the Year! </h2>
+        <p class="text-center text-gray-500 text-sm">Assigning this person will be permanently in the list of Alumni of the year. Add reason why you choosed this person</p>
+        <input id="reasonForAOY" type="text" placeholder="Reason for assigning this alumni as Alumni of the year" class="w-full p-5 border-b border-gray-400 text-center">
+        <button class="text-white bg-blue-400 hover:bg-postHoverButton rounded-md mt-5 w-full py-2 assignAOY">Assign</button>
+        <button class="text-gray-400 hover:text-gray-500 hover:font-semibold w-full mt-2 cancelAOY">Cancel</button>
+      </div>
+    </div>
+
+    <!-- alumni of the year -->
+    <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 hidden aoyModal">
+      <div class="w-1/2 rounded-md h-4/5 bg-white p-5 overflow-y-auto">
+        <h3 class="text-center text-greyish_black font-semibold text-xl">Alumni of the year</h3>
+        <!-- content -->
+        <div class=" flex flex-col gap-2 items-center">
+          <img class="rounded-full h-44 w-44 border border-accent coverImgAOY" src="" alt="">
+          <p class="text-lg font-bold text-greyish_black fullnameAOY">Full name</p>
+          <p class="w-1/2 italic quotationAOY text-center"></p>
+          <h2 class="text-greyish_black font-bold text-center text-lg">Testimonials</h2>
+          <div class="flex flex-wrap justify-center gap-2 testimonyWrapper p-3"></div>
+          <h2 class="text-greyish_black font-bold text-center text-lg">Achievements</h2>
+          <div class="flex justify-center flex-wrap gap-2 achievementWrapper"></div>
+          <!-- skills -->
+          <h2 class="text-greyish_black font-bold text-center text-lg">Skills</h2>
+          <div class="flex flex-wrap gap-2 justify-center skillWrapper flex-1 mb-5"></div>
+
+          <!-- social media -->
+          <h2 class="text-greyish_black font-bold text-center text-lg">Social Media</h2>
+          <div class="flex flex-wrap justify-center gap-2 socMedWrapper flex-1"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 emailDetailModal hidden">
+      <div class="w-4/5 rounded-md h-4/5 bg-white p-5 overflow-y-auto">
+        <header class="flex items-center justify-between">
+          <div class="flex gap-2 cursor-pointer closeEmailModal">
+            <iconify-icon icon="fluent-mdl2:back" class="text-gray-700" width="24" height="24"></iconify-icon>
+            <h2 class="font-bold text-gray-500">Back</h2>
+          </div>
+          <div class="text-sm text-gray-500 italic">
+            <span>Email sent: </span>
+            <span class="dateData"></span>
+          </div>
+        </header>
+        <!-- body -->
+        <div class="flex flex-col mt-3 text-gray-500 emailModal">
+          <h2 class="font-semibold">Subject: <span class="text-based font-normal subject"></span></h2>
+          <h2 class="font-semibold">To: <span class="text-based font-normal to"></span></h2>
+          <div class="h-4/5">
+            <h2 class="font-semibold">Message:</h2>
+            <pre class=" text-gray-500 text-justify w-full border border-gray-400 rounded-md overflow-y-auto p-5 messageEmail"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/college.js"></script>
+  <script src="../js/alumni_of_the_year.js"></script>
   <script src="../js/jobposted.js"></script>
   <script src="../js/tracerchart.js"></script>
   <script src="../js/alumni_of_the_month.js"></script>

@@ -519,46 +519,21 @@ class PostData
         } else echo 'Error';
     }
 
-    function filterPost($username, $offset, $colCode, $startingDate, $endDate, $con)
+    function getAllCollegePost($colCode, $offset, $con)
     {
         $maxLimit = 10;
-        $query = "";
-        $stmt = null;
-        if ($colCode != "" && $startingDate != "") {
+        $status = "available";
+        $query = "SELECT * FROM `post` WHERE `status` = ? 
+        AND `colCode` = ? ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+        $stmt = mysqli_prepare($con, $query);
 
-            // both have assigned
-            $query = "SELECT * FROM `post` WHERE `username` = ? AND `colCode` = ? AND `date` BETWEEN ? and ? AND status = 'available'
-            ORDER BY `date` DESC LIMIT $offset,$maxLimit";
-            $stmt = mysqli_prepare($con, $query);
-            $stmt->bind_param('ssss', $username, $colCode, $startingDate, $endDate);
-        } else if ($colCode != "" && $startingDate == "") {
+        if ($stmt) {
+            $stmt->bind_param('ss', $status, $colCode);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-            // colcode only filter
-            $query = "SELECT * FROM `post` WHERE `username` = ? AND `colCode` = ? AND status = 'available'
-            ORDER BY `date` DESC LIMIT $offset,$maxLimit";
-            $stmt = mysqli_prepare($con, $query);
-            $stmt->bind_param('ss', $username, $colCode);
-        } else if ($colCode == "" && $startingDate != "") {
-
-            // date range filter
-            $query = "SELECT * FROM `post` WHERE `username` = ? AND `date` BETWEEN ? and ? AND status = 'available'
-            ORDER BY `date` DESC LIMIT $offset,$maxLimit";
-            $stmt = mysqli_prepare($con, $query);
-            $stmt->bind_param('sss', $username, $startingDate, $endDate);
-        } else {
-            //no filter
-            $query = "SELECT * FROM `post` WHERE `username`= ? AND status = 'available' ORDER BY `date` DESC LIMIT $offset, $maxLimit";
-            $stmt = mysqli_prepare($con, $query);
-            $stmt->bind_param('s', $username);
-        }
-
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = mysqli_num_rows($result);
-
-        if ($result && $row > 0) {
             $postResult = $this->getPostData($result, $con);
             echo $postResult;
-        } else 'Failed';
+        }
     }
 }

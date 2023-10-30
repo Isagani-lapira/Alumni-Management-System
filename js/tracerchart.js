@@ -187,14 +187,15 @@ $(document).ready(function () {
     })
 
     $('#questionSelection').on('change', function () {
-        let value = $(this).val();
-
+        // enable display button
         $('#displayChart')
             .removeClass('off')
             .addClass('on')
-            .on('click', function () {
-                displayChartForQuestion(value)
-            })
+    })
+    $('#displayChart').on('click', function () {
+        const value= $('#questionSelection').val()
+        questionChartObj.data.datasets[0].data = []
+        displayChartForQuestion(value)
     })
 
 
@@ -253,7 +254,6 @@ $(document).ready(function () {
         }
 
         if (typeChartSelection !== "pie") {
-            console.log('pumasok')
             questionChartObj.options.scales = {
                 y: {
                     beginAtZero: true,

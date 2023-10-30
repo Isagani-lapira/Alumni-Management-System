@@ -20,9 +20,9 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: (response) => {
+                $('#loadingDataNotif').addClass('hidden')
                 if (response.result == 'Success') {
                     let length = response.notifID.length; //total length of the data retrieved
-
                     //store data that has been process
                     for (let i = 0; i < length; i++) {
                         const notifID = response.notifID[i];
@@ -56,8 +56,8 @@ $(document).ready(function () {
                     $('#noNotifMsg').removeClass('hidden')
                     $('#noNotifMsg').appendTo('.notification-content')
                 }
-            },
-            error: (error) => { console.log(error) }
+            }
+
         })
     }
 
@@ -94,14 +94,12 @@ $(document).ready(function () {
         // showing normal view if the notification is not deleted
         if (!isDeleted) {
             notifContainer.on('click', function () {
-                //show the modal
-                $('#viewingPost').removeClass('hidden')
                 //get primary details of user
                 const name = $('#accFN').html();
                 const accUN = $('#accUsername').html();
 
                 //get the details of post
-                getPostDetails(postID, name, accUN, src);
+                getPostDetails(postID, name, accUN, src, date_notification);
 
                 //update the total number of unread notification
                 updateStatusNotification(notifID);
@@ -148,7 +146,7 @@ $(document).ready(function () {
         })
     }
 
-    function getPostDetails(postID, name, accUN, imgProfile) {
+    function getPostDetails(postID, name, accUN, imgProfile, date_notification) {
         let action = {
             action: 'readWithPostID'
         }
@@ -168,15 +166,17 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 //data to be receive
-
                 const description = response.caption[0];
                 const images = response.images[0];
                 const likes = response.likes[0];
-
+                $('#notification-tab').hide()
                 //zoom in the post or viewable in bigger size
-                viewingOfPost(postID, name, accUN, description, images, likes, imgProfile)
+                if (images.length > 0)
+                    viewingOfPost(postID, name, accUN, description, images, likes, imgProfile)
+                else
+                    viewStatusPost(postID, name, date_notification, description, likes, accUN)
+
             },
-            error: error => { console.log(error) }
         })
     }
 
@@ -217,6 +217,7 @@ $(document).ready(function () {
 
         $('.notifContainer').remove();
         const notificationTab = $('#notification-tab')
+        $('#loadingDataNotif').removeClass('hidden')
         getNotification()
         notificationTab.toggle()
     })
@@ -224,6 +225,7 @@ $(document).ready(function () {
     //get new sets of notification
     $('.notification-content').on('scroll', function () {
         if (templength != 0) {
+            $('#loadingDataNotif').removeClass('hidden').appendTo('.notification-content')
             getNotification()
         }
     })
@@ -247,6 +249,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: (response) => {
                 if (response.result == 'Success') {
+                    $('#loadingDataNotif').addClass('hidden')
                     let length = response.notifID.length; //total length of the data retrieved
 
                     //store data that has been process
@@ -294,7 +297,6 @@ $(document).ready(function () {
     $('#btnNotifUnread').on('click', function () {
         $(this).addClass('bg-accent text-white') //highlight the button unread
         $('#btnNotifAll').removeClass('bg-accent text-white') //remove highlighted button all 
-
         //remove the previously displayed list
         $('.notifContainer').each(function () {
             $(this).remove()
@@ -311,7 +313,7 @@ $(document).ready(function () {
     $('#btnNotifAll').on('click', function () {
         $(this).addClass('bg-accent text-white') //highlight the button unread
         $('#btnNotifUnread').removeClass('bg-accent text-white') //remove highlighted button all 
-
+        $('#loadingDataNotif').removeClass('hidden')
         //remove the current display so that the unread data will be remove
         $('.notifContainer').each(function () {
             $(this).remove()
@@ -347,6 +349,8 @@ $(document).ready(function () {
         })
     }
     function viewingOfPost(postID, name, accUN, description, images, likes, imgProfile) {
+        buttonColor()
+        $('#viewingPost').removeClass('hidden')  //show the modal
         $('#profilePic').attr('src', imgProfile);
         $('#postFullName').text(name);
         $('#postUN').text(accUN);
@@ -454,18 +458,31 @@ $(document).ready(function () {
                     $('#commentMsg').addClass('hidden')
                     //display every comments
                     for (let i = 0; i < length; i++) {
-                        const commentID = parsedResponse.commentID[i];
                         const fullname = parsedResponse.fullname[i];
                         const comment = parsedResponse.comment[i];
+                        const commentID = parsedResponse.commentID[i];
                         const img = imgFormat + parsedResponse.profile[i];
 
                         let commentContainer = $('<div>').addClass("flex gap-2 my-2")
                         let imgProfile = $('<img>').addClass("h-8 w-8 rounded-full").attr('src', img);
                         let commentDescript = $('<div>').addClass("bg-gray-300 rounded-md p-3 flex-grow text-sm flex flex-col gap-1 text-greyish_black");
                         let commentor = $('<p>').text(fullname)
+                        let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+                            .on('click', function () {
+                                $('#delete-modal').removeClass('hidden')
+                                // delete the comment
+                                $('#deletePostbtn').on('click', function () {
+                                    deleteComment(commentID, commentContainer);
+                                    // update the count
+                                    let newCountComment = parseInt($('#noOfComment').text()) - 1
+                                    $('#noOfComment').text(newCountComment)
+                                })
+                            })
+
+                        let container = $('<div>').addClass('flex justify-between').append(commentor, delComment)
                         let postComment = $('<p>').text(comment).addClass('text-xs text-gray-500');
 
-                        commentDescript.append(commentor, postComment);
+                        commentDescript.append(container, postComment);
                         commentContainer.append(imgProfile, commentDescript)
 
                         $('#commentContainer').append(commentContainer);
@@ -531,4 +548,132 @@ $(document).ready(function () {
     $('.closeGuidelines').on('click', function () {
         $('.communityGuideline').addClass('hidden')
     })
+
+    function viewStatusPost(postID, name, postDate, postcaption, likes, accountUN) {
+        buttonColor()
+        $('#postStatusModal').removeClass('hidden')
+        $('#statusFullnameUser').text(name)
+        $('#statusDate').text(postDate)
+        $('.accountUN').text(accountUN)
+        $('#statusDescript').html(postcaption)
+        $('#statusLikes').text(likes)
+
+        const action = { action: 'readWithPostID' }
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action))
+        formData.append('postID', postID)
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                const commentCount = response.comments
+                const imgProfile = imgFormat + response.profilePic
+
+                $('#statusComment').text(commentCount)
+                $('#profileStatusImg').attr('src', imgProfile)
+
+                if (commentCount > 0) displayComments(postID)
+
+            }
+        })
+    }
+
+    function displayComments(postID) {
+        const action = { action: 'read', postID: postID };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+
+        $.ajax({
+            url: '../PHP_process/commentData.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                $('#commentStatus').empty()
+                let length = response.fullname.length;
+                for (let i = 0; i < length; i++) {
+                    let fullname = response.fullname[i];
+                    let comment = response.comment[i];
+                    let commentID = response.commentID[i];
+                    let profile = (response.profile[i] === '') ? '../assets/icons/person.png' : imgFormat + response.profile[i]
+
+                    // display the comments
+                    let wrapper = $('<div>').addClass('flex gap-2 text-sm text-greyish_black')
+                    let profilePic = $('<img>')
+                        .attr('src', profile)
+                        .addClass('rounded-full w-10 h-10')
+
+                    let nameElement = $('<p>').addClass('font-bold').text(fullname)
+                    let delComment = $('<button>').addClass('text-xs hover:text-red-400').text('Delete')
+                        .on('click', function () {
+                            $('#delete-modal').removeClass('hidden')
+                            // delete the comment
+                            $('#deletePostbtn').on('click', function () {
+                                deleteComment(commentID, wrapper);
+                                // update the count
+                                let newCountComment = parseInt($('#statusComment').text()) - 1
+                                $('#statusComment').text(newCountComment)
+                            })
+                        })
+
+                    let container = $('<div>').addClass('flex items-center justify-between').append(nameElement, delComment)
+
+                    let commentElement = $('<pre>').addClass('text-gray-500').text(comment)
+                    let commentDetail = $('<div>').addClass('flex-1 flex-col w-4/5 bg-gray-300 rounded-md p-2 ')
+                        .append(container, commentElement)
+
+                    wrapper.append(profilePic, commentDetail)
+                    $('#commentStatus').append(wrapper)
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    function deleteComment(commentID, wrapper) {
+        const action = { action: "deleteComment" };
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('commentID', commentID);
+
+        $.ajax({
+            url: '../PHP_process/commentData.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response === 'Success') {
+                    $('#delete-modal').addClass('hidden')
+                    wrapper.remove()
+                }
+            }
+        })
+    }
 })
+
+
+function buttonColor() {
+    var targetDiv = document.getElementById("target-div");
+    targetDiv.classList.toggle("red-color");
+
+    var icon = document.querySelector("#notif-btn .fa");
+    var text = document.querySelector("#notif-btn .text-greyish_black");
+
+    if (targetDiv.classList.contains("red-color")) {
+        icon.style.color = "white";
+        text.style.color = "white";
+        targetDiv.classList.add("hover:bg-red-900");
+    } else {
+        icon.style.color = "";
+        text.style.color = "";
+        targetDiv.classList.remove("hover:bg-red-900");
+    }
+}

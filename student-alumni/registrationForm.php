@@ -114,6 +114,7 @@
                 <div class="flex flex-col gap-2">
                     <label for="personalEmail">Email Address (Personal)</label>
                     <input id="personalEmail" name="personalEmail" class="p-3 rounded-lg border border-gray-400 flex justify-center gap-2 requiredAlumni" placeholder="ex: juandelacruz@gmail.com">
+                    <span class="emailExistingMsg italic text-red-400 text-sm hidden">This email is already used</span>
                 </div>
 
                 <!-- navigation -->
@@ -271,12 +272,14 @@
                 <div class="flex flex-col gap-2">
                     <label for="studPersonalEmail">Email Address (Personal)</label>
                     <input id="studPersonalEmail" name="personalEmail" class="p-3 rounded-lg border border-gray-400 flex justify-center gap-2 requiredStudenField" placeholder="ex: juandelacruz@gmail.com">
+                    <span class="emailExistingMsg italic text-red-400 text-sm hidden">This email is already used</span>
                 </div>
 
-                <!-- email personal -->
+                <!-- email bulsu -->
                 <div class="flex flex-col gap-2">
                     <label for="studbulsuEmail">Email Address (BulSU)</label>
                     <input id="studbulsuEmail" name="bulsuEmail" class="p-3 rounded-lg border border-gray-400 flex justify-center gap-2 requiredStudenField" placeholder="ex: juandelacruz@bulsu.edu.ph">
+                    <span class="emailExistingMsgBulsu italic text-red-400 text-sm hidden">This email is already used</span>
                 </div>
                 <p id="bulsuEmailError" class="text-sm my-1 text-red-400 italic hidden">Error: Your BulSU email is invalid</p>
 

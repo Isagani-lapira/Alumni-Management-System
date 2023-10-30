@@ -329,3 +329,12 @@ tbody tr:nth-child(odd) {
 #emailTable_wrapper td {
   text-align: left;
 }
+
+#aomRecord {
+  height: 95%;
+}
+
+.emailModal,
+.emailModal pre {
+  height: 90%;
+}

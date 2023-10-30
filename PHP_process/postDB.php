@@ -81,17 +81,16 @@ if (isset($_POST['action'])) {
             $reason = $_POST['reason'];
             $post->removeUserPost($postID, $username, $reason, $mysql_con);
             break;
-        case 'filterDataPost':
-            $offset = $_POST['offset'];
-            $colCode = ($_POST['colCode'] != '') ? $_POST['colCode'] : "";
-            $startingDate = ($_POST['startingDate'] != '') ? $_POST['startingDate'] : "";
-            $endDate = ($_POST['endDate'] != '') ? $_POST['endDate'] : "";
-            $post->filterPost($username, $offset, $colCode, $startingDate, $endDate, $mysql_con);
-            break;
         case 'getPostImages':
             $postID = $_POST['postID'];
             $images = $post->getPostImages($postID, $mysql_con);
             echo json_encode($images);
+            break;
+
+        case 'getAllCollegePost':
+            $offset = $_POST['offset'];
+            $colCode = $_SESSION['colCode'];
+            $post->getAllCollegePost($colCode, $offset, $mysql_con);
             break;
     }
 }

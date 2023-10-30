@@ -74,4 +74,59 @@ class Student
 
         echo json_encode($data);
     }
+
+    function deleteStudentRecord($username, $con)
+    {
+        $query = "DELETE FROM `student` WHERE `username`= ?";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('s', $username);
+            $result = $stmt->execute();
+
+            if ($result) echo 'Success';
+            else echo 'Failed';
+        }
+    }
+
+    function updateCurrentYear($username, $con)
+    {
+        // check if the system already update the year
+        $query = "SELECT COUNT(`last_update`) AS 'COUNT'  FROM `student`
+        WHERE `username` = ? 
+        AND YEAR(`last_update`) = YEAR(CURDATE())";
+
+        $stmt = mysqli_prepare($con, $query);
+        if ($stmt) {
+            $stmt->bind_param('s', $username);
+            $stmt->execute();
+            $stmt->bind_result($count);
+            $stmt->fetch();
+            $stmt->close();
+
+            // get the last time the account has been updated
+            $queryCurrentYear = "SELECT `currentYear` FROM `student` WHERE `username` = ?";
+            $stmtCurrentYr = mysqli_prepare($con, $queryCurrentYear);
+            $stmtCurrentYr->bind_param('s', $username);
+            $stmtCurrentYr->execute();
+            $stmtCurrentYr->bind_result($currentYear);
+            $stmtCurrentYr->fetch();
+            $stmtCurrentYr->close();
+
+            if ($count === 0) { //not currently update the year
+                // update the currentYear
+                $queryUpdateYr = "UPDATE `student` SET `currentYear`= ?,
+                `last_update`= ? WHERE `username` = ?";
+                $stmtUpdate = mysqli_prepare($con, $queryUpdateYr);
+
+                $currentUpdate = date('Y'); //update last update to current year
+                $currentYear += 1; //increase the year
+
+                if ($stmtUpdate) {
+                    $stmtUpdate->bind_param('dss', $currentYear, $currentUpdate, $username);
+                    $stmtUpdate->execute();
+                }
+            }
+        }
+    }
 }

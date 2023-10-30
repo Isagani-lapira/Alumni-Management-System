@@ -749,7 +749,7 @@ $(document).ready(function () {
     function retrieveNewQuestionData(questionName, formID, categoryID, isSectionQuestion = false, choiceID = "") {
         const inputTypeVal = $('#inputTypeModalNew').val();
         // Get all the option choices
-        const choices = [];
+        let choices = [];
         $('.fieldWrapper').each(function () {
             let choiceVal = $(this).find('input[type="text"]').val();
             choices.push(choiceVal);
@@ -769,7 +769,7 @@ $(document).ready(function () {
                 "InputType": inputTypeVal,
                 "choices": choices
             }
-            insertNewCategoryQuestion(data) //process insertion of question for non section question
+            insertNewCategoryQuestion(data, categoryID, formID) //process insertion of question for non section question
         }
         else {
             const data = {
@@ -781,6 +781,9 @@ $(document).ready(function () {
             insertNewQuestionSection(data, choiceID) //insertion of section question
         }
 
+
+        choices = []
+        QuestionSet = [];
     }
 
     function insertNewQuestionSection(data, choiceID) {
@@ -811,7 +814,7 @@ $(document).ready(function () {
         })
     }
 
-    function insertNewCategoryQuestion(data) {
+    function insertNewCategoryQuestion(data, categoryID, formID) {
         const action = "addNewQuestionForCategory";
         const formData = new FormData();
         formData.append('action', action);
@@ -832,9 +835,11 @@ $(document).ready(function () {
                     setTimeout(() => {
                         $('#promptMsgNewQuestion').addClass('hidden')
                     }, 3000)
+                    $('#questionSetContainer').empty()
+                    retrieveCategoryQuestion(categoryID, formID);
                 }
-            },
-            error: error => { console.log(error) }
+            }
+
         })
     }
 
@@ -908,7 +913,18 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: response => { console.log(response) },
+            success: response => {
+                if (response === 'Success') {
+                    $('#deploymentModal').addClass('hidden')
+                    $('#message').text('Tracer successfully deployed')
+                    $('#promptMsg').removeClass('hidden')
+
+                    // hide the promp after 4seconds
+                    setTimeout(() => {
+                        $('#promptMsg').addClass('hidden')
+                    }, 4000)
+                }
+            },
             error: error => { console.log(error) }
         })
     })

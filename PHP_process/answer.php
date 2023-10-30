@@ -43,17 +43,18 @@ if (isset($_POST['action'])) {
 function addAnswer($con)
 {
     $personID = $_SESSION['personID'];
+    $tracerID = retrievedDeployment($con); //latest tracer form
+
     // check first if there's already an answer
-    $queryChecked = "SELECT `answerID` FROM `answer` WHERE `personID`= ?";
+    $queryChecked = "SELECT `answerID` FROM `answer` WHERE `personID`= ? AND `tracer_deployID`= ?";
     $stmtChecked = mysqli_prepare($con, $queryChecked);
-    $stmtChecked->bind_param('s', $personID);
+    $stmtChecked->bind_param('ss', $personID, $tracerID);
     $stmtChecked->execute();
     $result = $stmtChecked->get_result();
     $row = mysqli_num_rows($result);
 
     // if none then create entry
     if ($result && $row == 0) {
-        $tracerID = retrievedDeployment($con);
         $answerID = substr(md5(uniqid()), 0, 29);
         $queryInsertion = "INSERT INTO `answer`(`answerID`, `personID`, 
         `tracer_deployID`) VALUES (?, ?, ?)";
