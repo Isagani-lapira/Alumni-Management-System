@@ -168,7 +168,6 @@ if (isset($_SESSION['personID'])) {
                     <!-- Form for email, change password section with password and confirm password and update button  -->
                     <form action="" id="update-college-form">
                         <div class="flex flex-wrap justify-between gap-4 my-4">
-
                             <!-- Profile Picture -->
                             <div class="flex flex-wrap gap-4">
                                 <img id="colLogoPreview" class="w-24 h-24 block mx-auto rounded-full" src="
@@ -180,7 +179,7 @@ if (isset($_SESSION['personID'])) {
                                 </div>
 
                                 <div class="flex flex-col justify-center">
-                                    <button class="bg-slate-600 text-white px-4 py-2 rounded-full">Upload</button>
+                                    <input type="file" id="colLogoInput" class="daisy-file-input w-full max-w-xs " />
                                 </div>
                             </div>
 
@@ -271,13 +270,12 @@ if (isset($_SESSION['personID'])) {
 
 
                         <!-- Update Button -->
-                        <div class="flex flex-col gap-4 ">
-                            <div class="flex flex-wrap gap-4 justify-end">
-                                <div class="flex flex-col gap-2">
-                                    <button name="update-college" value="update-college" id="update-college-submit-btn" class=" btn-primary">Update College Profile</button>
-                                </div>
-                                <!-- cancel-edit-college-profile-btn -->
-                                <button id="cancel-edit-college-profile-btn" class="btn-tertiary" type="button">Cancel</button>
+                        <div class="flex flex-col lg:flex-row justify-end gap-4 ">
+
+                            <!-- cancel-edit-college-profile-btn -->
+                            <button id="cancel-edit-college-profile-btn" class="btn-tertiary" type="button">Cancel</button>
+                            <div class="flex flex-col gap-2">
+                                <button name="update-college" value="update-college" id="update-college-submit-btn" class=" btn-primary">Update College Profile</button>
                             </div>
 
                         </div>
