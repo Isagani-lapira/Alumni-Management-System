@@ -12,24 +12,11 @@
                 <p id="jobMyPost" class="inline cursor-pointer text-sm hover:underline hover:text-accent">My post</p>
             </div>
 
-            <div class=" items-center flex">
-
-                <select name="" id="" class="p-2">
-                    <option value="all" selected>All</option>
-                    <option value="admin">Admin</option>
-                    <option value="alumni">Alumni</option>
-                </select>
-
-                <div class=" relative">
-                    <i class="fa-solid fa-magnifying-glass absolute top-3 left-3"></i>
-                    <input id="jobSearchTitle" type="text" placeholder="Search title" class="border rounded-md pl-8 p-2">
-                </div>
-            </div>
 
         </div>
 
-        <h2 class="text-bold my-2 text-lg">Pending Approval</h2>
-        <table class="w-full mt-10 center-shadow" id="unverified-job-table">
+        <h2 class="font-semibold my-4 text-lg">Pending Approval</h2>
+        <table class="w-full mt-4 center-shadow" id="unverified-job-table">
             <thead class="bg-accent text-sm text-white p-3">
                 <tr>
                     <th class="rounded-tl-lg">Job</th>
@@ -42,6 +29,16 @@
             <tbody class="text-sm" id="jobTBContent"></tbody>
         </table>
 
+
+        <div class="  ">
+            <label for="filter" class="daisy-label daisy-label-text">Filter By: </label>
+            <select name="filter" id="" class=" form-select rounded">
+                <option value="all" selected>All</option>
+                <option value="admin">Admin</option>
+                <option value="alumni">Alumni</option>
+            </select>
+
+        </div>
         <table class="w-full mt-10 center-shadow" id="jobTable">
             <thead class="bg-accent text-sm text-white p-3">
                 <tr>
@@ -56,10 +53,6 @@
 
             <tbody class="text-sm" id="jobTBContent"></tbody>
         </table>
-        <div id="jobNavigation" class="flex justify-end gap-2 px-2 mt-2">
-            <button id="prevJob" class="border border-accent hover:bg-accent hover:text-white px-3 py-1 rounded-md">Previous</button>
-            <button id="nextJob" class="bg-accent hover:bg-darkAccent text-white px-5 py-1 rounded-md">Next</button>
-        </div>
         <p class="hidden jobErrorMsg text-center mt-5 text-accent ">No available data yet</p>
     </div>
 

@@ -102,7 +102,7 @@ $(document).ready(function () {
 
       columnDefs: [
         {
-          targets: [4],
+          targets: [3],
           render: function (data, type, row) {
             return moment(data).format("MMMM D, YYYY");
           },
