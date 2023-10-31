@@ -48,7 +48,30 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         $stmt->close();
         echo json_encode(array("error" => false, "data" => $data, "message" => "Success", "status" => true));
+    } else   if (isset($_GET['status']) && $_GET['status'] === 'all') {
+        // Bind the parameter
+        $stmt = $mysql_con->prepare("SELECT jobTitle, companyName, author, date_posted, status, careerID FROM `career` WHERE colCode = ? ;");
+        $stmt->bind_param("s", $colCode);
+        // Execute the statement
+        $stmt->execute();
+
+        // Get the result
+        $result = $stmt->get_result();
+        $data = array();
+
+        // Fetch the rows
+        while ($row = $result->fetch_assoc()) {
+            // Process each row as needed
+            // $row contains the data from the database
+            $data[] = $row;
+        }
+
+        // Close the statement
+
+        $stmt->close();
+        echo json_encode(array("error" => false, "data" => $data, "message" => "Success", "status" => true));
     }
+
     // get all the verified status
     else   if (isset($_GET['status']) && $_GET['status'] === 'verified') {
         // Bind the parameter
@@ -102,9 +125,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $stmt->execute();
         $stmt->close();
         echo json_encode(array("error" => false, "message" => "Success", "status" => true));
-    } else if (isset($_POST['action']) && $_POST['action'] === 'read') {
-        $stmt = $mysql_con->prepare("SELECT jobTitle, companyName, author, date_posted, status, careerID FROM `career` WHERE colCode = ?;");
-        $stmt->bind_param("s", $colCode);
+    } else if (isset($_POST['action']) && $_POST['action'] === 'view') {
+        $careerID = $_POST['careerID'];
+
+        $stmt = $mysql_con->prepare("SELECT * FROM `career` WHERE careerID = ?;");
+        $stmt->bind_param("s", $careerID);
         // Execute the statement
         $stmt->execute();
 
@@ -116,7 +141,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         while ($row = $result->fetch_assoc()) {
             // Process each row as needed
             // $row contains the data from the database
-            $data[] = $row;
+            $row['companyLogo'] = base64_encode($row['companyLogo']);
+            $data = $row;
         }
 
         // Close the statement

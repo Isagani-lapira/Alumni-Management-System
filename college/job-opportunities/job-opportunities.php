@@ -45,8 +45,8 @@
                     <th class="rounded-tl-lg">Company</th>
                     <th>Title</th>
                     <th>Author</th>
-                    <th>College</th>
                     <th>Date Posted</th>
+                    <th>Status</th>
                     <th class="rounded-tr-lg">Action</th>
                 </tr>
             </thead>
@@ -56,171 +56,61 @@
         <p class="hidden jobErrorMsg text-center mt-5 text-accent ">No available data yet</p>
     </div>
 
-    <!-- job posting -->
-    <div id="jobPosting" class="mt-10 w-full hidden">
-        <form id="jobForm" enctype="multipart/form-data">
-            <div class="flex text-greyish_black">
-                <!-- left side -->
-                <div class="w-1/2">
 
-                    <!-- college -->
-                    <div class="mb-3">
-                        <label for="collegeJob" class="font-bold text-greyish_black block">College</label>
-                        <!-- college selection -->
-                        <select name="collegeJob" id="collegeJob" class=" border border-grayish p-2 rounded-lg w-4/5 outline-none text-gray-400">
-                            <option value="" selected disabled hidden>All</option>
-                            <?php
-                            // require_once './php/connection.php';
-                            // $query = "SELECT * FROM `college`";
-                            // $result = mysqli_query($mysql_con, $query);
-                            // $rows = mysqli_num_rows($result);
 
-                            // if ($rows > 0) {
-                            //     while ($data = mysqli_fetch_assoc($result)) {
-                            //         $colCode = $data['colCode'];
-                            //         $colName = $data['colname'];
 
-                            //         echo '<option value="' . $colCode . '">' . $colName . '</option>';
-                            //     }
-                            // } else echo '<option>No college available</option>';
-                            ?>
-                        </select>
-                    </div>
 
-                    <!-- job title -->
-                    <div>
-                        <label class="font-bold text-greyish_black" for="jobTitle">Job Title</label>
-                        <input id="jobTitle" name="jobTitle" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Software Engineer">
-                    </div>
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="view-details-modal" class="daisy-modal-toggle" />
+    <div class="daisy-modal">
+        <div class="daisy-modal-box w-11/12 max-w-5xl p-0">
 
-                    <!-- job description -->
-                    <div>
-                        <label class="font-bold text-greyish_black mt-5" for="projOverviewTxt">Project Description</label>
-                        <textarea class="block message-area jobField border border-solid border-gray-400 h-40 w-4/5 mb-5 resize-none  
-                      rounded-lg focus:outline-none text-greyish_black text-sm p-3" name="projDescriptTxt" id="projOverviewTxt" placeholder="Describe the person or provide other information you want to share to other people...."></textarea>
-                    </div>
-
-                    <!-- company logo -->
-                    <div>
-                        <label class="font-bold text-greyish_black mt-5 block my-2" for="projOverviewTxt">Company Logo</label>
-                        <label class="bg-accent p-2 rounded-lg text-white" for="jobLogoInput">
-                            Choose logo
-                            <input id="jobLogoInput" name="jobLogoInput" class="jobField hidden" type="file">
-                        </label>
-                        <span id="jobFileName" class="mx-3 text-sm">file chosen</span>
-                    </div>
-
-                </div>
-
-                <!-- right side -->
-                <div class="w-1/2">
-
-                    <!-- company name -->
-                    <div>
-                        <label class="font-bold text-greyish_black text-sm mt-5" for="jobCompany">Company Name</label>
-                        <input id="jobCompany" name="companyName" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Accenture">
-                    </div>
-
-                    <!-- location -->
-                    <div>
-                        <label class="font-bold text-greyish_black text-sm mt-5" for="jobLocation">Location</label>
-                        <input id="jobLocation" name="jobLocation" class="jobField block p-2 border border-gray-400 w-4/5 outline-none rounded-lg mb-3" type="text" placeholder="e.g Accenture">
-                    </div>
-
-                    <!-- job qualification -->
-                    <div>
-                        <label class="font-bold text-greyish_black text-sm mt-5" for="qualificationTxt">Qualification</label>
-                        <textarea class="jobField block message-area border border-solid border-gray-400 h-40 w-4/5 rounded-lg mb-5
-                      resize-none p-3 focus:outline-none text-greyish_black text-sm" name="qualificationTxt" id="qualificationTxt"></textarea>
-                    </div>
-
-                    <!-- salary -->
-                    <div>
-                        <label class="font-bold text-greyish_black text-sm mt-5 block" for="minSalary">Salary Range</label>
-                        <div class="flex gap-2 mt-2 items-center">
-                            <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
-                                <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                                <input class="jobField w-full" type="number" name="minSalary" id="minSalary" value="0">
-                            </div>
-                            -
-                            <div class="w-1/4 p-2 border border-grayish rounded-md flex items-center gap-2">
-                                <i class="fa-solid fa-peso-sign" style="color: #727274;"></i>
-                                <input class="jobField w-full" type="number" name="maxSalary" id="maxSalary" value="0">
-                            </div>
+            <div class=" overflow-y-auto no-scrollbar">
+                <!-- content -->
+                <div class="headerJob flex rounded-t-lg p-5 w-full bg-accent">
+                    <div class="w-3/5 ps-3">
+                        <span id="viewJobColText" class="text-2xl font-bold text-gray-200"></span>
+                        <div class="flex gap-2 items-center">
+                            <p class="text-sm text-white"> </p>
+                            <p id="viewJobColCompany" class="text-sm font-bold text-white"></p>
                         </div>
+                        <div id="skillSets" class="flex flex-wrap gap-2 text-white text-xs my-1 "></div>
                     </div>
+
 
                 </div>
 
-            </div>
+                <div class="p-5">
+                    <h3 class="text-gray-500 font-bold text-xl">Project Overview</h3>
+                    <pre id="jobOverview" class="text-sm h-max w-full indented text-gray-500 mb-2 mt-1 whitespace-normal "></pre>
 
-            <!-- tags -->
-            <div>
-                <label class="font-bold text-greyish_black text-sm mt-5 block" for="inputSkill">Tags</label>
-                <div id="skillDiv" class="flex flex-wrap">
-                    <div>
-                        <img class="h-12 w-12 inline cursor-pointer" src="../assets/icons/add-circle.png">
-                        <input id="inputSkill" class="inputSkill skillInput" type="text" placeholder="Add skill/s that needed">
-                    </div>
+                    <h3 class="text-gray-500 font-bold text-xl">Qualification</h3>
+                    <pre id="jobQualification" class="whitespace-normal text-sm h-max indented text-gray-500 mb-2 mt-1"></pre>
+                    <h3 class="text-gray-500 font-bold text-xl">LOCATION</h3>
+                    <span id="locationJobModal" class="text-gray-500 text-sm my-1"></span>
                 </div>
             </div>
 
-            <div class="flex justify-start">
-                <button type="submit" class="bg-postButton px-4 py-2 mt-5 hover:bg-postHoverButton text-white rounded-md text-sm">Make
-                    a post</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- admin job post -->
-    <div id="adminJobPost" class="mt-10 w-full hidden">
-        <div id="adminJobPostCont" class="grid grid-cols-4 gap-4 p-7"></div>
-    </div>
-
-    <!-- View job post modal -->
-    <div id="viewJob" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
-        top-0 left-0 p-5 hidden overflow-y-auto">
-        <!-- modal body -->
-        <div class="w-2/5 bg-white rounded-lg h-max p-5">
-            <!-- content -->
-            <div class="headerJob flex">
-                <img id="jobCompanyLogo" class="h-20 w-20 inline" src="" alt="">
-                <div class="w-3/5 ps-3">
-                    <span id="viewJobColText" class="text-lg font-semibold"></span>
-                    <div class="flex items-center">
-                        <p class="text-sm text-gray-600 pr-1">Posted by: </p>
-                        <p id="viewJobAuthor" class="text-sm font-semibold text-green-500"></p>
+            <!-- Skeleton Pulse -->
+            <!-- <div class="animate-pulse flex space-x-4">
+                <div class="rounded-full bg-slate-200 h-10 w-10"></div>
+                <div class="flex-1 space-y-6 py-1">
+                    <div class="h-2 bg-slate-200 rounded"></div>
+                    <div class="space-y-3">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="h-2 bg-slate-200 rounded col-span-2"></div>
+                            <div class="h-2 bg-slate-200 rounded col-span-1"></div>
+                        </div>
+                        <div class="h-2 bg-slate-200 rounded"></div>
                     </div>
-
-                    <div class="flex items-center">
-                        <p class="text-sm text-gray-600 pr-1">Company Name: </p>
-                        <p id="viewJobColCompany" class="text-sm text-green-500 font-semibold">Admin</p>
-                    </div>
-
-                    <p id="viewPostedDate" class="text-sm text-gray-600 pr-1"></p>
                 </div>
 
-            </div>
-            <hr class="p-1 border-gray-400 mt-5">
+            </div> -->
 
 
-            <p class="text-black font-bold my-3">Project Overview</p>
-            <p id="jobOverview" class="text-sm h-max w-full text-gray-600"></p>
-
-            <p class="text-black font-bold text-sm my-3">Skills</p>
-            <div id="skillSets" class="flex flex-wrap gap-2 text-gray-600 text-sm"></div>
-
-            <p class="text-black font-bold my-3">Qualification</p>
-            <p id="jobQualification" class="text-sm h-max text-gray-600"></p>
-
-
-            <p class="text-black font-bold my-3">REQUIREMENTS</p>
-            <div id="reqCont" class="text-gray-600 text-sm"></div>
-
-            <button class="bg-green-400 text-white px-8 py-3 mt-5 rounded-md block ml-auto">Apply Now</button>
         </div>
+        <label class="daisy-modal-backdrop" for="view-details-modal">Close</label>
     </div>
-
 
 
 </section>

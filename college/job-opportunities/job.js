@@ -73,6 +73,49 @@ $(document).ready(function () {
       });
     });
 
+    $("table").on("click", "label", function () {
+      // get the data-id
+      const id = $(this).attr("data-id");
+      const formData = new FormData();
+      formData.append("action", "view");
+      formData.append("careerID", id);
+
+      // send a get request to the api
+      postJSONFromURL(GET_URL_LINK, formData).then((response) => {
+        if (response.status === true) {
+          // get the data
+          const data = response.data;
+          console.log(data);
+
+          // set the values
+          $("#viewJobColText").text(data.jobTitle);
+          $("#viewJobColCompany").text(data.companyName);
+          console.log($("#viewJobColCompany").text());
+
+          $("#jobOverview").text(data.jobDescript);
+
+          $("#jobQualification").text(data.jobqualification);
+          $("#skillSets").text(data.jobSkills);
+          $("#jobDatePosted").text(data.date_posted);
+          $("#jobAuthor").text(data.author);
+          $("#locationJobModal").text(data.author);
+          // salary
+          $("#minSalary").text(data.minSalary);
+          $("#maxSalary").text(data.maxSalary);
+          $("#locationJobModal").text(data.location);
+
+          // $("#author").text(data.author);
+          // $("#companyLogo").attr("src", "data:image/jpeg;base64," +data.companyLogo);
+
+          // show the modal
+          // $("#view-modal").removeClass("hidden");
+        } else {
+          // show error message
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
+      });
+    });
+
     // binders for reject job
     $("#unverified-job-table ").on("click", ".deny-job-btn", function () {
       // get the data-id
@@ -137,10 +180,10 @@ $(document).ready(function () {
           render: function (data, type, row) {
             return `
                 <div class="grid grid-cols-2  gap-4 w-full max-w-md">
-                    <div class="col-span-2 flex flex-col justify-start items-start ">
+                    <label for="view-details-modal" data-id="${row.careerID}" class="cursor-pointer hover:text-primary-focus col-span-2 flex flex-col justify-start items-start ">
                         <p class="font-bold text-left">${row.jobTitle}</p>
                         <p class="text-gray-500 font-light">${row.companyName}</p>
-                    </div>
+                    </label>
                 </div>
           `;
           },
@@ -175,7 +218,7 @@ $(document).ready(function () {
   async function updateDataTable() {
     $("#jobTable").DataTable({
       ajax: {
-        url: `${GET_URL_LINK}?status=verified`,
+        url: `${GET_URL_LINK}?status=all`,
         dataSrc: "data",
       },
       paging: true,
@@ -195,7 +238,7 @@ $(document).ready(function () {
           render: function (data, type, row) {
             // Define the buttons for the Actions column
             return `
-                        <label for="view-modal" class="daisy-btn" data-id="${row.careerID}">View</label>
+                        <label for="view-details-modal" class="daisy-btn" data-id="${row.careerID}">View</label>
                     `;
           },
         },
