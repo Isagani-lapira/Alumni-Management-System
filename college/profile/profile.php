@@ -7,52 +7,42 @@ require_once("../../PHP_process/connection.php");
 $alumniData = [];
 // get the id of the user from session id
 if (isset($_SESSION['personID'])) {
+
+    // Get the person data
     $model = new PersonModel($mysql_con, $_SESSION['colCode']);
-    // todo refactor later
     $alumniData = $model->getOneById($_SESSION['personID']);
     // Get college data
-    // Add session info from the college info
     $colCode = $_SESSION['colCode'];
     $query = "SELECT * FROM college WHERE colCode = '$colCode';";
     $result = mysqli_query($mysql_con, $query);
     $data = mysqli_fetch_assoc($result);
 
-
     $colName = $data['colname'];
-    // colEmailAdd` varchar(70) DEFAULT NULL,
-    /**
-     *   `colContactNo` 
-     * `colWebLink` 
-     *    `colLogo` 
-     * `colDean` 
-     * `colDeanImg` 
-     */
-    // get the columns
     $colEmailAdd = $data['colEmailAdd'];
     $colContactNo = $data['colContactNo'];
     $colWebLink = $data['colWebLink'];
     $colLogo = $data['colLogo'];
     $colDean = $data['colDean'];
     $colDeanImg = $data['colDeanImg'];
+    $description = trim($data['description']);
 
 
     // add a default image if image is null
     if ($alumniData['profilepicture'] == null) {
-        $alumniData['profilePicture'] = "https://www.w3schools.com/howto/img_avatar.png";
+        $alumniData['profilePicture'] = "../assets/default_profile.png";
     } else {
 
         // encode
-        $alumniData['profilepicture'] = base64_encode($alumniData['profilepicture']);
+        $alumniData['profilepicture'] = " data:image/jpeg;base64," . base64_encode($alumniData['profilepicture']);
     }
 
     if ($colDeanImg == null) {
-        $colDeanImg = "base64https://www.w3schools.com/howto/img_avatar.png";
+        $colDeanImg = "../assets/default_profile.png";
     } else {
 
         // encode
-        $colDeanImg = base64_encode($colDeanImg);
+        $colDeanImg = " data:image/jpeg;base64," . base64_encode($colDeanImg);
     }
-    $description = trim($data['description']);
 } else {
     echo "<h1>" . "No person ID" .  "</h1>";
     die();
@@ -133,7 +123,7 @@ if (isset($_SESSION['personID'])) {
 
                             <div class="coordinator">
                                 <div class="text-center">
-                                    <img id="adminImg" src="<?= $colDeanImg ?>
+                                    <img id="adminImg" src="<?= $alumniData['profilepicture'] ?>
                                     " class="w-32 h-32  mx-auto rounded-md" alt="">
                                     <p id="colAdminName" class="text-accent font-medium"></p>
                                     <p class="text-gray-500 text-sm">Alumni Coordinator, <?= $_SESSION['colCode'] ?></p>
@@ -166,7 +156,8 @@ if (isset($_SESSION['personID'])) {
                 <section id="edit-college-profile" class="hidden overflow-auto">
                     <h2 class="font-bold text-xl">Edit College Information</h2>
                     <!-- Form for email, change password section with password and confirm password and update button  -->
-                    <form action="" id="update-college-form">
+                    <form action="POST" id="update-college-form">
+                        <input type="hidden" name="update-college-form" value="true">
                         <div class="flex flex-wrap justify-between gap-4 my-4">
                             <!-- Profile Picture -->
                             <div class="flex flex-wrap gap-4">
@@ -179,7 +170,8 @@ if (isset($_SESSION['personID'])) {
                                 </div>
 
                                 <div class="flex flex-col justify-center">
-                                    <input type="file" id="colLogoInput" class="daisy-file-input w-full max-w-xs " />
+                                    <input type="file" id="colLogoInput" name="colLogo" class="daisy-file-input w-full max-w-xs " />
+                                    <button type="button" id="reset-logo" class="daisy-btn daisy-btn-outline daisy-btn-error">Reset Upload</button>
                                 </div>
                             </div>
 
@@ -231,8 +223,8 @@ if (isset($_SESSION['personID'])) {
                         <div class="flex flex-col gap-4">
                             <div class="flex flex-wrap gap-4 w-8/12 max-w-lg">
                                 <div class="flex flex-col gap-2">
-                                    <label for="colDescription" class="font-bold">Description</label>
-                                    <textarea name="colDescription" id="colDescription" cols="60" rows="10" class="form-textarea border border-gray-300 rounded-md p-2"><?= htmlspecialchars($description) ?></textarea>
+                                    <label for="description" class="font-bold">Description</label>
+                                    <textarea name="description" id="colDescription" cols="60" rows="10" class="form-textarea border border-gray-300 rounded-md p-2"><?= htmlspecialchars($description) ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -242,8 +234,8 @@ if (isset($_SESSION['personID'])) {
                         <div class="flex flex-wrap justify-between gap-4 my-4">
                             <div class="flex flex-wrap gap-4">
 
-                                <img id="colLogoPreview" class="w-24 h-24 block mx-auto rounded-full" src="
-                            data:image/jpeg;base64,<?= $colDeanImg ?> 
+                                <img id="deanImgPreview" class="w-24 h-24 block mx-auto rounded-full" src="
+                           <?= $colDeanImg ?> 
                             " alt="">
                                 <div class="flex flex-col justify-center">
                                     <h3 class="font-bold text-lg">College Dean Picture</h3>
@@ -251,7 +243,9 @@ if (isset($_SESSION['personID'])) {
                                 </div>
 
                                 <div class="flex flex-col justify-center">
-                                    <button class="bg-slate-600 text-white px-4 py-2 rounded-full">Upload</button>
+                                    <input type="file" id="deanImgInput" class="daisy-file-input" name="colDeanImg" />
+
+                                    <button type="button" id="reset-dean" class="daisy-btn daisy-btn-outline daisy-btn-error">Reset Upload</button>
                                 </div>
                             </div>
 
@@ -261,7 +255,7 @@ if (isset($_SESSION['personID'])) {
                         <div class="flex flex-col gap-4">
                             <div class="flex flex-wrap gap-4 w-8/12 max-w-lg">
                                 <div class="flex flex-col gap-2  w-8/12 max-w-lg">
-                                    <label for="colDean" class="font-bold">Dean Name</label>
+                                    <label for="colDean" class="font-bold">College Dean Name</label>
                                     <input type="text" value="<?= $colDean ?>" name="colDean" id="colDean" class="form-input border border-gray-300 rounded-md p-2">
                                 </div>
                             </div>
@@ -365,6 +359,7 @@ if (isset($_SESSION['personID'])) {
 <script>
     $(document).ready(function() {
         $.getScript("./profile/postScript.js");
-        $.getScript("./profile/profile.js");
     });
 </script>
+
+<script type="module" src="./profile/profile.js"></script>

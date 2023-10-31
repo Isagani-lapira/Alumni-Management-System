@@ -12,85 +12,133 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-        if (isset($_FILES['cover-img']) && $_FILES['cover-img']['error'] === UPLOAD_ERR_OK) {
-            $coverImage = $_FILES['cover-img']['tmp_name'];
-            $coverImageData = file_get_contents($coverImage);
-        }
+        //"UPDATE `college` SET `colCode`='[value-1]',`colname`='[value-2]',`colEmailAdd`='[value-3]',`colContactNo`='[value-4]',`colWebLink`='[value-5]',`colLogo`='[value-6]',`colDean`='[value-7]',`colDeanImg`='[value-8]',`description`='[value-9]' WHERE 1";
 
-        if (isset($_FILES['personal-img']) && $_FILES['personal-img']['error'] === UPLOAD_ERR_OK) {
-            $profilePicture = $_FILES['personal-img']['tmp_name'];
-            $profileImageData = file_get_contents($profilePicture);
-        }
+        $colCode = $_SESSION['colCode'];
+
+        $colName = $_POST['colName'];
+        $colEmailAdd = $_POST['colEmailAdd'];
+        $colContactNo = $_POST['colContactNo'];
+        $colWebLink = $_POST['colWebLink'];
+        $colDean = $_POST['colDean'];
+        $description = $_POST['description'];
+
+        $colLogoData = '';
+        $colDeanImgData = '';
+
+        if (isset($_FILES['colLogo']) && $_FILES['colLogo']['error'] === UPLOAD_ERR_OK && isset($_FILES['colDeanImg']) && $_FILES['colDeanImg']['error'] === UPLOAD_ERR_OK) {
+            // there are logo and dean image uploaded
+            $colLogo = $_FILES['colLogo']['tmp_name'];
+            $colLogoData = file_get_contents($colLogo);
 
 
-        try {
-            //code...        $mysql_con->stmt_init();
-            $stmt = $mysql_con->prepare("UPDATE person
-        SET
-            fname = ?,
-            lname = ?,
-            bday = ?,
-            gender = ?,
-            contactNo = ?,
-            address = ?,
-            profilepicture = ?,
-            cover_photo = ?,
-            facebookUN = ?,
-            instagramUN = ?,
-            twitterUN = ?,
-            linkedInUN = ?
-        WHERE personID = ?;");
+            $colDeanImg = $_FILES['colDeanImg']['tmp_name'];
+            $colDeanImgData = file_get_contents($colDeanImg);
 
+
+            $stmt = $mysql_con->prepare("UPDATE college SET  colname = ?, colEmailAdd = ?, colContactNo = ?, colWebLink = ?, colLogo = ?, colDean = ?, colDeanImg = ?, description = ? WHERE colCode = ?;");
             // *  Binds the variable to the '?', prevents sql injection
             $stmt->bind_param(
-                "sssssssssssss",
-                $firstName,
-                $lastName,
-                $birthday,
-                $gender,
-                $contactNo,
-                $address,
-                $profileImageData,
-                $coverImageData,
-                $facebookUN,
-                $instagramUN,
-                $twitterUN,
-                $linkedInUN,
-                $personID
+                "sssssssss",
+                $colName,
+                $colEmailAdd,
+                $colContactNo,
+                $colWebLink,
+                $colLogoData,
+                $colDean,
+                $colDeanImgData,
+                $description,
+                $colCode
             );
-            // execute the query
-            $stmt->execute();
-        } catch (\Throwable $th) {
-            throw $th;
+        } else if (
+            // there is only logo uploaded
+            isset($_FILES['colLogo']) && $_FILES['colLogo']['error'] === UPLOAD_ERR_OK
+        ) {
+            $colLogo = $_FILES['colLogo']['tmp_name'];
+            $colLogoData = file_get_contents($colLogo);
+
+
+            $stmt = $mysql_con->prepare("UPDATE college SET  colname = ?, colEmailAdd = ?, colContactNo = ?, colWebLink = ?, colLogo = ?, colDean = ?,  description = ? WHERE colCode = ?;");
+            // *  Binds the variable to the '?', prevents sql injection
+            $stmt->bind_param(
+                "ssssssss",
+                $colName,
+                $colEmailAdd,
+                $colContactNo,
+                $colWebLink,
+                $colLogoData,
+                $colDean,
+                $description,
+                $colCode
+            );
+        } else if (
+            isset($_FILES['colDeanImg']) && $_FILES['colDeanImg']['error'] === UPLOAD_ERR_OK
+        ) {
+            $colDeanImg = $_FILES['colDeanImg']['tmp_name'];
+            $colDeanImgData = file_get_contents($colDeanImg);
+
+
+            $stmt = $mysql_con->prepare("UPDATE college SET  colname = ?, colEmailAdd = ?, colContactNo = ?, colWebLink = ?,  colDean = ?, colDeanImg = ?, description = ? WHERE colCode = ?;");
+            // *  Binds the variable to the '?', prevents sql injection
+            $stmt->bind_param(
+                "ssssssss",
+                $colName,
+                $colEmailAdd,
+                $colContactNo,
+                $colWebLink,
+                $colDean,
+                $colDeanImgData,
+                $description,
+                $colCode
+            );
+        } else {
+            // there is no image uploaded
+            $stmt = $mysql_con->prepare("UPDATE college SET  colname = ?, colEmailAdd = ?, colContactNo = ?, colWebLink = ?, colDean = ?, description = ? WHERE colCode = ?;");
+            // *  Binds the variable to the '?', prevents sql injection
+            $stmt->bind_param(
+                "sssssss",
+                $colName,
+                $colEmailAdd,
+                $colContactNo,
+                $colWebLink,
+                $colDean,
+                $description,
+                $colCode
+            );
         }
+        //  make a query to update the college table using mysqli prepared statement
+        try {
+            $stmt->execute();
+            // return json response
+            setNewActivity(
+                $mysql_con,
+                $_SESSION['adminID'],
+                "Update",
+                "Updated College Information"
+            );
+            echo json_encode(
+                array(
+                    "message" => "Post data",
+                    "status" => true,
+                    "response" => "success"
 
-
-
-        // update the person table
-
-
-
-
-
-        setNewActivity(
-            $mysql_con,
-            $_SESSION['colAdmin'],
-            "Update",
-            "Updated Personal Information"
-        );
-
-        echo json_encode(
-            array(
-                "message" => "Post data",
-                "status" => true,
-                "response" => "success"
-
-            )
-        );
+                )
+            );
+        } catch (\Throwable $th) {
+            echo json_encode(
+                array(
+                    "message" => "Post data",
+                    "status" => false,
+                    "response" => "failed",
+                    "error" => $th->getMessage()
+                )
+            );
+        }
+        $stmt->close();
     } else {
         echo json_encode(
             array(
-                "message" => "No post data",
+                "message" => "Post data",
                 "status" => false,
                 "response" => "failed"
             )

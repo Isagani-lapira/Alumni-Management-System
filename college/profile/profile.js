@@ -1,3 +1,5 @@
+import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
+
 $(document).ready(function () {
   const URL_LINK = "./profile/apiProfile.php";
 
@@ -9,7 +11,28 @@ $(document).ready(function () {
   });
 
   function bindHandlers() {
-    console.log("i was binded");
+    console.log("profile events is binded");
+    const temp_dean_img = $("#deanImgPreview").attr("src");
+    const temp_col_logo = $("#colLogoPreview").attr("src");
+
+    // reset the file upload of logo and dean image
+    $("#reset-logo").on("click", function () {
+      $("#colLogoInput").val("");
+      $("#colLogoPreview").attr("src", temp_col_logo);
+    });
+
+    $("#reset-dean").on("click", function () {
+      $("#deanImgInput").val("");
+      $("#deanImgPreview").attr("src", temp_dean_img);
+    });
+
+    // form update-college-form
+    $("#update-college-form").on("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      console.log(formData);
+      postJSONFromURL(URL_LINK, formData);
+    });
 
     // Show the edit college form when edit-college-profile-btn is clicked
     $("#edit-college-profile-btn").on("click", function () {
@@ -60,12 +83,21 @@ $(document).ready(function () {
 
     // Show the preview of the image after changing the input
 
+    $("#deanImgInput").on("change", function () {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        $("#deanImgPreview").attr("src", e.target.result);
+        console.log("changed the dean image");
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
+
     $("#colLogoInput").on("change", function () {
       console.log("i rannn");
       let reader = new FileReader();
       reader.onload = (e) => {
         $("#colLogoPreview").attr("src", e.target.result);
-        console.log("changed the input");
+        console.log("changed the college logo");
       };
       reader.readAsDataURL(this.files[0]);
     });
