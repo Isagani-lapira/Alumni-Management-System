@@ -77,7 +77,54 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
 } else if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-    echo json_encode(array("error" => "Something went wrong", "message" => "Error in preparing the statement: " . $mysql_con->error));
+    // echo json_encode(array("error" => "Something went wrong", "message" => "Error in preparing the statement: " . $mysql_con->error));
+    if (isset($_POST['action']) && $_POST['action'] === 'approve') {
+
+
+
+        $careerID = $_POST['careerID'];
+        $stmt = $mysql_con->prepare("UPDATE `career` SET status = 'verified' WHERE careerID = ?;");
+        $stmt->bind_param("s", $careerID);
+        $stmt->execute();
+        $stmt->close();
+        echo json_encode(array("error" => false, "message" => "Success", "status" => true));
+    } else if (isset($_POST['action']) && $_POST['action'] === 'reject') {
+        $careerID = $_POST['careerID'];
+        $stmt = $mysql_con->prepare("UPDATE `career` SET status = 'rejected' WHERE careerID = ?;");
+        $stmt->bind_param("s", $careerID);
+        $stmt->execute();
+        $stmt->close();
+        echo json_encode(array("error" => false, "message" => "Success", "status" => true));
+    } else if (isset($_POST['action']) && $_POST['action'] === 'delete') {
+        $careerID = $_POST['careerID'];
+        $stmt = $mysql_con->prepare("DELETE FROM `career` WHERE careerID = ?;");
+        $stmt->bind_param("s", $careerID);
+        $stmt->execute();
+        $stmt->close();
+        echo json_encode(array("error" => false, "message" => "Success", "status" => true));
+    } else if (isset($_POST['action']) && $_POST['action'] === 'read') {
+        $stmt = $mysql_con->prepare("SELECT jobTitle, companyName, author, date_posted, status, careerID FROM `career` WHERE colCode = ?;");
+        $stmt->bind_param("s", $colCode);
+        // Execute the statement
+        $stmt->execute();
+
+        // Get the result
+        $result = $stmt->get_result();
+        $data = array();
+
+        // Fetch the rows
+        while ($row = $result->fetch_assoc()) {
+            // Process each row as needed
+            // $row contains the data from the database
+            $data[] = $row;
+        }
+
+        // Close the statement
+
+        $stmt->close();
+        echo json_encode(array("error" => false, "data" => $data, "message" => "Success", "status" => true));
+    } else if (isset($_POST['action'])) {
+    }
 }
 
 

@@ -7,7 +7,7 @@
     <div id="jobList">
         <div class="flex mt-5 items-center justify-between w-full">
             <div>
-                <button id="addNewbtn" class="px-3 py-1 text-white bg-accent rounded-md hover:bg-darkAccent">Add
+                <button id="addNewbtn" class="px-3 py-1 text-white bg-accent rounded-md hover:bg-darkAccent ">Add
                     New</button>
                 <p id="jobMyPost" class="inline cursor-pointer text-sm hover:underline hover:text-accent">My post</p>
             </div>

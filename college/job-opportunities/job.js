@@ -8,6 +8,10 @@ $(document).ready(function () {
   const GET_URL_LINK = "./job-opportunities/apiJobs.php";
   updateDataTable();
   updateUnverifiedJobs();
+  // there is a timeout since the table is not yet loaded. render the table first before binding the handlers
+  setTimeout(() => {
+    bindHandlers();
+  }, 100);
 
   $('a[href="#job-opportunities"]').on("click", function () {
     setTimeout(function () {
@@ -15,10 +19,107 @@ $(document).ready(function () {
       $(".loading-row").addClass("hidden");
       updateDataTable();
       updateUnverifiedJobs();
-    }, 1000);
+      bindHandlers();
+    }, 300);
   });
 
-  function updateUnverifiedJobs() {
+  function bindTableButtons() {}
+
+  function bindHandlers() {
+    console.log("bindHandlers()");
+    $("#unverified-job-table ").on("click", ".approve-job-btn", function () {
+      console.log("run this");
+      // get the data-id
+      const id = $(this).attr("data-id");
+      console.log(id);
+      // make confimation using sweet alert
+      Swal.fire({
+        title: "Confirmation",
+        text: "You are about to approve this job post.",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+
+        confirmButtonText: "Yes, approve it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Make form data
+          const formData = new FormData();
+          formData.append("action", "approve");
+          formData.append("careerID", id);
+
+          // approve the job
+          postJSONFromURL("./job-opportunities/apiJobs.php", formData).then(
+            (response) => {
+              if (response.status === true) {
+                // show success message
+                Swal.fire(
+                  "Success!",
+                  "The job has been approved.",
+                  "success"
+                ).then(() => {
+                  // reload the table
+                  $("#unverified-job-table").DataTable().ajax.reload();
+                  $("#jobTable").DataTable().ajax.reload();
+                });
+              } else {
+                // show error message
+                Swal.fire("Error!", "Something went wrong.", "error");
+              }
+            }
+          );
+        }
+      });
+    });
+
+    // binders for reject job
+    $("#unverified-job-table ").on("click", ".deny-job-btn", function () {
+      // get the data-id
+      const id = $(this).attr("data-id");
+
+      // make confimation using sweet alert
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You are about to reject this job post.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+
+        confirmButtonText: "Yes, reject it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Make form data
+          const formData = new FormData();
+          formData.append("action", "reject");
+          formData.append("careerID", id);
+
+          // approve the job
+          postJSONFromURL("./job-opportunities/apiJobs.php", formData).then(
+            (response) => {
+              if (response.status === true) {
+                // show success message
+                Swal.fire(
+                  "Success!",
+                  "The job post has been rejected.",
+                  "success"
+                ).then(() => {
+                  // reload the table
+                  $("#unverified-job-table").DataTable().ajax.reload();
+                });
+              } else {
+                // show error message
+                Swal.fire("Error!", "Something went wrong.", "error");
+              }
+            }
+          );
+        }
+      });
+    });
+  }
+
+  async function updateUnverifiedJobs() {
     $("#unverified-job-table").DataTable({
       ajax: {
         url: `${GET_URL_LINK}?status=unverified`,
@@ -51,8 +152,8 @@ $(document).ready(function () {
           render: function (data, type, row) {
             // Define the buttons for the Actions column
             return `
-                        <label for="approve-modal" class="daisy-btn daisy-btn-xs daisy-btn-success" data-id="${row.careerID}">Approve</label>
-                        <label for="reject-modal" class="daisy-btn daisy-btn-xs daisy-btn-warning" data-id="${row.careerID}">Reject</label>
+                        <button  class="daisy-btn daisy-btn-xs daisy-btn-success approve-job-btn" data-id="${row.careerID}">Approve</button>
+                        <button  class="daisy-btn daisy-btn-xs daisy-btn-warning deny-job-btn" data-id="${row.careerID}">Reject</button>
                     `;
           },
         },
@@ -71,7 +172,7 @@ $(document).ready(function () {
   }
 
   // get all the verfied jobs
-  function updateDataTable() {
+  async function updateDataTable() {
     $("#jobTable").DataTable({
       ajax: {
         url: `${GET_URL_LINK}?status=verified`,
