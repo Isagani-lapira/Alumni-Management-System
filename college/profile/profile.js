@@ -74,6 +74,58 @@ $(document).ready(function () {
       );
     });
 
+    // Handle the form submission
+    $("#personal-info-form").submit(async function (e) {
+      e.preventDefault();
+      // add a sweet alert dialog
+      const confirm = await Swal.fire({
+        title: "Do you want to save the changes?",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        customClass: {
+          actions: "my-actions",
+          cancelButton: "order-1 right-gap",
+          confirmButton: "order-2",
+          denyButton: "order-3",
+        },
+      });
+
+      if (confirm.isConfirmed) {
+        const form = $("#personal-info-form");
+        const data = new FormData(form[0]);
+        console.log(data);
+
+        const response = await postJSONFromURL(URL_LINK, data);
+        console.log(response);
+        if (response.status === true) {
+          Swal.fire("Changes are saved", "", "success");
+        } else {
+          Swal.fire("Changes are not saved", "", "error");
+        }
+      } else if (confirm.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+
+    $("#cover-img").on("change", function () {
+      console.log("i rannn");
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        $("#cover-img-preview").attr("src", e.target.result);
+        console.log("i ran");
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
+    $("#personal-img-pic").on("change", function () {
+      console.log("i rannn");
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        $("#personal-img-preview").attr("src", e.target.result);
+        console.log("i ran");
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
+
     $("#cancel-edit-profile-btn").on("click", function () {
       console.log("edit  profile btn clicked");
       const container = $("#account-profile-container");

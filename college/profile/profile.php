@@ -26,6 +26,13 @@ if (isset($_SESSION['personID'])) {
     $colDeanImg = $data['colDeanImg'];
     $description = trim($data['description']);
 
+    // cover photo
+    if ($alumniData['cover_photo'] == null) {
+        $alumniData['cover_photo'] = "../assets/default_cover_photo.png";
+    } else {
+        // encode
+        $alumniData['cover_photo'] = " data:image/jpeg;base64," . base64_encode($alumniData['cover_photo']);
+    }
 
     // add a default image if image is null
     if ($alumniData['profilepicture'] == null) {
@@ -286,7 +293,7 @@ if (isset($_SESSION['personID'])) {
                 <!-- profile content -->
                 <section id="view-profile-container">
                     <div class="p-3 rounded-md bg-accent flex items-center my-3">
-                        <img class="h-36 w-36 rounded-full border-2 border-white" src="/images/Mr.Jayson.png" alt="">
+                        <img class="h-36 w-36 rounded-full border-2 border-white" src="<?= $alumniData['profilepicture'] ?>" alt="">
                         <div class="ms-6">
                             <p class="text-lg text-white font-bold">
                                 <?= $alumniData['fname'] . ' ' . $alumniData['lname'] ?>
@@ -363,7 +370,7 @@ if (isset($_SESSION['personID'])) {
                         <!-- Placeholder for Cover Image -->
                         <div class=" h-60 relative group rounded-sm">
                             <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="
-                            data:image/jpeg;base64,<?= base64_encode($alumniData['cover_photo']) ?> 
+                            <?= $alumniData['cover_photo'] ?> 
                         " alt="">
                             <!-- Cover Image Input -->
                             <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -387,7 +394,7 @@ if (isset($_SESSION['personID'])) {
                                 <div class="daisy-avatar">
                                     <div class="w-24 rounded-full">
                                         <img id="personal-img-preview" class=" bg-gray-100 object-contain  " src="
-                                        data:image/jpeg;base64,<?= base64_encode($alumniData['profilepicture']) ?>" alt="">
+                                        <?= $alumniData['profilepicture'] ?>" alt="a profile picture">
                                     </div>
                                 </div>
 
