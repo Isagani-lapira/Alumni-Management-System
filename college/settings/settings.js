@@ -1,4 +1,8 @@
-import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
+import {
+  getJSONFromURL,
+  postJSONFromURL,
+  animateOpactityTransitionOnContainer,
+} from "../scripts/utils.js";
 
 $(document).ready(function () {
   // bind handlers when the anchor link is clicked
@@ -65,36 +69,6 @@ $(document).ready(function () {
 
     // End Update Password Handler
 
-    $("#setting-tab-container .daisy-tab").click(function () {
-      // get the value of the href
-      const url = $(this).attr("href");
-      const container = $("#content-container");
-
-      container.css({
-        opacity: "0.0",
-      });
-
-      console.log(url);
-      // remove all the active classes
-      $("#setting-tab-container .daisy-tab").removeClass("daisy-tab-active");
-      $(this).addClass("daisy-tab-active");
-
-      // get the linked element
-      const elem = $(url);
-      // hide all the other elements from the container
-      elem.siblings().addClass("hidden");
-      //  remove the hide class
-      elem.removeClass("hidden");
-
-      // animate the container to show the new element
-      container.delay(50).animate(
-        {
-          opacity: "1.0",
-        },
-        300
-      );
-    });
-
     // Edit Profile Binders
     $("#edit-profile-btn").on("click", function () {
       console.log("edit  profile btn clicked");
@@ -110,6 +84,16 @@ $(document).ready(function () {
           opacity: "1.0",
         },
         300
+      );
+    });
+
+    // cancel-edit-profile-btn hanlder
+    $("#cancel-edit-profile-btn").on("click", function () {
+      const container = $("#content-container");
+      animateOpactityTransitionOnContainer(
+        container,
+        $("#login-security-container"),
+        $("#edit-profile-container")
       );
     });
 
@@ -200,18 +184,12 @@ $(document).ready(function () {
 
     $("#cancel-edit-profile-btn").on("click", function () {
       console.log("edit  profile btn clicked");
+
       const container = $("#content-container");
-      container.css({
-        opacity: "0.0",
-      });
-      $("#login-security-container").removeClass("hidden");
-      $("#edit-profile-container").addClass("hidden");
-      // animate the container to show the new element
-      container.delay(50).animate(
-        {
-          opacity: "1.0",
-        },
-        300
+      animateOpactityTransitionOnContainer(
+        container,
+        $("#login-security-container"),
+        $("#edit-profile-container")
       );
     });
   }
