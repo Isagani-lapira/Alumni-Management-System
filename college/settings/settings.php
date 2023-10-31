@@ -345,62 +345,59 @@ $colDeanImg = $data['colDeanImg'];
 
 
 </section>
+
+<!-- Change Password Modal -->
 <input type="checkbox" id="changePassModal" class="daisy-modal-toggle" />
 <div class="daisy-modal">
     <div class="daisy-modal-box">
         <h3 class="font-bold text-xl">Update Password</h3>
 
-        <div class="flex flex-col gap-2">
-            <div class="daisy-form-control w-full max-w-sm">
-                <label class=" font-bold daisy-label">
-                    <span class="daisy-label-text">Old Password</span>
-                </label>
-                <input type="password" name="old-password" id="old-password" class="form-input font-bold  daisy-input-bordered w-full">
-                <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
-                <label class="daisy-label">
-                    <span class="daisy-label-text-alt hidden">Bottom Right label</span>
-                </label>
+        <form action="" method="post" id="update-password-form">
+            <input type="hidden" name="update-password-form" value="true">
+            <input type="hidden" name="username" value="<?= $username ?>">
+            <div class="flex flex-col gap-2">
+                <div class="daisy-form-control w-full max-w-sm">
+                    <label class=" font-bold daisy-label">
+                        <span class="daisy-label-text">Old Password</span>
+                    </label>
+                    <input type="password" name="old-password" id="old-password" class="form-input font-bold  daisy-input-bordered w-full">
+                    <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
+                    <label class="daisy-label">
+                        <span class="daisy-label-text-alt hidden">Bottom Right label</span>
+                    </label>
+                </div>
+                <div class="daisy-form-control w-full max-w-xs">
+                    <label class=" font-bold daisy-label">
+                        <span class="daisy-label-text">New Password</span>
+                    </label>
+                    <input type="password" name="password" id="password" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
+                    <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
+                    <label class="daisy-label">
+                        <span class="daisy-label-text-alt"> Password must contain both upper and lowercase and special character
+                        </span>
+                        <span class="daisy-label-text-alt hidden">Bottom Right label</span>
+                    </label>
+                </div>
+                <div class="daisy-form-control w-full max-w-xs">
+                    <label for="confirmPassword" class="font-bold daisy-label">
+                        <span class="daisy-label-text">Confirm Password</span>
+                    </label>
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
+
+                    <label class="daisy-label">
+                        <span class="daisy-label-text-alt">
+                        </span>
+                        <span class="daisy-label-text-alt hidden">Bottom Right label</span>
+                    </label>
+                </div>
             </div>
-            <div class="daisy-form-control w-full max-w-xs">
-                <label class=" font-bold daisy-label">
-                    <span class="daisy-label-text">New Password</span>
-                </label>
-                <input type="password" name="password" id="password" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
-                <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
-                <label class="daisy-label">
-                    <span class="daisy-label-text-alt"> Password must contain both upper and lowercase and special character
-                    </span>
-                    <span class="daisy-label-text-alt hidden">Bottom Right label</span>
-                </label>
+
+            <div class="daisy-modal-action">
+                <label for="changePassModal" class="daisy-btn" type="button">Close</label>
+                <button class="daisy-btn daisy-btn-primary" type="submit" id="update-password-btn">Update Password</button>
             </div>
-            <div class="daisy-form-control w-full max-w-xs">
-                <label for="confirmPassword" class="font-bold daisy-label">
-                    <span class="daisy-label-text">Confirm Password</span>
-                </label>
-                <input type="password" name="confirmPassword" id="confirmPassword" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
 
-                <label class="daisy-label">
-                    <span class="daisy-label-text-alt">
-                    </span>
-                    <span class="daisy-label-text-alt hidden">Bottom Right label</span>
-                </label>
-            </div>
-        </div>
-
-        <div class="flex flex-col gap-2">
-
-
-        </div>
-
-        <div class="flex flex-col gap-2">
-
-
-        </div>
-
-        <div class="daisy-modal-action">
-            <label for="changePassModal" class="daisy-btn">Close</label>
-            <button class="daisy-btn">Update Password</button>
-        </div>
+        </form>
     </div>
 </div>
 <script type="module" src="./settings/settings.js"></script>

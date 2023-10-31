@@ -173,9 +173,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 )
             );
         }
-    } else  if (isset($_POST['change-password-form'])) {
+    } else  if (isset($_POST['update-password-form'])) {
         // get the form data
+        $oldPass = $_POST['old-password'];
+        $username = $_POST['username'];
 
+        $newPass = $_POST['password'];
+        $confirmPass = $_POST['confirmPassword'];
+
+        if ($newPass === $confirmPass) {
+            $adminID = $_SESSION['adminID'];
+            $stmt = $mysql_con->prepare("SELECT password FROM user WHERE username = ?;");
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            // if (password_verify($oldPass, $row['password'])) {
+            if ($oldPass == $row['password']) {
+                $stmt = $mysql_con->prepare("UPDATE user SET password = ? WHERE username = ?;");
+                // $stmt->bind_param("ss", password_hash($newPass, PASSWORD_DEFAULT), $personID);
+                $stmt->bind_param("ss", $newPass, $username);
+                $stmt->execute();
+                setNewActivity(
+                    $mysql_con,
+                    $_SESSION['adminID'],
+                    "Update",
+                    "Updated Password"
+                );
+                echo json_encode(
+                    array(
+                        "message" => "Successfully updated password",
+                        "status" => true,
+                        "response" => "success"
+
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        "message" => "Password does not match the old password",
+                        "status" => false,
+                        "response" => "failed"
+
+                    )
+                );
+            }
+        } else {
+            echo json_encode(
+                array(
+                    "message" => "Passwords does not match",
+                    "status" => false,
+                    "response" => "failed"
+
+                )
+            );
+        }
     } else {
 
 

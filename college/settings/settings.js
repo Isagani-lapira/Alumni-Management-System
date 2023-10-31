@@ -19,6 +19,52 @@ $(document).ready(function () {
 
     console.log("binded");
 
+    // Update Password Handler update-password-btn
+    $("#update-password-form").submit(async function (e) {
+      e.preventDefault();
+      // add a sweet alert dialog
+      const confirm = await Swal.fire({
+        title: "Do you want to save the changes?",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        customClass: {
+          actions: "my-actions",
+          cancelButton: "order-1 right-gap",
+          confirmButton: "order-2",
+          denyButton: "order-3",
+        },
+      });
+
+      if (confirm.isConfirmed) {
+        const form = $("#update-password-form");
+        const data = new FormData(form[0]);
+        console.log(data);
+
+        const response = await postJSONFromURL(URL_LINK, data);
+        console.log(response);
+        if (response.status === true) {
+          Swal.fire(
+            "You've successfully updated your password.",
+            "",
+            "success"
+          );
+          // reset the form
+          $("#update-password-form")[0].reset();
+          // hide the modal
+          $("#changePassModal").prop("checked", false);
+        } else {
+          Swal.fire("Error. Unable to update the password", "", "error");
+        }
+      } else if (confirm.isDenied) {
+        Swal.fire("Change Password Cancelled.", "", "info");
+
+        $("#update-password-form")[0].reset();
+        $("#changePassModal").prop("checked", false);
+      }
+    });
+
+    // End Update Password Handler
+
     $("#setting-tab-container .daisy-tab").click(function () {
       // get the value of the href
       const url = $(this).attr("href");
