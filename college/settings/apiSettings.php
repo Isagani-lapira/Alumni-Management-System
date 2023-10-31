@@ -121,9 +121,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             )
         );
-    } else   if (isset($_POST['settings-info-form'])) {
-        // get the form data
+    } else   if (isset($_POST['general-settings-form'])) {
 
+        $adminID = $_SESSION['adminID'];
+        $personID = $_SESSION['personID'];
+
+        // get the form data
+        $email = $_POST['email'];
+        $bulsuEmail = $_POST['bulsuemail'];
+
+        try {
+            //code...        $mysql_con->stmt_init();
+            $stmt = $mysql_con->prepare("UPDATE person
+        SET
+            personal_email = ?,
+            bulsu_email = ?
+        WHERE personID = ?;");
+
+            // *  Binds the variable to the '?', prevents sql injection
+            $stmt->bind_param(
+                "sss",
+                $email,
+                $bulsuEmail,
+                $personID
+            );
+            // execute the query
+            $stmt->execute();
+            setNewActivity(
+                $mysql_con,
+                $_SESSION['adminID'],
+                "Update",
+                "Updated Personal Information"
+            );
+
+            echo json_encode(
+                array(
+                    "message" => "Post data",
+                    "status" => true,
+                    "response" => "success"
+
+                )
+            );
+        } catch (\Throwable $th) {
+            // throw $th;
+            echo json_encode(
+                array(
+                    "message" => "Post data",
+                    "status" => false,
+                    "response" => "failed"
+
+                )
+            );
+        }
     } else  if (isset($_POST['change-password-form'])) {
         // get the form data
 

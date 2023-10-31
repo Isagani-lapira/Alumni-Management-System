@@ -9,6 +9,7 @@ $colCode = $_SESSION['colCode'];
 $model = new PersonModel($mysql_con, $_SESSION['colCode']);
 $personData = $model->getOneById($_SESSION['personID']);
 $profilePicture = 'data:image/jpeg;base64,' . base64_encode($personData['profilepicture']);
+$fullname = $personData['fname'] . ' ' . $personData['lname'];
 $_SESSION['profilePicture'] = $profilePicture;
 
 // username
@@ -69,7 +70,9 @@ $colDeanImg = $data['colDeanImg'];
                             <?= $profilePicture ?> 
                             " alt="the profile picture of the admin">
                     <div class="flex flex-col justify-center">
-                        <h3 class="font-bold text-lg"><?= isset($_SESSION['fullname']) ? $_SESSION['fullName'] : 'Admin' ?></h3>
+                        <h3 class="font-bold text-lg"><?= $fullname
+                                                        // isset($_SESSION['fullname']) ? $_SESSION['fullName'] : 'Admin' 
+                                                        ?></h3>
                         <p class="text-gray-400">Edit Your Personal Information</p>
                     </div>
 
@@ -79,43 +82,53 @@ $colDeanImg = $data['colDeanImg'];
                 </div>
 
 
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
+                <form action="" method="post" id="general-settings-form">
+                    <input type="hidden" name="general-settings-form" value="true">
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="email" class="font-bold daisy-label font-label-text ">Username</label>
+                                <div>
+                                    <input type="text" disabled class="border border-gray-300 rounded  p-2 form-input  daisy-input-bordered daisy-input-disabled disabled:bg-gray-100 " value="<?= $username ?>">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="email" class="font-bold daisy-label font-label-text ">Personal Email</label>
+                                <div>
+                                    <input type="email" name="email" id="email" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered" value="<?= $personData['personal_email'] ?>">
+                                    <!-- <button id="changeEmailButton" class="daisy-btn ">Change Personal Email</button> -->
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="felx flex-col gap-4">
                         <div class="flex flex-col gap-2">
-                            <label for="email" class="font-bold daisy-label font-label-text ">Username</label>
+                            <label for="bulsuemail" class="font-bold daisy-label font-label-text ">BulSu Email</label>
                             <div>
-                                <input type="text" disabled class="border border-gray-300 rounded  p-2 form-input  daisy-input-bordered daisy-input-disabled disabled:bg-gray-100 " value="<?= $username ?>">
+                                <input type="email" name="bulsuemail" id="bulsuemail" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered" value="<?= $personData['bulsu_email'] ?>">
+                                <!-- <button id="changeEmailButton" class="daisy-btn ">Change BulSu Email</button> -->
                             </div>
                         </div>
-
                     </div>
-
-                </div>
-
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
+                    <div class="felx flex-col gap-4">
                         <div class="flex flex-col gap-2">
-                            <label for="email" class="font-bold daisy-label font-label-text ">Personal Email</label>
                             <div>
-                                <input type="email" name="email" id="email" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered" value="<?= $personData['personal_email'] ?>">
-                                <button id="changeEmailButton" class="daisy-btn ">Change Personal Email</button>
+                                <button id="updateSettingsBtnk" type="submit" class="daisy-btn ">Update Settings</button>
                             </div>
                         </div>
-
                     </div>
-
-                </div>
-
-                <div class="felx flex-col gap-4">
-                    <div class="flex flex-col gap-2">
-                        <label for="bulsuemail" class="font-bold daisy-label font-label-text ">BulSu Email</label>
-                        <div>
-                            <input type="email" name="bulsuemail" id="bulsuemail" class="border border-gray-300 rounded-md p-2 form-input daisy-input-bordered" value="<?= $personData['bulsu_email'] ?>">
-                            <button id="changeEmailButton" class="daisy-btn ">Change BulSu Email</button>
-                        </div>
-                    </div>
-                </div>
-
+                </form>
 
 
 
