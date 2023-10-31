@@ -7,19 +7,74 @@ import {
 $(document).ready(function () {
   const GET_URL_LINK = "./job-opportunities/apiJobs.php";
   updateDataTable();
+  updateUnverifiedJobs();
 
   $('a[href="#job-opportunities"]').on("click", function () {
     setTimeout(function () {
       // remove the loading screen
       $(".loading-row").addClass("hidden");
       updateDataTable();
+      updateUnverifiedJobs();
     }, 1000);
   });
 
+  function updateUnverifiedJobs() {
+    $("#unverified-job-table").DataTable({
+      ajax: {
+        url: `${GET_URL_LINK}?status=unverified`,
+        dataSrc: "data",
+      },
+      paging: true,
+      ordering: true,
+      info: false,
+      lengthChange: false,
+      searching: true,
+      pageLength: 5,
+      columns: [
+        {
+          data: "null",
+          render: function (data, type, row) {
+            return `
+                <div class="grid grid-cols-2  gap-4 w-full max-w-md">
+                    <div class="col-span-2 flex flex-col justify-start items-start ">
+                        <p class="font-bold text-left">${row.jobTitle}</p>
+                        <p class="text-gray-500 font-light">${row.companyName}</p>
+                    </div>
+                </div>
+          `;
+          },
+        },
+        { data: "author" },
+        { data: "date_posted" },
+        {
+          data: null,
+          render: function (data, type, row) {
+            // Define the buttons for the Actions column
+            return `
+                        <label for="approve-modal" class="daisy-btn daisy-btn-xs daisy-btn-success" data-id="${row.careerID}">Approve</label>
+                        <label for="reject-modal" class="daisy-btn daisy-btn-xs daisy-btn-warning" data-id="${row.careerID}">Reject</label>
+                    `;
+          },
+        },
+      ],
+      columnDefs: [
+        {
+          targets: [2],
+          render: function (data, type, row) {
+            return moment(data).format("MMMM D, YYYY");
+          },
+        },
+      ],
+    });
+
+    $("#unverified-job-table").css("width", "");
+  }
+
+  // get all the verfied jobs
   function updateDataTable() {
     $("#jobTable").DataTable({
       ajax: {
-        url: GET_URL_LINK,
+        url: `${GET_URL_LINK}?status=verified`,
         dataSrc: "data",
       },
       paging: true,
@@ -39,13 +94,22 @@ $(document).ready(function () {
           render: function (data, type, row) {
             // Define the buttons for the Actions column
             return `
-                        <label for="archive-modal" class="daisy-btn" data-id="${row.careerID}">Approve</label>
-                        <label for="view-modal" class="daisy-btn" data-id="${row.careerID}">Reject</label>
+                        <label for="view-modal" class="daisy-btn" data-id="${row.careerID}">View</label>
                     `;
           },
         },
       ],
+
+      columnDefs: [
+        {
+          targets: [4],
+          render: function (data, type, row) {
+            return moment(data).format("MMMM D, YYYY");
+          },
+        },
+      ],
     });
+    $("#jobTable").css("width", "");
   }
 });
 

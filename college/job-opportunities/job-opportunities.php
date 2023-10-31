@@ -28,6 +28,20 @@
 
         </div>
 
+        <h2 class="text-bold my-2 text-lg">Pending Approval</h2>
+        <table class="w-full mt-10 center-shadow" id="unverified-job-table">
+            <thead class="bg-accent text-sm text-white p-3">
+                <tr>
+                    <th class="rounded-tl-lg">Job</th>
+                    <th>Posted By</th>
+                    <th>Date Posted</th>
+                    <th class="rounded-tr-lg">Action</th>
+                </tr>
+            </thead>
+
+            <tbody class="text-sm" id="jobTBContent"></tbody>
+        </table>
+
         <table class="w-full mt-10 center-shadow" id="jobTable">
             <thead class="bg-accent text-sm text-white p-3">
                 <tr>

@@ -22,13 +22,37 @@ header("Content-Type: application/json");
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
 
-    // Your parameter
     $colCode = $_SESSION["colCode"];
 
-    // Prepare the statement
-    if (true) {
+
+
+    // if there is status parameter
+    if (isset($_GET['status']) && $_GET['status'] === 'unverified') {
+
+        $stmt = $mysql_con->prepare("SELECT jobTitle, companyName, author, date_posted, status, careerID FROM `career` WHERE colCode = ? AND status = 'unverified';");
+        $stmt->bind_param("s", $colCode);
+        // Execute the statement
+        $stmt->execute();
+
+        // Get the result
+        $result = $stmt->get_result();
+        $data = array();
+
+        // Fetch the rows
+        while ($row = $result->fetch_assoc()) {
+            // Process each row as needed
+            // $row contains the data from the database
+            $data[] = $row;
+        }
+
+
+        $stmt->close();
+        echo json_encode(array("error" => false, "data" => $data, "message" => "Success", "status" => true));
+    }
+    // get all the verified status
+    else   if (isset($_GET['status']) && $_GET['status'] === 'verified') {
         // Bind the parameter
-        $stmt = $mysql_con->prepare("SELECT jobTitle, companyName, author, date_posted, status, careerID FROM `career` WHERE colCode = ?;");
+        $stmt = $mysql_con->prepare("SELECT jobTitle, companyName, author, date_posted, status, careerID FROM `career` WHERE colCode = ? AND status = 'verified' ;");
         $stmt->bind_param("s", $colCode);
         // Execute the statement
         $stmt->execute();
