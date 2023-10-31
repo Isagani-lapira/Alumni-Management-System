@@ -61,6 +61,8 @@ if (
         $_SESSION['colname'] = $data['colname'];
 
 
+        $_SESSION['profilePicture'] = $profilepicture;
+
 
         if (!isset($_SESSION['adminID'])) {
             // Setup the activity log
@@ -70,6 +72,7 @@ if (
             $_SESSION['fullName'] = $fullname;
             $_SESSION['adminID'] = $adminID;
             $_SESSION['colCode'] = $colCode;
+            $_SESSION['profilePicture'] = $profilepicture;
 
 
 
