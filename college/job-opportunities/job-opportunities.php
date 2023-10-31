@@ -28,7 +28,7 @@
 
         </div>
 
-        <table class="w-full mt-10 center-shadow">
+        <table class="w-full mt-10 center-shadow" id="jobTable">
             <thead class="bg-accent text-sm text-white p-3">
                 <tr>
                     <th class="rounded-tl-lg">Company</th>
@@ -219,25 +219,4 @@
 </section>
 
 
-<script>
-    $(document).ready(function() {
-
-        // // Handle job posting shows
-        // $('#addNewBtn').on("click", function() {
-        //     console.log('hello');
-        //     $('#jobPosting').show();
-        //     $('#jobList').hide();
-        //     $('.jobPostingBack').show();
-        // })
-
-        // //show the default job posting content
-        // $('.jobPostingBack').click(function() {
-        //     $('#jobPosting').hide();
-        //     $('#jobList').show();
-        //     $('.jobPostingBack').hide();
-        //     $('#adminJobPost').hide();
-        // })
-
-        $.getScript("./job-opportunities/job.js");
-    });
-</script>
+<script type="module" src="./job-opportunities/job.js"></script>
