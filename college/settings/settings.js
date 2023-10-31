@@ -67,15 +67,6 @@ $(document).ready(function () {
       );
     });
 
-    $("#submitUpdateProfileBtn").click(async function (e) {
-      // e.preventDefault();
-      // const form = $("#personal-info-form");
-      // const formData = new FormData(form[0]);
-      // console.log(formData);
-      // const response = await postJSONFromURL(URL_LINK, formData);
-      // console.log(response);
-    });
-
     // Handle the form submission
     $("#personal-info-form").submit(async function (e) {
       e.preventDefault();
@@ -107,46 +98,6 @@ $(document).ready(function () {
       } else if (confirm.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
-
-      // const submitBtn = $("#submitUpdateProfileBtn");
-
-      // disable the button
-      // submitBtn.attr("disabled", true);
-      // submitBtnText.text("Saving...");
-
-      // $.ajax({
-      //   url: url,
-      //   method: method,
-      //   data: data,
-      //   processData: false,
-      //   contentType: false,
-      //   success: function (response) {
-      //     // enable the button
-      //     submitBtn.attr("disabled", false);
-      //     submitBtnText.text("Save");
-      //     console.log(response);
-      //     // show the message
-      //     $("#message").removeClass("hidden");
-      //     $("#message").text(response.message);
-      //     // hide the message after 3 seconds
-      //     setTimeout(function () {
-      //       $("#message").addClass("hidden");
-      //     }, 3000);
-      //   },
-      //   error: function (err) {
-      //     // enable the button
-      //     submitBtn.attr("disabled", false);
-      //     submitBtnText.text("Save");
-      //     console.log(err);
-      //     // show the message
-      //     $("#message").removeClass("hidden");
-      //     $("#message").text(err.responseJSON.message);
-      //     // hide the message after 3 seconds
-      //     setTimeout(function () {
-      //       $("#message").addClass("hidden");
-      //     }, 3000);
-      //   },
-      // });
     });
   }
 });

@@ -12,8 +12,11 @@ $(document).ready(function () {
 
   function bindHandlers() {
     console.log("profile events is binded");
+    // * used for reseting the image preview into the original image
     const temp_dean_img = $("#deanImgPreview").attr("src");
     const temp_col_logo = $("#colLogoPreview").attr("src");
+
+    $("#submitUpdateProfileBtn").click(async function (e) {});
 
     // reset the file upload of logo and dean image
     $("#reset-logo").on("click", function () {
@@ -43,6 +46,42 @@ $(document).ready(function () {
       });
       $("#edit-college-profile").removeClass("hidden");
       $("#view-college-profile").addClass("hidden");
+      // animate the container to show the new element
+      container.delay(50).animate(
+        {
+          opacity: "1.0",
+        },
+        300
+      );
+    });
+
+    // account-profile-container
+
+    $("#edit-profile-btn").on("click", function () {
+      console.log("edit  profile btn clicked");
+      const container = $("#account-profile-container");
+      container.css({
+        opacity: "0.0",
+      });
+      $("#edit-profile-container").removeClass("hidden");
+      $("#view-profile-container").addClass("hidden");
+      // animate the container to show the new element
+      container.delay(50).animate(
+        {
+          opacity: "1.0",
+        },
+        300
+      );
+    });
+
+    $("#cancel-edit-profile-btn").on("click", function () {
+      console.log("edit  profile btn clicked");
+      const container = $("#account-profile-container");
+      container.css({
+        opacity: "0.0",
+      });
+      $("#edit-profile-container").addClass("hidden");
+      $("#view-profile-container").removeClass("hidden");
       // animate the container to show the new element
       container.delay(50).animate(
         {
