@@ -46,6 +46,12 @@ if (isset($_POST['action'])) {
             $personObj = new personDB();
             $personObj->checkPersonEmailAddress($emailAdd, $column, $mysql_con);
             break;
+        case 'updatePass':
+            $newPassword = $_POST['newPass'];
+            $username = $_POST['username'];
+            $userObj = new User_Table();
+            $userObj->updatePassword($newPassword, $username, $mysql_con);
+            break;
         default:
             echo 'not pumasok sa kahit saan';
             break;
