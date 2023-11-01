@@ -751,6 +751,10 @@ function dateInText($date)
           <p class="text-grayish">See the relevant information that are gathered</p>
 
           <div class="flex gap-2 justify-end mb-2">
+            <select id="ddTracerform" class="px-2 py-2 rounded-md border border-gray-300">
+              <option value="" disabled selected>Download Tracer Form</option>
+            </select>
+
             <button id="tracerbtn" class="text-white hover:bg-blue-400 bg-blue-300 px-3 py-2 rounded-md">Tracer form</button>
             <button id="deployTracerBtn" class="px-3 py-2 bg-green-400 hover:bg-green-500 text-white rounded-md font-bold">Deploy Tracer</button>
           </div>

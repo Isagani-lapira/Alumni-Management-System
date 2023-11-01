@@ -10,14 +10,10 @@ $spreadsheet = new Spreadsheet();
 $activeWorksheet = $spreadsheet->getActiveSheet();
 
 // Function to retrieve data and set column names
-function getData($con, $worksheet)
+function getData($con, $tracer_deployID, $worksheet)
 {
     $query = "SELECT a.answerID FROM answer a
-    WHERE a.tracer_deployID = (
-        SELECT td.tracer_deployID
-        FROM tracer_deployment td
-        ORDER BY td.timstamp
-        LIMIT 1) AND a.status = 'done'";
+    WHERE a.tracer_deployID ='$tracer_deployID'  AND a.status = 'done'";
 
     $stmt = mysqli_prepare($con, $query);
     $stmt->execute();
@@ -114,16 +110,16 @@ function getQuestions($con)
     return $questionTexts;
 }
 
-function createSectionSheet($spreadsheet, $con)
+function createSectionSheet($spreadsheet, $tracer_deployID, $con)
 {
     $categories = getSectionWithCategory($con); //retrieve all the section question
 
     foreach ($categories as $categoryName) {
-        addDataWorkSheet($categoryName, $spreadsheet, $con);
+        addDataWorkSheet($categoryName, $spreadsheet, $tracer_deployID, $con);
     }
 }
 
-function addDataWorkSheet($categoryName, $spreadsheet, $con)
+function addDataWorkSheet($categoryName, $spreadsheet, $tracer_deployID, $con)
 {
     // add worksheet
     $newWorkSheet = $spreadsheet->createSheet();
@@ -173,7 +169,7 @@ function addDataWorkSheet($categoryName, $spreadsheet, $con)
         $stmtAnswer = mysqli_prepare($con, $queryAnswer);
 
         $STATUS = 'done';
-        $tracer_deployID = 'e6cb4908e273c7867a3e88ee55278';
+        $tracer_deployID = $tracer_deployID;
         if ($stmtAnswer) {
             $stmtAnswer->bind_param('ss', $tracer_deployID, $STATUS);
             $stmtAnswer->execute();
@@ -270,12 +266,16 @@ function getSectionWithCategory($con)
     return $categoryName;
 }
 
-getData($mysql_con, $activeWorksheet);
-createSectionSheet($spreadsheet, $mysql_con);
-$writer = new Xlsx($spreadsheet); //object of spreadsheet
+// check if the tracer deployment ID is pass in this URL
+if (isset($_GET['tracerDeployID'])) {
+    $tracer_deployID = $_GET['tracerDeployID'];
+    getData($mysql_con, $tracer_deployID, $activeWorksheet);
+    createSectionSheet($spreadsheet, $tracer_deployID, $mysql_con);
+    $writer = new Xlsx($spreadsheet); //object of spreadsheet
 
-// Set response headers to indicate a downloadable Excel file
-header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename="Graduate TracerForm.xlsx"');
-// Output the Excel content to the browser
-echo $writer->save('php://output');
+    // Set response headers to indicate a downloadable Excel file
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment; filename="Graduate TracerForm.xlsx"');
+    // Output the Excel content to the browser
+    echo $writer->save('php://output');
+} else header('Location:../admin/admin.php');
