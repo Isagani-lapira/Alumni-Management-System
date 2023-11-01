@@ -3,11 +3,11 @@
 <section id="email-section" class=" mx-auto lg:mx-8">
     <!-- Email content -->
     <h1 class="text-xl font-extrabold">EMAIL</h1>
-    <p class="text-grayish">Here you can check all the post you have and can create new post</p>
+    <p class="text-grayish">Here you can check all the emails you have sent </p>
     <div class="mt-5 text-end">
 
         <!-- The button to open modal -->
-        <label for="sendEmailModal" class="daisy-btn btn-primary">Send New Email</label>
+        <label for="sendEmailModal" class="daisy-btn daisy-btn-primary">Send New Email</label>
 
     </div>
     <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
