@@ -23,10 +23,90 @@ $(document).ready(function () {
     }, 300);
   });
 
-  function bindTableButtons() {}
-
   function bindHandlers() {
     console.log("bindHandlers()");
+
+    // Create new job
+    $("#create-new-job-form").on("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+
+      console.log(formData);
+
+      // add confirmation on the user using sweet alert
+      const confirmation = await Swal.fire({
+        title: "Confirmation",
+        text: "You are about to add this job post.",
+
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+
+        confirmButtonText: "Yes, add it!",
+      });
+
+      console.log(confirmation);
+      if (!confirmation.isConfirmed) {
+        return;
+      }
+
+      // post to the server
+      const response = await postJSONFromURL(
+        "./job-opportunities/apiJobs.php",
+        formData
+      );
+
+      console.log(response);
+      if (response.status === true) {
+        // show success message
+        console.log(response);
+        Swal.fire(
+          "Success!",
+          "Job Post has been added successfully.",
+          "success"
+        ).then(() => {
+          $("#jobPostingBack").addClass("hidden");
+          animateOpactityTransitionOnContainer(
+            $("#content-container"),
+            $("#read-job-container"),
+            $("#add-job-container")
+          );
+
+          // reload the table
+          $("#jobTable").DataTable().ajax.reload();
+          $("#unverified-job-table").DataTable().ajax.reload();
+        });
+      } else {
+        // show error message
+        Swal.fire("Error!", "Something went wrong.", "error");
+      }
+
+      // clear the form
+    });
+
+    $("#jobPostingBack").on("click", function () {
+      $("#jobPostingBack").addClass("hidden");
+      animateOpactityTransitionOnContainer(
+        $("#content-container"),
+        $("#read-job-container"),
+        $("#add-job-container")
+      );
+    });
+    // Add handler when the user clicks the add new job button
+    $("#addNewBtn").on("click", function () {
+      console.log("clicked");
+      $("#jobPostingBack").removeClass("hidden");
+
+      animateOpactityTransitionOnContainer(
+        $("#content-container"),
+        $("#add-job-container"),
+
+        $("#read-job-container")
+      );
+    });
+
     $("#unverified-job-table ").on("click", ".approve-job-btn", function () {
       console.log("run this");
       // get the data-id
@@ -163,6 +243,8 @@ $(document).ready(function () {
   }
 
   async function updateUnverifiedJobs() {
+    $.fn.dataTable.moment("MMMM D, YYYY");
+
     $("#unverified-job-table").DataTable({
       ajax: {
         url: `${GET_URL_LINK}?status=unverified`,
@@ -180,7 +262,7 @@ $(document).ready(function () {
           render: function (data, type, row) {
             return `
                 <div class="grid grid-cols-2  gap-4 w-full max-w-md">
-                    <label for="view-details-modal" data-id="${row.careerID}" class="cursor-pointer hover:text-primary-focus col-span-2 flex flex-col justify-start items-start ">
+                    <label for="view-details-modal" data-id="${row.careerID}" class="cursor-pointer hover:text-accent col-span-2 flex flex-col justify-start items-start ">
                         <p class="font-bold text-left">${row.jobTitle}</p>
                         <p class="text-gray-500 font-light">${row.companyName}</p>
                     </label>
@@ -216,6 +298,7 @@ $(document).ready(function () {
 
   // get all the verfied jobs
   async function updateDataTable() {
+    $.fn.dataTable.moment("MMMM D, YYYY");
     $("#jobTable").DataTable({
       ajax: {
         url: `${GET_URL_LINK}?status=all`,

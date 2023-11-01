@@ -100,8 +100,78 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
 } else if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
+    if (isset($_POST['create-new']) && $_POST['create-new'] === 'post') {
+
+        /** POST request  */
+        //    ["create-new"]=>
+        //   string(4) "post"
+        //   ["jobTitle"]=>
+        //   string(4) "asdf"
+        //   ["projDescriptTxt"]=>
+        //   string(4) "asdf"
+        //   ["companyName"]=>
+        //   string(4) "asdf"
+        //   ["jobLocation"]=>
+        //   string(4) "asdf"
+        //   ["qualificationTxt"]=>
+        //   string(3) "adf"
+        //   ["minSalary"]=>
+        //   string(6) "123123"
+        //   ["maxSalary"]=>
+        //   string(6) "123123"
+
+        // get the data from the form
+        $jobTitle = $_POST['jobTitle'];
+        $projDescriptTxt = $_POST['projDescriptTxt'];
+
+        $companyName = $_POST['companyName'];
+        $jobLocation = $_POST['jobLocation'];
+        $qualificationTxt = $_POST['qualificationTxt'];
+        $minSalary = $_POST['minSalary'];
+        $maxSalary = $_POST['maxSalary'];
+
+        $image = '';
+        // check if there's a file uploaded
+        if (isset($_FILES['jobLogoInput']) && $_FILES['jobLogoInput']['size'] > 0) {
+            $image = file_get_contents($_FILES['jobLogoInput']['tmp_name']);
+        } else {
+            // $image = null;
+        }
+
+        // get the skills
+        $skill1 = $_POST['inputSkill1'];
+        $skill2 = $_POST['inputSkill2'];
+        $skill3 = $_POST['inputSkill3'];
+
+
+        try {
+            //code...
+
+            $stmt = $mysql_con->prepare("INSERT INTO `career` (jobTitle, companyName,jobDescript , jobqualification, companyLogo, minSalary, maxSalary, colCode, author, status, location,careerID,personID,date_posted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, CURDATE());");
+
+            //for career ID
+            $uniqueId = substr(md5(uniqid()), 0, 7); //unique id with length of 7
+            $careerID = 'career' . $uniqueId;
+            $status = 'verified';
+            $personID  = $_SESSION['personID'];
+
+            $stmt->bind_param("sssssssssssss", $jobTitle, $companyName, $projDescriptTxt, $qualificationTxt, $image, $minSalary, $maxSalary, $_SESSION['colCode'], $_SESSION['username'], $status, $jobLocation, $careerID, $personID);
+            $stmt->execute();
+
+            // return the careerID and response
+            echo json_encode(array("error" => false, "message" => "Success", "status" => true, "careerID" => $careerID));
+
+            $stmt->close();
+        } catch (\Throwable $th) {
+            //throw $th;
+            // return the error
+            echo json_encode(array("throw" => $th->getMessage(), "error" => true, "message" => "Error in preparing the statement: " . $mysql_con->error, "status" => false));
+        }
+        // add to database
+    }
+
     // echo json_encode(array("error" => "Something went wrong", "message" => "Error in preparing the statement: " . $mysql_con->error));
-    if (isset($_POST['action']) && $_POST['action'] === 'approve') {
+    else if (isset($_POST['action']) && $_POST['action'] === 'approve') {
 
 
 
