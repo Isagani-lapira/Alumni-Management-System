@@ -278,7 +278,7 @@ if (
 
 
 
-        <main class="flex-1 mx-auto mt-10">
+        <main class="flex-1 mx-auto mt-2">
             <div id="main-root" class="max-h-full overflow-auto">
 
             </div>

@@ -2991,6 +2991,18 @@ div.input-container input[type="text"],
   top: 100%;
 }
 
+.-top-4 {
+  top: -1rem;
+}
+
+.-left-4 {
+  left: -1rem;
+}
+
+.-top-5 {
+  top: -1.25rem;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -4091,6 +4103,10 @@ div.input-container input[type="text"],
 
 .overflow-clip {
   overflow: clip;
+}
+
+.overflow-visible {
+  overflow: visible;
 }
 
 .overflow-x-auto {

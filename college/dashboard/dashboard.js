@@ -6,6 +6,8 @@ $(document).ready(() => {
     setTimeout(function () {
       getInitialLogs();
       loadHandlers();
+
+      // retrievedLast5YearResponse();
     }, 1000);
   });
 
@@ -97,6 +99,85 @@ $(document).ready(() => {
   }
 
   function loadHandlers() {
+    retrievedLast5YearResponse();
+
+    // retrieve dashboard response
+    function retrievedLast5YearResponse() {
+      const action = "retrieveRespondent";
+      const formData = new FormData();
+      formData.append("action", action);
+
+      $.ajax({
+        url: "../../PHP_process/deploymentTracer.php",
+        method: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: (response) => {
+          let labels = [];
+          let dataCount = [];
+          if (response.response == "Success") {
+            const data = response;
+            let length = data.year.length;
+            let lastYear = 0;
+            for (let i = 0; i < length; i++) {
+              let year = data.year[i];
+              let respondent = data.respondent[i];
+
+              lastYear = year;
+              labels.push(year);
+              dataCount.push(respondent);
+            }
+
+            const maxPrevYear = 4;
+            const defaultRespondentCount = 0;
+            // if the data doesnt have 5 year previous set it as default zero
+            if (length != maxPrevYear) {
+              while (length <= maxPrevYear) {
+                lastYear--; //decreasing year from the last year retrieve
+                labels.push(lastYear);
+                dataCount.push(defaultRespondentCount);
+                length++;
+              }
+            }
+
+            // update the graph
+            objResponse.data.labels = labels;
+            objResponse.data.datasets[0].data = dataCount;
+            objResponse.update();
+          }
+        },
+      });
+    }
+    const responseByYear = $("#responseByYear")[0].getContext("2d");
+    const objResponse = new Chart(responseByYear, {
+      type: "line",
+      data: {
+        datasets: [
+          {
+            label: "# of Response",
+            borderWidth: 1,
+            borderColor: "#991B1B", // Set the line color
+            backgroundColor: "#991b1b",
+            borderWidth: 1,
+            tension: 0.1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1, // Specify the step size for Y-axis values
+            },
+          },
+        },
+      },
+    });
+
     // Handles the logs
     $("#logDateSelect").on("change", async function () {
       const selectedDate = $(this).val();

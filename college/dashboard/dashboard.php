@@ -22,12 +22,42 @@ $sql = "SELECT COUNT(*) as total FROM career WHERE colCode = '$colCode' ";
 $result = mysqli_query($mysql_con, $sql);
 $data = mysqli_fetch_assoc($result);
 $activeJobCount = $data['total'];
+$username = $_SESSION['username'];
 
 
 $totalCount = $studentCount + $alumniCount;
 
 ?>
-<section id="dashboard-tab" class="container lg:mx-auto">
+<?php
+
+// get the latest tracer form
+$query = "SELECT `tracer_deployID` FROM `tracer_deployment` ORDER BY `timstamp` DESC LIMIT 1";
+$stmt = mysqli_prepare($mysql_con, $query);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result) {
+    $tracerID = $result->fetch_assoc()['tracer_deployID'];
+    // get the total number of answer
+    $queryTotal = "SELECT COUNT(*) as 'total_answer' FROM `answer` WHERE `tracer_deployID` = ?";
+    $stmtTotal = mysqli_prepare($mysql_con, $queryTotal);
+    $stmtTotal->bind_param('s', $tracerID);
+    $stmtTotal->execute();
+    $resultTotal = $stmtTotal->get_result();
+
+    if ($resultTotal) {
+        $totalAnswer = $resultTotal->fetch_assoc()['total_answer'];
+
+
+        //get the percentage of already answer
+        $totalPercentage = round(($totalAnswer / $alumniCount) * 100);
+        $maxPercentage = 100;
+        $notYetAnswering = round($maxPercentage - $totalPercentage);
+    }
+}
+?>
+
+<section id="dashboard-tab" class="container lg:mx-auto mt-4">
 
 
 
@@ -36,7 +66,7 @@ $totalCount = $studentCount + $alumniCount;
         <div class=" ">
             <!-- Welcome Card -->
             <div class="relative rounded-lg h-max p-10 bg-gradient-to-r from-accent to-darkAccent">
-                <img class="absolute -left-2 -top-20" src="/images/standing-2.png" alt="" srcset="" />
+                <img class="absolute -left-4 -top-5 h-full overflow-visible" src="/images/standing-2.png" alt="" srcset="" />
                 <span class="block text-lg text-white text-right">
                     Welcome Back <br />
                     <span class="font-semibold text-lg">
@@ -143,15 +173,59 @@ $totalCount = $studentCount + $alumniCount;
                     <p class="text-accent font-semibold">TRACER STATUS </p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                         <p class="font-normal text-greyish_black">Already Answered</p>
-                        <span class="text-accent">73%</span>
+                        <span class="text-accent"><?= $totalPercentage ?>%</span>
+
+
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                         <p class="font-normal text-greyish_black">Haven't answer yet</p>
-                        <span class="text-accent">27%</span>
+                        <span class="text-accent"><?= $notYetAnswering ?>%</span>
                     </div>
                 </div>
-                <div class="w-4/5 p-5 rounded-lg ms-3">
+                <div class="p-5 rounded-lg ms-3">
+                    <!-- start -->
                     <p class="text-accent font-semibold">Personal Logs</p>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Total no. of posted announcement</p>
+
+                        <span class="text-accent">
+                            <?php
+
+                            $query = "SELECT * FROM `post` WHERE `username`= '$username' AND `status` = 'available'";
+                            $result = mysqli_query($mysql_con, $query);
+                            $row = mysqli_num_rows($result);
+                            echo '<span id="totalPosted" class="text-accent">' . $row . '</span>';
+                            ?>
+                        </span>
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Total no. of email sent</p>
+
+                        <span class="text-accent">
+                            <?php
+                            $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '"';
+                            $result = mysqli_query($mysql_con, $query);
+                            $row = mysqli_num_rows($result);
+                            echo '<span class="text-accent">' . $row . '</span>';
+                            ?>
+                        </span>
+
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Total no. of posted job</p>
+
+                        <span class="text-accent">
+                            <?php
+                            $query = "SELECT * FROM `career` WHERE `personID` = '" . $_SESSION["personID"] . "'";
+                            $result = mysqli_query($mysql_con, $query);
+                            $row = mysqli_num_rows($result);
+                            echo '<span class="text-accent">' . $row . '</span>';
+                            ?>
+                        </span>
+                    </div>
+                    <!-- end -->
+
+                    <!-- <p class="text-accent font-semibold">Personal Logs</p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                         <p class="font-normal text-greyish_black">Total no. of posted announcement</p>
                         <span class="text-accent">10</span>
@@ -163,7 +237,7 @@ $totalCount = $studentCount + $alumniCount;
                     <div class=" flex justify-between px-2 py-1 text-sm">
                         <p class="font-normal text-greyish_black">Total no. of posted job</p>
                         <span id="noPostedJob" class="text-accent"></span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
