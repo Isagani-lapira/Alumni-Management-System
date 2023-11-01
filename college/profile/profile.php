@@ -152,7 +152,10 @@ if (isset($_SESSION['personID'])) {
                         <div class="courses-offered my-10 w-8/12">
                             <h3 class="text-xl font-extrabold mb-5">Courses Offered</h3>
 
-                            <h1>TODO: Add Courses</h1>
+                            <!-- <h1>TODO: Add Courses</h1> -->
+                            <ul>
+                                <li>BS Information Technology</li>
+                            </ul>
                         </div>
                     </div>
 

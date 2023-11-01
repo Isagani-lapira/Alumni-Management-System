@@ -45,20 +45,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $coverImageData = '';
         $profileImageData = '';
-        if (isset($_FILES['cover-img']) && $_FILES['cover-img']['error'] === UPLOAD_ERR_OK) {
-            $coverImage = $_FILES['cover-img']['tmp_name'];
-            $coverImageData = file_get_contents($coverImage);
-        }
-
-        if (isset($_FILES['personal-img']) && $_FILES['personal-img']['error'] === UPLOAD_ERR_OK) {
-            $profilePicture = $_FILES['personal-img']['tmp_name'];
-            $profileImageData = file_get_contents($profilePicture);
-        }
-
 
         try {
-            //code...        $mysql_con->stmt_init();
-            $stmt = $mysql_con->prepare("UPDATE person
+            // if there is cover and profile
+            if (
+                isset($_FILES['cover-img']) && $_FILES['cover-img']['error'] === UPLOAD_ERR_OK
+                &&  isset($_FILES['personal-img']) && $_FILES['personal-img']['error'] === UPLOAD_ERR_OK
+            ) {
+
+                $coverImage = $_FILES['cover-img']['tmp_name'];
+                $coverImageData = file_get_contents($coverImage);
+                $profilePicture = $_FILES['personal-img']['tmp_name'];
+                $profileImageData = file_get_contents($profilePicture);
+                $stmt = $mysql_con->prepare("UPDATE person
         SET
             fname = ?,
             lname = ?,
@@ -74,23 +73,129 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             linkedInUN = ?
         WHERE personID = ?;");
 
-            // *  Binds the variable to the '?', prevents sql injection
-            $stmt->bind_param(
-                "sssssssssssss",
-                $firstName,
-                $lastName,
-                $birthday,
-                $gender,
-                $contactNo,
-                $address,
-                $profileImageData,
-                $coverImageData,
-                $facebookUN,
-                $instagramUN,
-                $twitterUN,
-                $linkedInUN,
-                $personID
-            );
+                // *  Binds the variable to the '?', prevents sql injection
+                $stmt->bind_param(
+                    "sssssssssssss",
+                    $firstName,
+                    $lastName,
+                    $birthday,
+                    $gender,
+                    $contactNo,
+                    $address,
+                    $profileImageData,
+                    $coverImageData,
+                    $facebookUN,
+                    $instagramUN,
+                    $twitterUN,
+                    $linkedInUN,
+                    $personID
+                );
+            } else  if (isset($_FILES['cover-img']) && $_FILES['cover-img']['error'] === UPLOAD_ERR_OK) {
+                $coverImage = $_FILES['cover-img']['tmp_name'];
+                $coverImageData = file_get_contents($coverImage);
+                $stmt = $mysql_con->prepare("UPDATE person
+        SET
+            fname = ?,
+            lname = ?,
+            bday = ?,
+            gender = ?,
+            contactNo = ?,
+            address = ?,
+            cover_photo = ?,
+            facebookUN = ?,
+            instagramUN = ?,
+            twitterUN = ?,
+            linkedInUN = ?
+        WHERE personID = ?;");
+
+                // *  Binds the variable to the '?', prevents sql injection
+                $stmt->bind_param(
+                    "ssssssssssss",
+                    $firstName,
+                    $lastName,
+                    $birthday,
+                    $gender,
+                    $contactNo,
+                    $address,
+                    $coverImageData,
+                    $facebookUN,
+                    $instagramUN,
+                    $twitterUN,
+                    $linkedInUN,
+                    $personID
+                );
+            } else if (isset($_FILES['personal-img']) && $_FILES['personal-img']['error'] === UPLOAD_ERR_OK) {
+                $profilePicture = $_FILES['personal-img']['tmp_name'];
+                $profileImageData = file_get_contents($profilePicture);
+                $stmt = $mysql_con->prepare("UPDATE person
+        SET
+            fname = ?,
+            lname = ?,
+            bday = ?,
+            gender = ?,
+            contactNo = ?,
+            address = ?,
+            profilepicture = ?,
+            facebookUN = ?,
+            instagramUN = ?,
+            twitterUN = ?,
+            linkedInUN = ?
+        WHERE personID = ?;");
+
+                // *  Binds the variable to the '?', prevents sql injection
+                $stmt->bind_param(
+                    "ssssssssssss",
+                    $firstName,
+                    $lastName,
+                    $birthday,
+                    $gender,
+                    $contactNo,
+                    $address,
+                    $profileImageData,
+                    $facebookUN,
+                    $instagramUN,
+                    $twitterUN,
+                    $linkedInUN,
+                    $personID
+                );
+            }
+            // if there's no images
+            else {
+
+                $stmt = $mysql_con->prepare("UPDATE person
+        SET
+            fname = ?,
+            lname = ?,
+            bday = ?,
+            gender = ?,
+            contactNo = ?,
+            address = ?,
+            facebookUN = ?,
+            instagramUN = ?,
+            twitterUN = ?,
+            linkedInUN = ?
+        WHERE personID = ?;");
+
+                // *  Binds the variable to the '?', prevents sql injection
+                $stmt->bind_param(
+                    "sssssssssss",
+                    $firstName,
+                    $lastName,
+                    $birthday,
+                    $gender,
+                    $contactNo,
+                    $address,
+                    $facebookUN,
+                    $instagramUN,
+                    $twitterUN,
+                    $linkedInUN,
+                    $personID
+                );
+            }
+
+
+            //code...        $mysql_con->stmt_init();
+
             // execute the query
             $stmt->execute();
             setNewActivity(
@@ -99,8 +204,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 "Update",
                 "Updated Personal Information"
             );
+            echo json_encode(
+                array(
+                    "message" => "Post data",
+                    "status" => true,
+                    "response" => "success"
+
+                )
+            );
         } catch (\Throwable $th) {
-            throw $th;
+
+            echo json_encode(
+                array(
+                    "message" => "Post data",
+                    "status" => true,
+                    "response" => "fail",
+                    "error" => $th
+
+                )
+            );
         }
 
 
@@ -113,14 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-        echo json_encode(
-            array(
-                "message" => "Post data",
-                "status" => true,
-                "response" => "success"
 
-            )
-        );
     } else   if (isset($_POST['general-settings-form'])) {
 
         $adminID = $_SESSION['adminID'];

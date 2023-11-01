@@ -9,6 +9,7 @@ $colCode = $_SESSION['colCode'];
 $model = new PersonModel($mysql_con, $_SESSION['colCode']);
 $personData = $model->getOneById($_SESSION['personID']);
 $profilePicture = 'data:image/jpeg;base64,' . base64_encode($personData['profilepicture']);
+$cover = 'data:image/jpeg;base64,' . base64_encode($personData['cover_photo']);
 $fullname = $personData['fname'] . ' ' . $personData['lname'];
 $_SESSION['profilePicture'] = $profilePicture;
 
@@ -61,8 +62,8 @@ $colDeanImg = $data['colDeanImg'];
             <!-- Start personal info -->
 
             <!-- Start Login Info -->
-            <section id="login-security-container" class="">
-                <h2 class="font-bold text-xl">Edit Account Settings</h2>
+            <section id="login-security-container" class="mx-auto w-full lg:max-w-6xl">
+                <h2 class="font-bold text-xl my-4">Edit Account Settings</h2>
                 <!-- Form for email, change password section with password and confirm password and update button  -->
                 <!-- Profile Picture -->
                 <div class="flex flex-wrap gap-4 w-full max-w-md">
@@ -73,7 +74,7 @@ $colDeanImg = $data['colDeanImg'];
                         <h3 class="font-bold text-lg"><?= $fullname
                                                         // isset($_SESSION['fullname']) ? $_SESSION['fullName'] : 'Admin' 
                                                         ?></h3>
-                        <p class="text-gray-400">Edit Your Personal Information</p>
+                        <p class="text-gray-400 ">Edit Your Personal Information</p>
                     </div>
 
                     <div class="flex flex-col justify-center">
@@ -121,7 +122,7 @@ $colDeanImg = $data['colDeanImg'];
                             </div>
                         </div>
                     </div>
-                    <div class="felx flex-col gap-4">
+                    <div class="felx flex-col gap-4 my-4">
                         <div class="flex flex-col gap-2">
                             <div>
                                 <button id="updateSettingsBtnk" type="submit" class="daisy-btn ">Update Settings</button>
@@ -133,7 +134,7 @@ $colDeanImg = $data['colDeanImg'];
 
 
                 <!-- Change password button -->
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 ">
                     <div class="flex flex-wrap gap-4">
                         <div class="flex flex-col gap-2">
 
@@ -169,9 +170,9 @@ $colDeanImg = $data['colDeanImg'];
 
 
                     <!-- Placeholder for Cover Image -->
-                    <div class=" h-60 relative group rounded-sm">
+                    <div class="max-h-80 h-80 relative group rounded-sm">
                         <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="
-                            <?= $personData['cover_photo'] ?> 
+                            <?= $cover ?> 
                         " alt="">
                         <!-- Cover Image Input -->
                         <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -321,7 +322,7 @@ $colDeanImg = $data['colDeanImg'];
                     <!-- update profile button -->
                     <div class="flex flex-col gap-4 ">
                         <div class="flex flex-wrap gap-4 ">
-                            <div class="flex flex-col gap-2">
+                            <div class="flex flex-row flex-wrap gap-4  my-7">
                                 <button id="submitUpdateProfileBtn" type="submit" name="update-profile-account" value="update" class=" btn-primary">
                                     Update Account
                                     <!-- <span class="daisy-loading daisy-loading-spinner daisy-loading-sm"></span> -->
