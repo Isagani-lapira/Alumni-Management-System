@@ -122,6 +122,7 @@ $(document).ready(function () {
     $('#btnViewMoreLog').on('click', function () {
         $('#logHistoryModal').removeClass('hidden')
         $('#logList').find('.actionWrapper').remove() //remove the previously retrieve logs (not duplicate)
+        restartData()
         // display the history log today
         displayActivities(offset, false, logListContainer)
 
@@ -129,6 +130,24 @@ $(document).ready(function () {
     let college = "";
     let startDate = "";
     let endDate = "";
+    let weekVal = "";
+
+    function restartData() {
+        // restart data again
+        college = "";
+        startDate = "";
+        endDate = "";
+        weekVal = "";
+
+        // make the filter to default
+        $('#logCollege').val(null)
+        $('#weekFilter').val(1)
+        // date picker to default today's date
+        let daterangepickerElement = $('input[name="logdaterange"]');
+        daterangepickerElement.data('daterangepicker').setStartDate(defaultStart);
+        daterangepickerElement.data('daterangepicker').setEndDate(defaultEnd);
+    }
+    // filter logs by date range
     $(function () {
         $('input[name="logdaterange"]').daterangepicker(
             {
@@ -140,7 +159,7 @@ $(document).ready(function () {
                 startDate = start.format('YYYY-MM-DD')
                 endDate = end.format('YYYY-MM-DD')
                 $('.lds-roller').removeClass('hidden') // hide the loading
-                getFilteredDateAction(startDate, endDate, college)
+                getFilteredDateAction(startDate, endDate, college, weekVal)
             }
         );
     });
@@ -148,7 +167,7 @@ $(document).ready(function () {
     $('#logCollege').on('change', function () {
         college = $(this).val();
         if (college != "")
-            getFilteredDateAction(startDate, endDate, college)
+            getFilteredDateAction(startDate, endDate, college, weekVal)
         else {
             offset = 0;
             $('#logHistoryModal').removeClass('hidden')
@@ -159,14 +178,30 @@ $(document).ready(function () {
         }
     })
 
+    // filter base on week
+    $('#weekFilter').on('change', function () {
+        weekVal = $(this).val();
+
+        // make the date filter in default state
+        startDate = "";
+        endDate = "";
+        let daterangepickerElement = $('input[name="logdaterange"]');
+        daterangepickerElement.data('daterangepicker').setStartDate(defaultStart);
+        daterangepickerElement.data('daterangepicker').setEndDate(defaultEnd);
+
+        getFilteredDateAction(startDate, endDate, college, weekVal)
+
+    })
+
     // get the filtered log data
-    function getFilteredDateAction(startDate, endDate, college) {
+    function getFilteredDateAction(startDate, endDate, college, weekVal) {
         const action = "retrieveByDate"
         const formdata = new FormData();
         formdata.append('action', action)
         formdata.append('startDate', startDate)
         formdata.append('endDate', endDate)
         formdata.append('colCode', college)
+        formdata.append('week', weekVal)
 
         $.ajax({
             url: '../PHP_process/log.php',
@@ -201,8 +236,7 @@ $(document).ready(function () {
                     }
                 }
                 $('.lds-roller').addClass('hidden') // hide the loading
-            },
-            error: error => { console.log(error) }
+            }
         })
     }
 

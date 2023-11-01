@@ -2004,6 +2004,14 @@ function dateInText($date)
         <div class="border-b border-gray-400 py-1"></div>
         <div class="filter flex gap-2 mt-2">
 
+          <select id="weekFilter" class="border border-gray-400 rounded-md p-2">
+            <option value="1">Last 1 week</option>
+            <option value="2">Last 2 week</option>
+            <option value="3">Last 3 week</option>
+            <option value="5">Last 1 month</option>
+            <option value="10">Last 2 months</option>
+            <option value="14">Last 3 months</option>
+          </select>
           <!-- date range -->
           <div class="w-max flex border border-grayish p-2 rounded-lg">
             <input type="text" name="logdaterange" id="logdaterange" value="01/01/2018 - 01/15/2018" />
