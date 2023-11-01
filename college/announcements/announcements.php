@@ -159,6 +159,58 @@
 
          </div>
      </div>
+
+     <!-- View Modal -->
+     <!-- Put this part before </body> tag -->
+     <input type="checkbox" id="view-modal" class="daisy-modal-toggle" />
+     <div class="daisy-modal">
+         <div class="daisy-modal-box w-11/12 max-w-5xl p-0">
+             <div id="announcementDetails" class="w-full overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
+                 <!-- header -->
+                 <div class="flex gap-2 items-center py-2">
+                     <img src="data:image/jpeg;base64, <?= $_SESSION['colLogo'] ?>" alt="logo of the college" class="w-10 h-10">
+                     <span class="ml-2 text-xl font-bold"><?= $_SESSION['colCode'] ?> Update</span>
+                 </div>
+
+                 <!-- headline image -->
+                 <img id="headline_img" class="h-60 object-cover bg-gray-300 rounded-md" alt="" src="<>">
+
+                 <p class="text-sm text-gray-500">Date Posted: <span id="announceDatePosted"></span></p>
+                 <p id="announcementTitle" class="text-2xl text-greyish_black font-black"></p>
+                 <pre id="announcementDescript" class=" text-gray-500 text-justify w-full"></pre>
+
+                 <!-- images container -->
+                 <div id="imagesContainer" class="my-2">
+                     <p class="font-semibold text-blue-400">More images available</p>
+                     <div id="imagesWrapper" class="flex flex-wrap gap-2">
+                     </div>
+                 </div>
+             </div>
+
+
+
+
+             <!-- Skeleton Pulse -->
+             <!-- <div class="animate-pulse flex space-x-4">
+                <div class="rounded-full bg-slate-200 h-10 w-10"></div>
+                <div class="flex-1 space-y-6 py-1">
+                    <div class="h-2 bg-slate-200 rounded"></div>
+                    <div class="space-y-3">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="h-2 bg-slate-200 rounded col-span-2"></div>
+                            <div class="h-2 bg-slate-200 rounded col-span-1"></div>
+                        </div>
+                        <div class="h-2 bg-slate-200 rounded"></div>
+                    </div>
+                </div>
+
+            </div> -->
+
+
+         </div>
+         <label class="daisy-modal-backdrop" for="view-modal">Close</label>
+     </div>
+     <!-- End View Modal -->
  </section>
 
 

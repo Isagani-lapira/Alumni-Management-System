@@ -238,8 +238,19 @@ $(document).ready(function () {
       getJSONFromURL(`./announcements/apiAnnouncements.php?id=${id}`).then(
         (response) => {
           console.log(response);
+          const data = response.data;
 
           // display modal
+
+          $("#headline_img").attr(
+            "src",
+            "data:image/jpeg;base64," + data.headline_img
+          );
+          $("#announceDatePosted").text(
+            moment(data.date_posted).format("MMMM DD, YYYY")
+          );
+          $("#announcementTitle").text(data.title);
+          $("#announcementDescript").text(data.Descrip);
         }
       );
     });
