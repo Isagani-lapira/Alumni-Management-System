@@ -1,6 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 require_once '../PHP_process/connection.php';
+require 'answer.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -165,7 +166,7 @@ function addDataWorkSheet($categoryName, $spreadsheet, $con)
         $stmt->close();
 
         // retrieve all the answer
-        $queryAnswer = "SELECT a.answerID, a.personID, CONCAT(p.lname,p.fname) as 'fullname'
+        $queryAnswer = "SELECT a.answerID, a.personID, CONCAT(p.lname,' ',p.fname) as 'fullname'
         FROM answer a
         JOIN person p ON a.personID = p.personID
         WHERE a.tracer_deployID = ? AND a.status = ? AND a.status = 'done'";
@@ -205,6 +206,9 @@ function addDataWorkSheet($categoryName, $spreadsheet, $con)
 function getSectionAnswerPerQ($answerID, $questionText, $spreadSheet, $rowval, $columnAnswer, $con)
 {
     $query = "SELECT
+            tq.`inputType`,
+            tq.`questionID`,
+            tq.`question_text`,
             CASE
                 WHEN qc.`choice_text` IS NOT NULL THEN qc.`choice_text`
                 ELSE ad.`answer_txt`
@@ -224,12 +228,26 @@ function getSectionAnswerPerQ($answerID, $questionText, $spreadSheet, $rowval, $
         $row = mysqli_num_rows($result);
 
         $data = 'N/A';
-        if ($result && $row > 0) $data = $result->fetch_assoc()['selected_text'];
+        if ($result && $row > 0) {
+            $rowData = $result->fetch_assoc(); // Fetch the row data once
+
+            $inputType = $rowData['inputType'];
+            $questionID = $rowData['questionID'];
+
+            if ($inputType === 'Checkbox') {
+                $selectedCB = getCheckBoxSelectAnswer($answerID, $questionID, $con);
+                $data = "";
+                foreach ($selectedCB as $answer) {
+                    $data .= '/' . $answer;
+                }
+            } else $data = $rowData['selected_text'];
+        }
 
         $spreadSheet->setCellValue($columnAnswer . $rowval, $data);
     }
 }
 
+// retrieve all the category that have section choice
 function getSectionWithCategory($con)
 {
     $categoryName = array();
@@ -254,10 +272,10 @@ function getSectionWithCategory($con)
 
 getData($mysql_con, $activeWorksheet);
 createSectionSheet($spreadsheet, $mysql_con);
-$writer = new Xlsx($spreadsheet);
+$writer = new Xlsx($spreadsheet); //object of spreadsheet
 
 // Set response headers to indicate a downloadable Excel file
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename="tracer.xlsx"');
+header('Content-Disposition: attachment; filename="Graduate TracerForm.xlsx"');
 // Output the Excel content to the browser
 echo $writer->save('php://output');
