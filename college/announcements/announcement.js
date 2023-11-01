@@ -227,6 +227,23 @@ $(document).ready(function () {
 
   setHandlers();
   function setHandlers() {
+    $("#annoucementTable").on("click", "label", function () {
+      // get the id
+      const id = $(this).data("id");
+
+      console.log(id);
+
+      // get the data
+
+      getJSONFromURL(`./announcements/apiAnnouncements.php?id=${id}`).then(
+        (response) => {
+          console.log(response);
+
+          // display modal
+        }
+      );
+    });
+
     let imageCollection = [];
     $("#collectionFile").on("change", function () {
       let imgSrc = this.files[0];
@@ -349,7 +366,7 @@ $(document).ready(function () {
     $("#annoucementTable").DataTable({
       ajax: {
         url: "./announcements/apiAnnouncements.php?all=true",
-        dataSrc: "",
+        dataSrc: "data",
       },
       paging: true,
       ordering: true,
@@ -366,7 +383,7 @@ $(document).ready(function () {
           render: function (data, type, row) {
             // Define the buttons for the Actions column
             return `
-                        <label for="view-modal" class="daisy-btn" data-id="${row.announcementID}">View</label>
+                        <label for="view-modal" class="daisy-btn daisy-btn-sm" data-id="${row.announcementID}">View</label>
                     `;
           },
         },

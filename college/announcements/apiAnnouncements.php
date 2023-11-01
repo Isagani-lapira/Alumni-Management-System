@@ -109,24 +109,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // if (isset($_GET["all"])) {
-    //     get_all_records();
-    // } else if (isset($_GET["id"])) {
-    //     apiGet($_GET["id"]);
-    // } else if (isset($_GET["edit"])) {
-    //     apiPostEdit($_GET["edit"]);
-    // } else if (isset($_GET["delete"])) {
-    //     apiPostDelete($_GET["delete"]);
-    // } else {
-    //     get_all_records();
-    // }
-}
+    if (isset($_GET["all"])) {
+        get_all_records();
+    } else if (isset($_GET["id"])) {
+
+        // get one  data from the db and its images from the other table
+        $announcementID = $_GET["id"];
+
+        try {
+
+            $sql = "SELECT * FROM `college_announcement` WHERE `announcementID` = '$announcementID'";
+            $result = mysqli_query($mysql_con, $sql);
+            $row = mysqli_fetch_assoc($result);
+
+            $row['headline_img'] = base64_encode($row['headline_img']);
+
+            // get the images
+            $query = "SELECT  `image` FROM `univ_announcement_images` WHERE `announcementID` = '$announcementID'";
+            $result = mysqli_query($mysql_con, $query);
+            $numRows = mysqli_num_rows($result);
+
+            $img = array();
 
 
-if (isset($_GET["all"])) {
-    get_all_records();
-} else if (isset($_GET["id"])) {
-    apiGet($_GET["id"]);
+            if ($numRows > 0) {
+                //get all the images
+                while ($data = mysqli_fetch_assoc($result)) {
+                    $img[] = base64_encode($data['image']);
+                }
+            }
+            $row['extra_images'] = $img;
+
+            $response = array(
+                "result" => "Success",
+                "status" => true,
+                "error" => null,
+                "data" => $row,
+                // "images" => $img
+            );
+
+            echo json_encode($response);
+        } catch (\Throwable $th) {
+            //throw $th;
+            echo json_encode(array(
+                "result" => "Failed",
+                "status" => false,
+                "error" => $th,
+                "data" => null,
+                "images" => null
+            ));
+        }
+    }
 } else if (isset($_GET["edit"])) {
     apiPostEdit($_GET["edit"]);
 } else if (isset($_GET["delete"])) {
@@ -135,11 +168,24 @@ if (isset($_GET["all"])) {
     get_all_records();
 }
 
+
+
+
 function get_all_records()
 {
     $records = get_all();
 
-    echo json_encode($records);
+
+    echo json_encode(
+        array(
+            "result" => "Success",
+            "status" => true,
+            "message" => "Announcement added successfully",
+            "error" => null,
+            "data" => $records
+
+        )
+    );
 }
 
 function apiGet($id)
@@ -199,13 +245,16 @@ function get_all()
     $colCode = $_SESSION["colCode"];
 
     $posts = array();
-    $sql = "SELECT ca.*, cai.image
-FROM college_announcement ca
-LEFT JOIN college_announcement_images cai ON ca.announcementID = cai.announcementID
-WHERE ca.colCode = '$colCode' ORDER BY ca.date_posted DESC";
+    $sql = "SELECT title, Descrip, date_posted, announcementID
+    FROM college_announcement 
+    WHERE colCode = '$colCode' ORDER BY date_posted DESC";
 
     $result = mysqli_query($mysql_con, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
+        if (isset($row['headline_img'])) {
+
+            $row['headline_img'] = base64_encode($row['headline_img']);
+        }
         $posts[] = $row;
     }
     return $posts;
