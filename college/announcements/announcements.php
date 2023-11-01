@@ -129,7 +129,7 @@
                          <label class="font-bold daisy-label" for="description">
                              <span class="daisy-label-text"> Description:</span>
                          </label>
-                         <textarea id="description" cols="60" name="description" class="form-textarea daisy-textarea daisy-textarea-borderedj block rounded resize max-w-full" id="description" placeholder="Add your description here..."></textarea>
+                         <textarea id="description" name="description" class="form-textarea daisy-textarea daisy-textarea-borderedj block rounded resize max-w-full w-1/2" id="description" placeholder="Add your description here..."></textarea>
                      </div>
 
 

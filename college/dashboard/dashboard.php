@@ -1,6 +1,32 @@
 <!-- dashboard content -->
 <?php session_start(); ?>
+<?php
 
+require_once('../php/connection.php');
+
+$colCode =  $_SESSION['colCode'];
+$sql = "SELECT COUNT(*) as total FROM student WHERE colCode = '$colCode';";
+
+$result = mysqli_query($mysql_con, $sql);
+$data = mysqli_fetch_assoc($result);
+$studentCount = $data['total'];
+// get the alumni count
+$sql = "SELECT COUNT(*) as total FROM alumni WHERE colCode = '$colCode';";
+$result = mysqli_query($mysql_con, $sql);
+$data = mysqli_fetch_assoc($result);
+$alumniCount = $data['total'];
+
+// get the active job postings
+// AND status = 'active';
+$sql = "SELECT COUNT(*) as total FROM career WHERE colCode = '$colCode' ";
+$result = mysqli_query($mysql_con, $sql);
+$data = mysqli_fetch_assoc($result);
+$activeJobCount = $data['total'];
+
+
+$totalCount = $studentCount + $alumniCount;
+
+?>
 <section id="dashboard-tab" class="container lg:mx-auto">
 
 
@@ -30,20 +56,7 @@
                     <div class="text-2xl text-gray-400 font-bold">
                         <div>
                             <span class="text-accent font-bold text-4xl mt-2 relative bottom-0">
-                                <?php
-                                require_once('../model/Student.php');
-                                require_once('../model/AlumniModel.php');
-
-                                require_once('../php/connection.php');
-                                $student = new Student($mysql_con);
-                                $alumni = new AlumniModel($mysql_con, $_SESSION['colCode']);
-                                $studentCount = $student->getTotalCount(
-                                    $_SESSION['colCode']
-                                );
-                                $alumniCount = $alumni->getTotalCount();
-
-                                echo ($alumniCount + $studentCount);
-                                ?>
+                                <?= $totalCount ?>
 
                             </span>
                             <!-- <span>/10,000</span> -->
@@ -60,10 +73,12 @@
                 <!-- new users -->
                 <div class="dash-content flex-1 rounded-lg p-4 relative border uppercase shadow-xl">
                     <span class="text-textColor text-xs font-bold">
-                        <i class="bi bi-people-fill"></i>
-                        new users this month
+                        <i class="fa-solid fa-briefcase"></i>
+                        Active Job Postings
                     </span>
-                    <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">50</p>
+                    <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">
+                        <?= $activeJobCount ?>
+                    </p>
                 </div>
 
             </div>
