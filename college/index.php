@@ -168,7 +168,7 @@ if (
 
 <body class="">
 
-    <div class="flex flex-row min-h-screen max-h-screen ">
+    <div class="flex flex-row min-h-screen  ">
 
         <aside class="
         border flex-initial relative w-80 px-5 py-5 transition-all group flex flex-col
@@ -179,7 +179,7 @@ if (
             </header>
             <!-- TODO make this sticky fixed left-0 top-8 z-0 -->
             <!-- TODO Adjust icons to fill up when changed -->
-            <nav class="relative flex-1">
+            <nav class="relative flex-1 flex flex-col">
                 <!-- Main Navigation -->
                 <ul class="flex flex-col gap-2 mb-6 py-5 w-4/5 font-light text-sm [&>*:hover]:bg-gray-100 ">
                     <li><a data-link="dashboard" href="#dashboard" class=" flex justify-left flex-nowrap rounded-lg p-2  font-bold bg-accent text-white ">
@@ -246,7 +246,8 @@ if (
 
                 <!-- Add padding for the absolute bottom buttons -->
                 <!-- Bottom Buttons  -->
-                <div class="absolute bottom-2 w-full">
+
+                <div class=" w-full grow  flex items-end justify-end flex-col basis-48 ">
                     <ul class="space-y-2 w-full font-light  ">
                         <li>
                             <a data-link="profile" href="#profile" class="  flex justify-left flex-nowrap rounded items-center p-2 group-[.is-collapsed]:p-0">
