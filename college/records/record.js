@@ -139,15 +139,15 @@ $(document).ready(function () {
         { data: "studNo", width: "25%" },
         { data: "full_name" },
         { data: "contactNo" },
-        {
-          data: null,
-          render: function (data, type, row) {
-            // Define the buttons for the Actions column
-            return `
-                        <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
-                    `;
-          },
-        },
+        // {
+        //   data: null,
+        //   render: function (data, type, row) {
+        //     // Define the buttons for the Actions column
+        //     return `
+        //                 <label for="view-modal" class="daisy-btn daisy-btn-secondary" data-id="${row.personID}">View</label>
+        //             `;
+        //   },
+        // },
       ],
     });
   }
@@ -169,15 +169,15 @@ $(document).ready(function () {
         { data: "full_name" },
         { data: "contactNo" },
         { data: "currentYear" },
-        {
-          data: null,
-          render: function (data, type, row) {
-            // Define the buttons for the Actions column
-            return `
-                        <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
-                    `;
-          },
-        },
+        // {
+        //   data: null,
+        //   render: function (data, type, row) {
+        //     // Define the buttons for the Actions column
+        //     return `
+        //                 <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
+        //             `;
+        //   },
+        // },
       ],
     });
   }
@@ -202,15 +202,15 @@ $(document).ready(function () {
         { data: "contactNo" },
         { data: "batchYr" },
         { data: "employment_status" },
-        {
-          data: null,
-          render: function (data, type, row) {
-            // Define the buttons for the Actions column
-            return `
-                        <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
-                    `;
-          },
-        },
+        // {
+        //   data: null,
+        //   render: function (data, type, row) {
+        //     // Define the buttons for the Actions column
+        //     return `
+        //                 <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
+        //             `;
+        //   },
+        // },
       ],
     });
   }

@@ -5,8 +5,8 @@
      <p class="text-grayish">
          Here you can make announcement that everyone can see.
      </p>
-     <div class="flex flex-row justify-end">
-         <label id="announcementBtn" for="add-announcement-modal" class="daisy-btn daisy-btn-primary rounded">Make Announcement
+     <div class="flex flex-row justify-end my-4">
+         <label id="announcementBtn" for="add-announcement-modal" class="daisy-btn daisy-btn-primary rounded-lg">Make Announcement
          </label>
      </div>
 
@@ -84,7 +84,6 @@
 
 
      <!-- Modal for make announcement  -->
-     <!-- TODO restrict alumni of the month for this month only. -->
      <input type="checkbox" id="add-announcement-modal" class="daisy-modal-toggle">
      <div class="daisy-modal">
          <div class="daisy-modal-box w-11/12 max-w-4xl ">
@@ -100,7 +99,8 @@
              <form action="" id="add-announcement-form" method="POST">
                  <div id="" class=" text-greyish_black flex flex-col px-12 s">
 
-                     <p class="mb-4"> <span class="text-red-600 font-bold">*</span> Required</p>
+                     <!-- TODO remove this later -->
+                     <!-- <p class="mb-4"> <span class="text-red-600 font-bold">*</span> Required</p> -->
                      <span class="daisy-label-text font-bold daisy-label ">Choose a cover image to showcase</span>
 
                      <!-- Placeholder for Cover Image -->

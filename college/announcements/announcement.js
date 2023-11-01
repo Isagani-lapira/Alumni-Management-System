@@ -347,6 +347,9 @@ $(document).ready(function () {
             $("#collectionContainer").empty();
 
             $("#cover-img-preview").attr("src", "");
+
+            // reload the datatable
+            updateDataTable();
           }
         } else {
           Swal.fire({

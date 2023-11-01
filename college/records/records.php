@@ -5,9 +5,9 @@
     <div class="flex justify-end text-sm text-greyish_black">
 
         <!-- EXPORT PDF -->
-        <button class="p-2 px-4 m-2 border border-accent rounded-md 
+        <!-- <button class="p-2 px-4 m-2 border border-accent rounded-md 
                   bg-accent text-white hover:bg-darkAccent font-semibold">Export as PDF
-        </button>
+        </button> -->
 
     </div>
 
@@ -170,6 +170,23 @@
             <button class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
         </div>
     </div>
+
+    <!-- view modal -->
+    <input type="checkbox" id="view-modal" class="daisy-modal-toggle">
+    <div class="daisy-modal">
+        <div class="daisy-modal-box w-11/12 max-w-5xl ">
+            <!-- Exit -->
+            <form method="dialog">
+                <label for="view-modal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
+            </form>
+            <!-- End Exit Form -->
+
+
+
+        </div>
+    </div>
+
+
 </div>
 
 

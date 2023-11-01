@@ -3,6 +3,7 @@ session_start();
 
 require "../php/connection.php";
 // require_once "../php/checkLogin.php";
+require '../php/logging.php';
 
 /**
  * Make a api response for the email table
@@ -72,37 +73,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // * Else if there is an image
             } else {
 
-                $isCompleted = false;
-                //add image collection
-                $imgLength = count($imgCollection['name']);
-                for ($i = 0; $i < $imgLength; $i++) {
-                    $fileContent = addslashes(file_get_contents($imgCollection['tmp_name'][$i]));
-                    $random = rand(0, 4000);
-                    $imgID = uniqid() . '-' . $random;
-                    $query = "INSERT INTO `univ_announcement_images`(`imgID`, `announcementID`, `image`)  VALUES ('$imgID','$announcementID','$image')";
-                    $result = mysqli_query($mysql_con, $query);
-                    if (!$result) {
-                        $isCompleted = false;
+                try {
+                    $isCompleted = false;
+                    //add image collection
+                    $imgLength = count($imgCollection['name']);
+                    for ($i = 0; $i < $imgLength; $i++) {
+                        $image = addslashes(file_get_contents($imgCollection['tmp_name'][$i]));
+                        $random = rand(0, 4000);
+                        $imgID = uniqid() . '-' . $random;
+                        $query = "INSERT INTO `college_announcement_images`(`imgID`, `announcementID`, `image`)  VALUES ('$imgID','$announcementID','$image')";
+                        $result = mysqli_query($mysql_con, $query);
+                        if ($result) {
+                            setNewActivity(
+                                $mysql_con,
+                                $_SESSION['adminID'],
+                                'posted',
+                                'Posted an announcement'
+                            );
+                            echo json_encode(array(
+                                "result" => "Success",
+                                "images" => null,
+                                "status" => true,
+                                "message" => "Images added successfully",
+                                "announcementID" => $announcementID,
+                                "error" => null
+                            ));
+                        } else {
+                            echo json_encode(array(
+                                "result" => "Failed",
+                                "images" => null,
+                                "status" => false,
+                                "message" => "Images not complete",
+                                "announcementID" => $announcementID,
+                                "error" => "Images not complete"
+                            ));
+                        }
                     }
-                }
+                } catch (\Throwable $th) {
 
-                if ($isCompleted) {
-                    echo json_encode(array(
-                        "result" => "Success",
-                        "images" => null,
-                        "status" => true,
-                        "message" => "Images added successfully",
-                        "announcementID" => $announcementID,
-                        "error" => null
-                    ));
-                } else {
                     echo json_encode(array(
                         "result" => "Failed",
                         "images" => null,
                         "status" => false,
                         "message" => "Images not complete",
                         "announcementID" => $announcementID,
-                        "error" => "Images not complete"
+                        "error" => $th
                     ));
                 }
             }
