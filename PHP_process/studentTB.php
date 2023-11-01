@@ -5,8 +5,9 @@ class Student
     private $MAX_LIMIT = 10;
     function insertStudent($studNo, $colCode, $personID, $username, $currentYear, $con)
     {
-        $query = "INSERT INTO `student`(`studNo`, `colCode`, `personID`, `username`, `currentYear`)
-         VALUES ('$studNo','$colCode','$personID','$username','$currentYear')";
+        $last_update = date('Y');
+        $query = "INSERT INTO `student`(`studNo`, `colCode`, `personID`, `username`, `currentYear`,`last_update`)
+         VALUES ('$studNo','$colCode','$personID','$username','$currentYear','$last_update')";
 
         $result = mysqli_query($con, $query);
 

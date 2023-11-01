@@ -275,3 +275,29 @@ function countCollegeParticipation($con)
 
     echo json_encode($collegesCount);
 }
+
+// retrieving all selected choices in particular checkbox question
+function getCheckBoxSelectAnswer($answerID, $questionID, $con)
+{
+    $query = "SELECT qc.`choice_text`
+    FROM `answer_data` AS ad
+    INNER JOIN `questionnaire_choice` AS qc ON ad.`choiceID` = qc.`choiceID`
+    WHERE ad.`questionID` = ? AND ad.`answerID` = ? ";
+
+    $stmt = mysqli_prepare($con, $query);
+
+    $selectedChoice = array();
+
+    if ($stmt) {
+        $stmt->bind_param('ss', $questionID, $answerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        while ($data = $result->fetch_assoc()) {
+            $selectedChoice[] = $data['choice_text'];
+        }
+        $stmt->close();
+    }
+
+    return $selectedChoice;
+}
