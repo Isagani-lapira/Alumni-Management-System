@@ -221,8 +221,127 @@ $(document).ready(function () {
       // remove the loading screen
       $(".loading-row").addClass("hidden");
       updateDataTable();
+      setHandlers();
     }, 1000);
   });
+
+  setHandlers();
+  function setHandlers() {
+    let imageCollection = [];
+    $("#collectionFile").on("change", function () {
+      let imgSrc = this.files[0];
+
+      imageCollection.push(imgSrc);
+      //get image selected
+      if (imgSrc) {
+        var reader = new FileReader();
+
+        //load the selected file
+        reader.onload = (e) => {
+          //create a new container
+          const imgWrapper = $("<div>").addClass(
+            "imgWrapper w-24 h-24 rounded-md"
+          );
+          const imgElement = $("<img>")
+            .addClass("h-full w-full rounded-md")
+            .attr("src", e.target.result);
+
+          //attach everything
+          imgWrapper.append(imgElement);
+          $("#collectionContainer").append(imgWrapper); //attach to the root
+        };
+
+        //read the file for onload to be trigger
+        reader.readAsDataURL(imgSrc);
+      }
+    });
+
+    // preview the image after changing the input
+    $("#cover-image").on("change", function () {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        $("#cover-img-preview").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
+
+    // add new announcement
+
+    $("#add-announcement-form").on("submit", async function (e) {
+      e.preventDefault();
+
+      //get the data
+      const formData = new FormData(this);
+      formData.append("action", "addAnnouncement");
+
+      //send images when there's a collection added
+      if (imageCollection.length != 0) {
+        for (let i = 0; i < imageCollection.length; i++) {
+          formData.append("file[]", imageCollection[i]);
+        }
+      }
+      console.log(formData);
+
+      // confirm if the user wants to add the announcement
+      const result = await Swal.fire({
+        title: "Confirmation",
+        text: "You are about to add a new announcement. Submit it?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Yes, add it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      });
+
+      if (result.isConfirmed) {
+        // send the data to the server
+
+        const response = await postJSONFromURL(
+          "./announcements/apiAnnouncements.php",
+          formData
+        );
+
+        console.log(response);
+
+        if (response.status === true) {
+          const ok = await Swal.fire({
+            title: "Success!",
+            text: "Announcement has been added!",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+
+          if (ok.isConfirmed) {
+            // toggle the checkbox close
+            $("#add-announcement-modal").prop("checked", false);
+            $("#add-announcement-form").trigger("reset");
+            imageCollection = [];
+            $("#collectionContainer").empty();
+
+            $("#cover-img-preview").attr("src", "");
+          }
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: "Something went wrong!",
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+        }
+      }
+    });
+
+    //restart the news modal
+    function restartNewsModal() {
+      $("#imgHeader").removeAttr("src");
+      $(".headerLbl").removeClass("hidden");
+      $("#newsTitle").val("");
+      $("#newstTxtArea").val("");
+      $(".imgWrapper").remove();
+
+      imageCollection = [];
+    }
+  }
 
   function updateDataTable() {
     // remove the loading screen

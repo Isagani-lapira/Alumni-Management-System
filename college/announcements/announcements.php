@@ -1,11 +1,14 @@
+ <?php session_start(); ?>
  <!-- ANNOUNCEMENT CONTENT -->
  <section id="announcement-tab" class=" mx-auto lg:mx-8">
-     <h1 class="text-xl font-extrabold">ANNOUNCEMENT</h1>
+     <h1 class="text-xl font-extrabold">COLLEGE NEWS AND UPDATES</h1>
      <p class="text-grayish">
          Here you can make announcement that everyone can see.
      </p>
-     <button id="announcementBtn" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE NEW POST
-     </button>
+     <div class="flex flex-row justify-end">
+         <label id="announcementBtn" for="add-announcement-modal" class="daisy-btn daisy-btn-primary rounded">Make Announcement
+         </label>
+     </div>
 
 
      <!-- Total Post Content -->
@@ -79,6 +82,83 @@
          </div>
      </div>
 
+
+     <!-- Modal for make announcement  -->
+     <!-- TODO restrict alumni of the month for this month only. -->
+     <input type="checkbox" id="add-announcement-modal" class="daisy-modal-toggle">
+     <div class="daisy-modal">
+         <div class="daisy-modal-box w-11/12 max-w-4xl ">
+             <!-- Exit -->
+             <form method="dialog">
+                 <label for="add-announcement-modal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
+             </form>
+             <!-- End Exit Form -->
+             <h3 class="font-bold text-xl text-center"> <?= $_SESSION['colCode'] ?> UPDATE</h3>
+
+
+             <!-- make alumni of the year post -->
+             <form action="" id="add-announcement-form" method="POST">
+                 <div id="" class=" text-greyish_black flex flex-col px-12 s">
+
+                     <p class="mb-4"> <span class="text-red-600 font-bold">*</span> Required</p>
+                     <span class="daisy-label-text font-bold daisy-label ">Choose a cover image to showcase</span>
+
+                     <!-- Placeholder for Cover Image -->
+                     <div class="w-full h-80 relative group rounded-sm">
+                         <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
+                         <!-- Cover Image Input -->
+                         <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                             <label for="cover-image" class="daisy-label">
+                             </label>
+                             <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-image" type="file" accept=".jpg" name="cover-image">
+                             <label class="daisy-label">
+                                 <span class="daisy-label-text-alt">Use JPG File Format</span>
+                             </label>
+                         </div>
+                     </div>
+
+                     <div class="daisy-form-control w-full max-w-xs">
+                         <label class="font-bold daisy-label" for="title">
+                             <span class="daisy-label-text"> Title: </span>
+                             <span class="daisy-label-text-alt"></span>
+                         </label>
+                         <input id="title" name="title" class="form-input block rounded" type="text" placeholder="Make an interesting title">
+                     </div>
+
+                     <div class="daisy-form-control w-full max-w-xs">
+                         <label class="font-bold daisy-label" for="description">
+                             <span class="daisy-label-text"> Description:</span>
+                         </label>
+                         <textarea id="description" cols="60" name="description" class="form-textarea daisy-textarea daisy-textarea-borderedj block rounded resize max-w-full" id="description" placeholder="Add your description here..."></textarea>
+                     </div>
+
+
+                     <div class="daisy-form-control w-full max-w-xs">
+                         <label class="daisy-label font-bold daisy-label-text">Add more images ( Optional )</label>
+                         <div id="collectionContainer" class="flex flex-wrap gap-2">
+                             <!-- adding image -->
+                             <div id="addImgCollection" class=" w-24 h-24 rounded-md border border-accent flex justify-center items-center">
+                                 <label for="collectionFile">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+                                         <path fill="currentColor" d="M11 9h4v2h-4v4H9v-4H5V9h4V5h2v4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16z"></path>
+                                     </svg>
+                                 </label>
+                                 <input type="file" name="" id="collectionFile" accept="image/*" class="hidden">
+                             </div>
+                         </div>
+                     </div>
+
+
+                     <div class="flex flex-wrap gap-4 py-4 justify-end">
+                         <button class="btn-tertiary bg-transparent " type="reset" id="reset-btn">Reset Form</button>
+                         <button type="submit" class="btn-primary">Add Announcement</button>
+                     </div>
+                 </div>
+             </form>
+             <!-- End Add FORM -->
+
+         </div>
+     </div>
  </section>
 
 
