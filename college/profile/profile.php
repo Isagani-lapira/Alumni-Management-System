@@ -113,7 +113,7 @@ if (isset($_SESSION['personID'])) {
 
                                 <!-- * Edit Profile Button -->
                                 <div class="flex justify-normal mt-5">
-                                    <button class="daisy-btn btn-primary" id="edit-college-profile-btn">Edit Profile</button>
+                                    <button class="daisy-btn btn-primary" id="edit-college-profile-btn">Edit College Profile</button>
                                 </div>
                             </div>
 
@@ -170,18 +170,20 @@ if (isset($_SESSION['personID'])) {
                         <input type="hidden" name="update-college-form" value="true">
                         <div class="flex flex-wrap justify-between gap-4 my-4">
                             <!-- Profile Picture -->
-                            <div class="flex flex-wrap gap-4">
-                                <img id="colLogoPreview" class="w-24 h-24 block mx-auto rounded-full" src="
-                            data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?> 
-                            " alt="">
-                                <div class="flex flex-col justify-center">
-                                    <h3 class="font-bold text-lg">College Icon</h3>
-                                    <p class="text-gray-400">Upload the icon to be displayed on the college</p>
+                            <div class="flex flex-wrap flex-col gap-4">
+                                <div class="flex flex-wrap gap-4">
+                                    <img id="colLogoPreview" class="w-24 h-24 block mx-auto rounded-full" src="
+                                                                data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?> 
+                                                                " alt="">
+                                    <div class="flex flex-col justify-center">
+                                        <h3 class="font-bold text-lg">College Icon</h3>
+                                        <p class="text-gray-400">Upload the icon to be displayed on the college</p>
+                                    </div>
                                 </div>
 
-                                <div class="flex flex-col justify-center">
+                                <div class="flex flex-row items-center">
                                     <input type="file" id="colLogoInput" name="colLogo" class="daisy-file-input w-full max-w-xs " />
-                                    <button type="button" id="reset-logo" class="daisy-btn daisy-btn-outline daisy-btn-error">Reset Upload</button>
+                                    <button type="button" id="reset-logo" class="daisy-btn daisy-btn-outline daisy-btn-sm">Reset</button>
                                 </div>
                             </div>
 
@@ -242,20 +244,22 @@ if (isset($_SESSION['personID'])) {
                         <!--    add for dean image -->
                         <!-- Dean Picture -->
                         <div class="flex flex-wrap justify-between gap-4 my-4">
-                            <div class="flex flex-wrap gap-4">
+                            <div class="flex flex-col gap-4">
 
-                                <img id="deanImgPreview" class="w-24 h-24 block mx-auto rounded-full" src="
-                           <?= $colDeanImg ?> 
-                            " alt="">
-                                <div class="flex flex-col justify-center">
-                                    <h3 class="font-bold text-lg">College Dean Picture</h3>
-                                    <p class="text-gray-400">Upload the picture to be displayed on the dean of the college.</p>
+                                <div class="flex flex-wrap gap4">
+                                    <img id="deanImgPreview" class="w-24 h-24 block mx-auto rounded-full" src="
+                                                               <?= $colDeanImg ?> 
+                                                                " alt="">
+                                    <div class="flex flex-col justify-center">
+                                        <h3 class="font-bold text-lg">College Dean Picture</h3>
+                                        <p class="text-gray-400">Upload the picture to be displayed on the dean of the college.</p>
+                                    </div>
                                 </div>
 
-                                <div class="flex flex-col justify-center">
+                                <div class="flex flex-row items-center">
                                     <input type="file" id="deanImgInput" class="daisy-file-input" name="colDeanImg" />
 
-                                    <button type="button" id="reset-dean" class="daisy-btn daisy-btn-outline daisy-btn-error">Reset Upload</button>
+                                    <button type="button" id="reset-dean" class="daisy-btn daisy-btn-outline daisy-btn-sm">Reset</button>
                                 </div>
                             </div>
 
@@ -279,7 +283,7 @@ if (isset($_SESSION['personID'])) {
                             <!-- cancel-edit-college-profile-btn -->
                             <button id="cancel-edit-college-profile-btn" class="btn-tertiary" type="button">Cancel</button>
                             <div class="flex flex-col gap-2">
-                                <button name="update-college" value="update-college" id="update-college-submit-btn" class=" btn-primary">Update College Profile</button>
+                                <button type="submit" name="update-college" value="update-college" id="update-college-submit-btn" class=" btn-primary">Update College Profile</button>
                             </div>
 
                         </div>
@@ -301,7 +305,8 @@ if (isset($_SESSION['personID'])) {
                             <p class="text-lg text-white font-bold">
                                 <?= $personData['fname'] . ' ' . $personData['lname'] ?>
                             </p>
-                            <button class=" daisy-btn" id="edit-profile-btn">Edit Profile</button>
+                            <!-- todo -->
+                            <!-- <a class=" daisy-btn" href="#settings" id="edit-profile-btn">Edit Profile</a> -->
                         </div>
                     </div>
                     <div class="flex text-grayish">
@@ -349,7 +354,7 @@ if (isset($_SESSION['personID'])) {
                             <!-- Shows only when there is no data yet -->
                             <div class="flex align-middle justify-center ">
                                 <div class="bg-accent rounded p-3 text-white hidden no-data-class">
-                                    <h2>No Post Available Yet</h2>
+                                    <h2>No More Posts Available </h2>
                                 </div>
 
                             </div>

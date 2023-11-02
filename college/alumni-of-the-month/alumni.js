@@ -42,6 +42,12 @@ $(document).ready(function () {
     });
     // TODO get the details and show the details.
 
+    $("#reset-aotm").on("click", function () {
+      $("#add-aotm-form")[0].reset();
+      $("#cover-image-preview").attr("src", "");
+      // $("#profile-image-preview").attr("src", "");
+      $("#add-alumni-modal").prop("checked", false);
+    });
     // on form submit
     $("#add-aotm-form").submit(async function (e) {
       e.preventDefault();

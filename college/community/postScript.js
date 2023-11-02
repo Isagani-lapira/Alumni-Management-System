@@ -712,7 +712,7 @@ $(document).ready(function () {
         },
       });
     } else {
-      postWrapper.css("min-height", "155px");
+      postWrapper.css("min-height", "300px");
     }
 
     date = getFormattedDate(date);
@@ -1536,6 +1536,7 @@ $(document).ready(function () {
           if (data.response == "Success") {
             let length = data.colCode.length;
             console.log(length);
+            console.log(data);
             for (let i = 0; i < length; i++) {
               //data retrieved
               const postID = data.postID[i];

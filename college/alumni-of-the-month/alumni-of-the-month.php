@@ -128,12 +128,16 @@
                     <div id="alumni-details" class="hidden">
                         <!-- Details of the alumni -->
                         <p>Details of the alumni</p>
-                        <img class="rounded-full h-10 w-10 border border-accent" src="" id="detail-profile-img">
+                        <div class="flex flex-wrap items-center gap-4 ">
 
-                        <p id="detail-fullname"></p>
-                        <!-- <p id="detail-student-id"></p> -->
-                        <p id="detail-personal-email"></p>
-                        <p id="detail-yearGraduated"></p>
+                            <img class="rounded-full h-10 w-10 border border-accent" src="" id="detail-profile-img">
+                            <!-- <p id="detail-student-id"></p> -->
+                            <div class="col-span-2 space-y-3">
+                                <p class="font-bold text-lg" id="detail-fullname"></p>
+                                <p id="detail-personal-email"></p>
+                                <p id="detail-yearGraduated"></p>
+                            </div>
+                        </div>
 
                     </div>
                     <label class="font-bold" for="quote">Quotation:</label>
@@ -146,7 +150,7 @@
                     <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
 
                     <div class="flex flex-wrap gap-4 py-4 justify-end">
-                        <button class="btn-tertiary bg-transparent " type="reset">Reset Form</button>
+                        <button class="btn-tertiary bg-transparent " id="reset-aotm" type="reset">Reset Form</button>
                         <button class="btn-primary">Add Alumni of the Month</button>
                     </div>
                 </div>
