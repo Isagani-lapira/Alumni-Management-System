@@ -17,18 +17,28 @@ if (
     $username = $_SESSION['username'];
 
     //get the person ID of that user
-    $query = "SELECT 'student' AS user_details, student.personID
-            FROM student
-            WHERE student.username = '$username'
-            UNION
-            SELECT 'alumni' AS user_details, alumni.personID
-            FROM alumni
-            WHERE alumni.username = '$username'";
+    $query = "SELECT 'student' AS user_type, student.personID, currentYear, studNo
+    FROM student
+    WHERE student.username = '$username'
+    UNION
+    SELECT 'alumni' AS user_type, alumni.personID, NULL,NULL
+    FROM alumni
+    WHERE alumni.username = '$username'
+    UNION
+    SELECT 'not found' AS user_type, NULL, NULL,NULL
+    WHERE NOT EXISTS (
+        SELECT 1 FROM student WHERE student.username = '$username'
+    ) AND NOT EXISTS (
+        SELECT 1 FROM alumni WHERE alumni.username = '$username'
+    )";
 
     $result = mysqli_query($mysql_con, $query);
     if ($result) {
         $data = mysqli_fetch_assoc($result);
         $personID = $data['personID'];
+        $user_type = $data['user_type'];
+        $studentYr = $data['currentYear'];
+        $studentNo = $data['studNo'];
 
         //get person details
         $personObj = new personDB();
@@ -140,7 +150,9 @@ function dateInText($date)
 </head>
 
 <body class="bg-gray-100 scrollable-container">
-
+    <?php
+    echo '<input id="accountUN" type="hidden" value="' . $username . '">';
+    ?>
     <span id="promptMsgComment" class="hidden rounded-md slide-bottom fixed bottom-28 px-4 py-2 z-50 bg-accent text-white font-bold">Comment successfully added</span>
     <!-- Navbar -->
     <nav class=" z-50 w-full fixed top-0 grid grid-cols-3 gap-4 p-3 bg-white text-black shadow-lg">
@@ -473,7 +485,7 @@ function dateInText($date)
             </div>
 
 
-            <p class="text-lg font-bold">Customize Your Information</p>
+            <p class="text-lg font-bold text-greyish_black">Customize Your Information</p>
 
             <!-- location -->
             <div class="flex justify-between text-greyish_black items-center">
@@ -544,7 +556,7 @@ function dateInText($date)
 
             </div>
 
-            <p class="text-lg font-bold">Social Media Username</p>
+            <p class="text-lg font-bold text-greyish_black">Social Media Username</p>
 
             <!-- facebook -->
             <div class="flex justify-between text-greyish_black items-center">
@@ -638,6 +650,19 @@ function dateInText($date)
                 </div>
 
             </div>
+
+            <!-- account setting -->
+            <div class="text-greyish_black text-sm">
+                <p class="text-lg font-bold mb-3">Account Setting</p>
+                <p>Username: <span class="font-bold currentUN"></span></p>
+                <div class="flex justify-between items-center mt-2">
+                    <p>Password: <span class="font-bold">*****</span></p>
+                    <iconify-icon id="editPassword" class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </div>
+            </div>
+
+            <!-- migration -->
+            <div></div>
         </div>
     </div>
 
@@ -1438,6 +1463,38 @@ function dateInText($date)
                     </button>
                     <button type="button" class="text-gray-400 closeReportModal">No, cancel</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- password edit -->
+    <div class="bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 passwordModal hidden">
+        <div class=" w-2/5 rounded-md h-max bg-white p-5 overflow-y-auto slide-bottom">
+            <h2 class="font-bold text-xl">Edit Password</h2>
+
+            <!-- current password -->
+            <div class="flex flex-col gap-2 text-greyish_black mt-5">
+                <label for="currentPassEdit" class="text-sm font-bold">Current password:</label>
+                <input id="currentPassEdit" type="password" placeholder="Enter password" class="rounded-md border border-gray-300 p-2 passwordInputEdit">
+                <span class="text-sm italic text-red-400 currentPassErrorMsg hidden">Password is incorrect</span>
+            </div>
+
+            <!-- New Password -->
+            <div class="flex flex-col gap-2 text-greyish_black mt-2">
+                <label for="newPassEdit" class="text-sm font-bold">New password:</label>
+                <input id="newPassEdit" type="password" placeholder="Enter password" class="rounded-md border border-gray-300 p-2 passwordInputEdit">
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="flex flex-col gap-2 text-greyish_black mt-2">
+                <label for="confirmPassEdit" class="text-sm font-bold">Confirm password:</label>
+                <input id="confirmPassEdit" type="password" placeholder="Enter password" class="rounded-md border border-gray-300 p-2 passwordInputEdit">
+                <span class="text-sm italic text-red-400 newPassErrorMsg hidden">New Password doest not match</span>
+            </div>
+
+            <div class="flex justify-end gap-2 mt-3">
+                <button class="cancelEditBtn text-gray-400 hover:text-gray-500">Cancel</button>
+                <button class="confirmEditBtn text-white bg-blue-400 hover:bg-blue-500 px-3 py-2 rounded-md">Save</button>
             </div>
         </div>
     </div>

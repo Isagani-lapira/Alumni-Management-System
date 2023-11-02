@@ -832,6 +832,7 @@ $(document).ready(function () {
 
   //open modal
   $('#modal-openBtn').on('click', function () {
+    $('.currentUN').text($('#accountUN').val()) //set the username of edit profile
     $('#profileModalEdit').removeClass('hidden');
   })
 
@@ -1321,5 +1322,104 @@ $(document).ready(function () {
 
     })
   }
+
+
+  // edit password
+
+  // edit modal for password
+  $('#editPassword').on('click', function () {
+    $('.passwordModal').removeClass('hidden')
+  })
+
+  // edit password
+  $('.confirmEditBtn').on('click', function () {
+    let isReady = true;
+    // check all fields are complete
+    $('.passwordInputEdit').each(function () {
+      let element = $(this)
+      let passVal = element.val().trim();
+      if (passVal === '') {
+        console.log(passVal)
+        isReady = false
+        element.removeClass('border-gray-300').addClass('border-red-400')
+      }
+      else element.removeClass('border-red-400').addClass('border-gray-300')
+    })
+
+    if (isReady) {
+      // checking if the current password is correct
+      let currentPass = $('#currentPassEdit').val()
+      console.log(currentPass)
+      checkAccountPass(currentPass)
+        .then(response => {
+
+          if (response === 'successful') {
+            $('.currentPassErrorMsg').addClass('hidden')
+            // check new password and confirm pass is equal
+            const newpassword = $('#newPassEdit').val();
+            const confirmPass = $('#confirmPassEdit').val();
+
+            if (newpassword === confirmPass) {
+              // update password
+              $('.newPassErrorMsg').addClass('hidden')
+              updatePassword(newpassword)
+            }
+            else $('.newPassErrorMsg').removeClass('hidden') //error message
+
+          } else $('.currentPassErrorMsg').removeClass('hidden')
+        })
+    }
+
+  })
+
+  // updating password
+  function updatePassword(newpassword) {
+    const action = { action: 'updatePass' };
+    const username = $('#accountUN').val()
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action));
+    formData.append('newPass', newpassword);
+    formData.append('username', username);
+
+    $.ajax({
+      url: '../PHP_process/userData.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: response => {
+        if (response == '1') $('.passwordModal').addClass('hidden')
+      },
+      error: error => { console.log(error) }
+    })
+  }
+
+  // checking current password 
+  function checkAccountPass(password) {
+    const action = { action: 'read', query: true }
+    const username = $('#accountUN').val()
+
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action));
+    formData.append('username', username);
+    formData.append('password', password);
+
+    return new Promise((resolve) => {
+      $.ajax({
+        url: '../PHP_process/userData.php',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: response => { resolve(response) },
+      })
+    })
+
+  }
+
+  // close modal for password
+  $('.cancelEditBtn').on('click', function () {
+    $('.passwordModal').addClass('hidden')
+  })
 
 })
