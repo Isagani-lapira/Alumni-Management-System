@@ -83,10 +83,10 @@
                     <div class="w-1/2 flex flex-col">
                         <label for="male">Gender</label>
                         <div class="p-3 rounded-lg border border-gray-400 flex justify-center gap-2">
-                            <input type="radio" id="male" name="gender" checked>
+                            <input type="radio" id="male" name="gender" value="male" checked>
                             <label for="male">Male</label>
 
-                            <input type="radio" id="female" name="gender">
+                            <input type="radio" id="female" name="gender" value="female">
                             <label for="female">Female</label>
                         </div>
 
