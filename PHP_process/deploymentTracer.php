@@ -9,6 +9,8 @@ if (isset($_POST['action'])) {
         insertNewTracerDeployment($mysql_con);
     } else if ($action == "retrieveRespondent") {
         retrieveLast5YearResponse($mysql_con);
+    } else if ($action == 'retrieveList') {
+        retrieveListTracer($mysql_con);
     }
 }
 
@@ -81,6 +83,39 @@ function retrieveLast5YearResponse($con)
         "response" => $response,
         "year" => $year,
         "respondent" => $respondentCount
+    );
+
+    echo json_encode($data);
+}
+
+// get list of deployed tracer
+function retrieveListTracer($con)
+{
+    $query = "SELECT `tracer_deployID`, YEAR(`timstamp`) AS 'year' FROM 
+    `tracer_deployment` ORDER BY YEAR(`timstamp`) DESC";
+    $stmt = mysqli_prepare($con, $query);
+
+    $response = "Failed";
+    $tracerDeployID = array();
+    $year = array();
+
+    if ($stmt) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result) {
+            $response = "Success";
+            while ($data = $result->fetch_assoc()) {
+                $tracerDeployID[] = $data['tracer_deployID'];
+                $year[] = $data['year'];
+            }
+        }
+    }
+
+    $data = array(
+        "response" => $response,
+        "tracerDeploymentID" => $tracerDeployID,
+        "year" => $year
     );
 
     echo json_encode($data);

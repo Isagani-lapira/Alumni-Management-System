@@ -13,8 +13,9 @@ require_once 'connection.php';
 if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subject'])) {
 
     //data to be use
+    $templateGenerated = "<br><br><br>We would like to notify you that our automated system has created the email below. This email is just meant to be used for information dissemination, therefore please do not reply.";
     $recipient = trim($_POST['recipient']);
-    $message = trim($_POST['message']);
+    $message = trim($_POST['message']) . $templateGenerated;
     $subject = trim($_POST['subject']);
     $selectedImages = (isset($_FILES['images'])) ? $_FILES['images'] : null;
     $selectedFiles =  (isset($_FILES['files'])) ? $_FILES['files'] : null;

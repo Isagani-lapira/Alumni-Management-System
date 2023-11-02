@@ -490,7 +490,7 @@ function dateInText($date)
         <!-- Email content -->
         <div id="email-tab" class="p-5 hidden">
           <h1 class="text-xl font-extrabold">EMAIL</h1>
-          <p class="text-grayish">Here you can check all the post you have and can create new post</p>
+          <p class="text-grayish">Here you can check all the email that have been sent</p>
           <div class="mt-5 text-end">
             <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
               NEW
@@ -751,6 +751,10 @@ function dateInText($date)
           <p class="text-grayish">See the relevant information that are gathered</p>
 
           <div class="flex gap-2 justify-end mb-2">
+            <select id="ddTracerform" class="px-2 py-2 rounded-md border border-gray-300">
+              <option value="" disabled selected>Download Tracer Form</option>
+            </select>
+
             <button id="tracerbtn" class="text-white hover:bg-blue-400 bg-blue-300 px-3 py-2 rounded-md">Tracer form</button>
             <button id="deployTracerBtn" class="px-3 py-2 bg-green-400 hover:bg-green-500 text-white rounded-md font-bold">Deploy Tracer</button>
           </div>
@@ -2000,6 +2004,14 @@ function dateInText($date)
         <div class="border-b border-gray-400 py-1"></div>
         <div class="filter flex gap-2 mt-2">
 
+          <select id="weekFilter" class="border border-gray-400 rounded-md p-2">
+            <option value="1">Last 1 week</option>
+            <option value="2">Last 2 week</option>
+            <option value="3">Last 3 week</option>
+            <option value="5">Last 1 month</option>
+            <option value="10">Last 2 months</option>
+            <option value="14">Last 3 months</option>
+          </select>
           <!-- date range -->
           <div class="w-max flex border border-grayish p-2 rounded-lg">
             <input type="text" name="logdaterange" id="logdaterange" value="01/01/2018 - 01/15/2018" />
@@ -2273,7 +2285,7 @@ function dateInText($date)
 
     <!-- alumni of the year -->
     <div class=" bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 hidden aoyModal">
-      <div class="w-1/2 rounded-md h-4/5 bg-white p-5 overflow-y-auto">
+      <div class="w-1/2 rounded-md h-4/5 bg-white p-5 overflow-y-auto aoyModalContainer">
         <h3 class="text-center text-greyish_black font-semibold text-xl">Alumni of the year</h3>
         <!-- content -->
         <div class=" flex flex-col gap-2 items-center">
@@ -2304,18 +2316,23 @@ function dateInText($date)
             <iconify-icon icon="fluent-mdl2:back" class="text-gray-700" width="24" height="24"></iconify-icon>
             <h2 class="font-bold text-gray-500">Back</h2>
           </div>
+
+          <h2 class="font-bold text-xl text-gray-400">Sent Email</h2>
+
           <div class="text-sm text-gray-500 italic">
             <span>Email sent: </span>
-            <span class="dateData"></span>
+            <span class="dateData font-bold"></span>
           </div>
+
+
         </header>
         <!-- body -->
         <div class="flex flex-col mt-3 text-gray-500 emailModal">
-          <h2 class="font-semibold">Subject: <span class="text-based font-normal subject"></span></h2>
-          <h2 class="font-semibold">To: <span class="text-based font-normal to"></span></h2>
+          <h2>Subject: <span class="text-based font-bold subject"></span></h2>
+          <h2>To: <span class="text-based font-bold to"></span></h2>
           <div class="h-4/5">
-            <h2 class="font-semibold">Message:</h2>
-            <pre class=" text-gray-500 text-justify w-full border border-gray-400 rounded-md overflow-y-auto p-5 messageEmail"></pre>
+            <h2>Message:</h2>
+            <pre class=" text-gray-500 text-justify w-full overflow-y-auto p-5 messageEmail"></pre>
           </div>
         </div>
       </div>

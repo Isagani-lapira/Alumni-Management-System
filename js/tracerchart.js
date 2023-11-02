@@ -2,11 +2,17 @@ $(document).ready(function () {
 
     // get the total completion chart
     $('#formLi').on('click', function () {
+        // restart everything
         $('#forms-tab').removeClass('hidden')
+        $('#ddTracerform').find('option:not(:disabled)').remove()
         retrieveCompletionData()
         retrieveCollegeParticipation()
         addCategorySelection()
+        addTracerDeploymentOption()
+
     })
+
+
 
     const completionChart = $('#completionChart')[0].getContext('2d');
     const completionChartObj = new Chart(completionChart, {
@@ -193,7 +199,7 @@ $(document).ready(function () {
             .addClass('on')
     })
     $('#displayChart').on('click', function () {
-        const value= $('#questionSelection').val()
+        const value = $('#questionSelection').val()
         questionChartObj.data.datasets[0].data = []
         displayChartForQuestion(value)
     })
@@ -280,4 +286,43 @@ $(document).ready(function () {
             responsive: true,
         }
     });
+
+
+    function addTracerDeploymentOption() {
+        const action = 'retrieveList';
+        const formData = new FormData();
+        formData.append('action', action);
+
+        $.ajax({
+            url: '../PHP_process/deploymentTracer.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: response => {
+                if (response.response === 'Success') {
+                    const length = response.tracerDeploymentID.length;
+                    // add option to the dropdown
+                    for (let i = 0; i < length; i++) {
+                        const tracerDeploymentID = response.tracerDeploymentID[i];
+                        const year = response.year[i];
+
+                        // option mark up
+                        let option = $('<option>').text('Tracer form ' + year).val(tracerDeploymentID)
+                        $('#ddTracerform').append(option);
+                    }
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
+
+    // download the graduate tracer form in spreadsheet
+    $('#ddTracerform').on('change', function () {
+        const tracerDeploymentID = $(this).val();
+        const spreadsheetUrl = '../PHP_process/spreadsheet.php?tracerDeployID=' + tracerDeploymentID; //URL for spreadsheet with the selected form
+        window.location.href = spreadsheetUrl; // Redirect the user to the generated spreadsheet URL
+    });
+
 })

@@ -208,6 +208,7 @@ $(document).ready(function () {
 
     $('#emailLi').on('click', function () {
         emailOffset = 0;
+        table.clear().draw();
         //retrieve emails
         $('#newsAndUpdate-tab').removeClass('hidden')
         getEmailSent(actionDefault)

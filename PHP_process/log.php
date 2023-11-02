@@ -10,7 +10,8 @@ if (isset($_POST['action'])) {
         $startDate = $_POST['startDate'];
         $endDate = $_POST['endDate'];
         $college = $_POST['colCode'];
-        getActionByDate($startDate, $endDate, $college, $mysql_con);
+        $week = $_POST['week'];
+        getActionByDate($startDate, $endDate, $college, $week, $mysql_con);
     }
 }
 function getCollegeAction($con)
@@ -80,16 +81,15 @@ function getDetails($result, $row, $con)
 }
 
 
-function getActionByDate($startDate, $endDate, $college, $con)
+function getActionByDate($startDate, $endDate, $college, $week, $con)
 {
-
-    if ($startDate != "" && $college == "") {
+    if ($startDate != "" && $college == ""  && $week == "") {
         // filter by date
         $query = "SELECT * FROM `collegeadmin_log` WHERE DATE(timestamp) >= ? 
         AND DATE(timestamp) <= ? ORDER BY `timestamp` DESC";
         $stmt = mysqli_prepare($con, $query);
         $stmt->bind_param('ss', $startDate, $endDate);
-    } else if ($startDate == "" && $college != "") {
+    } else if ($startDate == "" && $college != "" && $week == "") {
         // filter by college
         $query = "SELECT `collegeadmin_log`.*
         FROM `collegeadmin_log`
@@ -97,7 +97,7 @@ function getActionByDate($startDate, $endDate, $college, $con)
         WHERE `coladmin`.colCode = ? ";
         $stmt = mysqli_prepare($con, $query);
         $stmt->bind_param('s', $college);
-    } else if ($startDate != "" && $college != "") {
+    } else if ($startDate != "" && $college != "" && $week == "") {
 
         // filter by both college and date
         $query = "SELECT `collegeadmin_log`.*
@@ -108,10 +108,26 @@ function getActionByDate($startDate, $endDate, $college, $con)
 
         $stmt = mysqli_prepare($con, $query);
         $stmt->bind_param('sss', $college, $startDate, $endDate);
-    } else {
-        // no filter
-        getCollegeAction($con);
-    }
+    } else if ($startDate == "" && $college == "" && $week != "") {
+
+        // retrieve only by week
+        $query = "SELECT *FROM `collegeadmin_log` WHERE 
+        `timestamp` >= DATE_SUB(NOW(), INTERVAL ? WEEK)
+        ORDER BY `collegeadmin_log`.`timestamp` DESC";
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $week);
+    } else if ($startDate == "" && $college != "" && $week != "") {
+
+        //retrieve with week and college
+        $query = "SELECT *FROM `collegeadmin_log` 
+        JOIN `coladmin` ON `collegeadmin_log`.`colAdmin` = `coladmin`.`adminID`
+        WHERE `timestamp` >= DATE_SUB(NOW(), INTERVAL ? WEEK) AND
+        `coladmin`.`colCode` = ? ORDER BY `collegeadmin_log`.`timestamp` DESC";
+
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('ss', $week, $college);
+    } else  getCollegeAction($con);  // no filter
+
 
     $stmt->execute();
     $result = $stmt->get_result();

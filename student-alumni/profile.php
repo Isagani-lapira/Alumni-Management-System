@@ -17,18 +17,28 @@ if (
     $username = $_SESSION['username'];
 
     //get the person ID of that user
-    $query = "SELECT 'student' AS user_details, student.personID
-            FROM student
-            WHERE student.username = '$username'
-            UNION
-            SELECT 'alumni' AS user_details, alumni.personID
-            FROM alumni
-            WHERE alumni.username = '$username'";
+    $query = "SELECT 'student' AS user_type, student.personID, currentYear, studNo
+    FROM student
+    WHERE student.username = '$username'
+    UNION
+    SELECT 'alumni' AS user_type, alumni.personID, NULL,NULL
+    FROM alumni
+    WHERE alumni.username = '$username'
+    UNION
+    SELECT 'not found' AS user_type, NULL, NULL,NULL
+    WHERE NOT EXISTS (
+        SELECT 1 FROM student WHERE student.username = '$username'
+    ) AND NOT EXISTS (
+        SELECT 1 FROM alumni WHERE alumni.username = '$username'
+    )";
 
     $result = mysqli_query($mysql_con, $query);
     if ($result) {
         $data = mysqli_fetch_assoc($result);
         $personID = $data['personID'];
+        $user_type = $data['user_type'];
+        $studentYr = $data['currentYear'];
+        $studentNo = $data['studNo'];
 
         //get person details
         $personObj = new personDB();
@@ -140,7 +150,9 @@ function dateInText($date)
 </head>
 
 <body class="bg-gray-100 scrollable-container">
-
+    <?php
+    echo '<input id="accountUN" type="hidden" value="' . $username . '">';
+    ?>
     <span id="promptMsgComment" class="hidden rounded-md slide-bottom fixed bottom-28 px-4 py-2 z-50 bg-accent text-white font-bold">Comment successfully added</span>
     <!-- Navbar -->
     <nav class=" z-50 w-full fixed top-0 grid grid-cols-3 gap-4 p-3 bg-white text-black shadow-lg">
@@ -473,7 +485,7 @@ function dateInText($date)
             </div>
 
 
-            <p class="text-lg font-bold">Customize Your Information</p>
+            <p class="text-lg font-bold text-greyish_black">Customize Your Information</p>
 
             <!-- location -->
             <div class="flex justify-between text-greyish_black items-center">
@@ -544,7 +556,7 @@ function dateInText($date)
 
             </div>
 
-            <p class="text-lg font-bold">Social Media Username</p>
+            <p class="text-lg font-bold text-greyish_black">Social Media Username</p>
 
             <!-- facebook -->
             <div class="flex justify-between text-greyish_black items-center">
@@ -638,6 +650,33 @@ function dateInText($date)
                 </div>
 
             </div>
+
+            <!-- account setting -->
+            <div class="text-greyish_black text-sm">
+                <p class="text-lg font-bold mb-3">Account Setting</p>
+                <p>Username: <span class="font-bold currentUN"></span></p>
+                <div class="flex justify-between items-center mt-2">
+                    <p>Password: <span class="font-bold">*****</span></p>
+                    <iconify-icon id="editPassword" class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                </div>
+            </div>
+
+            <!-- migrate account setting -->
+            <?php
+            $today = date('F');
+
+            if ($user_type == 'student' && strtotime($today) >= strtotime('August') && $studentYr == 4) {
+                echo '
+                <div class="text-greyish_black text-sm">
+                    <p class="text-lg font-bold mb-3">Migrate Account</p>
+                    <div class="flex justify-between items-center mt-2">
+                        <p class="text-gray-500 italic">Migrate account to account type</p>
+                        <iconify-icon id="editMigrateBtn" class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                    </div>
+                </div>';
+            }
+
+            ?>
         </div>
     </div>
 
@@ -1442,8 +1481,139 @@ function dateInText($date)
         </div>
     </div>
 
+    <!-- password edit -->
+    <div class="bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 passwordModal hidden">
+        <div class=" w-2/5 rounded-md h-max bg-white p-5 overflow-y-auto slide-bottom">
+            <h2 class="font-bold text-xl">Edit Password</h2>
+
+            <!-- current password -->
+            <div class="flex flex-col gap-2 text-greyish_black mt-5">
+                <label for="currentPassEdit" class="text-sm font-bold">Current password:</label>
+                <input id="currentPassEdit" type="password" placeholder="Enter password" class="rounded-md border border-gray-300 p-2 passwordInputEdit">
+                <span class="text-sm italic text-red-400 currentPassErrorMsg hidden">Password is incorrect</span>
+            </div>
+
+            <!-- New Password -->
+            <div class="flex flex-col gap-2 text-greyish_black mt-2">
+                <label for="newPassEdit" class="text-sm font-bold">New password:</label>
+                <input id="newPassEdit" type="password" placeholder="Enter password" class="rounded-md border border-gray-300 p-2 passwordInputEdit">
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="flex flex-col gap-2 text-greyish_black mt-2">
+                <label for="confirmPassEdit" class="text-sm font-bold">Confirm password:</label>
+                <input id="confirmPassEdit" type="password" placeholder="Enter password" class="rounded-md border border-gray-300 p-2 passwordInputEdit">
+                <span class="text-sm italic text-red-400 newPassErrorMsg hidden">New Password doest not match</span>
+            </div>
+
+            <div class="flex justify-end gap-2 mt-3">
+                <button class="cancelEditBtn text-gray-400 hover:text-gray-500">Cancel</button>
+                <button class="confirmEditBtn text-white bg-blue-400 hover:bg-blue-500 px-3 py-2 rounded-md">Save</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- migration modal -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center migrationModal hidden">
+        <div class="bg-white w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+            <h2 class="text-2xl font-semibold">We noticed something about this account!</h2>
+            <p>Your account appears to be prepared for account migration to alumni.
+                Verify that you graduated from Bulacan State University before processing your immigration.</p>
+
+            <p class="mt-3">The following capabilities have been introduced to alumni accounts:
+                <span class="font-semibold italic"> job applications, job postings, and alumni graduate tracker.</span>
+            </p>
+            <!-- note -->
+            <div class="text-red-500 flex gap-2 border border-gray-300 rounded-md p-3">
+                <iconify-icon icon="ep:warning-filled" width="24" height="24"></iconify-icon>
+                <div class="flex gap-2">
+                    <span class="font-semibold">Note:</span>
+                    <p>You can\'t undo this confirmation. Make sure you\'re prepared to migrate your account before continuing.</p>
+                </div>
+
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button class="cancelMigration text-gray-400 hover:text-gray-500">Cancel</button>
+                <button class="migrateConfirmBtn rounded-md text-white bg-green-400 hover:bg-green-500 px-3 py-2">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- cancel migration -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center cancelMigrationModal hidden">
+        <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+            <h2 class="text-xl font-semibold">Confirmation</h2>
+            <p>In the edit profile area, you can see this if you chose to move your account.</p>
+            <div class="flex justify-end gap-2">
+                <button id="cancelMigrationBtn">Cancel</button>
+                <button id="closeMigrationModal" class="bg-blue-400 hover:bg-blue-500 text-white px-3 py-2 rounded-md">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- additional information for migrating -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center additionalInfo hidden">
+        <div class="bg-white rounded-md w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+            <h2 class="text-lg font-semibold border-b border-gray-400 py-2">Additional Information for Migrating</h2>
+            <form id="migrationForm">
+                <?php
+                echo '
+                <input name="studNoMigration" type="hidden" value="' . $studentNo . '">
+                <input name="personIDMigration" type="hidden" value="' . $personID . '">
+                <input name="colCodeMigration" type="hidden" value="' . $colCode . '">
+                <input name="usernameMigration" type="hidden" value="' . $username . '">
+                ';
+
+                ?>
+
+                <!-- employment status -->
+                <div class="flex flex-col">
+                    <label for="empStatData">1. ) Employment Status</label>
+                    <select name="empStatData" id="empStatData" class="py-2 text-gray-400 border-b border-gray-300 rounded-b-md hover:border-blue-500 hover:border-b-2">
+                        <option value="Employed">Employed</option>
+                        <option value="Unemployed">Unemployed</option>
+                        <option value="Self-employed">Self-employed</option>
+                        <option value="Retired">Retired</option>
+                    </select>
+                </div>
+
+                <!-- batch year -->
+                <div class="flex flex-col mt-5">
+                    <label for="batchYrData">2. ) Batch Year</label>
+                    <select name="batchYrData" id="batchYrData" class="py-2 text-gray-400 border-b border-gray-300 rounded-b-md hover:border-blue-500 hover:border-b-2"></select>
+                </div>
+
+                <div class="flex flex-col mt-5 gap-2">
+                    <button class="bg-green-400 hover:bg-green-500 text-white rounded-md py-2 font-bold">Migrate</button>
+                    <button type="button" class="hover:text-lg hover:text-gray-500 text-gray-400 cancelAdditionalInfo">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- success migration -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center successMigrationModal hidden">
+        <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+            <!-- success animation -->
+            <div class="success-checkmark">
+                <div class="check-icon">
+                    <span class="icon-line line-tip"></span>
+                    <span class="icon-line line-long"></span>
+                    <div class="icon-circle"></div>
+                    <div class="icon-fix"></div>
+                </div>
+            </div>
+            <h2 class="text-xl text-center text-green-500 font-bold">Migration Successful</h2>
+            <p class="text-center text-gray-500">After 5 seconds this account will sign out automatically to refresh your account</p>
+        </div>
+    </div>
+
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="../student-alumni/js/profile.js"></script>
+    <script src="../student-alumni/js/migration.js"></script>
     <script src="../student-alumni/js/searchProfile.js"></script>
     <script src="../student-alumni/js/resumescript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
