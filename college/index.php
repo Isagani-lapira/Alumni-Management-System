@@ -117,8 +117,12 @@ if (
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- System Tailwind stylesheet -->
     <link rel="stylesheet" href="../css/main.css">
+
+    <!--  -->
     <!-- Utilities stylesheet -->
     <link rel="stylesheet" href="./assets/css/util.css">
+    <link rel="stylesheet" href="../style/style.css">
+
 
 
     <!-- End Stylesheets -->
@@ -201,7 +205,7 @@ if (
                             <i class="fa-solid fa-envelope fa-xl ">
 
                             </i>
-                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">EMAIL</span>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">OUTBOX</span>
                         </a></li>
                     <!-- <li><a data-link="student-record" href="#student-record" class=" flex justify-left flex-nowrap rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl "></i>
@@ -300,7 +304,11 @@ if (
 
     </div>
 
-
+    <!-- loading screen -->
+    <div id="loadingScreen" class="post modal fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden ">
+        <span class="loader w-36 h-36"></span>
+        <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
+    </div>
 </body>
 
 </html>

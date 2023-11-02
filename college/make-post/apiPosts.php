@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                         }
                     }
 
-                    setNewActivity($mysql_con, $adminID, "posted", $postID);
+                    setNewActivity($mysql_con, $adminID, "posted", "Made a new Post");
 
                     // return true;
                     echo json_encode(array(
