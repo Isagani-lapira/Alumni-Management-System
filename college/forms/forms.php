@@ -9,12 +9,12 @@
 
     <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
         <div class="flex gap-2 justify-evenly">
-            <div class="h-2/5 w-1/2 p-5 flex flex-col">
+            <div class="h-80 w-1/2 p-5 flex flex-col">
                 <h1 class="text-lg font-extrabold">Completion Chart</h1>
                 <canvas class="w-full h-full" id="completionChart"></canvas>
             </div>
 
-            <div class="h-2/5 w-1/2 p-5 flex flex-col">
+            <div class="h-80 w-1/2 p-5 flex flex-col">
                 <h1 class="text-lg font-extrabold px-5">College Alumni Chart</h1>
                 <canvas class="w-full h-5/6" id="respondentPerCol"></canvas>
             </div>
@@ -64,7 +64,7 @@
             <p class="text-sm italic text-gray-500">Note: Select a category first</p>
         </div>
 
-        <div class="center-shadow rounded-lg p-3 m-2 h-full flex justify-center">
+        <div class="center-shadow rounded-lg p-3 m-2 h-96 max-h-full flex justify-center">
             <canvas id="chartPerQuestion"></canvas>
         </div>
     </div>

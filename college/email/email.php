@@ -1,6 +1,6 @@
 <?php session_start()
 ?>
-<section id="email-section" class="p-2">
+<section id="email-section" class="p-8">
     <!-- Email content -->
     <h1 class="text-xl font-extrabold">EMAIL</h1>
     <p class="text-grayish">Here you can check all the post you have and can create new post</p>

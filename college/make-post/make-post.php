@@ -98,7 +98,7 @@ $total = $row["total"];
         <div class="h-full flex items-center justify-center 
       text-grayish  ">
             <!-- Modal Content -->
-            <div class="modal-container space-y-5    modal-container w-1/3 h-2/3 bg-white rounded-lg p-3">
+            <div class="modal-container space-y-5    modal-container h-2/3 bg-white rounded-lg p-3">
                 <div class="modal-header py-5">
                     <h1 class="text-accent text-2xl text-center font-bold">Create New Post</h1>
                 </div>
@@ -194,7 +194,7 @@ $total = $row["total"];
 
 
 
-            <div class="postStatus bg-white rounded-md w-2/6 p-5 flex flex-col gap-3">
+            <div class="postStatus bg-white rounded-md  p-5 flex flex-col gap-3">
                 <div class="flex justify-between">
                     <div class="flex items-center">
                         <img id="profileStatusImg" class="w-10 h-10 rounded-full" alt="" src="">

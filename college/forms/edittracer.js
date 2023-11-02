@@ -3,6 +3,10 @@ $(document).ready(function () {
 
   let sectionQuestion = [];
 
+  // const URL_GRAUDATE_TRACER = "../PHP_process/graduatetracer.php";
+
+  const GRADUATE_TRACER_LINK = "../../PHP_process/graduatetracer.php";
+
   const formIDValue = $("#formID").val();
   retrieveCategory(formIDValue); //get the category
   function retrieveCategory(formIDValue) {
@@ -13,7 +17,7 @@ $(document).ready(function () {
     formData.append("formID", formID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -21,6 +25,7 @@ $(document).ready(function () {
       dataType: "json",
       success: (response) => {
         if (response.result == "Success") {
+          console.log(response);
           const length = response.categoryID.length;
           const formTitle = response.tracerTitle;
           $("#formTitle").val(formTitle); //add the form title
@@ -95,7 +100,7 @@ $(document).ready(function () {
 
       //perform removal
       $.ajax({
-        url: "../PHP_process/graduatetracer.php",
+        url: "../GRADUATE_TRACER_LINKcess/graduatetracer.php",
         method: "POST",
         data: formData,
         contentType: false,
@@ -120,7 +125,7 @@ $(document).ready(function () {
 
     //perform removal
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -139,7 +144,7 @@ $(document).ready(function () {
 
     //perform removal
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -201,7 +206,7 @@ $(document).ready(function () {
 
     //proccess insertion
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
@@ -209,6 +214,7 @@ $(document).ready(function () {
       dataType: "JSON",
       success: (response) => {
         if (response.result == "Success") {
+          console.log(response);
           const categoryID = response.categoryID; //use to remove a newly added category
           removeBtn.on("click", function () {
             removeCategory(categoryID, container);
@@ -225,13 +231,14 @@ $(document).ready(function () {
     formData.append("formID", formID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
       processData: false,
       dataType: "json",
       success: (response) => {
+        console.log(response);
         if (response.response == "Success") {
           response.dataSet.forEach((element) => {
             const categoryID = element.categoryID;
@@ -387,12 +394,8 @@ $(document).ready(function () {
         )
           .attr("title", "Add section for this choice")
           .on("click", function () {
-            if (!isSectionChoice)
-              createSection(
-                categoryID,
-                choiceID,
-                formID
-              ); //add section per category
+            if (!isSectionChoice) createSection(categoryID, choiceID, formID);
+            //add section per category
             else {
               retrievedSectionData(choiceID);
             }
@@ -535,12 +538,13 @@ $(document).ready(function () {
     formData.append("choiceID", choiceID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
       contentType: false,
       success: (response) => {
+        console.log(response);
         if (response == "Success") wrapper.remove(); // remove the button
       },
       error: (error) => {
@@ -557,7 +561,7 @@ $(document).ready(function () {
     formData.append("choiceID", choiceID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -572,7 +576,7 @@ $(document).ready(function () {
     formData.append("questionID", questionID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -594,12 +598,13 @@ $(document).ready(function () {
     formData.append("questionID", questionID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
       processData: false,
       success: (response) => {
+        console.log(response);
         if (response == "Success") {
           if (inputType == "Input") {
             $(container).find(".wrapperChoices").addClass("hidden");
@@ -781,12 +786,13 @@ $(document).ready(function () {
     formData.append("choiceID", choiceID);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
       processData: false,
       success: (response) => {
+        console.log(response);
         const data = JSON.parse(response); // Assuming the response is in JSON format
         $("#sectionModalcontainer").removeClass("hidden");
         // Loop through the data and display questions
@@ -850,7 +856,7 @@ $(document).ready(function () {
     formData.append("sectionData", JSON.stringify(sectionData));
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -881,12 +887,13 @@ $(document).ready(function () {
     formData.append("isSectionQuestion", isSectionQuestion);
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       processData: false,
       contentType: false,
       success: (response) => {
+        console.log(response);
         console.log(response);
       },
       error: (error) => {
@@ -941,7 +948,7 @@ $(document).ready(function () {
     formData.append("data", JSON.stringify(data));
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
@@ -1045,7 +1052,7 @@ $(document).ready(function () {
     formData.append("newQuestion", JSON.stringify(data));
 
     $.ajax({
-      url: "../PHP_process/graduatetracer.php",
+      url: GRADUATE_TRACER_LINK,
       method: "POST",
       data: formData,
       contentType: false,
