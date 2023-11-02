@@ -339,7 +339,7 @@ class PostData
         $maxLimit = 10;
         //query to get the post of user
         $query = "SELECT * FROM `post` WHERE `username` = '$username'  AND `status` = '$status'
-        ORDER BY `date` DESC LIMIT $offset, $maxLimit";
+        ORDER BY `timestamp` DESC LIMIT $offset, $maxLimit";
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 
