@@ -12,7 +12,7 @@ $(document).ready(function () {
   const formDataAvailable = new FormData()
   formDataAvailable.append('action', JSON.stringify(profileAction));
   formDataAvailable.append('status', availablePost);
-
+  let tempLength = 0;
   let actionTracker = formDataAvailable
   let typeTracker = false
   getPost(formDataAvailable, false)
@@ -47,8 +47,9 @@ $(document).ready(function () {
           }
 
           offsetPost += length
-
+          tempLength = length;
         } else {
+          $('#loadingData').addClass('hidden')
           $('#noProfPostMsg').removeClass('hidden')
             .appendTo('#feedContainer')
         }
@@ -116,7 +117,7 @@ $(document).ready(function () {
 
 
   function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted, isLikedByUser) {
-    const container = $('<div>').addClass('containerPostProfile flex gap-1 justify-center p-4')
+    const container = $('<div>').addClass('containerPostProfile flex gap-1 justify-center')
     let postWrapper = $('<div>').addClass("postWrapper mb-2 center-shadow w-full p-4 rounded-md");
 
     let header = $('<div>');
@@ -480,12 +481,17 @@ $(document).ready(function () {
     var containerHeight = container.height();
     var contentHeight = container[0].scrollHeight;
     var scrollThreshold = 40; // Adjust this threshold as needed
+    $('#loadingData').addClass('hidden')
+
 
     isScrolled = true
-    if (scrollPosition + containerHeight >= contentHeight - scrollThreshold) {
+    if (scrollPosition + containerHeight >= contentHeight - scrollThreshold && tempLength === 10) {
       $('#loadingData').removeClass('hidden')
         .appendTo('#feedContainer')
       getPost(actionTracker, typeTracker)
+    } else {
+      $('#noProfPostMsg').removeClass('hidden')
+        .appendTo('#feedContainer')
     }
   })
 
