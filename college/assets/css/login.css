@@ -1,0 +1,15 @@
+body {
+  background-image: url("../../../assets/bg.jpg");
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Adjust the alpha value between 0 and 1 for desired opacity */
+  background-blend-mode: multiply;
+  background-size: cover;
+}
+
+.modal {
+  background-color: #1e1c1c98;
+}
+
+.modal-body {
+  height: 70%;
+}

@@ -1,17 +1,72 @@
 <!-- dashboard content -->
-<?php session_start();
+<?php session_start(); ?>
+<?php
+
+require_once('../php/connection.php');
+
+$colCode =  $_SESSION['colCode'];
+$sql = "SELECT COUNT(*) as total FROM student WHERE colCode = '$colCode';";
+
+$result = mysqli_query($mysql_con, $sql);
+$data = mysqli_fetch_assoc($result);
+$studentCount = $data['total'];
+// get the alumni count
+$sql = "SELECT COUNT(*) as total FROM alumni WHERE colCode = '$colCode';";
+$result = mysqli_query($mysql_con, $sql);
+$data = mysqli_fetch_assoc($result);
+$alumniCount = $data['total'];
+
+// get the active job postings
+// AND status = 'active';
+$sql = "SELECT COUNT(*) as total FROM career WHERE colCode = '$colCode' ";
+$result = mysqli_query($mysql_con, $sql);
+$data = mysqli_fetch_assoc($result);
+$activeJobCount = $data['total'];
+$username = $_SESSION['username'];
+
+
+$totalCount = $studentCount + $alumniCount;
+
+?>
+<?php
+
+// get the latest tracer form
+$query = "SELECT `tracer_deployID` FROM `tracer_deployment` ORDER BY `timstamp` DESC LIMIT 1";
+$stmt = mysqli_prepare($mysql_con, $query);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result) {
+    $tracerID = $result->fetch_assoc()['tracer_deployID'];
+    // get the total number of answer
+    $queryTotal = "SELECT COUNT(*) as 'total_answer' FROM `answer` WHERE `tracer_deployID` = ?";
+    $stmtTotal = mysqli_prepare($mysql_con, $queryTotal);
+    $stmtTotal->bind_param('s', $tracerID);
+    $stmtTotal->execute();
+    $resultTotal = $stmtTotal->get_result();
+
+    if ($resultTotal) {
+        $totalAnswer = $resultTotal->fetch_assoc()['total_answer'];
+
+
+        //get the percentage of already answer
+        $totalPercentage = round(($totalAnswer / $alumniCount) * 100);
+        $maxPercentage = 100;
+        $notYetAnswering = round($maxPercentage - $totalPercentage);
+    }
+}
 ?>
 
-<section id="dashboard-tab" class="container">
+<section id="dashboard-tab" class="container lg:mx-auto mt-4">
 
 
 
-    <div class="flex m-10 h-2/3 p-2 flex-wrap gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 m-10 h-2/3   gap-4 ">
         <!-- Left Welcome Part -->
-        <div class="flex-1">
+        <div class=" ">
             <!-- Welcome Card -->
             <div class="relative rounded-lg h-max p-10 bg-gradient-to-r from-accent to-darkAccent">
-                <img class="absolute -left-2 -top-20" src="/images/standing-2.png" alt="" srcset="" />
+                <img class="absolute -left-4 -top-5 h-full overflow-visible" src="/images/standing-2.png" alt="" srcset="" />
                 <span class="block text-lg text-white text-right">
                     Welcome Back <br />
                     <span class="font-semibold text-lg">
@@ -31,22 +86,7 @@
                     <div class="text-2xl text-gray-400 font-bold">
                         <div>
                             <span class="text-accent font-bold text-4xl mt-2 relative bottom-0">
-                                <?php
-                                require_once('../model/Student.php');
-                                require_once('../model/Alumni.php');
-
-                                require_once('../php/connection.php');
-                                $student = new Student($mysql_con);
-                                $alumni = new Alumni($mysql_con);
-                                $studentCount = $student->getTotalCount(
-                                    $_SESSION['colCode']
-                                );
-                                $alumniCount = $alumni->getTotalCount(
-                                    $_SESSION['colCode']
-                                );
-
-                                echo ($alumniCount + $studentCount);
-                                ?>
+                                <?= $totalCount ?>
 
                             </span>
                             <!-- <span>/10,000</span> -->
@@ -63,10 +103,12 @@
                 <!-- new users -->
                 <div class="dash-content flex-1 rounded-lg p-4 relative border uppercase shadow-xl">
                     <span class="text-textColor text-xs font-bold">
-                        <i class="bi bi-people-fill"></i>
-                        new users this month
+                        <i class="fa-solid fa-briefcase"></i>
+                        Active Job Postings
                     </span>
-                    <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">50</p>
+                    <p class="text-accent font-bold text-4xl mt-2 absolute bottom-2">
+                        <?= $activeJobCount ?>
+                    </p>
                 </div>
 
             </div>
@@ -74,109 +116,116 @@
         <!-- end quick stats -->
         <!-- End Left Welcome Part -->
 
-        <!-- recent announcement -->
-        <div class=" max-lg: relative font-semibold  border  center-shadow p-5 rounded-lg">
-            <p class="  text-accent font-bold">RECENT ACTIVITIES
-                <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
-            </p>
-            <?php
-            require_once('../php/connection.php');
-            require_once('../php/logging.php');
-
-            $logs = getRecentCollegeAcivity($mysql_con, $_SESSION['adminID']);
-
-
-
-
-            ?>
-            <?php foreach ($logs as  $item) : ?>
-                <div class="recent-announcement flex justify-stretch my-5">
-                    <div class="circle rounded-full bg-gray-400 p-5"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                        <p class="">
-                            <span class="font-extrabold text-black"></span>
-                            <?= $item['details'] ?>
-                            <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">
-                                <?= $item['action'] ?>
-                            </span>
-                        </p>
-                        <span class="text-grayish text-xs"></span>
-                    </div>
+        <!-- Start recent activities -->
+        <div class=" flex lg:justify-end  ">
+            <div class=" max-lg:relative w-full  lg:w-4/5  font-semibold  border  center-shadow p-5 rounded-lg">
+                <p class="  text-accent font-bold">YOUR RECENT ACTIVITIES
+                    <img class="inline" src="/images/pencil-box-outline.png" alt="" srcset="">
+                </p>
+                <?php
+                require_once('../php/connection.php');
+                require_once('../php/logging.php');
+                $logs = getRecentCollegeAcivity($mysql_con, $_SESSION['adminID']);
+                ?>
+                <div class="flex flex-col items-start gap-2">
+                    <?php foreach ($logs as  $item) : ?>
+                        <div class="recent-announcement  flex justify-stretch actionWrapper items-center">
+                            <div class="text-sm ms-2 ">
+                                <p class=" text-gray-600">
+                                    <span class="font-extrabold "></span>
+                                    <?= ucwords($item['details']) ?>
+                                    <span class=" text-white font-semibold p-2 rounded-md">
+                                        <?= ucwords($item['action']) ?>
+                                    </span>
+                                </p>
+                                <span class="text-gray-500 font-light "><?= date("F j, Y, \a\t g:i a", strtotime($item['timestamp'])) ?></span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-            <?php endforeach; ?>
-
-            <!-- <div class="dash-content p-3 pt-0   rounded-md">
-                <div class="recent-announcement flex justify-stretch my-5">
-                    <div class="circle rounded-full bg-gray-400 p-5"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                        <p class="text-grayish"><span class="font-extrabold text-black">CICT</span> added a post
-                            <span class="bg-yellow-300 text-white font-semibold p-2 rounded-md">POST</span>
-                        </p>
-                        <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                    </div>
+                <!-- Open the modal using ID.showModal() method -->
+                <div class="flex justify-end">
+                    <button class="text-sm text-accent font-semibold mt-3 text-end cursor-pointer" onclick="viewMoreModal.showModal()">View More</button>
                 </div>
 
-                <div class="recent-announcement flex justify-stretch my-5">
-                    <div class="circle rounded-full bg-red-400 p-5"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                        <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                            <span class="bg-green-600 text-white font-semibold p-2 rounded-md">ANNOUNCEMENT</span>
-                        </p>
-                        <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                    </div>
-                </div>
 
-                <div class="recent-announcement flex justify-stretch my-5">
-                    <div class="circle rounded-full bg-yellow-200 p-5"></div>
-                    <div class="text-sm ms-2 font-extralight">
-                        <p class="text-grayish"><span class="font-extrabold text-black">COE</span> added a new announcement
-                            <span class="bg-violet-400 text-white font-semibold p-2 rounded-md">UPDATE</span>
-                        </p>
-                        <span class="text-grayish text-xs">AUGUST 9, 8:30PM</span>
-                    </div>
-                </div>
-
-                 view more -->
-            <p class="text-accent bottom-0 block text-end cursor-pointer">View more</p>
+            </div>
         </div>
     </div>
     <!-- End recent-announcement -->
 
-
-
-
-    </div>
-
-
     <!-- Middle Part -->
     <div class="flex flex-wrap m-10">
         <!-- Response by year -->
-        <div class=" max-lg: relative pb-3 font-semibold">
+        <div class="flex-1 max-lg: relative pb-3 font-semibold">
             <p class=" mb-2 text-subheading">RESPONSE BY YEAR </p>
             <div class="w-[40rem] h-96">
                 <canvas class="" id="responseByYear"></canvas>
             </div>
 
         </div>
+        <!-- End Response by Year -->
+
         <!-- Start Non Chart Information -->
-        <div class="flex-1">
-            <div>
-                <div class="w-4/5 p-5 rounded-lg ms-3">
+        <div class="flex-1 flex flex-col lg:items-end">
+            <div class="border w-4/5">
+                <div class=" p-5 rounded-lg ms-3">
                     <p class="text-accent font-semibold">TRACER STATUS </p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                         <p class="font-normal text-greyish_black">Already Answered</p>
-                        <span class="text-accent">73%</span>
+                        <span class="text-accent"><?= $totalPercentage ?>%</span>
+
+
                     </div>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                         <p class="font-normal text-greyish_black">Haven't answer yet</p>
-                        <span class="text-accent">27%</span>
+                        <span class="text-accent"><?= $notYetAnswering ?>%</span>
                     </div>
                 </div>
-            </div>
-
-            <div>
-                <div class="w-4/5 p-5 rounded-lg ms-3">
+                <div class="p-5 rounded-lg ms-3">
+                    <!-- start -->
                     <p class="text-accent font-semibold">Personal Logs</p>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Total no. of posted announcement</p>
+
+                        <span class="text-accent">
+                            <?php
+
+                            $query = "SELECT * FROM `post` WHERE `username`= '$username' AND `status` = 'available'";
+                            $result = mysqli_query($mysql_con, $query);
+                            $row = mysqli_num_rows($result);
+                            echo '<span id="totalPosted" class="text-accent">' . $row . '</span>';
+                            ?>
+                        </span>
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Total no. of email sent</p>
+
+                        <span class="text-accent">
+                            <?php
+                            $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '"';
+                            $result = mysqli_query($mysql_con, $query);
+                            $row = mysqli_num_rows($result);
+                            echo '<span class="text-accent">' . $row . '</span>';
+                            ?>
+                        </span>
+
+                    </div>
+                    <div class=" flex justify-between px-2 py-1 text-sm">
+                        <p class="font-normal text-greyish_black">Total no. of posted job</p>
+
+                        <span class="text-accent">
+                            <?php
+                            $query = "SELECT * FROM `career` WHERE `personID` = '" . $_SESSION["personID"] . "'";
+                            $result = mysqli_query($mysql_con, $query);
+                            $row = mysqli_num_rows($result);
+                            echo '<span class="text-accent">' . $row . '</span>';
+                            ?>
+                        </span>
+                    </div>
+                    <!-- end -->
+
+                    <!-- <p class="text-accent font-semibold">Personal Logs</p>
                     <div class=" flex justify-between px-2 py-1 text-sm">
                         <p class="font-normal text-greyish_black">Total no. of posted announcement</p>
                         <span class="text-accent">10</span>
@@ -188,7 +237,7 @@
                     <div class=" flex justify-between px-2 py-1 text-sm">
                         <p class="font-normal text-greyish_black">Total no. of posted job</p>
                         <span id="noPostedJob" class="text-accent"></span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -196,64 +245,57 @@
         <!-- End Non Chart Information -->
     </div>
     <!-- End Middle Part -->
+    <!-- View More Modal -->
+    <dialog id="viewMoreModal" class="daisy-modal">
+        <div class="daisy-modal-box w-11/12 max-w-5xl">
+            <header class=" text-center py-2">
+                <h3 class="font-bold text-accent text-xl">Your Activities</h3>
+            </header>
+            <button id="printLogsBtn" class="transition-colors group p-2 m-2 border border-grayish font-medium text-accent hover:text-white text-sm  rounded-md ml-auto block hover:bg-accent">
+                <i class="transition-colors fa-solid fa-print fa-xl group-hover:text-white text-accent"></i>
+                PRINT
+            </button>
 
+            <hr class="border-gray-400">
+
+            <!-- Filter Options -->
+            <div class="filter flex gap-2 mt-2">
+                <!-- With Range -->
+                <!-- <div class="w-max flex border border-grayish p-2 rounded-lg">
+                    <input type="text" name="logdaterange" id="logdaterange" value="01/01/2018 - 01/15/2018">
+                    <label for="logdaterange">
+                        <img class="h-5 w-5" src="../assets/icons/calendar.svg" alt="">
+                    </label>
+                </div> -->
+                <!-- With Preselected  -->
+                <select name="logDateSelect" id="logDateSelect" class="form-select  border border-grayish rounded-lg">
+                    <option value="today" selected>Today</option>
+                    <option value="week">Past Week</option>
+                    <option value="month">Past Month</option>
+                    <option value="year">Past Year</option>
+                    <option value="all">All Logs</option>
+                </select>
+
+            </div>
+
+            <ul id="logListContainer" class="overflow-y-auto   border rounded-lg m-2 p-2 max-h-80 space-y-2">
+
+            </ul>
+
+
+            <div class="daisy-modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="daisy-btn">Close</button>
+                </form>
+            </div>
+
+        </div>
+        <form method="dialog" class="daisy-modal-backdrop">
+            <!-- if there is a button in form, it will close the modal -->
+            <button>Close</button>
+        </form>
+    </dialog>
 </section>
 
-<script>
-    $(document).ready(() => {
-
-        const redAccent = '#991B1B'
-        const blueAccent = '#2E59C6'
-
-
-
-
-        //chart for response by year
-        const responseByYear = document.getElementById('responseByYear')
-        const responseByYear_labels = ["2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"]
-        const responseByYear_data = [1000, 500, 247, 635, 323, 393, 290, 860]
-        const responseByYear_type = 'line'
-        chartConfig(responseByYear, responseByYear_type, responseByYear_labels,
-            responseByYear_data, true, redAccent)
-
-
-        function chartConfig(chartID, type, labels, data, responsive, colors) {
-            //the chart
-            new Chart(chartID, {
-                type: type,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        backgroundColor: colors,
-                        data: data,
-                        borderWidth: 1,
-                        borderColor: redAccent
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false,
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    weight: 'bold'
-                                }
-                            },
-
-                        }
-                    }
-                }
-            });
-        }
-    })
-
-    // TODO add function to be easier later
-</script>
+<script type="module" src="./dashboard/dashboard.js"></script>

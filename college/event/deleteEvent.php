@@ -3,6 +3,7 @@ session_start();
 
 require "../model/Event.php";
 require "../php/connection.php";
+require "../php/logging.php";
 
 
 
@@ -44,7 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $event->deleteEventByID($eventInformation, $colCode);
     // send json result
     if ($result) {
-        logDeleteActivity($mysql_con, $_SESSION['adminID'], $colCode);
+        $action = "delete";
+        $details = "deleted an event.";
+        setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
 
         echo json_encode(
             array(

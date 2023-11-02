@@ -20,6 +20,8 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- System Tailwind stylesheet -->
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./assets/css/login.css">
+
     <!-- End Stylesheets -->
 
     <!-- Javascript Scripts -->
@@ -48,38 +50,20 @@ session_start();
 
     <title>University College Login</title>
 
-    <style>
-        body {
-            background-image: url('../assets/bg.jpg');
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Adjust the alpha value between 0 and 1 for desired opacity */
-            background-blend-mode: multiply;
-            background-size: cover;
-        }
-
-        .modal {
-            background-color: #1e1c1c98;
-
-        }
-
-        .modal-body {
-            height: 70%;
-        }
-    </style>
-
 
 </head>
 
 <body>
     <div class="w-full h-screen flex justify-center items-center">
-        <div class="md:h-max sm:h-14 w-1/2 rounded-xle md:grid grid-cols-2 sm:block text-gray-600">
-            <div class="bg-accent md:rounded-l-2xl text-white pt-10 h-full relative">
-                <h2 class="Lobster text-xl text-center">"We Still Connected"</h2>
-                <img id="graduateLogo" class="relative" src="../assets/graduate_logo.png" alt=""> <!--make it relative-->
+        <div class="md:h-max sm:h-14 w-1/2 rounded-xl md:grid grid-cols-2 sm:block text-gray-600 ">
+            <!-- Still Connected -->
+            <div id="stillConnected" class="bg-accent md:rounded-l-2xl text-white pt-10 h-full relative z-20 translate-y-1/2 lg:translate-y-0  lg:translate-x-1/2 transition-transform duration-1000 delay-500">
+                <h2 class="italic text-xl text-center">We're Still Connected</h2>
+                <img id="graduateLogo" class="relative" src="../assets/graduate_logo.png" alt="">
             </div>
 
-            <!-- login -->
-            <div id="loginPanel" class="p-3 rounded-r-2xl relative bg-white">
+            <!-- Login Card -->
+            <div id="loginPanel" class="p-3 rounded-r-2xl relative bg-white shadow-2xl z-10 -translate-y-1/2 lg:translate-y-0 lg:-translate-x-1/2 transition-transform  duration-1000 delay-500 ">
                 <h1 class="text-2xl font-bold text-greyish_black text-center w-2/3 block mx-auto">Welcome back Admin!
                 </h1>
                 <div>
@@ -106,7 +90,7 @@ session_start();
                         </button>
                     </form>
 
-                    <p id="registerBtn" class="text-center absolute bottom-1 w-full cursor-pointer md:text-base sm:text-xs">Don't have an account? <span class="text-accent font-semibold">Register here</span></p>
+                    <!-- <p id="registerBtn" class="text-center absolute bottom-1 w-full cursor-pointer md:text-base sm:text-xs">Don't have an account? <span class="text-accent font-semibold">Register here</span></p> -->
                 </div>
             </div>
 

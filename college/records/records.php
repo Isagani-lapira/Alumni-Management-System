@@ -3,16 +3,11 @@
     <h1 class="text-xl font-extrabold uppercase">Records</h1>
 
     <div class="flex justify-end text-sm text-greyish_black">
-        <!-- HISTORY LOGS -->
-        <button class="p-2 m-2 border border-grayish text-grayish rounded-md font-semibold">
-            Download history logs
-            <img class="inline" src="/images/download.png" alt="">
-        </button>
 
         <!-- EXPORT PDF -->
-        <button class="p-2 px-4 m-2 border border-accent rounded-md 
+        <!-- <button class="p-2 px-4 m-2 border border-accent rounded-md 
                   bg-accent text-white hover:bg-darkAccent font-semibold">Export as PDF
-        </button>
+        </button> -->
 
     </div>
 
@@ -20,258 +15,219 @@
 
     <div class="flex flex-wrap gap-4">
 
-        <select name="type" id="type-user" class=" form-select rounded">
-            <option value="all" selected>All</option>
-            <option value="student">Student</option>
-            <option value="alumni">Alumni</option>
-            <!-- php function on batch -->
-        </select>
+        <div class="form-container">
+            <label class="block" for="select-user-filter">Filter By: </label>
+            <select name="type" id="select-user-filter" class=" form-select rounded">
+                <option value="all" selected>All</option>
+                <option value="student">Student</option>
+                <option value="alumni">Alumni</option>
+                <!-- php function on batch -->
+            </select>
+        </div>
         <!-- search-bar -->
-        <div class="relative">
+        <!-- <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-2 top-0 mt-3 text-gray-400 "></i>
             <input class="border border-greyish_black w-full rounded-md p-2 pl-7" type="text" name="" id="" placeholder="Typing!">
-        </div>
+        </div> -->
         <!-- end search-bar -->
         <!-- daterangepicker input -->
-        <div class="relative">
+        <!-- <div class="relative">
             <input type="text" name="reportdaterange" id="reportdaterange" value="01/01/2018 - 01/15/2018" class="input-text py-2 px-2">
             <i class="fa-solid fa-calendar  absolute mr-2 right-0 top-3"></i>
-        </div>
+        </div> -->
         <!-- end daterangepicker input -->
         <!-- batch selection -->
-        <select name="" id="batch" class=" form-select rounded ">
+        <!-- <select name="" id="batch" class=" form-select rounded ">
             <option value="" selected disabled hidden>Batch</option>
-            <!-- php function on batch -->
-        </select>
+        </select> -->
 
 
         <!-- college selection -->
-        <select name="college" id="college" class=" form-select rounded">
+        <!-- <select name="college" id="college" class=" form-select rounded">
             <option value="" selected disabled hidden>Course</option>
             <option value="">BS IT</option>
             <option value="">BS IS</option>
-            <!-- <option value="" >BS </option> -->
-        </select>
+        </select> -->
 
         <!-- employment status selection -->
-        <select name="employment" id="employment" class=" form-select rounded">
+        <!-- <select name="employment" id="employment" class=" form-select rounded">
             <option value="" selected disabled hidden>Employment Status</option>
             <option value="">Employed</option>
             <option value="">Unemployed</option>
             <option value="">Self-employed</option>
             <option value="">Student</option>
             <option value="">Retired</option>
-        </select>
+        </select> -->
 
     </div>
 
 
-    <!-- OLD Record Table-->
-    <!-- <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
-        <thead class="bg-accent text-white rounded-t-lg">
-            <tr class=" rounded-t-lg">
-                <th class="text-start uppercase">Student Number</th>
-                <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th>USER TYPE</th>
-                <th>DETAILS</th>
-            </tr>
-        </thead>
-        <tbody class="text-sm">
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Wade Warren</span>
+    <!-- Table Container -->
+    <div id="table-container">
+
+
+        <div class="all-table-container">
+            <table class=" table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="all-record-table">
+                <thead class="">
+                    <tr class="bg-accent text-white  rounded-tl-md">
+                        <th class="rounded-tl-lg">STUDENT NUMBER</th>
+                        <th>NAME</th>
+                        <th>CONTACT NUMBER</th>
+                        <!-- <th>DETAILS</th> -->
+                    </tr>
+                </thead>
+                <!-- To be filled later -->
+                <tbody id="allTB" class="text-sm">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="student-table-container hidden">
+            <table class=" table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="student-record-table">
+                <thead class="">
+                    <tr class="bg-accent text-white  rounded-tl-md">
+                        <th class="rounded-tl-lg">STUDENT NUMBER</th>
+                        <th>NAME</th>
+                        <th>CONTACT NUMBER</th>
+                        <th>YEAR LEVEL</th>
+                        <!-- <th>DETAILS</th> -->
+                    </tr>
+                </thead>
+                <!-- To be filled later -->
+                <tbody id="studentTB" class="text-sm">
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div class="alumni-table-container hidden">
+            <!-- Start Record Table -->
+            <table class="  table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="alumni-record-table">
+                <thead class="">
+                    <tr class="bg-accent text-white  rounded-tl-md">
+                        <th class="rounded-tl-lg">STUDENT NUMBER</th>
+                        <th>NAME</th>
+                        <th>CONTACT NUMBER</th>
+                        <th>BATCH YEAR</th>
+                        <th>EMPLOYEMENT STATUS</th>
+                        <!-- <th>DETAILS</th> -->
+                    </tr>
+                </thead>
+                <!-- To be filled later -->
+                <tbody id="alumniTB" class="text-sm">
+                </tbody>
+            </table>
+        </div>
+        <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
+        <!-- End Record Table -->
+
+    </div>
+    <!-- view modal -->
+    <input type="checkbox" id="view-modal" class="daisy-modal-toggle">
+    <div class="daisy-modal">
+        <div class="daisy-modal-box w-11/12 max-w-5xl ">
+            <!-- Exit -->
+            <form method="dialog">
+                <label for="view-modal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
+            </form>
+            <!-- End Exit Form -->
+
+            <!-- cover_photo -->
+            <!-- add cover photo display -->
+            <div class="relative">
+                <img id="cover_photo" class="w-full h-60 object-cover rounded-t-md" src="" alt="">
+
+            </div>
+            <!-- Record Details -->
+            <div class="grid grid-cols-3">
+                <div>
+
+
+
+                    <!-- profilepicture -->
+                    <!-- add profilepicture -->
+                    <div class="relative">
+                        <img id="profilepicture" class="bg-gray-200 w-28 h-28 object-cover rounded-full absolute -bottom-8 left-2  " src="" alt="">
                     </div>
-                </td>
-                <td class="text-center">09104905440</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
 
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Leslie Alexander</span>
+                    <!-- fname -->
+                    <!-- lname -->
+                    <!-- age -->
+                    <!-- gender -->
+                    <!-- facebookUN -->
+                    <!-- instagramUN -->
+                    <!-- twitterUN -->
+                    <!-- linkedinUN -->
+                    <!-- add the details above -->
+
+                    <div class="mt-10">
+                        <h3 class="font-bold text-lg">fname lname</h3>
+                        <p>Birthday | Age</p>
+                        <p>Gender</p>
                     </div>
-                </td>
-                <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
 
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Floyd Miles</span>
+
+                    <!-- links -->
+                    <!-- add links -->
+                    <div class="flex gap-2">
+                        <a id="facebookUN" href="" target="_blank">
+                            <i class="fa-brands fa-xl fa-facebook"></i>
+                        </a>
+                        <a id="instagramUN" href="" target="_blank">
+                            <i class="fa-brands fa-xl fa-square-instagram"></i>
+                        </a>
+                        <a id="twitterUN" href="" target="_blank">
+                            <i class="fa-brands fa-xl fa-square-twitter"></i>
+                        </a>
+                        <a id="linkedinUN" href="" target="_blank">
+                            <i class="fa-brands fa-linkedin fa-xl"></i>
+                        </a>
                     </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
+                </div>
 
 
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Cameron Williamson</span>
+
+                <div class="col-span-2">
+                    <!-- address -->
+                    <div>
+                        <p>Address</p>
+                        <span id="address"></span>
                     </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
+                    <!-- personal_email -->
 
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Wade Warren</span>
+                    <div>
+                        <p>Email
+                            <span id="email"></span>
+                        </p>
                     </div>
-                </td>
-                <td class="text-center">09104905440</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
+                    <!-- bulsu_email -->
 
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Leslie Alexander</span>
+                    <div>
+                        <p>BulSu Email
+                            <span id="bulsu-email"></span>
+                        </p>
                     </div>
-                </td>
-                <td class="text-center">(704) 555-0127</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
+                    <!-- contactNo -->
+                    <div>
+                        <p>Contact Number
+                        </p>
 
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Floyd Miles</span>
+                        <span id="contact-number"></span>
                     </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
+
+                </div>
 
 
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Floyd Miles</span>
-                    </div>
-                </td>
-                <td class="text-center">(208) 555-0112</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-green-300 text-green-700">STUDENT</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
 
 
-            <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Cameron Williamson</span>
-                    </div>
-                </td>
-                <td class="text-center">(239) 555-0108</td>
-                <td class="text-center">
-                    <span class="py-1 px-2 rounded-lg font-semibold bg-yellow-300 text-yellow-500">Alumni</span>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr>
-
-        </tbody>
-    </table> -->
-
-    <!-- End Record Table -->
-
-    <!-- Start Record Table -->
-    <!-- record of name-->
-    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra hidden">
-        <thead class="">
-            <tr class="bg-accent text-white  rounded-tl-md text-sm">
-                <th class="rounded-tl-lg">Student Number</th>
-                <th>NAME</th>
-                <th>BATCH</th>
-                <th class="rounded-tr-lg">Employment Status</th>
-            </tr>
-        </thead>
-        <!-- To be filled later -->
-        <tbody id="alumniTB" class="text-sm">
-        </tbody>
-    </table>
-    <!-- End Record Table -->
-    <!-- Start Record Table -->
-    <!-- record of name-->
-    <table class="table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra  ">
-        <thead class="">
-            <tr class="bg-accent text-white  rounded-tl-md">
-                <th class="rounded-tl-lg">STUDENT NUMBER</th>
-                <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th>DETAILS</th>
-            </tr>
-        </thead>
-        <!-- To be filled later -->
-        <tbody id="studentTB" class="text-sm">
-        </tbody>
-    </table>
-    <p id="alumniNoRecMsg" class="text-center text-blue-500 hidden">No available data</p>
-    <!-- End Record Table -->
 
 
+
+
+            </div>
+            <label class="daisy-modal-backdrop" for="view-modal">Close</label>
+        </div>
 
 </section>
 
@@ -318,10 +274,11 @@
             <button class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
         </div>
     </div>
+
+
+
+
 </div>
 
-<script>
-    // Date picker
-    $('#reportdaterange').daterangepicker();
-    $.getScript("records/record.js");
-</script>
+
+<script type="module" src="./records/record.js"></script>

@@ -92,6 +92,13 @@ body {
   .input-textarea {
     @apply border border-gray-400 rounded-sm py-2 px-4  shadow-md;
   }
+
+  /* Data Tables Plugin */
+  /* Search Bar */
+
+  .dataTables_filter input {
+    @apply form-input my-2 mx-1;
+  }
 }
 
 @layer utilities {

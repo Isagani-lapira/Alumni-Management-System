@@ -3,36 +3,37 @@
     <p class="text-gray-400 font-bold text-sm">Make post for alumni of the month</p>
 
     <div class="flex flex-wrap justify-end gap-4">
-        <button class="btn-tertiary">
+        <!-- get it later -->
+        <!-- <button class="btn-tertiary">
             Export List
-        </button>
+        </button> -->
         <!-- <button class="btn-primary" id="addAlumniBtn">
             Add Alumni
         </button> -->
         <!-- <button class="daisy-btn btn-primary " onclick="my_modal_4.showModal()">Add Alumni</button> -->
         <!-- The button to open modal -->
-        <label for="add-alumni-modal" class="daisy-btn">Add This Month's Alumni</label>
+        <label for="add-alumni-modal" class="daisy-btn" id="add-alumni-label">Add This Month's Alumni</label>
 
     </div>
     <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700">
     <!-- Filter  -->
     <div class="flex flex-wrap gap-4">
 
-        <div class="relative rounded">
+        <!-- <div class="relative rounded">
             <i class="fa-solid fa-magnifying-glass absolute top-3 left-3"></i>
             <input class="pl-8 py-2 px-4 rounded border border-zinc-500" type="text" name="" id="aomSearch" placeholder="Search name">
-        </div>
+        </div> -->
 
         <!-- Sex -->
-        <select name="sex-option" id="" class="rounded border bg-transparent px-2 border-zinc-500">
+        <!-- <select name="sex-option" id="" class="rounded border bg-transparent px-2 border-zinc-500">
             <option value="">All</option>
             <option value="">Male</option>
             <option value="">Female</option>
-        </select>
+        </select> -->
 
 
         <!-- range -->
-        <div class="relative">
+        <!-- <div class="relative">
             <input class="pr-8 rounded px-4 py-2
             border  border-zinc-500
             
@@ -40,14 +41,14 @@
             <label class="absolute top-2 right-3" for="aoydaterange">
                 <i class="fa-solid fa-calendar"></i>
             </label>
-        </div>
+        </div> -->
 
         <!-- batch -->
-        <select name="batch" id="aomBatch" class="p-1 w-64 rounded px-4 py-2 bg-transparent
+        <!-- <select name="batch" id="aomBatch" class="p-1 w-64 rounded px-4 py-2 bg-transparent
             border  border-zinc-500">
             <option value="" selected="" disabled="" hidden="">Batch</option>
             <option value="">2023</option>
-        </select>
+        </select> -->
 
 
 
@@ -55,70 +56,32 @@
 
 
     <!-- End Filter Section -->
+    <!-- refresh record -->
+    <!-- <div class="flex justify-end gap-4 mt-4">
+        <button class="btn-tertiary" id="refreshRecord">
+            Refresh Record
+        </button>
+    </div> -->
     <!-- Record Table-->
-    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg">
+    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg bg-white" id="alumni-month-table">
         <thead class="bg-accent text-white rounded-t-lg">
             <tr class=" rounded-t-lg">
-                <th class="text-start uppercase">Student Number</th>
+                <th class="text-start ">DATE AWARDED</th>
+                <th class="text-start uppercase">STUDENT NUMBER</th>
                 <th>NAME</th>
                 <th>DETAILS</th>
             </tr>
         </thead>
-        <tbody class="text-sm">
-
-            <!-- <tr class="h-14">
-                <td class="student-num__val text-start font-bold">2020101933</td>
-                <td>
-                    <div class="flex items-center justify-start">
-                        <div class="w-10 h-10 rounded-full border border-accent"></div>
-                        <span class="ml-2">Wade Warren</span>
-                    </div>
-                </td>
-                <td class="text-center text-blue-400 font-light hover:cursor-pointer hover:text-accentBlue hover:font-semibold">VIEW PROFILE</td>
-            </tr> -->
-
+        <tbody class="" id="tBodyRecord">
 
         </tbody>
     </table>
     <!-- End Record Table -->
 
 
-    <!-- MODAL OLD -->
-    <div id="modalAlumni" class="bg-gray-800 bg-opacity-80 fixed inset-0 h-full w-full flex items-center justify-center 
-      text-grayish  top-0 left-0 hidden">
-        <form id="add-alumni-month-form" class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
-            <div class="w-full h-full">
-                <div class="modal-header py-5">
-                    <h1 class="text-accent text-2xl text-center font-bold">Add New Alumni</h1>
-                </div>
-                <div class="modal-body px-3 h-1/2">
 
-                    <div class="relative">
-                        <div id="individualEmail" class="flex border border-gray-400 w-full rounded-md p-1 hidden">
-                            <img class="inline" src="../images/search-icon.png" alt="">
-                            <input class="focus:outline-none w-full" type="text" name="searchEmail" id="searchEmail" placeholder="Search email!">
-                        </div>
-                        <p id="userNotExist" class="text-sm italic text-accent hidden">User not exist</p>
-                        <div id="suggestionContainer" class="absolute p-2 w-full rounded-md z-10"></div>
-                    </div>
-
-                    <p class="font-semibold text-sm mt-2">Name</p>
-
-                    <input class="focus:outline-none w-full border border-gray-400 rounded-md py-2 px-1" type="text" name="emailSubj" id="emailSubj" placeholder="Make a new alumni of the month!">
-
-
-                </div>
-
-                <!-- Footer -->
-                <div class="modal-footer flex items-end flex-row-reverse px-3 mt-2">
-                    <button type="submit" id="sendEmail" class="bg-accent h-full py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent">Post</button>
-                    <button type="button" class="cancelModal py-2 rounded px-5  hover:bg-slate-400 hover:text-white">Cancel</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <!-- Modal for adding alumni of the month -->
+    <!-- Modal NEW for adding alumni of the month -->
+    <!-- TODO restrict alumni of the month for this month only. -->
     <input type="checkbox" id="add-alumni-modal" class="daisy-modal-toggle">
     <div class="daisy-modal">
         <div class="daisy-modal-box w-11/12 max-w-5xl ">
@@ -128,14 +91,16 @@
             </form>
             <!-- End Exit Form -->
             <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
+
+
             <!-- make alumni of the year post -->
             <form action="" id="add-aotm-form">
-                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12">
-                    <span class="daisy-label-text">Choose Cover Image</span>
+                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12 s">
+                    <span class="daisy-label-text">Choose a cover image to showcase</span>
 
                     <!-- Placeholder for Cover Image -->
-                    <div class="w-full h-40 relative group">
-                        <img id="cover-img-preview" class="w-full bg-red-300 object-cover max-h-full h-full block" src="" alt="">
+                    <div class="w-full h-80 relative group rounded-sm">
+                        <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
                         <!-- Cover Image Input -->
                         <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <label for="cover-image" class="daisy-label">
@@ -147,58 +112,46 @@
                         </div>
                     </div>
 
+                    <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
+                    <label for="searchQuery" class="font-bold">Search Alumni From Your College:</label>
+                    <div class="flex  flex-wrap  flex-row   text-gray-500 relative" id="searchContainer">
 
-                    <!-- Placeholder for profile image -->
-                    <span class="daisy-label-text"> Choose Profile Image</span>
 
-                    <div class="flex justify-center relative group">
-                        <img id="profile-img-preview" class="w-40 h-40 rounded-full peer" src="../../assets/default_profile.png" alt="">
-                        <!-- Profile Image Input -->
-                        <div class="daisy-form-control  w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <label for="profile-image" class="daisy-btn w-9 mx-auto ">
-                                Choose Image
-                            </label>
-                            <input class="daisy-file-input hidden daisy-file-input-bordered w-full max-w-xs" id="profile-image" type="file" accept=".jpg" name="profile-image">
-                            <label class="daisy-label mx-auto bg-gray-100 rounded mt-2">
-                                <span class="daisy-label-text-alt text-slate-600 ">Use JPG File Format</span>
-                            </label>
+                        <div class="relative rounded">
+                            <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
+                            <input class="form-input rounded pr-8" type="text" name="searchQuery" id="searchQuery" placeholder="Search">
                         </div>
+                        <ul class="bg-slate-100 border border-gray-100 w-full mt-2 absolute top-full inset-x-0 hidden" id="searchList">
+                            <!-- TODO add some animation to this -->
+
+                        </ul>
                     </div>
+                    <div id="alumni-details" class="hidden">
+                        <!-- Details of the alumni -->
+                        <p>Details of the alumni</p>
+                        <div class="flex flex-wrap items-center gap-4 ">
 
-                    <label class="font-bold" for="fullname">Fullname</label>
-                    <input id="fullname" name="fullname" class="form-input block rounded" type="text" placeholder="e.g Patrick Joseph Pronuevo">
+                            <img class="rounded-full h-10 w-10 border border-accent" src="" id="detail-profile-img">
+                            <!-- <p id="detail-student-id"></p> -->
+                            <div class="col-span-2 space-y-3">
+                                <p class="font-bold text-lg" id="detail-fullname"></p>
+                                <p id="detail-personal-email"></p>
+                                <p id="detail-yearGraduated"></p>
+                            </div>
+                        </div>
 
-                    <label class="font-bold" for="studentNo">ID</label>
-                    <input id="studentNo" name="studentNo" class="form-input block rounded" required type="text" placeholder="e.g Patrick Joseph Pronuevo">
-
-                    <label class="font-bold" for="quote">Quotation</label>
+                    </div>
+                    <label class="font-bold" for="quote">Quotation:</label>
                     <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
+                    <input id="studentId" name="studentNo" class="hidden" type="hidden">
+                    <input id="personId" name="personID" class="hidden" type="hidden">
 
-                    <p class="font-bold block">Social Media Links</p>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="relative">
-                            <i class="fa-solid fa-envelope fa-xl text-gray-600 absolute top-2 left-2"></i>
-                            <input id="email" name="email" class="form-input border rounded pl-10" type="email" placeholder="Add Email">
-                        </div>
-                        <div class="relative">
-                            <i class="fa-brands fa-facebook fa-xl  absolute top-2 left-2"></i>
-                            <input id="facebookUN" name="facebookUN" class="form-input border rounded  pl-10" type="text" placeholder="Add Facebook link">
-                        </div>
-                        <div class="relative">
-                            <i class="fa-brands fa-linkedin fa-xl absolute top-2 left-2"></i>
-                            <input id="linkedINUN" name="linkedINUN" class="form-input border rounded  pl-10" type="text" placeholder="Add LinkedIN link">
-                        </div>
-                        <div class="relative">
-                            <i class="fa-brands fa-instagram fa-xl absolute top-2 left-2"></i>
-                            <input id="instagramUN" name="instagramUN" class="form-input border rounded  pl-10" type="text" placeholder="Add instagram link">
-                        </div>
-                    </div>
 
-                    <p class="font-bold block" for="">Description</p>
+                    <p class="font-bold block" for="">Description:</p>
                     <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
 
                     <div class="flex flex-wrap gap-4 py-4 justify-end">
-                        <button class="btn-tertiary bg-transparent " type="reset">Reset Form</button>
+                        <button class="btn-tertiary bg-transparent " id="reset-aotm" type="reset">Reset Form</button>
                         <button class="btn-primary">Add Alumni of the Month</button>
                     </div>
                 </div>
@@ -207,78 +160,6 @@
 
         </div>
     </div>
-
-
 </section>
 
-<script>
-    // Date picker
-    $('#aoydaterange').daterangepicker();
-
-    // get the script for alumni.js
-    $.getScript("./alumni-of-the-month/alumni.js");
-
-    // preview the image after changing the input
-    $('#cover-image').change(function() {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            $('#cover-img-preview').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
-    $('#profile-image').change(function() {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            $('#profile-img-preview').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
-
-    // on form submit
-    $('#add-aotm-form').submit(async function(e) {
-        e.preventDefault();
-        let formData = new FormData(this);
-        // add some sweet alert dialog
-        const confirmation = await Swal.fire({
-            title: "Confirm?",
-            text: "Are you sure to add alumni with these details?",
-            icon: "info",
-            showCancelButton: true,
-            // confirmButtonColor: CONFIRM_COLOR,
-            // cancelButtonColor: CANCEL_COLOR,
-            confirmButtonText: "Yes, Add it!",
-        });
-        if (confirmation.isConfirmed) {
-            console.log("submitting add alumni form");
-
-            const isSuccessful = await postNewAlumni(this);
-            console.log(isSuccessful);
-            if (isSuccessful.response === "Successful") {
-                // show the success message
-                Swal.fire("Success!", "Alumni has been added.", "success");
-                // remove the form data
-                $("#add-aotm-form")[0].reset();
-                $("#cover-image-preview").attr("src", "");
-                $("#profile-image-preview").attr("src", "");
-                $("#add-alumni-modal").prop("checked", false);
-            } else {
-                Swal.fire("Error", "Alumni is not added due to error.", "info");
-
-            }
-        } else {
-            Swal.fire("Cancelled", "Add alumni cancelled.", "info");
-
-        }
-
-    });
-
-    async function postNewAlumni(form, url = './alumni-of-the-month/addAlumni.php') {
-        // get the form data
-        const formData = new FormData(form);
-        const response = await fetch(url, {
-            method: "POST",
-            body: formData,
-        });
-        return response.json();
-    }
-</script>
+<script type="module" src="./alumni-of-the-month/alumni.js"></script>

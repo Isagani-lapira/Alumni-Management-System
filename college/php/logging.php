@@ -1,63 +1,6 @@
 <?php
 
 
-
-
-
-function logPostActivity(mysqli $mysql_con, $colAdmin, $colCode)
-{
-    $action = "posted";
-    $details = " posted an event";
-    setNewActivity($mysql_con, $colAdmin, $action, $details);
-}
-function logUpdateActivity(mysqli $mysql_con, $colAdmin, $colCode)
-{
-    $action = "updated";
-    $details = " updated an event";
-    setNewActivity($mysql_con, $colAdmin, $action, $details);
-}
-function logEmailedActivity(mysqli $mysql_con, $colAdmin, $colCode)
-{
-    $action = "emailed";
-    $details = " added a new email";
-    setNewActivity($mysql_con, $colAdmin, $action, $details);
-}
-function logEventActivity(mysqli $mysql_con, $colAdmin, $colCode)
-{
-    $action = "event";
-    $details = " created an event";
-    setNewActivity($mysql_con, $colAdmin, $action, $details);
-}
-function logCommentedActivity(mysqli $mysql_con, $colAdmin, $colCode)
-{
-    $action = "commented";
-    $details = "added a new comment";
-    setNewActivity($mysql_con, $colAdmin, $action, $details);
-}
-function logSigninActivity(mysqli $mysql_con, $colAdmin, $colCode)
-{
-    $action = "signin";
-    $details = "signed in";
-    setNewActivity($mysql_con, $colAdmin, $action, $details);
-}
-function logSignoutActivity(mysqli $mysql_con, $colAdmin, $colCode)
-{
-    $action = "signout";
-    $details = "signed out";
-    setNewActivity($mysql_con, $colAdmin, $action, $details);
-}
-
-
-// deleted an activity
-function logDeleteActivity(mysqli $mysql_con, $colAdmin, $colCode)
-{
-    $action = "delete";
-    $details = "deleted an event.";
-    setNewActivity($mysql_con, $colAdmin, $action, $details);
-}
-
-
-
 /**
  * Get the latest nth activity
  * 
@@ -100,12 +43,19 @@ function getNewActivityByLimit(mysqli $mysql_con, int $limit)
  * 
  * @param mysqli $mysql_con
  * @param string $colAdmin
- * @param string $action
+ * @param string $action:
+ *  - posted
+ * - updated
+ * - emailed
+ * - event
+ * - commented
+ * - signin
+ * - signout
  * @param string $details
  * @return bool
  * 
  */
-function setNewActivity(mysqli $mysql_con, $colAdmin, $action, $details): bool
+function setNewActivity(mysqli $mysql_con, string $colAdmin, string $action, string $details): bool
 {
 
 

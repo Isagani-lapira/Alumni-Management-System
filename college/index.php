@@ -48,6 +48,20 @@ if (
         $personal_email = $personData['personal_email'];
         $bulsu_email = $personData['bulsu_email'];
         $profilepicture = $personData['profilepicture'];
+        // Add session info from the college info
+        $query = "SELECT colLogo,colname FROM college WHERE colCode = '$colCode';";
+        $result = mysqli_query($mysql_con, $query);
+        $data = mysqli_fetch_assoc($result);
+
+        // $colLogo = base64_encode($data['colLogo']);
+        $_SESSION['colLogo'] = base64_encode($data['colLogo']);
+
+
+        // $_SESSION['colLogo'] = $data['colLogo'];
+        $_SESSION['colname'] = $data['colname'];
+
+
+        $_SESSION['profilePicture'] = $profilepicture;
 
 
         if (!isset($_SESSION['adminID'])) {
@@ -58,7 +72,15 @@ if (
             $_SESSION['fullName'] = $fullname;
             $_SESSION['adminID'] = $adminID;
             $_SESSION['colCode'] = $colCode;
-            logSigninActivity($mysql_con, $_SESSION['adminID'], $_SESSION['colCode']);
+            $_SESSION['profilePicture'] = $profilepicture;
+
+
+
+
+
+            $action = "signin";
+            $details = "signed in";
+            setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
         }
     }
 }
@@ -95,8 +117,14 @@ if (
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- System Tailwind stylesheet -->
     <link rel="stylesheet" href="../css/main.css">
+
+    <!--  -->
     <!-- Utilities stylesheet -->
     <link rel="stylesheet" href="./assets/css/util.css">
+    <link rel="stylesheet" href="../style/style.css">
+
+
+
     <!-- End Stylesheets -->
 
     <!-- Javascript Scripts -->
@@ -107,7 +135,9 @@ if (
     <script src=" https://cdn.jsdelivr.net/npm/jqueryui@1.11.1/jquery-ui.min.js "></script>
     <link href=" https://cdn.jsdelivr.net/npm/jqueryui@1.11.1/jquery-ui.min.css " rel="stylesheet">
     <!-- Chart JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+
 
     <!-- Lodash Utility Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -125,19 +155,27 @@ if (
     <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js "></script>
     <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css " rel="stylesheet">
 
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.13.6/sorting/datetime-moment.js"></script>
+
+
+
     <!-- End JS Plugins -->
     <!-- System Script -->
     <script src="./scripts/core.js" defer></script>
+    <script src="./scripts/utils.js" type="module"></script>
     <!-- End JS Scripts -->
 
 </head>
 
 <body class="">
 
-    <div class="flex flex-row min-h-screen ">
+    <div class="flex flex-row min-h-screen  ">
 
         <aside class="
-        border flex-initial relative w-80 px-5 py-5 transition-all group 
+        border flex-initial relative w-80 px-5 py-5 transition-all group flex flex-col
         " id="sidebar">
             <header class="my-2 p-2 flex gap-4 items-center justify-start">
                 <i class="fa-solid fa-bars " id="toggleSidebarIcon"></i>
@@ -145,10 +183,9 @@ if (
             </header>
             <!-- TODO make this sticky fixed left-0 top-8 z-0 -->
             <!-- TODO Adjust icons to fill up when changed -->
-            <nav class="">
+            <nav class="relative flex-1 flex flex-col">
                 <!-- Main Navigation -->
-                <ul class="flex flex-col gap-2 mb-6 py-5 w-4/5 font-light text-sm ">
-
+                <ul class="flex flex-col gap-2 mb-6 py-5 w-4/5 font-light text-sm [&>*:hover]:bg-gray-100 ">
                     <li><a data-link="dashboard" href="#dashboard" class=" flex justify-left flex-nowrap rounded-lg p-2  font-bold bg-accent text-white ">
                             <svg class="block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z"></path>
@@ -168,7 +205,7 @@ if (
                             <i class="fa-solid fa-envelope fa-xl ">
 
                             </i>
-                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">EMAIL</span>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">OUTBOX</span>
                         </a></li>
                     <!-- <li><a data-link="student-record" href="#student-record" class=" flex justify-left flex-nowrap rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl "></i>
@@ -189,16 +226,14 @@ if (
                             <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">TRACER FORM</span>
 
                         </a></li>
-                    <li><a data-link="profile" href="#profile" class=" flex justify-left flex-nowrap rounded p-2">
-                            <i class="fa-solid fa-circle-user  fa-xl"></i>
-                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">PROFILE</span>
 
-                        </a></li>
                 </ul>
 
                 <!-- Alumni Navigation -->
-                <div class="my-2 uppercase font-normal text-sm tracking-wider  group-[.is-collapsed]:opacity-0 group-[.is-collapsed]:invisible  transition-all   ">Alumni</div>
-                <ul class="space-y-2 w-4/5 font-light text-sm">
+                <ul class="space-y-2 w-4/5 font-light text-sm [&>*:hover]:bg-gray-100">
+                    <li>
+                        <div class="daisy-menu-title  my-2 uppercase font-medium text-sm tracking-wider  group-[.is-collapsed]:opacity-0 group-[.is-collapsed]:invisible  transition-all   ">Alumni</div>
+                    </li>
                     <li><a data-link="alumni-of-the-month" href="#alumni-of-the-month" class="
                      flex justify-left flex-nowrap rounded p-2">
                             <i class="fa-solid fa-user-graduate  fa-xl"></i>
@@ -206,18 +241,49 @@ if (
                     <li><a data-link="community" href="#community" class=" flex justify-left flex-nowrap rounded p-2">
                             <i class=" fa-xl fa-solid fa-users"></i>
                             <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">COMMUNITY HUB</span></a></li>
-                    <li><a data-link="job-opportunities" href="#job-opportunities" class=" flex justify-left flex-nowrap rounded p-2">
-                            <i class="fa-xl  fa-solid fa-briefcase"></i>
-                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">JOB OPPORTUNITIES</span></a></li>
+                    <li>
+                        <a data-link="job-opportunities" href="#job-opportunities" class=" flex justify-left flex-nowrap rounded p-2"> <i class="fa-xl  fa-solid fa-briefcase"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">JOB OPPORTUNITIES</span>
+                        </a>
+                    </li>
                 </ul>
 
+                <!-- Add padding for the absolute bottom buttons -->
+                <!-- Bottom Buttons  -->
+
+                <div class=" w-full grow  flex items-end justify-end flex-col basis-48 ">
+                    <ul class="space-y-2 w-full font-light  ">
+                        <li>
+                            <a data-link="profile" href="#profile" class="  flex justify-left flex-nowrap rounded items-center p-2 group-[.is-collapsed]:p-0">
+                                <!-- get the session image  -->
+                                <img src="data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?>" alt="picture of college logo" class="w-9 h-9 rounded-full object-cover  ">
+                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">
+                                    <span class="block font-bold"><?= $_SESSION['colCode'] ?></span>
+                                    <span class="font-light"> <?= $fullname ?></span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-link="settings" href="#settings" class="flex justify-left flex-nowrap rounded p-2">
+                                <i class="fa-xl fa-solid fa-gear"></i>
+                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">Settings</span>
+                            </a>
+                        </li>
+                        <li> <button class="btn-accent flex justify-left flex-nowrap rounded p-2  " id="signOutPromptBtn">
+                                <i class="fa-xl fa-solid fa-right-from-bracket"></i>
+                                <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150 ">Sign Out</span>
+                            </button></li>
+                    </ul>
+                </div>
+
             </nav>
-            <!-- Sign out Button -->
-            <button class="btn-accent absolute bottom-2" id="signOutPromptBtn"><i class="px-2 fa-solid fa-right-from-bracket"></i><span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150 ">Sign Out</span></button>
+
         </aside>
 
-        <main class="flex-1 mx-auto mt-10">
-            <div id="main-root">
+
+
+        <main class="flex-1 mx-auto mt-2">
+            <div id="main-root" class="max-h-full overflow-auto">
 
             </div>
 
@@ -238,7 +304,11 @@ if (
 
     </div>
 
-
+    <!-- loading screen -->
+    <div id="loadingScreen" class="post modal fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden ">
+        <span class="loader w-36 h-36"></span>
+        <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
+    </div>
 </body>
 
 </html>

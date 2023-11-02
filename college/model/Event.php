@@ -26,7 +26,7 @@ class Event
     }
 
 
-    function setNewEvent($eventInformation, $colCode, $adminID): bool
+    function setNewEvent($eventInformation, $colCode, $adminID): bool|string
     {
 
 
@@ -66,8 +66,8 @@ class Event
             return $stmt->execute();
             // execute the query
         } catch (\Throwable $th) {
-            //throw $th;
-            echo  $th->getMessage();
+            throw $th;
+            // return false;
         }
 
         // end
@@ -110,7 +110,7 @@ class Event
         }
     }
 
-    function setEditEvent($eventInformation, $colCode, $adminID): bool
+    function setEditEvent($eventInformation, $colCode, $adminID): bool|string
     {
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
@@ -182,7 +182,7 @@ class Event
     }
 
     // Delete an event entry
-    function deleteEventByID($eventInformation, $colCode): bool
+    function deleteEventByID($eventInformation, $colCode): bool|string
     {
         // Initialize the statement
 
@@ -210,7 +210,7 @@ class Event
             // execute the query
         } catch (\Throwable $th) {
             //throw $th;
-            echo  $th->getMessage();
+            return  $th->getMessage();
         }
 
         // end
@@ -222,8 +222,7 @@ class Event
         // fetch all events regardless of category  
         if ($category === null) {
             // Initialize the statement
-            $stmt = $this->conn->prepare('SELECT eventID, eventName, eventDate, 
-        date_posted, aboutImg, headerPhrase, eventStartTime,about_event
+            $stmt = $this->conn->prepare('SELECT * 
             FROM `event`
               WHERE `colCode` = ? 
               ORDER BY date_posted DESC
@@ -232,18 +231,13 @@ class Event
             $stmt->bind_param('si', $colCode, $offset);
         } else {
             // Initialize the statement
-            $stmt = $this->conn->prepare('SELECT eventID, eventName, eventDate, 
-        date_posted, aboutImg, headerPhrase, eventStartTime,about_event
+            $stmt = $this->conn->prepare('SELECT *
             FROM `event`
               WHERE `colCode` = ? AND `event_category` = ?
               LIMIT  5  OFFSET  ? 
               ');
             $stmt->bind_param('ssi', $colCode, $category, $offset);
         }
-
-
-
-
 
         try {
             // execute the query

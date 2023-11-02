@@ -44,23 +44,16 @@ class AlumniOfTheMonth
         return $count;
     }
 
-    public function setNewAlumniOfTheMonth($id, array $details): bool
+    public function setNewAlumniOfTheMonth(string $studentId, array $details): bool
     {
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
 
-        // set the id
-        $recordID = rand(0, 1000);
-
-        // $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (colCode, studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img, AOMID, date_assigned  )
-        // VALUES (?,?,?,?,?,?,?,?,?,?,CURDATE());');
-        // TODO have an alternative if alumni is not on the database.
-
-        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo, quote,  emailAdd, facebookUN, linkedINUN, instagramUN, profile_img, cover_img, AOMID, colCode, date_assigned )
-        VALUES (?,?,?,?,?,?,?,?,?,?,CURDATE());');
+        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo,personID, quote, cover_img ,colCode, date_assigned )
+        VALUES (?,?,?,?,?,CURDATE());');
 
         // *  Binds the variable to the '?', prevents sql injection
-        $stmt->bind_param('ssssssssss',  $id, $details['quote'], $details['emailAdd'], $details['facebookUN'], $details['linkedINUN'], $details['instagramUN'], $details['profile-img'], $details['cover-img'], $recordID, $this->colCode);
+        $stmt->bind_param('sssss',  $studentId, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode);
         // execute the query
         $stmt->execute();
 
@@ -126,11 +119,15 @@ class AlumniOfTheMonth
 
     function getAllLatest(int $offset = 0): array
     {
-        // TODO replace this with more detailed query (use college filter)
-        $stmt = $this->conn->prepare('SELECT * FROM `alumni_of_the_month`
-              ORDER BY date_posted DESC
+        // TODO use a more sensible query
+        $stmt = $this->conn->prepare('SELECT alumni_of_the_month.*, 
+        CONCAT(fName, " ", lName) AS fullname  FROM `alumni_of_the_month`
+            INNER JOIN `alumni` on studNo = studentNo
+            INNER JOIN `person` on person.personID = alumni.personID
+              WHERE alumni_of_the_month.colCode = ?
+              ORDER BY date_assigned DESC
               LIMIT  10  OFFSET  ? ;');
-        $stmt->bind_param('i', $offset);
+        $stmt->bind_param('si',  $this->colCode, $offset);
 
         try {
             // execute the query
@@ -143,26 +140,21 @@ class AlumniOfTheMonth
         }
 
 
-        // the main assoc array to be return
-        $json_result = array();
+
         // holds every row in the query
         $resultArray = array();
 
         if ($result && $num_row > 0) {
-            $json_result['response'] = 'Successful';
             // Gets every row in the query
             while ($record = mysqli_fetch_assoc($result)) {
                 // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
-                $record['profile_img'] = base64_encode($record['profile_img']);
+                // $record['profile_img'] = base64_encode($record['profile_img']);
                 $record['cover_img'] = base64_encode($record['cover_img']);
                 $resultArray[] = $record;
             }
-            $json_result['result'] = $resultArray;
         } else {
-            $json_result['response'] = 'Unsuccesful';
         }
 
-        $json_result['offset'] = $offset;
-        return $json_result;
+        return $resultArray;
     }
 }
