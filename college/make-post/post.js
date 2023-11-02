@@ -129,6 +129,9 @@ $(document).ready(function () {
   function updatePostDataTable() {
     // remove the loading screen
 
+    // initialize the moment js plugin to datatable
+    $.fn.dataTable.moment("MMMM Do, YYYY h:mm a");
+
     $("#postTable").DataTable({
       ajax: {
         url: "./make-post/apiPosts.php?all=true",
@@ -153,6 +156,14 @@ $(document).ready(function () {
                         <label for="archive-modal" class="daisy-btn" data-id="${row.postID}">Archive</label>
                         <label for="view-modal" class="daisy-btn" data-id="${row.postID}">View</label>
                     `;
+          },
+        },
+      ],
+      columnDefs: [
+        {
+          targets: [3],
+          render: function (data, type, row) {
+            return moment(data).format("MMMM Do, YYYY h:mm a");
           },
         },
       ],
