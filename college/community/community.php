@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!--community content -->
 <section>
 
@@ -16,22 +17,24 @@
             <div class="w-4/6">
                 <!-- college -->
                 <select id="communityCollege" class="w-1/2 p-2 my-5 outline-none">
-                    <option value="" selected>College</option>
+                    <!-- <option value="" selected>College</option> -->
                     <?php
-                    require_once '../php/connection.php';
-                    // TODO redo this in order to add only courses in the college
-                    $query = "SELECT * FROM `college`";
-                    $result = mysqli_query($mysql_con, $query);
-                    $rows = mysqli_num_rows($result);
+                    var_dump($_SESSION);
+                    echo '<option value="' . $_SESSION['colCode'] . '">' . $_SESSION['colname'] . '</option>';
+                    // require_once '../php/connection.php';
+                    // // TODO redo this in order to add only courses in the college
+                    // $query = "SELECT * FROM `college`";
+                    // $result = mysqli_query($mysql_con, $query);
+                    // $rows = mysqli_num_rows($result);
 
-                    if ($rows > 0) {
-                        while ($data = mysqli_fetch_assoc($result)) {
-                            $colCode = $data['colCode'];
-                            $colName = $data['colname'];
+                    // if ($rows > 0) {
+                    //     while ($data = mysqli_fetch_assoc($result)) {
+                    //         $colCode = $data['colCode'];
+                    //         $colName = $data['colname'];
 
-                            echo '<option value="' . $colCode . '">' . $colName . '</option>';
-                        }
-                    } else echo '<option>No college available</option>';
+                    //         echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                    //     }
+                    // } else echo '<option>No college available</option>';
                     ?>
                 </select>
 

@@ -3,9 +3,10 @@
     <p class="text-gray-400 font-bold text-sm">Make post for alumni of the month</p>
 
     <div class="flex flex-wrap justify-end gap-4">
-        <button class="btn-tertiary">
+        <!-- get it later -->
+        <!-- <button class="btn-tertiary">
             Export List
-        </button>
+        </button> -->
         <!-- <button class="btn-primary" id="addAlumniBtn">
             Add Alumni
         </button> -->
