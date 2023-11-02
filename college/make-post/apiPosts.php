@@ -16,8 +16,8 @@ header("Content-Type: application/json");
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (isset($_GET["all"])) {
         get_all_alumni();
-    } else if (isset($_GET["id"])) {
-        apiGet($_GET["id"]);
+    } else if (isset($_GET["postID"])) {
+        apiGet($_GET["postID"]);
     } else if (isset($_GET["edit"])) {
         apiPostEdit($_GET["edit"]);
     } else if (isset($_GET["delete"])) {
@@ -120,14 +120,14 @@ function get_all_alumni()
 function apiGet($id)
 {
     $post = get_post($id);
-    $response = array(
-        "message" => $post["message"],
-        "likes" => $post["likes"],
-        "comments" => $post["comments"],
-        "date_posted" => $post["date_posted"],
-        "action" => "<button class='daisy-btn bg-accent font-light text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg'>EDIT</button>"
+
+    echo json_encode(
+        array(
+            'data' => $post,
+            'status' => true,
+            'message' => 'Post fetched successfully'
+        )
     );
-    echo json_encode($response);
 }
 
 function apiPostEdit($id)
@@ -157,12 +157,28 @@ function apiPostDelete($id)
 
 function get_post($id)
 {
-    return [
-        "message" => "This is a sample post",
-        "likes" => 0,
-        "comments" => 0,
-        "date_posted" => "2021-10-10"
-    ];
+    try {
+
+        require "../php/connection.php";
+        // prepare the statement
+        $stmt = $mysql_con->prepare("SELECT * FROM post WHERE postID = ?");
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $row['fullname'] = $_SESSION['fullName'];
+        $row['profilePicture'] = $_SESSION['profilePicture'];
+
+        // $query = "SELECT * FROM post WHERE postID = '$id'";
+        // $result = mysqli_query($mysql_con, $query);
+        // $row = mysqli_fetch_assoc($result);
+
+        return $row;
+    } catch (\Throwable $th) {
+        throw $th;
+        // 
+    }
 }
 
 function get_all()

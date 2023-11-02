@@ -15,6 +15,43 @@ $(document).ready(function () {
   });
 
   function bindHandlers() {
+    // for table view button
+    $("#postTable").on("click", "label[for='view-modal']", async function () {
+      // get the id of the row
+      const postID = $(this).attr("data-id");
+      // get the post data
+      const response = await getJSONFromURL(
+        "./make-post/apiPosts.php?action=id&postID=" + postID
+      );
+      console.log(response);
+      if (response.status == true) {
+        const data = response.data;
+        /**
+         * {
+  "postID": "6542f47691c3c-1816",
+  "username": "JaysonBatoonBulSU-CICT",
+  "colCode": "CICT",
+  "caption": "afsdfasdf",
+  "date": "2023-11-02",
+  "timestamp": "2023-11-02 01:59:34",
+  "status": "available"
+}
+
+         */
+        $("#statusDescript").html(data.caption);
+        $("#statusDate").html(moment(data.date).format("MMMM Do, YYYY"));
+        $("#postFullName").html(data.fullname);
+        $("#postUN").html(data.username);
+        $("#profileStatusImg").prop(
+          "src",
+          "data:image/jpg;base64," + data.profilePicture
+        );
+
+        $("#statusLikes").html();
+        $("#statusComment").html();
+      }
+    });
+
     $("#fileGallery").change(() => {
       $("#errorMsg").addClass("hidden"); //always set the error message as hidden when changing the file
       $("#TxtAreaAnnouncement").addClass("h-5/6").removeClass("h-3/6");
@@ -153,8 +190,10 @@ $(document).ready(function () {
           render: function (data, type, row) {
             // Define the buttons for the Actions column
             return `
-                        <label for="archive-modal" class="daisy-btn" data-id="${row.postID}">Archive</label>
-                        <label for="view-modal" class="daisy-btn" data-id="${row.postID}">View</label>
+                        <div class="flex flex-wrap gap-4 items-center">
+                          <label for="archive-modal" class="text-accent daisy-link daisy-link-hover" data-id="${row.postID}">Archive</label>
+                          <label for="view-modal" class="daisy-btn daisy-btn-sm daisy-btn-info" data-id="${row.postID}">View</label>
+                        </div>
                     `;
           },
         },

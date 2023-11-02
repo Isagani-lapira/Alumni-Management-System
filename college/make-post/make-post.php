@@ -174,7 +174,7 @@ $total = $row["total"];
     <input type="checkbox" id="archive-modal" class="daisy-modal-toggle" />
     <div class="daisy-modal">
         <div class="daisy-modal-box w-11/12 max-w-6xl">
-            <h3 class="text-lg font-bold">Hello!</h3>
+            <h3 class="text-lg font-bold">Archive Modal!</h3>
             <p class="py-4">This modal works with a hidden checkbox!</p>
 
             <div class="daisy-modal-action">
@@ -188,8 +188,48 @@ $total = $row["total"];
     <input type="checkbox" id="view-modal" class="daisy-modal-toggle" />
     <div class="daisy-modal">
         <div class="daisy-modal-box w-11/12 max-w-6xl">
-            <h3 class="text-lg font-bold">Hello!</h3>
-            <p class="py-4">This modal works with a hidden checkbox!</p>
+            <h3 class="text-lg font-bold">
+
+            </h3>
+
+
+
+            <div class="postStatus bg-white rounded-md w-2/6 p-5 flex flex-col gap-3">
+                <div class="flex justify-between">
+                    <div class="flex items-center">
+                        <img id="profileStatusImg" class="w-10 h-10 rounded-full" alt="" src="">
+
+                        <div class="px-2 text-greyish_black">
+                            <p id="postFullName" class="font-bold text-sm"></p>
+                            <span id="postUN" class="italic accountUN text-gray-400 text-sm"></span>
+                        </div>
+                    </div>
+
+                    <iconify-icon class="closeStatusPost cursor-pointer text-gray-400 hover:text-gray-500 hover:h-7 hover:w-7" icon="ei:close" width="24" height="24"></iconify-icon>
+                </div>
+
+                <!-- description -->
+                <div>
+                    <pre id="statusDescript">
+
+                    </pre>
+                </div>
+
+                <!-- date -->
+                <span id="statusDate" class="text-xs text-gray-500">
+
+                </span>
+
+                <!-- comment -->
+                <div class="flex-col text-sm border-t border-gray-400 py-2 h-full overflow-y-auto">
+                    <div class="flex gap-2 text-gray-500 text-xs">
+                        <p>Likes: <span id="statusLikes">0</span></p>
+                        <p>Comments: <span id="statusComment">0</span></p>
+                    </div>
+
+                    <div id="commentStatus" class="flex flex-col gap-2 p-2 mt-2"></div>
+                </div>
+            </div>
             <div class="daisy-modal-action">
                 <label for="view-modal" class="daisy-btn">Close!</label>
             </div>
