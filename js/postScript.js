@@ -627,8 +627,8 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: response => {
+                $('.loadingProfile').addClass('hidden')
                 if (response != 'none') {
-                    $('.loadingProfile').addClass('hidden')
                     const parsedData = JSON.parse(response)
                     const length = parsedData.username.length
                     //get all the data that gather

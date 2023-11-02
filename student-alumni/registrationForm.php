@@ -296,7 +296,7 @@
                 <!-- college and batch -->
                 <div class="flex gap-2">
                     <div class="w-1/2 flex flex-col">
-                        <label for="studCollege">Year</label>
+                        <label for="studCollege">College</label>
                         <select name="college" id="studCollege" class="p-3 rounded-lg border border-gray-400 requiredStudent2">
                             <option value="" selected>Your college</option>
                             <?php
