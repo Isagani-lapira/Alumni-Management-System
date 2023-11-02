@@ -2155,6 +2155,10 @@ video {
   color: hsl(var(--bc) / 0.6);
 }
 
+.daisy-textarea-bordered {
+  --tw-border-opacity: 0.2;
+}
+
 .daisy-textarea:focus {
   outline-style: solid;
   outline-width: 2px;
@@ -2811,6 +2815,10 @@ div.input-container input[type="text"],
   bottom: -0.5rem;
 }
 
+.-bottom-8 {
+  bottom: -2rem;
+}
+
 .-left-2 {
   left: -0.5rem;
 }
@@ -2993,14 +3001,6 @@ div.input-container input[type="text"],
 
 .top-full {
   top: 100%;
-}
-
-.left-4 {
-  left: 1rem;
-}
-
-.-bottom-8 {
-  bottom: -2rem;
 }
 
 .z-0 {
@@ -3610,6 +3610,10 @@ div.input-container input[type="text"],
   width: 6rem;
 }
 
+.w-28 {
+  width: 7rem;
+}
+
 .w-3 {
   width: 0.75rem;
 }
@@ -3741,10 +3745,6 @@ div.input-container input[type="text"],
 
 .w-screen {
   width: 100vw;
-}
-
-.w-28 {
-  width: 7rem;
 }
 
 .max-w-4xl {
