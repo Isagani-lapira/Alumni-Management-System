@@ -117,7 +117,7 @@
                          </div>
                      </div>
 
-                     <div class="daisy-form-control w-full max-w-xs">
+                     <div class="daisy-form-control w-full max-w-full">
                          <label class="font-bold daisy-label" for="title">
                              <span class="daisy-label-text"> Title: </span>
                              <span class="daisy-label-text-alt"></span>
@@ -125,11 +125,11 @@
                          <input id="title" name="title" class="form-input block rounded" type="text" placeholder="Make an interesting title">
                      </div>
 
-                     <div class="daisy-form-control w-full max-w-xs">
+                     <div class="daisy-form-control w-full max-w-full">
                          <label class="font-bold daisy-label" for="description">
                              <span class="daisy-label-text"> Description:</span>
                          </label>
-                         <textarea id="description" name="description" class="form-textarea daisy-textarea daisy-textarea-borderedj block rounded resize max-w-full w-1/2" id="description" placeholder="Add your description here..."></textarea>
+                         <textarea id="description" name="description" class="form-textarea daisy-textarea daisy-textarea-bordered block rounded resize max-w-full w-full" id="description" placeholder="Add your description here..."></textarea>
                      </div>
 
 

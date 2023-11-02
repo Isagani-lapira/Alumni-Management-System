@@ -162,15 +162,15 @@ $(document).ready(function () {
         { data: "studNo", width: "25%" },
         { data: "full_name" },
         { data: "contactNo" },
-        {
-          // data: null,
-          // render: function (data, type, row) {
-          //   // Define the buttons for the Actions column
-          //   return `
-          //               <label for="view-modal" class="daisy-btn daisy-btn-secondary"  data-id="${row.personID}">View</label>
-          //           `;
-          // },
-        },
+        // {
+        // data: null,
+        // render: function (data, type, row) {
+        //   // Define the buttons for the Actions column
+        //   return `
+        //               <label for="view-modal" class="daisy-btn daisy-btn-secondary"  data-id="${row.personID}">View</label>
+        //           `;
+        // },
+        // },
       ],
     });
   }
