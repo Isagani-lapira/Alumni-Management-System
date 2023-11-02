@@ -98,7 +98,31 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 // return false;
                 echo json_encode(array("status" => "error", "message" => "Something went wrong"));
             }
-        } else if ($_POST["action"] == "delete") {
+        } else if ($_POST["action"] == "archivePost") {
+            // var_dump($_POST);
+            // die();
+            $postID = $_POST['postID'];
+
+            try {
+                // prepare the statement
+                $stmt = $mysql_con->prepare("UPDATE post SET status = 'adminArchived' WHERE postID = ?");
+                $stmt->bind_param("s", $postID);
+
+                if ($stmt->execute()) {
+                    $affectedRows = mysqli_affected_rows($mysql_con);
+
+                    if ($affectedRows > 0) {
+                        echo json_encode(array("status" => true, "message" => "Post archived successfully"));
+                    } else {
+                        echo json_encode(array("status" => false, "message" => "Post was not archived"));
+                    }
+                } else {
+                    echo json_encode(array("status" => false, "message" => "Database error"));
+                }
+            } catch (\Throwable $th) {
+                //throw $th;
+                echo json_encode(array("status" => false, "message" => "Something went wrong", "error" => $th->getMessage()));
+            }
         } else if ($_POST["action"] == "like") {
         } else if ($_POST["action"] == "comment") {
         }
@@ -144,15 +168,6 @@ function apiPostEdit($id)
 }
 function apiPostDelete($id)
 {
-    $post = get_post($id);
-    $response = array(
-        "message" => $post["message"],
-        "likes" => $post["likes"],
-        "comments" => $post["comments"],
-        "date_posted" => $post["date_posted"],
-        "action" => "<button class='daisy-btn bg-accent font-light text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg'>EDIT</button>"
-    );
-    echo json_encode($response);
 }
 
 function get_post($id)
@@ -191,13 +206,15 @@ function get_all()
 
     $posts = array();
     // $sql = "SELECT * FROM post WHERE username = '$username' ORDER BY timestamp DESC";
+    // todo updated this to use status
     $sql = "SELECT p.*,
                COUNT(pl.likeID) AS like_count,
                COUNT(c.commentID) AS comment_count
         FROM post p
         LEFT JOIN postlike pl ON p.postID = pl.postID
         LEFT JOIN comment c ON p.postID = c.postID
-        WHERE p.username = '$username'
+        
+        WHERE p.username = '$username' AND p.status = 'available'
         GROUP BY p.postID
         ORDER BY p.timestamp DESC";
 

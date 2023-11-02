@@ -4,7 +4,7 @@ session_start();
 // Get the total of the posts
 require "../php/connection.php";
 $username = $_SESSION["username"];
-$sql = "SELECT COUNT(*) AS total FROM post WHERE username = '$username'";
+$sql = "SELECT COUNT(*) AS total FROM post WHERE username = '$username' AND status = 'available'";
 $result = mysqli_query($mysql_con, $sql);
 $row = mysqli_fetch_assoc($result);
 $total = $row["total"];

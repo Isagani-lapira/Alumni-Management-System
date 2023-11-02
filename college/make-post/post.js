@@ -52,6 +52,45 @@ $(document).ready(function () {
       }
     });
 
+    $("#postTable").on("click", "button.archive", async function () {
+      // get the id of the row
+      const postID = $(this).attr("data-id");
+
+      // make confirmation with sweet alert
+      const result = await Swal.fire({
+        title: "Confirmation",
+        text: "You are about to archive this announcement. Are you sure?",
+        icon: "info",
+        showCancelButton: true,
+      });
+
+      if (result.isConfirmed) {
+        // get the post data
+        const formData = new FormData();
+        formData.append("action", "archivePost");
+        formData.append("postID", postID);
+
+        const response = await postJSONFromURL(
+          "./make-post/apiPosts.php",
+          formData
+        );
+        console.log(response);
+        if (response.status == true) {
+          // reload the #postTable datatable
+          $("#postTable").DataTable().ajax.reload();
+          // reduce the number of post in #totalPost
+          $("#totalPost").html(parseInt($("#totalPost").html()) - 1);
+
+          // add success alert
+          Swal.fire({
+            title: "Success",
+            text: "Your Post is Successfully Archived!",
+            icon: "success",
+          });
+        }
+      }
+    });
+
     $("#fileGallery").change(() => {
       $("#errorMsg").addClass("hidden"); //always set the error message as hidden when changing the file
       $("#TxtAreaAnnouncement").addClass("h-5/6").removeClass("h-3/6");
@@ -151,6 +190,8 @@ $(document).ready(function () {
             });
             // toggle newPostModal checkbox
             $("#newPostModal").prop("checked", false);
+            // add the number of post in #totalPost
+            $("#totalPost").html(parseInt($("#totalPost").html()) + 1);
           } else {
             Swal.fire({
               title: "Error",
@@ -191,8 +232,8 @@ $(document).ready(function () {
             // Define the buttons for the Actions column
             return `
                         <div class="flex flex-wrap gap-4 items-center">
-                          <label for="archive-modal" class="text-accent daisy-link daisy-link-hover" data-id="${row.postID}">Archive</label>
-                          <label for="view-modal" class="daisy-btn daisy-btn-sm daisy-btn-info" data-id="${row.postID}">View</label>
+                          <button for="archive-modal" class="archive text-accent daisy-link daisy-link-hover" data-id="${row.postID}">Archive</button>
+                          <label for="view-modal" class="daisy-btn daisy-btn-sm daisy-btn-info text-white" data-id="${row.postID}">View</label>
                         </div>
                     `;
           },
