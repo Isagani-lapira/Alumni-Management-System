@@ -75,6 +75,8 @@ $(document).ready(function () {
           $("#cover-image-preview").attr("src", "");
           // $("#profile-image-preview").attr("src", "");
           $("#add-alumni-modal").prop("checked", false);
+          // refresh the table
+          refreshList();
         } else {
           Swal.fire("Error", "Alumni is not added due to error.", "info");
         }
@@ -149,7 +151,9 @@ $(document).ready(function () {
     if (result.data.length > 0) {
       console.log("disabled");
       $("#add-alumni-modal").attr("disabled", true);
-      $("#add-alumni-label").addClass("daisy-btn-disabled");
+      $("#add-alumni-label").addClass(
+        "daisy-btn-disabled disabled cursor-not-allowed"
+      );
     } else {
       console.log("not disabled");
       $("#add-alumni-modal").attr("disabled", false);
