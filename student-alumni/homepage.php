@@ -417,7 +417,7 @@ function getAccDetails($con, $personID)
                 <!-- body part -->
                 <div class="modal-descript relative w-full h-full rounded p-3">
                   <div class="flex flex-col h-full border-gray-300">
-                    <textarea id="TxtAreaAnnouncement" class="rar outline-none w-full h-full" type="text" placeholder="Say something here..."></textarea>
+                    <textarea id="TxtAreaAnnouncement" class="rar outline-none w-full h-4/5" type="text" placeholder="Say something here..."></textarea>
                   </div>
                   <label for="fileGallery" class="cursor-pointer">
                     <span id="galleryLogo" class="absolute bottom-1 left-1">
@@ -836,7 +836,6 @@ function getAccDetails($con, $personID)
                   <p id="profileModalUN" class="text-gray-500 text-sm"></p>
                 </div>
 
-                <button class="px-3 md:px-4 py-2 text-xs md:text-sm bg-red-800 text-white rounded-md">Send Email</button>
               </div>
 
               <h2 class="text-md md:text-lg font-bold mb-2 text-greyish_black">Social Media</h2>
@@ -846,28 +845,28 @@ function getAccDetails($con, $personID)
 
                 <div class="flex-1 flex-col gap-4 justify-center items-center">
                   <!-- facebook -->
-                  <div class="flex items-center gap-3">
-                    <iconify-icon icon="formkit:facebook" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                  <div class="flex items-center gap-3 mb-2">
+                    <iconify-icon icon="logos:facebook" width="24" height="24"></iconify-icon>
                     <span id="facebookUN" class="text-center"></span>
                   </div>
 
                   <!-- instagram -->
                   <div class="flex items-center gap-3">
-                    <iconify-icon icon="formkit:instagram" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <iconify-icon icon="skill-icons:instagram" width="20" height="20"></iconify-icon>
                     <span id="instagramUN" class="text-center"></span>
                   </div>
                 </div>
 
                 <div class="flex-1 flex-col gap-3 justify-center items-center">
                   <!-- twitter -->
-                  <div class="flex items-center gap-3">
-                    <iconify-icon icon="simple-icons:twitter" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                  <div class="flex items-center gap-3 mb-2">
+                    <iconify-icon icon="devicon:twitter" width="20" height="20"></iconify-icon>
                     <span id="twitterUN" class="text-center"></span>
                   </div>
 
                   <!-- linkedIN -->
                   <div class="flex items-center gap-3">
-                    <iconify-icon icon="uiw:linkedin" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    <iconify-icon icon="devicon:linkedin" width="20" height="20"></iconify-icon>
                     <span id="linkedInUN" class="text-center"></span>
                   </div>
                 </div>
