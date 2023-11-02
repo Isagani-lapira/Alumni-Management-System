@@ -73,7 +73,7 @@
                         <th class="rounded-tl-lg">STUDENT NUMBER</th>
                         <th>NAME</th>
                         <th>CONTACT NUMBER</th>
-                        <th>DETAILS</th>
+                        <!-- <th>DETAILS</th> -->
                     </tr>
                 </thead>
                 <!-- To be filled later -->
@@ -90,7 +90,7 @@
                         <th>NAME</th>
                         <th>CONTACT NUMBER</th>
                         <th>YEAR LEVEL</th>
-                        <th>DETAILS</th>
+                        <!-- <th>DETAILS</th> -->
                     </tr>
                 </thead>
                 <!-- To be filled later -->
@@ -111,7 +111,7 @@
                         <th>CONTACT NUMBER</th>
                         <th>BATCH YEAR</th>
                         <th>EMPLOYEMENT STATUS</th>
-                        <th>DETAILS</th>
+                        <!-- <th>DETAILS</th> -->
                     </tr>
                 </thead>
                 <!-- To be filled later -->
@@ -123,7 +123,111 @@
         <!-- End Record Table -->
 
     </div>
+    <!-- view modal -->
+    <input type="checkbox" id="view-modal" class="daisy-modal-toggle">
+    <div class="daisy-modal">
+        <div class="daisy-modal-box w-11/12 max-w-5xl ">
+            <!-- Exit -->
+            <form method="dialog">
+                <label for="view-modal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
+            </form>
+            <!-- End Exit Form -->
 
+            <!-- cover_photo -->
+            <!-- add cover photo display -->
+            <div class="relative">
+                <img id="cover_photo" class="w-full h-60 object-cover rounded-t-md" src="" alt="">
+
+            </div>
+            <!-- Record Details -->
+            <div class="grid grid-cols-3">
+                <div>
+
+
+
+                    <!-- profilepicture -->
+                    <!-- add profilepicture -->
+                    <div class="relative">
+                        <img id="profilepicture" class="bg-gray-200 w-28 h-28 object-cover rounded-full absolute -bottom-8 left-2  " src="" alt="">
+                    </div>
+
+                    <!-- fname -->
+                    <!-- lname -->
+                    <!-- age -->
+                    <!-- gender -->
+                    <!-- facebookUN -->
+                    <!-- instagramUN -->
+                    <!-- twitterUN -->
+                    <!-- linkedinUN -->
+                    <!-- add the details above -->
+
+                    <div class="mt-10">
+                        <h3 class="font-bold text-lg">fname lname</h3>
+                        <p>Birthday | Age</p>
+                        <p>Gender</p>
+                    </div>
+
+
+                    <!-- links -->
+                    <!-- add links -->
+                    <div class="flex gap-2">
+                        <a id="facebookUN" href="" target="_blank">
+                            <i class="fa-brands fa-xl fa-facebook"></i>
+                        </a>
+                        <a id="instagramUN" href="" target="_blank">
+                            <i class="fa-brands fa-xl fa-square-instagram"></i>
+                        </a>
+                        <a id="twitterUN" href="" target="_blank">
+                            <i class="fa-brands fa-xl fa-square-twitter"></i>
+                        </a>
+                        <a id="linkedinUN" href="" target="_blank">
+                            <i class="fa-brands fa-linkedin fa-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+
+                <div class="col-span-2">
+                    <!-- address -->
+                    <div>
+                        <p>Address</p>
+                        <span id="address"></span>
+                    </div>
+                    <!-- personal_email -->
+
+                    <div>
+                        <p>Email
+                            <span id="email"></span>
+                        </p>
+                    </div>
+                    <!-- bulsu_email -->
+
+                    <div>
+                        <p>BulSu Email
+                            <span id="bulsu-email"></span>
+                        </p>
+                    </div>
+                    <!-- contactNo -->
+                    <div>
+                        <p>Contact Number
+                        </p>
+
+                        <span id="contact-number"></span>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+            <label class="daisy-modal-backdrop" for="view-modal">Close</label>
+        </div>
 
 </section>
 
@@ -171,20 +275,7 @@
         </div>
     </div>
 
-    <!-- view modal -->
-    <input type="checkbox" id="view-modal" class="daisy-modal-toggle">
-    <div class="daisy-modal">
-        <div class="daisy-modal-box w-11/12 max-w-5xl ">
-            <!-- Exit -->
-            <form method="dialog">
-                <label for="view-modal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
-            </form>
-            <!-- End Exit Form -->
 
-
-
-        </div>
-    </div>
 
 
 </div>

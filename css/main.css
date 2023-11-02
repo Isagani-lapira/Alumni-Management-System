@@ -2815,6 +2815,10 @@ div.input-container input[type="text"],
   left: -0.5rem;
 }
 
+.-left-4 {
+  left: -1rem;
+}
+
 .-right-11 {
   right: -2.75rem;
 }
@@ -2835,12 +2839,12 @@ div.input-container input[type="text"],
   top: -2.5rem;
 }
 
-.-top-20 {
-  top: -5rem;
-}
-
 .-top-32 {
   top: -8rem;
+}
+
+.-top-5 {
+  top: -1.25rem;
 }
 
 .bottom-0 {
@@ -2991,16 +2995,12 @@ div.input-container input[type="text"],
   top: 100%;
 }
 
-.-top-4 {
-  top: -1rem;
+.left-4 {
+  left: 1rem;
 }
 
-.-left-4 {
-  left: -1rem;
-}
-
-.-top-5 {
-  top: -1.25rem;
+.-bottom-8 {
+  bottom: -2rem;
 }
 
 .z-0 {
@@ -3741,6 +3741,10 @@ div.input-container input[type="text"],
 
 .w-screen {
   width: 100vw;
+}
+
+.w-28 {
+  width: 7rem;
 }
 
 .max-w-4xl {

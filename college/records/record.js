@@ -92,6 +92,29 @@ $(document).ready(function () {
   setHandlers();
 
   function setHandlers() {
+    // view modal
+    $("table").on("click", 'label[for="view-modal"]', function () {
+      // get the id
+      const id = $(this).attr("data-id");
+      console.log(id);
+
+      // get the data from the api
+      getJSONFromURL(
+        "./records/apiRecords.php?filter=person&personID=" + id
+      ).then((data) => {
+        console.log(data);
+        // set the data to the modal
+        $("#view-modal #studNo").text(data.studNo);
+        $("#view-modal #fullName").text(data.fullName);
+        $("#view-modal #contactNo").text(data.contactNo);
+        $("#view-modal #email").text(data.email);
+        $("#view-modal #address").text(data.address);
+        $("#view-modal #currentYear").text(data.currentYear);
+        $("#view-modal #batchYr").text(data.batchYr);
+        $("#view-modal #employmentStatus").text(data.employmentStatus);
+      });
+    });
+
     $("#select-user-filter").on("change", function () {
       const selected = $(this).val();
       console.log(selected);
@@ -139,15 +162,15 @@ $(document).ready(function () {
         { data: "studNo", width: "25%" },
         { data: "full_name" },
         { data: "contactNo" },
-        // {
-        //   data: null,
-        //   render: function (data, type, row) {
-        //     // Define the buttons for the Actions column
-        //     return `
-        //                 <label for="view-modal" class="daisy-btn daisy-btn-secondary" data-id="${row.personID}">View</label>
-        //             `;
-        //   },
-        // },
+        {
+          // data: null,
+          // render: function (data, type, row) {
+          //   // Define the buttons for the Actions column
+          //   return `
+          //               <label for="view-modal" class="daisy-btn daisy-btn-secondary"  data-id="${row.personID}">View</label>
+          //           `;
+          // },
+        },
       ],
     });
   }
@@ -174,7 +197,7 @@ $(document).ready(function () {
         //   render: function (data, type, row) {
         //     // Define the buttons for the Actions column
         //     return `
-        //                 <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
+        //                 <label for="view-modal" class="daisy-btn" data-type="student" data-id="${row.personID}">View</label>
         //             `;
         //   },
         // },
@@ -207,7 +230,7 @@ $(document).ready(function () {
         //   render: function (data, type, row) {
         //     // Define the buttons for the Actions column
         //     return `
-        //                 <label for="view-modal" class="daisy-btn" data-id="${row.personID}">View</label>
+        //                 <label for="view-modal" class="daisy-btn" data-type="alumni" data-id="${row.personID}">View</label>
         //             `;
         //   },
         // },
