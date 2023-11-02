@@ -1579,7 +1579,7 @@ function getAccDetails($con, $personID)
     <?php
     $today = date('F');
 
-    if ($user_type == 'student' && $today === 'October' && $studentYr == 4) {
+    if ($user_type == 'student' && strtotime($today) >= strtotime('August') && $studentYr == 4) {
       $migration = new Migration($studentNo);
       $isNotifShown = $migration->isNotifAlreadyShown($mysql_con); //for checking if the modal is already shown to the studen
 

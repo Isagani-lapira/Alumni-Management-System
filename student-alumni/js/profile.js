@@ -1422,4 +1422,9 @@ $(document).ready(function () {
     $('.passwordModal').addClass('hidden')
   })
 
+
+  $('#editMigrateBtn').on('click', function () {
+    $('#profileModalEdit').addClass('hidden')
+    $('.migrationModal').removeClass('hidden')
+  })
 })

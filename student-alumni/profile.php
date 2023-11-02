@@ -661,8 +661,22 @@ function dateInText($date)
                 </div>
             </div>
 
-            <!-- migration -->
-            <div></div>
+            <!-- migrate account setting -->
+            <?php
+            $today = date('F');
+
+            if ($user_type == 'student' && strtotime($today) >= strtotime('August') && $studentYr == 4) {
+                echo '
+                <div class="text-greyish_black text-sm">
+                    <p class="text-lg font-bold mb-3">Migrate Account</p>
+                    <div class="flex justify-between items-center mt-2">
+                        <p class="text-gray-500 italic">Migrate account to account type</p>
+                        <iconify-icon id="editMigrateBtn" class="cursor-pointer" icon="fluent:edit-24-filled" style="color: #474645;" width="20" height="20"></iconify-icon>
+                    </div>
+                </div>';
+            }
+
+            ?>
         </div>
     </div>
 
@@ -1499,8 +1513,107 @@ function dateInText($date)
         </div>
     </div>
 
+
+    <!-- migration modal -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center migrationModal hidden">
+        <div class="bg-white w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+            <h2 class="text-2xl font-semibold">We noticed something about this account!</h2>
+            <p>Your account appears to be prepared for account migration to alumni.
+                Verify that you graduated from Bulacan State University before processing your immigration.</p>
+
+            <p class="mt-3">The following capabilities have been introduced to alumni accounts:
+                <span class="font-semibold italic"> job applications, job postings, and alumni graduate tracker.</span>
+            </p>
+            <!-- note -->
+            <div class="text-red-500 flex gap-2 border border-gray-300 rounded-md p-3">
+                <iconify-icon icon="ep:warning-filled" width="24" height="24"></iconify-icon>
+                <div class="flex gap-2">
+                    <span class="font-semibold">Note:</span>
+                    <p>You can\'t undo this confirmation. Make sure you\'re prepared to migrate your account before continuing.</p>
+                </div>
+
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button class="cancelMigration text-gray-400 hover:text-gray-500">Cancel</button>
+                <button class="migrateConfirmBtn rounded-md text-white bg-green-400 hover:bg-green-500 px-3 py-2">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- cancel migration -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center cancelMigrationModal hidden">
+        <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+            <h2 class="text-xl font-semibold">Confirmation</h2>
+            <p>In the edit profile area, you can see this if you chose to move your account.</p>
+            <div class="flex justify-end gap-2">
+                <button id="cancelMigrationBtn">Cancel</button>
+                <button id="closeMigrationModal" class="bg-blue-400 hover:bg-blue-500 text-white px-3 py-2 rounded-md">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- additional information for migrating -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center additionalInfo hidden">
+        <div class="bg-white rounded-md w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+            <h2 class="text-lg font-semibold border-b border-gray-400 py-2">Additional Information for Migrating</h2>
+            <form id="migrationForm">
+                <?php
+                echo '
+                <input name="studNoMigration" type="hidden" value="' . $studentNo . '">
+                <input name="personIDMigration" type="hidden" value="' . $personID . '">
+                <input name="colCodeMigration" type="hidden" value="' . $colCode . '">
+                <input name="usernameMigration" type="hidden" value="' . $username . '">
+                ';
+
+                ?>
+
+                <!-- employment status -->
+                <div class="flex flex-col">
+                    <label for="empStatData">1. ) Employment Status</label>
+                    <select name="empStatData" id="empStatData" class="py-2 text-gray-400 border-b border-gray-300 rounded-b-md hover:border-blue-500 hover:border-b-2">
+                        <option value="Employed">Employed</option>
+                        <option value="Unemployed">Unemployed</option>
+                        <option value="Self-employed">Self-employed</option>
+                        <option value="Retired">Retired</option>
+                    </select>
+                </div>
+
+                <!-- batch year -->
+                <div class="flex flex-col mt-5">
+                    <label for="batchYrData">2. ) Batch Year</label>
+                    <select name="batchYrData" id="batchYrData" class="py-2 text-gray-400 border-b border-gray-300 rounded-b-md hover:border-blue-500 hover:border-b-2"></select>
+                </div>
+
+                <div class="flex flex-col mt-5 gap-2">
+                    <button class="bg-green-400 hover:bg-green-500 text-white rounded-md py-2 font-bold">Migrate</button>
+                    <button type="button" class="hover:text-lg hover:text-gray-500 text-gray-400 cancelAdditionalInfo">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- success migration -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center successMigrationModal hidden">
+        <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+            <!-- success animation -->
+            <div class="success-checkmark">
+                <div class="check-icon">
+                    <span class="icon-line line-tip"></span>
+                    <span class="icon-line line-long"></span>
+                    <div class="icon-circle"></div>
+                    <div class="icon-fix"></div>
+                </div>
+            </div>
+            <h2 class="text-xl text-center text-green-500 font-bold">Migration Successful</h2>
+            <p class="text-center text-gray-500">After 5 seconds this account will sign out automatically to refresh your account</p>
+        </div>
+    </div>
+
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="../student-alumni/js/profile.js"></script>
+    <script src="../student-alumni/js/migration.js"></script>
     <script src="../student-alumni/js/searchProfile.js"></script>
     <script src="../student-alumni/js/resumescript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
