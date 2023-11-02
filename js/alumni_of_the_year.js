@@ -181,7 +181,7 @@ $(document).on('ready', function () {
                 const logos = [facebookLogo, instagramLogo, twitterLogo, linkedInLogo];
 
                 for (let i = 0; i < socMed.length; i++) {
-                    displaySocialMedia(socMed[i], logos[i],'#socMedContainer')
+                    displaySocialMedia(socMed[i], logos[i], '#socMedContainer')
                 }
 
             })
@@ -205,7 +205,7 @@ $(document).on('ready', function () {
         })
     }
 
-    function displaySocialMedia(socMed, logo,container) {
+    function displaySocialMedia(socMed, logo, container) {
         // mark up for social media
         const wrapper = $('<div>').addClass('items-center flex gap-2')
         const socMedElement = $('<span>').text(socMed);
@@ -452,14 +452,14 @@ $(document).on('ready', function () {
                     const fullname = data.fullname;
                     const colCode = data.colCode;
 
-                    displayAOYModal(cover_img, quotation, fullname, colCode, aomID,personID)
+                    displayAOYModal(cover_img, quotation, fullname, colCode, aomID, personID)
                 }
             }
         })
     })
 
 
-    function displayAOYModal(cover_img, quotation, fullname, colCode, aomID,personID) {
+    function displayAOYModal(cover_img, quotation, fullname, colCode, aomID, personID) {
         $('.coverImgAOY').attr('src', cover_img)
         $('.fullnameAOY').text(fullname)
         $('.quotationAOY').text("\"" + quotation + "\"")
@@ -467,6 +467,7 @@ $(document).on('ready', function () {
         getTestimonials(aomID)
             .then(response => {
                 if (response.response === 'Success') {
+                    $('.testimonyWrapper').empty()
                     let length = response.message.length
                     // display all the testimonies
                     for (let i = 0; i < length; i++) {
@@ -495,6 +496,7 @@ $(document).on('ready', function () {
         getAchievements(aomID)
             .then(response => {
                 if (response.response === 'Success') {
+                    $('.achievementWrapper').empty() //to avoid duplication of data
                     let length = response.achievements.length;
                     for (let i = 0; i < length; i++) {
                         let achievement = response.achievements[i];
@@ -517,6 +519,7 @@ $(document).on('ready', function () {
         getSkills(aomID)
             .then(response => {
                 if (response.response === 'Success') {
+                    $('.skillWrapper').empty(); //avoid duplicate of data
                     const skills = response.skills
                     skills.forEach(skill => {
                         // mark up for skills
@@ -532,7 +535,7 @@ $(document).on('ready', function () {
 
         getAOMSocMed(personID)
             .then(response => {
-                
+                $('.socMedWrapper').empty() //avoid duplicate data
                 let socialMedia = response
                 let facebook = socialMedia.facebookUN
                 let instagram = socialMedia.instagramUN
@@ -555,11 +558,21 @@ $(document).on('ready', function () {
                 const logos = [facebookLogo, instagramLogo, twitterLogo, linkedInLogo];
 
                 for (let i = 0; i < socMed.length; i++) {
-                    displaySocialMedia(socMed[i], logos[i],'.socMedWrapper')
+                    displaySocialMedia(socMed[i], logos[i], '.socMedWrapper')
                 }
 
             })
-        
+
         $('.aoyModal').removeClass('hidden')
     }
+
+
+    $('.aoyModal').on('click', function (e) {
+        const modal = $('.aoyModalContainer')
+        const target = e.target
+
+        if (!modal.is(target) && modal.has(target).length === 0) {
+            $('.aoyModal').addClass('hidden')
+        }
+    })
 })
