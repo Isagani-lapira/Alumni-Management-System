@@ -132,6 +132,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
+                console.log(response)
                 $('.loadingProfile').parent().addClass('hidden');
                 const parsedResponse = JSON.parse(response); //parsed the json data
                 const length = parsedResponse.username.length;
@@ -152,7 +153,7 @@ $(document).ready(function () {
                     const position = 1 //display on the top
                     displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isLiked, position); //display the post on the container
                 }
-                displayPostPrompt('Post successfully added') //display successfully added
+                // displayPostPrompt('Post successfully added') //display successfully added
             },
             error: error => { console.log(error) }
         })
@@ -416,7 +417,7 @@ $(document).ready(function () {
             processData: false,
             success: (response) => {
                 if (response === 'Success') {
-                    $('#commentPost').addClass('hidden') //hide modal
+                    $('#commentPost').addClasdisplayPostPrompts('hidden') //hide modal
                     displayPostPrompt('Comment successfully added')
                     $('#commentArea').val('') //restart the value of comment
                     let commentCount = parseInt(commentElement.text()) + 1
@@ -699,14 +700,17 @@ $(document).ready(function () {
     //close modal
     $('.cancel').click(function () {
         prompt("#modal", false)
+        restartPostModal()
+    })
 
+    function restartPostModal() {
         //remove the images
         while (imgContPost.firstChild) {
             imgContPost.removeChild(imgContPost.firstChild)
             selectedFiles = [];
         }
         $('#TxtAreaAnnouncement').val('')
-    })
+    }
 
     //show or close the prompt modal
     function prompt(id, openIt) {
@@ -800,10 +804,10 @@ $(document).ready(function () {
             contentType: false,
             success: (response) => {
                 if (response == 'successful') {
-                    $('#modal').hide();
+                    $('#modal').addClass('hidden');
+                    restartPostModal()
                     const username = $('#accUsername').text()
                     retrieveNewPost(username)
-                    selectedFiles = [];
                 }
 
             },
