@@ -4040,6 +4040,10 @@ div.input-container input[type="text"],
   gap: 1.25rem;
 }
 
+.gap-6 {
+  gap: 1.5rem;
+}
+
 .space-x-12 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(3rem * var(--tw-space-x-reverse));
@@ -5960,10 +5964,6 @@ body {
 
   .lg\:w-\[200\%\] {
     width: 200%;
-  }
-
-  .lg\:max-w-2xl {
-    max-width: 42rem;
   }
 
   .lg\:max-w-6xl {

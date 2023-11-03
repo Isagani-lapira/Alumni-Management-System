@@ -60,6 +60,28 @@ class AlumniOfTheMonth
         return true;
     }
 
+    public function updateExistingAlumniOfTheMonth($aotmID, array $details): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        if ($details['cover-img'] !== '') {
+            $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? ,  quote = ?, cover_img = ? WHERE AOMID = ?;');
+
+            $stmt->bind_param('sssss', $details['studentNo'], $details['personID'], $details['quote'], $details['cover-img'], $aotmID);
+        } else {
+            $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? , quote = ? WHERE AOMID = ?;');
+
+            $stmt->bind_param('ssss', $details['studentNo'], $details['personID'], $details['quote'], $aotmID);
+        }
+
+        // execute the query
+        $stmt->execute();
+
+        return true;
+    }
+
+
     public function getTotalCount(): int
     {
 

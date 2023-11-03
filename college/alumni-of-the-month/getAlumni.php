@@ -54,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         require "../php/connection.php";
         $colCode = $_SESSION['colCode'];
         $stmt = $mysql_con->prepare('SELECT alumni_of_the_month.*, 
-        CONCAT(fName, " ", lName) AS fullname, person.*  FROM `alumni_of_the_month`
+        CONCAT(fName, " ", lName) AS fullname, person.* , alumni.*  FROM `alumni_of_the_month`
             INNER JOIN `alumni` on studNo = studentNo
             INNER JOIN `person` on person.personID = alumni.personID
-              WHERE alumni_of_the_month.colCode = ?
+              WHERE alumni_of_the_month.colCode = ? AND DATE_FORMAT(alumni_of_the_month.date_assigned, "%Y-%m") = DATE_FORMAT(CURDATE(), "%Y-%m")
               ORDER BY date_assigned DESC
               LIMIT 1;');
         $stmt->bind_param('s', $colCode);
