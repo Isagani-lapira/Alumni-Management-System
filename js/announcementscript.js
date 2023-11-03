@@ -55,13 +55,14 @@ $(document).ready(function () {
                             const headline_img = response.headline_img[i];
                             const fullname = response.fullname[i];
 
+                            const escapedDescription = encodeURIComponent(description);
                             const row = [
                                 title,
                                 tempDescription,
                                 date_posted,
                                 `<button class="bg-postButton hover:bg-postHoverButton rounded-md text-white px-3 py-1 text-xs view-button"
                                 data-announcementID="${announcementID}"
-                                data-description="${description}"
+                                data-description="${escapedDescription}"
                                 data-title="${title}"
                                 data-date_posted="${date_posted}"
                                 data-headline_img="${headline_img}"
@@ -134,7 +135,7 @@ $(document).ready(function () {
         $('#announceDatePosted').text(date_posted)
         $('#announcementAuthor').text(author)
         $('#announcementTitle').text(title)
-        $('#announcementDescript').text(description)
+        $('#announcementDescript').text(decodeURIComponent(description))
 
         const action = "readImageOfAnnouncement";
         const formdata = new FormData();
