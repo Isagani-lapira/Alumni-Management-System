@@ -824,17 +824,17 @@ function dateInText($date)
                         <div class="primary flex gap-2 text-sm text-gray-500 mt-2 education">
                             <div class="w-1/2">
                                 <p class="font-bold px-2">Education Level</p>
-                                <input id="degree0" type="text" class=" p-2 w-full rounded-md requiredValue" placeholder="Primary education">
+                                <input id="degree2" data-educationlevel="primary education" type="text" class=" p-2 w-full rounded-md requiredValue" placeholder="Primary education">
                             </div>
 
                             <div class="w-1/4">
                                 <p class="font-bold text-center">Start year</p>
-                                <select id="startYr0" class=" yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="startYr2" data-educationlevel="primary education" class=" yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
 
                             <div class="w-1/4">
                                 <p class="font-bold text-center">End Year</p>
-                                <select id="endYr0" class=" yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="endYr2" data-educationlevel="primary education" class=" yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
 
                         </div>
@@ -842,15 +842,15 @@ function dateInText($date)
                         <!-- secondary education -->
                         <div class="flex gap-2 text-sm text-gray-500 education">
                             <div class="w-1/2">
-                                <input id="degree1" type="text" class="secondary p-2 w-full rounded-md requiredValue" placeholder="Secondary education">
+                                <input id="degree1" type="text" data-educationlevel="secondary education" class="secondary p-2 w-full rounded-md requiredValue" placeholder="Secondary education">
                             </div>
 
                             <div class="w-1/4">
-                                <select id="startYr1" class="secondary yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="startYr1" data-educationlevel="secondary education" class="secondary yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
 
                             <div class="w-1/4">
-                                <select id="endYr1" class="secondary yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="endYr1" data-educationlevel="secondary education" class="secondary yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
 
                         </div>
@@ -858,15 +858,15 @@ function dateInText($date)
                         <!-- tertiary education -->
                         <div class="flex gap-2 text-sm text-gray-500 education">
                             <div class="w-1/2">
-                                <input id="degree2" type="text" class="tertiary p-2 w-full rounded-md requiredValue" placeholder="Tertiary education">
+                                <input id="degree0" type="text" data-educationlevel="tertiary education" class="tertiary p-2 w-full rounded-md requiredValue" placeholder="Tertiary education">
                             </div>
 
                             <div class="w-1/4">
-                                <select id="startYr2" class=" tertiary yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="startYr0" data-educationlevel="tertiary education" class=" tertiary yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
 
                             <div class="w-1/4">
-                                <select id="endYr2" class="tertiary yearSelection p-2 w-full rounded-md requiredValue"></select>
+                                <select id="endYr0" data-educationlevel="tertiary education" class="tertiary yearSelection p-2 w-full rounded-md requiredValue"></select>
                             </div>
                         </div>
 

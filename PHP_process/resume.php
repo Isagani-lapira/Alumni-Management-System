@@ -15,10 +15,11 @@ if (isset($_POST['action'])) {
     } else if ($action == 'updateResume') {
         $table = $_POST['table'];
         $column = $_POST['column'];
-        $recentVal = $_POST['recentVal'];
-        $value = $_POST['value'];
+        $newValue = $_POST['newVal'];
         $resumeID = $_POST['resumeID'];
-        updateResumeData($table, $column, $value, $resumeID, $recentVal, $mysql_con);
+        $conditionCol = $_POST['conditionCol'];
+        $conditionColVal = $_POST['conditionColVal'];
+        updateResumeData($table, $column, $newValue, $resumeID, $conditionCol, $conditionColVal, $mysql_con);
     } else if ($action == 'addWorkExp') {
         $resumeID = $_POST['resumeID'];
         $workArray = json_decode($_POST['workArray'], true);
@@ -255,7 +256,7 @@ function resumeDetails($result, $row, $con)
         }
 
         //get the resume education
-        $queryEducation = "SELECT * FROM `education` WHERE `resumeID` = '$resumeID'";
+        $queryEducation = "SELECT * FROM `education` WHERE `resumeID` = '$resumeID' ORDER BY `education_level` DESC";
         $resultEducation = mysqli_query($con, $queryEducation);
 
         //get all the skill that has this resume ID
@@ -302,12 +303,14 @@ function resumeDetails($result, $row, $con)
         $queryReferences = "SELECT * FROM `reference_resume` WHERE `resumeID` = '$resumeID'";
         $resultReference = mysqli_query($con, $queryReferences);
 
+        $refID = array();
         $refFullname = array();
         $refJobTitle = array();
         $refContactNo = array();
         $refEmailAdd = array();
 
         while ($data = mysqli_fetch_assoc($resultReference)) {
+            $refID[] = $data['referenceID'];
             $refFullname[] = $data['reference_name'];
             $refJobTitle[] = $data['job_title'];
             $refContactNo[] = $data['contactNo'];
@@ -319,6 +322,7 @@ function resumeDetails($result, $row, $con)
             "jobTitle" => $refJobTitle,
             "contactNo" => $refContactNo,
             "emailAdd" => $refEmailAdd,
+            "refID" => $refID
         );
     } else $response = "Failed";
 
@@ -363,15 +367,14 @@ function updateResumeDetail($column, $value, $resumeID, $con)
     else echo 'Unsuccess';
 }
 
-function updateResumeData($table, $column, $value, $resumeID, $recentVal, $con)
+function updateResumeData($table, $column, $newValue, $resumeID, $conditionCol, $conditionColVal, $con)
 {
-    $query = "UPDATE `$table` SET $column = ? WHERE `resumeID` = ?  AND $column = ? ";
+    $query = "UPDATE `$table` SET `$column` = ? WHERE `resumeID` = ?  AND `$conditionCol` = ? ";
     $stmt = mysqli_prepare($con, $query);
-    $stmt->bind_param('sss', $value, $resumeID, $recentVal);
+    $stmt->bind_param('sss', $newValue, $resumeID, $conditionColVal);
     $result = $stmt->execute();
 
-
-    if ($result) echo 'Success';
+    if ($result) echo "Success";
     else echo 'Unsuccess';
 }
 
