@@ -48,6 +48,8 @@ $(document).ready(function () {
 
           offsetPost += length
           tempLength = length;
+
+          formDataAvailable.set('offset', offsetPost)
         } else {
           $('#loadingData').addClass('hidden')
           $('#noProfPostMsg').removeClass('hidden')
@@ -62,11 +64,13 @@ $(document).ready(function () {
     //reset everything
     $('#loadingData').removeClass('hidden');
     $('#noProfPostMsg').addClass('hidden');
-    $('.containerPostProfile').remove(); // remove the current displayed post
+    $('#feedContainer .containerPostProfile ').remove(); // remove the current displayed post
     offsetPost = 0
+    tempLength = 0
+    formDataAvailable.set('offset', offsetPost)
   }
 
-  let isScrolled = false
+
   //display achieved post
   $('#archievedBtn').on('click', function () {
     $(this).addClass('text-white bg-accent').removeClass('text-gray-400')
@@ -78,8 +82,7 @@ $(document).ready(function () {
     actionTracker = formDataAvailable
     typeTracker = true;
 
-    if (!isScrolled)
-      getPost(formDataAvailable, true)
+    getPost(formDataAvailable, true)
   })
 
   $('#userPost').on('click', function () {
@@ -91,8 +94,10 @@ $(document).ready(function () {
     formDataAvailable.set('status', availablePost);
     actionTracker = formDataAvailable
     typeTracker = false;
-    if (!isScrolled)
-      getPost(formDataAvailable, false)
+    $('#loadingData').removeClass('hidden')
+      .appendTo('#feedContainer')
+
+    getPost(formDataAvailable, false)
   })
 
   $('.closeReportModal').each(function () {
@@ -117,8 +122,8 @@ $(document).ready(function () {
 
 
   function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted, isLikedByUser) {
-    const container = $('<div>').addClass('containerPostProfile flex gap-1 justify-center')
-    let postWrapper = $('<div>').addClass("postWrapper mb-2 center-shadow w-full p-4 rounded-md");
+    const container = $('<div>').addClass('containerPostProfile mx-2 flex gap-1 justify-center')
+    let postWrapper = $('<div>').addClass("postWrapper  mb-2 center-shadow w-full p-4 rounded-md");
 
     let header = $('<div>');
     let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
@@ -264,7 +269,6 @@ $(document).ready(function () {
           $('#restorePost').on('click', function () {
             const status = 'available'
             updatePostStatus(status, postID)
-            isScrolled = false;
           })
         })
     }
@@ -280,7 +284,6 @@ $(document).ready(function () {
           $('#deletePostbtn').on('click', function () {
             const status = 'deleted'
             updatePostStatus(status, postID)
-            isScrolled = false;
           })
         })
     }
@@ -484,7 +487,6 @@ $(document).ready(function () {
     $('#loadingData').addClass('hidden')
 
 
-    isScrolled = true
     if (scrollPosition + containerHeight >= contentHeight - scrollThreshold && tempLength === 10) {
       $('#loadingData').removeClass('hidden')
         .appendTo('#feedContainer')
