@@ -47,7 +47,7 @@ $(document).ready(function () {
                     if (length > 0) {
 
                         for (let i = 0; i < length; i++) {
-                            const announcementID = data.announcementID[i];
+                            const announcementID = encodeURIComponent(data.announcementID[i]);
                             const title = data.title[i];
                             const tempDescription = data.Descrip[i].substring(0, 50);
                             const description = data.Descrip[i];
@@ -137,10 +137,11 @@ $(document).ready(function () {
         $('#announcementTitle').text(title)
         $('#announcementDescript').text(decodeURIComponent(description))
 
+        const announcementID = decodeURIComponent(ID);
         const action = "readImageOfAnnouncement";
         const formdata = new FormData();
         formdata.append('action', action);
-        formdata.append('announcementID', ID)
+        formdata.append('announcementID', announcementID)
         // retrieve images if theres any
         $.ajax({
             url: '../PHP_process/announcement.php',
@@ -150,6 +151,8 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
+                console.log(response)
+                console.log(ID)
                 //remove the previous display images
                 $('#imagesWrapper').empty();
 
