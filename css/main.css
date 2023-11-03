@@ -2262,6 +2262,10 @@ video {
   border-bottom-color: hsl(var(--bc) / 20%);
 }
 
+.min-h-16 {
+  min-height: 4rem;
+}
+
 .daisy-btm-nav-xs > *:where(.daisy-active) {
   border-top-width: 1px;
 }

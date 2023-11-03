@@ -37,24 +37,20 @@ $(document).ready(function () {
     $("#aoydaterange").daterangepicker();
 
     // set handler for editing the alumni of the month
-    $("#alumni-of-the-month-container").on(
-      "click",
-      "label.edit-aotm",
-      function () {
-        // get the id
-        const id = $(this).data("id");
-        console.log("edit", id);
+    $("#alumni-of-the-month-container").on("click", ".edit-aotm", function () {
+      // get the id
+      const id = $(this).data("id");
+      console.log("edit", id);
 
-        try {
-          // get contents of the alumni of the month
-        } catch (error) {}
-      }
-    );
+      try {
+        // get contents of the alumni of the month
+      } catch (error) {}
+    });
 
     // set handler for deleting the alumni of the month
     $("#alumni-of-the-month-container").on(
       "click",
-      "label.delete-aotm",
+      ".delete-aotm",
       function () {
         // get the id
         const id = $(this).data("aotm-id");
@@ -118,12 +114,25 @@ $(document).ready(function () {
     });
     // TODO get the details and show the details.
 
+    // * Reset Button Handlers
+
+    $("#edit-reset-aotm").on("click", function () {
+      $("#edit-aotm-form")[0].reset();
+      $("#edit-cover-img-preview").attr("src", "");
+      // hide alumni details
+      $("#edit-alumni-details").addClass("hidden");
+    });
+
     $("#reset-aotm").on("click", function () {
       $("#add-aotm-form")[0].reset();
-      $("#cover-image-preview").attr("src", "");
+      $("#cover-img-preview").attr("src", "");
+      // hide alumni details
+      $("#alumni-details").addClass("hidden");
+
       // $("#profile-image-preview").attr("src", "");
-      $("#add-alumni-modal").prop("checked", false);
+      // $("#add-alumni-modal").prop("checked", false);
     });
+
     // on form submit
     $("#add-aotm-form").submit(async function (e) {
       e.preventDefault();
@@ -146,13 +155,16 @@ $(document).ready(function () {
         if (isSuccessful.response === "Successful") {
           // show the success message
           Swal.fire("Success!", "Alumni has been added.", "success");
+          checkIfAlumniExists();
+
           // remove the form data
           $("#add-aotm-form")[0].reset();
           $("#cover-image-preview").attr("src", "");
           // $("#profile-image-preview").attr("src", "");
           $("#add-alumni-modal").prop("checked", false);
-          // refresh the table
-          refreshList();
+          // empty and reload the data table
+          $("#alumni-month-table").DataTable().clear().draw();
+          $("#alumni-month-table").DataTable().ajax.reload();
         } else {
           Swal.fire("Error", "Alumni is not added due to error.", "info");
         }
@@ -261,8 +273,9 @@ $(document).ready(function () {
       try {
         if (result.data.length > 0) {
           const data = result.data[0];
-          console.log("data", data);
-          $("#edit-detail-fullname").text(data.fname + " " + data.lname);
+          console.log("search result data: ", data);
+          const fullName = data.fname + " " + data.lname;
+          $("#edit-detail-fullname").text(fullName);
           // $("#detail-student-id").text(data.studNo);
           $("#edit-detail-personal-email").text(data.personal_email);
           $("#edit-detail-profile-picture").attr("src", data.profileImage);
@@ -272,7 +285,7 @@ $(document).ready(function () {
           $("#edit-studentId").val(data.studNo);
           $("#edit-personId").val(data.personID);
 
-          // new
+          $("#edit-searchQuery").val(fullName);
         }
         $("#searchList").addClass("hidden");
         $("#searchList").empty();
@@ -297,12 +310,19 @@ $(document).ready(function () {
           $("#detail-fullname").text(data.fname + " " + data.lname);
           // $("#detail-student-id").text(data.studNo);
           $("#detail-personal-email").text(data.personal_email);
-          $("#detail-profile-picture").attr("src", data.profileImage);
+          let profileImage = AVATAR_PLACEHOLDER;
+          if (data.profileImage) {
+            profileImage = data.profileImage;
+          }
+          $("#detail-profile-img").attr("src", profileImage);
           $("#searchList").addClass("hidden");
           $("#searchList").empty();
           $("#alumni-details").removeClass("hidden");
           $("#studentId").val(data.studNo);
           $("#personId").val(data.personID);
+
+          // set the search query the fullname
+          $("#searchQuery").val(data.fname + " " + data.lname);
         }
         $("#searchList").addClass("hidden");
         $("#searchList").empty();
@@ -328,7 +348,10 @@ $(document).ready(function () {
       // there is no alumni of the month yet
       if (result.data.length === 0) {
         // hide the alumni of the month card
+
         $("#aotm-card").addClass("hidden");
+        // remove the card loading
+        $("#card-loading").addClass("hidden");
 
         console.log("not disabled");
 
@@ -338,6 +361,9 @@ $(document).ready(function () {
       } else {
         // show the alumni card
         $("#no-alumni").addClass("hidden");
+        // remove the card loading
+        $("#card-loading").addClass("hidden");
+
         $("#aotm-card").removeClass("hidden");
 
         console.log("disabled");
@@ -363,8 +389,8 @@ $(document).ready(function () {
     $("#card-avatar").attr("src", profileImage);
     $("#card-fullname").text(data.fullname);
     $("#card-job").text(data.job);
-    // $("#card-course").text(data.course);
-    // $("#card-company").text(data.company);
+    $("#card-course").text(data.course);
+    $("#card-company").text(data.company);
     $("#card-batch").text(data.batchYr);
     $("#card-edit").attr("data-id", data.personID);
     $("#card-delete").attr("data-id", data.personID);
@@ -592,7 +618,8 @@ $(document).ready(function () {
           render: function (data, type, row) {
             // Define the buttons for the Actions column
             return `
-                        <label for="view-modal" class="daisy-btn" data-id="${row.postID}">View</label>
+                        <label for="edit-aotm" class="edit-aotm daisy-btn daisy-btn-sm daisy-btn-info daisy-btn-outline " data-id=${row.personID} data-aotm-id="${row.AOMID}">Edit</label>
+                        <button  class="delete-aotm daisy-btn daisy-btn-warning daisy-btn-sm daisy-btn-outline " data-id=${row.personID} data-aotm-id="${row.AOMID}">Remove</button>
                     `;
           },
         },

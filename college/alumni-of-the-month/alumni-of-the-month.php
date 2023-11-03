@@ -66,13 +66,13 @@
     <!-- Add Preview of the Alumni of teh Month -->
 
     <h2 class="font-bold text-xl p-2 py-4">This Month's Alumni of the Month:</h2>
-    <div class="border rounded-lg w-full lg:max-w-xl p-4 shadow-lg my-2 ">
+    <div class="border rounded-lg w-full lg:max-w-xl p-4 shadow-lg my-2 min-h-16 ">
         <div id="aotm-card" class="flex flex-row flex-wrap items-center gap-6 hidden">
 
             <div class="flex flex-wrap gap-4 ">
                 <!-- image -->
                 <div class=" daisy-avatar">
-                    <div class="w-24 rounded-full">
+                    <div class="w-24 h-24 rounded-full">
 
                         <!-- stock photo -->
                         <img id="card-avatar" src="" alt="alumni of the month profile picture">
@@ -85,23 +85,27 @@
                     <h3 id="card-fullname"></h3>
                     <div class="">
                         <p id="card-job" class="font-bold"></p>
-                        <p>at <span class="font-italic" id="card-company"></span></p>
-                        <p id="card-course"> | Batch <span class="font-bold" id="card-batch"> </span></p>
+                        <!-- <p>at <span class="font-italic" id="card-company"></span></p> -->
+                        <p> <span id="card-course"></span> </p>
+                        <p> Batch <span class="font-bold" id="card-batch"> </span></p>
                     </div>
 
                 </div>
             </div>
             <!-- edit buttons -->
             <div class="flex flex-wrap gap-4">
-                <label for="edit-aotm" data-id="" id="card-edit" class="edit-aotm btn-primary">Edit</label>
-                <label for="delete-aotm" data-id="" id="card-delete" class="delete-aotm btn-tertiary">Remove</label>
+                <label for="edit-aotm" data-id="" id="card-edit" class="edit-aotm daisy-btn-primary daisy-btn">Edit</label>
+                <label for="delete-aotm" data-id="" id="card-delete" class="delete-aotm daisy-btn daisy-btn-outline daisy-btn-warning">Remove</label>
             </div>
         </div>
 
         <!-- if there is no alumni this month yet -->
-        <div class="text-center mt-4" id="no-alumni">
+        <div class="text-center mt-4  hidden" id="no-alumni">
             <p class="text-gray-500">There's no alumni of the month yet.</p>
         </div>
+
+        <!-- loading spinner -->
+        <div id="card-loading" class="flex items-center justify-center w-full h-full"><span class="daisy-loading daisy-loading-spinner daisy-loading-lg"></span></div>
 
     </div>
 
@@ -109,16 +113,16 @@
 
 
     <!-- Record Table-->
-    <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg bg-white" id="alumni-month-table">
-        <thead class="bg-accent text-white rounded-t-lg">
+    <table class="table-auto w-full mt-10 daisy-table daisy-table-zebra font-normal text-gray-800 rounded-t-lg bg-white" id="alumni-month-table">
+        <thead class="bg-accent text-white rounded-t-lg text-center">
             <tr class=" rounded-t-lg">
                 <th class="text-start ">DATE AWARDED</th>
                 <th class="text-start uppercase">STUDENT NUMBER</th>
                 <th>NAME</th>
-                <th>DETAILS</th>
+                <th>ACTION</th>
             </tr>
         </thead>
-        <tbody class="divide-y" id="tBodyRecord">
+        <tbody class="divide-y text-left" id="tBodyRecord">
 
         </tbody>
     </table>
@@ -173,10 +177,10 @@
                     </div>
                     <div id="alumni-details" class="hidden border rounded-md p-2 m-2 space-y-2 shadow-md ">
                         <!-- Details of the alumni -->
-                        <p class="font-semibold">Details of the alumni</p>
+                        <p class="font-semibold">Alumni Detail</p>
                         <div class="flex flex-wrap items-center gap-4 ">
 
-                            <img class="rounded-full h-14 w-14- border border-accent" src="" id="detail-profile-img">
+                            <img class="rounded-full h-14 w-14 border border-accent" src="" id="detail-profile-img">
                             <!-- <p id="detail-student-id"></p> -->
                             <div class="col-span-2 ">
                                 <p class="font-bold text-lg" id="detail-fullname"></p>
@@ -252,7 +256,7 @@
                     </div>
                     <div id="edit-alumni-details" class=" w-full max-w-md hidden border shadow-md  p-4">
                         <!-- Details of the alumni -->
-                        <p class="font-semibold pb-4">Details of the alumni</p>
+                        <p class="font-semibold pb-4">Alumni Detail</p>
                         <div class="flex flex-wrap items-center gap-4  ">
 
                             <img class="rounded-full h-14 w-14 border border-accent" src="" id="edit-detail-profile-img">
@@ -278,7 +282,7 @@
                     <textarea name="description" class="form-textarea block rounded resize max-w-full" id="edit-description"></textarea>
 
                     <div class="flex flex-wrap gap-4 py-4 justify-end">
-                        <button class="btn-tertiary bg-transparent " id="reset-aotm" type="reset">Reset Form</button>
+                        <button class="btn-tertiary bg-transparent " id="edit-reset-aotm" type="reset">Reset Form</button>
                         <button type="submit" name="edit-aotm-record" value="" class="btn-primary">Edit Alumni of the Month</button>
                     </div>
                 </div>
