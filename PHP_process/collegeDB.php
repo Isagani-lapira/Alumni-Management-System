@@ -170,8 +170,9 @@ function querySelect($college, $con)
                 $colDean = $row_data['colDean'];
                 $colWebLink = $row_data['colWebLink'];
                 $colDeanImg = base64_encode($row_data['colDeanImg']);
+                $colAdminImg = base64_encode($row_data['colAdminImg']);
                 $description = $row_data['description'];
-                
+
                 //get the admin name
                 $queryPerson = 'SELECT * FROM `coladmin` WHERE `colCode` = "' . $colCode . '"';
                 $resultPerson = mysqli_query($con, $queryPerson);
@@ -188,16 +189,14 @@ function querySelect($college, $con)
                     if ($personJSON !== null) {
                         $personData = json_decode($personJSON, true);
                         $colAdmin = $personData['fname'] . ' ' . $personData['lname'];
-                        $colAdminImg = $personData['profilepicture'];
 
                         // get college courses
                         $queryCourse = "SELECT `courseName` FROM `course` WHERE `colCode` = '$colCode'";
                         $resultCourse = mysqli_query($con, $queryCourse);
 
-                        if($resultCourse){
-                            while($data = mysqli_fetch_assoc($resultCourse))
+                        if ($resultCourse) {
+                            while ($data = mysqli_fetch_assoc($resultCourse))
                                 $courses[] = $data['courseName'];
-                            
                         }
                     }
                 }
@@ -218,8 +217,8 @@ function querySelect($college, $con)
             'colDeanImg' => $colDeanImg,
             'colAdminName' => $colAdmin,
             'colAdminImg' => $colAdminImg,
-            "courses"=>$courses,
-            "description"=>$description,
+            "courses" => $courses,
+            "description" => $description,
         );
 
         echo json_encode($colData);

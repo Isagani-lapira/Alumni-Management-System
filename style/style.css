@@ -338,3 +338,7 @@ tbody tr:nth-child(odd) {
 .emailModal pre {
   height: 90%;
 }
+
+.colDetailContainer {
+  max-height: 95%;
+}

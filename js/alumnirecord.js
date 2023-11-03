@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('#alumniLi').on('click', function () {
         offset = 0
         $('#alumnRecord-tab').removeClass('hidden')
+        table.clear().draw();
         getAlumniRecord(alumniDataDefault)
         $('#batchAlumRecord option:not(:first-child)').remove()
         addBatchOption()

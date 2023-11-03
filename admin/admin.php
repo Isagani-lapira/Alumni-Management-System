@@ -692,7 +692,7 @@ function dateInText($date)
                 <img class="inline hover:cursor-pointer back-icon" src="../images/back.png" alt="">
               </span> PROFILE
             </h1>
-            <div class="px-10">
+            <div class="px-10 overflow-y-auto colDetailContainer">
               <div class="grid grid-cols-2 h-max p-5">
                 <img id="colLogo" class="w-1/2 block mx-auto" src="" alt="">
 
