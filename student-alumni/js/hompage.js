@@ -784,6 +784,10 @@ $(document).ready(function () {
         $('#eventTimeModal').text(eventStartTime)
         $('#headerImg').attr('src', headerImg)
         $('#expectationList').empty() //remove the previously display list of expectation
+
+        if (expectation.expectation.length === 0) $('.expectationLbl').addClass('hidden')
+        else $('.expectationLbl').removeClass('hidden')
+
         // show expectation
         const expectationData = expectation.expectation
         expectationData.forEach(value => {
