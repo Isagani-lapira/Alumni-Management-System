@@ -99,6 +99,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     )
                 );
             }
+        } else if ($_POST['action'] == 'delete' && isset($_POST['aotm-id'])) {
+            $aotmID = $_POST['aotm-id'];
+            $result = $alumni->deleteAlumniOfTheMonth($aotmID);
+            header("Content-Type: application/json; charset=UTF-8");
+            if ($result === TRUE) {
+                $action = "deleted";
+                $details = "Deleted a record of Alumni of the Month";
+                setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
+                echo json_encode(
+                    array(
+                        'response' => 'Successful',
+                        'message' => 'Alumni deleted successfully',
+                        'status' => true
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        'response' => 'Unsuccessful',
+                        'message' => 'Alumni not deleted',
+                        'status' => false
+                    )
+                );
+            };
         }
     } else {
 

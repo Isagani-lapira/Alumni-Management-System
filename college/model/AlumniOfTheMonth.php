@@ -59,6 +59,24 @@ class AlumniOfTheMonth
 
         return true;
     }
+    public function deleteAlumniOfTheMonth(string $aotmID): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('DELETE FROM alumni_of_the_month WHERE AOMID = ?;');
+
+        // *  Binds the variable to the '?', prevents sql injection
+        $stmt->bind_param('s', $aotmID);
+        // execute the query
+
+        // check if the query is successful
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function updateExistingAlumniOfTheMonth($aotmID, array $details): bool
     {

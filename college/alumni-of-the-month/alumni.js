@@ -57,8 +57,45 @@ $(document).ready(function () {
       "label.delete-aotm",
       function () {
         // get the id
-        const id = $(this).data("id");
-        console.log("edit", id);
+        const id = $(this).data("aotm-id");
+        console.log("remove", id);
+        // add some sweet alert dialog
+        Swal.fire({
+          title: "Confirm?",
+          text: "Are you sure to delete this alumni of the month?",
+          icon: "warning",
+          showCancelButton: true,
+          // confirmButtonColor: CONFIRM_COLOR,
+          // cancelButtonColor: CANCEL_COLOR,
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const formData = new FormData();
+            formData.append("action", "delete");
+            formData.append("aotm-id", id);
+
+            postJSONFromURL(API_POST_URL, formData).then((result) => {
+              console.log(result);
+              if (result.response === "Successful") {
+                Swal.fire(
+                  "Deleted!",
+                  "Alumni of the month has been deleted.",
+                  "success"
+                );
+                // clear the datatable and reload it
+                $("#alumni-month-table").DataTable().clear().draw();
+                $("#alumni-month-table").DataTable().ajax.reload();
+                // hide the aotm card
+                $("#aotm-card").addClass("hidden");
+                // show no-alumni
+                $("#no-alumni").removeClass("hidden");
+                // show the add alumni button
+                $("#add-alumni-modal").attr("disabled", false);
+                $("#add-alumni-label").removeClass("daisy-btn-disabled");
+              }
+            });
+          }
+        });
       }
     );
 
@@ -331,6 +368,7 @@ $(document).ready(function () {
     $("#card-batch").text(data.batchYr);
     $("#card-edit").attr("data-id", data.personID);
     $("#card-delete").attr("data-id", data.personID);
+    $("#card-delete").attr("data-aotm-id", data.AOMID);
   }
 
   function populateEditAOTMModal(data) {
