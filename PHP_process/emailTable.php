@@ -6,11 +6,15 @@ class EmailTable
     {
         //query for inserting data for email
         $query = "INSERT INTO `email`(`emailID`, `recipient`, `colCode`, `dateSent`, `personID`,`subject`,`message`) 
-        VALUES ('$emailID','$recipient','$colCode','$date','$personID','$subject','$message')";
-        $result = mysqli_query($con, $query);
+        VALUES (?,?,?,?,?,?,?)";
+        $stmt = mysqli_prepare($con, $query);
 
-        if ($result) echo 'Success';
-        else echo 'Unsuccess';
+        if ($stmt) {
+            $stmt->bind_param('sssssss', $emailID, $recipient, $colCode, $date, $personID, $subject, $message);
+            $result = $stmt->execute();
+            if ($result) echo 'Success';
+            else echo 'Unsuccess';
+        }
     }
 
     public function queryDate($start, $end, $personID, $con)

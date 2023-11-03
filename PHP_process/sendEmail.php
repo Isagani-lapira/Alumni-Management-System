@@ -35,7 +35,7 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
         //if the user is alumni / student
         if ($user != 'all') {
             sendEmailToManyUser($user, $college, $subject, $message, $selectedImages, $selectedFiles, $mysql_con);
-            $email = $emailInsertion->insertEmail($emailID, $user, $college, $date, $personID, $subject, $message, $mysql_con);
+            $email = $emailInsertion->insertEmail($emailID, $user, $college, $date, $personID, $subject, trim($_POST['message']), $mysql_con);
         }
         //for all user
         else {
@@ -43,7 +43,7 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
             sendEmailToManyUser('student', $college, $subject, $message, $selectedImages, $selectedFiles, $mysql_con);
 
             //store a record of creating an email
-            $email = $emailInsertion->insertEmail($emailID, 'All', $college, $date, $personID, $subject, $message, $mysql_con);
+            $email = $emailInsertion->insertEmail($emailID, 'All', $college, $date, $personID, $subject, trim($_POST['message']), $mysql_con);
         }
     } else {
 
@@ -54,7 +54,7 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
         if ($college != '') {
             $college = $college;
             sendEmail($subject, $message, $recipient, $selectedImages, $selectedFiles);
-            $email = $emailInsertion->insertEmail($emailID, $recipient, $college, $date, $personID, $subject, $message, $mysql_con);
+            $email = $emailInsertion->insertEmail($emailID, $recipient, $college, $date, $personID, $subject, trim($_POST['message']), $mysql_con);
         } else {
             echo 'user is not existing';
         }
