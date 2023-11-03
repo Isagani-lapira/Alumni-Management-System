@@ -5,6 +5,7 @@ $(document).ready(function () {
   const API_URL = "./alumni-of-the-month/getAlumni.php?";
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   const API_POST_URL = "./alumni-of-the-month/addAlumni.php";
+  const AVATAR_PLACEHOLDER = "../assets/default_profile.png";
 
   let offset = 0;
   const handleSearchList = _.debounce(searchAlumniListener, 500);
@@ -318,7 +319,11 @@ $(document).ready(function () {
   }
 
   function populateAlumniCard(data) {
-    $("#card-avatar").attr("src", data.profilepicture);
+    let profileImage = AVATAR_PLACEHOLDER;
+    if (data.profilepicture) {
+      profileImage = data.profilepicture;
+    }
+    $("#card-avatar").attr("src", profileImage);
     $("#card-fullname").text(data.fullname);
     $("#card-job").text(data.job);
     // $("#card-course").text(data.course);
@@ -334,10 +339,15 @@ $(document).ready(function () {
       "data:image/jpeg;base64," + data.cover_img
     );
 
-    $("#edit-detail-profile-img").attr("src", data.profilepicture);
+    let profileImage = AVATAR_PLACEHOLDER;
+    if (data.profilepicture) {
+      profileImage = data.profilepicture;
+    }
+
+    $("#edit-detail-profile-img").attr("src", profileImage);
     $("#edit-detail-fullname").text(data.fullname);
     $("#edit-detail-personal-email").text(data.personal_email);
-    $("#edit-detail-yearGraduated").text(data.batchYr);
+    $("#edit-detail-yearGraduated").text("Batch " + data.batchYr);
 
     $("#edit-quote").val(data.quote);
     // hidden input

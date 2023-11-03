@@ -64,8 +64,9 @@
     </div> -->
 
     <!-- Add Preview of the Alumni of teh Month -->
+
+    <h2 class="font-bold text-xl p-2 py-4">This Month's Alumni of the Month:</h2>
     <div class="border rounded-lg w-full lg:max-w-xl p-4 shadow-lg my-2 ">
-        <h2 class="font-bold text-xl p-2 py-4">This Month's Alumni of the Month:</h2>
         <div id="aotm-card" class="flex flex-row flex-wrap items-center gap-6 hidden">
 
             <div class="flex flex-wrap gap-4 ">
@@ -161,23 +162,23 @@
                     <div class="flex  flex-wrap  flex-row   text-gray-500 relative" id="searchContainer">
 
 
-                        <div class="relative rounded">
+                        <div class="relative rounded w-full">
                             <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
-                            <input class="form-input rounded pr-8" type="text" name="searchQuery" id="searchQuery" placeholder="Search">
+                            <input autocomplete="off" class="form-input rounded pr-8 w-full" type="text" name="searchQuery" id="searchQuery" placeholder="Search">
                         </div>
                         <ul class="bg-slate-100 border border-gray-100 w-full mt-2 absolute top-full inset-x-0 hidden" id="searchList">
                             <!-- TODO add some animation to this -->
 
                         </ul>
                     </div>
-                    <div id="alumni-details" class="hidden">
+                    <div id="alumni-details" class="hidden border rounded-md p-2 m-2 space-y-2 shadow-md ">
                         <!-- Details of the alumni -->
-                        <p>Details of the alumni</p>
+                        <p class="font-semibold">Details of the alumni</p>
                         <div class="flex flex-wrap items-center gap-4 ">
 
-                            <img class="rounded-full h-10 w-10 border border-accent" src="" id="detail-profile-img">
+                            <img class="rounded-full h-14 w-14- border border-accent" src="" id="detail-profile-img">
                             <!-- <p id="detail-student-id"></p> -->
-                            <div class="col-span-2 space-y-3">
+                            <div class="col-span-2 ">
                                 <p class="font-bold text-lg" id="detail-fullname"></p>
                                 <p id="detail-personal-email"></p>
                                 <p id="detail-yearGraduated"></p>
@@ -240,23 +241,23 @@
                     <div class="flex  flex-wrap  flex-row   text-gray-500 relative" id="searchContainer">
 
 
-                        <div class="relative rounded">
+                        <div class="relative rounded w-full">
                             <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
-                            <input class="form-input rounded pr-8" type="text" name="searchQuery" id="edit-searchQuery" placeholder="Search">
+                            <input autocomplete="off" class="form-input rounded pr-8 w-full" type="text" name="searchQuery" id="edit-searchQuery" placeholder="Search">
                         </div>
                         <ul class="bg-slate-100 border border-gray-100 w-full mt-2 absolute top-full inset-x-0 hidden" id="edit-searchList">
                             <!-- TODO add some animation to this -->
 
                         </ul>
                     </div>
-                    <div id="edit-alumni-details" class="hidden">
+                    <div id="edit-alumni-details" class=" w-full max-w-md hidden border shadow-md  p-4">
                         <!-- Details of the alumni -->
-                        <p>Details of the alumni</p>
-                        <div class="flex flex-wrap items-center gap-4 ">
+                        <p class="font-semibold pb-4">Details of the alumni</p>
+                        <div class="flex flex-wrap items-center gap-4  ">
 
-                            <img class="rounded-full h-10 w-10 border border-accent" src="" id="edit-detail-profile-img">
+                            <img class="rounded-full h-14 w-14 border border-accent" src="" id="edit-detail-profile-img">
                             <!-- <p id="detail-student-id"></p> -->
-                            <div class="col-span-2 space-y-3">
+                            <div class="col-span-2 ">
                                 <p class="font-bold text-lg" id="edit-detail-fullname"></p>
                                 <p id="edit-detail-personal-email"></p>
                                 <p id="edit-detail-yearGraduated"></p>
