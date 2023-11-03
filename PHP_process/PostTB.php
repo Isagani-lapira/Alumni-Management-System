@@ -536,4 +536,16 @@ class PostData
             echo $postResult;
         }
     }
+
+    function getNewlyCreatePost($username, $con)
+    {
+        $query = "SELECT * FROM `post` WHERE `username` = '$username' ORDER BY `timestamp` DESC LIMIT 1";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row > 0) {
+            $postResult = $this->getPostData($result, $con);
+            echo $postResult;
+        } else echo 'failed';
+    }
 }

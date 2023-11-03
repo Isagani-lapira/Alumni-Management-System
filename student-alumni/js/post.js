@@ -118,7 +118,46 @@ $(document).ready(function () {
         return month + ' ' + day + ', ' + year
     }
 
-    function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isLikedByUser) {
+
+    function retrieveNewPost(username) {
+        const action = { action: "getNewlyCreatedPost" }
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('username', username);
+
+        $.ajax({
+            url: '../PHP_process/postDB.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                $('.loadingProfile').parent().addClass('hidden');
+                const parsedResponse = JSON.parse(response); //parsed the json data
+                const length = parsedResponse.username.length;
+                for (let i = 0; i < length; i++) {
+                    //store data that retrieve
+                    const postID = parsedResponse.postID[i];
+                    const fullname = parsedResponse.fullname[i];
+                    const username = parsedResponse.username[i];
+                    const isLiked = parsedResponse.isLiked[i];
+                    const images = parsedResponse.images[i];
+                    const imgProfile = (parsedResponse.profilePic[i] == '') ? '../assets/icons/person.png' : imgFormat + parsedResponse.profilePic[i]
+                    const caption = parsedResponse.caption[i];
+                    let date = parsedResponse.date[i];
+                    const likes = parsedResponse.likes[i];
+                    const comments = parsedResponse.comments[i];
+                    date = getFormattedDate(date) //formatted date for easy viewing of date
+
+                    const position = 1 //display on the top
+                    displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isLiked, position); //display the post on the container
+                }
+                displayPostPrompt('Post successfully added') //display successfully added
+            },
+            error: error => { console.log(error) }
+        })
+    }
+    function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isLikedByUser, position = 0) {
         let postWrapper = $('<div>').addClass("postWrapper center-shadow w-full p-4 mb-2 rounded-md");
 
         let header = $('<div>');
@@ -268,7 +307,10 @@ $(document).ready(function () {
         //set up the details of the post
         postWrapper.append(header, description, swiperContainer, date_posted, interactionContainer)
 
-        $('#feedContainer').append(postWrapper);
+        if (position === 1) {
+            $('#feedContainer').children().eq(1).before(postWrapper);
+        } else
+            $('#feedContainer').append(postWrapper);
 
     }
 
@@ -446,7 +488,7 @@ $(document).ready(function () {
         const threshold = 50;
 
         //once the bottom ends, it will reach another sets of data (post)
-        if (scrollOffset + containerHeight + threshold >= contentHeight) {
+        if (scrollOffset + containerHeight + threshold >= contentHeight && dataRetrieved === 10) {
             // reload the loading 
             $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer');
             if (postStatus === 'normal') getPost();
@@ -749,6 +791,7 @@ $(document).ready(function () {
             formData.append('files[]', selectedFiles[i]);
         }
 
+        $('.loadingProfile').parent().removeClass('hidden');
         $.ajax({
             url: '../PHP_process/postDB.php',
             type: 'POST',
@@ -756,10 +799,10 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
-
                 if (response == 'successful') {
                     $('#modal').hide();
-                    displayPostPrompt('Post successfully added')
+                    const username = $('#accUsername').text()
+                    retrieveNewPost(username)
                     selectedFiles = [];
                 }
 

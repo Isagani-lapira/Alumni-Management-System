@@ -92,6 +92,10 @@ if (isset($_POST['action'])) {
             $colCode = $_SESSION['colCode'];
             $post->getAllCollegePost($colCode, $offset, $mysql_con);
             break;
+        case 'getNewlyCreatedPost':
+            $username = $_POST['username'];
+            $post->getNewlyCreatePost($username, $mysql_con);
+            break;
     }
 }
 
