@@ -31,7 +31,8 @@ $(document).ready(function () {
           const length = parsedResponse.username.length;
           for (let i = 0; i < length; i++) {
             //store data that retrieve
-            const imgProfile = parsedResponse.profilePic[i];
+            let imgProfile = parsedResponse.profilePic[i];
+            imgProfile = (imgProfile === '') ? '../assets/icons/person.png' : imgFormat + parsedResponse.profilePic[i]
             const postID = parsedResponse.postID[i];
             const fullname = parsedResponse.fullname[i];
             const username = parsedResponse.username[i];
@@ -127,8 +128,7 @@ $(document).ready(function () {
 
     let header = $('<div>');
     let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
-    let img = imgFormat + imgProfile;
-    let userProfile = $('<img>').addClass("h-10 w-10 rounded-full").attr('src', img);
+    let userProfile = $('<img>').addClass("h-10 w-10 rounded-full").attr('src', imgProfile);
     let authorDetails = $('<div>').addClass("flex-1");
     let fullnameElement = $('<p>').addClass("font-bold text-greyish_black").text(fullname);
     let usernameElement = $('<p>').addClass("text-gray-400 text-xs").text(username);

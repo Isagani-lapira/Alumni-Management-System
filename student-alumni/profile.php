@@ -195,7 +195,7 @@ function dateInText($date)
         <?php
         if ($coverPhoto == "") {
             // Use the default image as the background of the container
-            echo '<div class="h-full bg-black w-3/4 mx-auto rounded-md" style="background-image: url(../images/bganim.jpg); background-size: cover; background-position: center;"></div>';
+            echo '<div class="h-full bg-black w-3/4 mx-auto rounded-md" style="background-image: url(../images/bgProfile.png); background-size: cover; background-position: center;"></div>';
         } else {
             // Use the uploaded image as the background of the container
             $srcFormat = 'data:image/jpeg;base64,' . $coverPhoto;
@@ -448,7 +448,7 @@ function dateInText($date)
             <div class=" h-48 w-full flex justify-center">
                 <?php
                 if ($coverPhoto == "") {
-                    echo '<img src="../images/bganim.jpg" alt="Cover Icon" class="w-3/4 h-48 bg-black rounded-md object-cover" id="coverImg" />';
+                    echo '<img src="../images/bgProfile.png" alt="Cover Icon" class="w-3/4 h-48 bg-black rounded-md object-cover" id="coverImg" />';
                 } else {
                     $srcFormat = 'data:image/jpeg;base64,' . $coverPhoto;
                     echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-3/4  h-48 rounded-md bg-black object-cover" id="coverImg"/>';
