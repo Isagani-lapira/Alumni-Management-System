@@ -58,7 +58,7 @@ $(document).ready(function () {
     // current user job post
     $('#verif-btn').on('click', function () {
         offsetUserJob = 0;
-        $('#jobRepo').children(':not(p)').empty()
+        $('#jobRepo').children(':not(p)').remove()
         $('#loadingDataJobRepo').removeClass('hidden')
         retrieveUserPost()
     })
@@ -104,7 +104,6 @@ $(document).ready(function () {
 
             }, error: () => {
                 $('#loadingDataJobRepo').addClass('hidden')
-                $('#nojobrepo').removeClass('hidden')
             }
 
         })

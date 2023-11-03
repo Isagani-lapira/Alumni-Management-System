@@ -417,15 +417,12 @@ $(document).ready(function () {
             processData: false,
             success: (response) => {
                 if (response === 'Success') {
-                    $('#commentPost').addClasdisplayPostPrompts('hidden') //hide modal
+                    $('#commentPost').addClass('hidden') //hide modal
                     displayPostPrompt('Comment successfully added')
                     $('#commentArea').val('') //restart the value of comment
                     let commentCount = parseInt(commentElement.text()) + 1
                     commentElement.text(commentCount) //update the count of comment of ta certain post
                 }
-            },
-            error: error => {
-                console.log(error)
             }
         })
     }
@@ -494,6 +491,7 @@ $(document).ready(function () {
             $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer');
             if (postStatus === 'normal') getPost();
             else refreshPost()
+
         }
         else $('#loadingDataFeed').addClass('hidden')
 
@@ -941,6 +939,7 @@ $(document).ready(function () {
     $('.refresher').on('click', function () {
         postStatus = "refresher"
         refresherOffset = 0;
+        dataRetrieved = 0;
         refreshPost(); //retrieve all post in college by post no restriction
     })
 
@@ -979,6 +978,7 @@ $(document).ready(function () {
                     }
 
                     refresherOffset += length
+                    dataRetrieved = length
                 }
                 else {
                     $('#loadingDataFeed').addClass('hidden')

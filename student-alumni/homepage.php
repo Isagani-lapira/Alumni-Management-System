@@ -348,8 +348,7 @@ function getAccDetails($con, $personID)
 
               <!-- Job Post Feed -->
               <div id="jobRepo" class="hidden h-max grid grid-cols-3 gap-2 overflow-y-auto no-scrollbar py-3">
-                <p id="loadingDataJobRepo" class="text-gray-400 text-center">Loading repository</p>
-                <p id="nojobrepo" class="text-gray-400 text-center">No data to be display</p>
+                <p id="loadingDataJobRepo" class="text-gray-400 text-center hidden">Loading repository</p>
               </div>
 
             </div>
@@ -554,7 +553,7 @@ function getAccDetails($con, $personID)
                   <span id="postUN" class=" text-gray-400 text-xs">username</span>
                 </div>
               </div>
-              <p id="postDescript" class=" text-greyish_black font-light text-sm">Description</p>
+              <p id="postDescript" class=" text-greyish_black font-light text-sm h-1/2 overflow-y-auto p-2">Description</p>
 
               <div class="relative">
 
