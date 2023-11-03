@@ -24,7 +24,6 @@ $(document).ready(function () {
                     response.dataSet.forEach(data => {
                         const questionSet = data.questionSet
 
-                        let questionNo = 1; //for adding number for each question
                         // get the details of a question
                         questionSet.forEach(data => {
                             const questionID = data.questionID
@@ -33,8 +32,7 @@ $(document).ready(function () {
                             const choices = data.choices
 
                             //mark up for displaying question
-                            displayQuestion(answerID, questionID, questionTxt, inputType, choices, tracerQuestionWrapper, questionNo)
-                            questionNo++
+                            displayQuestion(answerID, questionID, questionTxt, inputType, choices, tracerQuestionWrapper)
                         })
 
                     })
@@ -306,7 +304,7 @@ $(document).ready(function () {
         });
     }
 
-    async function displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot, questionNo) {
+    async function displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot) {
         // wrapper container
         const questionWrapper = $('<div>')
             .addClass('rounded-md userQuestionTracer');
@@ -314,7 +312,7 @@ $(document).ready(function () {
         // question name
         const question = $('<h3>')
             .addClass('text-lg')
-            .text(questionNo + '.) ' + questionTxt);
+            .text(questionTxt);
 
         if (containerRoot == tracerQuestionWrapper) question.removeClass('text-center')
         questionWrapper.append(question);
@@ -518,7 +516,6 @@ $(document).ready(function () {
                 $('#sectionModalcontainer').removeClass('hidden')
                 // Loop through the data and display questions
                 const length = response.length
-                let questionNo = 1;
                 for (let i = 0; i < length; i++) {
                     const questionID = response[i][0].questionID;
                     const questionTxt = response[i][0].questionTxt;
@@ -526,8 +523,7 @@ $(document).ready(function () {
                     const choices = response[i][0].choices;
 
                     const containerRoot = $('#sectionQuestionContainer'); //root container of section modal
-                    displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot, questionNo)
-                    questionNo++
+                    displayQuestion(answerID, questionID, questionTxt, inputType, choices, containerRoot)
                 }
 
                 $('#proceedBtnSection').on('click', function () {
