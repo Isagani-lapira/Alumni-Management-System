@@ -62,6 +62,45 @@
             Refresh Record
         </button>
     </div> -->
+
+    <!-- Add Preview of the Alumni of teh Month -->
+    <div class="border rounded-lg w-full lg:max-w-xl p-4 shadow-lg my-2 ">
+        <h2 class="font-bold text-xl p-2 py-4">This Month's Alumni of the Month:</h2>
+        <div class="flex flex-row flex-wrap items-center gap-4">
+
+            <div class="flex flex-wrap gap-4 ">
+                <!-- image -->
+                <div class=" daisy-avatar">
+                    <div class="w-24 rounded-full">
+
+                        <!-- stock photo -->
+                        <img src="https://dummyimage.com/200x200/000/fff" alt="">
+                    </div>
+                </div>
+
+                <!-- details -->
+
+                <div>
+                    <h3>Juan Dela Cruz</h3>
+                    <div class="">
+                        <p class="font-bold">Software Engineer</p>
+                        <p>at <span class="font-italic">Accenture</span></p>
+                        <p>BS Information Technology |<span class="font-bold">Batch 2023</span></p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- edit buttons -->
+            <div class="flex flex-wrap gap-4">
+                <button class="btn-primary">Edit</button>
+                <button class="btn-tertiary">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add filter by year -->
+
+
     <!-- Record Table-->
     <table class="table-auto w-full mt-10 text-xs font-normal text-gray-800 rounded-t-lg bg-white" id="alumni-month-table">
         <thead class="bg-accent text-white rounded-t-lg">
@@ -72,7 +111,7 @@
                 <th>DETAILS</th>
             </tr>
         </thead>
-        <tbody class="" id="tBodyRecord">
+        <tbody class="divide-y" id="tBodyRecord">
 
         </tbody>
     </table>
@@ -160,6 +199,23 @@
 
         </div>
     </div>
+
+    <!-- view modal for the alumni of the month -->
+    <input type="checkbox" id="view-modal" class="daisy-modal-toggle">
+    <div class="daisy-modal">
+        <div class="daisy-modal-box w-11/12 max-w-5xl ">
+            <!-- Exit -->
+            <form method="dialog">
+                <label for="view-modal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
+            </form>
+            <!-- End Exit Form -->
+            <h3 class="font-bold text-xl text-center">Alumni of the Month</h3>
+
+
+        </div>
+        <label for="view-modal" class="daisy-modal-backdrop">Close</label>
+    </div>
+
 </section>
 
 <script type="module" src="./alumni-of-the-month/alumni.js"></script>
