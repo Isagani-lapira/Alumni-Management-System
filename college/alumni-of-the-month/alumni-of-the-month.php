@@ -145,7 +145,7 @@
             <!-- make alumni of the year post -->
             <form action="" id="add-aotm-form">
                 <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12 s">
-                    <span class="daisy-label-text">Choose a cover image to showcase</span>
+                    <span class="daisy-label-text daisy-label font-bold text-base">Choose a cover image to showcase</span>
 
                     <!-- Placeholder for Cover Image -->
                     <div class="w-full h-80 relative group rounded-sm">

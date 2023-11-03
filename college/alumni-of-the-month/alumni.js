@@ -2,7 +2,7 @@ import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
 
 $(document).ready(function () {
   // Constants
-  const API_URL = "./alumni-of-the-month/getAlumni.php?";
+  const API_URL = "./alumni-of-the-month/getAlumni.php";
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   const API_POST_URL = "./alumni-of-the-month/addAlumni.php";
   const AVATAR_PLACEHOLDER = "../assets/default_profile.png";
@@ -266,7 +266,7 @@ $(document).ready(function () {
       console.log("clicked");
       const id = $(this).data("personid");
       const result = await getJSONFromURL(
-        API_URL + "&getPersonId=1" + "&personId=" + id
+        API_URL + "?getPersonId=1" + "&personId=" + id
       );
       console.log(result);
 
@@ -299,7 +299,7 @@ $(document).ready(function () {
       console.log("clicked");
       const id = $(this).data("personid");
       const result = await getJSONFromURL(
-        API_URL + "&getPersonId=1" + "&personId=" + id
+        API_URL + "?getPersonId=1" + "&personId=" + id
       );
       console.log(result);
 
@@ -341,7 +341,7 @@ $(document).ready(function () {
 
   async function checkIfAlumniExists() {
     try {
-      const result = await getJSONFromURL(API_URL + "latest=month");
+      const result = await getJSONFromURL(API_URL + "?latest=month");
       console.log(result);
       console.log("this month's aotm", result.data.length);
 
@@ -352,6 +352,7 @@ $(document).ready(function () {
         $("#aotm-card").addClass("hidden");
         // remove the card loading
         $("#card-loading").addClass("hidden");
+        $("#no-alumni").removeClass("hidden");
 
         console.log("not disabled");
 
@@ -384,7 +385,7 @@ $(document).ready(function () {
   function populateAlumniCard(data) {
     let profileImage = AVATAR_PLACEHOLDER;
     if (data.profilepicture) {
-      profileImage = data.profilepicture;
+      profileImage = "data:image/jpeg;base64," + data.profilepicture;
     }
     $("#card-avatar").attr("src", profileImage);
     $("#card-fullname").text(data.fullname);
@@ -405,7 +406,7 @@ $(document).ready(function () {
 
     let profileImage = AVATAR_PLACEHOLDER;
     if (data.profilepicture) {
-      profileImage = data.profilepicture;
+      profileImage = "data:image/jpeg;base64," + data.profilepicture;
     }
 
     $("#edit-detail-profile-img").attr("src", profileImage);

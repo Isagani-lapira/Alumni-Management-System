@@ -10,11 +10,13 @@ $sql = "SELECT COUNT(*) as total FROM student WHERE colCode = '$colCode';";
 $result = mysqli_query($mysql_con, $sql);
 $data = mysqli_fetch_assoc($result);
 $studentCount = $data['total'];
+
 // get the alumni count
 $sql = "SELECT COUNT(*) as total FROM alumni WHERE colCode = '$colCode';";
 $result = mysqli_query($mysql_con, $sql);
 $data = mysqli_fetch_assoc($result);
 $alumniCount = $data['total'];
+
 
 // get the active job postings
 // AND status = 'active';
@@ -50,6 +52,11 @@ if ($result) {
 
 
         //get the percentage of already answer
+        // remove zero division error
+        if ($alumniCount == 0) {
+            $alumniCount = 1;
+        }
+
         $totalPercentage = round(($totalAnswer / $alumniCount) * 100);
         $maxPercentage = 100;
         $notYetAnswering = round($maxPercentage - $totalPercentage);
