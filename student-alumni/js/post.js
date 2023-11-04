@@ -937,6 +937,8 @@ $(document).ready(function () {
     })
 
     $('.refresher').on('click', function () {
+        $('#noPostMsgFeed').addClass('hidden')
+        $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer');
         postStatus = "refresher"
         refresherOffset = 0;
         dataRetrieved = 0;
@@ -958,6 +960,7 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
+                $('#loadingDataFeed').addClass('hidden')
                 if (response.response === 'Success') {
                     $('#noPostMsgFeed').addClass('hidden')
                     const length = response.username.length;
