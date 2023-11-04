@@ -199,6 +199,7 @@ $(document).on('ready', function () {
                 // assign new alumni of the year
                 addAOY(aomID, personID, colCode, reason)
                 $('#reasonForAOY').addClass('border-gray-400').removeClass('border-red-400').val('')
+
             }
             else
                 $('#reasonForAOY').removeClass('border-gray-400').addClass('border-red-400')
@@ -304,7 +305,21 @@ $(document).on('ready', function () {
         return formattedDate
     }
 
+    function restartSelectedAOM() {
+        $('#aomCover').attr('src', '').addClass('hidden');
+        $('#aomFullname').text('');
+        $('.aomFullname').text('');
+        $('#aomQuotation').text('');
+        $('.testimonyContainer').empty().addClass('hidden');
+        $('.achievementsContainer').empty();
+        $('.skillContainer').empty();
+        $('.socMedContainer').empty();
 
+        $('.subtitle').addClass('hidden')
+        $('#socMedContainer').parent().parent().addClass('hidden')
+        $('.confirmAOY').addClass('hidden')
+
+    }
     $('.confirmAOY').on('click', function () {
         $('.alumniOfYearModal').parent().removeClass('hidden')
     })
@@ -329,8 +344,17 @@ $(document).on('ready', function () {
             processData: false,
             contentType: false,
             success: response => {
-                if (response === 'Success')
+                if (response === 'Success') {
                     $('.alumniOfYearModal').parent().addClass('hidden')
+                    $('#successModalAOY').removeClass('hidden')
+
+                    setTimeout(function () {
+                        $('#successModalAOY').addClass('hidden')
+                        restartSelectedAOM()
+                        $('#aoyLi').click()
+                    }, 6000)
+                }
+
             }
         })
     }
