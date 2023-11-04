@@ -1666,6 +1666,7 @@ $(document).ready(function () {
             success: response => {
                 let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; //default value
                 if (response.response === 'Success') {
+                    console.log(response)
                     let length = response.month.length;
 
                     for (let i = 0; i < length; i++) {
@@ -1674,12 +1675,14 @@ $(document).ready(function () {
                         // check if the value contains 0 in the beginning to be remove
                         if (value[0] === '0') value = value.substr(1)
 
-                        value -= 1 //decrease by one to match the indexing in the array
+                        value -= 2 //decrease by one to match the indexing in the array
                         data[value] = reportCount
+                        console.log(data[value] + '-' + i)
                     }
 
                 }
 
+                console.log(data)
                 reportTrendFiltered(data, reportFilter) //display the new chart
             }
 
@@ -1715,6 +1718,7 @@ $(document).ready(function () {
         currentReportChart.data.datasets[0].label = label
         currentReportChart.data.datasets[0].borderColor = colors
 
+        console.log(values)
         if (typeChart !== 'pie') {
             currentReportChart.options.scales = {
                 y: {
@@ -1729,7 +1733,7 @@ $(document).ready(function () {
             currentReportChart.options.scales = {
                 y: {
                     display: false
-                } // Set Y-axis scale to an empty object to effectively remove it
+                }
             };
         }
 
