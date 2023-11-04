@@ -33,6 +33,10 @@ $(document).ready(function () {
    * Adds all the event listeners for the page
    */
   function setHandlers() {
+    // set ckeditor
+    CKEDITOR.replace("description");
+    CKEDITOR.replace("edit-description");
+
     // Achievement handlers
     $("#add-achievement-btn").on("click", function () {
       const newAchievement = $(".achievement-box:first").clone();

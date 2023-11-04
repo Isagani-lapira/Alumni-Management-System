@@ -133,48 +133,51 @@
     <!-- Modal for adding alumni of the month -->
     <input type="checkbox" id="add-alumni-modal" class="daisy-modal-toggle">
     <div class="daisy-modal">
-        <div class="daisy-modal-box w-11/12 max-w-5xl ">
+        <div class="daisy-modal-box w-10/12 max-w-full">
             <!-- Exit -->
             <form method="dialog">
                 <label for="add-alumni-modal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
             </form>
             <!-- End Exit Form -->
+
             <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
 
-
             <!-- make alumni of the year post -->
-            <form action="" id="add-aotm-form">
-                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12 s">
-                    <span class="daisy-label-text daisy-label font-bold text-base">Choose a cover image to showcase</span>
+            <form action="" id="add-aotm-form" class="flex flex-row  divide-x ">
 
-                    <!-- Placeholder for Cover Image -->
-                    <div class="w-full h-80 relative group rounded-sm">
-                        <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
-                        <!-- Cover Image Input -->
-                        <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <label for="cover-image" class="daisy-label">
-                            </label>
-                            <input required class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-image" type="file" accept=".jpg" name="cover-image">
-                            <label class="daisy-label">
-                                <span class="daisy-label-text-alt">Use JPG File Format</span>
-                            </label>
+                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12 space-y-4 flex-1 overflow-auto">
+                    <div>
+                        <span class="daisy-label-text daisy-label font-bold text-base">Choose a cover image to showcase</span>
+                        <!-- Placeholder for Cover Image -->
+                        <div class="w-full h-80 relative group rounded-sm">
+                            <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
+                            <!-- Cover Image Input -->
+                            <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <label for="cover-image" class="daisy-label">
+                                </label>
+                                <input required class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-image" type="file" accept=".jpg" name="cover-image">
+                                <label class="daisy-label">
+                                    <span class="daisy-label-text-alt">Use JPG File Format</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
-                    <label for="searchQuery" class="font-bold">Search Alumni From Your College:</label>
-                    <div class="flex  flex-wrap  flex-row   text-gray-500 relative" id="searchContainer">
-
-
-                        <div class="relative rounded w-full">
-                            <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
-                            <input autocomplete="off" class="form-input rounded pr-8 w-full" type="text" name="searchQuery" id="searchQuery" placeholder="Search">
+                    <div>
+                        <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
+                        <label for="searchQuery" class="font-bold">Search Alumni From Your College:</label>
+                        <div class="flex  flex-wrap  flex-row   text-gray-500 relative" id="searchContainer">
+                            <div class="relative rounded w-full">
+                                <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
+                                <input autocomplete="off" class="form-input rounded pr-8 w-full" type="text" name="searchQuery" id="searchQuery" placeholder="Search">
+                            </div>
+                            <ul class="bg-slate-100 border border-gray-100 w-full mt-2 absolute top-full inset-x-0 hidden" id="searchList">
+                                <!-- TODO add some animation to this -->
+                            </ul>
                         </div>
-                        <ul class="bg-slate-100 border border-gray-100 w-full mt-2 absolute top-full inset-x-0 hidden" id="searchList">
-                            <!-- TODO add some animation to this -->
-
-                        </ul>
                     </div>
+
+
                     <div id="alumni-details" class="hidden border rounded-md p-2 m-2 space-y-2 shadow-md ">
                         <!-- Details of the alumni -->
                         <p class="font-semibold">Alumni Detail</p>
@@ -190,14 +193,19 @@
                         </div>
 
                     </div>
-                    <label class="font-bold" for="quote">Quotation:</label>
-                    <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
-                    <input id="studentId" name="studentNo" class="hidden" type="hidden">
-                    <input id="personId" name="personID" class="hidden" type="hidden">
 
+                    <div class="w-full">
+                        <label class="font-bold" for="quote">Quotation:</label>
+                        <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
+                        <input id="studentId" name="studentNo" class="hidden" type="hidden">
+                        <input id="personId" name="personID" class="hidden" type="hidden">
+                    </div>
 
-                    <p class="font-bold block" for="">Description:</p>
-                    <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
+                    <div>
+
+                        <p class="font-bold block" for="">Description:</p>
+                        <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
+                    </div>
 
                     <!-- Add Achievement
                     <div class="border">
@@ -263,9 +271,16 @@
 
 
 
-                    <div class="flex flex-wrap gap-4 py-4 justify-end">
-                        <button class="btn-tertiary bg-transparent " id="reset-aotm" type="reset">Reset Form</button>
-                        <button class="btn-primary">Add Alumni of the Month</button>
+
+                </div>
+                <div class="flex flex-wrap flex-col justify-end">
+                    <div class="flex flex-col flex-wrap gap-4 p-4 justify-end">
+                        <button class="daisy-btn bg-transparent " id="reset-aotm" type="reset">
+                            <i class="fa-solid fa-arrow-rotate-right"></i> Reset Form</button>
+                        <button class="daisy-btn daisy-btn-primary">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Alumni of the Month
+                        </button>
                     </div>
                 </div>
             </form>
@@ -277,7 +292,7 @@
     <!-- Modal for editing the alumni of the month -->
     <input type="checkbox" id="edit-aotm" class="daisy-modal-toggle">
     <div class="daisy-modal">
-        <div class="daisy-modal-box w-11/12 max-w-5xl ">
+        <div class="daisy-modal-box w-11/12 max-w-7xl ">
             <!-- Exit -->
             <form method="dialog">
                 <label for="edit-aotm" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</label>
@@ -286,38 +301,42 @@
             <h3 class="font-bold text-xl text-center">Edit Alumni of the Month</h3>
 
 
-            <form action="" id="edit-aotm-form">
-                <div id="aotmEdit" class=" text-greyish_black flex flex-col px-12 s">
-                    <span class="daisy-label-text">Choose a cover image to showcase</span>
+            <form action="" id="edit-aotm-form" class="flex flex-row flex-wrap divide-x">
+                <div id="aotmEdit" class="flex-1 text-greyish_black flex flex-col px-12 space-y-4">
 
-                    <!-- Placeholder for Cover Image -->
-                    <div class="w-full h-80 relative group rounded-sm">
-                        <img id="edit-cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
-                        <!-- Cover Image Input -->
-                        <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <label for="edit-cover-image" class="daisy-label">
-                            </label>
-                            <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="edit-cover-image" type="file" accept=".jpg" name="cover-image">
-                            <label class="daisy-label">
-                                <span class="daisy-label-text-alt">Use JPG File Format</span>
-                            </label>
+                    <div>
+                        <!-- Placeholder for Cover Image -->
+                        <span class="daisy-label-text">Choose a cover image to showcase</span>
+                        <div class="w-full h-80 relative group rounded-sm">
+                            <img id="edit-cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
+                            <!-- Cover Image Input -->
+                            <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <label for="edit-cover-image" class="daisy-label">
+                                </label>
+                                <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="edit-cover-image" type="file" accept=".jpg" name="cover-image">
+                                <label class="daisy-label">
+                                    <span class="daisy-label-text-alt">Use JPG File Format</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
+                        <label for="edit-searchQuery" class="font-bold">Search Alumni From Your College:</label>
+                        <div class="flex  flex-wrap  flex-row   text-gray-500 relative" id="searchContainer">
+
+
+                            <div class="relative rounded w-full">
+                                <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
+                                <input autocomplete="off" class="form-input rounded pr-8 w-full" type="text" name="searchQuery" id="edit-searchQuery" placeholder="Search">
+                            </div>
+                            <ul class="bg-slate-100 border border-gray-100 w-full mt-2 absolute top-full inset-x-0 hidden" id="edit-searchList">
+                                <!-- TODO add some animation to this -->
+
+                            </ul>
                         </div>
                     </div>
 
-                    <!-- TODO maybe add a little radio group here if alumni is not on the database. -->
-                    <label for="edit-searchQuery" class="font-bold">Search Alumni From Your College:</label>
-                    <div class="flex  flex-wrap  flex-row   text-gray-500 relative" id="searchContainer">
-
-
-                        <div class="relative rounded w-full">
-                            <i class="fa-solid fa-magnifying-glass absolute top-3 right-3"></i>
-                            <input autocomplete="off" class="form-input rounded pr-8 w-full" type="text" name="searchQuery" id="edit-searchQuery" placeholder="Search">
-                        </div>
-                        <ul class="bg-slate-100 border border-gray-100 w-full mt-2 absolute top-full inset-x-0 hidden" id="edit-searchList">
-                            <!-- TODO add some animation to this -->
-
-                        </ul>
-                    </div>
                     <div id="edit-alumni-details" class=" w-full max-w-md hidden border shadow-md  p-4">
                         <!-- Details of the alumni -->
                         <p class="font-semibold pb-4">Alumni Detail</p>
@@ -334,20 +353,33 @@
 
                     </div>
 
-                    <label class="font-bold" for="quote">Quotation:</label>
-                    <input id="edit-quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
-                    <input id="edit-studentId" name="studentNo" class="hidden" type="hidden">
-                    <input id="edit-personId" name="personID" class="hidden" type="hidden">
-                    <!-- new aotm -id -->
-                    <input id="edit-aotm-id" name="aotm-id" class="hidden" type="hidden">
+                    <div>
+                        <label class="font-bold" for="quote">Quotation:</label>
+                        <input id="edit-quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
+                        <input id="edit-studentId" name="studentNo" class="hidden" type="hidden">
+                        <input id="edit-personId" name="personID" class="hidden" type="hidden">
+                        <!-- new aotm -id -->
+                        <input id="edit-aotm-id" name="aotm-id" class="hidden" type="hidden">
+                    </div>
+
+                    <div>
+
+                        <p class="font-bold block" for="">Description:</p>
+                        <textarea name="description" class="form-textarea block rounded resize max-w-full" id="edit-description"></textarea>
+                    </div>
 
 
-                    <p class="font-bold block" for="">Description:</p>
-                    <textarea name="description" class="form-textarea block rounded resize max-w-full" id="edit-description"></textarea>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-col flex-wrap gap-4 p-4 justify-end">
+                        <button class="btn-tertiary bg-transparent " id="edit-reset-aotm" type="reset">
+                            <i class="fa-solid fa-arrow-rotate-right"></i>
+                            Reset Form
+                        </button>
+                        <button type="submit" name="edit-aotm-record" value="" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> Edit Alumni of the Month
 
-                    <div class="flex flex-wrap gap-4 py-4 justify-end">
-                        <button class="btn-tertiary bg-transparent " id="edit-reset-aotm" type="reset">Reset Form</button>
-                        <button type="submit" name="edit-aotm-record" value="" class="btn-primary">Edit Alumni of the Month</button>
+                        </button>
                     </div>
                 </div>
             </form>
