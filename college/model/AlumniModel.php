@@ -78,7 +78,7 @@ class AlumniModel
     }
 
 
-    public function getFullAlumniDetailById(string $id, bool $isJSON)
+    public function getFullAlumniDetailById(string $id)
     {
 
         //get the person ID of user
@@ -88,18 +88,15 @@ class AlumniModel
         $stmt->execute();
 
         $result = $stmt->get_result();
-        $jsonResult = array();
 
         if (
             $result->num_rows
         ) {
-            if ($isJSON) {
-                return $result->fetch_assoc();
-            }
-            // ok
-            $jsonResult['response'] = 'Successful';
-            $jsonResult['result'] = $result->fetch_assoc();
-            return json_encode($jsonResult);
+
+            $row =  $result->fetch_assoc();
+            // ! README ALWAYS USE base64_encode() when sending image to client. 10 Hours wasted because of this.
+            $row['profilepicture'] = base64_encode($row['profilepicture']);
+            return $row;
         }
 
         return json_encode(array('response' => 'Unsuccessful', 'result' => []));

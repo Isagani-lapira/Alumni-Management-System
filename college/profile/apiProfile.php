@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             setNewActivity(
                 $mysql_con,
                 $_SESSION['adminID'],
-                "Update",
+                "updated",
                 "Updated Personal Information"
             );
         } catch (\Throwable $th) {
@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             setNewActivity(
                 $mysql_con,
                 $_SESSION['adminID'],
-                "Update",
+                "updated",
                 "Updated College Information"
             );
             echo json_encode(
