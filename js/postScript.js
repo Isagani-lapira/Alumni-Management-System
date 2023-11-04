@@ -104,10 +104,6 @@ $(document).ready(function () {
             }
             else postInsertion(caption, college);
 
-            //refresh a table list
-            restartTableContent()
-            getPostAdmin(postData, true)
-
             // restart the form
             //remove the images
             while (imgContPost.firstChild) {
@@ -116,6 +112,11 @@ $(document).ready(function () {
             }
             $('#TxtAreaAnnouncement').val('')
         }
+
+
+        //refresh a table list
+        restartTableContent()
+        getPostAdmin(postData, true)
 
     })
 
