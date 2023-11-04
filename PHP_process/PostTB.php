@@ -206,7 +206,7 @@ class PostData
             } else echo 'none';
         } else { // if the user just starting to retrieve data for today
 
-            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `status` = 'available' ORDER BY `date` DESC LIMIT 0, $maxLimit";
+            $queryRetrievePost = "SELECT * FROM `post` WHERE `date`= '$date' AND `colCode`='$college' AND `status` = 'available' ORDER BY `timestamp` DESC LIMIT 0, $maxLimit";
             $result = mysqli_query($con, $queryRetrievePost);
 
             $post = $this->getPostData($result, $con); //get all the data of the post
@@ -442,22 +442,22 @@ class PostData
             LEFT JOIN report_post rp ON p.postID = rp.postID
             WHERE p.status = 'available' AND rp.report_category = '$reportCat'
             GROUP BY p.postID
-            ORDER BY num_reports DESC, p.date DESC 
+            ORDER BY num_reports DESC, p.timestamp DESC 
             LIMIT $offset, $maxLimit";
         } else if ($reportCat == null && $college != null) {
             //get college only
             $query = "SELECT * FROM `post` WHERE `colCode` = '$college' 
-            AND `status`='available' ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+            AND `status`='available' ORDER BY `timestamp` DESC LIMIT $offset,$maxLimit";
         } else if ($college != null && $reportCat != null) {
             //get all with condition of report category and college
             $query = "SELECT p.*
             FROM post p
             JOIN report_post rp ON p.postID = rp.postID
             WHERE p.colCode = '$college' AND rp.report_category = '$reportCat' 
-            ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+            ORDER BY `timestamp` DESC LIMIT $offset,$maxLimit";
         } else {
             $query = "SELECT * FROM `post` WHERE `status` = 'available'
-            ORDER BY `date` DESC LIMIT $offset, $maxLimit";
+            ORDER BY `timestamp` DESC LIMIT $offset, $maxLimit";
         }
 
         $result = mysqli_query($con, $query);
@@ -536,7 +536,7 @@ class PostData
         $maxLimit = 10;
         $status = "available";
         $query = "SELECT * FROM `post` WHERE `status` = ? 
-        AND `colCode` = ? ORDER BY `date` DESC LIMIT $offset,$maxLimit";
+        AND `colCode` = ? ORDER BY `timestamp` DESC LIMIT $offset,$maxLimit";
         $stmt = mysqli_prepare($con, $query);
 
         if ($stmt) {

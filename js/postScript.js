@@ -207,8 +207,7 @@ $(document).ready(function () {
                     $('.totalPost').text(table.rows().count())
                 }
 
-            },
-            error: (error) => { console.log(error) }
+            }
         })
     }
 
@@ -564,8 +563,7 @@ $(document).ready(function () {
                     let noCommentMsg = $('<p>').addClass('text-gray-500 text-center').text('No available comment')
                     $('#commentContainer').append(noCommentMsg) //show no comment
                 }
-            },
-            error: (error) => { console.log(error) }
+            }
         })
     }
 
@@ -597,8 +595,7 @@ $(document).ready(function () {
                         $('#namesOfUser').append(p)
                     }
                 }
-            },
-            error: (error) => { console.log(error) }
+            }
         })
     }
     let actionTracker = "";
@@ -782,7 +779,6 @@ $(document).ready(function () {
                 if (isLiked) {
                     //decrease the current total number of likes by 1
                     newlyAddedLike -= 1
-                    console.log(newlyAddedLike)
                     likesElement.text(newlyAddedLike)
                     heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>');
                     removeLike(postID)
@@ -933,7 +929,6 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
-                console.log(response)
                 //close the modal
                 $('#delete-modal').addClass('hidden')
                 if (isProfile) {
@@ -982,8 +977,6 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: (response) => { console.log(response) },
-            error: (error) => { console.log(error) }
         })
     }
 
@@ -1004,8 +997,6 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: (response) => { console.log(response) },
-            error: (error) => { console.log(error) }
         })
     }
     //add retrieve new data
@@ -1302,7 +1293,6 @@ $(document).ready(function () {
                 if (isLiked) {
                     //decrease the current total number of likes by 1
                     newlyAddedLike -= 1
-                    console.log(newlyAddedLike)
                     likesElement.text(newlyAddedLike)
                     heartIcon.html('<iconify-icon icon="mdi:heart-outline" style="color: #626262;" width="20" height="20"></iconify-icon>');
                     removeLike(postID)
@@ -1465,9 +1455,6 @@ $(document).ready(function () {
                     let commentCount = parseInt(commentElement.text()) + 1
                     commentElement.text(commentCount) //update the count of comment of ta certain post
                 }
-            },
-            error: error => {
-                console.log(error)
             }
         })
     }
@@ -1492,7 +1479,6 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
-                console.log(response);
                 if (response == 'Success') {
                     // //close the modal
                     $('.deleteModalPost').addClass('hidden')
@@ -1666,7 +1652,6 @@ $(document).ready(function () {
             success: response => {
                 let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; //default value
                 if (response.response === 'Success') {
-                    console.log(response)
                     let length = response.month.length;
 
                     for (let i = 0; i < length; i++) {
@@ -1677,12 +1662,10 @@ $(document).ready(function () {
 
                         value -= 2 //decrease by one to match the indexing in the array
                         data[value] = reportCount
-                        console.log(data[value] + '-' + i)
                     }
 
                 }
 
-                console.log(data)
                 reportTrendFiltered(data, reportFilter) //display the new chart
             }
 
@@ -1718,7 +1701,6 @@ $(document).ready(function () {
         currentReportChart.data.datasets[0].label = label
         currentReportChart.data.datasets[0].borderColor = colors
 
-        console.log(values)
         if (typeChart !== 'pie') {
             currentReportChart.options.scales = {
                 y: {

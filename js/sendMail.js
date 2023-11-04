@@ -189,8 +189,7 @@ $(document).ready(function () {
                             $('#promptMsg').addClass('hidden')
                         }, 4000)
                     }
-                },
-                error: (error) => console.log(error)
+                }
             })
         }
 
@@ -284,8 +283,7 @@ $(document).ready(function () {
                     if (length === 10) getEmailSent(actionDefault)
 
                 }
-            },
-            error: error => { console.log(error) }
+            }
         })
     }
 
