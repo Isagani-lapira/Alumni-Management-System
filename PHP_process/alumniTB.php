@@ -2,10 +2,10 @@
 
 class Alumni
 {
-    function insertAlumni($studNo, $personID, $colCode, $username, $batchYr, $employmentStatus, $con)
+    function insertAlumni($studNo, $personID, $colCode, $username, $batchYr, $courseID, $employmentStatus, $con)
     {
-        $query =  "INSERT INTO `alumni`(`studNo`, `personID`, `colCode`, `username`, `batchYr`) 
-        VALUES ('$studNo','$personID','$colCode','$username','$batchYr' '$employmentStatus')";
+        $query =  "INSERT INTO `alumni`(`studNo`, `personID`, `colCode`, `username`, `batchYr`,`employment_status`,`courseID`) 
+        VALUES ('$studNo','$personID','$colCode','$username','$batchYr', '$employmentStatus','$courseID')";
 
         $result = mysqli_query($con, $query);
 

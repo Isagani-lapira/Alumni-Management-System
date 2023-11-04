@@ -73,6 +73,7 @@ function insertionPerson($accountType, $userType, $con)
     $gender = trim($_POST['gender']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    $courseID = $_POST['course'];
 
     $randomNo = rand(1, 2000);
     $currentDateTime = date('y/m/d h:i:s');
@@ -114,11 +115,11 @@ function insertionPerson($accountType, $userType, $con)
                     $batch = $_POST['batch'];
                     if ($userType == "Student") {
                         $studentUser = new Student();
-                        $insertAcc = $studentUser->insertStudent($studentNo, $college, $personID, $username, $batch, $con);
+                        $insertAcc = $studentUser->insertStudent($studentNo, $college, $personID, $username, $courseID, $batch, $con);
                     } else {
                         $alumniUser = new Alumni();
                         $employmentStat = $_POST['empStatus'];
-                        $insertAcc = $alumniUser->insertAlumni($studentNo, $personID, $college, $username, $batch, $employmentStat, $con);
+                        $insertAcc = $alumniUser->insertAlumni($studentNo, $personID, $college, $username, $batch, $courseID, $employmentStat, $con);
                     }
                     break;
                 case 'ColAdmin':

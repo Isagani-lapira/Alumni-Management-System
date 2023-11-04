@@ -159,6 +159,14 @@
                     </div>
                 </div>
 
+                <!-- course -->
+                <div class="w-full flex flex-col">
+                    <label for="courses">Course</label>
+                    <select name="course" id="courses" class="p-3 rounded-lg border border-gray-400 requiredAlumni2">
+                        <option value="" selected>Your course</option>
+                    </select>
+                </div>
+
                 <!-- username -->
                 <div>
 
@@ -328,6 +336,14 @@
                             <option value=4>4th Year</option>
                         </select>
                     </div>
+                </div>
+
+                <!-- course -->
+                <div class="w-full flex flex-col">
+                    <label for="courses">Course</label>
+                    <select name="course" id="courseStudent" class="p-3 rounded-lg border border-gray-400 requiredStudent2">
+                        <option value="" selected>Your course</option>
+                    </select>
                 </div>
 
                 <!-- username -->

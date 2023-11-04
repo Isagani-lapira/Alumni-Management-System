@@ -354,6 +354,50 @@ $(document).ready(function () {
     $('#batchAlumni').append(option)
   }
 
+  $('#college').on('change', function () {
+    const college = $(this).val();
+    const container = '#courses'
+    addOptionCourse(college, container);
+  })
+  $('#studCollege').on('change', function () {
+    const college = $(this).val();
+    const container = '#courseStudent'
+    addOptionCourse(college, container);
+  })
+
+  function addOptionCourse(college, container) {
+    let data = {
+      action: "courses",
+      query: true,
+    };
+
+    const formData = new FormData();
+    formData.append('colCode', college);
+    formData.append('data', JSON.stringify(data));
+
+    $.ajax({
+      url: '../PHP_process/collegeDB.php',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      success: response => {
+        if (response.response === 'Success') {
+          $(container).find('option:not(:first)').remove();
+          let length = response.courseName.length;
+
+          // add the college in the option
+          for (let i = 0; i < length; i++) {
+            const courseID = response.courseID[i];
+            const courseName = response.courseName[i];
+            const option = $('<option>').val(courseID).text(courseName);
+            $(container).append(option)
+          }
+        }
+      }
+    })
+  }
   // student form process
 
   $('#nextStudent').on('click', function () {

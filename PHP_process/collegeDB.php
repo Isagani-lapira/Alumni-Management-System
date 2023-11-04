@@ -24,6 +24,10 @@ if (isset($_POST['data'])) {
             case 'create':
                 insertionCollege($mysql_con);
                 break;
+            case 'courses':
+                $college = $_POST['colCode'];
+                retrieveCourses($college, $mysql_con);
+                break;
             default:
                 echo 'An error';
                 break;
@@ -223,6 +227,38 @@ function querySelect($college, $con)
 
         echo json_encode($colData);
     }
+}
+
+function retrieveCourses($college, $con)
+{
+    $query = "SELECT `courseID`,`courseName` FROM `course` WHERE `colCode` = ?";
+    $stmt = mysqli_prepare($con, $query);
+
+    $response = "Failed";
+    $courseID = array();
+    $courseName = array();
+
+    if ($stmt) {
+        $stmt->bind_param('s', $college);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result) {
+            $response = "Success";
+            while ($data = $result->fetch_assoc()) {
+                $courseID[] = $data['courseID'];
+                $courseName[] = $data['courseName'];
+            }
+        }
+    }
+
+    $data = array(
+        "response" => $response,
+        "courseID" => $courseID,
+        "courseName" => $courseName,
+    );
+
+    echo json_encode($data);
 }
 
 mysqli_close($mysql_con);
