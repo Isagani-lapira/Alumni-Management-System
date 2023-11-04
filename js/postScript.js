@@ -1256,18 +1256,17 @@ $(document).ready(function () {
                 }
             });
 
+
+            // Initialize Swiper with pagination
             new Swiper('.communitySwiper', {
-                // If we need pagination
                 pagination: {
                     el: '.swiper-pagination',
                 },
-
-                // Navigation arrows
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
             });
+
+            if (images.length === 1)
+                swiperContainer.find('.swiper-button-prev, .swiper-button-next').hide();
+
 
         } else {
             postWrapper.css('min-height', '155px')

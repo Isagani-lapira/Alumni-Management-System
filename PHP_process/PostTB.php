@@ -408,7 +408,7 @@ class PostData
     {
         $maxLimit = 10;
         $query = "SELECT * FROM `post` WHERE `status` = 'available'
-        ORDER BY `date` DESC LIMIT $offset, $maxLimit";
+        ORDER BY `timestamp` DESC LIMIT $offset, $maxLimit";
         $result = mysqli_query($con, $query);
         $row = mysqli_num_rows($result);
 
