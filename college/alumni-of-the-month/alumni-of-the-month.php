@@ -143,9 +143,9 @@
             <h3 class="font-bold text-xl text-center">Add New Alumni of the Month</h3>
 
             <!-- make alumni of the year post -->
-            <form action="" id="add-aotm-form" class="flex flex-row  divide-x ">
+            <form action="" id="add-aotm-form" class="flex flex-row  divide-x flex-wrap ">
 
-                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12 space-y-4 flex-1 overflow-auto">
+                <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12 space-y-4 flex-1 overflow-auto min-w-fit">
                     <div>
                         <span class="daisy-label-text daisy-label font-bold text-base">Choose a cover image to showcase</span>
                         <!-- Placeholder for Cover Image -->
@@ -196,7 +196,7 @@
 
                     <div class="w-full">
                         <label class="font-bold" for="quote">Quotation:</label>
-                        <input id="quote" name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
+                        <input id="quote" name="quote" class="form-input block rounded w-full" type="text" placeholder="Journey of a thousand miles starts in a single step.">
                         <input id="studentId" name="studentNo" class="hidden" type="hidden">
                         <input id="personId" name="personID" class="hidden" type="hidden">
                     </div>
@@ -207,65 +207,30 @@
                         <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
                     </div>
 
-                    <!-- Add Achievement
-                    <div class="border">
+
+                    <div class="border space-y-4 p-4">
+                        <h3 class="font-bold">ACHIEVEMENTS:</h3>
+
                         <div id="achievementFields" class="grid grid-cols-3 gap-4">
-                            <div class="achievement-box hidden p-4 border rounded-md ">
 
-                                <div class="daisy-form-control w-full max-w-xs">
-                                    <label class="daisy-label">
-                                        <span class="font-bold daisy-label-text">Achievement Title:</span>
-
-                                    </label>
-                                    <input type="text" class="daisy-input daisy-input-bordered w-full max-w-xs" name="a-title[]" placeholder="" required>
-
-                                    <label class="daisy-label">
-                                        <span class="daisy-label-text-alt hidden">Bottom Left label</span>
-                                    </label>
-                                </div>
-
-                                <div class="daisy-form-control w-full max-w-xs">
-                                    <label class="font-bold daisy-label">
-                                        <span class="daisy-label-text">Achievement Description:</span>
-
-                                    </label>
-                                    <textarea type="text" name="a-description[]" class=" daisy-input daisy-input-bordered w-full max-w-xs" placeholder="" required>
-
-
-                                    </textarea>
-                                    <label class="font-bold daisy-label">
-                                        <span class="daisy-label-text-alt hidden">Bottom Left label</span>
-                                    </label>
-                                </div>
-
-
-                                <div class="daisy-form-control w-full max-w-xs">
-                                    <label class="font-bold daisy-label">
-                                        <span class="daisy-label-text">Date:</span>
-
-                                    </label>
-                                    <input type="date" name="a-date[]" class="daisy-input daisy-input-bordered w-full max-w-xs" required>
-
-
-                                    <label class="daisy-label">
-                                        <span class="daisy-label-text-alt hidden">Bottom Left label</span>
-                                    </label>
-                                </div>
-
-
-                                <div class=" w-full max-w-xs">
-                                    <button type="button" class="a-remove daisy-btn">Remove</button>
-
-                                </div>
-
-
-
-                            </div>
 
                         </div>
 
-                        <button id="add-achievement-btn" class="daisy-btn">Add Achievement</button>
-                    </div> -->
+                        <button type="button" id="add-achievement-btn" class="daisy-btn">Add Achievement</button>
+                    </div>
+
+
+
+                    <div class="border space-y-4 p-4">
+                        <h3 class="font-bold">TESTIMONIES:</h3>
+
+                        <div id="testimonyFields" class="flex flex-row gap-4">
+
+
+                        </div>
+
+                        <button type="button" id="add-testimony-btn" class="daisy-btn">Add Testimony</button>
+                    </div>
 
 
 
@@ -368,6 +333,26 @@
                         <textarea name="description" class="form-textarea block rounded resize max-w-full" id="edit-description"></textarea>
                     </div>
 
+                    <div>
+                        <p class="font-bold">ACHIEVEMENTS:</p>
+                        <div id="edit-achievementFields" class="grid grid-cols-3 gap-4">
+                        </div>
+
+                        <button type="button" id="edit-add-achievement-btn" class="daisy-btn">Add Achievement</button>
+                    </div>
+
+
+                    <div class="border space-y-4 p-4">
+                        <h3 class="font-bold">TESTIMONIES:</h3>
+
+                        <div id="edit-testimonyFields" class="flex flex-row  gap-4">
+
+
+                        </div>
+
+                        <button type="button" id="edit-add-testimony-btn" class="daisy-btn">Add Testimony</button>
+                    </div>
+
 
                 </div>
                 <div class="flex flex-col gap-4">
@@ -404,6 +389,116 @@
 
         </div>
         <label for="view-modal" class="daisy-modal-backdrop">Close</label>
+    </div>
+
+    <div class="form-component-container">
+
+        <div class="achievement-box hidden p-4 border rounded-md ">
+
+            <div class="daisy-form-control w-full max-w-xs">
+                <label class="daisy-label">
+                    <span class="font-bold daisy-label-text">Achievement Title:</span>
+
+                </label>
+                <input type="text" class="daisy-input daisy-input-bordered w-full max-w-xs" name="a-title[]" placeholder="" required>
+
+                <label class="daisy-label">
+                    <span class="daisy-label-text-alt hidden">Bottom Left label</span>
+                </label>
+            </div>
+
+            <div class="daisy-form-control w-full max-w-xs">
+                <label class="font-bold daisy-label">
+                    <span class="daisy-label-text">Description:</span>
+
+                </label>
+                <textarea type="text" name="a-description[]" class=" daisy-input daisy-input-bordered w-full max-w-xs min-h-16" placeholder="" required>
+                </textarea>
+                <label class="font-bold daisy-label">
+                    <span class="daisy-label-text-alt hidden">Bottom Left label</span>
+                </label>
+            </div>
+
+
+            <div class="daisy-form-control w-full max-w-xs ">
+                <label class="font-bold daisy-label">
+                    <span class="daisy-label-text">Date:</span>
+
+                </label>
+                <input type="date" name="a-date[]" class="daisy-input daisy-input-bordered w-full max-w-xs" required>
+
+
+                <label class="daisy-label">
+                    <span class="daisy-label-text-alt hidden">Bottom Left label</span>
+                </label>
+            </div>
+
+
+            <div class=" w-full max-w-xs mt-2 text-right">
+                <button type="button" class="a-remove daisy-btn daisy-btn-warning daisy-btn-outline">Remove</button>
+
+            </div>
+
+
+
+        </div>
+
+        <div class="testimony-box  p-4 border rounded-md w-full flex flex-col  gap-4 hidden">
+
+            <div class="daisy-form-control w-full max-w-full">
+
+                <label class="font-bold daisy-label" for="person_name">Name:</label>
+                <input class="form-input daisy-input rounded" type="text" name="person_name[]" required><br>
+
+            </div>
+
+
+
+            <div class="w-full flex flex-wrap gap-4 [&>*]:flex-1 ">
+                <div class="daisy-form-control">
+                    <label class="font-bold daisy-label" for="relationship">Relationship:</label>
+                    <input class="form-input daisy-input rounded" type="text" name="relationship[]" required><br>
+                </div>
+                <div class="daisy-form-control">
+                    <label class="font-bold daisy-label" for="emailAddress">Email Address:</label>
+                    <input class="form-input daisy-input rounded" type="email" name="emailAddress[]" required><br>
+                </div>
+            </div>
+
+
+
+            <div class="w-full flex flex-wrap gap-4 [&>*]:flex-1">
+                <div class="daisy-form-control ">
+
+                    <label class="font-bold daisy-label" for="companyName">Company Name:</label>
+                    <input class="form-input daisy-input rounded" type="text" name="companyName[]" required><br>
+                </div>
+
+                <div class="daisy-form-control ">
+                    <label class="font-bold daisy-label" for="position">Position:</label>
+                    <input class="form-input daisy-input rounded" type="text" name="position[]" required><br>
+                </div>
+
+            </div>
+            <div class="daisy-form-control w-full max-w-full">
+                <label class="font-bold daisy-label" for="message">Testimonial Message:</label><br>
+                <textarea class="w-full form-textarea border rounded-md" name="message[]" rows="4" required></textarea><br>
+            </div>
+
+            <div class="w-full flex flex-wrap gap-4  [&>*]:flex-1">
+                <div class="daisy-form-control ">
+                    <label class="font-bold daisy-label" for="date">Date:</label>
+                    <input class="form-input daisy-input rounded" type="date" name="date[]" required><br>
+                </div>
+                <div class="daisy-form-control w-full max-w-sm">
+                    <label class="font-bold daisy-label" for="profile_img">Profile Image:</label>
+                    <input type="file" required type="file" name="profile_img[]" class=" rounded daisy-file-input daisy-file-input-bordered w-full max-w-xs" />
+                </div>
+            </div>
+
+            <button type="button" class="t-remove daisy-btn daisy-btn-warning daisy-btn-outline">Remove Testimonial</button>
+        </div>
+
     </div>
 
 </section>

@@ -29,6 +29,28 @@ $(document).ready(function () {
     }, 1000);
   });
 
+  function addEmptyAchievement(container) {
+    const newAchievement = $(
+      ".form-component-container .achievement-box:first"
+    ).clone();
+    newAchievement.find("input").val(""); // Clear input values
+    newAchievement.find("input[type=date]").val(""); // Clear date field
+    newAchievement.removeClass("hidden"); // Show cloned element
+    newAchievement.appendTo(container).slideDown();
+    console.log(newAchievement);
+  }
+
+  function addEmptyTestimony(container) {
+    const newContainer = $(
+      ".form-component-container .testimony-box:first"
+    ).clone();
+    newContainer.find("input").val(""); // Clear input values
+    newContainer.find("input[type=date]").val(""); // Clear date field
+    newContainer.removeClass("hidden"); // Show cloned element
+    newContainer.appendTo(container).slideDown();
+    console.log(newContainer);
+  }
+
   /**
    * Adds all the event listeners for the page
    */
@@ -38,18 +60,51 @@ $(document).ready(function () {
     CKEDITOR.replace("edit-description");
 
     // Achievement handlers
-    $("#add-achievement-btn").on("click", function () {
-      const newAchievement = $(".achievement-box:first").clone();
-      newAchievement.find("input").val(""); // Clear input values
-      newAchievement.find("input[type=date]").val(""); // Clear date field
-      newAchievement.removeClass("hidden"); // Show cloned element
-      newAchievement.appendTo("#achievementFields").slideDown();
-      console.log(newAchievement);
+    $("#add-aotm-form").on("click", "#add-achievement-btn", function () {
+      addEmptyAchievement("#achievementFields");
+    });
+
+    // Achievement handlers
+    $("#edit-aotm-form").on("click", "#edit-add-achievement-btn", function () {
+      addEmptyAchievement("#edit-achievementFields");
     });
 
     $("#achievementFields").on("click", ".a-remove", function () {
       $(this)
         .closest(".achievement-box")
+        .slideUp(function () {
+          $(this).remove();
+        });
+    });
+
+    $("#edit-achievementFields").on("click", ".a-remove", function () {
+      $(this)
+        .closest(".achievement-box")
+        .slideUp(function () {
+          $(this).remove();
+        });
+    });
+
+    // * Testimonial handlers
+    $("#add-aotm-form").on("click", "#add-testimony-btn", function () {
+      addEmptyTestimony("#testimonyFields");
+    });
+
+    $("#edit-aotm-form").on("click", "#edit-add-testimony-btn", function () {
+      addEmptyTestimony("#edit-testimonyFields");
+    });
+
+    $("#testimonyFields").on("click", ".t-remove", function () {
+      $(this)
+        .closest(".testimony-box")
+        .slideUp(function () {
+          $(this).remove();
+        });
+    });
+
+    $("#edit-testimonyFields").on("click", ".t-remove", function () {
+      $(this)
+        .closest(".testimony-box")
         .slideUp(function () {
           $(this).remove();
         });
