@@ -1,6 +1,9 @@
 <?php
 
 require_once 'connection.php';
+require 'PostTB.php';
+require_once 'notificationTable.php';
+session_start();
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
 
@@ -10,7 +13,10 @@ if (isset($_POST['action'])) {
             $personID = $_POST['personID'];
             $colCode = $_POST['colCode'];
             $reason = $_POST['reason'];
-            insertAOY($aomID, $personID, $colCode, $reason, $mysql_con);
+            $colleges = json_decode($_POST['colleges'], true);
+            $aoy = $_POST['aoy'];
+            $adminUN = $_POST['adminUN'];
+            insertAOY($aomID, $adminUN, $personID, $colCode, $reason, $colleges, $aoy, $mysql_con);
             break;
         case 'checkForThisYearAOY':
             echo checkForThisYearAOY($mysql_con);
@@ -23,16 +29,38 @@ if (isset($_POST['action'])) {
 }
 
 
-function insertAOY($aomID, $personID, $colCode, $reason, $con)
+function insertAOY($aomID, $adminUN, $personID, $colCode, $reason, $colleges, $aoy, $con)
 {
+    // adding new AOY in the database
     $query = "INSERT INTO `alumni_of_the_year`( `AOMID`, `personID`, `colCode`, `reason`) 
     VALUES (?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
     $stmt->bind_param('ssss', $aomID, $personID, $colCode, $reason);
     $result = $stmt->execute();
 
-    if ($result) echo 'Success';
-    else echo 'Failed';
+    if ($result) {
+        // post the alumni of the year in the community
+        $id = "";
+        $post = new PostData();
+        $colleges = array_slice($colleges, 1);
+
+        // post the alumni of the  year to all colleges in the system
+        foreach ($colleges as $college) {
+            $random = rand(0, 4000);
+            $postID = uniqid() . '-' . $random;
+            $post->createAOYPost($aomID, $adminUN, $postID, $colCode, $con);
+
+            if ($colCode === $college) $id = $postID;
+        }
+
+        //notify the alumni
+        $notification = new Notification();
+        $typeOfNotif = 'aoy';
+        $resultNotif = $notification->insertNotif($id, $aoy, $typeOfNotif, $con);
+
+        if ($resultNotif) echo 'Success';
+        else echo 'Failed';
+    } else echo 'Failed';
 }
 
 function checkForThisYearAOY($con)
@@ -99,12 +127,12 @@ function retrieveAOY($offset, $con)
     $data = array(
         "response" => $response,
         "aoyID" => $AOYID,
-        "personID"=>$personID,
+        "personID" => $personID,
         "aomID" => $AOMID,
         "fullname" => $fullname,
         "reason" => $reason,
         "year" => $year,
-        "colCode"=>$colCode
+        "colCode" => $colCode
     );
 
     echo json_encode($data);

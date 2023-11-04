@@ -71,13 +71,15 @@ $(document).on('ready', function () {
                     const quotation = data.quote;
                     const fullname = data.fullname;
                     const colCode = data.colCode;
-                    displaySelectedAOM(aomID, cover_img, quotation, fullname, personID, colCode)
+                    const aoyUN = data.aoyUN;
+
+                    displaySelectedAOM(aomID, cover_img, quotation, fullname, personID, aoyUN, colCode)
                 }
             }
         })
     })
 
-    function displaySelectedAOM(aomID, cover_img, quotation, fullname, personID, colCode) {
+    function displaySelectedAOM(aomID, cover_img, quotation, fullname, personID, aoyUN, colCode) {
         $('#aomCover').attr('src', cover_img).removeClass('hidden');
         $('.aomFullname').text(fullname);
         $('#aomQuotation').text(quotation);
@@ -197,7 +199,7 @@ $(document).on('ready', function () {
 
             if (reason !== '') {
                 // assign new alumni of the year
-                addAOY(aomID, personID, colCode, reason)
+                addAOY(aomID, personID, colCode, aoyUN, reason)
                 $('#reasonForAOY').addClass('border-gray-400').removeClass('border-red-400').val('')
 
             }
@@ -328,14 +330,24 @@ $(document).on('ready', function () {
         $('.alumniOfYearModal').parent().addClass('hidden')
     })
 
-    function addAOY(aomID, personID, colCode, reason) {
+    function addAOY(aomID, personID, colCode, aoyUN, reason) {
         const action = "insertAOY";
+        const accountUN = $('#accountUN').val()
+        // retrieve all the colleges in the system
+        var colleges = $("#announcementCol").find("option").map(function () {
+            return $(this).val();
+        }).get();
+
+        // data to be sent
         const formData = new FormData();
         formData.append('action', action);
         formData.append('aomID', aomID);
         formData.append('personID', personID);
         formData.append('colCode', colCode);
         formData.append('reason', reason);
+        formData.append('aoy', aoyUN);
+        formData.append('adminUN', accountUN);
+        formData.append('colleges', JSON.stringify(colleges))
 
         $.ajax({
             url: '../PHP_process/alumniOfYear.php',
@@ -344,6 +356,7 @@ $(document).on('ready', function () {
             processData: false,
             contentType: false,
             success: response => {
+                console.log(response)
                 if (response === 'Success') {
                     $('.alumniOfYearModal').parent().addClass('hidden')
                     $('#successModalAOY').removeClass('hidden')

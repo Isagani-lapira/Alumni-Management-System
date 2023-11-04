@@ -186,10 +186,12 @@ function listOfAOMThisYear($con)
 
 function getSelectedAOM($aomID, $con)
 {
-    $query = "SELECT a.`quote`,a.`colCode`,a.`cover_img`, p.fname, p.lname
+    $query = "SELECT a.`quote`, a.`colCode`, a.`cover_img`, p.fname, p.lname, al.username
     FROM alumni_of_the_month AS a
     INNER JOIN person AS p ON a.personID = p.personID
+    INNER JOIN alumni AS al ON a.personID = al.personID
     WHERE a.`AOMID` = ?";
+
 
     $stmt = mysqli_prepare($con, $query);
     $stmt->bind_param('s', $aomID);
@@ -202,13 +204,14 @@ function getSelectedAOM($aomID, $con)
     $quote = "";
     $cover_img = "";
     $colCode = "";
-
+    $username = "";
     if ($result) {
         $response = "Success";
         $data = $result->fetch_assoc();
         $fullname = $data['fname'] . ' ' . $data['lname'];
         $quote = $data['quote'];
         $colCode = $data['colCode'];
+        $username = $data['username'];
         $cover_img = base64_encode($data['cover_img']);
     }
 
@@ -217,6 +220,7 @@ function getSelectedAOM($aomID, $con)
         "fullname" => $fullname,
         "quote" => $quote,
         "colCode" => $colCode,
+        "aoyUN" => $username,
         "cover" => $cover_img,
     );
 

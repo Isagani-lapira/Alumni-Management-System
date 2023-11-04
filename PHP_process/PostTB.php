@@ -59,14 +59,26 @@ class PostData
         $random = rand(0, 100);
         $imageID = $postID . '-' . uniqid() . '-' . $random;
 
-        //add image to the database
-        $query = "INSERT INTO `post_images`(`imageID`, `postID`, `image`)
-         VALUES ('$imageID','$postID','$img')";
-        $result = mysqli_query($con, $query);
+        // Prepare a parameterized query
+        $query = "INSERT INTO `post_images`(`imageID`, `postID`, `image`) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($con, $query);
 
-        if ($result) return true;
-        else return false;
+        if ($stmt) {
+            // Bind the parameters
+            mysqli_stmt_bind_param($stmt, 'sss', $imageID, $postID, $img);
+
+            // Execute the query
+            $result = mysqli_stmt_execute($stmt);
+
+            if ($result) {
+                mysqli_stmt_close($stmt);
+                return true;
+            }
+        }
+
+        return false;
     }
+
 
     //get all the post by admin
     function getPostAdmin($username, $startingDate, $endDate, $offset, $con)
@@ -547,5 +559,43 @@ class PostData
             $postResult = $this->getPostData($result, $con);
             echo $postResult;
         } else echo 'failed';
+    }
+
+    function createAOYPost($AOMID, $username, $postID, $colCode, $con)
+    {
+
+        $date = date('y/m/d');
+        $year = date('Y');
+        $caption = 'We extend our congratulations to the recently assigned Alumni of the Year ' . $year . ' 
+        We are grateful for your hard work and dedication. Keep up the good work';
+        $STATUS = 'available';
+
+        $query = "INSERT INTO `post`(`postID`, `username`, `colCode`, `caption`, `date`, `timestamp`, `status`) 
+        VALUES (?,?,?,?,?,?,?)";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('sssssss', $postID, $username, $colCode, $caption, $date, $timestamp, $STATUS);
+            $result = $stmt->execute();
+            $stmt->close();
+
+            // add image to the post images
+            if ($result) {
+                // get the image in the AOM
+                $queryCoverImg = "SELECT `cover_img` FROM `alumni_of_the_month` WHERE `AOMID` = ?";
+                $stmtCover = mysqli_prepare($con, $queryCoverImg);
+
+                if ($stmtCover) {
+                    $stmtCover->bind_param('s', $AOMID);
+                    $stmtCover->execute();
+                    $stmtCover->bind_result($coverPhoto);
+                    $stmtCover->fetch();
+                    $stmtCover->close();
+
+                    // store the cover photo on the post images
+                    $this->insertImgPost($postID, $coverPhoto, $con);
+                }
+            }
+        }
     }
 }
