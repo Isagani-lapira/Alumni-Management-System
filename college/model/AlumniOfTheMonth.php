@@ -49,16 +49,56 @@ class AlumniOfTheMonth
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
 
-        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo,personID, quote, cover_img ,colCode, date_assigned )
-        VALUES (?,?,?,?,?,CURDATE());');
+        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo,personID, quote, cover_img ,colCode, date_assigned,description )
+        VALUES (?,?,?,?,?,CURDATE(),?);');
 
         // *  Binds the variable to the '?', prevents sql injection
-        $stmt->bind_param('sssss',  $studentId, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode);
+        $stmt->bind_param('ssssss',  $studentId, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode, $details['description']);
         // execute the query
         $stmt->execute();
 
         return true;
     }
+    public function deleteAlumniOfTheMonth(string $aotmID): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('DELETE FROM alumni_of_the_month WHERE AOMID = ?;');
+
+        // *  Binds the variable to the '?', prevents sql injection
+        $stmt->bind_param('s', $aotmID);
+        // execute the query
+
+        // check if the query is successful
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateExistingAlumniOfTheMonth($aotmID, array $details): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        if ($details['cover-img'] !== '') {
+            $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? ,  quote = ?, cover_img = ? WHERE AOMID = ?;');
+
+            $stmt->bind_param('sssss', $details['studentNo'], $details['personID'], $details['quote'], $details['cover-img'], $aotmID);
+        } else {
+            $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? , quote = ? WHERE AOMID = ?;');
+
+            $stmt->bind_param('ssss', $details['studentNo'], $details['personID'], $details['quote'], $aotmID);
+        }
+
+        // execute the query
+        $stmt->execute();
+
+        return true;
+    }
+
 
     public function getTotalCount(): int
     {

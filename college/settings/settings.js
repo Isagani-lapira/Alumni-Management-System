@@ -122,6 +122,13 @@ $(document).ready(function () {
         console.log(response);
         if (response.status === true) {
           Swal.fire("Changes are saved", "", "success");
+          // return to the login security container
+
+          animateOpactityTransitionOnContainer(
+            container,
+            $("#login-security-container"),
+            $("#edit-profile-container")
+          );
         } else {
           Swal.fire("Changes are not saved", "", "error");
         }

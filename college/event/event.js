@@ -12,7 +12,7 @@ $(document).ready(async function () {
     }, 500);
   });
 
-  const API_URL = "./event/getEvent.php";
+  const API_URL = "./event/apiEvents.php";
   let offset = 0;
 
   // Initial Load
@@ -72,7 +72,7 @@ $(document).ready(async function () {
         }
       } else {
         // will add new event
-        api_url = "./event/addEvent.php";
+        // api_url = "./event/addEvent.php";
 
         const confirmation = await Swal.fire({
           title: "Confirm?",
@@ -86,7 +86,7 @@ $(document).ready(async function () {
 
         if (confirmation.isConfirmed) {
           console.log("submitting form");
-          const isSuccessful = await setNewEvent(this, api_url);
+          const isSuccessful = await setNewEvent(this, API_URL);
           console.log(isSuccessful);
           if (isSuccessful.response === "Successful") {
             // show the success message
@@ -286,13 +286,16 @@ $(document).ready(async function () {
   async function setNewEvent(form, url) {
     // get the form data
     const formData = new FormData(form);
+    formData.append("action", "addEvent");
     // send the data to the server using fetch await
 
-    const response = await fetch(url, {
-      method: "POST",
-      body: formData,
-    });
-    return response.json();
+    const res = await postJSONFromURL(url, formData);
+    return res;
+    // const response = await fetch(url, {
+    //   method: "POST",
+    //   body: formData,
+    // });
+    // return response.json();
   }
 
   // set edit event
@@ -323,22 +326,16 @@ $(document).ready(async function () {
   async function getPartialEventDetails(offset, category = "all") {
     console.log(category);
 
-    const response = await fetch(
-      API_URL + "?offset=" + offset + "&partial=true" + "&category=" + category,
-      {
-        headers: {
-          method: "GET",
-          "Content-Type": "application/json",
-          cache: "no-cache",
-        },
-      }
+    const res = await getJSONFromURL(
+      API_URL +
+        "?offset=" +
+        offset +
+        "&category=" +
+        category +
+        "&action=partial"
     );
-
-    const result = await response.json();
-
-    console.log(result);
-
-    return result;
+    console.log(res);
+    return res;
   }
 
   function limit(string, length, end = "...") {
@@ -432,7 +429,9 @@ $(document).ready(async function () {
 
   // fetch the data from the database
   async function getEventDetails(id) {
-    const API_URL = "./event/getEvent.php" + "?eventID=" + id;
+    const action = "getOneEventDetails";
+    const API_URL =
+      "./event/getEvent.php" + "?eventID=" + id + "&action=" + action;
     const response = await fetch(API_URL, {
       headers: {
         method: "GET",
