@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $eventName = $_POST['eventName'];
     $eventDate = $_POST['eventDate'];
     $about_event = $_POST['about_event'];
-    $contactLink = $_POST['contactLink'];
-    $headerPhrase = $_POST['headerPhrase'];
+    // $contactLink = $_POST['contactLink'];
+    // $headerPhrase = $_POST['headerPhrase'];
     $eventPlace = $_POST['eventPlace'];
     $eventStartTime = $_POST['eventStartTime'];
     $event_category = $_POST['category'];
@@ -73,9 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'eventName' => $eventName,
         'eventDate' => $eventDate,
         'about_event' => $about_event,
-        'contactLink' => $contactLink,
+        // 'contactLink' => $contactLink,
         'aboutImg' => $aboutImgTmpName,
-        'headerPhrase' => $headerPhrase,
+        // 'headerPhrase' => $headerPhrase,
         'eventPlace' => $eventPlace,
         'eventStartTime' => $eventStartTime,
         'event_category' => $event_category,
@@ -88,31 +88,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $colCode = $_SESSION['colCode'];
 
 
-    // set new event
-    $result = $event->setEditEvent($eventInformation, $colCode, $adminID);
-    header("Content-Type: application/json; charset=UTF-8");
-    if ($result === TRUE) {
-        $action = "updated";
-        $details = " updated an event";
-        setNewActivity($mysql_con, $adminID, $action, $details);
-        echo json_encode(
-            array(
-                'response' => 'Successful',
-                'message' => 'Event updated successfully',
-                'eventID' => $eventID
-            )
-        );
+    try {
+        // set new event
+        $result = $event->setEditEvent($eventInformation, $colCode, $adminID);
+        header("Content-Type: application/json; charset=UTF-8");
+        if ($result === true) {
+            $action = "updated";
+            $details = " updated an event";
+            setNewActivity($mysql_con, $adminID, $action, $details);
+            echo json_encode(
+                array(
+                    'response' => 'Successful',
+                    'message' => 'Event updated successfully',
+                    'eventID' => $eventID
+                )
+            );
 
-        // redirect to event page
-        // header("Location: ../event/event.php");
-    } else {
+            // redirect to event page
+            // header("Location: ../event/event.php");
+        } else {
+            echo json_encode(
+                array(
+                    'response' => 'Unsuccessful',
+                    'message' => 'Event not updated'
+                )
+            );
+        };
+    } catch (\Throwable $th) {
+        //throw $th;
         echo json_encode(
             array(
                 'response' => 'Unsuccessful',
-                'message' => 'Event not added'
+                'message' => 'Event not updated',
+                'error' => $th->getMessage()
             )
         );
-    };
+    }
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // TODO redirect to error page.
     echo "GET request not allowed";

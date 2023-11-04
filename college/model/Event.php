@@ -116,19 +116,19 @@ class Event
         $stmt = $this->conn->stmt_init();
         if (!isset($eventInformation['aboutImg'])) {
             $stmt->prepare('UPDATE `event` SET  `eventName` = ?, `eventDate` = ?, 
-            `about_event` = ?, `contactLink` = ?,  `headerPhrase` = ?, `eventPlace` = ?, `eventStartTime` = ?, `event_category` = ?,
+            `about_event` = ?,  `eventPlace` = ?, `eventStartTime` = ?, `event_category` = ?,
             `colCode`  = ?, `adminID` = ?
             WHERE `eventID` = ? 
             ');
 
             // bind the parameters
             $stmt->bind_param(
-                'sssssssssss',
+                'sssssssss',
                 $eventInformation['eventName'],
                 $eventInformation['eventDate'],
                 $eventInformation['about_event'],
-                $eventInformation['contactLink'],
-                $eventInformation['headerPhrase'],
+                // $eventInformation['contactLink'],
+                // $eventInformation['headerPhrase'],
                 $eventInformation['eventPlace'],
                 $eventInformation['eventStartTime'],
                 $eventInformation['event_category'],
@@ -138,7 +138,7 @@ class Event
             );
         } else {
             $stmt->prepare('UPDATE `event` SET  `eventName` = ?, `eventDate` = ?, 
-            `about_event` = ?, `contactLink` = ?,  `headerPhrase` = ?, `eventPlace` = ?, `eventStartTime` = ?, `event_category` = ?,
+            `about_event` = ?,  `eventPlace` = ?, `eventStartTime` = ?, `event_category` = ?,
             `colCode`  = ?, `adminID` = ?, `aboutImg` = ? 
             WHERE `eventID` = ? 
             ');
@@ -147,12 +147,12 @@ class Event
             $aboutImg = file_get_contents($eventInformation['aboutImg']);
             // bind the parameters
             $stmt->bind_param(
-                'ssssssssssss',
+                'ssssssssss',
                 $eventInformation['eventName'],
                 $eventInformation['eventDate'],
                 $eventInformation['about_event'],
-                $eventInformation['contactLink'],
-                $eventInformation['headerPhrase'],
+                // $eventInformation['contactLink'],
+                // $eventInformation['headerPhrase'],
                 $eventInformation['eventPlace'],
                 $eventInformation['eventStartTime'],
                 $eventInformation['event_category'],
@@ -166,12 +166,16 @@ class Event
         // setup to return json data
         try {
             //code...
-            $status = $stmt->execute();
-            // check if the query is successful
-            if ($status === false) {
-                trigger_error($stmt->error, E_USER_ERROR);
+            if ($stmt->execute()) {
+                // check if update successful
+                $stmt->close();
+                return true;
             }
-            return $stmt->affected_rows;
+            // // check if the query is successful
+            // if ($status === false) {
+            //     trigger_error($stmt->error, E_USER_ERROR);
+            // }
+
             // execute the query
         } catch (\Throwable $th) {
             //throw $th;

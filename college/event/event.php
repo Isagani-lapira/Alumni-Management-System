@@ -102,10 +102,10 @@ session_start();
                         <input required type="text" id="eventName" name="eventName">
                     </div>
                     <div class="input-container">
-                        <label class="block font-semibold text-gray-800 " for="headerPhrase">
+                        <!-- <label class="block font-semibold text-gray-800 " for="headerPhrase">
                             Header Phrase:
                         </label>
-                        <input required type="text" id="headerPhrase" name="headerPhrase">
+                        <input required type="text" id="headerPhrase" name="headerPhrase"> -->
                     </div>
                     <div class="input-container">
                         <label class="block font-semibold text-gray-800" for="category">
@@ -116,24 +116,33 @@ session_start();
                             <option value="col_event">All</option>
                         </select>
                     </div>
-                    <div class="input-container">
+                    <!-- <div class="input-container">
                         <label class="block font-semibold text-gray-800" for="contactLink">
                             Contact Link
                         </label>
                         <input required type="text" id="contactLink" name="contactLink">
-                    </div>
+                    </div> -->
                     <div class="input-container">
                         <label class="block font-semibold text-gray-800" for="eventPlace">
                             Event Place
                         </label>
                         <input required type="text" id="eventPlace" name="eventPlace">
                     </div>
-                    <div class="input-container">
-                        <label class="block font-semibold text-gray-800" for="about_event" ">
-                            Description
-                        </label>
-                        <textarea name=" about_event" id="about_event" cols="30" rows="10" class="input-textarea"></textarea>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="input-container py-2">
+                            <label class="block font-semibold text-gray-800" for="eventDate">
+                                Event Date
+                            </label>
+                            <input required type="date" id="eventDate" name="eventDate" class="form-input border  py-2 ">
+                        </div>
+                        <div class="input-container  py-2">
+                            <label class="block font-semibold text-gray-800" for="eventStartTime">
+                                Event Start Time
+                            </label>
+                            <input required type="time" id="eventStartTime" name="eventStartTime" class="form-input border py-2">
+                        </div>
                     </div>
+
                 </div>
 
 
@@ -141,38 +150,37 @@ session_start();
                     <div class="up space-y-4">
                         <div class="input-container">
                             <label class="block font-semibold text-gray-800" for="aboutImg">
-                                Heading Image
+                                Cover Image
                             </label>
                             <!-- image block in order to display the image -->
-                            <div class="image-block border border-gray-400 w-50 h-60">
-                                <img src="../../images/join_us.jpg" alt="" id="aboutImgPreview" class="
-                              object-cover  object-center max-w-full h-auto max-h-full w-full">
+                            <div class="flex flex-col gap-4">
+                                <div class="image-block border border-gray-400 w-50 h-60 bg-gray-200">
+                                    <img src="../../images/join_us.jpg" alt="" id="aboutImgPreview" class="
+                                  object-cover  object-center max-w-full h-auto max-h-full w-full">
+                                </div>
+                                <input required type="file" id="event-img" accept=".jpg" name="aboutImg" class="daisy-file-input daisy-file-input-bordered w-full max-w-xs">
                             </div>
-                            <input required type="file" id="event-img" accept=".jpg" name="aboutImg">
                         </div>
-                        <div class="input-container">
-                            <label class="block font-semibold text-gray-800" for="eventDate">
-                                Event Date
-                            </label>
-                            <input required type="date" id="eventDate" name="eventDate">
-                        </div>
-                        <div class="input-container">
-                            <label class="block font-semibold text-gray-800" for="eventStartTime">
-                                Event Start Time
-                            </label>
-                            <input required type="time" id="eventStartTime" name="eventStartTime">
-                        </div>
-                    </div>
-                    <!-- End Description -->
-                    <div class="down">
-                        <!-- Footer -->
-                        <div class="modal-footer flex gap-4">
-                            <button type="button" class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
-                            <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent" data-post-type="create">Create Event</button>
-                            <!-- <button class="btn-tertiary block" type="reset">Clear</button> -->
 
-                        </div>
                     </div>
+
+                </div>
+
+            </div>
+            <!-- End Description -->
+            <div class="down space-y-4">
+                <div class="input-container w-full">
+                    <label class="block font-semibold text-gray-800" for="about_event">
+                        Description
+                    </label>
+                    <textarea class="w-full border rounded min-h-[300px] form-textarea" name="about_event" id="about_event" class="input-textarea"></textarea>
+                </div>
+                <!-- Footer -->
+                <div class="modal-footer flex gap-4">
+                    <button type="button" class="cancel py-2 rounded px-5 text-grayish border border-slate-400 hover:bg-slate-400 hover:text-white">Cancel</button>
+                    <button id="postBtn" class="bg-accent py-2 rounded px-5 text-white font-semibold ms-3 hover:bg-darkAccent" data-post-type="create">Create Event</button>
+                    <!-- <button class="btn-tertiary block" type="reset">Clear</button> -->
+
                 </div>
             </div>
 
