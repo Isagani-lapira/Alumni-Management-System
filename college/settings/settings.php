@@ -351,44 +351,54 @@ $colDeanImg = $data['colDeanImg'];
 <input type="checkbox" id="changePassModal" class="daisy-modal-toggle" />
 <div class="daisy-modal">
     <div class="daisy-modal-box">
-        <h3 class="font-bold text-xl">Update Password</h3>
+        <h3 class="font-bold text-xl">Change Password</h3>
+        <p>Password must contain both upper and lowercase and special character</p>
 
         <form action="" method="post" id="update-password-form">
             <input type="hidden" name="update-password-form" value="true">
             <input type="hidden" name="username" value="<?= $username ?>">
             <div class="flex flex-col gap-2">
-                <div class="daisy-form-control w-full max-w-sm">
+                <!-- Old Password -->
+                <div class="daisy-form-control w-full max-w-sm relative">
                     <label class=" font-bold daisy-label">
                         <span class="daisy-label-text">Old Password</span>
                     </label>
-                    <input type="password" name="old-password" id="old-password" class="form-input font-bold  daisy-input-bordered w-full">
+                    <div class="w-full">
+                        <input required type="password" name="old-password" id="old-password" class="form-input font-bold  daisy-input-bordered w-full pr-8">
+                        <i class="far fa-eye -ml-8" id="toggle-oldPass"></i>
+                    </div>
                     <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
-                    <label class="daisy-label">
-                        <span class="daisy-label-text-alt hidden">Bottom Right label</span>
+                    <label class="daisy-label" id="oldPassErrMsg">
                     </label>
                 </div>
-                <div class="daisy-form-control w-full max-w-xs">
+                <!-- New Password -->
+                <div class="daisy-form-control w-full max-w-sm">
                     <label class=" font-bold daisy-label">
                         <span class="daisy-label-text">New Password</span>
                     </label>
-                    <input type="password" name="password" id="password" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
+                    <div class="w-full">
+                        <input required type="password" name="password" id="password" class="form-input font-bold  daisy-input-bordered w-full ">
+                        <i class="far fa-eye -ml-8" id="toggle-newPass"></i>
+                    </div>
+
                     <!-- <input type="text"  class="daisy-input daisy-input-bordered w-full max-w-xs" /> -->
-                    <label class="daisy-label">
-                        <span class="daisy-label-text-alt"> Password must contain both upper and lowercase and special character
-                        </span>
-                        <span class="daisy-label-text-alt hidden">Bottom Right label</span>
+                    <label id="newPassErrMsg" class="daisy-label">
+                        <!-- <span class="daisy-label-text-alt"> </span> -->
                     </label>
                 </div>
-                <div class="daisy-form-control w-full max-w-xs">
+                <!-- Confirm Password -->
+                <div class="daisy-form-control w-full max-w-sm">
                     <label for="confirmPassword" class="font-bold daisy-label">
                         <span class="daisy-label-text">Confirm Password</span>
                     </label>
-                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-input font-bold  daisy-input-bordered w-full max-w-xs">
+                    <div class="w-full">
+                        <input required type="password" name="confirmPassword" id="confirmPassword" class="form-input font-bold  daisy-input-bordered w-full ">
+                        <i class="far fa-eye -ml-8" id="toggle-confirmPass"></i>
+                    </div>
 
-                    <label class="daisy-label">
-                        <span class="daisy-label-text-alt">
-                        </span>
-                        <span class="daisy-label-text-alt hidden">Bottom Right label</span>
+                    <label id="confirmPassErrMsg" class="daisy-label">
+                        <!-- <span class="daisy-label-text-alt">
+                        </span> -->
                     </label>
                 </div>
             </div>
