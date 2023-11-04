@@ -824,7 +824,8 @@ function dateInText($date)
                         <div class="primary flex gap-2 text-sm text-gray-500 mt-2 education">
                             <div class="w-1/2">
                                 <p class="font-bold px-2">Education Level</p>
-                                <input id="degree2" data-educationlevel="primary education" type="text" class=" p-2 w-full rounded-md requiredValue" placeholder="Primary education">
+                                <p class="px-2 text-sm"><span class="font-semibold">School name</span> (Elementary)</p>
+                                <input id="degree2" data-educationlevel="primary education" type="text" class=" p-2 w-full rounded-md requiredValue border-b border-gray-400" placeholder="Primary education">
                             </div>
 
                             <div class="w-1/4">
@@ -841,8 +842,9 @@ function dateInText($date)
 
                         <!-- secondary education -->
                         <div class="flex gap-2 text-sm text-gray-500 education">
-                            <div class="w-1/2">
-                                <input id="degree1" type="text" data-educationlevel="secondary education" class="secondary p-2 w-full rounded-md requiredValue" placeholder="Secondary education">
+                            <div class="w-1/2 mt-2">
+                                <p class="px-2 text-sm"><span class="font-semibold">School name</span> (Highschool)</p>
+                                <input id="degree1" type="text" data-educationlevel="secondary education" class="secondary p-2 w-full rounded-md requiredValue border-b border-gray-400" placeholder="Secondary education">
                             </div>
 
                             <div class="w-1/4">
@@ -857,8 +859,9 @@ function dateInText($date)
 
                         <!-- tertiary education -->
                         <div class="flex gap-2 text-sm text-gray-500 education">
-                            <div class="w-1/2">
-                                <input id="degree0" type="text" data-educationlevel="tertiary education" class="tertiary p-2 w-full rounded-md requiredValue" placeholder="Tertiary education">
+                            <div class="w-1/2 mt-2">
+                                <p class="px-2 text-sm"><span class="font-semibold">School name</span> (College)</p>
+                                <input id="degree0" type="text" data-educationlevel="tertiary education" class="tertiary p-2 w-full rounded-md requiredValue border-b border-gray-400" placeholder="Tertiary education">
                             </div>
 
                             <div class="w-1/4">
@@ -891,16 +894,27 @@ function dateInText($date)
                                     <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
                                 </g>
                             </svg>
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Job Title</h3>
+                                <input id="workTitle0" class="flex-1 p-2 rounded-md job-title border-b border-gray-400" type="text" placeholder="Job Title">
+                            </div>
 
-                            <input id="workTitle0" class="flex-1 p-2 rounded-md job-title" type="text" placeholder="Job Title">
-                            <input id="workDescript0" class="flex-1 responsibility" type="text" placeholder="Brief discussion of your responsibilities">
-                            <input id="workCompanyName0" class="flex-1 p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Work Description</h3>
+                                <input id="workDescript0" class="flex-1 p-2 responsibility border-b border-gray-400" type="text" placeholder="Brief discussion of your responsibilities">
+                            </div>
+
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Company Name</h3>
+                                <input id="workCompanyName0" class="flex-1 p-2 rounded-md company-name border-b border-gray-400" type="text" placeholder="Company/Organization name">
+                            </div>
+
 
                             <div class="flex-0">
-                                <select id="workStartYr0" class="yearSelection p-2 flex-0 rounded-md year">
+                                <select id="workStartYr0" class="yearSelection workYear p-2 flex-0 rounded-md year">
                                     <option value="" disabled selected>Start Year</option>
                                 </select>
-                                <select id="workEndYr0" class="yearSelection p-2 flex-0 rounded-md year">
+                                <select id="workEndYr0" class="yearSelection p-2 workYear flex-0 rounded-md year">
                                     <option value="" disabled selected>End Year</option>
                                 </select>
                             </div>
@@ -919,15 +933,27 @@ function dateInText($date)
                                 </g>
                             </svg>
 
-                            <input id="workTitle1" class="flex-1 p-2 rounded-md job-title" type="text" placeholder="Job Title">
-                            <input id="workDescript1" class="flex-1 responsibility" type="text" placeholder="Brief discussion of your responsibilities">
-                            <input id="workCompanyName1" class="flex-1 p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Job Title</h3>
+                                <input id="workTitle1" class="flex-1 p-2 rounded-md job-title border-b border-gray-400" type="text" placeholder="Job Title">
+                            </div>
+
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Work Description</h3>
+                                <input id="workDescript1" class="flex-1 p-2 responsibility border-b border-gray-400" type="text" placeholder="Brief discussion of your responsibilities">
+                            </div>
+
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Company Name</h3>
+                                <input id="workCompanyName1" class="flex-1 p-2 rounded-md company-name border-b border-gray-400" type="text" placeholder="Company/Organization name">
+                            </div>
+
 
                             <div class="flex-0">
-                                <select id="workStartYr1" class="yearSelection p-2 flex-0 rounded-md year">
+                                <select id="workStartYr1" class="yearSelection workYear p-2 flex-0 rounded-md year">
                                     <option value="" disabled selected>Start Year</option>
                                 </select>
-                                <select id="workEndYr1" class="yearSelection p-2 flex-0 rounded-md year">
+                                <select id="workEndYr1" class="yearSelection workYear p-2 flex-0 rounded-md year">
                                     <option value="" disabled selected>End Year</option>
                                 </select>
                             </div>
@@ -944,15 +970,27 @@ function dateInText($date)
                                 </g>
                             </svg>
 
-                            <input id="workTitle2" class="flex-1 p-2 rounded-md job-title" type="text" placeholder="Job Title">
-                            <input id="workDescript2" class="flex-1 responsibility" type="text" placeholder="Brief discussion of your responsibilities">
-                            <input id="workCompanyName2" class="flex-1 p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Job Title</h3>
+                                <input id="workTitle2" class="flex-1 p-2 rounded-md job-title border-b border-gray-400" type="text" placeholder="Job Title">
+                            </div>
+
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Work Description</h3>
+                                <input id="workDescript2" class="flex-1 responsibility p-2 border-b border-gray-400" type="text" placeholder="Brief discussion of your responsibilities">
+                            </div>
+
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Company Name</h3>
+                                <input id="workCompanyName2" class="flex-1 p-2 rounded-md company-name border-b border-gray-400" type="text" placeholder="Company/Organization name">
+                            </div>
+
 
                             <div class="flex-0">
-                                <select id="workStartYr2" class="yearSelection p-2 flex-0 rounded-md year">
+                                <select id="workStartYr2" class="yearSelection workYear p-2 flex-0 rounded-md year">
                                     <option value="" disabled selected>Start Year</option>
                                 </select>
-                                <select id="workEndYr2" class="yearSelection p-2 flex-0 rounded-md year">
+                                <select id="workEndYr2" class="yearSelection workYear p-2 flex-0 rounded-md year">
                                     <option value="" disabled selected>End Year</option>
                                 </select>
                             </div>
@@ -969,15 +1007,27 @@ function dateInText($date)
                                 </g>
                             </svg>
 
-                            <input id="workTitle3" class="flex-1 p-2 rounded-md job-title" type="text" placeholder="Job Title">
-                            <input id="workDescript3" class="flex-1 responsibility" type="text" placeholder="Brief discussion of your responsibilities">
-                            <input id="workCompanyName3" class="flex-1 p-2 rounded-md company-name" type="text" placeholder="Company/Organization name">
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Job Title</h3>
+                                <input id="workTitle3" class="flex-1 p-2 rounded-md job-title border-b border-gray-400" type="text" placeholder="Job Title">
+                            </div>
+
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Work Description</h3>
+                                <input id="workDescript3" class="flex-1 p-2 responsibility border-b border-gray-400" type="text" placeholder="Brief discussion of your responsibilities">
+                            </div>
+
+                            <div class="flex flex-col p-2 text-sm text-greyish_black">
+                                <h3 class="font-semibold px-2">Company Name</h3>
+                                <input id="workCompanyName3" class="flex-1 p-2 rounded-md company-name border-b border-gray-400" type="text" placeholder="Company/Organization name">
+                            </div>
+
 
                             <div class="flex-0">
-                                <select id="workStartYr3" class="yearSelection p-2 flex-0 rounded-md year">
+                                <select id="workStartYr3" class="yearSelection workYear p-2 flex-0 rounded-md year">
                                     <option value="" disabled selected>Start Year</option>
                                 </select>
-                                <select id="workEndYr3" class="yearSelection p-2 flex-0 rounded-md year">
+                                <select id="workEndYr3" class="yearSelection workYear p-2 flex-0 rounded-md year">
                                     <option value="" disabled selected>End Year</option>
                                 </select>
                             </div>
@@ -994,7 +1044,7 @@ function dateInText($date)
                         Note: Please provide only the skills that are relevant to the job you are applying for, in order to make yourself stand out. Please also note that the minimum for this part is 3, and the maximum is 6
                     </p>
 
-                    <div class="flex flex-col gap-3 mt-4">
+                    <div class="flex flex-col gap-3 mt-4 text-greyish_black">
                         <!-- first skill -->
                         <div class="flex gap-2 items-center skillData">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
@@ -1081,80 +1131,81 @@ function dateInText($date)
                     </p>
 
                     <!-- first person -->
-                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 referenceData">
+                    <div class="wrapper my-2 text-gray-500 py-2 referenceData">
                         <header class="font-bold text-blue-500">Person 1</header>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <div class="flex flex-col">
                                 <label for="refFN0" class="font-bold" for="refFN">Full name</label>
-                                <input class="referencesInput requiredValue" type="text" id="refFN0" placeholder="ex: Juan Dela Cruz">
+                                <input class="referencesInput requiredValue py-2 border-b border-gray-400" type="text" id="refFN0" placeholder="ex: Juan Dela Cruz">
                             </div>
 
                             <div class="flex flex-col">
                                 <label for="refJobTitle" class="font-bold" for="refJobTitle0">Job Title</label>
-                                <input class="referencesInput requiredValue" type="text" id="refJobTitle0" placeholder="ex: Software Engineer">
+                                <input class="referencesInput requiredValue py-2 border-b border-gray-400" type="text" id="refJobTitle0" placeholder="ex: Software Engineer">
                             </div>
 
                             <div class="flex flex-col">
                                 <label for="refContactNo" class="font-bold" for="refContactNo0">Contact No.</label>
-                                <input class="referencesInput requiredValue" type="text" id="refContactNo0" placeholder="ex: 09104938530">
+                                <input class="referencesInput requiredValue py-2 border-b border-gray-400" type="text" id="refContactNo0" placeholder="ex: 09104938530">
                             </div>
 
                             <div class="flex flex-col">
                                 <label for="refEmailAdd" class="font-bold" for="refEmailAdd0">Email Address</label>
-                                <input class="referencesInput requiredValue" type="text" id="refEmailAdd0" placeholder="ex: juandelacruz@gmail.com">
+                                <input class="referencesInput requiredValue py-2 border-b border-gray-400" type="text" id="refEmailAdd0" placeholder="ex: juandelacruz@gmail.com">
                             </div>
 
                         </div>
                     </div>
 
                     <!-- second person -->
-                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 referenceData">
+                    <div class="wrapper my-2 text-gray-500 py-2 referenceData">
                         <header class="font-bold text-blue-500">Person 2</header>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <div class="flex flex-col">
                                 <label for="refFN1" class="font-bold" for="refFNSecond">Full name</label>
-                                <input class="referencesInput requiredValue" type="text" id="refFN1" placeholder="ex: Juan Dela Cruz">
+                                <input class="referencesInput requiredValue py-2 border-b border-gray-400" type="text" id="refFN1" placeholder="ex: Juan Dela Cruz">
                             </div>
 
                             <div class="flex flex-col">
                                 <label class="font-bold" for="refJobTitle1">Job Title</label>
-                                <input class="referencesInput requiredValue" type="text" id="refJobTitle1" placeholder="ex: Software Engineer">
+                                <input class="referencesInput requiredValue py-2 border-b border-gray-400" type="text" id="refJobTitle1" placeholder="ex: Software Engineer">
                             </div>
 
                             <div class="flex flex-col">
                                 <label class="font-bold" for="refContactNo1">Contact No.</label>
-                                <input class="referencesInput requiredValue" type="text" id="refContactNo1" placeholder="ex: 09104938530">
+                                <input class="referencesInput requiredValue py-2 border-b border-gray-400" type="text" id="refContactNo1" placeholder="ex: 09104938530">
                             </div>
 
                             <div class="flex flex-col">
                                 <label class="font-bold" for="refEmailAdd1">Email Address</label>
-                                <input class="referencesInput requiredValue" type="text" id="refEmailAdd1" placeholder="ex: juandelacruz@gmail.com">
+                                <input class="referencesInput requiredValue py-2 border-b border-gray-400" type="text" id="refEmailAdd1" placeholder="ex: juandelacruz@gmail.com">
                             </div>
 
                         </div>
                     </div>
 
-                    <div class="wrapper my-2 text-gray-500 border-b border-gray-300 py-2 referenceData">
+                    <!-- third person -->
+                    <div class="wrapper my-2 text-gray-500 py-2 referenceData">
                         <header class="font-bold text-blue-500">Person 3</header>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <div class="flex flex-col">
                                 <label class="font-bold" for="refFN2">Full name</label>
-                                <input type="text" id="refFN2" class="requiredValue" placeholder="ex: Juan Dela Cruz">
+                                <input type="text" id="refFN2" class="requiredValue py-2 border-b border-gray-400" placeholder="ex: Juan Dela Cruz">
                             </div>
 
                             <div class="flex flex-col">
                                 <label class="font-bold" for="refJobTitle2">Job Title</label>
-                                <input type="text" id="refJobTitle2" class="requiredValue" placeholder="ex: Software Engineer">
+                                <input type="text" id="refJobTitle2" class="requiredValue py-2 border-b border-gray-400" placeholder="ex: Software Engineer">
                             </div>
 
                             <div class="flex flex-col">
                                 <label class="font-bold" for="refContactNo2">Contact No.</label>
-                                <input type="text" id="refContactNo2" class="requiredValue" placeholder="ex: 09104938530">
+                                <input type="text" id="refContactNo2" class="requiredValue py-2 border-b border-gray-400" placeholder="ex: 09104938530">
                             </div>
 
                             <div class="flex flex-col">
                                 <label class="font-bold" for="refEmailAdd2">Email Address</label>
-                                <input type="text" id="refEmailAdd2" class="requiredValue" placeholder="ex: juandelacruz@gmail.com">
+                                <input type="text" id="refEmailAdd2" class="requiredValue py-2 border-b border-gray-400" placeholder="ex: juandelacruz@gmail.com">
                             </div>
 
                         </div>

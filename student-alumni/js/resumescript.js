@@ -44,9 +44,9 @@ $(document).ready(function () {
         else {
             $('#pageNo' + pageNo + ' .requiredValue').each(function () {
                 let element = $(this)
-                let value = element.val().trim();
+                let value = element.val();
 
-                if (value === '') inputFieldComplete = false
+                if (value.trim() === '') inputFieldComplete = false
 
             })
         }
@@ -547,11 +547,28 @@ $(document).ready(function () {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const lowestYear = 1995
-    $('.yearSelection ').each(function () {
+    $('.yearSelection').each(function () {
+        const option = $('<option>').val('Present').text('Present');
+        $(this).append(option)
         for (let i = currentYear; i > lowestYear; i--) {
             const option = $('<option>').val(i).text(i);
             $(this).append(option)
         }
+    })
+
+    $('.experience').each(function () {
+        const educationBlock = $(this);
+        let startYearSelect = educationBlock.find('.workYear:first');
+        let endYearSelect = educationBlock.find('.workYear:eq(1)');
+
+        startYearSelect.on('change', function () {
+            // Your code for the change event of the first select goes here
+            const selectedValue = $(this).val();
+            endYearSelect.find('option').each(function () {
+                const optionVal = parseInt($(this).val());
+                if (optionVal < selectedValue) $(this).remove()
+            })
+        });
     })
 
 
@@ -697,7 +714,7 @@ $(document).ready(function () {
             const year = educations.year[i];
 
             //mark up for education
-            const univElement = $('<span>').text(university)
+            const univElement = $('<p>').text(university)
             const yearElement = $('<span>').text(year);
 
             //append to wrapper and to root
@@ -760,7 +777,6 @@ $(document).ready(function () {
 
 
         }
-        else console.log('ala')
 
         //add references
         const refLength = references.jobTitle.length;
