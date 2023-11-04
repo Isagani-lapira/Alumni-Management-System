@@ -44,7 +44,7 @@ class AlumniOfTheMonth
         return $count;
     }
 
-    public function setNewAlumniOfTheMonth(string $studentId, array $details): bool
+    public function setNewAlumniOfTheMonth(string $studentId, array $details): array
     {
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
@@ -53,11 +53,25 @@ class AlumniOfTheMonth
         VALUES (?,?,?,?,?,CURDATE(),?);');
 
         // *  Binds the variable to the '?', prevents sql injection
-        $stmt->bind_param('ssssss',  $studentId, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode, $details['description']);
-        // execute the query
-        $stmt->execute();
+        try {
+            $stmt->bind_param('ssssss',  $studentId, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode, $details['description']);
+            // execute the query
+            if ($stmt->execute()) {
+                $lastInsertedID = mysqli_insert_id($this->conn);
 
-        return true;
+                return [
+                    'status' => true,
+                    'id' => $lastInsertedID
+                ];
+            } else {
+                return [
+                    'status' => false,
+                    'id' => ''
+                ];
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
     public function deleteAlumniOfTheMonth(string $aotmID): bool
     {
@@ -75,6 +89,90 @@ class AlumniOfTheMonth
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function setNewTestimonial($data)
+    {
+        $stmt = $this->conn->stmt_init();
+
+
+        $stmt = $this->conn->prepare('INSERT INTO testimonials (
+            testimonialID,
+            AOMID,
+            message,
+            date,
+            emailAddress,
+            person_name,
+            relationship,
+            companyName,
+            position,
+            profile_img
+
+        )
+        VALUES (?,?,?,?,?,?,?,?,?,?);');
+
+        try {
+            $stmt->bind_param(
+                'ssssssssss',
+                $data['id'],
+                $data['aotmID'],
+                $data['message'],
+                $data['date'],
+                $data['emailAddress'],
+                $data['person_name'],
+                $data['relationship'],
+                $data['companyName'],
+                $data['position'],
+                $data['profile_img']
+
+
+            );
+            // execute the query
+            if ($stmt->execute()) {
+                $lastInsertedID = mysqli_insert_id($this->conn);
+
+                return [
+                    'status' => true,
+                    'id' => $lastInsertedID
+                ];
+            } else {
+                return [
+                    'status' => false,
+                    'id' => ''
+                ];
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function setNewAchievement($achievementInformation)
+    {
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('INSERT INTO achievement (achievementID ,AOMID, achievement, description, date)
+        VALUES (?,?,?,?,?);');
+
+        // *  Binds the variable to the '?', prevents sql injection
+        try {
+            $stmt->bind_param('sssss',  $achievementInformation['id'], $achievementInformation['aotmID'], $achievementInformation['achievement'], $achievementInformation['description'], $achievementInformation['date']);
+            // execute the query
+            if ($stmt->execute()) {
+                $lastInsertedID = mysqli_insert_id($this->conn);
+
+                return [
+                    'status' => true,
+                    'id' => $lastInsertedID
+                ];
+            } else {
+                return [
+                    'status' => false,
+                    'id' => ''
+                ];
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 

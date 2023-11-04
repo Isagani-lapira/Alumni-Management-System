@@ -436,6 +436,8 @@
 
             <div class=" w-full max-w-xs mt-2 text-right">
                 <button type="button" class="a-remove daisy-btn daisy-btn-warning daisy-btn-outline">Remove</button>
+                <input type="hidden" name="achievement" value="good">
+
 
             </div>
 
@@ -497,6 +499,7 @@
             </div>
 
             <button type="button" class="t-remove daisy-btn daisy-btn-warning daisy-btn-outline">Remove Testimonial</button>
+            <input type="hidden" name="testimonial" value="true">
         </div>
 
     </div>
