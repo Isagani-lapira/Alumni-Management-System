@@ -198,6 +198,69 @@
 
                     <p class="font-bold block" for="">Description:</p>
                     <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
+                    <div class="border">
+                        <div id="achievementFields" class="grid grid-cols-3 gap-4">
+                            <div class="achievement-box hidden p-4 border rounded-md ">
+
+                                <div class="daisy-form-control w-full max-w-xs">
+                                    <label class="daisy-label">
+                                        <span class="font-bold daisy-label-text">Achievement Title:</span>
+
+                                    </label>
+                                    <input type="text" class="daisy-input daisy-input-bordered w-full max-w-xs" name="a-title[]" placeholder="" required>
+
+                                    <label class="daisy-label">
+                                        <span class="daisy-label-text-alt hidden">Bottom Left label</span>
+                                    </label>
+                                </div>
+
+                                <div class="daisy-form-control w-full max-w-xs">
+                                    <label class="font-bold daisy-label">
+                                        <span class="daisy-label-text">Achievement Description:</span>
+
+                                    </label>
+                                    <textarea type="text" name="a-description[]" class=" daisy-input daisy-input-bordered w-full max-w-xs" placeholder="" required>
+
+
+                                    </textarea>
+                                    <label class="font-bold daisy-label">
+                                        <span class="daisy-label-text-alt hidden">Bottom Left label</span>
+                                    </label>
+                                </div>
+
+
+                                <div class="daisy-form-control w-full max-w-xs">
+                                    <label class="font-bold daisy-label">
+                                        <span class="daisy-label-text">Date:</span>
+
+                                    </label>
+                                    <input type="date" name="a-date[]" class="daisy-input daisy-input-bordered w-full max-w-xs" required>
+
+
+                                    <label class="daisy-label">
+                                        <span class="daisy-label-text-alt hidden">Bottom Left label</span>
+                                    </label>
+                                </div>
+
+
+                                <div class=" w-full max-w-xs">
+                                    <button type="button" class="a-remove daisy-btn">Remove</button>
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                        <!-- Add Achievement -->
+                        <button id="add-achievement-btn" class="daisy-btn">Add Achievement</button>
+                    </div>
+
+
+
+
 
                     <div class="flex flex-wrap gap-4 py-4 justify-end">
                         <button class="btn-tertiary bg-transparent " id="reset-aotm" type="reset">Reset Form</button>

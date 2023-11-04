@@ -33,6 +33,24 @@ $(document).ready(function () {
    * Adds all the event listeners for the page
    */
   function setHandlers() {
+    // Achievement handlers
+    $("#add-achievement-btn").on("click", function () {
+      const newAchievement = $(".achievement-box:first").clone();
+      newAchievement.find("input").val(""); // Clear input values
+      newAchievement.find("input[type=date]").val(""); // Clear date field
+      newAchievement.removeClass("hidden"); // Show cloned element
+      newAchievement.appendTo("#achievementFields").slideDown();
+      console.log(newAchievement);
+    });
+
+    $("#achievementFields").on("click", ".a-remove", function () {
+      $(this)
+        .closest(".achievement-box")
+        .slideUp(function () {
+          $(this).remove();
+        });
+    });
+
     // Date picker
     $("#aoydaterange").daterangepicker();
 

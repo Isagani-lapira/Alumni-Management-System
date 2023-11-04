@@ -3565,16 +3565,16 @@ div.input-container input[type="text"],
   max-height: 100vh;
 }
 
+.min-h-\[300px\] {
+  min-height: 300px;
+}
+
 .min-h-full {
   min-height: 100%;
 }
 
 .min-h-screen {
   min-height: 100vh;
-}
-
-.min-h-\[300px\] {
-  min-height: 300px;
 }
 
 .w-0 {
