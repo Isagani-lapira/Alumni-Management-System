@@ -15,7 +15,7 @@ class User_Table
 
     public function checkUser($username, $password, $connection)
     {
-        $query = 'SELECT * FROM `user` WHERE `username`= "' . $username . '" AND `password`= "' . $password . '"';
+        $query = "SELECT * FROM `user` WHERE BINARY `username` = '$username' AND BINARY `password` = '$password'";
         $result = mysqli_query($connection, $query);
 
         //check the result
