@@ -442,7 +442,7 @@ $(document).ready(function () {
     // container
     $("#edit-alumni-details").removeClass("hidden");
 
-    // $('#edit-description').val(data.description);
+    $("#edit-description").val(data.description);
   }
 
   async function postNewAlumni(

@@ -82,12 +82,12 @@
                 <!-- details -->
 
                 <div>
-                    <h3 id="card-fullname"></h3>
+                    <h3 id="card-fullname" class="font-bold"></h3>
                     <div class="">
                         <p id="card-job" class="font-bold"></p>
                         <!-- <p>at <span class="font-italic" id="card-company"></span></p> -->
                         <p> <span id="card-course"></span> </p>
-                        <p> Batch <span class="font-bold" id="card-batch"> </span></p>
+                        <p> Batch <span class="" id="card-batch"> </span></p>
                     </div>
 
                 </div>
@@ -154,7 +154,7 @@
                         <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <label for="cover-image" class="daisy-label">
                             </label>
-                            <input class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-image" type="file" accept=".jpg" name="cover-image">
+                            <input required class="daisy-file-input daisy-file-input-bordered w-full max-w-xs" id="cover-image" type="file" accept=".jpg" name="cover-image">
                             <label class="daisy-label">
                                 <span class="daisy-label-text-alt">Use JPG File Format</span>
                             </label>
@@ -198,6 +198,8 @@
 
                     <p class="font-bold block" for="">Description:</p>
                     <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
+
+                    <!-- Add Achievement
                     <div class="border">
                         <div id="achievementFields" class="grid grid-cols-3 gap-4">
                             <div class="achievement-box hidden p-4 border rounded-md ">
@@ -254,9 +256,8 @@
 
                         </div>
 
-                        <!-- Add Achievement -->
                         <button id="add-achievement-btn" class="daisy-btn">Add Achievement</button>
-                    </div>
+                    </div> -->
 
 
 

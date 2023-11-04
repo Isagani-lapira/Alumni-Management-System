@@ -130,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id = $_POST['studentNo'];
         $personID = $_POST['personID'];
         $quote = $_POST['quote'];
+        $description = $_POST['description'];
         // image data
         // $profile_img = $_FILES['profile-image'];
         $cover_img = $_FILES['cover-image'];
@@ -172,7 +173,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // 'linkedINUN' => $linkedINUN,
             // 'instagramUN' => $instagramUN,
             // 'profile-img' => $profileImg,
-            'cover-img' => $cover_img
+            'cover-img' => $cover_img,
+            'description' => $description
         );
 
 
