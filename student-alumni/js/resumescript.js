@@ -405,6 +405,7 @@ $(document).ready(function () {
         let workLength = (workExp != null) ? workExp.companyName.length : 0;
         if (workLength > 0) {
             for (let i = 0; i < workLength; i++) {
+                let workID = workExp.workID[i];
                 let jobTitle = workExp.jobTitle[i];
                 let workDescript = workExp.workDescript[i];
                 let companyName = workExp.companyName[i];
@@ -448,10 +449,9 @@ $(document).ready(function () {
                     .on('change', function () {
                         const newVal = $(this).val() + '-' + endYr
                         const year = "year";
-                        const conditionalCol = 'resumeID';
+                        const conditionalCol = 'workID';
 
-                        updateResumeDetails(action, workTbl, year, conditionalCol, newVal, resumeID, resumeID);
-                        //updateResumeDetails(actionPerform, table, column, conditionCol, newVal, conditionColVal, resumeID)
+                        updateResumeDetails(action, workTbl, year, conditionalCol, newVal, workID, resumeID);
                     })
 
                 // working end
@@ -459,8 +459,8 @@ $(document).ready(function () {
                     .on('change', function () {
                         const newVal = startYr + '-' + $(this).val()
                         const year = "year";
-                        const conditionalCol = 'resumeID';
-                        updateResumeDetails(action, workTbl, year, conditionalCol, newVal, resumeID, resumeID);
+                        const conditionalCol = 'workID';
+                        updateResumeDetails(action, workTbl, year, conditionalCol, newVal, workID, resumeID);
                     })
             }
         } else {
@@ -468,6 +468,7 @@ $(document).ready(function () {
             resumeIDVal = resumeID;
         }
 
+        insertNewWork(resumeID)
 
 
         // add skills
@@ -482,6 +483,8 @@ $(document).ready(function () {
                     updateResumeDetails(action, skillTbl, skillCol, conditionalCol, newVal, conditionColVal, resumeID);
                 })
         }
+
+        insertNewSkill(resumeID)
 
         // add references
         let refLength = 3
@@ -532,10 +535,9 @@ $(document).ready(function () {
         $('#objectiveInput').val(objective)
             .on('change', function () {
                 const newVal = $(this).val()
-                const objectiveCol = "`objective`";
-                let recentVal = objective;
-
-                updateResumeDetails(action, resumeTbl, objectiveCol, newVal, recentVal, resumeID);
+                const objectiveCol = "objective";
+                const conditionalCol = 'resumeID';
+                updateResumeDetails(action, resumeTbl, objectiveCol, conditionalCol, newVal, resumeID, resumeID);
             })
 
 
@@ -552,6 +554,118 @@ $(document).ready(function () {
         }
     })
 
+
+    function insertNewWork(resumeID) {
+        // insert new work
+        $('.job-title').each(function () {
+            // elements
+            const element = $(this)
+            let companyNameInput = element.siblings('.company-name');
+            let responsibilityInput = element.siblings('.responsibility');
+            const container = element.closest('.experience');
+
+            // data to retrieve
+            let companyName = ""
+            let responsibility = "";
+            let yearInput = "";
+            let value = element.val()
+
+
+            // add listener only to those with no work experience field
+            if (value === '') {
+                let startYearSelect = container.find('.yearSelection:first');
+                let endYearSelect = container.find('.yearSelection:last');
+
+                // job title
+                element.on('change', function () {
+                    value = $(this).val()
+                    processInsertion(resumeID, value, companyName, responsibility, yearInput)
+                })
+
+                // company name
+                companyNameInput.on('change', function () {
+                    companyName = $(this).val()
+                    processInsertion(resumeID, value, companyName, responsibility, yearInput)
+                })
+
+                // responsibility
+                responsibilityInput.on('change', function () {
+                    responsibility = $(this).val();
+                    processInsertion(resumeID, value, companyName, responsibility, yearInput)
+                })
+
+                // start year
+                startYearSelect.on('change', function () {
+                    yearInput = $(this).val() + '-' + endYearSelect.val()
+                    if (endYearSelect.val() !== null)
+                        processInsertion(resumeID, value, companyName, responsibility, yearInput)
+                })
+
+                // end year
+                endYearSelect.on('change', function () {
+                    yearInput = $(this).val() + '-' + startYearSelect.val()
+                    if (startYearSelect.val() !== null)
+                        processInsertion(resumeID, value, companyName, responsibility, yearInput)
+                })
+            }
+
+
+        })
+    }
+
+    // adding new skill
+    function insertNewSkill(resumeID) {
+        $('.skillInput').each(function () {
+            const element = $(this)
+            const value = element.val();
+
+            // add listener to every skill that is empty
+            if (value === '') {
+                element.on('change', function () {
+                    let skill = $(this).val();
+
+                    if (skill !== "") processNewSkill(resumeID, skill) //add skill
+                })
+            }
+        })
+    }
+    function processNewSkill(resumeID, skill) {
+        const action = "individualAddSkill";
+        const formData = new FormData();
+        formData.append('action', action);
+        formData.append('resumeID', resumeID);
+        formData.append('skill', skill)
+
+        $.ajax({
+            url: '../PHP_process/resume.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+        })
+    }
+
+    function processInsertion(resumeID, jobTitle, companyNameValue, responsibilityValue, year) {
+        const action = "insertImgData";
+
+        if (jobTitle !== '' && companyNameValue !== '' && responsibilityValue !== '' && year !== '') {
+            const formData = new FormData();
+            formData.append('action', action);
+            formData.append('resumeID', resumeID)
+            formData.append('jobTitle', jobTitle)
+            formData.append('companyName', companyNameValue)
+            formData.append('workDescript', responsibilityValue)
+            formData.append('year', year)
+
+            $.ajax({
+                url: '../PHP_process/resume.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+            })
+        }
+    }
     function setResumeDetails(objective, fullname, contactNo, address, emailadd,
         skills, educations, workExp, references) {
         restartResume()

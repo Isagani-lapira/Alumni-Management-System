@@ -40,6 +40,17 @@ if (isset($_POST['action'])) {
     } else if ($action == 'showApplicantResume') {
         $resumeID = $_POST['resumeID'];
         showApplicantResume($resumeID, $mysql_con);
+    } else if ($action == 'insertImgData') {
+        $resumeID = $_POST['resumeID'];
+        $jobTitle = $_POST['jobTitle'];
+        $companyName = $_POST['companyName'];
+        $workDescript = $_POST['workDescript'];
+        $year = $_POST['year'];
+        insertImgData($resumeID, $jobTitle, $companyName, $workDescript, $year, $mysql_con);
+    } else if ($action == 'individualAddSkill') {
+        $resumeID = $_POST['resumeID'];
+        $skill = $_POST['skill'];
+        insertSkill($resumeID, $skill, $mysql_con);
     }
 } else echo 'ayaw';
 
@@ -273,10 +284,13 @@ function resumeDetails($result, $row, $con)
         );
 
         //get work experience
-        $queryWorkExp = "SELECT * FROM `work_exp` WHERE `resumeID` = '$resumeID'";
+        $queryWorkExp = "SELECT * FROM `work_exp` WHERE `resumeID` = '$resumeID'
+        ORDER BY CAST(SUBSTRING_INDEX(year, '-', -1) AS SIGNED) DESC";
+
         $resultWorkExp = mysqli_query($con, $queryWorkExp);
         $rowWork = mysqli_num_rows($resultWorkExp);
 
+        $workID = array();
         $jobTitle = array();
         $companyName = array();
         $workDescript = array();
@@ -284,6 +298,7 @@ function resumeDetails($result, $row, $con)
 
         if ($resultWorkExp && $rowWork > 0) {
             while ($data = mysqli_fetch_assoc($resultWorkExp)) {
+                $workID[] = $data['workID'];
                 $jobTitle[] = $data['job_title'];
                 $companyName[] = $data['companyName'];
                 $workDescript[] = $data['work_description'];
@@ -291,6 +306,7 @@ function resumeDetails($result, $row, $con)
             }
 
             $workExpirience = array(
+                "workID" => $workID,
                 "jobTitle" => $jobTitle,
                 "companyName" => $companyName,
                 "workDescript" => $workDescript,
@@ -390,4 +406,19 @@ function showApplicantResume($resumeID, $con)
         $row = mysqli_num_rows($result);
         resumeDetails($result, $row, $con);
     }
+}
+
+function insertImgData($resumeID, $jobTitle, $companyName, $workDescript, $year, $con)
+{
+    $random = rand(0, 5000);
+    $uniqID = substr(md5(uniqid()), 0, 10);
+    $workID = $random . '-' . $uniqID;
+
+    $query = "INSERT INTO `work_exp`(`workID`, `resumeID`, `job_title`, `companyName`, 
+    `work_description`, `year`) VALUES ('$workID','$resumeID','$jobTitle','$companyName',
+    '$workDescript','$year')";
+    $result = mysqli_query($con, $query);
+
+    if ($result) echo 'Success';
+    else echo 'Failed';
 }
