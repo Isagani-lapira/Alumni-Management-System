@@ -71,12 +71,13 @@ class Applicant
     {
         $username = $_SESSION['username'];
 
-        $query = "SELECT p.fname, p.lname, a.resumeID
+        $query = "SELECT p.fname, p.lname, a.resumeID,a.message,a.appliedDate
         FROM applicant AS a
         LEFT JOIN student AS s ON a.username = s.username
         LEFT JOIN alumni AS al ON a.username = al.username
         LEFT JOIN person AS p ON s.personID = p.personID OR al.personID = p.personID
-        WHERE a.careerID = ? AND a.username != ?";
+        WHERE a.careerID = ? AND a.username != ? 
+        ORDER BY a.appliedDate DESC";
 
         $stmt = mysqli_prepare($con, $query);
         $stmt->bind_param('ss', $careerID, $username);
@@ -86,12 +87,16 @@ class Applicant
         $response = "";
         $fullname = array();
         $resumeID = array();
+        $message = array();
+        $date = array();
 
         if ($result) {
             $response = "Success";
             while ($data = $result->fetch_assoc()) {
                 $fullname[] = $data['fname'] . ' ' . $data['lname'];
                 $resumeID[] = $data['resumeID'];
+                $message[] = $data['message'];
+                $date[] = $data['appliedDate'];
             }
         } else $response = "Unsuccess";
 
@@ -99,6 +104,8 @@ class Applicant
             "response" => $response,
             "fullname" => $fullname,
             "resumeID" => $resumeID,
+            "message" => $message,
+            "date" => $date,
         );
 
         echo json_encode($data);

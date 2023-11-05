@@ -253,6 +253,9 @@ $(document).ready(function () {
                     for (let i = 0; i < length; i++) {
                         let fullname = response.fullname[i];
                         let resumeID = response.resumeID[i];
+                        let message = response.message[i];
+                        let date = response.date[i];
+                        date = convertTimeStampToDate(date) //format the date
 
                         let wrapper = $('<div>')
                             .addClass('justify-between flex items-center')
@@ -261,6 +264,15 @@ $(document).ready(function () {
                             .addClass('italic text-gray-500')
                             .text(fullname)
 
+                        let interactionWrapper = $('<div>').addClass('flex gap-2 items-center')
+                        let messageIcon = $('<iconify-icon class="text-accent hover:text-darkAccent cursor-pointer" icon="wpf:message-outline" width="20" height="20"></iconify-icon>')
+                            .on('click', function () {
+                                // open the message modal
+                                $('.messageJob p:first()').text('By: ' + fullname)
+                                $('.messageJob p:eq(1)').text('Applied Date: ' + date)
+                                $('.messageJob pre').text(message)
+                                $('.messageJob').removeClass('hidden')
+                            })
                         let viewResume = $('<button>')
                             .addClass('py-2 px-4 rounded-lg bg-accent text-white font-bold text-xs hover:bg-darkAccent')
                             .text('Resume')
@@ -270,7 +282,9 @@ $(document).ready(function () {
                                 displayApplicantResume(resumeID)
                             })
 
-                        wrapper.append(fullnameElement, viewResume)
+
+                        interactionWrapper.append(messageIcon, viewResume)
+                        wrapper.append(fullnameElement, interactionWrapper)
                         $('#listApplicantContainer').append(wrapper)
                     }
                 }
@@ -317,6 +331,12 @@ $(document).ready(function () {
             },
             error: error => { console.log(error) }
         })
+    }
+
+    function convertTimeStampToDate(timestamp) {
+        const date = new Date(timestamp);
+        const formattedDate = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long' })
+        return formattedDate;
     }
 
     function setResumeDetails(objective, fullname, contactNo, address, emailadd,
@@ -499,4 +519,9 @@ $(document).ready(function () {
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set A4 size
         }).from(contentWithStyles).save();
     });
+
+    // close the message modal
+    $('.closeMsgJob').on('click', function () {
+        $('.messageJob').addClass('hidden')
+    })
 })

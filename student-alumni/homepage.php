@@ -1700,7 +1700,7 @@ function getAccDetails($con, $personID)
     </div>
 
     <!-- success application   prompt -->
-    <div id="successApplicationModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+    <div id="successApplicationModal" class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center hidden">
       <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
         <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -1713,6 +1713,20 @@ function getAccDetails($con, $personID)
         <h1 class=" text-3xl font-bold text-green-500 text-center">Applied Successfully</h1>
         <p class=" text-center text-gray-500">Your message and resume have been sent to the job recruiter.</p>
         <button class=" bg-postButton hover:bg-postHoverButton text-white px-4 py-2 w-full  rounded-md font-bold">Close</button>
+      </div>
+    </div>
+
+    <!-- inbox -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center messageJob hidden">
+      <div class="bg-white rounded-2xl w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="fluent-mdl2:back" class="cursor-pointer closeMsgJob" width="24" height="24"></iconify-icon>
+          <h3 class="text-2xl flex items-center">Applicant Message</h3>
+        </div>
+
+        <p></p> <!--applicant name-->
+        <p></p> <!--applied-->
+        <pre class="w-full h-4/5 overflow-y-auto p-5 border border-gray-300 rounded-md"></pre>
       </div>
     </div>
 
