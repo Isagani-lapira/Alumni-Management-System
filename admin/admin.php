@@ -1567,7 +1567,7 @@ function dateInText($date)
     <!-- list of applicant -->
     <div id="listOfApplicantModal" class="post modal fixed inset-0 flex justify-center p-3 hidden">
       <div class="modaListApplicant modal-container w-1/3 h-max bg-white rounded-md relative slide-bottom p-5">
-        <button class="p-1 text-gray-300 items-center justify-center flex border border-gray-400 rounded-full hover:bg-accent absolute top-0 -right-11">
+        <button class="p-1 text-gray-300 items-center justify-center flex border border-gray-400 rounded-full hover:bg-accent absolute top-0 -right-11 modalListBtn">
           <iconify-icon icon="ei:close" width="24" height="24"></iconify-icon>
         </button>
         <h3 class="text-center font-bold text-xl py-2 text-greyish_black border-b border-gray-300">Applicant List</h3>
@@ -2382,6 +2382,20 @@ function dateInText($date)
         </svg>
         <h1 class=" text-xl font-bold text-green-500 text-center">Successfully Assigned</h1>
         <p class="text-lg text-center text-gray-500">Alumni Of the year successfully assigned!</p>
+      </div>
+    </div>
+
+    <!-- inbox -->
+    <div class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 messageJob hidden">
+      <div class="bg-white rounded-2xl w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="fluent-mdl2:back" class="cursor-pointer closeMsgJob" width="24" height="24"></iconify-icon>
+          <h3 class="text-2xl flex items-center">Applicant Message</h3>
+        </div>
+
+        <p></p> <!--applicant name-->
+        <p></p> <!--applied-->
+        <pre class="w-full h-4/5 overflow-y-auto p-5 border border-gray-300 rounded-md"></pre>
       </div>
     </div>
 
