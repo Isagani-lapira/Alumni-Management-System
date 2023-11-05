@@ -2,7 +2,9 @@ import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
 
 $(document).ready(function () {
   // Constants
-  const API_URL = "./alumni-of-the-month/getAlumni.php";
+  const GET_API_URL = "./alumni-of-the-month/getAlumni.php";
+  const PROFILE_PICTURE_URL = "../media/search.php?media=profile_pic&personID=";
+  const AOM_COVER_IMAGE_URL = "../media/search.php?media=aom&AOMID=";
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   const API_POST_URL = "./alumni-of-the-month/addAlumni.php";
   const AVATAR_PLACEHOLDER = "../assets/default_profile.png";
@@ -145,7 +147,7 @@ $(document).ready(function () {
         console.log("fetching the details of the edit aotm", id);
 
         const result = await getJSONFromURL(
-          API_URL + "?action=getAOTMById&aomID=" + id
+          GET_API_URL + "?action=getAOTMById&aomID=" + id
         );
 
         // populate the edit modal
@@ -153,11 +155,11 @@ $(document).ready(function () {
         populateEditAOTMModal(result.data[0]);
 
         const testimonialsRes = await getJSONFromURL(
-          API_URL + "?action=getTestimonial&aomID=" + id
+          GET_API_URL + "?action=getTestimonial&aomID=" + id
         );
 
         const achievementsRes = await getJSONFromURL(
-          API_URL + "?action=getAchievement&aomID=" + id
+          GET_API_URL + "?action=getAchievement&aomID=" + id
         );
 
         console.log("testimonials", testimonialsRes);
@@ -483,8 +485,7 @@ $(document).ready(function () {
           $("#edit-cover-image-preview").attr("src", "");
           // $("#profile-image-preview").attr("src", "");
           $("#edit-aotm").prop("checked", false);
-          // refresh the table
-          // refreshList();
+
           // refresh the datatable
           // clear the datatable
           $("#alumni-month-table").DataTable().clear().draw();
@@ -724,8 +725,9 @@ $(document).ready(function () {
     $("#edit-searchList").on("click", "li", async function () {
       console.log("clicked");
       const id = $(this).data("personid");
+
       const result = await getJSONFromURL(
-        API_URL + "?getPersonId=1" + "&personId=" + id
+        GET_API_URL + "?action=searchPerson" + "&personId=" + id
       );
       console.log(result);
 
@@ -758,7 +760,7 @@ $(document).ready(function () {
       console.log("clicked");
       const id = $(this).data("personid");
       const result = await getJSONFromURL(
-        API_URL + "?getPersonId=1" + "&personId=" + id
+        GET_API_URL + "?action=searchPerson" + "&personId=" + id
       );
       console.log(result);
 
@@ -800,7 +802,7 @@ $(document).ready(function () {
 
   async function checkIfAlumniExists() {
     try {
-      const result = await getJSONFromURL(API_URL + "?latest=month");
+      const result = await getJSONFromURL(GET_API_URL + "?action=getThisMonth");
       console.log(result);
       console.log("this month's aotm", result.data.length);
 
@@ -996,17 +998,17 @@ $(document).ready(function () {
     }
   }
 
-  // refresh the list
-  async function refreshList(category = "all") {
-    //   get the event details
-    const result = await getJSONFromURL(
-      API_URL + "partial=true&offset=" + offset
-    );
+  // // refresh the list
+  // async function refreshList(category = "all") {
+  //   //   get the event details
+  //   const result = await getJSONFromURL(
+  //     GET_API_URL + "partial=true&offset=" + offset
+  //   );
 
-    $("#tBodyRecord").empty();
-    console.log("first-result", result);
-    appendContent($("#tBodyRecord"), result.data);
-  }
+  //   $("#tBodyRecord").empty();
+  //   console.log("first-result", result);
+  //   appendContent($("#tBodyRecord"), result.data);
+  // }
 
   //   set the data into the table
   function appendContent(selectorContainer, jsonData) {
@@ -1067,7 +1069,7 @@ $(document).ready(function () {
     // remove the loading screen
     $("#alumni-month-table").DataTable({
       ajax: {
-        url: "./alumni-of-the-month/getAlumni.php?getAll=true",
+        url: GET_API_URL + "?action=getAllAOTM",
         dataSrc: "data",
       },
       paging: true,
