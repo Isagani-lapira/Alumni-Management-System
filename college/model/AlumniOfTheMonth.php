@@ -115,6 +115,7 @@ class AlumniOfTheMonth
         }
     }
 
+
     public function getTestimonialById(string $testimonialID): array
     {
         // Initialize the statement
@@ -208,6 +209,41 @@ class AlumniOfTheMonth
         $stmt = $this->conn->prepare('DELETE FROM achievement WHERE AOMID = ?;');
 
         $stmt->bind_param('s', $aotmID);
+        // execute the query
+
+        // check if the query is successful
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function removeOneAchievementByAchievementID(string $id): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('DELETE FROM achievement WHERE achievementID = ?;');
+
+        $stmt->bind_param('s', $id);
+        // execute the query
+
+        // check if the query is successful
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function removeOneTestimonialtByTestimonialID(string $id): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('DELETE FROM testimonials WHERE testimonialID = ?;');
+
+        $stmt->bind_param('s', $id);
         // execute the query
 
         // check if the query is successful

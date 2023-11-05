@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $resultArray =  [];
             }
 
-            return json_encode($resultArray);
+            return $resultArray;
         } catch (\Throwable $th) {
             throw $th;
         }
