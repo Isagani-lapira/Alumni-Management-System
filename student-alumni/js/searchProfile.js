@@ -109,8 +109,9 @@ $(document).ready(function () {
 
                     displayUserProfileModal(fullname, profilePic, coverPhoto, facebookUN, instagramUN, twitterUN, linkedInUN, username, courseName, colorBorder);
                 }
-            },
-            error: error => { console.log(error) }
+
+                $('.loadingProfile').parent().addClass('hidden')
+            }
         })
     }
 

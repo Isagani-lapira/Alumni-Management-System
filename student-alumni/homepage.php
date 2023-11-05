@@ -1345,17 +1345,6 @@ function getAccDetails($con, $personID)
 
         </div>
 
-        <!-- error prompt -->
-        <div id="errorResumeModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-          <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-1">
-            <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
-            </lord-icon>
-            <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
-            <p class=" text-center text-gray-500">It appears that you have forgotten to include your resume. Please do not forget to review and revise your resume to make it relevant to the position you are applying for. To access the resume editing area, simply click the link below.</p>
-            <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 my-5 text-center w-full cursor-pointer">Click Me</span>
-          </div>
-
-        </div>
 
         <div id="createJobModal" class="post modal fixed inset-0 z-50 flex justify-center p-3 hidden">
           <div id="jobContainer" class="relative w-1/3 no-scrollbar py-3 px-4 bg-white rounded-md h-3/4 overflow-y-auto slide-bottom">
@@ -1558,19 +1547,6 @@ function getAccDetails($con, $personID)
         </div>
       </div>
 
-      <!-- loading modal -->
-      <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center hidden">
-        <div class="loadingProfile flex items-center justify-center">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
     </div>
 
     <!-- migration modal -->
@@ -1727,6 +1703,33 @@ function getAccDetails($con, $personID)
         <p></p> <!--applicant name-->
         <p></p> <!--applied-->
         <pre class="w-full h-4/5 overflow-y-auto p-5 border border-gray-300 rounded-md"></pre>
+      </div>
+    </div>
+
+    <!-- error prompt -->
+    <div id="errorResumeModal" class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center p-3 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-1">
+        <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
+        </lord-icon>
+        <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
+        <p class=" text-center text-gray-500">It appears that you have forgotten to include your resume. Please do not forget to review and revise your resume to make it relevant to the position you are applying for. To access the resume editing area, simply click the link below.</p>
+        <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 mt-5 text-center w-full cursor-pointer">Click Me</span>
+        <span class="w-full text-center text-sm text-gray-400 hover:text-gray-500 mb-5 cursor-pointer noresumeBtn">Cancel</span>
+      </div>
+
+    </div>
+
+    <!-- loading modal -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center hidden">
+      <div class="loadingProfile flex items-center justify-center">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
 

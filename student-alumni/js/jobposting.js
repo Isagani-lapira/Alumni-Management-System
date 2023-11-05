@@ -179,6 +179,7 @@ $(document).ready(function () {
                     $('#aplicantListBtn').removeClass('cursor-text')
                         .on('click', function () {
                             //open the list
+                            $('.loadingProfile').parent().removeClass('hidden')
                             displayApplicant(careerID)
                         })
                 }
@@ -288,8 +289,8 @@ $(document).ready(function () {
                         $('#listApplicantContainer').append(wrapper)
                     }
                 }
-            },
-            error: error => { console.log(error) }
+                $('.loadingProfile').parent().addClass('hidden')
+            }
         })
     }
 

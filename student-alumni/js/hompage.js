@@ -569,8 +569,11 @@ $(document).ready(function () {
   function applyJob(careerID) {
     $('.applicantMsg').removeClass('hidden')
     $('.applyJobBtn').on('click', function () {
-      const message = $('#applicantMsg').val()
-      processApplication(careerID, message)
+      const message = $('#applicantMsg').val().trimEnd()
+      if (message !== '') {
+        $('.loadingProfile').parent().removeClass('hidden')
+        processApplication(careerID, message)
+      }
     })
 
   }
@@ -594,6 +597,7 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: response => {
+        $('.loadingProfile').parent().addClass('hidden')
         if (response == 'Success') {
           $('#iconApply').removeClass('hidden') //applied icon indicator
           $('#applicantMsg').val('')
@@ -601,13 +605,13 @@ $(document).ready(function () {
             .text('Applied')
 
           // close and restart the values
+          $('.applicantMsg').addClass('hidden')
           $('#successApplicationModal').removeClass('hidden')
           $('#successApplicationModal button').on('click', function () {
             $('#successApplicationModal').addClass('hidden')
           })
         }
         else $('#errorResumeModal').removeClass('hidden')//not yet set up
-
       }
     })
   }
@@ -615,6 +619,12 @@ $(document).ready(function () {
   $('.msgCancelBtn').on('click', function () {
     $('.applicantMsg').addClass('hidden')
   })
+
+  // close no resume modal
+  $('.noresumeBtn').on('click', function () {
+    $('#errorResumeModal').addClass('hidden')
+  })
+
 
   function viewOfCareer(careerID) {
     const actionCareer = {
