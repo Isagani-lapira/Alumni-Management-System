@@ -31,6 +31,8 @@ $(document).ready(function () {
       openIt == true ? $(id).removeClass("hidden") : $(id).addClass("hidden");
     }
 
+    CKEDITOR.replace("TxtAreaEmail");
+
     // Search Email Functionality
     // adding email suggestions
     $("#searchEmail").on("input", function () {
@@ -194,11 +196,11 @@ $(document).ready(function () {
         $("#errorMsgEM").addClass("hidden"); // hide the message
         selectedFileEM.push(file);
         //preview of the file
-        fileContainerPrev = $("<div>").addClass(
+        let fileContainerPrev = $("<div>").addClass(
           "flex justify-evenly item-center"
         );
-        fileName = $("<p>").addClass("p-1 w-full text-xs").text(nameOfFile);
-        xBtn = $("<span>")
+        let fileName = $("<p>").addClass("p-1 w-full text-xs").text(nameOfFile);
+        let xBtn = $("<span>")
           .text("x")
           .addClass("cursor-pointer")
           .on("click", function (e) {
@@ -254,7 +256,11 @@ $(document).ready(function () {
             .removeClass("border-accent");
       }
 
-      let message = $("#TxtAreaEmail").val();
+      // let message = $("#TxtAreaEmail").val();
+      // get the message in the editor
+      message = CKEDITOR.instances["TxtAreaEmail"].getData();
+      //
+
       formSend.append("recipient", recipient);
       formSend.append("subject", emailSubj);
       formSend.append("message", message);
