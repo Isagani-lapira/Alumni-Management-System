@@ -30,14 +30,206 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $adminID = $_SESSION['adminID'];
     $colCode = $_SESSION['colCode'];
 
+    // var_dump($_POST);
+    // echo isset($_POST['achievement']) ? 'there' : 'not there';
+    // echo isset($_POST['testimonial']) ? 0 : 1;
+    // die();
 
     // Create an instance of the model class
     $alumni = new AlumniOfTheMonth($mysql_con, $colCode);
 
     if (isset($_POST['action'])) {
 
-        // check if action == edit
-        if ($_POST['action'] == 'edit') {
+
+        $action = $_POST['action'];
+
+
+        if ($action === 'delete-one-testimonial') {
+            $testimonialID = $_POST['testimonialID'];
+
+
+
+            // set new achievement
+            $result = $alumni->removeOneTestimonialtByTestimonialID($testimonialID);
+            header("Content-Type: application/json; charset=UTF-8");
+            if ($result === TRUE) {
+
+                echo json_encode(
+                    array(
+                        'response' => 'Successful',
+                        'message' => 'Achievement deleted successfully',
+                        'status' => true
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        'response' => 'Unsuccessful',
+                        'message' => 'Achievement not deleted',
+                        'status' => false
+                    )
+                );
+            };
+        } else if ($action === 'edit-one-testimonial') {
+            $tID = $_POST['testimony-id'];
+            $person_name = $_POST['filled-person_name'];
+            $relationship = $_POST['filled-relationship'];
+            $emailAddress = $_POST['filled-emailAddress'];
+            $companyName = $_POST['filled-companyName'];
+            $position = $_POST['filled-position'];
+            $message = $_POST['filled-message'];
+            $date = $_POST['filled-date'];
+
+
+            // get the 'profile_img' from post and convert to blob
+            $profileImg = '';
+            if (isset($_FILES['filled-profile_img']) && $_FILES['filled-profile_img']['size'] > 0) {
+                $profileImgTmpName =  $_FILES['filled-profile_img']['tmp_name'];
+                $profileImg = file_get_contents($profileImgTmpName);
+            }
+
+
+
+            // make array of testimonial information
+            $info = array(
+                'id' => $tID,
+                'person_name' => $person_name,
+                'relationship' => $relationship,
+                'emailAddress' => $emailAddress,
+                'companyName' => $companyName,
+                'position' => $position,
+                'message' => $message,
+                'date' => $date,
+                'profile_img' => $profileImg
+            );
+
+            // set new testimonial
+            $result = $alumni->updateTestimonial($tID, $info);
+            header("Content-Type: application/json; charset=UTF-8");
+            if ($result === TRUE) {
+
+                echo json_encode(
+                    array(
+                        'response' => 'Successful',
+                        'message' => 'Testimonial updated successfully',
+                        'status' => true
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        'response' => 'Unsuccessful',
+                        'message' => 'Testimonial not updated',
+                        'status' => false
+                    )
+                );
+            };
+        }
+
+        if ($action === 'delete-one-achievement') {
+
+
+            $achievementID = $_POST['achievementID'];
+
+
+
+            // set new achievement
+            $result = $alumni->removeOneAchievementByAchievementID($achievementID);
+            header("Content-Type: application/json; charset=UTF-8");
+            if ($result === TRUE) {
+
+                echo json_encode(
+                    array(
+                        'response' => 'Successful',
+                        'message' => 'Achievement deleted successfully',
+                        'status' => true
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        'response' => 'Unsuccessful',
+                        'message' => 'Achievement not deleted',
+                        'status' => false
+                    )
+                );
+            };
+        } else if ($action === 'edit-one-achievement') {
+
+            // $title = $_POST['title'];
+            $achievement = $_POST['achievement'];
+            $description = $_POST['description'];
+            $date = $_POST['date'];
+            $achievementID = $_POST['achievementID'];
+
+            // make array of achievement information
+            $data = array(
+                'achievement' => $achievement,
+                'description' => $description,
+                'date' => $date,
+                'achievementID' => $achievementID
+            );
+
+            // set new achievement
+            $result = $alumni->updateAchievement($achievementID, $data);
+            header("Content-Type: application/json; charset=UTF-8");
+            if ($result === TRUE) {
+
+                echo json_encode(
+                    array(
+                        'response' => 'Successful',
+                        'message' => 'Achievement updated successfully',
+                        'status' => true
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        'response' => 'Unsuccessful',
+                        'message' => 'Achievement not updated',
+                        'status' => false
+                    )
+                );
+            };
+        } else if ($action === 'edit-achievement') {
+
+            $aID = $_POST['aID'];
+            $aTitle = $_POST['aTitle'];
+            $aDescription = $_POST['aDescription'];
+            $aDate = $_POST['aDate'];
+            $achievementID = $_POST['aotmID'];
+
+            // make array of achievement information
+            $achievementInformation = array(
+                'aID' => $aID,
+                'aTitle' => $aTitle,
+                'aDescription' => $aDescription,
+                'aDate' => $aDate,
+                'aotmID' => $aotmID
+            );
+
+            // set new achievement
+            $result = $alumni->updateAchievement($achievementID, $achievementInformation);
+            header("Content-Type: application/json; charset=UTF-8");
+            if ($result === TRUE) {
+
+                echo json_encode(
+                    array(
+                        'response' => 'Successful',
+                        'message' => 'Achievement updated successfully',
+                        'status' => true
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        'response' => 'Unsuccessful',
+                        'message' => 'Achievement not updated',
+                        'status' => false
+                    )
+                );
+            };
+        } else if ($action === 'edit') {
 
             $personID = $_POST['personID'];
             $quote = $_POST['quote'];
@@ -63,7 +255,121 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'aotmID' => $aotmID
 
             );
-            // set new alumni
+            // set update alumni
+
+            // if there is achievement on the post
+            if (isset($_POST['achievement'])) {
+
+                // get the a-title, a-description, a-date and generate an id for each achievement
+                // loop through
+
+                $aTitle = $_POST['a-title'];
+                // check if it is an array
+                if (is_array($aTitle)) {
+                    // loop through
+                    try {
+                        foreach ($aTitle as $key => $value) {
+                            $aTitle = $_POST['a-title'][$key];
+                            $aDescription = $_POST['a-description'][$key];
+                            $aDate = $_POST['a-date'][$key];
+                            $aID = uniqid('aotm-');
+
+                            // make array of achievement information
+                            $achievementInformation = array(
+                                'id' => $aID,
+                                'achievement' => $aTitle,
+                                'description' => $aDescription,
+                                'date' => $aDate,
+                                'aotmID' => $aotmID
+                            );
+
+                            // set new achievement
+                            $result = $alumni->setNewAchievement($achievementInformation);
+                        }
+                    } catch (\Throwable $th) {
+                        throw $th;
+                    }
+                } else {
+                    $aTitle = $_POST['a-title'];
+                    $aDescription = $_POST['a-description'];
+                    $aDate = $_POST['a-date'];
+                    $aID = uniqid('aotm-');
+
+                    // make array of achievement information
+                    $achievementInformation = array(
+                        'aID' => $aID,
+                        'aTitle' => $aTitle,
+                        'aDescription' => $aDescription,
+                        'aDate' => $aDate,
+                        'aotmID' => $aotmID
+                    );
+
+                    // set new achievement
+                    $result = $alumni->setNewAchievement($achievementInformation);
+                }
+            }
+
+
+            // if there is testimonials on the post
+            if (isset($_POST['testimonial'])) {
+
+                /**
+                 * " ["person_name"]=> array(1) { [0]=> string(4) "asdf" } 
+                 * ["relationship"]=> array(1) { [0]=> string(4) "dasf" } 
+                 * ["emailAddress"]=> array(1) { [0]=> string(14) "sdfg@gmail.com" } 
+                 * ["companyName"]=> array(1) { [0]=> string(5) "afsdf" } 
+                 * ["position"]=> array(1) { [0]=> string(5) "fdasf" }
+                 *  ["message"]=> array(1) { [0]=> string(4) "asdf" } 
+                 * ["date"]=> array(1) { [0]=> string(10) "2222-12-03" } 
+                 * ["testimonial"]=> string(0) "" } 
+                 */
+
+                // get the a-title, a-description, a-date and generate an id for each achievement
+                // loop through
+
+                $item = $_POST['person_name'];
+                // check if it is an array
+                if (is_array($item)) {
+                    // loop through
+                    try {
+                        foreach ($item as $key => $value) {
+                            $fullname = $_POST['person_name'][$key];
+                            $relationship = $_POST['relationship'][$key];
+                            $emailAddress = $_POST['emailAddress'][$key];
+                            $companyName = $_POST['companyName'][$key];
+                            $position = $_POST['position'][$key];
+                            $message = $_POST['message'][$key];
+                            $date = $_POST['date'][$key];
+                            $tID = uniqid('aotm-');
+
+                            // get the 'profile_img' from post and convert to blob
+                            $profileImgTmpName =  $_FILES['profile_img']['tmp_name'][$key];
+                            $profileImg = file_get_contents($profileImgTmpName);
+
+
+                            // make array of achievement information
+                            $info = array(
+                                'id' => $tID,
+                                'person_name' => $fullname,
+                                'relationship' => $relationship,
+                                'emailAddress' => $emailAddress,
+                                'companyName' => $companyName,
+                                'position' => $position,
+                                'message' => $message,
+                                'date' => $date,
+                                'profile_img' => $profileImg,
+                                'aotmID' => $aotmID
+                            );
+
+                            // set new achievement
+                            $result = $alumni->setNewTestimonial($info);
+                        }
+                    } catch (\Throwable $th) {
+                        throw $th;
+                    }
+                }
+            }
+
             try {
 
                 $result = $alumni->updateExistingAlumniOfTheMonth($aotmID, $alumniInformation,);
@@ -179,12 +485,133 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+        // var_dump($_POST);
+        // die();
 
         // set new alumni
-        // TODO add new logging event
         $result = $alumni->setNewAlumniOfTheMonth($id, $alumniInformation,);
+        // get the id from the result
+        $aotmID = $result['id'];
+
         header("Content-Type: application/json; charset=UTF-8");
-        if ($result === TRUE) {
+
+        // if there is achievement on the post
+        if (isset($_POST['achievement'])) {
+
+            // get the a-title, a-description, a-date and generate an id for each achievement
+            // loop through
+
+            $aTitle = $_POST['a-title'];
+            // check if it is an array
+            if (is_array($aTitle)) {
+                // loop through
+                try {
+                    foreach ($aTitle as $key => $value) {
+                        $aTitle = $_POST['a-title'][$key];
+                        $aDescription = $_POST['a-description'][$key];
+                        $aDate = $_POST['a-date'][$key];
+                        $aID = uniqid('aotm-');
+
+                        // make array of achievement information
+                        $achievementInformation = array(
+                            'id' => $aID,
+                            'achievement' => $aTitle,
+                            'description' => $aDescription,
+                            'date' => $aDate,
+                            'aotmID' => $aotmID
+                        );
+
+                        // set new achievement
+                        $result = $alumni->setNewAchievement($achievementInformation);
+                    }
+                } catch (\Throwable $th) {
+                    throw $th;
+                }
+            } else {
+                $aTitle = $_POST['a-title'];
+                $aDescription = $_POST['a-description'];
+                $aDate = $_POST['a-date'];
+                $aID = uniqid('aotm-');
+
+                // make array of achievement information
+                $achievementInformation = array(
+                    'aID' => $aID,
+                    'aTitle' => $aTitle,
+                    'aDescription' => $aDescription,
+                    'aDate' => $aDate,
+                    'aotmID' => $aotmID
+                );
+
+                // set new achievement
+                $result = $alumni->setNewAchievement($achievementInformation);
+            }
+        }
+
+
+        // if there is testimonials on the post
+        if (isset($_POST['testimonial'])) {
+
+            /**
+             * " ["person_name"]=> array(1) { [0]=> string(4) "asdf" } 
+             * ["relationship"]=> array(1) { [0]=> string(4) "dasf" } 
+             * ["emailAddress"]=> array(1) { [0]=> string(14) "sdfg@gmail.com" } 
+             * ["companyName"]=> array(1) { [0]=> string(5) "afsdf" } 
+             * ["position"]=> array(1) { [0]=> string(5) "fdasf" }
+             *  ["message"]=> array(1) { [0]=> string(4) "asdf" } 
+             * ["date"]=> array(1) { [0]=> string(10) "2222-12-03" } 
+             * ["testimonial"]=> string(0) "" } 
+             */
+
+            // get the a-title, a-description, a-date and generate an id for each achievement
+            // loop through
+
+            $item = $_POST['person_name'];
+            // check if it is an array
+            if (is_array($item)) {
+                // loop through
+                try {
+                    foreach ($item as $key => $value) {
+                        $fullname = $_POST['person_name'][$key];
+                        $relationship = $_POST['relationship'][$key];
+                        $emailAddress = $_POST['emailAddress'][$key];
+                        $companyName = $_POST['companyName'][$key];
+                        $position = $_POST['position'][$key];
+                        $message = $_POST['message'][$key];
+                        $date = $_POST['date'][$key];
+                        $tID = uniqid('aotm-');
+
+                        // get the 'profile_img' from post and convert to blob
+                        $profileImgTmpName =  $_FILES['profile_img']['tmp_name'][$key];
+                        $profileImg = file_get_contents($profileImgTmpName);
+
+
+                        // make array of achievement information
+                        $info = array(
+                            'id' => $tID,
+                            'person_name' => $fullname,
+                            'relationship' => $relationship,
+                            'emailAddress' => $emailAddress,
+                            'companyName' => $companyName,
+                            'position' => $position,
+                            'message' => $message,
+                            'date' => $date,
+                            'profile_img' => $profileImg,
+                            'aotmID' => $aotmID
+                        );
+
+                        // set new achievement
+                        $result = $alumni->setNewTestimonial($info);
+                    }
+                } catch (\Throwable $th) {
+                    throw $th;
+                }
+            }
+        }
+
+
+
+
+        if ($aotmID !== '' &&  $result['status'] === TRUE) {
             $action = "posted";
             $details = "posted a new Alumni of the Month";
             setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
