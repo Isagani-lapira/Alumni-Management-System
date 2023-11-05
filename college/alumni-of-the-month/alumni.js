@@ -732,7 +732,6 @@ $(document).ready(function () {
 
     // Event handler for clicking list item
     $("#edit-searchList").on("click", "li", async function () {
-      console.log("clicked");
       const id = $(this).data("personid");
 
       const result = await getJSONFromURL(
@@ -741,22 +740,22 @@ $(document).ready(function () {
       console.log(result);
 
       try {
-        if (result.data.length > 0) {
-          const data = result.data[0];
-          console.log("search result data: ", data);
-          const fullName = data.fname + " " + data.lname;
-          $("#edit-detail-fullname").text(fullName);
-          // $("#detail-student-id").text(data.studNo);
-          $("#edit-detail-personal-email").text(data.personal_email);
-          $("#edit-detail-profile-picture").attr("src", data.profileImage);
-          $("#edit-searchList").addClass("hidden");
-          $("#edit-searchList").empty();
-          $("#edit-alumni-details").removeClass("hidden");
-          $("#edit-studentId").val(data.studNo);
-          $("#edit-personId").val(data.personID);
+        const data = result.data[0];
+        console.log("search result data: ", data);
+        const fullName = data.fname + " " + data.lname;
+        $("#edit-detail-fullname").text(fullName);
 
-          $("#edit-searchQuery").val(fullName);
-        }
+        $("#edit-aotm-username").val(data.username);
+        // $("#detail-student-id").text(data.studNo);
+        $("#edit-detail-personal-email").text(data.personal_email);
+        $("#edit-detail-profile-picture").attr("src", data.profileImage);
+        $("#edit-searchList").addClass("hidden");
+        $("#edit-searchList").empty();
+        $("#edit-alumni-details").removeClass("hidden");
+        $("#edit-studentId").val(data.studNo);
+        $("#edit-personId").val(data.personID);
+
+        $("#edit-searchQuery").val(fullName);
         $("#searchList").addClass("hidden");
         $("#searchList").empty();
       } catch (error) {
@@ -766,37 +765,38 @@ $(document).ready(function () {
 
     // Event handler for clicking list item
     $("#searchList").on("click", "li", async function () {
-      console.log("clicked");
       const id = $(this).data("personid");
       const result = await getJSONFromURL(
         GET_API_URL + "?action=searchPerson" + "&personId=" + id
       );
-      console.log(result);
 
       try {
-        if (result.data.length > 0) {
-          const data = result.data[0];
-          console.log("data", data);
-          $("#detail-fullname").text(data.fname + " " + data.lname);
-          // $("#detail-student-id").text(data.studNo);
-          $("#detail-personal-email").text(data.personal_email);
-          let profileImage = AVATAR_PLACEHOLDER;
-          if (data.profileImage) {
-            profileImage = data.profileImage;
-          }
-          $("#detail-profile-img").attr("src", profileImage);
-          $("#searchList").addClass("hidden");
-          $("#searchList").empty();
-          $("#alumni-details").removeClass("hidden");
-          $("#studentId").val(data.studNo);
-          $("#personId").val(data.personID);
+        console.log(result);
+        const data = result.data;
+        console.log("data", data);
+        $("#detail-fullname").text(data.fname + " " + data.lname);
+        $("#add-aotm-username").val(data.username);
 
-          // set the search query the fullname
-          $("#searchQuery").val(data.fname + " " + data.lname);
+        // $("#detail-student-id").text(data.studNo);
+        $("#detail-personal-email").text(data.personal_email);
+        let profileImage = AVATAR_PLACEHOLDER;
+        if (data.profileImage) {
+          profileImage = data.profileImage;
         }
+        $("#detail-profile-img").attr("src", profileImage);
+        $("#searchList").addClass("hidden");
+        $("#searchList").empty();
+        $("#alumni-details").removeClass("hidden");
+        $("#studentId").val(data.studNo);
+        $("#personId").val(data.personID);
+
+        // set the search query the fullname
+        $("#searchQuery").val(data.fname + " " + data.lname);
         $("#searchList").addClass("hidden");
         $("#searchList").empty();
       } catch (error) {
+        console.log("whyy");
+
         console.log(error);
       }
     });

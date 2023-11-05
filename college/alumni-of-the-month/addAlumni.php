@@ -269,8 +269,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $result = $alumni->updateExistingAlumniOfTheMonth($aotmID, $alumniInformation,);
                 header("Content-Type: application/json; charset=UTF-8");
                 if ($result === TRUE) {
-                    $action = "posted";
-                    $details = "posted a new Alumni of the Month";
+                    $action = "updated";
+                    $details = "updated a new Alumni of the Month";
                     setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
                     echo json_encode(
                         array(
@@ -443,6 +443,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $personID = $_POST['personID'];
         $quote = $_POST['quote'];
         $description = $_POST['description'];
+        // get the username of the new alumni of the month
+        $aom_username = $_POST["username"];
+
         // image data
         // $profile_img = $_FILES['profile-image'];
         $cover_img = $_FILES['cover-image'];
@@ -514,7 +517,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // add new notification
             $type_notif = 'aom';
-            setNewNotification($mysql_con, $postID, $_SESSION['username'], $type_notif);
+
+
+            setNewNotification($mysql_con, $postID, $aom_username, $type_notif);
 
 
 

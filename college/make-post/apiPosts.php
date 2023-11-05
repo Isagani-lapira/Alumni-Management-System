@@ -4,6 +4,8 @@ session_start();
 require "../php/connection.php";
 require "../php/logging.php";
 require_once "../php/checkLogin.php";
+require "../php/notifications.php";
+
 // Path: college/make-post/apiPosts.php
 
 /**
@@ -36,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $username = $_SESSION["username"];
             $colCode = $_SESSION["colCode"];
             $adminID = $_SESSION["adminID"];
+
 
             $caption = $_POST["description"];
             $img = (isset($_FILES['files'])) ? $_FILES['files'] : null;
@@ -84,6 +87,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     }
 
                     setNewActivity($mysql_con, $adminID, "posted", "Made a new Post");
+                    $typeOfNotif = "added post";
+
+                    // setNewNotification(mysqli $mysql_con, string $postID, string $username, string $typeOfNotif,  $details = null)
+                    setNewNotification($mysql_con,  $postID,  $username,  $typeOfNotif,  $details = null);
 
                     // return true;
                     echo json_encode(array(

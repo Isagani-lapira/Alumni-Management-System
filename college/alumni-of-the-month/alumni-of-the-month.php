@@ -145,6 +145,7 @@
             <!-- make alumni of the year post -->
             <form action="" id="add-aotm-form" class="flex flex-row  divide-x flex-wrap ">
 
+                <input id="add-aotm-username" type="hidden" name="username" value="">
                 <div id="aotmRegister" class=" text-greyish_black flex flex-col px-12 space-y-4 flex-1 overflow-auto min-w-fit">
                     <div>
                         <span class="daisy-label-text daisy-label font-bold text-base">Choose a cover image to showcase</span>
@@ -268,6 +269,8 @@
 
             <form action="" id="edit-aotm-form" class="flex flex-row flex-wrap divide-x">
                 <div id="aotmEdit" class="flex-1 text-greyish_black flex flex-col px-12 space-y-4">
+                    <input id="edit-aotm-username" type="hidden" name="username" value="">
+
 
                     <div>
                         <!-- Placeholder for Cover Image -->

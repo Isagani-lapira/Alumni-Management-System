@@ -95,8 +95,9 @@ class AlumniModel
         person.facebookUN,
         person.instagramUN,
         person.twitterUN,
-        person.linkedInUN,
-        , studNo FROM person INNER JOIN `alumni` ON alumni.personID = person.personID where alumni.personID = ? ';
+        person.linkedInUN, 
+        alumni.*,
+        studNo FROM person INNER JOIN `alumni` ON alumni.personID = person.personID where alumni.personID = ? ';
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('s', $id);
         $stmt->execute();
