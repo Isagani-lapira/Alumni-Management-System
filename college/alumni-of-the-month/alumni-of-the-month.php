@@ -321,7 +321,7 @@
 
                     <div>
                         <label class="font-bold" for="quote">Quotation:</label>
-                        <input id="edit-quote" required name="quote" class="form-input block rounded" type="text" placeholder="Journey of a thousand miles starts in a single step.">
+                        <input id="edit-quote" required name="quote" class="form-input block rounded w-full" type="text" placeholder="Journey of a thousand miles starts in a single step.">
                         <input id="edit-studentId" name="studentNo" class="hidden" type="hidden">
                         <input id="edit-personId" name="personID" class="hidden" type="hidden">
                         <!-- new aotm -id -->
@@ -334,7 +334,7 @@
                         <textarea name="description" required class="form-textarea block rounded resize max-w-full" id="edit-description"></textarea>
                     </div>
 
-                    <div>
+                    <div class="border rounded p-4">
                         <p class="font-bold">ACHIEVEMENTS:</p>
                         <div id="edit-achievementFields" class="grid grid-cols-3 gap-4">
                         </div>
@@ -413,8 +413,7 @@
                     <span class="daisy-label-text">Description:</span>
 
                 </label>
-                <textarea type="text" name="a-description[]" class=" daisy-input daisy-input-bordered w-full max-w-xs min-h-16" placeholder="" required>
-                </textarea>
+                <textarea type="text" name="a-description[]" class=" daisy-input daisy-input-bordered w-full max-w-xs min-h-16" placeholder="" required></textarea>
                 <label class="font-bold daisy-label">
                     <span class="daisy-label-text-alt hidden">Bottom Left label</span>
                 </label>
@@ -464,8 +463,7 @@
                     <span class="daisy-label-text">Description:</span>
 
                 </label>
-                <textarea type="text" name="filled-description" class=" daisy-input daisy-input-bordered w-full max-w-xs min-h-16" placeholder="" required>
-                </textarea>
+                <textarea type="text" name="filled-description" class=" daisy-input daisy-input-bordered w-full max-w-xs min-h-16" placeholder="" required></textarea>
                 <label class="font-bold daisy-label">
                     <span class="daisy-label-text-alt hidden">Bottom Left label</span>
                 </label>
