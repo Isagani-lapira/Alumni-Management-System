@@ -43,6 +43,7 @@ $(document).ready(function () {
                             content = "Admin deleted your post"
                             isDeleted = true
                         }
+                        else if (typeOfNotif == 'aoy') content = "You have been assigned as alumni of the year"
 
                         displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID, details, isDeleted)
                     }
@@ -84,22 +85,19 @@ $(document).ready(function () {
             .addClass('text-sm')
             .text(content)
         const dateElement = $('<p>')
-            .addClass('text-xs items-end mt-auto flex-1 text-end text-gray-400')
+            .addClass('text-xs mt-auto flex-1 text-gray-400')
             .text(date_notification)
 
         //put in place the content
-        descriptContainer.append(accName, contentElement);
-        notifContainer.append(imgProfile, descriptContainer, dateElement)
+        descriptContainer.append(accName, contentElement, dateElement);
+        notifContainer.append(imgProfile, descriptContainer)
 
         // showing normal view if the notification is not deleted
         if (!isDeleted) {
             notifContainer.on('click', function () {
-                //get primary details of user
-                const name = $('#accFN').html();
-                const accUN = $('#accUsername').html();
-
+                $('.loadingProfile').parent().removeClass('hidden')
                 //get the details of post
-                getPostDetails(postID, name, accUN, src, date_notification);
+                getPostDetails(postID, src, date_notification);
 
                 //update the total number of unread notification
                 updateStatusNotification(notifID);
@@ -146,7 +144,7 @@ $(document).ready(function () {
         })
     }
 
-    function getPostDetails(postID, name, accUN, imgProfile, date_notification) {
+    function getPostDetails(postID, imgProfile, date_notification) {
         let action = {
             action: 'readWithPostID'
         }
@@ -165,16 +163,19 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: response => {
+                $('.loadingProfile').parent().addClass('hidden')
                 //data to be receive
                 const description = response.caption[0];
+                const fullname = response.fullname[0];
+                const username = response.username[0];
                 const images = response.images[0];
                 const likes = response.likes[0];
                 $('#notification-tab').hide()
                 //zoom in the post or viewable in bigger size
                 if (images.length > 0)
-                    viewingOfPost(postID, name, accUN, description, images, likes, imgProfile)
+                    viewingOfPost(postID, fullname, username, description, images, likes, imgProfile)
                 else
-                    viewStatusPost(postID, name, date_notification, description, likes, accUN)
+                    viewStatusPost(postID, fullname, date_notification, description, likes, username)
 
             },
         })
