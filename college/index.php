@@ -165,6 +165,10 @@ if (
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
 
 
+    <!--  description plugin -->
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
+
     <!-- End JS Plugins -->
     <!-- System Script -->
     <script src="./scripts/core.js" defer></script>

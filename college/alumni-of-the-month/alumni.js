@@ -29,19 +29,501 @@ $(document).ready(function () {
     }, 1000);
   });
 
+  function addEmptyAchievement(container) {
+    const newAchievement = $(
+      ".form-component-container .achievement-box:first"
+    ).clone();
+    newAchievement.find("input").val(""); // Clear input values
+    newAchievement.find("input[type=date]").val(""); // Clear date field
+    newAchievement.removeClass("hidden"); // Show cloned element
+    newAchievement.appendTo(container).slideDown();
+    console.log(newAchievement);
+  }
+
+  function addFilledAchievement(container, data) {
+    console.log(data);
+    const newAchievement = $(
+      ".form-component-container .filled-achievement-box:first"
+    ).clone();
+    newAchievement.find("input").val(""); // Clear input values
+    newAchievement.find("input[type=date]").val(""); // Clear date field
+    newAchievement.removeClass("hidden"); // Show cloned element
+    newAchievement.appendTo(container).slideDown();
+
+    // fill the input values
+    newAchievement.find("input[name='filled-title']").val(data.achievement);
+    newAchievement
+      .find("textarea[name='filled-description']")
+      .text(data.description);
+    newAchievement.find("input[name='filled-date']").val(data.date);
+    newAchievement.find("input[name='filled-id']").val(data.achievementID);
+    newAchievement
+      .find(".filled-edit-achievement-btn")
+      .attr("data-achievement-id", data.achievementID);
+    newAchievement
+      .find(".filled-delete-achievement-btn")
+      .attr("data-achievement-id", data.achievementID);
+
+    newAchievement
+      .find("input[name='filled-achievementID")
+      .val(data.achievementID);
+
+    console.log(newAchievement);
+  }
+
+  function addEmptyTestimony(container) {
+    const newContainer = $(
+      ".form-component-container .testimony-box:first"
+    ).clone();
+    newContainer.find("input").val(""); // Clear input values
+    newContainer.find("input[type=date]").val(""); // Clear date field
+    newContainer.removeClass("hidden"); // Show cloned element
+    newContainer.appendTo(container).slideDown();
+    console.log(newContainer);
+  }
+
+  function addFilledTestimony(container, data) {
+    /**
+         *     "testimonialID": 0,
+    "AOMID": 22,
+    "message": "He is pretty good",
+    "person_name": "Jayson",
+    "position": "Intern",
+    "relationship": "Employer",
+    "emailAddress": "jayson@gmail.com",
+    "companyName": "Accenture",
+    "date": "2023-11-06",
+          */
+
+    const newContainer = $(
+      ".form-component-container .filled-testimony-box:first"
+    ).clone();
+    newContainer.find("input").val(""); // Clear input values
+    newContainer.find("input[type=date]").val(""); // Clear date field
+
+    console.log(newContainer);
+
+    // fill the input values
+    newContainer
+      .find("input[name='filled-testimony-id']")
+      .val(data.testimonialID);
+    newContainer.find("textarea[name='filled-message']").val(data.message);
+    newContainer.find("input[name='filled-person_name']").val(data.person_name);
+    newContainer.find("input[name='filled-position']").val(data.position);
+    newContainer
+      .find("input[name='filled-relationship']")
+      .val(data.relationship);
+    newContainer
+      .find("input[name='filled-emailAddress']")
+      .val(data.emailAddress);
+    newContainer.find("input[name='filled-companyName']").val(data.companyName);
+    newContainer.find("input[name='filled-date']").val(data.date);
+    newContainer.find("input[name='filled-id']").val(data.testimonialID);
+    newContainer
+      .find(".filled-t-edit")
+      .attr("data-testimonial-id", data.testimonialID);
+    newContainer
+      .find(".filled-t-remove")
+      .attr("data-testimonial-id", data.testimonialID);
+
+    newContainer.removeClass("hidden"); // Show cloned element
+    newContainer.appendTo(container).slideDown();
+    console.log(newContainer);
+  }
+
+  function setEditAOMHandlers() {
+    // set handler for editing the alumni of the month
+    /**
+     * Triggered when the edit button is clicked
+     */
+    $("#alumni-of-the-month-container").on(
+      "click",
+      ".edit-aotm-btn",
+      async function () {
+        // get the id
+        const id = $(this).data("aotm-id");
+        console.log("fetching the details of the edit aotm", id);
+
+        const result = await getJSONFromURL(
+          API_URL + "?action=getAOTMById&aomID=" + id
+        );
+
+        // populate the edit modal
+        console.log("result", result);
+        populateEditAOTMModal(result.data[0]);
+
+        const testimonialsRes = await getJSONFromURL(
+          API_URL + "?action=getTestimonial&aomID=" + id
+        );
+
+        const achievementsRes = await getJSONFromURL(
+          API_URL + "?action=getAchievement&aomID=" + id
+        );
+
+        console.log("testimonials", testimonialsRes);
+        // populate the testimonials
+
+        console.log("achievements", achievementsRes);
+
+        // if there is achievement
+        if (achievementsRes.data.length > 0) {
+          // populate the achievement
+          achievementsRes.data.forEach((achievement) => {
+            addFilledAchievement($("#edit-achievementFields"), achievement);
+          });
+        }
+
+        /**
+         *     "testimonialID": 0,
+    "AOMID": 22,
+    "message": "He is pretty good",
+    "person_name": "Jayson",
+    "position": "Intern",
+    "relationship": "Employer",
+    "emailAddress": "jayson@gmail.com",
+    "companyName": "Accenture",
+    "date": "2023-11-06",
+         */
+        // if there is testimonial
+        if (testimonialsRes.data.length > 0) {
+          // populate the testimonial
+          testimonialsRes.data.forEach((testimonial) => {
+            addFilledTestimony($("#edit-testimonyFields"), testimonial);
+          });
+        }
+
+        // fetch the testimonials
+        // fetch the achievements
+
+        // fetch the alumni of the month
+
+        // populate the modal
+
+        try {
+          // get contents of the alumni of the month
+        } catch (error) {}
+      }
+    );
+    $("#edit-achievementFields").on("click", ".a-remove", function () {
+      $(this)
+        .closest(".achievement-box")
+        .slideUp(function () {
+          $(this).remove();
+        });
+    });
+
+    // Edit a single achievement
+
+    $("#edit-achievementFields").on(
+      "click",
+      ".filled-delete-achievement-btn",
+      function () {
+        const container = $(this).closest(".filled-achievement-box ");
+        // get the input field value
+        const achievementID = container
+          .find(".filled-delete-achievement-btn")
+          .attr("data-achievement-id");
+
+        // add the values to the formData
+        const formData = new FormData();
+
+        formData.append("achievementID", achievementID);
+
+        formData.append("action", "delete-one-achievement");
+
+        // add some sweet alert dialog
+        Swal.fire({
+          title: "Confirm?",
+          text: "Are you sure to delete this achievement?",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Yes, Delete it!",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const isSuccessful = await postJSONFromURL(API_POST_URL, formData);
+            console.log(isSuccessful);
+            if (isSuccessful.response === "Successful") {
+              // show the success message
+              Swal.fire(
+                "Success!",
+                "The achievement has been deleted.",
+                "success"
+              );
+              container.slideUp(function () {
+                $(this).remove();
+              });
+            } else {
+              Swal.fire(
+                "Error",
+                "Achievement is not edited due to error.",
+                "info"
+              );
+            }
+          }
+        });
+      }
+    );
+
+    $("#edit-achievementFields").on("click", ".a-edit", function () {
+      const container = $(this).closest(".filled-achievement-box ");
+      // get the input field value
+      const title = container.find("input[name='filled-title']").val();
+      console.log("title", title);
+
+      const description = container
+        .find("textarea[name='filled-description']")
+        .text();
+      const date = container.find("input[name='filled-date']").val();
+      const achievementID = container
+        .find(".filled-edit-achievement-btn")
+        .attr("data-achievement-id");
+
+      // add the values to the formData
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("achievement", title);
+      formData.append("description", description);
+      formData.append("date", date);
+      formData.append("achievementID", achievementID);
+
+      formData.append("action", "edit-one-achievement");
+
+      // add some sweet alert dialog
+      Swal.fire({
+        title: "Confirm?",
+        text: "Are you sure to edit this achievement?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Edit it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const isSuccessful = await postJSONFromURL(API_POST_URL, formData);
+          console.log(isSuccessful);
+          if (isSuccessful.response === "Successful") {
+            // show the success message
+            Swal.fire(
+              "Success!",
+              "The achievement has been edited.",
+              "success"
+            );
+          } else {
+            Swal.fire(
+              "Error",
+              "Achievement is not edited due to error.",
+              "info"
+            );
+          }
+        }
+      });
+    });
+
+    $("#edit-aotm-form").on("click", "#edit-add-testimony-btn", function () {
+      addEmptyTestimony("#edit-testimonyFields");
+    });
+
+    $("#edit-testimonyFields").on("click", ".filled-t-edit", function () {
+      const container = $(this).closest(".filled-testimony-box");
+
+      // get all the input and textarea in the container
+      const formData = new FormData();
+
+      const inputElements = container.find("input");
+
+      inputElements.each(function (index) {
+        console.log("Element " + (index + 1) + ": " + $(this).val());
+        // get the name of the input
+
+        formData.append($(this).attr("name"), $(this).val());
+      });
+
+      const textAreaElements = container.find("textarea");
+
+      textAreaElements.each(function (index) {
+        console.log("Element " + (index + 1) + ": " + $(this).val());
+        formData.append($(this).attr("name"), $(this).val());
+      });
+
+      // get the file input
+      const fileInput = container.find("input[type=file]")[0];
+      // append it
+      formData.append("filled-profile_img", fileInput.files[0]);
+
+      console.log(formData);
+      // add the values to the formData
+
+      formData.append("action", "edit-one-testimonial");
+
+      // add some sweet alert dialog
+      Swal.fire({
+        title: "Confirm?",
+        text: "Are you sure to edit this testimonial?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Edit it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const isSuccessful = await postJSONFromURL(API_POST_URL, formData);
+          console.log(isSuccessful);
+          if (isSuccessful.response === "Successful") {
+            // show the success message
+            Swal.fire(
+              "Success!",
+              "The testimonial has been edited.",
+              "success"
+            );
+          } else {
+            Swal.fire(
+              "Error",
+              "testimonial is not edited due to error.",
+              "info"
+            );
+          }
+        }
+      });
+    });
+
+    // $("#edit-testimonyFields").on("click", ".filled-t-edit", function () {
+    //   $(this)
+    //     .closest(".testimony-box")
+    //     .slideUp(function () {
+    //       $(this).remove();
+    //     });
+    // });
+
+    $("#edit-testimonyFields").on("click", ".filled-t-remove", function () {
+      const container = $(this).closest(".filled-testimony-box ");
+      // get the input field value
+      const testimonialID = container.find("input[name='filled-testimony-id']");
+
+      // add the values to the formData
+      const formData = new FormData();
+
+      formData.append("testimonialID", testimonialID);
+
+      formData.append("action", "delete-one-testimonial");
+
+      // add some sweet alert dialog
+      Swal.fire({
+        title: "Confirm?",
+        text: "Are you sure to delete this Testimonial?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const isSuccessful = await postJSONFromURL(API_POST_URL, formData);
+          console.log(isSuccessful);
+          if (isSuccessful.response === "Successful") {
+            // show the success message
+            Swal.fire(
+              "Success!",
+              "The Testimonial has been deleted.",
+              "success"
+            );
+            container.slideUp(function () {
+              $(this).remove();
+            });
+          } else {
+            Swal.fire(
+              "Error",
+              "Testimonial is not deleted due to error.",
+              "info"
+            );
+          }
+        }
+      });
+    });
+
+    // edit form
+    // on form submit
+    $("#edit-aotm-form").submit(async function (e) {
+      e.preventDefault();
+      // add some sweet alert dialog
+      // if #edit-description is empty
+
+      const textareaValue = CKEDITOR.instances["edit-description"].getData();
+      if (textareaValue.trim().length === 0) {
+        Swal.fire("Error", "Description is empty.", "info");
+        return;
+      }
+
+      const confirmation = await Swal.fire({
+        title: "Confirm?",
+        text: "Are you sure to edit alumni of the month with these details?",
+        icon: "info",
+        showCancelButton: true,
+        // confirmButtonColor: CONFIRM_COLOR,
+        // cancelButtonColor: CANCEL_COLOR,
+        confirmButtonText: "Yes, Edit it!",
+      });
+      if (confirmation.isConfirmed) {
+        console.log("submitting edit alumni form");
+
+        // get the form data
+        const formData = new FormData(this);
+        // add the id
+        formData.append("id", $("#edit-aotm-id").val());
+        // add action
+        formData.append("action", "edit");
+        // add description
+        formData.append("description", textareaValue);
+
+        console.log(formData);
+        const isSuccessful = await postJSONFromURL(API_POST_URL, formData);
+        console.log(isSuccessful);
+        if (isSuccessful.response === "Successful") {
+          // show the success message
+          Swal.fire(
+            "Success!",
+            "The Alumni of the Month has been edited.",
+            "success"
+          );
+          // remove the form data
+          $("#edit-aotm-form")[0].reset();
+          $("#edit-cover-image-preview").attr("src", "");
+          // $("#profile-image-preview").attr("src", "");
+          $("#edit-aotm").prop("checked", false);
+          // refresh the table
+          // refreshList();
+          // refresh the datatable
+          // clear the datatable
+          $("#alumni-month-table").DataTable().clear().draw();
+          $("#alumni-month-table").DataTable().ajax.reload();
+          // refreshList();
+        } else {
+          Swal.fire("Error", "Alumni is not edited due to error.", "info");
+        }
+      } else {
+        Swal.fire("Cancelled", "Edit alumni cancelled.", "info");
+      }
+    });
+  }
+
   /**
    * Adds all the event listeners for the page
    */
+
   function setHandlers() {
+    // set ckeditor
+    CKEDITOR.replace("description");
+    CKEDITOR.replace("edit-description");
+
+    setEditAOMHandlers();
+
     // Achievement handlers
-    $("#add-achievement-btn").on("click", function () {
-      const newAchievement = $(".achievement-box:first").clone();
-      newAchievement.find("input").val(""); // Clear input values
-      newAchievement.find("input[type=date]").val(""); // Clear date field
-      newAchievement.removeClass("hidden"); // Show cloned element
-      newAchievement.appendTo("#achievementFields").slideDown();
-      console.log(newAchievement);
+    $("#add-aotm-form").on("click", "#add-achievement-btn", function () {
+      addEmptyAchievement("#achievementFields");
     });
+
+    // Achievement handlers
+    $("#edit-aotm-form").on("click", "#edit-add-achievement-btn", function () {
+      addEmptyAchievement("#edit-achievementFields");
+    });
+
+    // // Achievement handlers
+    // $("#edit-aotm-form").on("click", "#edit-add-achievement-btn", function () {
+    //   addEmptyAchievement("#edit-achievementFields");
+    // });
 
     $("#achievementFields").on("click", ".a-remove", function () {
       $(this)
@@ -51,19 +533,21 @@ $(document).ready(function () {
         });
     });
 
+    // * Testimonial handlers
+    $("#add-aotm-form").on("click", "#add-testimony-btn", function () {
+      addEmptyTestimony("#testimonyFields");
+    });
+
+    $("#testimonyFields").on("click", ".t-remove", function () {
+      $(this)
+        .closest(".testimony-box")
+        .slideUp(function () {
+          $(this).remove();
+        });
+    });
+
     // Date picker
     $("#aoydaterange").daterangepicker();
-
-    // set handler for editing the alumni of the month
-    $("#alumni-of-the-month-container").on("click", ".edit-aotm", function () {
-      // get the id
-      const id = $(this).data("id");
-      console.log("edit", id);
-
-      try {
-        // get contents of the alumni of the month
-      } catch (error) {}
-    });
 
     // set handler for deleting the alumni of the month
     $("#alumni-of-the-month-container").on(
@@ -134,12 +618,12 @@ $(document).ready(function () {
 
     // * Reset Button Handlers
 
-    $("#edit-reset-aotm").on("click", function () {
-      $("#edit-aotm-form")[0].reset();
-      $("#edit-cover-img-preview").attr("src", "");
-      // hide alumni details
-      $("#edit-alumni-details").addClass("hidden");
-    });
+    // $("#edit-reset-aotm").on("click", function () {
+    //   $("#edit-aotm-form")[0].reset();
+    //   $("#edit-cover-img-preview").attr("src", "");
+    //   // hide alumni details
+    //   $("#edit-alumni-details").addClass("hidden");
+    // });
 
     $("#reset-aotm").on("click", function () {
       $("#add-aotm-form")[0].reset();
@@ -154,7 +638,12 @@ $(document).ready(function () {
     // on form submit
     $("#add-aotm-form").submit(async function (e) {
       e.preventDefault();
-      let formData = new FormData(this);
+      const textareaValue = CKEDITOR.instances.description.getData();
+      if (textareaValue.trim().length === 0) {
+        Swal.fire("Error", "Description is empty.", "info");
+        return;
+      }
+
       // add some sweet alert dialog
       const confirmation = await Swal.fire({
         title: "Confirm?",
@@ -168,7 +657,13 @@ $(document).ready(function () {
       if (confirmation.isConfirmed) {
         console.log("submitting add alumni form");
 
-        const isSuccessful = await postNewAlumni(this);
+        // get the form data
+        const formData = new FormData(this);
+
+        // add the description
+        formData.append("description", textareaValue);
+
+        const isSuccessful = await postNewAlumni(formData);
         console.log(isSuccessful);
         if (isSuccessful.response === "Successful") {
           // show the success message
@@ -188,60 +683,6 @@ $(document).ready(function () {
         }
       } else {
         Swal.fire("Cancelled", "Add alumni cancelled.", "info");
-      }
-    });
-
-    // edit form
-    // on form submit
-    $("#edit-aotm-form").submit(async function (e) {
-      e.preventDefault();
-      // add some sweet alert dialog
-      const confirmation = await Swal.fire({
-        title: "Confirm?",
-        text: "Are you sure to edit alumni of the month with these details?",
-        icon: "info",
-        showCancelButton: true,
-        // confirmButtonColor: CONFIRM_COLOR,
-        // cancelButtonColor: CANCEL_COLOR,
-        confirmButtonText: "Yes, Edit it!",
-      });
-      if (confirmation.isConfirmed) {
-        console.log("submitting edit alumni form");
-
-        // get the form data
-        const formData = new FormData(this);
-        // add the id
-        formData.append("id", $("#edit-aotm-id").val());
-        // add action
-        formData.append("action", "edit");
-
-        console.log(formData);
-        const isSuccessful = await postJSONFromURL(API_POST_URL, formData);
-        console.log(isSuccessful);
-        if (isSuccessful.response === "Successful") {
-          // show the success message
-          Swal.fire(
-            "Success!",
-            "The Alumni of the Month has been edited.",
-            "success"
-          );
-          // remove the form data
-          $("#edit-aotm-form")[0].reset();
-          $("#edit-cover-image-preview").attr("src", "");
-          // $("#profile-image-preview").attr("src", "");
-          $("#edit-aotm").prop("checked", false);
-          // refresh the table
-          // refreshList();
-          // refresh the datatable
-          // clear the datatable
-          $("#alumni-month-table").DataTable().clear().draw();
-          $("#alumni-month-table").DataTable().ajax.reload();
-          // refreshList();
-        } else {
-          Swal.fire("Error", "Alumni is not edited due to error.", "info");
-        }
-      } else {
-        Swal.fire("Cancelled", "Edit alumni cancelled.", "info");
       }
     });
 
@@ -412,11 +853,16 @@ $(document).ready(function () {
     $("#card-company").text(data.company);
     $("#card-batch").text(data.batchYr);
     $("#card-edit").attr("data-id", data.personID);
+    $("#card-edit").attr("data-aotm-id", data.AOMID);
     $("#card-delete").attr("data-id", data.personID);
     $("#card-delete").attr("data-aotm-id", data.AOMID);
   }
 
   function populateEditAOTMModal(data) {
+    // clear the edit-achievementFields container
+    $("#edit-achievementFields").empty();
+    $("#edit-testimonyFields").empty();
+
     $("#edit-cover-img-preview").attr(
       "src",
       "data:image/jpeg;base64," + data.cover_img
@@ -429,6 +875,7 @@ $(document).ready(function () {
 
     $("#edit-detail-profile-img").attr("src", profileImage);
     $("#edit-detail-fullname").text(data.fullname);
+    $("#edit-searchQuery").text(data.fullname);
     $("#edit-detail-personal-email").text(data.personal_email);
     $("#edit-detail-yearGraduated").text("Batch " + data.batchYr);
 
@@ -637,7 +1084,7 @@ $(document).ready(function () {
           render: function (data, type, row) {
             // Define the buttons for the Actions column
             return `
-                        <label for="edit-aotm" class="edit-aotm daisy-btn daisy-btn-sm daisy-btn-info daisy-btn-outline " data-id=${row.personID} data-aotm-id="${row.AOMID}">Edit</label>
+                        <label for="edit-aotm" class="edit-aotm-btn daisy-btn daisy-btn-sm daisy-btn-info daisy-btn-outline " data-id=${row.personID} data-aotm-id="${row.AOMID}">Edit</label>
                         <button  class="delete-aotm daisy-btn daisy-btn-warning daisy-btn-sm daisy-btn-outline " data-id=${row.personID} data-aotm-id="${row.AOMID}">Remove</button>
                     `;
           },
