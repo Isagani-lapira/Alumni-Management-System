@@ -51,7 +51,10 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
         //get user's college based on email
         $recipient = $_POST['searchEmail'];
 
-        $college = getUserCollege($recipient, $mysql_con); //user college
+
+
+        $college = getUserCollege($recipient, $mysql_con);
+
         if ($college != '') {
             $college = $college;
             sendEmail($subject, $message, $recipient, $selectedImages, $selectedFiles);
@@ -67,13 +70,15 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
 function getUserCollege($email, $con)
 {
     $college = '';
-    $query = 'SELECT `personID` FROM `person` WHERE `personal_email` = "' . $email . '"';
+    $query = "SELECT `personID` FROM `person` WHERE `personal_email` = '$email';";
+
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
     //get person ID using the email provided
     if ($result && $rows > 0) {
         $row = mysqli_fetch_assoc($result);
         $personID = $row['personID'];
+
 
         //check if it is a student
         $queryCollegeStudent = 'SELECT `colCode` FROM `student` WHERE `personID` = "' . $personID . '"';
@@ -86,15 +91,19 @@ function getUserCollege($email, $con)
         }
 
         //check if it is a alumni
-        $queryCollegeAlumni = 'SELECT `colCode` FROM `alumni` WHERE `personID` = "' . $personID . '"';
+        $queryCollegeAlumni = "SELECT `colCode` FROM `alumni` WHERE `personID` = '$personID'";
+
         $alumniResult = mysqli_query($con, $queryCollegeAlumni);
         $alumniRow = mysqli_num_rows($alumniResult);
+
         if ($alumniRow > 0) {
+
             $row = mysqli_fetch_assoc($alumniResult);
             $college = $row['colCode'];
 
             return $college;
         }
+
 
         //check if it is college admin
         $queryCollegeAlumni = 'SELECT `colCode` FROM `colAdmin` WHERE `personID` = "' . $personID . '"';
@@ -106,6 +115,8 @@ function getUserCollege($email, $con)
 
             return $college;
         }
+
+        return null;
     } else return null;
 }
 
