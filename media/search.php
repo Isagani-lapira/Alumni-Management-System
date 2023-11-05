@@ -2,8 +2,7 @@
 
 require_once  '../config.php';
 
-require_once SITE_ROOT . '/PHP_process/connection.php';
-
+require_once SITE_ROOT . '/college/php/connection.php';
 // check server method if it is get
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
