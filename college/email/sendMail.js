@@ -497,8 +497,8 @@ $(document).ready(function () {
 
               //row data
               let row = [
+                subject,
                 recipient,
-                colCode,
                 dateSent,
                 `<button class="rounded-md px-3 py-2 text-white bg-postButton hover:bg-postHoverButton view-button"
                             data-recipient="${recipient}"

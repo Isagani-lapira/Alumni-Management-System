@@ -68,8 +68,8 @@
     <table id="emailTable" class="table-auto w-full text-xs font-normal text-gray-800 center-shadow">
         <thead class="bg-accent text-white">
             <tr>
-                <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
-                <th class="text-start">COLLEGE</th>
+                <th class="text-start rounded-tl-md">SUBJECT</th>
+                <th class="text-start rounded-tl-md">RECIPIENTS</th>
                 <th class="text-start">DATE</th>
                 <th class="text-start rounded-tr-md">VIEW</th>
             </tr>
