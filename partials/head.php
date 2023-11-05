@@ -59,7 +59,7 @@
             </ul>
         </div>
         <div class="daisy-navbar-end">
-            <a class="daisy-btn">Sign In</a>
+            <a class="daisy-btn  daisy-btn-primary daisy-btn-outline" href="./student-alumni/login.php">Sign In</a>
         </div>
     </header>
     <!-- header -->
