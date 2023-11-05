@@ -330,7 +330,7 @@ $(document).ready(function () {
         const formData = new FormData();
         formData.append('action', JSON.stringify(action));
         formData.append('postID', postID);
-
+        $('#loadingScreen').removeClass('hidden') //show loading screen
 
         $.ajax({
             url: '../PHP_process/postDB.php',
@@ -341,10 +341,18 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 const images = response;
-                if (images.length !== 0)
+                if (images.length !== 0) {
+                    $('#commentContainer').empty(); //remove the comment of the firstly view
+                    $('#noOfLikes').text('0');
                     viewingOfPost(postID, name, accUN, postcaption, images, likes)
-                else
+                }
+                else {
+                    $('#commentStatus').empty() //remove previously displayed comment
+                    $('#statusLikes').text('0')
                     viewStatusPost(postID, name, postDate, postcaption, likes, accUN)
+                }
+
+                $('#loadingScreen').addClass('hidden') //hide loading screen after successfully loaded
             },
 
         });
@@ -424,7 +432,7 @@ $(document).ready(function () {
             currentImageDisplay = (currentImageDisplay - 1 + totalImgNo) % totalImgNo; // Move to the previous image
             $('#item-' + currentImageDisplay).removeClass('hidden'); // Show the previous image
         });
-
+        $('#noOfComment').text('0'); //default
         getComment(postID);
 
         $('#noOfLikes').hover(
@@ -446,7 +454,6 @@ $(document).ready(function () {
         $('.accountUN').text(username)
         $('#statusDescript').html(postcaption)
         $('#statusLikes').text(likes)
-        $('#commentStatus').empty() //remove previously displayed comment
 
         const action = { action: 'readWithPostID' }
         const formData = new FormData();
@@ -563,6 +570,8 @@ $(document).ready(function () {
                     let noCommentMsg = $('<p>').addClass('text-gray-500 text-center').text('No available comment')
                     $('#commentContainer').append(noCommentMsg) //show no comment
                 }
+
+                $('#modalPost').removeClass("hidden");
             }
         })
     }
@@ -672,7 +681,6 @@ $(document).ready(function () {
         const feedContainer = $('#feedContainer')
         const container = $('<div>').addClass('containerPostProfile flex gap-1 justify-center p-4')
         const postWrapper = $('<div>').addClass('postWrapper rounded-md center-shadow p-4');
-
         //adding details for header
         let header = $('<div>');
         let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
@@ -752,7 +760,11 @@ $(document).ready(function () {
                         !heartIcon.is(target) && heartIcon.has(target).length === 0) {
 
                         // check if editting to avoid clicking on description
-                        if (!isEditting) viewStatusPost(postID, fullname, date, caption, likes, username)
+                        if (!isEditting) {
+                            $('#commentStatus').empty() //remove previously displayed comment
+                            $('#statusLikes').text('0')
+                            viewStatusPost(postID, fullname, date, caption, likes, username)
+                        }
                     }
 
                 })
@@ -1084,6 +1096,7 @@ $(document).ready(function () {
             $('#item-' + currentImageDisplay).removeClass('hidden'); // Show the previous image
         });
 
+        $('#noOfComment').text('0')
         getComment(postID); //retrieve the comment if available
 
         //display all the person who likes a specific post
@@ -1243,7 +1256,7 @@ $(document).ready(function () {
             swiperContainer.on('click', function (event) {
                 // Check if the click event is coming from the navigation buttons
                 if (!$(event.target).hasClass('swiper-button-prev') && !$(event.target).hasClass('swiper-button-next')) {
-                    $('#modalPost').removeClass("hidden");
+                    $('.loadingProfile').removeClass('hidden') //loading screen
                     viewingOfPost1(postID, fullname, username, caption, images, likes, img);
                 }
             });
@@ -1267,8 +1280,12 @@ $(document).ready(function () {
 
                     if (!deleteElement.is(target) && deleteElement.has(target).length === 0 &&
                         !heartIcon.is(target) && heartIcon.has(target).length === 0 &&
-                        !commentIcon.is(target) && commentIcon.has(target).length === 0)
+                        !commentIcon.is(target) && commentIcon.has(target).length === 0) {
+                        $('#commentStatus').empty() //remove previously displayed comment
+                        $('#statusLikes').text('0')
                         viewStatusPost(postID, fullname, date, caption, likes, username)
+                    }
+
 
                 })
         }

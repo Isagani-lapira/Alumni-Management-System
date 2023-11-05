@@ -489,12 +489,12 @@ function dateInText($date)
 
         <!-- Email content -->
         <div id="email-tab" class="p-5 hidden">
-          <h1 class="text-xl font-extrabold">EMAIL</h1>
+          <h1 class="text-xl font-extrabold">OUTBOX</h1>
           <p class="text-grayish">Here you can check all the email that have been sent</p>
           <div class="mt-5 text-end">
-            <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
+            <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">SEND
               NEW
-              EMAIL
+              OUTBOX
             </button>
           </div>
           <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
@@ -502,7 +502,7 @@ function dateInText($date)
           <div class="flex items-center">
 
             <div class="m-2 p-1">
-              <span class="font-semibold">Total Emailed</span>
+              <span class="font-semibold">Total Outbox</span>
               <?php
               require_once '../PHP_process/connection.php';
               $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ';
@@ -588,7 +588,7 @@ function dateInText($date)
 
             <!-- college selection -->
             <select id="alumniCollege" class="w-full p-1">
-              <option selected disabled>Course</option>
+              <option selected disabled>College</option>
               <option value="">All</option>
               <?php
               require_once '../PHP_process/connection.php';
