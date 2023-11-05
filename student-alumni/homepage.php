@@ -1345,17 +1345,6 @@ function getAccDetails($con, $personID)
 
         </div>
 
-        <!-- error prompt -->
-        <div id="errorResumeModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-          <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-1">
-            <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
-            </lord-icon>
-            <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
-            <p class=" text-center text-gray-500">It appears that you have forgotten to include your resume. Please do not forget to review and revise your resume to make it relevant to the position you are applying for. To access the resume editing area, simply click the link below.</p>
-            <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 my-5 text-center w-full cursor-pointer">Click Me</span>
-          </div>
-
-        </div>
 
         <div id="createJobModal" class="post modal fixed inset-0 z-50 flex justify-center p-3 hidden">
           <div id="jobContainer" class="relative w-1/3 no-scrollbar py-3 px-4 bg-white rounded-md h-3/4 overflow-y-auto slide-bottom">
@@ -1558,19 +1547,6 @@ function getAccDetails($con, $personID)
         </div>
       </div>
 
-      <!-- loading modal -->
-      <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center hidden">
-        <div class="loadingProfile flex items-center justify-center">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
     </div>
 
     <!-- migration modal -->
@@ -1682,6 +1658,78 @@ function getAccDetails($con, $personID)
         </div>
         <h2 class="text-xl text-center text-green-500 font-bold">Migration Successful</h2>
         <p class="text-center text-gray-500">After 5 seconds this account will sign out automatically to refresh your account</p>
+      </div>
+    </div>
+
+    <!-- applicant message -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center applicantMsg hidden">
+      <div class="bg-white rounded-2xl w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
+        <h3 class="text-xl font-semibold">Message for recruiter</h3>
+        <p>Tell us about yourself here so that the recruiter may learn more about you. Don't forget to include your contact information so that they can easily contact you.</p>
+        <textarea id="applicantMsg" class="h-4/5 outline-none border border-gray-400 rounded-lg resize-none p-5 no-scrollbar"></textarea>
+        <div class="flex justify-end gap-2">
+          <button class="text-gray-400 hover:text-gray-500 msgCancelBtn">Cancel</button>
+          <button class="bg-green-400 hover:bg-green-500 text-white font-semibold rounded-md px-3 py-2 applyJobBtn">Apply</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- success application   prompt -->
+    <div id="successApplicationModal" class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+        <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <circle id="filled-circle" fill="#47CF73" cx="66.5" cy="66.5" r="54.5" />
+            <circle id="white-circle" fill="#FFFFFF" cx="66.5" cy="66.5" r="55.5" />
+            <circle id="outline" stroke="#47CF73" stroke-width="4" cx="66.5" cy="66.5" r="54.5" />
+            <polyline id="check" stroke="#FFFFFF" stroke-width="5.5" points="41 70 56 85 92 49" />
+          </g>
+        </svg>
+        <h1 class=" text-3xl font-bold text-green-500 text-center">Applied Successfully</h1>
+        <p class=" text-center text-gray-500">Your message and resume have been sent to the job recruiter.</p>
+        <button class=" bg-postButton hover:bg-postHoverButton text-white px-4 py-2 w-full  rounded-md font-bold">Close</button>
+      </div>
+    </div>
+
+    <!-- inbox -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center messageJob hidden">
+      <div class="bg-white rounded-2xl w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="fluent-mdl2:back" class="cursor-pointer closeMsgJob" width="24" height="24"></iconify-icon>
+          <h3 class="text-2xl flex items-center">Applicant Message</h3>
+        </div>
+
+        <p></p> <!--applicant name-->
+        <p></p> <!--applied-->
+        <pre class="w-full h-4/5 overflow-y-auto p-5 border border-gray-300 rounded-md"></pre>
+      </div>
+    </div>
+
+    <!-- error prompt -->
+    <div id="errorResumeModal" class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center p-3 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-1">
+        <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
+        </lord-icon>
+        <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
+        <p class=" text-center text-gray-500">It appears that you have forgotten to include your resume. Please do not forget to review and revise your resume to make it relevant to the position you are applying for. To access the resume editing area, simply click the link below.</p>
+        <span id="directToResume" class="text-blue-400 hover:font-bold hover:text-blue-500 mt-5 text-center w-full cursor-pointer">Click Me</span>
+        <span class="w-full text-center text-sm text-gray-400 hover:text-gray-500 mb-5 cursor-pointer noresumeBtn">Cancel</span>
+      </div>
+
+    </div>
+
+    <!-- loading modal -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center hidden">
+      <div class="loadingProfile flex items-center justify-center">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
 

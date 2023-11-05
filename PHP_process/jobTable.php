@@ -76,7 +76,8 @@ if (isset($_POST['action'])) {
             $readCareer->selectCareerAdmin($colCode, $offset, $mysql_con);
         } else if ($action == "applyJob") {
             $careerID = $_POST['careerID'];
-            $apply->resumeApplication($careerID, $mysql_con);
+            $message = $_POST['message'];
+            $apply->resumeApplication($careerID, $message, $mysql_con);
         } else if ($action == 'deleteApplication') {
             $careerID = $_POST['careerID'];
             $username = $_SESSION['username'];

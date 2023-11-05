@@ -489,12 +489,12 @@ function dateInText($date)
 
         <!-- Email content -->
         <div id="email-tab" class="p-5 hidden">
-          <h1 class="text-xl font-extrabold">EMAIL</h1>
+          <h1 class="text-xl font-extrabold">OUTBOX</h1>
           <p class="text-grayish">Here you can check all the email that have been sent</p>
           <div class="mt-5 text-end">
-            <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">CREATE
+            <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">SEND
               NEW
-              EMAIL
+              OUTBOX
             </button>
           </div>
           <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
@@ -502,7 +502,7 @@ function dateInText($date)
           <div class="flex items-center">
 
             <div class="m-2 p-1">
-              <span class="font-semibold">Total Emailed</span>
+              <span class="font-semibold">Total Outbox</span>
               <?php
               require_once '../PHP_process/connection.php';
               $query = 'SELECT * FROM `email` WHERE `personID` = "' . $_SESSION['personID'] . '" ';
@@ -588,7 +588,7 @@ function dateInText($date)
 
             <!-- college selection -->
             <select id="alumniCollege" class="w-full p-1">
-              <option selected disabled>Course</option>
+              <option selected disabled>College</option>
               <option value="">All</option>
               <?php
               require_once '../PHP_process/connection.php';
@@ -1567,7 +1567,7 @@ function dateInText($date)
     <!-- list of applicant -->
     <div id="listOfApplicantModal" class="post modal fixed inset-0 flex justify-center p-3 hidden">
       <div class="modaListApplicant modal-container w-1/3 h-max bg-white rounded-md relative slide-bottom p-5">
-        <button class="p-1 text-gray-300 items-center justify-center flex border border-gray-400 rounded-full hover:bg-accent absolute top-0 -right-11">
+        <button class="p-1 text-gray-300 items-center justify-center flex border border-gray-400 rounded-full hover:bg-accent absolute top-0 -right-11 modalListBtn">
           <iconify-icon icon="ei:close" width="24" height="24"></iconify-icon>
         </button>
         <h3 class="text-center font-bold text-xl py-2 text-greyish_black border-b border-gray-300">Applicant List</h3>
@@ -2382,6 +2382,20 @@ function dateInText($date)
         </svg>
         <h1 class=" text-xl font-bold text-green-500 text-center">Successfully Assigned</h1>
         <p class="text-lg text-center text-gray-500">Alumni Of the year successfully assigned!</p>
+      </div>
+    </div>
+
+    <!-- inbox -->
+    <div class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 messageJob hidden">
+      <div class="bg-white rounded-2xl w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
+        <div class="flex items-center gap-2">
+          <iconify-icon icon="fluent-mdl2:back" class="cursor-pointer closeMsgJob" width="24" height="24"></iconify-icon>
+          <h3 class="text-2xl flex items-center">Applicant Message</h3>
+        </div>
+
+        <p></p> <!--applicant name-->
+        <p></p> <!--applied-->
+        <pre class="w-full h-4/5 overflow-y-auto p-5 border border-gray-300 rounded-md"></pre>
       </div>
     </div>
 

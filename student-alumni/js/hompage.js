@@ -562,11 +562,23 @@ $(document).ready(function () {
           $('#appTxt').removeClass('font-bold')
             .text('Apply Now')
         }
-      },
-      error: error => { console.log(error) },
+      }
     })
   }
+  // message application
   function applyJob(careerID) {
+    $('.applicantMsg').removeClass('hidden')
+    $('.applyJobBtn').on('click', function () {
+      const message = $('#applicantMsg').val().trimEnd()
+      if (message !== '') {
+        $('.loadingProfile').parent().removeClass('hidden')
+        processApplication(careerID, message)
+      }
+    })
+
+  }
+
+  function processApplication(careerID, message) {
     const action = {
       action: 'applyJob'
     }
@@ -575,6 +587,7 @@ $(document).ready(function () {
     const formatData = new FormData();
     formatData.append('action', JSON.stringify(action));
     formatData.append('careerID', careerID);
+    formatData.append('message', message);
 
     //perform ajax operation
     $.ajax({
@@ -584,20 +597,34 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: response => {
+        $('.loadingProfile').parent().addClass('hidden')
         if (response == 'Success') {
-          $('#iconApply').removeClass('hidden')
+          $('#iconApply').removeClass('hidden') //applied icon indicator
+          $('#applicantMsg').val('')
           $('#appTxt').addClass('font-bold')
             .text('Applied')
-        }
-        else {
-          //not yet set up
-          $('#errorResumeModal').removeClass('hidden')
 
+          // close and restart the values
+          $('.applicantMsg').addClass('hidden')
+          $('#successApplicationModal').removeClass('hidden')
+          $('#successApplicationModal button').on('click', function () {
+            $('#successApplicationModal').addClass('hidden')
+          })
         }
-      },
-      error: error => { console.log(error) }
+        else $('#errorResumeModal').removeClass('hidden')//not yet set up
+      }
     })
   }
+
+  $('.msgCancelBtn').on('click', function () {
+    $('.applicantMsg').addClass('hidden')
+  })
+
+  // close no resume modal
+  $('.noresumeBtn').on('click', function () {
+    $('#errorResumeModal').addClass('hidden')
+  })
+
 
   function viewOfCareer(careerID) {
     const actionCareer = {

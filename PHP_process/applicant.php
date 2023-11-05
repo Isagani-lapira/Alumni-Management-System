@@ -2,7 +2,7 @@
 require 'resume.php';
 class Applicant
 {
-    public function resumeApplication($careerID, $con)
+    public function resumeApplication($careerID, $message, $con)
     {
         $personID = $_SESSION['personID'];
         $haveResume = haveResume($personID, $con);
@@ -16,12 +16,17 @@ class Applicant
             $username = $_SESSION['username'];
             $resumeID = getResumeID($con);
 
-            $query = "INSERT INTO `applicant`(`applicantID`, `username`, `careerID`, `resumeID`)
-            VALUES ('$applicantID','$username','$careerID','$resumeID')";
-            $result = mysqli_query($con, $query);
+            $query = "INSERT INTO `applicant`(`applicantID`, `username`, `careerID`, `resumeID`, `message`) 
+            VALUES (? ,? ,? ,? ,? )";
+            $stmt = mysqli_prepare($con, $query);
 
-            if ($result) echo 'Success';
-            else echo 'Failed';
+            if ($stmt) {
+                $stmt->bind_param('sssss', $applicantID, $username, $careerID, $resumeID, $message);
+                $result = $stmt->execute();
+
+                if ($result) echo 'Success';
+                else echo 'Failed';
+            }
         }
     }
 
@@ -66,12 +71,13 @@ class Applicant
     {
         $username = $_SESSION['username'];
 
-        $query = "SELECT p.fname, p.lname, a.resumeID
+        $query = "SELECT p.fname, p.lname, a.resumeID,a.message,a.appliedDate
         FROM applicant AS a
         LEFT JOIN student AS s ON a.username = s.username
         LEFT JOIN alumni AS al ON a.username = al.username
         LEFT JOIN person AS p ON s.personID = p.personID OR al.personID = p.personID
-        WHERE a.careerID = ? AND a.username != ?";
+        WHERE a.careerID = ? AND a.username != ? 
+        ORDER BY a.appliedDate DESC";
 
         $stmt = mysqli_prepare($con, $query);
         $stmt->bind_param('ss', $careerID, $username);
@@ -81,12 +87,16 @@ class Applicant
         $response = "";
         $fullname = array();
         $resumeID = array();
+        $message = array();
+        $date = array();
 
         if ($result) {
             $response = "Success";
             while ($data = $result->fetch_assoc()) {
                 $fullname[] = $data['fname'] . ' ' . $data['lname'];
                 $resumeID[] = $data['resumeID'];
+                $message[] = $data['message'];
+                $date[] = $data['appliedDate'];
             }
         } else $response = "Unsuccess";
 
@@ -94,6 +104,8 @@ class Applicant
             "response" => $response,
             "fullname" => $fullname,
             "resumeID" => $resumeID,
+            "message" => $message,
+            "date" => $date,
         );
 
         echo json_encode($data);

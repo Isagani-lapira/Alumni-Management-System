@@ -120,6 +120,7 @@ $(document).ready(function () {
                     $('#aplicantListBtn').removeClass('cursor-text')
                         .on('click', function () {
                             //open the list
+                            $('#loadingScreen').removeClass('hidden')
                             displayApplicant(careerID)
                         })
                 }
@@ -169,6 +170,9 @@ $(document).ready(function () {
                     for (let i = 0; i < length; i++) {
                         let fullname = response.fullname[i];
                         let resumeID = response.resumeID[i];
+                        let message = response.message[i];
+                        let date = response.date[i];
+                        date = convertTimeStampToDate(date) //format the date
 
                         let wrapper = $('<div>')
                             .addClass('justify-between flex items-center')
@@ -177,21 +181,34 @@ $(document).ready(function () {
                             .addClass('italic text-gray-500')
                             .text(fullname)
 
+                        let interactionWrapper = $('<div>').addClass('flex gap-2 items-center')
+                        let messageIcon = $('<iconify-icon class="text-accent hover:text-darkAccent cursor-pointer" icon="wpf:message-outline" width="20" height="20"></iconify-icon>')
+                            .on('click', function () {
+                                // open the message modal
+                                $('.messageJob p:first()').text('By: ' + fullname)
+                                $('.messageJob p:eq(1)').text('Applied date: ' + date)
+                                $('.messageJob pre').text(message)
+                                $('.messageJob').removeClass('hidden')
+                            })
+
                         let viewResume = $('<button>')
                             .addClass('py-2 px-4 rounded-lg bg-accent text-white font-bold text-xs hover:bg-darkAccent')
                             .text('Resume')
                             .on('click', function () {
                                 $('#listOfApplicantModal').addClass('hidden')
                                 $('#viewJob').addClass('hidden')
+                                $('#loadingScreen').removeClass('hidden')
                                 displayApplicantResume(resumeID)
                             })
 
-                        wrapper.append(fullnameElement, viewResume)
+                        interactionWrapper.append(messageIcon, viewResume)
+                        wrapper.append(fullnameElement, interactionWrapper)
                         $('#listApplicantContainer').append(wrapper)
                     }
                 }
-            },
-            error: error => { console.log(error) }
+
+                $('#loadingScreen').addClass('hidden')
+            }
         })
     }
 
@@ -210,8 +227,6 @@ $(document).ready(function () {
             dataType: 'json',
             success: response => {
                 if (response.response == 'Success') {
-                    $('#viewResumeModal').removeClass('hidden')
-
                     //store the data that has been respond by the server
                     const objective = response.objective
                     const fullname = response.fullname
@@ -226,8 +241,7 @@ $(document).ready(function () {
                     // set up the details of the resume
                     setResumeDetails(objective, fullname, contactNo, address, emailAdd, skills, education, workExp, references)
                 }
-            },
-            error: error => { console.log(error) }
+            }
         })
     }
     $('#adminJobPost').on('scroll', function () {
@@ -369,6 +383,9 @@ $(document).ready(function () {
 
             $('#referenceContainer').append(refWrapper) //root
         }
+
+        $('#viewResumeModal').removeClass('hidden')
+        $('#loadingScreen').addClass('hidden')
     }
 
     $('#closeViewResume').on('click', function () {
@@ -656,4 +673,22 @@ $(document).ready(function () {
         $(".jobPostingBack").hide();
         $("#jobForm")[0].reset(); //restart the form 
     });
+
+
+    // close the message modal
+    $('.closeMsgJob').on('click', function () {
+        $('.messageJob').addClass('hidden')
+    })
+
+    // format the timestamp into easy to read date
+    function convertTimeStampToDate(timestamp) {
+        const date = new Date(timestamp);
+        const formattedDate = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long' })
+        return formattedDate;
+    }
+
+    // close modal of list of applicant
+    $('.modalListBtn').on('click', function () {
+        $('#listOfApplicantModal').addClass('hidden')
+    })
 })
