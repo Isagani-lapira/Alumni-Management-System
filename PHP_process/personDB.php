@@ -191,11 +191,14 @@ class personDB
         p.instagramUN,
         p.twitterUN,
         p.linkedInUN,
-        COALESCE(a.username, s.username) AS username
+        COALESCE(a.username, s.username) AS username,
+        COALESCE(course_alumni.courseName, course_student.courseName) AS courseName
         FROM person AS p
         LEFT JOIN alumni AS a ON p.personID = a.personID
         LEFT JOIN student AS s ON p.personID = s.personID
-        WHERE p.personID = ? ";
+        LEFT JOIN course AS course_alumni ON a.courseID = course_alumni.courseID
+        LEFT JOIN course AS course_student ON s.courseID = course_student.courseID
+        WHERE p.personID = ?";
 
         $stmt = mysqli_prepare($con, $query);
 
@@ -208,6 +211,7 @@ class personDB
         $twitterUN = "";
         $linkedInUN = "";
         $username = "";
+        $coursename = "";
 
         if ($stmt) {
             $stmt->bind_param('s', $personID);
@@ -223,6 +227,7 @@ class personDB
                 $twitterUN = $row['twitterUN'];
                 $linkedInUN = $row['linkedInUN'];
                 $username = $row['username'];
+                $coursename = $row['courseName'];
                 $profilepicture = base64_encode($row['profilepicture']);
                 $cover_photo = base64_encode($row['cover_photo']);
             }
@@ -238,6 +243,7 @@ class personDB
             "twitterUN" => $twitterUN,
             "linkedInUN" => $linkedInUN,
             "username" => $username,
+            "coursename" => $coursename,
         );
 
         echo json_encode($data);

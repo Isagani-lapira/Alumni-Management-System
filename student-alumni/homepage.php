@@ -836,7 +836,7 @@ function getAccDetails($con, $personID)
                 </div>
 
               </div>
-
+              <p class="italic text-gray-500 text-sm userCourse mb-2"></p>
               <h2 class="text-md md:text-lg font-bold mb-2 text-greyish_black">Social Media</h2>
 
               <!-- social media links -->

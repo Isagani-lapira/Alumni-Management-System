@@ -95,6 +95,7 @@ $(document).ready(function () {
                 $('#profileModal').removeClass('hidden')
                 if (response.response == 'Success') {
                     $('#userPostModal').empty()
+                    // data of a particular user
                     const data = response
                     const fullname = data.fullname;
                     const profilePic = data.profilePic;
@@ -104,30 +105,38 @@ $(document).ready(function () {
                     const twitterUN = data.twitterUN;
                     const linkedInUN = data.linkedInUN;
                     const username = data.username;
+                    const courseName = data.coursename;
 
-                    displayUserProfileModal(fullname, profilePic, coverPhoto, facebookUN, instagramUN, twitterUN, linkedInUN, username, colorBorder);
+                    displayUserProfileModal(fullname, profilePic, coverPhoto, facebookUN, instagramUN, twitterUN, linkedInUN, username, courseName, colorBorder);
                 }
             },
             error: error => { console.log(error) }
         })
     }
 
-    function displayUserProfileModal(fullname, profilePic, coverPhoto, facebookUN, instagramUN, twitterUN, linkedInUN, username, colorBorder) {
-        const coverSrc = (coverPhoto == "") ? '../images/bganim.jpg' : imgFormat + coverPhoto
+    function displayUserProfileModal(fullname, profilePic, coverPhoto, facebookUN, instagramUN, twitterUN, linkedInUN, username, courseName, colorBorder) {
+        const coverSrc = (coverPhoto == "") ? '../images/bgProfile.png' : imgFormat + coverPhoto
         const profileSrc = (profilePic == "") ? '../assets/icons/person.png' : imgFormat + profilePic
         $("#profileModalCover").attr('src', coverSrc)
         $("#profileModalProfile").attr('src', profileSrc).addClass(colorBorder)
         $("#profileModalFN").text(fullname)
         $("#profileModalUN").text(username)
+        $('.userCourse').text(courseName)
+
 
         // social media
+        // add default social media if no data retrieved
+        facebookUN = (facebookUN === null) ? 'Not available' : facebookUN
+        instagramUN = (instagramUN === null) ? 'Not available' : instagramUN
+        twitterUN = (twitterUN === null) ? 'Not available' : twitterUN
+        linkedInUN = (linkedInUN === null) ? 'Not available' : linkedInUN
         $("#facebookUN").text(facebookUN)
         $("#instagramUN").text(instagramUN)
         $("#twitterUN").text(twitterUN)
         $("#linkedInUN").text(linkedInUN)
 
+        //retrieve searched user post
         let offset = 0;
-        //searched user post
         getUserPost(username, offset)
     }
 
