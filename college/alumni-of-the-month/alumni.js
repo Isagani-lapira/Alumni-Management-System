@@ -40,12 +40,38 @@ $(document).ready(function () {
     console.log(newAchievement);
   }
 
+  function addFilledAchievement(container) {
+    const newAchievement = $(
+      ".form-component-container .achievement-box:first"
+    ).clone();
+    newAchievement.find("input").val(""); // Clear input values
+    newAchievement.find("input[type=date]").val(""); // Clear date field
+    newAchievement.removeClass("hidden"); // Show cloned element
+    newAchievement.appendTo(container).slideDown();
+    console.log(newAchievement);
+  }
+
   function addEmptyTestimony(container) {
     const newContainer = $(
       ".form-component-container .testimony-box:first"
     ).clone();
     newContainer.find("input").val(""); // Clear input values
     newContainer.find("input[type=date]").val(""); // Clear date field
+    newContainer.removeClass("hidden"); // Show cloned element
+    newContainer.appendTo(container).slideDown();
+    console.log(newContainer);
+  }
+
+  function addFilledTestimony(container, data) {
+    const newContainer = $(
+      ".form-component-container .testimony-box:first"
+    ).clone();
+    newContainer.find("input").val(""); // Clear input values
+    newContainer.find("input[type=date]").val(""); // Clear date field
+
+    // fill the input values
+    newContainer.find("input[name='testimony-name']").val(data.name);
+
     newContainer.removeClass("hidden"); // Show cloned element
     newContainer.appendTo(container).slideDown();
     console.log(newContainer);
@@ -69,6 +95,11 @@ $(document).ready(function () {
       addEmptyAchievement("#edit-achievementFields");
     });
 
+    // Achievement handlers
+    $("#edit-aotm-form").on("click", "#edit-add-achievement-btn", function () {
+      addEmptyAchievement("#edit-achievementFields");
+    });
+
     $("#achievementFields").on("click", ".a-remove", function () {
       $(this)
         .closest(".achievement-box")
@@ -83,6 +114,25 @@ $(document).ready(function () {
         .slideUp(function () {
           $(this).remove();
         });
+    });
+
+    $("#edit-achievementFields").on("click", ".a-edit", function () {
+      const container = $(this).closest(".achievement-box");
+      // get the input field value
+      const title = container.find("input[name='a-title[]']").val();
+      const description = container.find("input[name='a-description[]']").val();
+      const date = container.find("input[name='a-date[]']").val();
+      const id = container.find("input[name='a-id[]']").val();
+
+      // add the values to the formData
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("date", date);
+      formData.append("id", id);
+
+      formData.append("action", "editAchievement");
+      console.log(formData());
     });
 
     // * Testimonial handlers
@@ -114,15 +164,46 @@ $(document).ready(function () {
     $("#aoydaterange").daterangepicker();
 
     // set handler for editing the alumni of the month
-    $("#alumni-of-the-month-container").on("click", ".edit-aotm", function () {
-      // get the id
-      const id = $(this).data("id");
-      console.log("edit", id);
+    /**
+     * Triggered when the edit button is clicked
+     */
+    $("#alumni-of-the-month-container").on(
+      "click",
+      ".edit-aotm-btn",
+      async function () {
+        // get the id
+        const id = $(this).data("aotm-id");
+        console.log("fetching the details of the edit aotm", id);
 
-      try {
-        // get contents of the alumni of the month
-      } catch (error) {}
-    });
+        const result = await getJSONFromURL(
+          API_URL + "?action=getAOTMById&aomID=" + id
+        );
+
+        console.log(result);
+
+        const testimonialsRes = await getJSONFromURL(
+          API_URL + "?action=getTestimonial&aomID=" + id
+        );
+
+        const achievementsRes = await getJSONFromURL(
+          API_URL + "?action=getAchievement&aomID=" + id
+        );
+
+        console.log("testimonials", testimonialsRes);
+        console.log("achievements", achievementsRes);
+
+        // fetch the testimonials
+        // fetch the achievements
+
+        // fetch the alumni of the month
+
+        // populate the modal
+
+        try {
+          // get contents of the alumni of the month
+        } catch (error) {}
+      }
+    );
 
     // set handler for deleting the alumni of the month
     $("#alumni-of-the-month-container").on(
@@ -471,6 +552,7 @@ $(document).ready(function () {
     $("#card-company").text(data.company);
     $("#card-batch").text(data.batchYr);
     $("#card-edit").attr("data-id", data.personID);
+    $("#card-edit").attr("data-aotm-id", data.AOMID);
     $("#card-delete").attr("data-id", data.personID);
     $("#card-delete").attr("data-aotm-id", data.AOMID);
   }
@@ -696,7 +778,7 @@ $(document).ready(function () {
           render: function (data, type, row) {
             // Define the buttons for the Actions column
             return `
-                        <label for="edit-aotm" class="edit-aotm daisy-btn daisy-btn-sm daisy-btn-info daisy-btn-outline " data-id=${row.personID} data-aotm-id="${row.AOMID}">Edit</label>
+                        <label for="edit-aotm" class="edit-aotm-btn daisy-btn daisy-btn-sm daisy-btn-info daisy-btn-outline " data-id=${row.personID} data-aotm-id="${row.AOMID}">Edit</label>
                         <button  class="delete-aotm daisy-btn daisy-btn-warning daisy-btn-sm daisy-btn-outline " data-id=${row.personID} data-aotm-id="${row.AOMID}">Remove</button>
                     `;
           },

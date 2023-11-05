@@ -102,10 +102,156 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
 
 
+    function get_testimonials($testimonialID)
+    {
+
+        require "../php/connection.php";
+        $stmt = $mysql_con->prepare('SELECT * FROM `testimonials` WHERE AOMID = ?');
+        $stmt->bind_param('s', $testimonialID);
+
+        try {
+            // execute the query
+            $stmt->execute();
+            // gets the myql_result. Similar result to mysqli_query
+            $result = $stmt->get_result();
+            $num_row = mysqli_num_rows($result);
+            // holds every row in the query
+            $resultArray = array();
+
+            if ($result && $num_row > 0) {
+                // Gets every row in the query
+                while ($record = mysqli_fetch_assoc($result)) {
+                    // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
+
+                    if ($record['profile_img'] !== '') {
+                        $record['profile_img'] = base64_encode($record['profile_img']);
+                    }
+                    $resultArray[] = $record;
+                }
+            } else {
+                $resultArray =  [];
+            }
+
+            return $resultArray;
+        } catch (\Throwable $th) {
+            throw $th;
+            // return [];
+        }
+    }
+
+    function get_achievements($id)
+    {
+        require "../php/connection.php";
+        $stmt = $mysql_con->prepare('SELECT * FROM `achievement` WHERE AOMID = ?');
+        $stmt->bind_param('s', $id);
+
+        try {
+            // execute the query
+            $stmt->execute();
+            // gets the myql_result. Similar result to mysqli_query
+            $result = $stmt->get_result();
+            $num_row = mysqli_num_rows($result);
+            // holds every row in the query
+            $resultArray = array();
+
+            if ($result && $num_row > 0) {
+                // Gets every row in the query
+                while ($record = mysqli_fetch_assoc($result)) {
+                    // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
+
+                    $resultArray[] = $record;
+                }
+            } else {
+                $resultArray =  [];
+            }
+
+            return $resultArray;
+        } catch (\Throwable $th) {
+            throw $th;
+            // return [];
+        }
+    }
+
+    function get_AOTM_by_Id($aom_id)
+    {
+        require "../php/connection.php";
+        $stmt = $mysql_con->prepare('SELECT alumni_of_the_month.*, 
+        CONCAT(fName, " ", lName) AS fullname, person.* , alumni.*  FROM `alumni_of_the_month`
+            INNER JOIN `alumni` on studNo = studentNo
+            INNER JOIN `person` on person.personID = alumni.personID
+              WHERE alumni_of_the_month.colCode = ? AND alumni_of_the_month.AOMID = ?
+              ORDER BY date_assigned DESC
+              LIMIT 1;');
+        $stmt->bind_param('ss', $_SESSION['colCode'], $aom_id);
+
+        try {
+            // execute the query
+            $stmt->execute();
+            // gets the myql_result. Similar result to mysqli_query
+            $result = $stmt->get_result();
+            $num_row = mysqli_num_rows($result);
+            // holds every row in the query
+            $resultArray = array();
+
+            if ($result && $num_row > 0) {
+                // Gets every row in the query
+                while ($record = mysqli_fetch_assoc($result)) {
+                    // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this.
+                    if ($record['profilepicture'] !== '') {
+                        $record['profilepicture'] = base64_encode($record['profilepicture']);
+                    }
+                    $record['cover_img'] = base64_encode($record['cover_img']);
+                    $resultArray[] = $record;
+                }
+            } else {
+                $resultArray =  [];
+            }
+
+            return json_encode($resultArray);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    // if there is an action
+    if (isset($_GET['action'])) {
+        // if the action is to get the latest alumni of the month
+
+        if ($_GET['action'] === 'getTestimonial') {
+
+            // check if id is set
+            $id = $_GET['aomID'];
+            if (!isset($id)) {
+                echo json_encode(['data' => [], 'response' => 'Failed', 'error' => 'No testimonial ID', 'status' => false]);
+                die();
+            }
+
+            try {
+
+                echo json_encode(['data' => get_testimonials($_GET['aomID']), 'response' => 'Successful']);
+            } catch (\Throwable $th) {
+                echo json_encode(['data' => [], 'response' => 'Unsuccessful', 'error' => $th->getMessage(), 'status' => false]);
+            }
+        } else if ($_GET['action'] === 'getAchievement') {
+            try {
+                echo json_encode(['data' => get_achievements($_GET['aomID']), 'response' => 'Successful']);
+            } catch (\Throwable $th) {
+                echo json_encode(['data' => [], 'response' => 'Unsuccessful', 'error' => $th->getMessage(), 'status' => false]);
+            }
+        } else if ($_GET['action'] === 'getAOTMById') {
+            try {
+                echo json_encode(['data' => get_AOTM_by_Id($_GET['aomID']), 'response' => 'Successful']);
+            } catch (\Throwable $th) {
+                echo json_encode(['data' => [], 'response' => 'Unsuccessful', 'error' => $th->getMessage(), 'status' => false]);
+            }
+        }
+        die();
+    }
 
 
     if (isset($_GET['latest']) && $_GET['latest'] === 'month') {
         header("Content-Type: application/json; charset=UTF-8");
+
 
 
         try {

@@ -40,8 +40,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['action'])) {
 
-        // check if action == edit
-        if ($_POST['action'] == 'edit') {
+
+        $action = $_POST['action'];
+
+        if ($action === 'edit-achievement') {
+
+            $aID = $_POST['aID'];
+            $aTitle = $_POST['aTitle'];
+            $aDescription = $_POST['aDescription'];
+            $aDate = $_POST['aDate'];
+            $achievementID = $_POST['aotmID'];
+
+            // make array of achievement information
+            $achievementInformation = array(
+                'aID' => $aID,
+                'aTitle' => $aTitle,
+                'aDescription' => $aDescription,
+                'aDate' => $aDate,
+                'aotmID' => $aotmID
+            );
+
+            // set new achievement
+            $result = $alumni->updateAchievement($achievementID, $achievementInformation);
+            header("Content-Type: application/json; charset=UTF-8");
+            if ($result === TRUE) {
+
+                echo json_encode(
+                    array(
+                        'response' => 'Successful',
+                        'message' => 'Achievement updated successfully',
+                        'status' => true
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        'response' => 'Unsuccessful',
+                        'message' => 'Achievement not updated',
+                        'status' => false
+                    )
+                );
+            };
+        } else if ($action === 'edit') {
 
             $personID = $_POST['personID'];
             $quote = $_POST['quote'];

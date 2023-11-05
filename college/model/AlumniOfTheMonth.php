@@ -75,12 +75,156 @@ class AlumniOfTheMonth
     }
     public function deleteAlumniOfTheMonth(string $aotmID): bool
     {
+
+        // deletes all testimonials and achievements of the alumni of the month
+        $this->removeAllAchievementsOfAOTM($aotmID);
+        $this->removeAllTestimonialsOfAOTM($aotmID);
+
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
 
         $stmt = $this->conn->prepare('DELETE FROM alumni_of_the_month WHERE AOMID = ?;');
 
         // *  Binds the variable to the '?', prevents sql injection
+        $stmt->bind_param('s', $aotmID);
+        // execute the query
+
+        // check if the query is successful
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateAchievement(string $achievementID, array $data): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('UPDATE achievement SET achievement = ? , description = ? , date = ? WHERE achievementID = ?;');
+
+        $stmt->bind_param('ssss', $data['achievement'], $data['description'], $data['date'], $achievementID);
+        // execute the query
+
+        // check if the query is successful
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getTestimonialById(string $testimonialID): array
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('SELECT * FROM testimonials WHERE testimonialID = ?;');
+
+        $stmt->bind_param('s', $testimonialID);
+        // execute the query
+        $stmt->execute();
+        // gets the myql_result. Similar result to mysqli_query
+        $result = $stmt->get_result();
+        $num_row = mysqli_num_rows($result);
+
+        // holds every row in the query
+        $resultArray = array();
+
+        if ($result && $num_row > 0) {
+            // Gets every row in the query
+            while ($record = mysqli_fetch_assoc($result)) {
+                // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
+                $record['profile_img'] = base64_encode($record['profile_img']);
+                $resultArray[] = $record;
+            }
+        } else {
+        }
+
+        return $resultArray;
+    }
+
+    public function getAchievementById(string $achievementID): array
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('SELECT * FROM achievement WHERE achievementID = ?;');
+
+        $stmt->bind_param('s', $achievementID);
+        // execute the query
+        $stmt->execute();
+        // gets the myql_result. Similar result to mysqli_query
+        $result = $stmt->get_result();
+        $num_row = mysqli_num_rows($result);
+
+        // holds every row in the query
+        $resultArray = array();
+
+        if ($result && $num_row > 0) {
+            // Gets every row in the query
+            while ($record = mysqli_fetch_assoc($result)) {
+                $resultArray[] = $record;
+            }
+        } else {
+        }
+
+        return $resultArray;
+    }
+
+
+    public function updateTestimonial(string $testimonialID, array $data): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        // check if the profile image is empty
+        if ($data['profile_img'] !== '') {
+            $stmt = $this->conn->prepare('UPDATE testimonials SET message = ? , date = ? , emailAddress = ? , person_name = ? , relationship = ? , companyName = ? , position = ? , profile_img = ? WHERE testimonialID = ?;');
+
+            $stmt->bind_param('sssssssss', $data['message'], $data['date'], $data['emailAddress'], $data['person_name'], $data['relationship'], $data['companyName'], $data['position'], $data['profile_img'], $testimonialID);
+        } else {
+            $stmt = $this->conn->prepare('UPDATE testimonials SET message = ? , date = ? , emailAddress = ? , person_name = ? , relationship = ? , companyName = ? , position = ? WHERE testimonialID = ?;');
+
+            $stmt->bind_param('ssssssss', $data['message'], $data['date'], $data['emailAddress'], $data['person_name'], $data['relationship'], $data['companyName'], $data['position'], $testimonialID);
+        }
+
+        // execute the query
+
+        // check if the query is successful
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function removeAllAchievementsOfAOTM(string $aotmID): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('DELETE FROM achievement WHERE AOMID = ?;');
+
+        $stmt->bind_param('s', $aotmID);
+        // execute the query
+
+        // check if the query is successful
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function removeAllTestimonialsOfAOTM(string $aotmID): bool
+    {
+        // Initialize the statement
+        $stmt = $this->conn->stmt_init();
+
+        $stmt = $this->conn->prepare('DELETE FROM testimonials WHERE AOMID = ?;');
+
         $stmt->bind_param('s', $aotmID);
         // execute the query
 
