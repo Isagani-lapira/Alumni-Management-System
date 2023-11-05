@@ -2,7 +2,7 @@
 require 'resume.php';
 class Applicant
 {
-    public function resumeApplication($careerID, $con)
+    public function resumeApplication($careerID, $message, $con)
     {
         $personID = $_SESSION['personID'];
         $haveResume = haveResume($personID, $con);
@@ -16,12 +16,17 @@ class Applicant
             $username = $_SESSION['username'];
             $resumeID = getResumeID($con);
 
-            $query = "INSERT INTO `applicant`(`applicantID`, `username`, `careerID`, `resumeID`)
-            VALUES ('$applicantID','$username','$careerID','$resumeID')";
-            $result = mysqli_query($con, $query);
+            $query = "INSERT INTO `applicant`(`applicantID`, `username`, `careerID`, `resumeID`, `message`) 
+            VALUES (? ,? ,? ,? ,? )";
+            $stmt = mysqli_prepare($con, $query);
 
-            if ($result) echo 'Success';
-            else echo 'Failed';
+            if ($stmt) {
+                $stmt->bind_param('sssss', $applicantID, $username, $careerID, $resumeID, $message);
+                $result = $stmt->execute();
+
+                if ($result) echo 'Success';
+                else echo 'Failed';
+            }
         }
     }
 

@@ -1685,6 +1685,37 @@ function getAccDetails($con, $personID)
       </div>
     </div>
 
+    <!-- applicant message -->
+    <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center applicantMsg hidden">
+      <div class="bg-white rounded-2xl w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
+        <h3 class="text-xl font-semibold">Message for recruiter</h3>
+        <p>Tell us about yourself here so that the recruiter may learn more about you. Don't forget to include your contact information so that they can easily contact you.</p>
+        <textarea id="applicantMsg" class="h-4/5 outline-none border border-gray-400 rounded-lg resize-none p-5 no-scrollbar"></textarea>
+        <div class="flex justify-end gap-2">
+          <button class="text-gray-400 hover:text-gray-500 msgCancelBtn">Cancel</button>
+          <button class="bg-green-400 hover:bg-green-500 text-white font-semibold rounded-md px-3 py-2 applyJobBtn">Apply</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- success application   prompt -->
+    <div id="successApplicationModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
+      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+        <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <circle id="filled-circle" fill="#47CF73" cx="66.5" cy="66.5" r="54.5" />
+            <circle id="white-circle" fill="#FFFFFF" cx="66.5" cy="66.5" r="55.5" />
+            <circle id="outline" stroke="#47CF73" stroke-width="4" cx="66.5" cy="66.5" r="54.5" />
+            <polyline id="check" stroke="#FFFFFF" stroke-width="5.5" points="41 70 56 85 92 49" />
+          </g>
+        </svg>
+        <h1 class=" text-3xl font-bold text-green-500 text-center">Applied Successfully</h1>
+        <p class=" text-center text-gray-500">Your message and resume have been sent to the job recruiter.</p>
+        <button class=" bg-postButton hover:bg-postHoverButton text-white px-4 py-2 w-full  rounded-md font-bold">Close</button>
+      </div>
+    </div>
+
   </div>
 
 
