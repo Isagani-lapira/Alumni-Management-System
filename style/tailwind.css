@@ -17,6 +17,23 @@ body {
   line-height: 1;
 }
 
+/* Data Tables Plugin */
+/* Search Bar */
+
+.dataTables_filter input {
+  @apply form-input my-2 mx-1;
+}
+div.dtsp-panesContainer div.dtsp-searchPanes {
+  justify-content: flex-start;
+  @apply gap-4;
+}
+.dataTable td.selected {
+  @apply bg-accent font-bold text-white;
+}
+.dtsp-searchPane {
+  @apply border rounded border-gray-400 shadow-md;
+}
+
 @layer components {
   /* * For Modal Background (the translucent grayish)*/
   .modal-bg {
@@ -91,13 +108,6 @@ body {
   /* Text area */
   .input-textarea {
     @apply border border-gray-400 rounded-sm py-2 px-4  shadow-md;
-  }
-
-  /* Data Tables Plugin */
-  /* Search Bar */
-
-  .dataTables_filter input {
-    @apply form-input my-2 mx-1;
   }
 }
 
