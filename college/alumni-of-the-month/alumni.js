@@ -896,13 +896,14 @@ $(document).ready(function () {
     form,
     url = "./alumni-of-the-month/addAlumni.php"
   ) {
-    // get the form data
-    const formData = new FormData(form);
-    const response = await fetch(url, {
-      method: "POST",
-      body: formData,
-    });
-    return response.json();
+    // // get the form data
+    // const response = await fetch(url, {
+    //   method: "POST",
+    //   body: formData,
+    // });
+    // return response.json();
+    const res = await postJSONFromURL(url, form);
+    return res;
   }
 
   async function editSearchAlumniListener(searchStr) {

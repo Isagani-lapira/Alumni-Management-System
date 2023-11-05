@@ -598,4 +598,58 @@ class PostData
             }
         }
     }
+
+
+    /**
+     * Create a post for the alumni of the month
+     * 
+     * @param string $AOMID
+     * @param string $username
+     * @param string $postID
+     * @param string $colCode
+     * @param mysqli $con
+     * @param string $caption
+     * 
+     */
+    function createAOMPost($AOMID, $username, $postID, $colCode, $con, $caption = '')
+    {
+
+        $date = date('y/m/d');
+        $year = date('Y');
+        // check if caption is set
+        if ($caption == '') {
+            $caption = 'We extend our congratulations to the recently assigned Alumni of the Month for ' . $year . ' 
+            We are grateful for your hard work and dedication. Keep up the good work';
+        }
+
+        $STATUS = 'available';
+
+        $query = "INSERT INTO `post`(`postID`, `username`, `colCode`, `caption`, `date`, `timestamp`, `status`) 
+        VALUES (?,?,?,?,?,?,?)";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('sssssss', $postID, $username, $colCode, $caption, $date, $timestamp, $STATUS);
+            $result = $stmt->execute();
+            $stmt->close();
+
+            // add image to the post images
+            if ($result) {
+                // get the image in the AOM
+                $queryCoverImg = "SELECT `cover_img` FROM `alumni_of_the_month` WHERE `AOMID` = ?";
+                $stmtCover = mysqli_prepare($con, $queryCoverImg);
+
+                if ($stmtCover) {
+                    $stmtCover->bind_param('s', $AOMID);
+                    $stmtCover->execute();
+                    $stmtCover->bind_result($coverPhoto);
+                    $stmtCover->fetch();
+                    $stmtCover->close();
+
+                    // store the cover photo on the post images
+                    $this->insertImgPost($postID, $coverPhoto, $con);
+                }
+            }
+        }
+    }
 }

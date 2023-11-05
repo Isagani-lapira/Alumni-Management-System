@@ -1,6 +1,9 @@
 <?php
 
-require '../PHP_process/personDB.php';
+// require   '../PHP_process/personDB.php';
+require __DIR__ .  '/personDB.php';
+
+
 class Notification
 {
     public function ReadNotification($username, $offset, $con)
