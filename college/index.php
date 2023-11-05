@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once __DIR__ . '/../config.php';
 
 
 // Check if Logged In
@@ -14,9 +14,13 @@ if (
     header("location: login.php");
     exit();
 } else {
+
+
     // fetch details and proceed
-    require_once '../PHP_process/connection.php';
-    require '../PHP_process/personDB.php';
+    require_once 'php/connection.php';
+    require_once SITE_ROOT . "/PHP_process/personDB.php";
+
+
 
     $username = $_SESSION['username'];
 
@@ -84,7 +88,6 @@ if (
         }
     }
 }
-
 
 
 
