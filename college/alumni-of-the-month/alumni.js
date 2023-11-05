@@ -3,8 +3,17 @@ import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
 $(document).ready(function () {
   // Constants
   const GET_API_URL = "./alumni-of-the-month/getAlumni.php";
-  const PROFILE_PICTURE_URL = "../media/search.php?media=profile_pic&personID=";
-  const AOM_COVER_IMAGE_URL = "../media/search.php?media=aom&AOMID=";
+  const pwd = window.location.href;
+  // split the pwd when there is the word college
+  const splitPath = pwd.split("college");
+  // get the first element of the split path
+  const rootPath = splitPath[0];
+  console.log(pwd, splitPath);
+
+  const PROFILE_PICTURE_URL =
+    rootPath + "media/search.php?media=profile_pic&personID=";
+  const AOM_COVER_IMAGE_URL = rootPath + "media/search.php?media=aom&AOMID=";
+
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   const API_POST_URL = "./alumni-of-the-month/addAlumni.php";
   const AVATAR_PLACEHOLDER = "../assets/default_profile.png";
@@ -865,19 +874,19 @@ $(document).ready(function () {
     $("#edit-achievementFields").empty();
     $("#edit-testimonyFields").empty();
 
-    $("#edit-cover-img-preview").attr(
-      "src",
-      "data:image/jpeg;base64," + data.cover_img
-    );
+    $("#edit-cover-img-preview").attr("src", AOM_COVER_IMAGE_URL + data.AOMID);
 
     let profileImage = AVATAR_PLACEHOLDER;
     if (data.profilepicture) {
-      profileImage = "data:image/jpeg;base64," + data.profilepicture;
+      profileImage = PROFILE_PICTURE_URL + data.personID;
     }
+    CKEDITOR.instances["edit-description"].setData(data.description);
 
     $("#edit-detail-profile-img").attr("src", profileImage);
     $("#edit-detail-fullname").text(data.fullname);
-    $("#edit-searchQuery").text(data.fullname);
+
+    $("#edit-searchQuery").val(data.fullname);
+
     $("#edit-detail-personal-email").text(data.personal_email);
     $("#edit-detail-yearGraduated").text("Batch " + data.batchYr);
 

@@ -126,8 +126,9 @@ try {
                 http_response_code(404);
                 exit();
             }
+
             header("Content-Type: image/jpeg");
-            echo $row['aom'];
+            echo $row['cover_img'];
             break;
 
         default:

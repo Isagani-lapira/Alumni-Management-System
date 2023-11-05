@@ -361,14 +361,28 @@ class AlumniOfTheMonth
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
 
+        // // if there is a description
+        // if ($details['description'] !== '') {
+        //     // check if the cover image is empty
+        //     if ($details['cover-img'] !== '') {
+        //         $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? ,  quote = ?, cover_img = ? , description = ? WHERE AOMID = ?;');
+
+        //         $stmt->bind_param('ssssss', $details['studentNo'], $details['personID'], $details['quote'], $details['cover-img'], $details['description'], $aotmID);
+        //     } else {
+        //         $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? , quote = ? , description = ? WHERE AOMID = ?;');
+
+        //         $stmt->bind_param('sssss', $details['studentNo'], $details['personID'], $details['quote'], $details['description'], $aotmID);
+        //     }
+        // }
+
         if ($details['cover-img'] !== '') {
-            $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? ,  quote = ?, cover_img = ? WHERE AOMID = ?;');
+            $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? ,  quote = ?, cover_img = ?, description = ? WHERE AOMID = ?;');
 
-            $stmt->bind_param('sssss', $details['studentNo'], $details['personID'], $details['quote'], $details['cover-img'], $aotmID);
+            $stmt->bind_param('ssssss', $details['studentNo'], $details['personID'], $details['quote'], $details['cover-img'], $details['description'], $aotmID);
         } else {
-            $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? , quote = ? WHERE AOMID = ?;');
+            $stmt = $this->conn->prepare('UPDATE alumni_of_the_month SET studentNo = ? , personID = ? , quote = ?  ,description = ? WHERE AOMID = ?;');
 
-            $stmt->bind_param('ssss', $details['studentNo'], $details['personID'], $details['quote'], $aotmID);
+            $stmt->bind_param('sssss', $details['studentNo'], $details['personID'], $details['quote'], $details['description'], $aotmID);
         }
 
         // execute the query

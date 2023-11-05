@@ -65,11 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     {
         require "../php/connection.php";
         $colCode = $_SESSION['colCode'];
-        $stmt = $mysql_con->prepare('SELECT alumni_of_the_month.*, 
-        CONCAT(fName, " ", lName) AS fullname, person.* , alumni.*  FROM `alumni_of_the_month`
-            INNER JOIN `alumni` on studNo = studentNo
+        $stmt = $mysql_con->prepare('SELECT aom.AOMID, aom.studentNo, aom.quote, aom.date_assigned, aom.colCode , aom.last_updated_date,
+         aom.description, aom.status, alumni.*, person.personID,
+        CONCAT(fName, " ", lName) AS fullname,  alumni.*  FROM `alumni_of_the_month` as aom
+            INNER JOIN `alumni` on studNo = aom.studentNo
             INNER JOIN `person` on person.personID = alumni.personID
-              WHERE alumni_of_the_month.colCode = ? AND DATE_FORMAT(alumni_of_the_month.date_assigned, "%Y-%m") = DATE_FORMAT(CURDATE(), "%Y-%m")
+              WHERE aom.colCode = ? AND DATE_FORMAT(aom.date_assigned, "%Y-%m") = DATE_FORMAT(CURDATE(), "%Y-%m")
               ORDER BY date_assigned DESC
               LIMIT 1;');
         $stmt->bind_param('s', $colCode);
@@ -100,7 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $resultArray =  [];
             }
 
-            return json_encode($resultArray);
+
+            return $resultArray;
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -162,7 +164,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if ($result && $num_row > 0) {
                 // Gets every row in the query
                 while ($record = mysqli_fetch_assoc($result)) {
-                    // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this. 
 
                     $resultArray[] = $record;
                 }
@@ -173,18 +174,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             return $resultArray;
         } catch (\Throwable $th) {
             throw $th;
-            // return [];
         }
     }
 
     function get_AOTM_by_Id($aom_id)
     {
         require "../php/connection.php";
-        $stmt = $mysql_con->prepare('SELECT alumni_of_the_month.*, 
-        CONCAT(fName, " ", lName) AS fullname, person.* , alumni.*  FROM `alumni_of_the_month`
-            INNER JOIN `alumni` on studNo = studentNo
+        $stmt = $mysql_con->prepare('SELECT aom.AOMID, aom.studentNo, aom.quote, aom.date_assigned, aom.colCode , aom.last_updated_date,
+        aom.description, aom.status, alumni.*, person.personID,
+        CONCAT(fName, " ", lName) AS fullname, alumni.*  FROM `alumni_of_the_month`as aom
+            INNER JOIN `alumni` on studNo = aom.studentNo
             INNER JOIN `person` on person.personID = alumni.personID
-              WHERE alumni_of_the_month.colCode = ? AND alumni_of_the_month.AOMID = ?
+              WHERE aom.colCode = ? AND aom.AOMID = ?
               ORDER BY date_assigned DESC
               LIMIT 1;');
         $stmt->bind_param('ss', $_SESSION['colCode'], $aom_id);
@@ -201,11 +202,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if ($result && $num_row > 0) {
                 // Gets every row in the query
                 while ($record = mysqli_fetch_assoc($result)) {
-                    // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this.
-                    if ($record['profilepicture'] !== '') {
-                        $record['profilepicture'] = base64_encode($record['profilepicture']);
-                    }
-                    $record['cover_img'] = base64_encode($record['cover_img']);
+                    // // ! README ALWAYS USE base64_encode() when sending image to client. 2 Hours wasted because of this.
+                    // if ($record['profilepicture'] !== '') {
+                    //     $record['profilepicture'] = base64_encode($record['profilepicture']);
+                    // }
+                    // $record['cover_img'] = base64_encode($record['cover_img']);
                     $resultArray[] = $record;
                 }
             } else {
@@ -226,12 +227,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     // if there is an action
     if (isset($_GET['action'])) {
-        // if the action is to get the latest alumni of the month
 
-        // use switch expression for the action 
         $action = $_GET['action'];
 
         try {
+
+            header("Content-Type: application/json; charset=UTF-8");
 
             switch ($action) {
 
