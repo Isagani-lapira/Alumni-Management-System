@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once __DIR__ . '/../config.php';
 
 
 // Check if Logged In
@@ -14,9 +14,13 @@ if (
     header("location: login.php");
     exit();
 } else {
+
+
     // fetch details and proceed
-    require_once '../PHP_process/connection.php';
-    require '../PHP_process/personDB.php';
+    require_once 'php/connection.php';
+    require_once SITE_ROOT . "/PHP_process/personDB.php";
+
+
 
     $username = $_SESSION['username'];
 
@@ -88,7 +92,6 @@ if (
 
 
 
-
 ?>
 
 
@@ -115,13 +118,7 @@ if (
     <!-- Font-awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <!-- System Tailwind stylesheet -->
-    <link rel="stylesheet" href="../css/main.css">
 
-    <!--  -->
-    <!-- Utilities stylesheet -->
-    <link rel="stylesheet" href="./assets/css/util.css">
-    <link rel="stylesheet" href="../style/style.css">
 
 
 
@@ -157,19 +154,34 @@ if (
 
     <!-- DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.2.0/css/searchPanes.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.13.6/sorting/datetime-moment.js"></script>
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
     <!-- JQuery Validation Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
 
+    <!-- iconify icon -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
     <!--  description plugin -->
     <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 
     <!-- End JS Plugins -->
+
+    <!-- System Tailwind stylesheet -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <!--  -->
+    <!-- Utilities stylesheet -->
+    <link rel="stylesheet" href="./assets/css/util.css">
+    <link rel="stylesheet" href="../style/style.css">
+
     <!-- System Script -->
     <script src="./scripts/core.js" defer></script>
     <script src="./scripts/utils.js" type="module"></script>
@@ -263,7 +275,7 @@ if (
                         <li>
                             <a data-link="profile" href="#profile" class="  flex justify-left flex-nowrap rounded items-center p-2 group-[.is-collapsed]:p-0">
                                 <!-- get the session image  -->
-                                <img src="data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?>" alt="picture of college logo" class="w-9 h-9 rounded-full object-cover  ">
+                                <img id="college-logo-profile" src="data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?>" alt="picture of college logo" class="w-9 h-9 rounded-full object-cover  ">
                                 <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">
                                     <span class="block font-bold"><?= $_SESSION['colCode'] ?></span>
                                     <span class="font-light"> <?= $fullname ?></span>

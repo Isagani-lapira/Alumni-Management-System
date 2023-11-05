@@ -81,8 +81,22 @@ class AlumniModel
     public function getFullAlumniDetailById(string $id)
     {
 
+
         //get the person ID of user
-        $query = 'SELECT person.*, studNo FROM person INNER JOIN `alumni` ON alumni.personID = person.personID where alumni.personID = ? ';
+        $query = 'SELECT person.fname, 
+        person.lname,
+        person.age,
+        person.bday,
+        person.gender,
+        person.contactNo,
+        person.address,
+        person.personal_email,
+        person.bulsu_email,
+        person.facebookUN,
+        person.instagramUN,
+        person.twitterUN,
+        person.linkedInUN,
+        , studNo FROM person INNER JOIN `alumni` ON alumni.personID = person.personID where alumni.personID = ? ';
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('s', $id);
         $stmt->execute();
@@ -94,12 +108,17 @@ class AlumniModel
         ) {
 
             $row =  $result->fetch_assoc();
-            // ! README ALWAYS USE base64_encode() when sending image to client. 10 Hours wasted because of this.
-            $row['profilepicture'] = base64_encode($row['profilepicture']);
+            // // ! README ALWAYS USE base64_encode() when sending image to client. 10 Hours wasted because of this.
+
+            // // return $row;
+
+            // $row['profilepicture'] = base64_encode($row['profilepicture']);
+
             return $row;
         }
 
-        return json_encode(array('response' => 'Unsuccessful', 'result' => []));
+        // return json_encode(array('response' => 'Unsuccessful', 'result' => []));
+        return [];
     }
 
 

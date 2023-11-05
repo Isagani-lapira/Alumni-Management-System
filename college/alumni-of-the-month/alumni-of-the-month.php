@@ -75,7 +75,7 @@
                     <div class="w-24 h-24 rounded-full">
 
                         <!-- stock photo -->
-                        <img id="card-avatar" src="" alt="alumni of the month profile picture">
+                        <img loading="lazy" id="card-avatar" src="" alt="alumni of the month profile picture">
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
             </div>
             <!-- edit buttons -->
             <div class="flex flex-wrap gap-4">
-                <label for="edit-aotm" data-id="" id="card-edit" class="edit-aotm-btn daisy-btn-primary daisy-btn">Edit</label>
+                <label for="edit-aotm" data-id="" data-aotm-id="" id="card-edit" class="edit-aotm-btn daisy-btn-primary daisy-btn">Edit</label>
                 <label for="delete-aotm" data-id="" id="card-delete" class="delete-aotm daisy-btn daisy-btn-outline daisy-btn-warning">Remove</label>
             </div>
         </div>
@@ -150,7 +150,7 @@
                         <span class="daisy-label-text daisy-label font-bold text-base">Choose a cover image to showcase</span>
                         <!-- Placeholder for Cover Image -->
                         <div class="w-full h-80 relative group rounded-sm">
-                            <img id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
+                            <img loading="lazy" id="cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
                             <!-- Cover Image Input -->
                             <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <label for="cover-image" class="daisy-label">
@@ -183,7 +183,7 @@
                         <p class="font-semibold">Alumni Detail</p>
                         <div class="flex flex-wrap items-center gap-4 ">
 
-                            <img class="rounded-full h-14 w-14 border border-accent" src="" id="detail-profile-img">
+                            <img loading="lazy" class="rounded-full h-14 w-14 border border-accent" src="" id="detail-profile-img">
                             <!-- <p id="detail-student-id"></p> -->
                             <div class="col-span-2 ">
                                 <p class="font-bold text-lg" id="detail-fullname"></p>
@@ -273,7 +273,7 @@
                         <!-- Placeholder for Cover Image -->
                         <span class="daisy-label-text">Choose a cover image to showcase</span>
                         <div class="w-full h-80 relative group rounded-sm">
-                            <img id="edit-cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
+                            <img loading="lazy" id="edit-cover-img-preview" class="w-full bg-gray-100 rounded-sm object-contain max-h-full h-full block" src="" alt="">
                             <!-- Cover Image Input -->
                             <div class="daisy-form-control w-full max-w-xs absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <label for="edit-cover-image" class="daisy-label">
@@ -308,7 +308,7 @@
                         <p class="font-semibold pb-4">Alumni Detail</p>
                         <div class="flex flex-wrap items-center gap-4  ">
 
-                            <img class="rounded-full h-14 w-14 border border-accent" src="" id="edit-detail-profile-img">
+                            <img loading="lazy" class="rounded-full h-14 w-14 border border-accent" src="" id="edit-detail-profile-img">
                             <!-- <p id="detail-student-id"></p> -->
                             <div class="col-span-2 ">
                                 <p class="font-bold text-lg" id="edit-detail-fullname"></p>
@@ -346,7 +346,7 @@
                     <div class="border space-y-4 p-4">
                         <h3 class="font-bold">TESTIMONIES:</h3>
 
-                        <div id="edit-testimonyFields" class="flex flex-row  gap-4">
+                        <div id="edit-testimonyFields" class="flex flex-col  gap-4">
 
 
                         </div>

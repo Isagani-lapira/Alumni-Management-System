@@ -47,10 +47,12 @@ if (isset($_POST['message']) && isset($_POST['recipient']) && isset($_POST['subj
         }
     } else {
 
+
         //get user's college based on email
         $recipient = $_POST['searchEmail'];
 
         $college = getUserCollege($recipient, $mysql_con); //user college
+
         if ($college != '') {
             $college = $college;
             sendEmail($subject, $message, $recipient, $selectedImages, $selectedFiles);

@@ -115,7 +115,7 @@ $(document).ready(function () {
     }
 
     $.ajax({
-      url: "../PHP_process/postDB.php",
+      url: "php/postDB.php",
       type: "POST",
       data: formData,
       processData: false,
@@ -156,7 +156,7 @@ $(document).ready(function () {
   function getPostAdmin(data, isTable) {
     $("#postTBody").empty();
     $.ajax({
-      url: "../PHP_process/postDB.php",
+      url: "php/postDB.php",
       method: "POST",
       data: data,
       processData: false,
@@ -431,7 +431,7 @@ $(document).ready(function () {
     formData.append("action", JSON.stringify(action));
 
     $.ajax({
-      url: "../PHP_process/commentData.php",
+      url: "./php/commentData.php",
       method: "POST",
       data: formData,
       processData: false,
@@ -491,7 +491,7 @@ $(document).ready(function () {
 
     //process the data
     $.ajax({
-      url: "../PHP_process/likesData.php",
+      url: "php/likesData.php",
       method: "POST",
       data: formData,
       contentType: false,
@@ -530,23 +530,18 @@ $(document).ready(function () {
   formDataAvailable.append("action", JSON.stringify(profileAction));
   formDataAvailable.append("status", "available");
 
-  //   TODO change later
-  displayToProfile(formDataAvailable, true);
-
   function displayToProfile(data, isAvailable) {
     data.append("offset", offsetProfile);
     //process retrieval
     $.ajax({
       method: "POST",
-      //   TODO change later
-      url: "./php/postDB.php",
+      url: "php/postDB.php",
       data: data,
       contentType: false,
       processData: false,
       success: (response) => {
-        const parsedData = JSON.parse(response);
-        if (response != "none" && Object.keys(parsedData).length !== 1) {
-          console.log(parsedData);
+        if (response != "none") {
+          const parsedData = JSON.parse(response);
           const length = parsedData.username.length;
           //get all the data that gather
           for (let i = 0; i < length; i++) {
@@ -577,10 +572,7 @@ $(document).ready(function () {
           }
 
           offsetProfile += length;
-        } else {
-          //   No data yet
-          $(".no-data-class").removeClass("hidden");
-        }
+        } else console.log("stopping point");
       },
       error: (error) => {
         console.log(error);
@@ -720,7 +712,7 @@ $(document).ready(function () {
         },
       });
     } else {
-      postWrapper.css("min-height", "155px");
+      postWrapper.css("min-height", "300px");
     }
 
     date = getFormattedDate(date);
@@ -851,7 +843,7 @@ $(document).ready(function () {
 
     //process the deletion
     $.ajax({
-      url: "../php/postDB.php",
+      url: "php/postDB.php",
       method: "POST",
       data: formdata,
       processData: false,
@@ -885,7 +877,7 @@ $(document).ready(function () {
 
     //process the adding of like
     $.ajax({
-      url: "../PHP_process/likesData.php",
+      url: "php/likesData.php",
       method: "POST",
       data: formData,
       processData: false,
@@ -911,7 +903,7 @@ $(document).ready(function () {
 
     //process the removal of like
     $.ajax({
-      url: "../PHP_process/likesData.php",
+      url: "php/likesData.php",
       method: "POST",
       data: formData,
       processData: false,
@@ -1034,8 +1026,8 @@ $(document).ready(function () {
 
   //show archieved post
   $("#archievedBtnProfile").on("click", function () {
-    $(this).addClass("invert-accent");
-    $("#availablePostBtn").removeClass("invert-accent");
+    $(this).addClass("activeBtn");
+    $("#availablePostBtn").removeClass("activeBtn");
     restartPost(); //restart everything
 
     actionTracker = formDataArchived;
@@ -1044,8 +1036,8 @@ $(document).ready(function () {
   });
 
   $("#availablePostBtn").on("click", function () {
-    $(this).addClass("invert-accent");
-    $("#archievedBtnProfile").removeClass("invert-accent");
+    $(this).addClass("activeBtn");
+    $("#archievedBtnProfile").removeClass("activeBtn");
     restartPost(); //restart everything
 
     actionTracker = formDataAvailable;
@@ -1074,7 +1066,7 @@ $(document).ready(function () {
     formData.append("offset", offsetCommunity);
     //process retrieval
     $.ajax({
-      url: "../PHP_process/postDB.php",
+      url: "php/postDB.php",
       method: "POST",
       data: formData,
       processData: false,
@@ -1310,7 +1302,7 @@ $(document).ready(function () {
 
           //process the deletion
           $.ajax({
-            url: "../PHP_process/postDB.php",
+            url: "php/postDB.php",
             method: "POST",
             data: formdata,
             processData: false,
@@ -1418,9 +1410,16 @@ $(document).ready(function () {
     }
   });
 
-  let currentReportChart = null;
+  // FIXME get some easier way than this
+  offsetCommunity = 0;
+  $("#communityContainer").empty();
+  getCommunityPost();
+  getReport();
+
   //get report graph
   function getReport() {
+    let currentReportChart = null;
+
     if (currentReportChart) {
       currentReportChart.destroy(); // Destroy the previous chart instance
     }
@@ -1431,7 +1430,7 @@ $(document).ready(function () {
     formData.append("action", JSON.stringify(action));
 
     $.ajax({
-      url: "../PHP_process/postDB.php",
+      url: "php/postDB.php",
       method: "POST",
       data: formData,
       processData: false,
@@ -1526,7 +1525,7 @@ $(document).ready(function () {
     formData.append("report", reportCatFilter);
 
     $.ajax({
-      url: "../PHP_process/postDB.php",
+      url: "php/postDB.php",
       method: "POST",
       data: formData,
       processData: false,
@@ -1537,6 +1536,7 @@ $(document).ready(function () {
           if (data.response == "Success") {
             let length = data.colCode.length;
             console.log(length);
+            console.log(data);
             for (let i = 0; i < length; i++) {
               //data retrieved
               const postID = data.postID[i];

@@ -1,4 +1,7 @@
  <!-- Footer -->
+
+
+
  <footer class="bg-accent text-white px-32">
      <div class="flex flex-row pt-8 pb-32 space-x-12">
          <div>

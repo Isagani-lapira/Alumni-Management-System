@@ -1,5 +1,5 @@
 // constant variables
-const successLogin = "/college/index.php";
+const successLogin = "./index.php";
 const SIGN_IN_URL = "./php/userData.php";
 
 function toggleInvalidClass(element) {

@@ -1,23 +1,23 @@
   <?php
-  $title = 'Home';
+  $title = 'BulSU Connect';
   require("./partials/head.php") ?>
 
   <!-- Heading  -->
 
-  <div class="text-white bg-black heading-container px-32 flex items-center justify-end bg-left-top bg-no-repeat bg-cover h-[35rem]">
-    <div class="w-96 heading-text text-right space-y-2">
-      <h2 class="text-5xl italic font-bold">"Let's be connected"</h2>
-      <p class="text-2xl max-w-prose">
-        Nobody is more bothered about an institution more than its alumni
-      </p>
-      <!-- CTA -->
-      <button class="btn-primary bg-accent px-8 py-3 rounded-lg text-white font-bold">
-        Sign In
-      </button>
+  <section id="home" class="daisy-hero min-h-screen bg-fixed" style="background-image: url('../assets/heading.png');">
+    <div class="daisy-hero-overlay bg-opacity-60"></div>
+    <div class="daisy-hero-content text-center text-neutral-content">
+      <div class="max-w-lg">
+        <h1 class="mb-5 text-5xl font-bold">Empowering Connections: Uniting Graduates, Building Futures</h1>
+        <p class="mb-5 text-xl">Join the Alumni Network today and be a part of something extraordinary.</p>
+        <a class="daisy-btn daisy-btn-primary" href="./student-alumni/login.php">Get Started</a>
+      </div>
     </div>
-  </div>
+  </section>
+
+
   <!-- Program and Events -->
-  <section class="container mx-auto py-8">
+  <section id="events" class="container mx-auto py-8 min-h-screen">
     <h2 class="text-3xl font-neutral-800 font-bold">Programs and Events</h2>
     <!-- TODO configure for mobile design -->
     <div class="px-4 flex flex-col md:flex-row gap-4 p-8 justify-around">
@@ -70,7 +70,7 @@
   </section>
 
   <!-- Community Section -->
-  <section class="container mx-auto mb-12">
+  <section id="community" class="container mx-auto mb-12">
     <div class="flex flex-row justify-center">
       <img class="w-[30rem]" src="./assets/community.png" alt="" />
       <div class="space-x-20 space-y-8 text-right">
@@ -89,34 +89,32 @@
   </section>
 
   <!-- Donation Section -->
-  <div class="bg-grayish py-20">
-    <section class="container mx-auto">
-      <div class="flex flex-row justify-around">
-        <div>
-          <img class="w-[30rem]" src="./assets/donation.png" alt="" />
-        </div>
-        <div class="text-center space-y-12">
-          <h2 class="text-3xl font-bold text-white">Donations</h2>
-          <p class="max-w-prose text-slate-300">
-            Help us to reach more people not only our university student but
-            also the one who's looking for help. Give a helping hand to
-            provide better community, and better nation.You can give donation
-            for your college to help them provide a better feature event for
-            there student and also for other alumni. You can also donate for
-            the university .
-          </p>
-          <p class="max-w-prose text-slate-300">
-            You can give donation for your college to help them provide a
-            better feature event for there student and also for other alumni.
-            You can also donate for the university .
-          </p>
-        </div>
+  <div id="donation" class="bg-grayish py-20 container mx-auto">
+    <div class="flex flex-row justify-around">
+      <div>
+        <img class="w-[30rem]" src="./assets/donation.png" alt="" />
       </div>
-    </section>
+      <div class="text-center space-y-12">
+        <h2 class="text-3xl font-bold text-white">Donations</h2>
+        <p class="max-w-prose text-slate-300">
+          Help us to reach more people not only our university student but
+          also the one who's looking for help. Give a helping hand to
+          provide better community, and better nation.You can give donation
+          for your college to help them provide a better feature event for
+          there student and also for other alumni. You can also donate for
+          the university .
+        </p>
+        <p class="max-w-prose text-slate-300">
+          You can give donation for your college to help them provide a
+          better feature event for there student and also for other alumni.
+          You can also donate for the university .
+        </p>
+      </div>
+    </div>
   </div>
 
   <!-- Calendar Section -->
-  <section class="container mx-auto text-center space-y-8 py-8">
+  <section id="calendar" class="container mx-auto text-center space-y-8 py-8">
     <div class="text my-12">
       <h2 class="text-3xl font-light text-slate-500 text-center">
         Bulacan State University Alumni

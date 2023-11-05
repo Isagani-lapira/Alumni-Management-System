@@ -68,8 +68,8 @@
     <table id="emailTable" class="table-auto w-full text-xs font-normal text-gray-800 center-shadow">
         <thead class="bg-accent text-white">
             <tr>
-                <th class="text-start rounded-tl-md">EMAIL ADDRESS</th>
-                <th class="text-start">COLLEGE</th>
+                <th class="text-start rounded-tl-md">SUBJECT</th>
+                <th class="text-start rounded-tl-md">RECIPIENTS</th>
                 <th class="text-start">DATE</th>
                 <th class="text-start rounded-tr-md">VIEW</th>
             </tr>
@@ -100,15 +100,14 @@
                         <label for="groupEM">Group</label>
 
                         <input type="radio" id="individEM" name="recipient" value="individualEmail">
-                        <label for="individEM">individual</label>
+                        <label for="individEM">Individual</label>
                     </div>
 
 
                     <div id="groupEmail" class="flex gap-1">
 
-                        <div class=" border border-gray-400 rounded flex px-2 py-2 selectColWrapper">
-                            <select name="selectColToEmail" id="selectColToEmail" class="w-full outline-none">
-                                <option value="" disabled selected>College</option>
+                        <div class="selectColWrapper">
+                            <select name="selectColToEmail" id="selectColToEmail" class=" form-select w-full">
                                 <?php
                                 require_once '../php/connection.php';
                                 $query = "SELECT * FROM `college`";
@@ -120,7 +119,7 @@
                                         $colCode = $data['colCode'];
                                         $colName = $data['colname'];
 
-                                        echo '<option value="' . $colCode . '">' . $colName . '</option>';
+                                        echo '<option selected value="' . $colCode . '">' . $colName . '</option>';
                                     }
                                 } else echo '<option>No college available</option>';
                                 ?>
@@ -156,7 +155,7 @@
 
                     <!-- body part -->
                     <p class="font-semibold text-sm mt-2">Description</p>
-                    <div class="modal-descript relative w-full h-max border border-gray-400 rounded p-3">
+                    <div class="modal-descript relative w-full h-max  border-gray-400 rounded">
                         <div class="flex flex-col h-full">
                             <textarea id="TxtAreaEmail" class="rar outline-none w-full h-48 p-1 border-b border-gray-300" type="text" placeholder="Say something here..."></textarea>
                         </div>
@@ -169,7 +168,10 @@
                         <i id="galleryIcon" class="fa-solid fa-image"></i>
                         <i id="fileIcon" class="fa-solid fa-paperclip"></i>
                     </label>
-                    <input id="imageSelection" type="file" class="hidden">
+                    <!-- accept jpeg or jpg for imageSelection -->
+
+                    <input id="imageSelection" type="file" class="hidden" accept="image/jpeg,image/jpg">
+
                     <input id="fileSelection" type="file" class="hidden" accept="application/pdf">
                 </div>
 

@@ -172,6 +172,10 @@ $(document).ready(function () {
         // },
         // },
       ],
+      // searchPanes: {
+      //   viewTotal: true,
+      // },
+      // dom: "Plfrtip",
     });
   }
 
@@ -201,6 +205,20 @@ $(document).ready(function () {
         //             `;
         //   },
         // },
+      ],
+      searchPanes: {
+        viewTotal: true,
+        layout: "columns-2",
+      },
+      dom: "Plfrtip",
+      columnDefs: [
+        {
+          searchPanes: {
+            show: true,
+            layout: "columns-3",
+          },
+          targets: [3],
+        },
       ],
     });
   }
@@ -234,6 +252,19 @@ $(document).ready(function () {
         //             `;
         //   },
         // },
+      ],
+      searchPanes: {
+        viewTotal: true,
+        layout: "columns-3",
+      },
+      dom: "Plfrtip",
+      columnDefs: [
+        {
+          searchPanes: {
+            show: true,
+          },
+          targets: [3, 4],
+        },
       ],
     });
   }

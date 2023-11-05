@@ -83,7 +83,7 @@ session_start();
                                 <i class="far fa-eye -ml-8" id="togglePassword"></i>
                                 <span class=" input-msg">Hello</span>
                             </div>
-                            <a class="italic text-accent text-sm text-end py-2 hover:underline cursor-pointer">Forgot password?</a>
+                            <a class="italic text-accent text-sm text-end py-2 hover:underline cursor-pointer" href="/password-recovery/">Forgot password?</a>
                         </div>
                         <button type="submit" class="rounded-md bg-accent text-white py-3 mt-3 hover:bg-darkAccent add-focus ">
                             Sign in
