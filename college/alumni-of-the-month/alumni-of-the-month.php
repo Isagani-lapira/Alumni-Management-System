@@ -346,7 +346,7 @@
                     <div class="border space-y-4 p-4">
                         <h3 class="font-bold">TESTIMONIES:</h3>
 
-                        <div id="edit-testimonyFields" class="flex flex-row  gap-4">
+                        <div id="edit-testimonyFields" class="flex flex-col  gap-4">
 
 
                         </div>

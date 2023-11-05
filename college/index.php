@@ -167,6 +167,8 @@ if (
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
 
+    <!-- iconify icon -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
     <!--  description plugin -->
     <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
@@ -266,7 +268,7 @@ if (
                         <li>
                             <a data-link="profile" href="#profile" class="  flex justify-left flex-nowrap rounded items-center p-2 group-[.is-collapsed]:p-0">
                                 <!-- get the session image  -->
-                                <img src="data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?>" alt="picture of college logo" class="w-9 h-9 rounded-full object-cover  ">
+                                <img id="college-logo-profile" src="data:image/jpeg;base64,<?= $_SESSION['colLogo'] ?>" alt="picture of college logo" class="w-9 h-9 rounded-full object-cover  ">
                                 <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">
                                     <span class="block font-bold"><?= $_SESSION['colCode'] ?></span>
                                     <span class="font-light"> <?= $fullname ?></span>
