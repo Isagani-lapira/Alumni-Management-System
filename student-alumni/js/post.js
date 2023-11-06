@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     var retrievalDate = getCurrentDate(); //to be change getCurrentDate()
     var noOfDaySubtract = 1;
-    var maxRetrieve = 10;
+    var maxRetrieve = 5;
     let dataRetrieved = 0;
     var stoppingPostRetrieval = 0;
     let postStatus = "normal";
@@ -45,7 +45,7 @@ $(document).ready(function () {
             contentType: false,
             success: (response) => {
                 //no data available for the day
-                if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 150) {
+                if (response == "none" && maxRetrieve != 0 && stoppingPostRetrieval != 14) {
                     $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer')
                     retrievalDate = getPreviousDate(noOfDaySubtract);
                     getPost()
@@ -83,7 +83,7 @@ $(document).ready(function () {
                             retrievalDate = getPreviousDate(noOfDaySubtract);
                             stoppingPostRetrieval = 0;
                             getPost()
-                        } else maxRetrieve = 10;
+                        } else maxRetrieve = 5;
                     }
                     else {
                         $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer')
@@ -132,7 +132,6 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
-                console.log(response)
                 $('.loadingProfile').parent().addClass('hidden');
                 const parsedResponse = JSON.parse(response); //parsed the json data
                 const length = parsedResponse.username.length;
@@ -153,7 +152,6 @@ $(document).ready(function () {
                     const position = 1 //display on the top
                     displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isLiked, position); //display the post on the container
                 }
-                // displayPostPrompt('Post successfully added') //display successfully added
             },
             error: error => { console.log(error) }
         })
@@ -486,7 +484,7 @@ $(document).ready(function () {
         const threshold = 50;
 
         //once the bottom ends, it will reach another sets of data (post)
-        if (scrollOffset + containerHeight + threshold >= contentHeight && dataRetrieved === 10) {
+        if (scrollOffset + containerHeight + threshold >= contentHeight && dataRetrieved === 5) {
             // reload the loading 
             $('#loadingDataFeed').removeClass('hidden').appendTo('#feedContainer');
             if (postStatus === 'normal') getPost();

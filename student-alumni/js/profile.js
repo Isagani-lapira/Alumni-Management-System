@@ -487,7 +487,7 @@ $(document).ready(function () {
     $('#loadingData').addClass('hidden')
 
 
-    if (scrollPosition + containerHeight >= contentHeight - scrollThreshold && tempLength === 10) {
+    if (scrollPosition + containerHeight >= contentHeight - scrollThreshold && tempLength === 5) {
       $('#loadingData').removeClass('hidden')
         .appendTo('#feedContainer')
       getPost(actionTracker, typeTracker)
