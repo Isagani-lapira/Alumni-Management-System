@@ -271,12 +271,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($result === TRUE) {
                     $action = "updated";
                     $details = "updated a new Alumni of the Month";
+
+                    $post = new PostData();;
+
+                    // get the post_id of the post
+                    $query = "SELECT `post_id` FROM `alumni_of_the_month` WHERE `AOMID` = '$aotmID'";
+                    $result = mysqli_query($mysql_con, $query);
+                    $row = mysqli_fetch_assoc($result);
+                    $postID = $row['post_id'];
+                    // if postID is empty
+                    if ($postID !== '') {
+                        // update the post caption
+
+
+                        $description = $_POST['description'];
+                        $query = "UPDATE `post` SET `caption`= ? WHERE `postID` = ?";
+                        $stmt = mysqli_prepare($mysql_con, $query);
+                        mysqli_stmt_bind_param($stmt, 'ss', $description, $postID);
+
+                        ob_start();
+                        $removeEcho = $post->postCaptionUpdate($postID, $description, $mysql_con);
+                        ob_end_clean();
+                    }
+
                     setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
+
                     echo json_encode(
                         array(
                             'response' => 'Successful',
                             'message' => 'Alumni updated successfully',
-                            'status' => true
+                            'status' => true,
+
                         )
                     );
                 } else {
@@ -419,6 +444,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $action = "deleted";
                 $details = "Deleted a record of Alumni of the Month";
                 setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
+                // updatePostStatus($postID, $status, $con, $colAdmin = false)
                 echo json_encode(
                     array(
                         'response' => 'Successful',
@@ -498,8 +524,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // die();
 
         try {
+
+            $post = new PostData();
+            $random = rand(0, 4000);
+            $postID = uniqid() . '-' . $random;
+
+
             // set new alumni
-            $result = $alumni->setNewAlumniOfTheMonth($id, $alumniInformation,);
+            $result = $alumni->setNewAlumniOfTheMonth($id, $alumniInformation, $postID);
             // get the id from the result
             $aotmID = $result['id'];
             // post it to the community
@@ -512,13 +544,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['username'],
                 $postID,
                 $colCode,
-                $mysql_con
+                $mysql_con,
+                // $description
             );
 
             // add new notification
             $type_notif = 'aom';
 
-
+            // set new notif to the reciepient
             setNewNotification($mysql_con, $postID, $aom_username, $type_notif);
 
 

@@ -44,33 +44,60 @@ class AlumniOfTheMonth
         return $count;
     }
 
-    public function setNewAlumniOfTheMonth(string $studentId, array $details): array
+    public function setNewAlumniOfTheMonth(string $studentId, array $details, string $post_id = ''): array
     {
         // Initialize the statement
         $stmt = $this->conn->stmt_init();
 
-        $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo,personID, quote, cover_img ,colCode, date_assigned,description )
-        VALUES (?,?,?,?,?,CURDATE(),?);');
+        // check if there is a post_id
+        if ($post_id !== '') {
+            $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo,personID, quote, cover_img ,colCode, date_assigned,description ,post_id)
+            VALUES (?,?,?,?,?,CURDATE(),?,?);');
 
-        // *  Binds the variable to the '?', prevents sql injection
-        try {
-            $stmt->bind_param('ssssss',  $studentId, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode, $details['description']);
-            // execute the query
-            if ($stmt->execute()) {
-                $lastInsertedID = mysqli_insert_id($this->conn);
+            // *  Binds the variable to the '?', prevents sql injection
+            try {
+                $stmt->bind_param('sssssss',  $studentId, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode, $details['description'], $post_id);
+                // execute the query
+                if ($stmt->execute()) {
+                    $lastInsertedID = mysqli_insert_id($this->conn);
 
-                return [
-                    'status' => true,
-                    'id' => $lastInsertedID
-                ];
-            } else {
-                return [
-                    'status' => false,
-                    'id' => ''
-                ];
+                    return [
+                        'status' => true,
+                        'id' => $lastInsertedID
+                    ];
+                } else {
+                    return [
+                        'status' => false,
+                        'id' => ''
+                    ];
+                }
+            } catch (\Throwable $th) {
+                throw $th;
             }
-        } catch (\Throwable $th) {
-            throw $th;
+        } else {
+            $stmt = $this->conn->prepare('INSERT INTO alumni_of_the_month (studentNo,personID, quote, cover_img ,colCode, date_assigned,description )
+            VALUES (?,?,?,?,?,CURDATE(),?);');
+
+            // *  Binds the variable to the '?', prevents sql injection
+            try {
+                $stmt->bind_param('ssssss',  $studentId, $details['personID'], $details['quote'], $details['cover-img'], $this->colCode, $details['description']);
+                // execute the query
+                if ($stmt->execute()) {
+                    $lastInsertedID = mysqli_insert_id($this->conn);
+
+                    return [
+                        'status' => true,
+                        'id' => $lastInsertedID
+                    ];
+                } else {
+                    return [
+                        'status' => false,
+                        'id' => ''
+                    ];
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
         }
     }
     public function deleteAlumniOfTheMonth(string $aotmID): bool

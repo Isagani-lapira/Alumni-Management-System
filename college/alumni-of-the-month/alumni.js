@@ -682,7 +682,7 @@ $(document).ready(function () {
 
           // remove the form data
           $("#add-aotm-form")[0].reset();
-          $("#cover-image-preview").attr("src", "");
+          $("#cover-img-preview").attr("src", "");
           // $("#profile-image-preview").attr("src", "");
           $("#add-alumni-modal").prop("checked", false);
           // empty and reload the data table

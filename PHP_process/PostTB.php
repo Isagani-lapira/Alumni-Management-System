@@ -616,9 +616,12 @@ class PostData
 
         $date = date('y/m/d');
         $year = date('Y');
+        // this month in words
+        $month = date('F');
+
         // check if caption is set
         if ($caption == '') {
-            $caption = 'We extend our congratulations to the recently assigned Alumni of the Month for ' . $year . ' 
+            $caption = 'We extend our congratulations to the recently assigned Alumni of the Month for the month of ' . $month  . ' ' . $year . '. 
             We are grateful for your hard work and dedication. Keep up the good work';
         }
 
