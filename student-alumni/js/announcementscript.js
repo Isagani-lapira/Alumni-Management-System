@@ -1,4 +1,10 @@
 $(document).ready(function () {
+
+    const PWD = window.location.href;
+    const splitPath = PWD.split("student-alumni");
+    const rootPath = splitPath[0];
+    const HEADLINE_IMG = rootPath + "media/search.php?media=headline_img&announcementID=";
+
     const imgFormat = "data:image/jpeg;base64,"
     var swiper = new Swiper(".announcementSwiper", {
         slidesPerView: 1,
@@ -59,8 +65,9 @@ $(document).ready(function () {
                         const Descrip = response.Descrip[i];
                         const fullname = response.fullname[i];
                         const date_posted = response.date_posted[i];
-                        const headline_img = response.headline_img[i];
 
+
+                        let headline_img = HEADLINE_IMG + announcementID;
                         displayAnnouncement(announcementID, headline_img, title, date_posted, fullname, Descrip);
                     }
                 }
@@ -78,7 +85,7 @@ $(document).ready(function () {
 
         // set up the markup for slides
         const swiper_slide = $('<div>').addClass('swiper-slide w-full h-auto')
-        const imgSrc = imgFormat + headline_img
+        const imgSrc = headline_img
         const img = $('<img>').attr('src', imgSrc)
             .addClass('rounded-md object-contain bg-gray-300 max-h-80')
 

@@ -168,6 +168,38 @@ try {
             echo $row['cover_img'];
             break;
 
+        case 'headline_img':
+            if (!isset($_GET['announcementID'])) {
+                // send a response to the client
+                http_response_code(400);
+                exit();
+            }
+            $announcementID = $_GET['announcementID'];
+
+            $query = 'SELECT `headline_img` FROM `university_announcement` WHERE `announcementID` = ?';
+            $stmt = $mysql_con->prepare($query);
+            $stmt->bind_param('s', $announcementID);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            if (
+                $result->num_rows === 0
+            ) {
+                http_response_code(404);
+                exit();
+            }
+
+            $row =  $result->fetch_assoc();
+            // check if there is a cover photo
+            if ($row['headline_img'] === null) {
+                // send a response to the client
+                http_response_code(404);
+                exit();
+            }
+
+            header("Content-Type: image/jpeg");
+            echo $row['headline_img'];
+            break;
         default:
             // send a response to the client
             http_response_code(400);

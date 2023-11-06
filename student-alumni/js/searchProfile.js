@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     const pwd = window.location.href;
-    // split the pwd when there is the word college
     const splitPath = pwd.split("student-alumni");
     // get the first element of the split path
     const rootPath = splitPath[0];

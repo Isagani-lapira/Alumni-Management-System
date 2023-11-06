@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    const PWD = window.location.href;
+    const splitPath = PWD.split("admin");
+    const rootPath = splitPath[0];
+    const HEADLINE_IMG = rootPath + "media/search.php?media=headline_img&announcementID=";
+
     const imgFormat = "data:image/jpeg;base64,"
     $('#newsAndUpdate').on('click', function () {
         // restart everything first
@@ -52,9 +57,9 @@ $(document).ready(function () {
                             const tempDescription = data.Descrip[i].substring(0, 50);
                             const description = data.Descrip[i];
                             const date_posted = getFormattedDate(data.date_posted[i]); //format the date as well
-                            const headline_img = response.headline_img[i];
                             const fullname = response.fullname[i];
 
+                            const headline_img = HEADLINE_IMG + announcementID;
                             const escapedDescription = encodeURIComponent(description);
                             const row = [
                                 title,
@@ -94,7 +99,7 @@ $(document).ready(function () {
         const title = $(this).data('title');
         const description = $(this).data('description');
         const date_posted = $(this).data('date_posted');
-        const headline_img = imgFormat + $(this).data('headline_img');
+        const headline_img = $(this).data('headline_img');
         const fullname = $(this).data('fullname');
 
         displayAnnouncementDetails(announcementID, headline_img, date_posted, fullname, title, description)
