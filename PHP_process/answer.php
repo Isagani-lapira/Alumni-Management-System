@@ -36,6 +36,8 @@ if (isset($_POST['action'])) {
         countAnswer($mysql_con);
     } else if ($action == 'countDonePerCollege') {
         countCollegeParticipation($mysql_con);
+    } else if ($action == 'countDonePerCourse') {
+        countCollegeCourseParticipation($mysql_con, $_POST['colCode']);
     }
 }
 
@@ -230,6 +232,48 @@ function countAnswer($con)
         "waiting" => $waiting,
     );
     echo json_encode($data);
+}
+function countCollegeCourseParticipation($con, $colCode)
+{
+    $tracerID = retrievedDeployment($con); //latest graduate tracer form deployment
+    $queryCollege = "SELECT `colCode` FROM `college`"; //get all the colleges in the system
+    $stmt = mysqli_prepare($con, $queryCollege);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $collegesCount = array();
+
+    if ($result) {
+        while ($data = $result->fetch_assoc()) {
+            $colCode = $data['colCode']; //retrieve every college in the database
+
+            // count the alumni of every colleges that finish answering latest tracer
+            $queryCount = "SELECT COUNT(a.colCode)
+            FROM alumni a
+            JOIN (
+                SELECT personID
+                FROM answer
+                WHERE tracer_deployID = ? AND status = 'done'
+            ) b ON a.personID = b.personID
+            WHERE a.colCode = ? ";
+
+            $stmtCount = mysqli_prepare($con, $queryCount);
+            $stmtCount->bind_param('ss', $tracerID, $colCode);
+            $stmtCount->execute();
+            $stmtCount->bind_result($count);
+            $stmtCount->fetch();
+
+            $participant = array(
+                "colCode" => $colCode,
+                "alumniCountFinished" => $count
+            );
+
+            $collegesCount[] = $participant;
+            $stmtCount->close();
+        }
+        $result->close();
+    }
+
+    echo json_encode($collegesCount);
 }
 
 

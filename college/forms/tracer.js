@@ -1163,7 +1163,7 @@ $(document).ready(function () {
         myChart.update();
       }
 
-      const action = "countDonePerCollege";
+      const action = "countDonePerCourse";
       const formData = new FormData();
       formData.append("action", action);
 
@@ -1199,7 +1199,10 @@ $(document).ready(function () {
     function retrieveCompletionData() {
       const action = "completionStatus";
       const formData = new FormData();
-      formData.append("action", action);
+      // formData.append("action", action);
+      // get the colcode
+
+      // formData.append("colCode", $("#colCode-hidden").val());
 
       $.ajax({
         url: ANSWER_LINK,

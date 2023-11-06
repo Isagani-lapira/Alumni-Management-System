@@ -1,4 +1,6 @@
 <section class=" mx-auto   p-5 lg:mx-8 overflow-auto">
+    <input type="hidden" id="colCode-hidden" name="colCode" value="<?= $_SESSION['colCode'] ?>">
+
     <h1 class="text-xl font-extrabold">Alumni Tracer Form</h1>
     <p class="text-grayish">See the relevant information that are gathered</p>
 
