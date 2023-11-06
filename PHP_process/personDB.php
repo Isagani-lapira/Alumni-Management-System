@@ -129,7 +129,7 @@ class personDB
 
     public function searchPerson($personName, $con)
     {
-        $maxLimit = 10;
+        $maxLimit = 5;
         $query = "SELECT
         p.`personID`,
         CONCAT(p.`fname`, ' ', p.`lname`) AS 'Fullname',
@@ -150,7 +150,6 @@ class personDB
         $response = "Unsuccess";
         $personID = array();
         $fullname = array();
-        $profilePic = array();
         $status = array();
 
         if ($stmt) {
@@ -165,14 +164,12 @@ class personDB
                 $personID[] = $row['personID'];
                 $fullname[] = $row['Fullname'];
                 $status[] = $row['Status'];
-                $profilePic[] = base64_encode($row['profilepicture']);
             }
         }
 
         $data = array(
             "response" => $response,
             "personID" => $personID,
-            "profilePic" => $profilePic,
             "fullname" => $fullname,
             "status" => $status,
         );

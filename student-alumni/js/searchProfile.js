@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    const pwd = window.location.href;
+    // split the pwd when there is the word college
+    const splitPath = pwd.split("student-alumni");
+    // get the first element of the split path
+    const rootPath = splitPath[0];
+    const PROFILE_PICTURE_URL =
+        rootPath + "media/search.php?media=profile_pic&personID=";
+
     const imgFormat = "data:image/jpeg;base64,"
     //search suggestion
     $('#searchUser').on('input', function () {
@@ -35,10 +43,22 @@ $(document).ready(function () {
                         const personID = response.personID[i];
                         const fullname = response.fullname[i];
                         const status = response.status[i];
-                        const profilePic = response.profilePic[i];
+                        let profilePic = PROFILE_PICTURE_URL + personID;
 
-                        displaySuggestedName(personID, fullname, profilePic, status);
+                        const image = new Image();
+                        image.src = profilePic;
+
+                        image.onload = function () {
+                            // Image loaded successfully
+                            displaySuggestedName(personID, fullname, profilePic, status);
+                        };
+
+                        image.onerror = function () {
+                            displaySuggestedName(personID, fullname, '', status); //no image has set
+                        };
+
                     }
+
                 }
             },
             error: error => { console.log(error) }
@@ -57,7 +77,7 @@ $(document).ready(function () {
             })
 
         const roundedColor = (status == "Alumni") ? 'border-accent' : 'border-blue-400'
-        const imgSrc = (profilePic == "") ? "../assets/icons/person.png" : imgFormat + profilePic
+        const imgSrc = (profilePic == "") ? "../assets/icons/person.png" : profilePic
         const imgElement = $('<img>')
             .addClass('rounded-full h-10 w-10 border ' + roundedColor)
             .attr('src', imgSrc);
