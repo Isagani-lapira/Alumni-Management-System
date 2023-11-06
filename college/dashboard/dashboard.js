@@ -142,6 +142,9 @@ $(document).ready(() => {
               }
             }
 
+            labels.reverse();
+            dataCount.reverse();
+
             // update the graph
             objResponse.data.labels = labels;
             objResponse.data.datasets[0].data = dataCount;

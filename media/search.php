@@ -62,6 +62,44 @@ try {
             }
 
             break;
+        case 'post_pic':
+            // check if personID is set
+            if (!isset($_GET['postID'])) {
+                // send a response to the client
+                http_response_code(400);
+                exit();
+            }
+
+
+            // get the personID
+            $postID = $_GET['postID'];
+
+            // get the profile picture of the user
+            $query = 'SELECT imageID FROM post_images WHERE postID = ?';
+            $stmt = $mysql_con->prepare($query);
+            $stmt->bind_param('s', $personID);
+            $stmt->execute();
+
+
+            $result = $stmt->get_result();
+            if (
+                $result->num_rows
+            ) {
+
+                $row =  $result->fetch_assoc();
+                var_dump($row);
+                die();
+
+                header("Content-Type: image/jpeg");
+
+                echo $row['imageID'];
+            } else {
+                // send a response to the client
+                http_response_code(404);
+                exit();
+            }
+
+            break;
         case 'cover_photo':
             // check if personID is set
             if (!isset($_GET['personID'])) {
