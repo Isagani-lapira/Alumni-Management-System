@@ -9,6 +9,7 @@ $(document).ready(function () {
     "./tracer-record/apiTracer.php?action=get_all_answered";
   const GET_LATEST_DEPLOYMENT_URL =
     "./tracer-record/apiTracer.php?action=get_latest_deployment";
+  const DOWNLOAD_URL = "../../PHP_process/spreadsheet.php?tracerDeployID=";
 
   // Binds the section link in order to reload the list whenever the section is clicked
   $('a[data-link="tracer-record"]').on("click", function () {
@@ -56,6 +57,47 @@ $(document).ready(function () {
   }
 
   function setHandlers() {
+    // set handler for print button
+    $("#print-btn").on("click", function () {
+      // get the value of the select
+      const id = $("#select-deployment-filter").val();
+      const spreadsheetUrl = DOWNLOAD_URL + id; //URL for spreadsheet with the selected form
+      window.location.href = spreadsheetUrl; // Redirect the user to the generated spreadsheet URL
+    });
+
+    // set onchange handler on the select select-deployment-filter
+    $("#select-deployment-filter").on("change", async function () {
+      // get the value
+      const value = $(this).val();
+      console.log(value);
+      // check if the value is not empty
+      if (value !== "") {
+        // get the table
+        const table = $("#tracer-table").DataTable();
+
+        table.clear().draw();
+
+        // get the data
+        const res = await getJSONFromURL(
+          GET_ALL_ANSWERED_URL + `&deploymentID=${value}`
+        );
+
+        // check if there is a response
+        if (res.success) {
+          // populate the table
+          table.rows.add(res.data);
+          table.draw();
+        } else {
+          // show error
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        }
+      }
+    });
+
     // set handler on the view-person-btn in the table
     $("#tracer-table").on("click", "label", async function () {
       // query the details of the person
@@ -124,7 +166,7 @@ $(document).ready(function () {
           render: function (data, type, row) {
             // Define the buttons for the Actions column
             return `
-                          <label for="view-person-modal" class="view-person-btn daisy-btn daisy-btn-sm daisy-btn-info daisy-btn-outline " data-deploy-id=${row.tracer_deployID} data-id="${row.personID}">View Details</label>
+                          <label for="view-person-modal" class="view-person-btn daisy-btn daisy-btn-sm daisy-btn-info daisy-btn-outline " data-deploy-id=${row.tracer_deployID} data-id="${row.personID}">View</label>
                       `;
           },
         },

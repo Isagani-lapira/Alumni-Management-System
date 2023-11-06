@@ -7,7 +7,6 @@ require_once SITE_ROOT . "/PHP_process/TracerForm.php";
 $tracer = new TracerForm($mysql_con);
 $deployments = $tracer->get_deployments();
 
-var_dump($deployments[0]);
 
 
 ?>
@@ -19,18 +18,26 @@ var_dump($deployments[0]);
     <h1 class="text-xl font-extrabold">Alumni Tracer Record</h1>
     <p class="text-grayish">See the records of the Alumni </p>
 
-    <div class="flex flex-wrap gap-4">
+    <div class="flex flex-wrap gap-4 items-end ">
 
         <div class="form-container">
             <label class="block font-bold" for="select-deployment-filter">Deployment Date: </label>
             <select name="type" id="select-deployment-filter" class=" form-select rounded ">
+                <option value="" selected disabled>Latest</option>
 
                 <?php foreach ($deployments as $key => $value) : ?>
                     <option value="<?= $value['tracer_deployID'] ?>"><?= $value['year_created'] ?></option>
                 <?php endforeach; ?>
 
 
+
             </select>
+        </div>
+
+        <!-- add export button -->
+        <div class="form-container h-full">
+            <button class=" daisy-btn btn-primary " id="print-btn">
+                <i class="fa-solid fa-print"></i> PRINT</button>
         </div>
 
 
@@ -49,7 +56,7 @@ var_dump($deployments[0]);
                         <th>BATCH</th>
                         <th>COURSE</th>
                         <th>STATUS</th>
-                        <th>VIEW RECORD</th>
+                        <th>RECORD DETAILS</th>
                         <!-- <th>DETAILS</th> -->
                     </tr>
                 </thead>
