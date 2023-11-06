@@ -1163,7 +1163,7 @@ $(document).ready(function () {
         myChart.update();
       }
 
-      const action = "countDonePerCourse";
+      const action = "countDonePerCollege";
       const formData = new FormData();
       formData.append("action", action);
 
