@@ -201,12 +201,12 @@
                         <input id="studentId" name="studentNo" class="hidden" type="hidden">
                         <input id="personId" name="personID" class="hidden" type="hidden">
                     </div>
-
+                    <!-- 
                     <div>
 
                         <p class="font-bold block" for="">Description:</p>
                         <textarea name="description" class="form-textarea block rounded resize max-w-full" id="description"></textarea>
-                    </div>
+                    </div> -->
 
 
                     <div class="border space-y-4 p-4">
@@ -331,11 +331,11 @@
                         <input id="edit-aotm-id" name="aotm-id" class="hidden" type="hidden">
                     </div>
 
-                    <div>
+                    <!-- <div>
 
                         <p class="font-bold block" for="">Description:</p>
                         <textarea name="description" required class="form-textarea block rounded resize max-w-full" id="edit-description"></textarea>
-                    </div>
+                    </div> -->
 
                     <div class="border rounded p-4">
                         <p class="font-bold">ACHIEVEMENTS:</p>

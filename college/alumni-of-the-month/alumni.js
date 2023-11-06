@@ -63,9 +63,9 @@ $(document).ready(function () {
 
     // fill the input values
     newAchievement.find("input[name='filled-title']").val(data.achievement);
-    newAchievement
-      .find("textarea[name='filled-description']")
-      .text(data.description);
+    // newAchievement
+    //   .find("textarea[name='filled-description']")
+    //   .text(data.description);
     newAchievement.find("input[name='filled-date']").val(data.date);
     newAchievement.find("input[name='filled-id']").val(data.achievementID);
     newAchievement
@@ -452,11 +452,11 @@ $(document).ready(function () {
       // add some sweet alert dialog
       // if #edit-description is empty
 
-      const textareaValue = CKEDITOR.instances["edit-description"].getData();
-      if (textareaValue.trim().length === 0) {
-        Swal.fire("Error", "Description is empty.", "info");
-        return;
-      }
+      // const textareaValue = CKEDITOR.instances["edit-description"].getData();
+      // if (textareaValue.trim().length === 0) {
+      //   Swal.fire("Error", "Description is empty.", "info");
+      //   return;
+      // }
 
       const confirmation = await Swal.fire({
         title: "Confirm?",
@@ -477,7 +477,7 @@ $(document).ready(function () {
         // add action
         formData.append("action", "edit");
         // add description
-        formData.append("description", textareaValue);
+        // formData.append("description", textareaValue);
 
         console.log(formData);
         const isSuccessful = await postJSONFromURL(API_POST_URL, formData);
@@ -515,8 +515,8 @@ $(document).ready(function () {
 
   function setHandlers() {
     // set ckeditor
-    CKEDITOR.replace("description");
-    CKEDITOR.replace("edit-description");
+    // CKEDITOR.replace("description");
+    // CKEDITOR.replace("edit-description");
 
     setEditAOMHandlers();
 
@@ -648,11 +648,11 @@ $(document).ready(function () {
     // on form submit
     $("#add-aotm-form").submit(async function (e) {
       e.preventDefault();
-      const textareaValue = CKEDITOR.instances.description.getData();
-      if (textareaValue.trim().length === 0) {
-        Swal.fire("Error", "Description is empty.", "info");
-        return;
-      }
+      // const textareaValue = CKEDITOR.instances.description.getData();
+      // if (textareaValue.trim().length === 0) {
+      //   Swal.fire("Error", "Description is empty.", "info");
+      //   return;
+      // }
 
       // add some sweet alert dialog
       const confirmation = await Swal.fire({
@@ -671,7 +671,7 @@ $(document).ready(function () {
         const formData = new FormData(this);
 
         // add the description
-        formData.append("description", textareaValue);
+        // formData.append("description", textareaValue);
 
         const isSuccessful = await postNewAlumni(formData);
         console.log(isSuccessful);
@@ -880,7 +880,7 @@ $(document).ready(function () {
     if (data.profilepicture) {
       profileImage = PROFILE_PICTURE_URL + data.personID;
     }
-    CKEDITOR.instances["edit-description"].setData(data.description);
+    // CKEDITOR.instances["edit-description"].setData(data.description);
 
     $("#edit-detail-profile-img").attr("src", profileImage);
     $("#edit-detail-fullname").text(data.fullname);
@@ -900,7 +900,7 @@ $(document).ready(function () {
     // container
     $("#edit-alumni-details").removeClass("hidden");
 
-    $("#edit-description").val(data.description);
+    // $("#edit-description").val(data.description);
   }
 
   async function postNewAlumni(

@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $personID = $_POST['personID'];
             $quote = $_POST['quote'];
             $aotmID = $_POST['aotm-id'];
-            $description = $_POST['description'];
+            // $description = $_POST['description'];
             $id = $_POST['id'];
             $studentNo = $_POST['studentNo'];
 
@@ -256,7 +256,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'personID' => $personID,
                 'quote' => $quote,
                 'cover-img' => $cover_img,
-                'description' => $description,
+                // 'description' => $description,
                 'aotmID' => $aotmID
 
             );
@@ -274,25 +274,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     $post = new PostData();;
 
-                    // get the post_id of the post
-                    $query = "SELECT `post_id` FROM `alumni_of_the_month` WHERE `AOMID` = '$aotmID'";
-                    $result = mysqli_query($mysql_con, $query);
-                    $row = mysqli_fetch_assoc($result);
-                    $postID = $row['post_id'];
-                    // if postID is empty
-                    if ($postID !== '') {
-                        // update the post caption
+                    // // get the post_id of the post
+                    // $query = "SELECT `post_id` FROM `alumni_of_the_month` WHERE `AOMID` = '$aotmID'";
+                    // $result = mysqli_query($mysql_con, $query);
+                    // $row = mysqli_fetch_assoc($result);
+                    // $postID = $row['post_id'];
+                    // // if postID is empty
+                    // if ($postID !== '') {
+                    //     // update the post caption
 
 
-                        $description = $_POST['description'];
-                        $query = "UPDATE `post` SET `caption`= ? WHERE `postID` = ?";
-                        $stmt = mysqli_prepare($mysql_con, $query);
-                        mysqli_stmt_bind_param($stmt, 'ss', $description, $postID);
+                    //     $description = $_POST['description'];
+                    //     $query = "UPDATE `post` SET `caption`= ? WHERE `postID` = ?";
+                    //     $stmt = mysqli_prepare($mysql_con, $query);
+                    //     mysqli_stmt_bind_param($stmt, 'ss', $description, $postID);
 
-                        ob_start();
-                        $removeEcho = $post->postCaptionUpdate($postID, $description, $mysql_con);
-                        ob_end_clean();
-                    }
+                    //     ob_start();
+                    //     $removeEcho = $post->postCaptionUpdate($postID, $description, $mysql_con);
+                    //     ob_end_clean();
+                    // }
 
                     setNewActivity($mysql_con, $_SESSION['adminID'], $action, $details);
 
@@ -468,7 +468,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id = $_POST['studentNo'];
         $personID = $_POST['personID'];
         $quote = $_POST['quote'];
-        $description = $_POST['description'];
+        // $description = $_POST['description'];
         // get the username of the new alumni of the month
         $aom_username = $_POST["username"];
 
@@ -515,7 +515,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // 'instagramUN' => $instagramUN,
             // 'profile-img' => $profileImg,
             'cover-img' => $cover_img,
-            'description' => $description
+            // 'description' => $description
         );
 
 
@@ -531,7 +531,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
             // set new alumni
-            $result = $alumni->setNewAlumniOfTheMonth($id, $alumniInformation, $postID);
+            // $result = $alumni->setNewAlumniOfTheMonth($id, $alumniInformation, $postID);
+            $result = $alumni->setNewAlumniOfTheMonth($id, $alumniInformation);
             // get the id from the result
             $aotmID = $result['id'];
             // post it to the community
@@ -592,7 +593,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                 } else {
                     $aTitle = $_POST['a-title'];
-                    $aDescription = $_POST['a-description'];
+                    // $aDescription = $_POST['a-description'];
                     $aDate = $_POST['a-date'];
                     $aID = uniqid('aotm-');
 

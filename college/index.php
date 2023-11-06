@@ -214,11 +214,11 @@ if (
                             <i class="fa-solid fa-bullhorn  fa-xl"></i>
                             <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">MAKE POST</span>
                         </a></li>
-                    <li><a data-link="announcements" href="#announcements" class=" flex justify-left flex-nowrap rounded-lg p-2">
+                    <!-- <li><a data-link="announcements" href="#announcements" class=" flex justify-left flex-nowrap rounded-lg p-2">
                             <i class="fa-solid fa-message  fa-xl"></i>
                             <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150   animate">ANNOUNCEMENTS</span>
 
-                        </a></li>
+                        </a></li> -->
                     <li><a data-link="email" href="#email" class=" flex justify-left flex-nowrap rounded p-2 ">
 
                             <i class="fa-solid fa-envelope fa-xl ">

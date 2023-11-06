@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $colCode = $_SESSION['colCode'];
         $stmt = $mysql_con->prepare('SELECT aom.AOMID, aom.studentNo
         , aom.quote, aom.date_assigned, aom.colCode , aom.last_updated_date,
-         aom.description, aom.status, alumni.*,
+          aom.status, alumni.*,
         CONCAT(fName, " ", lName) AS fullname, 
         person.personID  FROM `alumni_of_the_month` as aom
             INNER JOIN `alumni` on studNo = aom.studentNo
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         require "../php/connection.php";
         $colCode = $_SESSION['colCode'];
         $stmt = $mysql_con->prepare('SELECT aom.AOMID, aom.studentNo, aom.quote, aom.date_assigned, aom.colCode , aom.last_updated_date,
-         aom.description, aom.status, alumni.*, person.personID,
+        aom.status, alumni.*, person.personID,
         CONCAT(fName, " ", lName) AS fullname,  alumni.*  FROM `alumni_of_the_month` as aom
             INNER JOIN `alumni` on studNo = aom.studentNo
             INNER JOIN `person` on person.personID = alumni.personID
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     {
         require "../php/connection.php";
         $stmt = $mysql_con->prepare('SELECT aom.AOMID, aom.studentNo, aom.quote, aom.date_assigned, aom.colCode , aom.last_updated_date,
-        aom.description, aom.status, alumni.*, person.personID,
+        aom.status, alumni.*, person.personID,
         CONCAT(fName, " ", lName) AS fullname, alumni.*  FROM `alumni_of_the_month`as aom
             INNER JOIN `alumni` on studNo = aom.studentNo
             INNER JOIN `person` on person.personID = alumni.personID
