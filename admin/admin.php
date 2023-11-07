@@ -1560,7 +1560,26 @@ function dateInText($date)
 
           </div>
         </div>
+        <button class="absolute -top-12 p-2 border border-white hover:border-accent hover:bg-accent rounded-md right-0 text-white stop-job-btn">
+          Cease accepting applicants.
+        </button>
 
+      </div>
+    </div>
+
+    <!-- stop job post -->
+    <div class="modal fixed inset-0 h-full w-full flex items-start justify-center 
+          top-0 left-0 p-5 overflow-y-auto stop-job-modal hidden">
+      <div class="w-2/5 bg-white rounded-xl h-max p-5 relative text-gray-500">
+        <h2 class="text-xl pb-3 border-b border-gray-400 mb-2">Warning for this action</h2>
+        <p>This action will hide this job posting from the user. It will no longer accept applications.
+          Make sure that you have finished looking for candidates for this position.</p>
+
+        <p class="text-sm italic mt-5">Note: This post will not be deleted and its applicant and it cannot be undone once it set as ceased</p>
+        <div class="flex justify-end items-center gap-2">
+          <button class="text-gray-400 hover:text-gray-500 stop-job-cancel">Cancel</button>
+          <button class="bg-green-400 hover:bg-green-500 text-white px-3 py-2 rounded-md stop-job-confirm">Confirm</button>
+        </div>
       </div>
     </div>
 
