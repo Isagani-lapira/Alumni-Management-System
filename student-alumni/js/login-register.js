@@ -1,5 +1,6 @@
 let usernameAvailable = true;
 let personalEmailAvailable = true;
+
 $(document).ready(function () {
   const today = new Date().toISOString().split("T")[0];
   $('input[type="date"]').attr("max", today);

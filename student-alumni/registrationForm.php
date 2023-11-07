@@ -18,15 +18,15 @@
 </head>
 
 <body class="">
-    <div class="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
-        <header class="flex gap-2 items-center p-4 w-full text-center">
+    <div class="bg-gray-100 min-h-screen flex flex-col justify-center items-center relative">
+        <header class="flex gap-2 items-center p-4 w-full text-center fixed top-0 inset-x-0">
             <a href="../student-alumni/login.php">
                 <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class=" w-32 h-16" />
             </a>
         </header>
 
         <!-- selection -->
-        <div class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg selectionStatus">
+        <div class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg selectionStatus hidden">
             <div class="bg-white border px-14 py-4  rounded w-6/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
                 <h2 class="text-left text-lg md:text-xl font-bold  py-10 text-greyish_black tracking-wide">PLEASE SPECIFY YOUR STATUS:
                 </h2>
@@ -46,6 +46,87 @@
                 </p>
             </div>
         </div>
+
+        <!-- email card for verification -->
+        <!-- selection -->
+        <div id="verify-email-container" class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg hidden ">
+            <div class="bg-white border px-14 py-4  rounded w-6/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
+                <div></div>
+                <figure><img src="../assets/send-email.png" alt="hand pointing to email" class="h-48 w-full object-contain md:h-full ">
+                </figure>
+                <div class="daisy-card-body gap-4">
+                    <div class="space-y-2 ">
+                        <h2 class="daisy-card-title font-bold text-xl text-gray-900">Verify Your Email Address</h2>
+                        <p class="text-gray-400 max-w-prose">To complete your account, please confirm your email address first.</p>
+                    </div>
+
+
+                    <!-- input for email address -->
+                    <div class="flex flex-col gap-2">
+                        <input id="email" name="email" class="border form-input daisy-input rounded-md border-gray-400 " placeholder="ex: juanDelaCruz@gmail.com">
+                        <span class="emailExistingMsg italic text-red-400 text-sm hidden">This email is already used</span>
+                        <span class="emailInvalidMsg italic text-red-400 text-sm hidden">This email is invalid</span>
+                    </div>
+
+                    <div class="daisy-card-actions justify-end">
+                        <button class="daisy-btn daisy-btn-primary w-full">Send Verification Code</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- email card code container -->
+        <!-- selection -->
+        <div id="email-code-container" class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg ">
+            <div class="bg-white border px-14 py-4 pt-12  rounded w-6/12 lg:w-1/3  h-1/3 max-h-[80%]  flex flex-col justify-between ">
+                <div></div>
+                <figure><img src="../assets/email/mail-sent.svg" alt="email picture" class="h-48 w-full object-contain  ">
+                </figure>
+                <div class="daisy-card-body gap-4">
+                    <div class="space-y-2 ">
+                        <h2 class=" font-bold text-xl text-gray-900 text-center">Verify Your Email Address</h2>
+                        <p class="text-gray-500 max-w-prose">Please enter the 6 digit code sent to <span class="text-accent">demo@gmail.com</span>.</p>
+                    </div>
+
+
+                    <!-- input for email address -->
+                    <div class="flex flex-col gap-2 ">
+                        <div class="w-full">
+                            <input type="text" inputmode="numeric" id="code" name="code" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="w-full border form-input daisy-input rounded-md border-gray-400 " placeholder="" minlength="6" maxlength="6">
+                            <!-- <div class="code-input flex gap-5 justify-center [&>*]:w-7 [&>*]:h-10 [&>*]:text-center [&>*]:my-2 [&>*]:border-b-4 [&>*]:border-gray-400 [&>*:focus-visble]:ring-1 ring-accent">
+                                <input type="text" class="digit" id="digit-1" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="digit" id="digit-2" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="digit" id="digit-3" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="digit" id="digit-4" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="digit" id="digit-5" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="digit" id="digit-6" maxlength="1">
+                            </div> -->
+                            <div id="code-validation"></div>
+
+                        </div>
+
+                        <span class="codeInvalid italic text-red-400 text-sm hidden">The code is invalid</span>
+                    </div>
+
+                    <div class="daisy-card-actions justify-start gap-6">
+                        <button class="daisy-btn daisy-btn-primary w-full">Verify Code</button>
+                        <div>
+                            <div id="resend-timer"></div>
+
+                            <p>Didn't receive the code?
+                                <button id="resend-code" class="daisy-link daisy-link-hover text-accent">Resend Code</button>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
 
 
 
@@ -616,6 +697,7 @@
 
     <script src="../student-alumni/js/login-register.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
 
 
 
