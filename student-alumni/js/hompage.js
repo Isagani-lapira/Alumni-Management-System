@@ -1,6 +1,11 @@
 
 $(document).ready(function () {
 
+  const PWD = window.location.href;
+  const splitPath = PWD.split("student-alumni");
+  const rootPath = splitPath[0];
+  const CAREER_LOGO = rootPath + "media/search.php?media=career&careerID=";
+
   const imgFormat = 'data:image/jpeg;base64,';
   const colCode = $('#colCode').html();
   $('#tabs').tabs();
@@ -92,7 +97,7 @@ $(document).ready(function () {
             for (let i = 0; i < length; i++) {
               //data to be use
               const careerID = parsedResponse.careerID[i];
-              const companyLogo = imgFormat + parsedResponse.companyLogo[i];
+              const companyLogo = CAREER_LOGO + careerID;
               const jobTitle = parsedResponse.jobTitle[i];
               const company = parsedResponse.companyName[i];
               const author = parsedResponse.author[i];
@@ -167,7 +172,7 @@ $(document).ready(function () {
       .html('Read more' + arrowIcon)
       .on('click', function () {
         $('#jobDescWrapper').removeClass('hidden');
-        $('#jobCard').addClass('hidden')
+        $('#jobCard').parent().addClass('hidden')
         viewOfCareer(careerID);
       })
 
@@ -251,7 +256,7 @@ $(document).ready(function () {
 
     containerJob.on('click', function () {
       $('#jobDescWrapper').removeClass('hidden');
-      $('#jobCard').addClass('hidden')
+      $('#jobCard').parent().addClass('hidden')
       //remove the the last one has been selected
       $('.selectedJob').each((index, element) => {
         $(element).removeClass('selectedJob')
@@ -265,14 +270,14 @@ $(document).ready(function () {
     if ($('#listOfJob li').length === 1) {
       containerJob.trigger('click');
       $('#jobDescWrapper').addClass('hidden');
-      $('#jobCard').removeClass('hidden')
+      $('#jobCard').parent().removeClass('hidden')
     }
   }
 
 
   $('#backToCard').on('click', function () {
     $('#jobDescWrapper').addClass('hidden');
-    $('#jobCard').removeClass('hidden')
+    $('#jobCard').parent().removeClass('hidden')
   })
   //saving career to bookmark
   function saveCareer(careerID) {
@@ -480,11 +485,11 @@ $(document).ready(function () {
 
   function displaySelectedCareer(careerID, jobTitle, companyName, author, datePosted, companyLogo,
     description, skills, qualification, location, isApplied) {
-    let logo = imgFormat + companyLogo;
+
     //remove the past display
     $('#skillsContainer').empty();
     //displaying a particular job data
-    $('#viewJobLogo').attr('src', logo)
+    $('#viewJobLogo').attr('src', companyLogo)
     $('#viewJobTitle').text(jobTitle)
     $('#viewJobCompany').text(companyName)
     $('#viewJobAuthor').text(author)
@@ -648,7 +653,7 @@ $(document).ready(function () {
           const careerID = parsedResponse.careerID[0];
           const companyName = parsedResponse.companyName[0];
           const jobTitle = parsedResponse.jobTitle[0];
-          const companyLogo = parsedResponse.companyLogo[0];
+          const companyLogo = CAREER_LOGO + careerID;
           const author = parsedResponse.author[0];
           const datePosted = parsedResponse.date_posted[0];
           const description = parsedResponse.jobDescript[0];
