@@ -124,7 +124,7 @@ $(document).ready(function () {
 
   function displayPost(imgProfile, username, fullname, caption, images, date, likes, comments, postID, isDeleted, isLikedByUser) {
     const container = $('<div>').addClass('containerPostProfile mx-2 flex gap-1 justify-center')
-    let postWrapper = $('<div>').addClass("postWrapper  mb-2 center-shadow w-full p-4 rounded-md");
+    let postWrapper = $('<div>').addClass("postWrapper mb-2 center-shadow w-full p-4 rounded-md");
 
     let header = $('<div>');
     let headerWrapper = $('<div>').addClass("flex gap-2 items-center");
@@ -306,7 +306,8 @@ $(document).ready(function () {
           success: response => {
             if (response == 'Successful') {
               //go back to normal
-              description.attr('contenteditable', false)
+              description.attr('contenteditable', false).removeClass('border-b border-green-400')
+              postWrapper.removeClass('border border-green-400')
               approvedIcon.addClass('hidden')
               exitEdit.addClass('hidden')
               editIcon.removeClass('hidden')
@@ -325,7 +326,9 @@ $(document).ready(function () {
       approvedIcon.removeClass('hidden');
       exitEdit.removeClass('hidden')
       description.attr('contenteditable', true)
-        .focus()
+        .focus().addClass('border-b border-green-400')
+
+      postWrapper.addClass('border border-green-400')
     })
     const editingWrapper = $('<div>').addClass('flex gap-2 flex-col')
     interactionContainer.append(leftContainer, deletePost)
@@ -340,6 +343,9 @@ $(document).ready(function () {
       description
         .attr('contenteditable', false)
         .text(currentCaption)
+        .removeClass('border-b border-green-400')
+
+      postWrapper.removeClass('border border-green-400')
     })
     editingWrapper.append(editIcon, approvedIcon, exitEdit)
     //set up the details of the post

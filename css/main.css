@@ -4626,6 +4626,11 @@ div.input-container input[type="text"],
   border-color: rgb(113 113 122 / var(--tw-border-opacity));
 }
 
+.border-green-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(74 222 128 / var(--tw-border-opacity));
+}
+
 .border-b-\[\#ababab\] {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(171 171 171 / var(--tw-border-opacity));
