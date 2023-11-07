@@ -53,6 +53,9 @@ $(document).ready(function () {
                     max: 100, // Set the maximum value on the y-axis to 100
                     ticks: {
                         stepSize: 1, // Specify the step size for Y-axis values
+                        callback: function (value) {
+                            return value + '%'; // Add '%' sign to the tick values
+                        },
                     }
                 }
 
@@ -84,6 +87,7 @@ $(document).ready(function () {
                 // collect data retrieve
                 const labels = [];
                 const countData = [];
+
                 response.forEach(data => {
                     const collegeName = data.colCode;
                     const dataCount = data.alumniCountFinished;
@@ -93,8 +97,7 @@ $(document).ready(function () {
                 });
 
                 updateChart(labels, countData) //update chart using the data retrieved
-            },
-            error: error => { console.log(error) }
+            }
         })
     }
 
@@ -228,6 +231,7 @@ $(document).ready(function () {
                     // choice and its corresponding answers chosen
                     const choiceText = response[i].choiceText
                     const count = response[i].count
+
                     labels.push(choiceText)
                     counts.push(count)
                 }

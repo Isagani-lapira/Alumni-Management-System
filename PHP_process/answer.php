@@ -324,7 +324,8 @@ function countCollegeParticipation($con)
 
             $participant = array(
                 "colCode" => $colCode,
-                "alumniCountFinished" => $percentageFinished
+                "alumniCountFinished" => $percentageFinished,
+                "totalCount" => $totalAlumniCount,
             );
 
             $collegesCount[] = $participant;

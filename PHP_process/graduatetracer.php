@@ -695,7 +695,7 @@ function getQuestionChoices($questionID, $con)
 
             $dataPerChoice = array(
                 "choiceText" => $choiceText,
-                "count" => $count
+                "count" => $count,
             );
 
             $dataChoice[] = $dataPerChoice;
