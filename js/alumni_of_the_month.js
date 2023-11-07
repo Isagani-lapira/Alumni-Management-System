@@ -1,5 +1,10 @@
 $(document).ready(function () {
-    const imgFormat = "data:image/jpeg;base64,"
+
+    const PWD = window.location.href;
+    const splitPath = PWD.split('admin');
+    const rootPath = splitPath[0];
+    const COVER_IMG = rootPath + "media/search.php?media=aom&AOMID=";
+
     // show the alumni of the month
     $('#aomLi').on('click', function () {
         table.clear().draw(); //remove the previous display
@@ -26,12 +31,26 @@ $(document).ready(function () {
                 if (response.response == 'Success') {
                     let length = response.profile.length; //lengt of the data
                     for (let i = 0; i < length; i++) {
-                        let profile = (response.profile[i] != "") ? imgFormat + response.profile[i] : '../assets/icons/person.png';
+                        const aomID = response.aomID[i];
                         let personalEmail = response.personalEmail[i];
                         let colCode = response.colCode[i];
                         let studentNo = response.studentNo[i];
                         let fullname = response.fullname[i];
-                        displayOnTable(profile, personalEmail, studentNo, colCode, fullname)
+                        let profile = COVER_IMG + aomID;
+
+                        const image = new Image();
+                        image.src = profile;
+
+                        image.onload = function () {
+                            // Image loaded successfully
+                            displayOnTable(profile, personalEmail, studentNo, colCode, fullname)
+                        };
+
+                        image.onerror = function () {
+                            const profile = "../assets/icons/person.png"
+                            displayOnTable(profile, personalEmail, studentNo, colCode, fullname); //no image has set
+                        };
+
                     }
 
                     // retrieve more
@@ -133,11 +152,12 @@ $(document).ready(function () {
                 if (response.response == 'Success') {
                     let length = response.profile.length; //lengt of the data
                     for (let i = 0; i < length; i++) {
-                        let profile = (response.profile[i] != "") ? imgFormat + response.profile[i] : '../assets/icons/person.png';
+                        const aomID = response.aomID[i];
                         let personalEmail = response.personalEmail[i];
                         let colCode = response.colCode[i];
                         let studentNo = response.studentNo[i];
                         let fullname = response.fullname[i];
+                        let profile = COVER_IMG + aomID;
                         displayOnTable(profile, personalEmail, studentNo, colCode, fullname)
                     }
                     // retrieve more
