@@ -26,7 +26,7 @@
         </header>
 
         <!-- selection -->
-        <div class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg">
+        <div class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg selectionStatus">
             <div class="bg-white border px-14 py-4  rounded w-6/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
                 <h2 class="text-left text-lg md:text-xl font-bold  py-10 text-greyish_black tracking-wide">PLEASE SPECIFY YOUR STATUS:
                 </h2>
@@ -39,9 +39,11 @@
                         <span class="font-bold text-sm md:text-xl">STUDENT</span>
                     </label>
                 </div>
-                <a href="../student-alumni/login.php" class=" text-left mt-4">
-                    <p class="text-gray-500">I have an account <span class="text-blue-400 hover:text-blue-500 font-bold text-center">Login</span></p>
-                </a>
+                <p class="inline-block text-left">Already have an account?
+                    <a href="../student-alumni/login.php" class=" daisy-link daisy-link-hover daisy-link-primary text-accent">
+                        <span class="">Login Here</span>
+                    </a>
+                </p>
             </div>
         </div>
 
@@ -430,11 +432,11 @@
     <!-- Put this part before </body> tag -->
     <!-- terms and conditions  -->
     <input type="checkbox" id="terms-modal" class="daisy-modal-toggle" />
-    <div class="daisy-modal">
+    <div class="daisy-modal">1
         <div class="daisy-modal-box  daisy-modal-bottom sm:daisy-modal-middle w-11/12 max-w-5xl">
             <div class="overflow-y-auto">
                 <div class="flex ">
-                    <h1 class="font-bold text-3xl text-accent mt-2">Privacy Policy</h1>
+                    <h1 class="font-bold text-xl text-accent mt-2">Privacy Policy</h1>
                 </div>
                 <hr class="my-4">
                 <div class="flex flex-col justify-center  px-10 ">
@@ -485,25 +487,127 @@
 
                 </div>
 
+                <div class="flex mt-8">
+                    <h1 class="font-bold text-xl text-accent mt-2">Terms & Conditions</h1>
+                </div>
+                <hr class="my-4">
+
+
+                <div class="flex flex-col gap-4 px-10 justify-center">
+                    <div>
+                        <p class="font-bold text-accent">1. Acceptance of Terms</p>
+                        <p>
+                            1.1 By registering on BulSU Connect, you agree to comply with these Terms and Conditions, our Privacy Policy, and any other rules or guidelines posted on the app.</p>
+                    </div>
+                    <div class="terms-text">
+                        <p class="font-bold text-accent"> 2. Registration
+                        </p>
+                        <p>2.1 To use BulSU Connect, you must complete the registration process. You agree to provide accurate, current, and complete information during the registration process.</p>
+                        <p>2.2 You are responsible for maintaining the confidentiality of your account credentials, including your username and password. You are also responsible for all activities that occur under your account.</p>
+
+                        <p>2.3 You agree to immediately notify us of any unauthorized use of your account or any other breach of security.</p>
+                    </div>
+
+
+
+
+
+                    <div class="terms-text">
+
+                        <p class="font-bold text-accent">3. User Content</p>
+
+                        <p>
+                            3.1 You are solely responsible for any content you post, share, or upload on BulSU Connect.
+                        </p>
+
+                        <p>
+                            3.2 You agree not to post any content that is illegal, defamatory, abusive, obscene, offensive, or violates the rights of others.
+                        </p>
+                    </div>
+                    <div class="terms-text">
+                        <p class="font-bold text-accent">
+                            4. App Usage
+                        </p>
+                        <p>
+                            4.1 You agree to use BulSU Connect for lawful purposes only and in compliance with all applicable laws and regulations.</p>
+                        <p>
+                            4.2 You will not use the app for any unauthorized or illegal activities, including but not limited to hacking, spamming, or distributing malware.
+                        </p>
+                    </div>
+                    <div class="terms-text">
+                        <p class="font-bold text-accent">
+                            5. Termination
+                        </p>
+                        <p>
+                            5.1 We reserve the right to suspend or terminate your account at our discretion, without prior notice, if you violate these Terms and Conditions.
+                        </p>
+                    </div>
+                    <div class="terms-text">
+                        <p class="font-bold text-accent">
+                            6. Privacy
+                        </p>
+                        <p>
+                            6.1 Your use of BulSU Connect is also governed by our Privacy Policy, which outlines how we collect, use, and protect your personal information.
+                        </p>
+                    </div>
+                    <div class="terms-text">
+                        <p class="font-bold text-accent">
+                            7. Changes to Terms and Conditions
+                        </p>
+                        <p>
+                            7.1 We may update these Terms and Conditions from time to time. You will be notified of any material changes, and continued use of the app will be considered as your acceptance of the updated terms.
+                        </p>
+                    </div>
+                    <div class="terms-text">
+                        <p class="font-bold text-accent">
+                            8. Disclaimer of Warranties
+                        </p>
+                        8.1 BulSU Connect is provided "as is" without any warranties. We do not guarantee that the app will be error-free or uninterrupted.
+                        </p>
+                    </div>
+                    <div class="terms-text">
+                        <p class="font-bold text-accent">
+                            9. Limitation of Liability
+                        </p>
+                        <p>
+                            9.1 We are not liable for any direct or indirect damages, including but not limited to loss of data, profits, or business opportunities, arising from your use of BulSU Connect.
+                        </p>
+                    </div>
+                    <div class="terms-text">
+                        <p class="font-bold text-accent">
+                            10. Governing Law
+                        <p>
+                            10.1 These Terms and Conditions are governed by the laws of Philippine Constitution.
+                        </p>
+                    </div>
+                </div>
+
             </div>
 
-
+            <hr class="my-2">
             <div class="daisy-modal-action">
-                <div class="flex px-10 py-4 space-x-4">
-                    <input type="checkbox" id="privacyPolicyCheckbox">
-                    <label for="privacyPolicyCheckbox" class="">I have read all privacy policy</label>
-                </div>
 
-                <div class="flex justify-end space-x-4 w-full px-10">
 
-                    <form method="dialog">
+                <div class="flex flex-col  w-full gap-4 ">
+                    <div class="daisy-form-control px-10 items-start">
+                        <label for="privacyPolicyCheckbox" class="daisy-label cursor-pointer">
+                            <input type="checkbox" class="daisy-checkbox daisy-checkbox-primary" id="privacyPolicyCheckbox">
+                            <span class="daisy-label-text ml-3">I have read and understand all BulSU Connect's privacy policy and terms and conditions.</span> </label>
+
+                    </div>
+                    <div class="flex justify-end space-x-4 w-full px-10">
                         <!-- if there is a button in the form, it will close the modal -->
-                        <label for="terms-modal" class="btn border-2 border-accent text-accent rounded-md p-2">I do not accept</label>
-                    </form>
-                    <button id="acceptButton" class="btn p-2 bg-gray-400 h-11 w-24 rounded-md" data-selected="" disabled>
-                        I accept
-                    </button>
+                        <form method="dialog">
+                            <label for="terms-modal" class="daisy-btn daisy-btn-outline">CANCEL</label>
+                        </form>
+                        <button id="acceptButton" class="daisy-btn daisy-btn-primary" data-selected="" disabled>
+                            I ACCEPT
+                        </button>
+
+                    </div>
                 </div>
+
+
             </div>
         </div>
     </div>

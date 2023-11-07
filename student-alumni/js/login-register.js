@@ -145,13 +145,48 @@ $(document).ready(function () {
 
 // for registration
 $(document).ready(function () {
+  const acceptButton = $("#acceptButton");
+
+  const checkbox = $("#privacyPolicyCheckbox");
+  checkbox.change(function () {
+    acceptButton.prop("disabled", !checkbox.prop("checked"));
+
+    // if (checkbox.prop("checked")) {
+    //   acceptButton
+    //     .removeClass("bg-gray-400")
+    //     .addClass("bg-green-500 hover:bg-green-700 text-white");
+    // } else {
+    //   acceptButton
+    //     .removeClass("bg-green-500 hover:bg-green-700 text-white")
+    //     .addClass("bg-gray-400 text-black");
+    // }
+  });
+
   // accpet button on terms modal
-  $("#acceptBtn").on("click", function () {
+  $("#acceptButton").on("click", function () {
     // get the data-selected
     const selected = $(this).attr("data-selected");
     console.log("selected", selected);
+
+    // toggle the #terms-modal checkbox
+    $("#terms-modal").prop("checked", false);
+
+    // check if it is alumni
+    if (selected === "alumni") {
+      // hide the selection status
+      $(".selectionStatus").addClass("hidden");
+      // show the alumni form
+      $("#alumniForm").removeClass("hidden");
+    } else if (selected === "student") {
+      // hide the selection status
+      $(".selectionStatus").addClass("hidden");
+      // show the student form
+      $("#studentForm").removeClass("hidden");
+    }
+    // hide the
+
     // $('.emailExistingMsg').addClass('hidden')
-    // $('.selectionStatus').addClass('hidden')
+    $(".selectionStatus").addClass("hidden");
     // $('#alumniForm').removeClass('hidden')
 
     // $(".emailExistingMsg").addClass("hidden");
@@ -162,12 +197,12 @@ $(document).ready(function () {
 
   $("#alumniStatus").on("click", function () {
     // set the data-selected of acceptBtn
-    $("#acceptBtn").attr("data-selected", "alumni");
+    $("#acceptButton").attr("data-selected", "alumni");
   });
 
   $("#studentStatus").on("click", function () {
     // set the data-selected of acceptBtn
-    $("#acceptBtn").attr("data-selected", "student");
+    $("#acceptButton").attr("data-selected", "student");
   });
   // cancel registration
   $(".cancelBtnReg").on("click", function () {
