@@ -156,7 +156,6 @@ class Career
         $companyName = array();
         $jobDescript = array();
         $jobQuali = array();
-        $companyLogo = array();
         $minSalary = array();
         $maxSalary = array();
         $colCode = array();
@@ -179,7 +178,6 @@ class Career
                 $companyName[] = $row_data['companyName'];
                 $jobDescript[] = $row_data['jobDescript'];
                 $jobQuali[] = $row_data['jobqualification'];
-                $companyLogo[] = base64_encode($row_data['companyLogo']);
                 $minSalary[] = $row_data['minSalary'];
                 $maxSalary[] = $row_data['maxSalary'];
                 $colCode[] = $row_data['colCode'];
@@ -222,7 +220,6 @@ class Career
             'careerID' => $careerID,
             'jobTitle' => $jobTitle,
             'companyName' => $companyName,
-            'companyLogo' => $companyLogo,
             'jobDescript' => $jobDescript,
             'jobQuali' => $jobQuali,
             'minSalary' => $minSalary,

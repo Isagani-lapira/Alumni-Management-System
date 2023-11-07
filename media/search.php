@@ -200,6 +200,38 @@ try {
             header("Content-Type: image/jpeg");
             echo $row['headline_img'];
             break;
+        case 'career':
+            if (!isset($_GET['careerID'])) {
+                // send a response to the client
+                http_response_code(400);
+                exit();
+            }
+            $careerID = $_GET['careerID'];
+
+            $query = 'SELECT `companyLogo` FROM `career` WHERE `careerID` = ?';
+            $stmt = $mysql_con->prepare($query);
+            $stmt->bind_param('s', $careerID);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            if (
+                $result->num_rows === 0
+            ) {
+                http_response_code(404);
+                exit();
+            }
+
+            $row =  $result->fetch_assoc();
+            // check if there is a cover photo
+            if ($row['companyLogo'] === null) {
+                // send a response to the client
+                http_response_code(404);
+                exit();
+            }
+
+            header("Content-Type: image/jpeg");
+            echo $row['companyLogo'];
+            break;
         default:
             // send a response to the client
             http_response_code(400);

@@ -1,4 +1,9 @@
 $(document).ready(function () {
+
+    const PWD = window.location.href;
+    const splitPath = PWD.split('admin');
+    const rootPath = splitPath[0];
+    const COMPANY_LOGO = rootPath + "media/search.php?media=career&careerID=";
     let offsetUserJob = 0
     let lengthChecker = 0;
 
@@ -510,6 +515,7 @@ $(document).ready(function () {
 
                     for (let i = 0; i < jobTitles.length; i++) {
                         // fetch all the data
+                        let careerID = data.careerID[i];
                         let jobTitle = jobTitles[i];
                         let author = data.author[i];
                         let companyName = data.companyName[i];
@@ -517,10 +523,10 @@ $(document).ready(function () {
                         let jobQuali = data.jobQuali[i];
                         let college = data.colCode[i];
                         let datePosted = data.date_posted[i];
-                        let companyLogo = data.companyLogo[i];
                         let skills = data.skills[i];
-                        let logo = imgFormat + companyLogo;
 
+
+                        let logo = COMPANY_LOGO + careerID
                         // Create row
                         let row = [
                             `<img class="w-16 h-16 mx-auto rounded-full" src="${logo}" />`,
@@ -535,7 +541,6 @@ $(document).ready(function () {
                             data-job-descript="${jobDescript}" 
                             data-job-quali="${jobQuali}" 
                             data-date-posted="${datePosted}" 
-                            data-company-logo="${companyLogo}" 
                             data-skills="${skills}">View</button>`
                         ];
 
@@ -556,12 +561,11 @@ $(document).ready(function () {
         });
     }
 
-    function displayJobDetails(logo, jobTitle, author, companyName, datePosted, jobDescript, jobQuali, skills) {
+    function displayJobDetails(jobTitle, author, companyName, datePosted, jobDescript, jobQuali, skills) {
         $("#skillSets").empty();
 
         //set value to the view modal
         $("#viewJob").removeClass("hidden");
-        $("#jobCompanyLogo").attr("src", logo);
         $("#viewJobColText").text(jobTitle);
         $("#viewJobAuthor").text(author);
         $("#viewJobColCompany").text(companyName);
@@ -587,12 +591,11 @@ $(document).ready(function () {
         let jobDescript = $(this).data("job-descript");
         let jobQuali = $(this).data("job-quali");
         let datePosted = $(this).data("date-posted");
-        let companyLogo = $(this).data("company-logo");
         let skills = $(this).data("skills");
         skills = skills.split(',');
 
         // Call the displayJobDetails function with the extracted data
-        displayJobDetails(companyLogo, jobTitle, author, companyName, datePosted, jobDescript, jobQuali, skills);
+        displayJobDetails(jobTitle, author, companyName, datePosted, jobDescript, jobQuali, skills);
     });
 
 
