@@ -1,6 +1,11 @@
 
 $(document).ready(function () {
 
+    const PWD = window.location.href;
+    const splitPath = PWD.split('admin');
+    const rootPath = splitPath[0];
+    const COL_LOGO = rootPath + "media/search.php?media=college&colCode=";
+
     const imgFormat = 'data:image/jpeg;base64,'
     let offset = 0;
     const activityContainer = $('#recentActWrapper')
@@ -27,16 +32,19 @@ $(document).ready(function () {
                     let length = response.action.length
                     dataArray = []
                     $('.lds-roller').addClass('hidden')
-                    if (isDashDisplay) length = 3 //display only 3 activities for dashboard
+                    if (isDashDisplay) {
+                        //display only maximum of 3 activities for dashboard
+                        if (length > 3) length = 3
+                    }
 
                     for (let i = 0; i < length; i++) {
                         const timestamp = response.timestamp[i];
                         const details = response.details[i];
                         const colCode = response.colCode[i];
-                        const colLogo = imgFormat + response.colLogo[i]; //formatted image
                         const colAdminName = response.colAdminName[i];
                         const formattedDate = convertTimestamp(timestamp) //format the date
 
+                        const colLogo = COL_LOGO + colCode;
                         // in case the user will print the list
                         const logList = {
                             timestamp: formattedDate,
@@ -156,6 +164,7 @@ $(document).ready(function () {
                 endDate: defaultEnd,
             },
             function (start, end, label) {
+                weekVal = ""
                 startDate = start.format('YYYY-MM-DD')
                 endDate = end.format('YYYY-MM-DD')
                 $('.lds-roller').removeClass('hidden') // hide the loading
@@ -219,9 +228,8 @@ $(document).ready(function () {
                         const timestamp = response.timestamp[i];
                         const details = response.details[i];
                         const colCode = response.colCode[i];
-                        const colLogo = imgFormat + response.colLogo[i]; //formatted image
                         const colAdminName = response.colAdminName[i];
-
+                        const colLogo = COL_LOGO + colCode;
                         const formattedDate = convertTimestamp(timestamp) //format the date
 
                         // in case the user will print the list

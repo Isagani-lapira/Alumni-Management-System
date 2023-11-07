@@ -232,6 +232,39 @@ try {
             header("Content-Type: image/jpeg");
             echo $row['companyLogo'];
             break;
+
+        case 'college':
+            if (!isset($_GET['colCode'])) {
+                // send a response to the client
+                http_response_code(400);
+                exit();
+            }
+            $colCode = $_GET['colCode'];
+
+            $query = 'SELECT `colLogo` FROM `college` WHERE `colCode` = ?';
+            $stmt = $mysql_con->prepare($query);
+            $stmt->bind_param('s', $colCode);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            if (
+                $result->num_rows === 0
+            ) {
+                http_response_code(404);
+                exit();
+            }
+
+            $row =  $result->fetch_assoc();
+            // check if there is a cover photo
+            if ($row['colLogo'] === null) {
+                // send a response to the client
+                http_response_code(404);
+                exit();
+            }
+
+            header("Content-Type: image/jpeg");
+            echo $row['colLogo'];
+            break;
         default:
             // send a response to the client
             http_response_code(400);
