@@ -2,8 +2,11 @@
 
 require_once  '../config.php';
 
-require_once SITE_ROOT . '/college/php/connection.php';
+// require_once SITE_ROOT . '/college/php/connection.php';
+require_once '../PHP_process/connection.php';
 // check server method if it is get
+
+
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     // send a response to the client
@@ -20,7 +23,6 @@ if (!isset($_GET['media'])) {
 
     exit();
 }
-
 try {
     $media = $_GET['media'];
 
@@ -110,29 +112,38 @@ try {
             // get the personID
             $personID = $_GET['personID'];
 
-            // get the profile picture of the user
-            $query = 'SELECT cover_photo FROM person WHERE personID = ?';
-            $stmt = $mysql_con->prepare($query);
-            $stmt->bind_param('s', $personID);
-            $stmt->execute();
+            try {
+                // get the profile picture of the user
+                $query = 'SELECT cover_photo FROM person WHERE personID = ?';
+                $stmt = $mysql_con->prepare($query);
+                $stmt->bind_param('s', $personID);
+                $stmt->execute();
 
 
-            $result = $stmt->get_result();
-            if (
-                $result->num_rows === 0
-            ) {
-                http_response_code(404);
-                exit();
+                $result = $stmt->get_result();
+                if (
+                    $result->num_rows === 0
+                ) {
+                    http_response_code(404);
+                    exit();
+                }
+                $row =  $result->fetch_assoc();
+                // check if there is a cover photo
+                if ($row['cover_photo'] === null) {
+                    // send a response to the client
+                    http_response_code(404);
+                    exit();
+                }
+                header("Content-Type: image/jpeg");
+                echo $row['cover_photo'];
+            } catch (\Throwable $th) {
+                //throw $th;
+                echo json_encode(
+                    array(
+                        'error' => $th->getMessage()
+                    )
+                );
             }
-            $row =  $result->fetch_assoc();
-            // check if there is a cover photo
-            if ($row['cover_photo'] === null) {
-                // send a response to the client
-                http_response_code(404);
-                exit();
-            }
-            header("Content-Type: image/jpeg");
-            echo $row['cover_photo'];
             break;
 
         case 'aom':
