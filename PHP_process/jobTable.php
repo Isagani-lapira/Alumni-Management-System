@@ -144,6 +144,11 @@ if (isset($_POST['action'])) {
         } else if ($action == 'applicantDetails') {
             $careerID = $_POST['careerID'];
             $apply->getApplicantDetails($careerID, $mysql_con);
+        } else if ($action == 'ceaseJob') {
+            $careerID = $_POST['careerID'];
+            $status = $_POST['status'];
+            $career = new Career();
+            $career->updateCareerStatus($careerID, $status, $mysql_con);
         }
     } catch (Exception $e) {
         echo $e->getMessage();

@@ -154,7 +154,7 @@ $(document).ready(function () {
 
         if (status == 'unverified') {
             status = 'Not yet verified'
-        } else {
+        } else if (status == 'verified') {
             verifiedElement.addClass('text-blue-400')
                 .html('<iconify-icon icon="ri:verified-badge-fill" style="color: #60a5fa;"></iconify-icon>' + status)
         }
@@ -201,6 +201,15 @@ $(document).ready(function () {
         wrapper.append(headerPart, footer);
 
         $('#jobRepo').append(wrapper)
+
+
+        if (status === 'ceased') {
+            $('.stop-job-btn').addClass('hidden')
+        } else $('.stop-job-btn').remove('hidden')
+        // stop job button
+        $('.stop-job-confirm').on('click', function () {
+            ceasedJob(careerID)
+        })
     }
 
     //allows modal to be close when Click else where
@@ -228,7 +237,36 @@ $(document).ready(function () {
 
     })
 
+    function ceasedJob(careerID) {
+        const action = { action: 'ceaseJob' };
+        const status = 'ceased';
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('status', status);
+        formData.append('careerID', careerID);
 
+        $.ajax({
+            url: '../PHP_process/jobTable.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response === 'Success') {
+                    $('.stop-job-modal').addClass('hidden')
+                    $('#viewJob').addClass('hidden')
+
+                    // refresh user job post
+                    offsetUserJob = 0;
+                    $('#jobRepo').children(':not(p)').remove()
+                    $('#loadingDataJobRepo').removeClass('hidden')
+                    retrieveUserPost()
+
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
     // retrieve details of applicant
     function displayApplicant(careerID) {
         const action = { action: 'applicantDetails' }
@@ -524,5 +562,14 @@ $(document).ready(function () {
     // close the message modal
     $('.closeMsgJob').on('click', function () {
         $('.messageJob').addClass('hidden')
+    })
+
+
+    $('.stop-job-cancel').on('click', function () {
+        $('.stop-job-modal').addClass('hidden')
+    })
+
+    $('.stop-job-btn').on('click', function () {
+        $('.stop-job-modal').removeClass('hidden')
     })
 })

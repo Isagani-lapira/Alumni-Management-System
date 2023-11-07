@@ -347,4 +347,19 @@ class Career
         } else
             echo 'error';
     }
+
+
+    public function updateCareerStatus($careerID, $status, $con)
+    {
+        $query = "UPDATE `career` SET `status`= ? WHERE `careerID` = ?";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt) {
+            $stmt->bind_param('ss', $status, $careerID);
+            $result = $stmt->execute();
+
+            if ($result) echo 'Success';
+            else echo 'Failed';
+        }
+    }
 }
