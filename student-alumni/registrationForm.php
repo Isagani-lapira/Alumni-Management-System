@@ -115,6 +115,7 @@
                     <label for="personalEmail">Email Address (Personal)</label>
                     <input id="personalEmail" name="personalEmail" class="p-3 rounded-lg border border-gray-400 flex justify-center gap-2 requiredAlumni" placeholder="ex: juandelacruz@gmail.com">
                     <span class="emailExistingMsg italic text-red-400 text-sm hidden">This email is already used</span>
+                    <span class="emailInvalidMsg italic text-red-400 text-sm hidden">This email is invalid</span>
                 </div>
 
                 <!-- navigation -->
@@ -281,6 +282,7 @@
                     <label for="studPersonalEmail">Email Address (Personal)</label>
                     <input id="studPersonalEmail" name="personalEmail" class="p-3 rounded-lg border border-gray-400 flex justify-center gap-2 requiredStudenField" placeholder="ex: juandelacruz@gmail.com">
                     <span class="emailExistingMsg italic text-red-400 text-sm hidden">This email is already used</span>
+                    <span class="emailInvalidMsg italic text-red-400 text-sm hidden">This email is invalid</span>
                 </div>
 
                 <!-- email bulsu -->
