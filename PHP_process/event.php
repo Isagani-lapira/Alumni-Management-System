@@ -24,7 +24,9 @@ if (isset($_POST['action'])) {
 function reatrieveEvent($colCode, $con)
 {
     $currentDate = $_POST['currentDate'];
-    $query = "SELECT * FROM `event` WHERE `eventDate`>= ? AND `colCode` = ?
+    $query = "SELECT `eventID`,`date_posted` ,`eventName`, `eventDate`, 
+    `about_event`, `eventPlace`, `eventStartTime` FROM `event` WHERE 
+    `eventDate`>= ? AND `colCode` = ?
     ORDER by `eventDate` ASC LIMIT 1";
     $stmt = mysqli_prepare($con, $query);
     $stmt->bind_param('ss', $currentDate, $colCode);
@@ -32,21 +34,22 @@ function reatrieveEvent($colCode, $con)
     $result = $stmt->get_result();
     $row = mysqli_num_rows($result);
 
-    if ($result && $row > 0) getDetail($result, $con);
+    if ($result && $row > 0) getDetail($result);
     else echo 'Failed';
 }
 
 function retrieveSpecificEvent($eventID, $con)
 {
-    $query = "SELECT * FROM `event` WHERE `eventID` = '$eventID'";
+    $query = "SELECT `eventID`,`date_posted` ,`eventName`, `eventDate`, 
+    `about_event`, `eventPlace`, `eventStartTime` FROM `event` WHERE `eventID` = '$eventID'";
     $result = mysqli_query($con, $query);
     $row = mysqli_num_rows($result);
 
-    if ($result && $row > 0) getDetail($result, $con);
+    if ($result && $row > 0) getDetail($result);
     else echo 'nothing';
 }
 
-function getDetail($result, $con)
+function getDetail($result)
 {
     $response = "Success";
     $data = mysqli_fetch_assoc($result);
@@ -57,46 +60,19 @@ function getDetail($result, $con)
     $about_event = $data['about_event'];
     $eventPlace = $data['eventPlace'];
     $eventStartTime = $data['eventStartTime'];
-    $aboutImg = $data['aboutImg'];
 
-
-    // get expectation
-    $expectationJSON = getEventExpectation($eventID, $con);
     $data = array(
         "response" => $response,
+        "eventID" => $eventID,
         "eventName" => $eventName,
         "eventDate" => $eventDate,
         "date_posted" => $date_posted,
         "about_event" => $about_event,
         "eventPlace" => $eventPlace,
         "eventStartTime" => $eventStartTime,
-        "aboutImg" => base64_encode($aboutImg),
-        "expectation" => $expectationJSON
     );
 
     echo json_encode($data);
-}
-
-function getEventExpectation($eventID, $con)
-{
-    $query = "SELECT * FROM `event_expectation` WHERE `eventID` = '$eventID'";
-    $result = mysqli_query($con, $query);
-
-    $expectation = array();
-    $sampleImg = array();
-    if ($result) {
-        //get event expectation 
-        while ($data = mysqli_fetch_assoc($result)) {
-            $expectation[] = $data['imgDescription'];
-            $sampleImg[] = base64_encode($data['sampleImg']);
-        }
-    }
-    $data = array(
-        "sampleImg" => $sampleImg,
-        "expectation" => $expectation
-    );
-
-    return $data;
 }
 
 function getUpcomingEvent($colCode, $currentDate, $con)
@@ -153,7 +129,8 @@ function getNextCollegeEvent($colCode, $category, $con)
     $query = "";
     // filter by college and alumni
     if ($colCode != "") { //for next college event
-        $query = "SELECT * FROM `event` WHERE `colCode` = ? 
+        $query = "SELECT `eventID`, `eventName`, `eventDate`, `date_posted`, `about_event`,
+        `eventPlace`, `eventStartTime` FROM `event` WHERE `colCode` = ? 
         AND `eventDate`>= CURRENT_DATE()
         ORDER BY `eventDate` ASC LIMIT 3";
         $stmt = mysqli_prepare($con, $query);
@@ -178,7 +155,6 @@ function getNextCollegeEvent($colCode, $category, $con)
     $about_event = array();
     $eventPlace = array();
     $eventStartTime = array();
-    $aboutImg = array();
 
 
     if ($result && $row > 0) {
@@ -191,20 +167,19 @@ function getNextCollegeEvent($colCode, $category, $con)
             $about_event[] = $data['about_event'];
             $eventPlace[] = $data['eventPlace'];
             $eventStartTime[] = $data['eventStartTime'];
-            $aboutImg[] = base64_encode($data['aboutImg']);
         }
     }
 
 
     $data = array(
         "response" => $response,
+        "eventID" => $eventID,
         "eventName" => $eventName,
         "eventDate" => $eventDate,
         "date_posted" => $date_posted,
         "about_event" => $about_event,
         "eventPlace" => $eventPlace,
         "eventStartTime" => $eventStartTime,
-        "aboutImg" => $aboutImg,
     );
 
     echo json_encode($data);

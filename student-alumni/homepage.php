@@ -1501,9 +1501,6 @@ function getAccDetails($con, $personID)
           <p class="text-sm text-gray-500">Date: <span id="eventDateModal"></span></p>
           <p class="text-sm text-gray-500">Place: <span id="eventPlaceModal"></span></p>
           <p class="text-sm text-gray-500">Start time: <span id="eventTimeModal"></span></p>
-          <!-- <p id="author" class="text-sm text-gray-500">By: <span class="text-accent">Media Relations Office</span></p> -->
-          <p class="text-lg text-greyish_black font-bold expectationLbl">EXPECTATION</p>
-          <div id="expectationList" class="flex flex-col gap-2"></div>
         </div>
       </div>
 

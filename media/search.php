@@ -265,6 +265,38 @@ try {
             header("Content-Type: image/jpeg");
             echo $row['colLogo'];
             break;
+        case 'event_img':
+            if (!isset($_GET['eventID'])) {
+                // send a response to the client
+                http_response_code(400);
+                exit();
+            }
+            $eventID = $_GET['eventID'];
+
+            $query = 'SELECT `aboutImg` FROM `event` WHERE `eventID` = ?';
+            $stmt = $mysql_con->prepare($query);
+            $stmt->bind_param('s', $eventID);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            if (
+                $result->num_rows === 0
+            ) {
+                http_response_code(404);
+                exit();
+            }
+
+            $row =  $result->fetch_assoc();
+            // check if there is a cover photo
+            if ($row['aboutImg'] === null) {
+                // send a response to the client
+                http_response_code(404);
+                exit();
+            }
+
+            header("Content-Type: image/jpeg");
+            echo $row['aboutImg'];
+            break;
         default:
             // send a response to the client
             http_response_code(400);

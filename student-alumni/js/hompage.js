@@ -5,6 +5,7 @@ $(document).ready(function () {
   const splitPath = PWD.split("student-alumni");
   const rootPath = splitPath[0];
   const CAREER_LOGO = rootPath + "media/search.php?media=career&careerID=";
+  const EVENT_LOGO = rootPath + "media/search.php?media=event_img&eventID=";
 
   const imgFormat = 'data:image/jpeg;base64,';
   const colCode = $('#colCode').html();
@@ -788,6 +789,8 @@ $(document).ready(function () {
   function displayEventModal(eventID, eventTitle, eventDateModal) {
     $('#eventTitleModal').text(eventTitle)
     $('#eventDateModal').text(eventDateModal)
+    const headerImg = EVENT_LOGO + eventID;
+    $('#headerImg').attr('src', headerImg)
 
     let action = "retrieveSpecificEvent"
     const formatData = new FormData();
@@ -805,37 +808,15 @@ $(document).ready(function () {
       success: response => {
         //data that has been retrieved
         const aboutEvent = response.about_event
-        const headerImg = imgFormat + response.aboutImg
         const eventPlace = response.eventPlace
         const eventStartTime = response.eventStartTime
-        const expectation = response.expectation
 
         //display the data
         $('#eventDescript').text(aboutEvent)
         $('#eventPlaceModal').text(eventPlace)
         $('#eventTimeModal').text(eventStartTime)
-        $('#headerImg').attr('src', headerImg)
-        $('#expectationList').empty() //remove the previously display list of expectation
 
-        if (expectation.expectation.length === 0) $('.expectationLbl').addClass('hidden')
-        else $('.expectationLbl').removeClass('hidden')
-
-        // show expectation
-        const expectationData = expectation.expectation
-        expectationData.forEach(value => {
-          const wrapper = $('<div>')
-            .addClass('flex gap-2 items-center text-gray-500')
-
-          const bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
-          const expectationElement = $('<p>')
-            .addClass('text-sm')
-            .text(value)
-          wrapper.append(bulletIcon, expectationElement)
-
-          $('#expectationList').append(wrapper)
-        })
-      },
-      error: error => { console.log(error) }
+      }
     })
   }
 

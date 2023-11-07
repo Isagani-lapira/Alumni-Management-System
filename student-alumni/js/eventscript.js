@@ -1,5 +1,9 @@
 $(document).ready(function () {
     const imgFormat = "data:image/jpeg;base64,"
+    const PWD = window.location.href;
+    const splitPath = PWD.split("student-alumni");
+    const rootPath = splitPath[0];
+    const EVENT_IMG = rootPath + "media/search.php?media=event_img&eventID=";
 
     function getCurrentDate() {
         var today = new Date();
@@ -30,15 +34,15 @@ $(document).ready(function () {
                 if (response.response == 'Success') {
 
                     const eventName = response.eventName
+                    const eventID = response.eventID
                     const eventDate = formatDate(response.eventDate)
                     const about_event = response.about_event
                     const eventPlace = response.eventPlace
                     const eventStartTime = response.eventPlace
-                    const aboutImg = response.aboutImg
-                    const expectation = response.expectation
+                    const aboutImg = EVENT_IMG + eventID
 
                     // mark up for event
-                    displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime, expectation)
+                    displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime)
 
                     // for avoiding duplication of entry
                     $('#upcomingColEvent').empty()
@@ -60,7 +64,7 @@ $(document).ready(function () {
         })
     }
 
-    function displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime, expectation) {
+    function displayEvent(eventName, eventDate, about_event, eventPlace, aboutImg, eventStartTime) {
         $('#eventName').text(eventName)
         $('#eventStartDate').text(eventDate)
         $('#eventDescriptData').text(about_event)
@@ -68,7 +72,7 @@ $(document).ready(function () {
         // for viewing in details
         $('#viewInDetailsEvent').on('click', function () {
             $('#eventModal').removeClass('hidden')
-            seeEventDetails(eventName, about_event, eventDate, eventPlace, eventStartTime, aboutImg, expectation)
+            seeEventDetails(eventName, about_event, eventDate, eventPlace, eventStartTime, aboutImg)
         })
     }
 
@@ -89,7 +93,7 @@ $(document).ready(function () {
         return date.toLocaleDateString(undefined, options);
     }
 
-    function seeEventDetails(eventTitle, aboutEvent, eventDate, eventPlace, eventStartTime, headerImg, expectation) {
+    function seeEventDetails(eventTitle, aboutEvent, eventDate, eventPlace, eventStartTime, headerImg) {
         //display the data
         $('#eventTitleModal').text(eventTitle)
         $('#eventDescript').text(aboutEvent)
@@ -98,23 +102,7 @@ $(document).ready(function () {
         $('#eventTimeModal').text(eventStartTime)
 
         // header
-        let src = imgFormat + headerImg
-        $('#headerImg').attr('src', src)
-        $('#expectationList').empty() //remove the previously display list of expectation
-        // show expectation
-        const expectationData = expectation.expectation
-        expectationData.forEach(value => {
-            const wrapper = $('<div>')
-                .addClass('flex gap-2 items-center text-gray-500')
-
-            const bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
-            const expectationElement = $('<p>')
-                .addClass('text-sm')
-                .text(value)
-            wrapper.append(bulletIcon, expectationElement)
-
-            $('#expectationList').append(wrapper)
-        })
+        $('#headerImg').attr('src', headerImg)
     }
 
     function retrieveNextCollegeEvent(colCode = "", categoryVal = "") {
@@ -139,9 +127,12 @@ $(document).ready(function () {
 
                     for (let i = 0; i < length; i++) {
                         const eventName = response.eventName[i]
+                        const eventID = response.eventID[i]
                         const eventDate = formatDate(response.eventDate[i])
-                        const about_event = response.about_event[i].substring(0, 150)
-                        const aboutImg = imgFormat + response.aboutImg[i]
+                        const about_event = response.about_event[i][i];
+                        const aboutImg = EVENT_IMG + eventID
+                        const eventPlace = response.eventPlace[i];
+                        const eventStartTime = response.eventPlace[i];
 
                         const eventWrapper = $('<div>')
                             .addClass('rounded-md w-64 center-shadow')
@@ -169,6 +160,11 @@ $(document).ready(function () {
                         body.append(name, description)
                         eventWrapper.append(header, body)
 
+                        // display event when clicked
+                        eventWrapper.on('click', function () {
+                            $('#eventModal').removeClass('hidden')
+                            seeEventDetails(eventName, about_event, eventDate, eventPlace, eventStartTime, aboutImg)
+                        })
                         if (colCode != "")
                             $('#upcomingColEvent').append(eventWrapper)
                         else
@@ -176,8 +172,8 @@ $(document).ready(function () {
                     }
 
                 }
-            },
-            error: error => { console.log(error) }
+            }
         })
     }
+
 })
