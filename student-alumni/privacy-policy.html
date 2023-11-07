@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <link href="../css/main.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Thin scrollbar */
+        ::-webkit-scrollbar {
+        width: 8px; /* Adjust the width to make the scrollbar thinner */
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+        background-color: #ffffff; /* Change the background color of the scrollbar track */
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+        background-color: #991B1B; /* Change the color of the scrollbar handle */
+        border-radius: 4px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+        background-color: #ac1f1f; /* Change the color of the scrollbar handle on hover */
+        }
+      </style>
+</head>
+<body class="flex items-center justify-center h-full">
+    <!-- Open the modal using ID.showModal() method -->
+    <button class="btn p-2 rounded-lg bg-accent text-white font-bold h-12 w-24" onclick="my_modal_5.showModal()">Register</button>
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle rounded-lg">
+        
+            </div>
+            
+            <script>
+                // jQuery code for modal and checkbox functionality
+                $(document).ready(function() {
+                    const modal = $('#my_modal_5');
+                    const checkbox = $('#privacyPolicyCheckbox');
+                    const acceptButton = $('#acceptButton');
+                    
+                    checkbox.change(function() {
+                        acceptButton.prop('disabled', !checkbox.prop('checked'));
+                        
+                        if (checkbox.prop('checked')) {
+                            acceptButton.removeClass('bg-gray-400').addClass('bg-green-500 hover:bg-green-700 text-white');
+                        } else {
+                            acceptButton.removeClass('bg-green-500 hover:bg-green-700 text-white').addClass('bg-gray-400 text-black');
+                        }
+                    });
+                    
+                    // Open modal when the "Register" button is clicked
+                    $('#registerButton').click(function() {
+                        modal.showModal();
+                    });
+                    
+                    // Close modal when the "I do not accept" button is clicked
+                    $('#modalCancelButton').click(function() {
+                        modal.close();
+                    });
+                });
+            </script>          
+
+        </div>
+    </dialog>
+</body>
+</html>

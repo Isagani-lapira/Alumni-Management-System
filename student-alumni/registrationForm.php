@@ -11,34 +11,42 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
+    <!--   Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 </head>
 
-<body class="h-screen">
-    <div class="h-full p-5 relative">
-        <nav class="flex gap-2 items-center">
+<body class="">
+    <div class="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
+        <header class="flex gap-2 items-center p-4 w-full text-center">
             <a href="../student-alumni/login.php">
                 <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class=" w-32 h-16" />
             </a>
-        </nav>
+        </header>
 
         <!-- selection -->
-        <div class="selectionStatus" style="height: 90%;">
-            <h2 class="text-center text-lg md:text-4xl font-bold py-3 text-greyish_black">PLEASE SPECIFY YOUR STATUS
-            </h2>
-            <!-- selection -->
-            <div class="flex flex-col md:flex-row items-center justify-center gap-2 h-1/2">
-                <div id="alumniStatus" class="p-5 w-1/3 h-4/5 bg-gray-300 center-shadow cursor-pointer text-greyish_black hover:bg-accent transition duration-300 delay-200 ease-in-out hover:text-white rounded-lg flex items-center justify-center">
-                    <span class="font-bold text-sm md:text-xl">ALUMNI</span>
+        <div class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg">
+            <div class="bg-white border px-14 py-4  rounded w-6/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
+                <h2 class="text-left text-lg md:text-xl font-bold  py-10 text-greyish_black tracking-wide">PLEASE SPECIFY YOUR STATUS:
+                </h2>
+                <!-- selection -->
+                <div class="flex flex-col md:flex-row  justify-between [&>*]:flex-1 gap-6  py-4 h-44">
+                    <label for="terms-modal" id="alumniStatus" class="p-5 bg-gray-300 center-shadow cursor-pointer text-greyish_black hover:bg-accent transition duration-300 delay-200 ease-in-out hover:text-white rounded-lg flex items-center justify-center">
+                        <span class="font-bold text-sm md:text-xl">ALUMNI</span>
+                    </label>
+                    <label for="terms-modal" id="studentStatus" class="p-5 cursor-pointer bg-gray-300 center-shadow text-greyish_black hover:bg-accent transition duration-300 delay-200 ease-in-out hover:text-white rounded-lg flex items-center justify-center">
+                        <span class="font-bold text-sm md:text-xl">STUDENT</span>
+                    </label>
                 </div>
-                <div id="studentStatus" class="p-5 w-1/3 h-4/5 cursor-pointer bg-gray-300 center-shadow text-greyish_black hover:bg-accent transition duration-300 delay-200 ease-in-out hover:text-white rounded-lg flex items-center justify-center">
-                    <span class="font-bold text-sm md:text-xl">STUDENT</span>
-                </div>
+                <a href="../student-alumni/login.php" class=" text-left mt-4">
+                    <p class="text-gray-500">I have an account <span class="text-blue-400 hover:text-blue-500 font-bold text-center">Login</span></p>
+                </a>
             </div>
-
-            <a href="../student-alumni/login.php" class="w-full text-center">
-                <p class="text-gray-500">I have an account <span class="text-blue-400 hover:text-blue-500 font-bold text-center">Login</span></p>
-            </a>
         </div>
+
+
+
 
         <!-- fields for alumni -->
         <form id="alumniForm" class="flex fieldFormReg hidden flex-col gap-2 mx-auto w-1/2 p-3" style="height: 90%;">
@@ -419,8 +427,94 @@
     </div>
 
 
+    <!-- Put this part before </body> tag -->
+    <!-- terms and conditions  -->
+    <input type="checkbox" id="terms-modal" class="daisy-modal-toggle" />
+    <div class="daisy-modal">
+        <div class="daisy-modal-box  daisy-modal-bottom sm:daisy-modal-middle w-11/12 max-w-5xl">
+            <div class="overflow-y-auto">
+                <div class="flex ">
+                    <h1 class="font-bold text-3xl text-accent mt-2">Privacy Policy</h1>
+                </div>
+                <hr class="my-4">
+                <div class="flex flex-col justify-center  px-10 ">
+                    <!-- Introduction -->
+                    <p class="text-justify">
+                        Welcome to BulSU Connect, your Alumni Management System.
+                        At Bulacan State University (BulSU), we are committed to protecting your privacy and ensuring the security of your personal information.
+                        This Data Privacy Notice explains how we collect, use, and safeguard your data in accordance with the Data Privacy Act of 2012 (Republic Act No. 10173).
+                        <br><br>
+                        BulSU Connect will collect personal information that you provide in this MEMBERSHIP APPLICATION FORM solely for the purpose of authenticating
+                        respondents within our alumni community. We may securely dispose or delete any personal information that is no longer necessary for these purposes.
+                    </p>
+                    <br>
+                    <!-- How Your Information is Used -->
+                    <h3 class="font-bold text-lg text-accent">How Your Information is Used:</h3>
+                    <ul class="text-justify list-disc ml-4">
+                        <li><b class="font-bold ">Authenticating Respondents:</b> We use your personal information to verify your identity within the BulSU alumni community.</li>
+                        <li><b class="font-bold ">Communication:</b> We may use your contact details to send you relevant updates, newsletters, and event invitations related to BulSU alumni activities.</li>
+                        <li><b class="font-bold ">Third-Party Sharing:</b> We may share your personal information with BulSU affiliates, business partners, service providers, and contractors or subcontractors for authentication and communication purposes. All shared information is protected by appropriate agreements to ensure your privacy.</li>
+                    </ul>
+                    <br>
+                    <!-- Your Consent -->
+                    <h3 class="font-bold text-lg text-accent">Your Consent:</h3>
+                    <p class="text-justify">By submitting this form, you consent to the internal processing of your personal information by BulSU Connect. Any external sharing of your information beyond our community will require your explicit written consent.</p>
+                    <br>
+                    <!-- Your Rights as a Data Subject -->
+                    <h3 class="font-bold text-lg text-accent">Your Rights as a Data Subject:</h3>
+                    <ul class="text-justify list-disc ml-4">
+                        <li><b class="font-bold ">Right to be Informed:</b> You have the right to know how your personal information will be processed.</li>
+                        <li><b class="font-bold ">Right to Object:</b> You can object to the processing of your personal information for specific purposes.</li>
+                        <li><b class="font-bold ">Right to Access:</b> You can request access to the personal information we hold about you.</li>
+                        <li><b class="font-bold ">Right to Rectify:</b> You can request corrections to your personal information if it is inaccurate or incomplete.</li>
+                        <li><b class="font-bold ">Right to Erasure or Blocking:</b> You can request the deletion or blocking of your personal information under certain circumstances.</li>
+                        <li><b class="font-bold ">Right to Data Portability:</b> You can obtain and reuse your personal information for your own purposes.</li>
+                        <li><b class="font-bold ">Right to File a Complaint:</b> If you believe your data protection rights have been violated, you have the right to file a complaint.</li>
+                        <li><b class="font-bold ">Right to Compensation:</b> You have the right to claim compensation for damages caused by the violation of your data protection rights.</li>
+                    </ul>
+                    <br>
+                    <!-- Contact Information -->
+                    <h3 class="font-bold text-lg text-accent">Contact Information:</h3>
+                    <p><b class="font-bold">Data Protection Officer: </b>Patrick Joseph Pronuevo</p>
+                    <p> <b class="font-bold">Email:</b> <a href="mailto:patrickjoseph.pronuevo.a@bulsu.edu.ph">patrickjoseph.pronuevo.a@bulsu.edu.ph</a></p>
+                    <p><b class="font-bold">Phone:</b> +639764127324</p>
+                    <p><b class="font-bold">Website: </b><a href="https://eliamarg.slarenasitsolutions.com/Alumni-Management-System/student-alumni/lgin.php?fbclid=IwAR31O4RRbd1HKkGsWFedwL3z6VQ9Tb7dd1lfLJIfSc_3yHAvOhIyDxIsky0" class="text-accent">BulSU Connect</a></p>
+                    <p><b class="font-bold">Date: </b>11/7/2023</p>
+                    <br>
+                    <p class="italic text-accent font-bold">Thank you for being a part of the BulSU alumni community. Your privacy matters to us.</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="daisy-modal-action">
+                <div class="flex px-10 py-4 space-x-4">
+                    <input type="checkbox" id="privacyPolicyCheckbox">
+                    <label for="privacyPolicyCheckbox" class="">I have read all privacy policy</label>
+                </div>
+
+                <div class="flex justify-end space-x-4 w-full px-10">
+
+                    <form method="dialog">
+                        <!-- if there is a button in the form, it will close the modal -->
+                        <label for="terms-modal" class="btn border-2 border-accent text-accent rounded-md p-2">I do not accept</label>
+                    </form>
+                    <button id="acceptButton" class="btn p-2 bg-gray-400 h-11 w-24 rounded-md" data-selected="" disabled>
+                        I accept
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="../student-alumni/js/login-register.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+
+
 </body>
 
 </html>
