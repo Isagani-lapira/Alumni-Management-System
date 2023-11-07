@@ -20,7 +20,7 @@ $(document).ready(function () {
         data: {
             labels: ['Completed', 'Waiting'],
             datasets: [{
-                label: '# of Votes',
+                label: '%',
                 data: [35, 500],
                 borderWidth: 1,
                 backgroundColor: [
@@ -40,7 +40,7 @@ $(document).ready(function () {
         data: {
             labels: [],
             datasets: [{
-                label: '# of College Alumni already finished answering',
+                label: '% of College Alumni already finished answering',
                 data: [],
                 borderWidth: 1
             }]
@@ -50,6 +50,7 @@ $(document).ready(function () {
             scales: {
                 y: {
                     beginAtZero: true,
+                    max: 100, // Set the maximum value on the y-axis to 100
                     ticks: {
                         stepSize: 1, // Specify the step size for Y-axis values
                     }
