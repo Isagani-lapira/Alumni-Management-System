@@ -7,9 +7,8 @@ if (isset($_POST['action'])) {
     $action = $_POST['action'];
 
     if ($action == "readAnnouncement") {
-        $currentDate = $_POST['currentDate'];
         $maxLimit = $_POST['maxLimit'];
-        getAnnouncement($currentDate, $maxLimit, $mysql_con);
+        getAnnouncement($maxLimit, $mysql_con);
     } else if ($action == "readImageOfAnnouncement") {
         $announcementID = $_POST['announcementID'];
         getAnnouncementImg($announcementID, $mysql_con);
@@ -28,12 +27,12 @@ if (isset($_POST['action'])) {
 }
 
 
-function getAnnouncement($currentDate, $maxLimit, $con)
+function getAnnouncement($maxLimit, $con)
 {
     $offset = 0;
 
-    $query = "SELECT `announcementID`, `title`, `Descrip`, `univAdminID`, `date_posted` FROM `university_announcement` WHERE 
-    `date_end`>='$currentDate' ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit";
+    $query = "SELECT `announcementID`, `title`, `Descrip`, `univAdminID`, `date_posted`
+    FROM `university_announcement` ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit";
     $result = mysqli_query($con, $query);
 
     getDetails($result, $con);

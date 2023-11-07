@@ -23,24 +23,15 @@ $(document).ready(function () {
             prevEl: ".swiper-button-prev",
         },
     });
-    function getCurrentDate() {
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = String(today.getMonth() + 1).padStart(2, '0');
-        var day = String(today.getDate()).padStart(2, '0');
-        return year + '-' + month + '-' + day;
-    }
 
     setTimeout(getAnnouncement, 6000)
     // setTimeout(getAnnouncement, 5000);
     function getAnnouncement() {
-        const currentDate = getCurrentDate();
         let action = 'readAnnouncement'
         const maxLimit = 4;
         //data to be send to database
         const formdata = new FormData();
         formdata.append('action', action)
-        formdata.append('currentDate', currentDate);
         formdata.append('maxLimit', maxLimit)
 
         //process retrieval
