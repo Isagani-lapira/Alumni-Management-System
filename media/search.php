@@ -168,6 +168,103 @@ try {
             echo $row['cover_img'];
             break;
 
+        case 'headline_img':
+            if (!isset($_GET['announcementID'])) {
+                // send a response to the client
+                http_response_code(400);
+                exit();
+            }
+            $announcementID = $_GET['announcementID'];
+
+            $query = 'SELECT `headline_img` FROM `university_announcement` WHERE `announcementID` = ?';
+            $stmt = $mysql_con->prepare($query);
+            $stmt->bind_param('s', $announcementID);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            if (
+                $result->num_rows === 0
+            ) {
+                http_response_code(404);
+                exit();
+            }
+
+            $row =  $result->fetch_assoc();
+            // check if there is a cover photo
+            if ($row['headline_img'] === null) {
+                // send a response to the client
+                http_response_code(404);
+                exit();
+            }
+
+            header("Content-Type: image/jpeg");
+            echo $row['headline_img'];
+            break;
+        case 'career':
+            if (!isset($_GET['careerID'])) {
+                // send a response to the client
+                http_response_code(400);
+                exit();
+            }
+            $careerID = $_GET['careerID'];
+
+            $query = 'SELECT `companyLogo` FROM `career` WHERE `careerID` = ?';
+            $stmt = $mysql_con->prepare($query);
+            $stmt->bind_param('s', $careerID);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            if (
+                $result->num_rows === 0
+            ) {
+                http_response_code(404);
+                exit();
+            }
+
+            $row =  $result->fetch_assoc();
+            // check if there is a cover photo
+            if ($row['companyLogo'] === null) {
+                // send a response to the client
+                http_response_code(404);
+                exit();
+            }
+
+            header("Content-Type: image/jpeg");
+            echo $row['companyLogo'];
+            break;
+
+        case 'college':
+            if (!isset($_GET['colCode'])) {
+                // send a response to the client
+                http_response_code(400);
+                exit();
+            }
+            $colCode = $_GET['colCode'];
+
+            $query = 'SELECT `colLogo` FROM `college` WHERE `colCode` = ?';
+            $stmt = $mysql_con->prepare($query);
+            $stmt->bind_param('s', $colCode);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            if (
+                $result->num_rows === 0
+            ) {
+                http_response_code(404);
+                exit();
+            }
+
+            $row =  $result->fetch_assoc();
+            // check if there is a cover photo
+            if ($row['colLogo'] === null) {
+                // send a response to the client
+                http_response_code(404);
+                exit();
+            }
+
+            header("Content-Type: image/jpeg");
+            echo $row['colLogo'];
+            break;
         default:
             // send a response to the client
             http_response_code(400);

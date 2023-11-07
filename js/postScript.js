@@ -200,7 +200,7 @@ $(document).ready(function () {
                     offsetPost += length
 
                     // Check if the table row count is equal to 10
-                    if (isTable && length === 10) {
+                    if (isTable && length === 5) {
                         postData.set('offset', offsetPost);
                         getPostAdmin(postData, true);
                     }
@@ -1517,7 +1517,7 @@ $(document).ready(function () {
         var contentHeight = container[0].scrollHeight;
         var scrollThreshold = 70; // Adjust this threshold as needed
 
-        if (scrollPosition + containerHeight >= contentHeight - scrollThreshold && lengthRetrieved == 10) {
+        if (scrollPosition + containerHeight >= contentHeight - scrollThreshold && lengthRetrieved == 5) {
             getCommunityPost()
         }
     });

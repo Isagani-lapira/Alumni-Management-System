@@ -227,9 +227,13 @@ function countAnswer($con)
     $stmtAlumni->close();
 
     $waiting = $totalAlumniCount - $completed;
+    // Calculate the percentage completed and percentage waiting
+    $percentageCompleted = ($completed / $totalAlumniCount) * 100;
+    $percentageWaiting = ($waiting / $totalAlumniCount) * 100;
+
     $data = array(
-        "completed" => $completed,
-        "waiting" => $waiting,
+        "completed" => $percentageCompleted,
+        "waiting" => $percentageWaiting,
     );
     echo json_encode($data);
 }
@@ -290,6 +294,15 @@ function countCollegeParticipation($con)
         while ($data = $result->fetch_assoc()) {
             $colCode = $data['colCode']; //retrieve every college in the database
 
+            // Count the total alumni count for the college
+            $queryTotalAlumni = "SELECT COUNT(*) FROM alumni WHERE colCode = ?";
+            $stmtTotalAlumni = mysqli_prepare($con, $queryTotalAlumni);
+            $stmtTotalAlumni->bind_param('s', $colCode);
+            $stmtTotalAlumni->execute();
+            $stmtTotalAlumni->bind_result($totalAlumniCount);
+            $stmtTotalAlumni->fetch();
+            $stmtTotalAlumni->close();
+
             // count the alumni of every colleges that finish answering latest tracer
             $queryCount = "SELECT COUNT(a.colCode)
             FROM alumni a
@@ -306,9 +319,12 @@ function countCollegeParticipation($con)
             $stmtCount->bind_result($count);
             $stmtCount->fetch();
 
+            // Calculate the percentage of alumni count finished for the college
+            $percentageFinished = ($count / $totalAlumniCount) * 100;
+
             $participant = array(
                 "colCode" => $colCode,
-                "alumniCountFinished" => $count
+                "alumniCountFinished" => $percentageFinished
             );
 
             $collegesCount[] = $participant;

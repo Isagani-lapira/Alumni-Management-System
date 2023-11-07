@@ -47,7 +47,7 @@ if (isset($_POST['action'])) {
 function getAOTM($con)
 {
     // query to get all the alumni of the month on this month
-    $query = "SELECT a.studentNo, a.cover_img, a.colCode, 
+    $query = "SELECT a.AOMID, a.studentNo, a.cover_img, a.colCode, 
     p.personal_email, CONCAT(p.fname,' ' ,p.lname) AS 'fullname'
     FROM alumni_of_the_month AS a
     INNER JOIN person AS p ON a.personID = p.personID
@@ -64,7 +64,7 @@ function getAOTM($con)
 function getAOTMByFilter($month, $colCode, $year, $con)
 {
     $stmt = null;
-    $query = "SELECT a.studentNo, a.cover_img, a.colCode, 
+    $query = "SELECT a.AOMID, a.studentNo, a.cover_img, a.colCode, 
     p.personal_email, CONCAT(p.fname,' ' ,p.lname) AS 'fullname'
     FROM alumni_of_the_month AS a
     INNER JOIN person AS p ON a.personID = p.personID ";
@@ -112,6 +112,7 @@ function alumniOfMonthDetails($result)
 {
     $row = mysqli_num_rows($result);
     $response = "Unsuccessful";
+    $aomID = array();
     $studentNo = array();
     $img = array();
     $colCode = array();
@@ -122,6 +123,7 @@ function alumniOfMonthDetails($result)
         $response = 'Success';
         while ($data = $result->fetch_assoc()) {
             //data to be store
+            $aomID[] = $data['AOMID'];
             $studentNo[] = $data['studentNo'];
             $img[] = base64_encode($data['cover_img']);
             $colCode[] = $data['colCode'];
@@ -133,6 +135,7 @@ function alumniOfMonthDetails($result)
     // send data as json
     $data = array(
         "response" => $response,
+        "aomID" => $aomID,
         "profile" => $img,
         "studentNo" => $studentNo,
         "colCode" => $colCode,
@@ -186,7 +189,7 @@ function listOfAOMThisYear($con)
 
 function getSelectedAOM($aomID, $con)
 {
-    $query = "SELECT a.`quote`, a.`colCode`, a.`cover_img`, p.fname, p.lname, al.username
+    $query = "SELECT a.`quote`, a.`colCode`, p.fname, p.lname, al.username
     FROM alumni_of_the_month AS a
     INNER JOIN person AS p ON a.personID = p.personID
     INNER JOIN alumni AS al ON a.personID = al.personID
@@ -202,7 +205,6 @@ function getSelectedAOM($aomID, $con)
 
     $fullname = "";
     $quote = "";
-    $cover_img = "";
     $colCode = "";
     $username = "";
     if ($result) {
@@ -212,7 +214,6 @@ function getSelectedAOM($aomID, $con)
         $quote = $data['quote'];
         $colCode = $data['colCode'];
         $username = $data['username'];
-        $cover_img = base64_encode($data['cover_img']);
     }
 
     $data = array(
@@ -221,7 +222,6 @@ function getSelectedAOM($aomID, $con)
         "quote" => $quote,
         "colCode" => $colCode,
         "aoyUN" => $username,
-        "cover" => $cover_img,
     );
 
     echo json_encode($data);

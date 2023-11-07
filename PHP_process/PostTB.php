@@ -83,7 +83,7 @@ class PostData
     //get all the post by admin
     function getPostAdmin($username, $startingDate, $endDate, $offset, $con)
     {
-        $maxLimit = 10;
+        $maxLimit = 5;
         $query = "";
         //check if it the post retrieve based on date
         if ($startingDate != null && $endDate != null)
@@ -158,21 +158,33 @@ class PostData
     //get total number of comments f a particular post
     function getPostComments($postID, $con)
     {
-        $query = 'SELECT * FROM `comment` WHERE `postID`= "' . $postID . '"';
-        $result = mysqli_query($con, $query);
-        $row = mysqli_num_rows($result);
+        $query = 'SELECT COUNT(`comment`) FROM `comment` WHERE `postID` = ?';
+        $stmt = mysqli_prepare($con, $query);
 
-        return $row;
+        if ($stmt) {
+            $stmt->bind_param('s', $postID);
+            $stmt->execute();
+            $stmt->bind_result($count);
+            $stmt->fetch();
+
+            return $count;
+        }
     }
 
     //get total number of likes f a particular post
     function getPostLikes($postID, $con)
     {
-        $query = "SELECT * FROM `postlike` WHERE `postID` = '$postID' ";
-        $result = mysqli_query($con, $query);
-        $row = mysqli_num_rows($result);
+        $query = "SELECT COUNT(`postID`) FROM `postlike` WHERE `postID` = ?";
+        $stmt = mysqli_prepare($con, $query);
 
-        return $row;
+        if ($stmt) {
+            $stmt->bind_param('s', $postID);
+            $stmt->execute();
+            $stmt->bind_result($count);
+            $stmt->fetch();
+
+            return $count;
+        }
     }
 
     function getCollegePost($username, $college, $date, $maxLimit, $con)
@@ -348,7 +360,7 @@ class PostData
 
     function getProfilePost($username, $offset, $status, $con)
     {
-        $maxLimit = 10;
+        $maxLimit = 5;
         //query to get the post of user
         $query = "SELECT * FROM `post` WHERE `username` = '$username'  AND `status` = '$status'
         ORDER BY `timestamp` DESC LIMIT $offset, $maxLimit";
@@ -418,7 +430,7 @@ class PostData
 
     function getAllPost($offset, $con)
     {
-        $maxLimit = 10;
+        $maxLimit = 5;
         $query = "SELECT * FROM `post` WHERE `status` = 'available'
         ORDER BY `timestamp` DESC LIMIT $offset, $maxLimit";
         $result = mysqli_query($con, $query);
@@ -432,7 +444,7 @@ class PostData
 
     function getCollege($college, $reportCat, $offset, $con)
     {
-        $maxLimit = 10; //default number of max number of retrieval
+        $maxLimit = 5; //default number of max number of retrieval
         $query = "";
 
         //report category is available only
@@ -533,7 +545,7 @@ class PostData
 
     function getAllCollegePost($colCode, $offset, $con)
     {
-        $maxLimit = 10;
+        $maxLimit = 5;
         $status = "available";
         $query = "SELECT * FROM `post` WHERE `status` = ? 
         AND `colCode` = ? ORDER BY `timestamp` DESC LIMIT $offset,$maxLimit";

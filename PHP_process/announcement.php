@@ -32,7 +32,7 @@ function getAnnouncement($currentDate, $maxLimit, $con)
 {
     $offset = 0;
 
-    $query = "SELECT * FROM `university_announcement` WHERE 
+    $query = "SELECT `announcementID`, `title`, `Descrip`, `univAdminID`, `date_posted` FROM `university_announcement` WHERE 
     `date_end`>='$currentDate' ORDER BY `date_posted` DESC LIMIT $offset, $maxLimit";
     $result = mysqli_query($con, $query);
 
@@ -42,7 +42,7 @@ function getAnnouncement($currentDate, $maxLimit, $con)
 function getAdminAnnouncement($univAdminID, $offset, $con)
 {
     $maxLimit = 10;
-    $query = "SELECT * FROM `university_announcement` WHERE `univAdminID` = '$univAdminID'
+    $query = "SELECT `announcementID`, `title`, `Descrip`, `univAdminID`, `date_posted` FROM `university_announcement` WHERE `univAdminID` = '$univAdminID'
     ORDER BY `date_posted` DESC LIMIT $offset,$maxLimit";
     $result = mysqli_query($con, $query);
 
@@ -59,7 +59,6 @@ function getDetails($result, $con)
     $Descrip = array();
     $fullname = array();
     $date_posted = array();
-    $headline_img = array();
 
     if ($result && $row > 0) {
         $response = "Success";
@@ -70,7 +69,6 @@ function getDetails($result, $con)
             $Descrip[] = $data['Descrip'];
             $univAdminID = $data['univAdminID'];
             $date_posted[] = $data['date_posted'];
-            $headline_img[] = base64_encode($data['headline_img']);
 
             //get admin fullname
             $adminQuery = "SELECT p.fname, p.lname
@@ -94,7 +92,6 @@ function getDetails($result, $con)
         "Descrip" => $Descrip,
         "fullname" => $fullname,
         "date_posted" => $date_posted,
-        "headline_img" => $headline_img,
     );
 
     echo json_encode($data);

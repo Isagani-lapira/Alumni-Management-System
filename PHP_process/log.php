@@ -32,7 +32,6 @@ function getDetails($result, $row, $con)
     $timestamp = array();
     $details = array();
     $colCode = array();
-    $colLogo = array();
     $colname = array();
     $colAdminName = array();
     if ($result && $row > 0) {
@@ -44,7 +43,7 @@ function getDetails($result, $row, $con)
             $details[] = $data['details'];
 
             // get college data
-            $queryCollege = "SELECT college.colCode, college.colLogo,colname,
+            $queryCollege = "SELECT college.colCode,colname,
             CONCAT(person.fname,' ',person.lname) AS 'fullname'
             FROM coladmin JOIN college ON coladmin.colCode = college.colCode
             JOIN person ON coladmin.personID = person.personID
@@ -59,7 +58,6 @@ function getDetails($result, $row, $con)
                 while ($data = $resultCol->fetch_assoc()) {
                     $colCode[] = $data['colCode'];
                     $colname[] = $data['colname'];
-                    $colLogo[] = base64_encode($data['colLogo']);
                     $colAdminName[] = $data['fullname'];
                 }
             }
@@ -73,7 +71,6 @@ function getDetails($result, $row, $con)
         "details" => $details,
         "colCode" => $colCode,
         "colname" => $colname,
-        "colLogo" => $colLogo,
         "colAdminName" => $colAdminName,
     );
 
