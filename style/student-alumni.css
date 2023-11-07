@@ -314,8 +314,8 @@ pre {
     transform: translateY(0);
   }
   100% {
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
   }
 }
 @keyframes slide-bottom {
@@ -324,8 +324,8 @@ pre {
     transform: translateY(0);
   }
   100% {
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
   }
 }
 

@@ -839,7 +839,7 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
-        <div id="profileModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div id="profileModal" class="fixed inset-0 flex justify-center z-50 bg-black bg-opacity-50 hidden">
           <div id="profileModalUser" class="bg-white rounded shadow-lg w-2/5 max-h-screen h-max overflow-y-auto slide-bottom">
             <!-- Cover Photo -->
             <div class="coverPhotoContainer">
