@@ -29,8 +29,8 @@ class Notification
         $date_notification = array();
         $timestamp = array();
         $is_read = array();
-        $profile = array();
         $details = array();
+        $personID = array();
 
 
         if ($result && $row > 0) {
@@ -72,15 +72,14 @@ class Notification
 
                 $resultPersonId = mysqli_query($con, $query);
                 $dataID = mysqli_fetch_assoc($resultPersonId);
-                $personID = $dataID['personID'];
+                $personID[] = $dataID['personID'];
 
                 //get person details
                 $personObj = new personDB();
-                $personDataJSON = $personObj->readPerson($personID, $con);
+                $personDataJSON = $personObj->readPerson($dataID['personID'], $con);
                 $personData = json_decode($personDataJSON, true);
 
                 $added_by[] = $personData['fname'] . ' ' . $personData['lname'];
-                $profile[] = $personData['profilepicture'];
             }
         } else $response = "Nothing";
 
@@ -93,8 +92,8 @@ class Notification
             "date_notification" => $date_notification,
             "timestamp" => $timestamp,
             "is_read" => $is_read,
-            "profile" => $profile,
             "details" => $details,
+            "personID" => $personID
         );
 
         echo json_encode($notification);

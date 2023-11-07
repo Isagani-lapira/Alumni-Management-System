@@ -77,7 +77,7 @@ function insertionPerson($accountType, $userType, $con)
 
     $randomNo = rand(1, 2000);
     $currentDateTime = date('y/m/d h:i:s');
-    $personID = $accountType . $currentDateTime . '-' . $randomNo;
+    $personID = $accountType . '-' . $currentDateTime . '-' . $randomNo;
 
     $person = new personDB();
     $insert_person = $person->insertPerson(

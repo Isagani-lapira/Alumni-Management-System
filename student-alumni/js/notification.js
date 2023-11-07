@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    const PWD = window.location.href;
+    const splitPath = PWD.split("student-alumni");
+    const rootPath = splitPath[0];
+    const PROFILE_IMG = rootPath + "media/search.php?media=profile_pic&personID=";
+
     let offset = 0;
     let templength = 0;
     //retrieving notification
@@ -27,11 +32,14 @@ $(document).ready(function () {
                     for (let i = 0; i < length; i++) {
                         const notifID = response.notifID[i];
                         const postID = response.postID[i];
+                        const personID = response.personID[i];
                         const added_by = response.added_by[i];
                         const typeOfNotif = response.typeOfNotif[i];
                         const date_notification = response.date_notification[i];
                         const is_read = response.is_read[i];
-                        const profile = response.profile[i];
+
+
+                        const profile = PROFILE_IMG + personID;
                         const details = (response.details[i] == "") ? "" : response.details[i];
 
                         let content = "";
@@ -70,8 +78,7 @@ $(document).ready(function () {
 
         //image of the user
         const defaultProfile = "../assets/icons/person.png"
-        const dbProfile = imgFormat + profile
-        const src = (profile !== '') ? dbProfile : defaultProfile
+        const src = (profile !== '') ? profile : defaultProfile
         const imgProfile = $('<img>')
             .addClass('h-12 w-12 rounded-full border border-accent')
             .attr('src', src);
