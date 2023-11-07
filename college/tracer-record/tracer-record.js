@@ -61,7 +61,10 @@ $(document).ready(function () {
     $("#print-btn").on("click", function () {
       // get the value of the select
       const id = $("#select-deployment-filter").val();
-      const spreadsheetUrl = DOWNLOAD_URL + id; //URL for spreadsheet with the selected form
+      //   get the column code #input-colCode
+      const colCode = $("#input-colCode").val();
+
+      const spreadsheetUrl = DOWNLOAD_URL + id + "&colCode=" + colCode; //URL for spreadsheet with the selected form
       window.location.href = spreadsheetUrl; // Redirect the user to the generated spreadsheet URL
     });
 

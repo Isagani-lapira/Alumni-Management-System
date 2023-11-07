@@ -21,9 +21,10 @@ $deployments = $tracer->get_deployments();
     <div class="flex flex-wrap gap-4 items-end ">
 
         <div class="form-container">
+            <!--  -->
+            <input id="input-colCode" data-colCode="<?= $_SESSION['colCode'] ?>" type="hidden" name="colCode" value="<?= $_SESSION['colCode'] ?>">
             <label class="block font-bold" for="select-deployment-filter">Deployment Date: </label>
             <select name="type" id="select-deployment-filter" class=" form-select rounded ">
-                <option value="" selected disabled>Latest</option>
 
                 <?php foreach ($deployments as $key => $value) : ?>
                     <option value="<?= $value['tracer_deployID'] ?>"><?= $value['year_created'] ?></option>
