@@ -1,5 +1,10 @@
 $(document).on('ready', function () {
 
+    const PWD = window.location.href;
+    const splitPath = PWD.split('admin');
+    const rootPath = splitPath[0];
+    const COVER_IMG = rootPath + "media/search.php?media=aom&AOMID=";
+
     $('#aoyLi').on('click', function () {
         $('#aomSelection').find('option:not([value=""])').remove() //back to default
         $('#aoyRecord').addClass('hidden')
@@ -356,7 +361,6 @@ $(document).on('ready', function () {
             processData: false,
             contentType: false,
             success: response => {
-                console.log(response)
                 if (response === 'Success') {
                     $('.alumniOfYearModal').parent().addClass('hidden')
                     $('#successModalAOY').removeClass('hidden')
@@ -433,7 +437,8 @@ $(document).on('ready', function () {
                             fullname,
                             collegeCode,
                             year,
-                            `<button class="bg-postButton hover:bg-postHoverButton text-white rounded-md px-4 py-2 view-button" data-personid="${personID}" data-aomid="${aomID}">View</button>`
+                            `<button class="bg-postButton hover:bg-postHoverButton text-white rounded-md px-4 py-2 view-button" 
+                            data-personid="${personID}" data-aomid="${aomID}">View</button>`
                         ];
                         table.row.add(row).draw();
                     }
@@ -484,11 +489,11 @@ $(document).on('ready', function () {
             success: response => {
                 if (response.response === 'Success') {
                     const data = response
-                    const cover_img = imgFormat + data.cover;
                     const quotation = data.quote;
                     const fullname = data.fullname;
                     const colCode = data.colCode;
 
+                    let cover_img = COVER_IMG + aomID;
                     displayAOYModal(cover_img, quotation, fullname, colCode, aomID, personID)
                 }
             }
