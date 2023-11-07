@@ -52,6 +52,14 @@ if (isset($_POST['action'])) {
             $userObj = new User_Table();
             $userObj->updatePassword($newPassword, $username, $mysql_con);
             break;
+        case 'checkStudNo':
+            $studNo = $_POST['studNo'];
+            $personObj = new personDB();
+            $isExist = $personObj->checkStudentNo($studNo, $mysql_con);
+
+            if ($isExist) echo 'Exist';
+            else echo 'Available';
+            break;
         default:
             echo 'not pumasok sa kahit saan';
             break;

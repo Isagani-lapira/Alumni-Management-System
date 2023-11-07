@@ -295,4 +295,31 @@ class personDB
             else echo 'Available';
         }
     }
+
+    function checkStudentNo($studNo, $con)
+    {
+        // check for alumni if the studNo is already existing
+        $queryAlumni = "SELECT COUNT(`studNo`) FROM `alumni` WHERE `studNo` = ?";
+        $stmtAlumni = mysqli_prepare($con, $queryAlumni);
+        $stmtAlumni->bind_param('s', $studNo);
+        $stmtAlumni->execute();
+        $stmtAlumni->bind_result($alumnCount);
+        $stmtAlumni->fetch();
+        $stmtAlumni->close();
+
+        if ($alumnCount > 0) return true;
+
+        // check for student if already existing
+        $queryStudent = "SELECT COUNT(`studNo`) FROM `student` WHERE `studNo` = ?";
+        $stmtStudent = mysqli_prepare($con, $queryStudent);
+        $stmtStudent->bind_param('s', $studNo);
+        $stmtStudent->execute();
+        $stmtStudent->bind_result($studCount);
+        $stmtStudent->fetch();
+        $stmtStudent->close();
+
+        if ($studCount > 0) return true;
+
+        return false;
+    }
 }

@@ -68,6 +68,7 @@
                     <div class="w-1/2 flex flex-col">
                         <label for="studNo">Student No.</label>
                         <input type="text" id="studNo" name="studNo" class="p-3 rounded-lg border border-gray-400 requiredAlumni" placeholder="ex: 2015103299">
+                        <span class="studExistingMsg italic text-red-400 text-sm hidden">This student number is already in used</span>
                     </div>
                 </div>
 
@@ -218,7 +219,7 @@
 
         </form>
 
-        <!-- fields for alumni -->
+        <!-- fields for student -->
         <form id="studentForm" class="flex fieldFormReg hidden flex-col gap-2 mx-auto w-1/2 p-3" style="height: 90%;">
             <h3 class="font-black text-2xl text-greyish_black text-center py-3">STUDENT ACCOUNT</h3>
             <!-- personal information  -->
@@ -246,6 +247,7 @@
                     <div class="w-1/2 flex flex-col">
                         <label for="studstudNo">Student No.</label>
                         <input type="text" id="studstudNo" name="studNo" class="p-3 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: 2020931822">
+                        <span class="studExistingMsg italic text-red-400 text-sm hidden">This student number is already in used</span>
                     </div>
                 </div>
 

@@ -155,7 +155,9 @@ $(document).ready(function () {
   // cancel registration
   $('.cancelBtnReg').on('click', function () {
     $('.selectionStatus').removeClass('hidden')
+    $('.studExistingMsg').addClass('hidden');
     $('.fieldFormReg').addClass('hidden')
+    $('.emailInvalidMsg ').addClass('hidden')
     //restart forms
     $('#alumniForm')[0].reset();
     $('#studentForm')[0].reset();
@@ -196,19 +198,32 @@ $(document).ready(function () {
       // check if the email is already existing or not
       const emailAdd = $('#personalEmail').val();
       const column = 'personal_email';
+      const studNo = $('#studNo').val();
+      checkStudentNo(studNo)
+        .then((value) => {
+          console.log(value)
+          if (value === 'Available') {
+            $('.studExistingMsg').addClass('hidden');
+            // check if the email ends with proper gmail 
+            if (emailAdd.endsWith('@gmail.com')) {
+              $('.emailInvalidMsg').addClass('hidden')
 
-      if (emailAdd.endsWith('@gmail.com')) {
-        $('.emailInvalidMsg').addClass('hidden')
-        checkEmailAddress(emailAdd, column)
-          .then(resolve => {
-            if (resolve !== 'Existing') { //proceed to the next
-              $('.emailExistingMsg').addClass('hidden')
-              $('.personalInfo').addClass('hidden')
-              $('#accountInfoAlumni').removeClass('hidden')
-            }
-            else $('.emailExistingMsg').removeClass('hidden')
-          })
-      } else $('.emailInvalidMsg').removeClass('hidden')
+              // check if the email is already existing
+              checkEmailAddress(emailAdd, column)
+                .then(resolve => {
+                  if (resolve !== 'Existing') { //proceed to the next
+                    $('.emailExistingMsg').addClass('hidden')
+                    $('.personalInfo').addClass('hidden')
+                    $('#accountInfoAlumni').removeClass('hidden')
+                  }
+                  else $('.emailExistingMsg').removeClass('hidden')
+                })
+            } else $('.emailInvalidMsg').removeClass('hidden')
+
+          } else $('.studExistingMsg').removeClass('hidden');
+
+        })
+
 
 
     }
@@ -235,6 +250,25 @@ $(document).ready(function () {
     })
   }
 
+  function checkStudentNo(studNo) {
+    const action = { action: 'checkStudNo' };
+    const formData = new FormData();
+    formData.append('action', JSON.stringify(action));
+    formData.append('studNo', studNo);
+
+    return new Promise((resolve) => {
+      $.ajax({
+        url: '../PHP_process/userData.php',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: response => resolve(response),
+        error: error => { console.log(error) }
+      })
+    })
+
+  }
   // back to personal information field
   $('#backAlumni').on('click', function () {
     $('.personalInfo').removeClass('hidden')
@@ -412,40 +446,52 @@ $(document).ready(function () {
 
       //to verify if the email set as valid bulsu email
       let isBulSUEmailValid = false
-      isBulSUEmailValid = $('#studbulsuEmail').val().endsWith('bulsu.edu.ph')
+      isBulSUEmailValid = $('#studbulsuEmail').val().endsWith('@bulsu.edu.ph')
 
       // check if the email is existing or not
       const studPersonEmail = $('#studPersonalEmail').val()
       const column = 'personal_email';
+      const studstudNo = $('#studstudNo').val();
+      // check first the student number
+      checkStudentNo(studstudNo)
+        .then((value) => {
+          console.log(value)
+          if (value === 'Available') {
+            $('.studExistingMsg').addClass('hidden');
 
-      if (studPersonEmail.endsWith('@gmail.com')) {
-        $('.emailInvalidMsg').addClass('hidden')
-        checkEmailAddress(studPersonEmail, column)
-          .then(resolve => {
-            if (resolve !== 'Existing') {
+            // validate if the email is correct format
+            if (studPersonEmail.endsWith('@gmail.com')) {
+              $('.emailInvalidMsg').addClass('hidden')
+              checkEmailAddress(studPersonEmail, column)
+                .then(resolve => {
+                  if (resolve !== 'Existing') {
 
-              if (isBulSUEmailValid) {
-                // check if the bulsu email is not already existing
-                let bulsuEmail = $('#studbulsuEmail').val()
-                let columnBulsu = 'bulsu_email';
-                $('.emailExistingMsg').addClass('hidden')
+                    if (isBulSUEmailValid) {
+                      // check if the bulsu email is not already existing
+                      let bulsuEmail = $('#studbulsuEmail').val()
+                      let columnBulsu = 'bulsu_email';
+                      $('.emailExistingMsg').addClass('hidden')
 
-                checkEmailAddress(bulsuEmail, columnBulsu)
-                  .then(resolve => {
-                    if (resolve !== 'Existing') { //proceed to the next
-                      $('.emailExistingMsgBulsu').addClass('hidden')
-                      $('#bulsuEmailError').addClass('hidden')
-                      $('.personalInfo').addClass('hidden')
-                      $('#accountInfoStudent').removeClass('hidden')
+                      checkEmailAddress(bulsuEmail, columnBulsu)
+                        .then(resolve => {
+                          if (resolve !== 'Existing') { //proceed to the next
+                            $('.emailExistingMsgBulsu').addClass('hidden')
+                            $('#bulsuEmailError').addClass('hidden')
+                            $('.personalInfo').addClass('hidden')
+                            $('#accountInfoStudent').removeClass('hidden')
 
-                    } else $('.emailExistingMsgBulsu').removeClass('hidden')
-                  })
-              } else $('#bulsuEmailError').removeClass('hidden')
+                          } else $('.emailExistingMsgBulsu').removeClass('hidden')
+                        })
+                    } else $('#bulsuEmailError').removeClass('hidden')
 
-            }
-            else $('.emailExistingMsg').removeClass('hidden')
-          })
-      } else $('.emailInvalidMsg').removeClass('hidden')
+                  }
+                  else $('.emailExistingMsg').removeClass('hidden')
+                })
+            } else $('.emailInvalidMsg').removeClass('hidden')
+
+          } else $('.studExistingMsg').removeClass('hidden');
+        })
+
 
 
     }
