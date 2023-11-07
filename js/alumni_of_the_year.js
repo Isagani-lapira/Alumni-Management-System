@@ -72,12 +72,11 @@ $(document).on('ready', function () {
             success: response => {
                 if (response.response === 'Success') {
                     const data = response
-                    const cover_img = imgFormat + data.cover;
                     const quotation = data.quote;
                     const fullname = data.fullname;
                     const colCode = data.colCode;
                     const aoyUN = data.aoyUN;
-
+                    const cover_img = COVER_IMG + aomID
                     displaySelectedAOM(aomID, cover_img, quotation, fullname, personID, aoyUN, colCode)
                 }
             }
