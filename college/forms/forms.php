@@ -5,8 +5,11 @@
     <p class="text-grayish">See the relevant information that are gathered</p>
 
     <div class="flex gap-2 justify-end mb-2">
-        <button id="tracerbtn" class="text-gray-400 hover:text-gray-500">Tracer form</button>
-        <button id="deployTracerBtn" class="px-3 py-2 bg-accent hover:bg-darkAccent text-white rounded-md font-bold">Deploy Tracer</button>
+        <div id="previewFormBtn" class="w-max cursor-pointer hover:font-bold hover:text-accent flex items-center gap-2">
+            <iconify-icon icon="icon-park-outline:preview-open" width="24" height="24"></iconify-icon>
+            <span>Preview</span>
+        </div>
+        <!-- <button id="tracerbtn" class="text-gray-400 hover:text-gray-500">Tracer form</button> -->
     </div>
 
     <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
@@ -71,29 +74,7 @@
         </div>
     </div>
 
-    <!-- repository -->
-    <div id="tracerRepo" class="h-full border border-t-grayish p-5 w-full hidden">
-        <div class="flex justify-end my-2">
-            <div id="previewFormBtn" class="w-max cursor-pointer hover:font-bold hover:text-accent flex items-center gap-2">
-                <iconify-icon icon="icon-park-outline:preview-open" width="24" height="24"></iconify-icon>
-                <span>Preview</span>
-            </div>
-        </div>
 
-        <div id="TracerWrapper" class="flex w-full h-full mx-auto p-2 gap-2">
-
-            <div id="categoryWrapper" class="flex flex-col gap-2 w-1/3 p-1  h-full"></div>
-            <!-- question set -->
-            <div class="flex-1 h-full center-shadow p-3 relative">
-                <input id="categoryName" class="w-full py-2 text-xl text-greyish_black border-b border-gray-400 font-semibold mb-3" disabled />
-                <span id="btnSaveChanges" class="absolute top-5 right-2 text-gray-400 text-xs flex items-center gap-2 hidden" id="savedChanges">
-                    <iconify-icon icon="dashicons:saved" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                </span>
-                <div id="questionSetContainer" class="overflow-y-auto flex flex-col gap-2 py-2"></div>
-            </div>
-
-        </div>
-    </div>
 
     <!-- preview -->
     <div id="previewForm" class="p-3 flex flex-col border-t border-gray-500 h-full overflow-y-auto hidden">
@@ -201,6 +182,5 @@
 
 
 <script type="module" src="./forms/tracer.js"></script>
-<script type="module" src="./forms/tracerchart.js"></script>
 <script type="module" src="./forms/previewcontainer.js"></script>
 <script type="module" src="./forms/edittracer.js"></script>

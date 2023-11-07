@@ -206,9 +206,10 @@ if (
                 <!-- Main Navigation -->
                 <ul class="flex flex-col gap-2 mb-6 py-5 w-4/5 font-light text-sm [&>*:hover]:bg-gray-100 ">
                     <li><a data-link="dashboard" href="#dashboard" class=" flex justify-left flex-nowrap rounded-lg p-2  font-bold bg-accent text-white ">
-                            <svg class="block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <!-- <svg class="block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z"></path>
-                            </svg>
+                            </svg> -->
+                            <i class="fa-solid fa-chart-line fa-xl"></i>
                             <span class="group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">DASHBOARD</span></a></li>
                     <li><a data-link="make-post" href="#make-post" class=" flex justify-left flex-nowrap rounded-lg p-2">
                             <i class="fa-solid fa-bullhorn  fa-xl"></i>
@@ -243,6 +244,11 @@ if (
                     <li><a data-link="forms" href="#forms" class=" flex justify-left flex-nowrap rounded p-2">
                             <i class="fa-brands fa-wpforms fa-xl "></i>
                             <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">TRACER FORM</span>
+
+                        </a></li>
+                    <li><a data-link="tracer-record" href="#tracer-record" class=" flex justify-left flex-nowrap rounded p-2">
+                            <i class="fa-solid fa-table fa-xl"></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">TRACER RECORD</span>
 
                         </a></li>
 

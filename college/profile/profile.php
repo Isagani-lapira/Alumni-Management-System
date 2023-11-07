@@ -68,9 +68,11 @@ if (isset($_SESSION['personID'])) {
                 <li>
                     <a class="daisy-menu-item daisy-active " href="#college-profile-container">College Profile</a>
                 </li>
-                <li>
+                <!-- FIXME TODO this  -->
+                <!-- TODO this -->
+                <!-- <li>
                     <a class=" daisy-menu-item  " href="#account-profile-container">Community Profile</a>
-                </li>
+                </li> -->
 
             </ul>
 
@@ -154,7 +156,15 @@ if (isset($_SESSION['personID'])) {
 
                             <!-- <h1>TODO: Add Courses</h1> -->
                             <ul>
-                                <li>BS Information Technology</li>
+                                <?php
+                                $query = "SELECT * FROM course WHERE colCode = '$colCode';";
+                                $result = mysqli_query($mysql_con, $query);
+                                while ($data = mysqli_fetch_assoc($result)) {
+                                    echo "<li class='text-gray-600 text-sm font-medium'>" . $data['courseName'] . "</li>";
+                                }
+                                ?>
+
+
                             </ul>
                         </div>
                     </div>

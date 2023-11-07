@@ -205,7 +205,6 @@ $total = $row["total"];
                         </div>
                     </div>
 
-                    <iconify-icon class="closeStatusPost cursor-pointer text-gray-400 hover:text-gray-500 hover:h-7 hover:w-7" icon="ei:close" width="24" height="24"></iconify-icon>
                 </div>
 
                 <!-- description -->

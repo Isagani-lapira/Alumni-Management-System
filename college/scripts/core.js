@@ -71,7 +71,12 @@ $(document).ready(function () {
     if (title != "") document.title = capitalizeFirstLetter(title);
 
     // Change Div to loading animation while waiting
-    container.html("<h1>Loading...</h1>");
+    // container.html("<h1>Loading...</h1>");
+    container.html(`  <!-- loading screen -->
+    <div id="loadingScreen" class="post modal fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden">
+      <span class="loader w-36 h-36"></span>
+      <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
+    </div>`);
 
     // remove the loading animation
     if (container[0] === $(".main-root")[0]) {
