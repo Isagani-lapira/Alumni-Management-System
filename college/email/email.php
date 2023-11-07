@@ -26,30 +26,6 @@
         </div>
 
         <div class="m-2 p-1">
-            <!-- <p class="text-sm font-thin">College</p> -->
-            <!-- college selection -->
-            <!-- <select name="college" id="emCol" class="w-full border border-grayish p-2 rounded-lg">
-                    <option value="" selected>All</option>
-                    <?php
-                    require_once '../php/connection.php';
-                    $query = "SELECT * FROM `college`";
-                    $result = mysqli_query($mysql_con, $query);
-                    $rows = mysqli_num_rows($result);
-
-                    if ($rows > 0) {
-                        while ($data = mysqli_fetch_assoc($result)) {
-                            $colCode = $data['colCode'];
-                            $colName = $data['colname'];
-
-                            echo '<option value="' . $colCode . '">' . $colName . '</option>';
-                        }
-                    } else echo '<option>No college available</option>';
-                    ?>
-                </select> -->
-        </div>
-
-
-        <div class="m-2 p-1">
             <p>Show email (from - to)</p>
             <div class="w-full flex items-center border border-grayish p-2 rounded-lg">
                 <input type="text" name="emDateRange" id="emDateRange" value="Select a date" />
@@ -110,7 +86,8 @@
                             <select name="selectColToEmail" id="selectColToEmail" class=" form-select w-full">
                                 <?php
                                 require_once '../php/connection.php';
-                                $query = "SELECT * FROM `college`";
+                                $college = $_SESSION['colCode'];
+                                $query = "SELECT * FROM `college` where  `colCode` = '$college'";
                                 $result = mysqli_query($mysql_con, $query);
                                 $rows = mysqli_num_rows($result);
 
@@ -119,7 +96,7 @@
                                         $colCode = $data['colCode'];
                                         $colName = $data['colname'];
 
-                                        echo '<option selected value="' . $colCode . '">' . $colName . '</option>';
+                                        echo '<option value="' . $colCode . '">' . $colName . '</option>';
                                     }
                                 } else echo '<option>No college available</option>';
                                 ?>

@@ -35,7 +35,7 @@ function query_all_record()
     $colCode = $_SESSION["colCode"];
 
     $data = array();
-    $sql = "SELECT person.personID,studNo,contactNo, CONCAT(person.fname, ' ', person.lname) AS full_name
+    $sql = "SELECT person.personID,studNo,contactNo, course.*,CONCAT(person.fname, ' ', person.lname) AS full_name
 FROM alumni
 JOIN person ON alumni.personID = person.personID
 WHERE alumni.colCode = '$colCode'
@@ -43,6 +43,8 @@ UNION
 SELECT person.personID,studNo,contactNo, CONCAT(person.fname, ' ', person.lname) AS full_name
 FROM student
 JOIN person ON student.personID = person.personID
+LEFT JOIN course on course.courseID = alumni.courseID or course.courseID = student.courseID
+
 WHERE student.colCode = '$colCode';";
 
     $result = mysqli_query($mysql_con, $sql);
@@ -60,9 +62,11 @@ function query_all_student_record()
     $colCode = $_SESSION["colCode"];
 
     $data = array();
-    $sql = "SELECT student.*, CONCAT(person.fname, ' ', person.lname) AS full_name, contactNo
+    $sql = "SELECT student.*,course.*, CONCAT(person.fname, ' ', person.lname) AS full_name, contactNo
     FROM student
     JOIN person ON student.personID = person.personID
+    LEFT JOIN course on course.courseID = student.courseID
+
     WHERE student.colCode = '$colCode';";
 
     $result = mysqli_query($mysql_con, $sql);
@@ -79,9 +83,11 @@ function query_all_alumni_record()
     $colCode = $_SESSION["colCode"];
 
     $data = array();
-    $sql = "SELECT alumni.*, CONCAT(person.fname, ' ', person.lname) AS full_name, contactNo
+    $sql = "SELECT alumni.*,course.*, CONCAT(person.fname, ' ', person.lname) AS full_name, contactNo
     FROM alumni
     JOIN person ON alumni.personID = person.personID
+    LEFT JOIN course on course.courseID = alumni.courseID
+    
     WHERE alumni.colCode = '$colCode';";
 
     $result = mysqli_query($mysql_con, $sql);

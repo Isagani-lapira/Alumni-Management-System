@@ -10,7 +10,7 @@ $(document).ready(function () {
       // loadHandlers();
       updateAlumniTable();
       updateStudentTable();
-      updateAllTable();
+      // updateAllTable();
       setHandlers();
     }, 1000);
   });
@@ -87,7 +87,7 @@ $(document).ready(function () {
 
   updateAlumniTable();
   updateStudentTable();
-  updateAllTable();
+  // updateAllTable();
 
   setHandlers();
 
@@ -161,6 +161,7 @@ $(document).ready(function () {
       columns: [
         { data: "studNo", width: "25%" },
         { data: "full_name" },
+        // { data: "courseCode" },
         { data: "contactNo" },
         // {
         // data: null,
@@ -194,6 +195,8 @@ $(document).ready(function () {
       columns: [
         { data: "studNo", width: "25%" },
         { data: "full_name" },
+        { data: "courseCode" },
+
         { data: "contactNo" },
         { data: "currentYear" },
         // {
@@ -217,7 +220,7 @@ $(document).ready(function () {
             show: true,
             layout: "columns-3",
           },
-          targets: [3],
+          targets: [2, 4],
         },
       ],
     });
@@ -240,6 +243,7 @@ $(document).ready(function () {
       columns: [
         { data: "studNo", width: "25%" },
         { data: "full_name" },
+        // { data: "courseCode" },
         { data: "contactNo" },
         { data: "batchYr" },
         { data: "employment_status" },
@@ -263,7 +267,7 @@ $(document).ready(function () {
           searchPanes: {
             show: true,
           },
-          targets: [3, 4],
+          targets: [2, 4, 5],
         },
       ],
     });
