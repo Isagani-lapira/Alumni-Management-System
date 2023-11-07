@@ -154,7 +154,15 @@ if (isset($_SESSION['personID'])) {
 
                             <!-- <h1>TODO: Add Courses</h1> -->
                             <ul>
-                                <li>BS Information Technology</li>
+                                <?php
+                                $query = "SELECT * FROM course WHERE colCode = '$colCode';";
+                                $result = mysqli_query($mysql_con, $query);
+                                while ($data = mysqli_fetch_assoc($result)) {
+                                    echo "<li class='text-gray-600 text-sm font-medium'>" . $data['courseName'] . "</li>";
+                                }
+                                ?>
+
+
                             </ul>
                         </div>
                     </div>

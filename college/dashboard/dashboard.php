@@ -285,7 +285,7 @@ if ($result) {
 
             </div>
 
-            <ul id="logListContainer" class="overflow-y-auto   border rounded-lg m-2 p-2 max-h-80 space-y-2">
+            <ul id="logListContainer" class="overflow-y-auto   border rounded-lg m-2 p-2 max-h-80 flex gap-4 flex-col divide-y">
 
             </ul>
 
