@@ -119,6 +119,90 @@ function createSectionSheet($spreadsheet, $tracer_deployID, $con)
     }
 }
 
+
+
+
+function addDataWorkSheetByColCode($categoryName, $spreadsheet, $tracer_deployID, $con, $colCode)
+{
+    // add worksheet
+    $newWorkSheet = $spreadsheet->createSheet();
+    $newWorkSheet->setTitle($categoryName);
+
+    // fetch all the section question for that category
+    $queryCatQuestion = "SELECT DISTINCT tq.`question_text`
+        FROM `tracer_question` tq
+        JOIN `question_category` cat ON tq.`categoryID` = cat.`categoryID`
+        WHERE cat.`category_name` = ?
+        AND cat.status= ? AND tq.status = ?
+        AND tq.`isSectionQuestion` = ? ";
+
+    $stmt = mysqli_prepare($con, $queryCatQuestion);
+    if ($stmt) {
+        $STATUS = 'available';
+        $ISSECTIONQUESTION = 1;
+        $stmt->bind_param('sssd', $categoryName, $STATUS, $STATUS, $ISSECTIONQUESTION);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $ROWHEADER = 1; //header row
+        $column = 'A';
+        $NAMEQUESTION = "Name";
+        $newWorkSheet->setCellValue($column . $ROWHEADER, $NAMEQUESTION);
+        $newWorkSheet->getStyle($column . $ROWHEADER)->getFont()->setBold(true);
+        $newWorkSheet->getColumnDimension($column)->setAutoSize(true);
+        $column++; //To start on B
+
+        $questions = array();
+        // add the question as header in excel
+        while ($data = $result->fetch_assoc()) {
+            $question = $data['question_text'];
+            $newWorkSheet->setCellValue($column . $ROWHEADER, $question); //header
+            $newWorkSheet->getStyle($column . $ROWHEADER)->getFont()->setBold(true);
+            $newWorkSheet->getColumnDimension($column)->setAutoSize(true);
+            $column++;
+            $questions[] = $question;
+        }
+        $stmt->close();
+
+        // retrieve all the answer
+        $queryAnswer = "SELECT a.answerID, a.personID, CONCAT(p.lname,' ',p.fname) as 'fullname'
+            FROM answer a
+            JOIN person p ON a.personID = p.personID
+            LEFT JOIN alumni al ON p.personID = al.personID
+            WHERE a.tracer_deployID = ? AND a.status = ? AND al.colCode = ?";
+        // WHERE a.tracer_deployID = ? AND a.status = ? AND a.status = 'done'";
+        $stmtAnswer = mysqli_prepare($con, $queryAnswer);
+
+        $STATUS = 'done';
+        $tracer_deployID = $tracer_deployID;
+        if ($stmtAnswer) {
+            $stmtAnswer->bind_param('sss', $tracer_deployID, $STATUS, $colCode);
+            $stmtAnswer->execute();
+            $resultAnswer = $stmtAnswer->get_result();
+            $row = mysqli_num_rows($resultAnswer);
+
+            if ($resultAnswer && $row > 0) {
+                $columnAnswer = 'A';
+                $rowval = 2;
+                $newWorkSheet->setCellValue($columnAnswer . $rowval, 'isagani');
+                // echo $resultAnswer->fetch_assoc();
+                while ($data = $resultAnswer->fetch_assoc()) {
+                    $fullname = $data['fullname'];
+                    $answerID = $data['answerID'];
+
+                    $newWorkSheet->setCellValue($columnAnswer . $rowval, $fullname);
+                    // get other answer per question
+                    foreach ($questions as $question) {
+                        $columnAnswer++;
+                        getSectionAnswerPerQ($answerID, $question, $newWorkSheet, $rowval, $columnAnswer, $con);
+                    }
+                    $rowval++;
+                    $columnAnswer = 'A';
+                }
+            }
+        }
+    }
+}
 function addDataWorkSheet($categoryName, $spreadsheet, $tracer_deployID, $con)
 {
     // add worksheet
@@ -265,6 +349,26 @@ function getSectionWithCategory($con)
 
     return $categoryName;
 }
+// check if the tracer deployment ID is pass in this URL
+if (isset($_GET['tracerDeployID']) && isset($_GET['collegeCode'])) {
+    $tracer_deployID = $_GET['tracerDeployID'];
+    $colCode = $_GET['collegeCode'];
+    getData($mysql_con, $tracer_deployID, $activeWorksheet);
+
+    $categories = getSectionWithCategory($con); //retrieve all the section question
+    foreach ($categories as $categoryName) {
+        addDataWorkSheetByColCode($categoryName, $spreadsheet, $tracer_deployID, $con, $colCode);
+    }
+
+    $writer = new Xlsx($spreadsheet); //object of spreadsheet
+
+    // Set response headers to indicate a downloadable Excel file
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment; filename="Graduate TracerForm.xlsx"');
+    // Output the Excel content to the browser
+    echo $writer->save('php://output');
+}
+
 
 // check if the tracer deployment ID is pass in this URL
 if (isset($_GET['tracerDeployID'])) {

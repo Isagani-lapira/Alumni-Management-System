@@ -393,13 +393,13 @@ $(document).ready(function () {
       });
     });
 
-    // $("#edit-testimonyFields").on("click", ".filled-t-edit", function () {
-    //   $(this)
-    //     .closest(".testimony-box")
-    //     .slideUp(function () {
-    //       $(this).remove();
-    //     });
-    // });
+    $("#edit-testimonyFields").on("click", ".t-remove", function () {
+      $(this)
+        .closest(".testimony-box")
+        .slideUp(function () {
+          $(this).remove();
+        });
+    });
 
     $("#edit-testimonyFields").on("click", ".filled-t-remove", function () {
       const container = $(this).closest(".filled-testimony-box ");
