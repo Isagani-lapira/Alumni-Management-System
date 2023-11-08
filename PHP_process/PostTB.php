@@ -27,7 +27,9 @@ class PostData
                 if ($imgFileLength) {
                     // Store all images one by one
                     for ($i = 0; $i < $imgFileLength; $i++) {
-                        $fileContent = addslashes(file_get_contents($img['tmp_name'][$i]));
+                        $fileContent = file_get_contents($img['tmp_name'][$i]);
+                        // Resize and compress the image (adjust width and height as needed)
+                        $fileContent = $this->resizeAndCompressImage($fileContent, 800, 600);
                         $this->insertImgPost($postID, $fileContent, $con);
                     }
                 }
@@ -65,13 +67,13 @@ class PostData
 
         if ($stmt) {
             // Bind the parameters
-            mysqli_stmt_bind_param($stmt, 'sss', $imageID, $postID, $img);
+            $stmt->bind_param('sss', $imageID, $postID, $img);
 
             // Execute the query
-            $result = mysqli_stmt_execute($stmt);
+            $result = $stmt->execute();
 
             if ($result) {
-                mysqli_stmt_close($stmt);
+                $stmt->close();
                 return true;
             }
         }
@@ -666,5 +668,51 @@ class PostData
                 }
             }
         }
+    }
+
+
+
+    // Resize and compress the image using GD
+    function resizeAndCompressImage($imageContent, $maxWidth, $maxHeight)
+    {
+        // Create a GD image from the content
+        $image = imagecreatefromstring($imageContent);
+
+        // Get the current image dimensions
+        $width = imagesx($image);
+        $height = imagesy($image);
+
+        // Calculate new dimensions while maintaining the aspect ratio
+        $aspectRatio = $width / $height;
+        if ($width > $maxWidth || $height > $maxHeight) {
+            if ($width / $maxWidth > $height / $maxHeight) {
+                $newWidth = $maxWidth;
+                $newHeight = $maxWidth / $aspectRatio;
+            } else {
+                $newHeight = $maxHeight;
+                $newWidth = $maxHeight * $aspectRatio;
+            }
+        } else {
+            $newWidth = $width;
+            $newHeight = $height;
+        }
+
+        // Create a new image with the calculated dimensions
+        $newImage = imagecreatetruecolor($newWidth, $newHeight);
+
+        // Resize the image
+        imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+        // Compress and save the image to a buffer (adjust quality as needed)
+        ob_start();
+        imagejpeg($newImage, null, 80); // 80 is the quality (adjust as needed)
+        $compressedImageContent = ob_get_contents();
+        ob_end_clean();
+
+        // Destroy the temporary images
+        imagedestroy($image);
+        imagedestroy($newImage);
+
+        return $compressedImageContent;
     }
 }
