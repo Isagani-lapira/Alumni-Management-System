@@ -675,7 +675,7 @@
     </div>
 
     <!-- loading screen -->
-    <div id="loadingScreen" class="bg-red-500 fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden">
+    <div id="loadingScreen" class="bg-gray-500 fixed inset-0 flex flex-col justify-center items-center p-3 z-50 ">
         <!-- <span class="loader w-36 h-36"></span> -->
         <span class="daisy-loading daisy-loading-bars daisy-loading-lg"></span>
         <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>

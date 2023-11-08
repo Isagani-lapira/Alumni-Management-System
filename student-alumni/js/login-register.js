@@ -695,10 +695,10 @@ $(document).ready(function () {
         // hide the loading screen after 3 seconds
         setTimeout(() => {
           $("#loadingScreen").addClass("hidden");
+          $("#successJobModal").removeClass("hidden");
         }, 3000);
 
         // show the success modal
-        $("#successJobModal").removeClass("hidden");
       } else {
         // send sweet alert
         Swal.fire({
@@ -728,15 +728,15 @@ $(document).ready(function () {
     // check if it is alumni
     if (selected === "alumni") {
       // hide the selection status
-      $(".selectionStatus").removeClass("hidden");
       // show the alumni form
-      $("#alumniForm").addClass("hidden");
+      $("#alumniForm").removClass("hidden");
     } else if (selected === "student") {
       // hide the selection status
-      $(".selectionStatus").removeClass("hidden");
       // show the student form
-      $("#studentForm").addClass("hidden");
+      $("#studentForm").removeClass("hidden");
     }
+    //
+    $("#email-code-container").removeClass("hidden");
   });
 
   // handle resend code
