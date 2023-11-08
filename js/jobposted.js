@@ -120,6 +120,7 @@ $(document).ready(function () {
                 $("#statusJob").text(status);
                 $("#jobApplicant").text('Applicant: ' + applicantcount);
 
+                $('.stop-job-btn').removeClass('hidden')
                 $('#aplicantListBtn').addClass('cursor-text') //default
                 if (parseInt(applicantcount) > 0) {
                     $('#aplicantListBtn').removeClass('cursor-text')
@@ -141,6 +142,7 @@ $(document).ready(function () {
                 $('#locationJobModal').text(location)
 
                 $('.stop-job-btn').on('click', function () {
+                    $('.stop-job-btn').removeClass('hidden')
                     $('.stop-job-modal').removeClass('hidden')
                     // stop job button
                     $('.stop-job-confirm').on('click', function () {
@@ -607,6 +609,7 @@ $(document).ready(function () {
         let skills = $(this).data("skills");
         skills = skills.split(',');
 
+        $('.stop-job-btn').addClass('hidden')
         // Call the displayJobDetails function with the extracted data
         displayJobDetails(jobTitle, author, companyName, datePosted, jobDescript, jobQuali, skills);
     });
