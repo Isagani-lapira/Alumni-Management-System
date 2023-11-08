@@ -816,7 +816,7 @@ $(document).ready(function () {
     formData.append("personalEmail", email);
     formData.append("action", "send_otp");
 
-    handleEmailVerification(formData, $("#email-code-container"));
+    handleResendEmailVerification(formData, $("#email-code-container"));
 
     // show the loading screen
     $("#loadingScreen").removeClass("hidden");
@@ -829,6 +829,70 @@ $(document).ready(function () {
 
     // hide the email-code-container
   });
+
+  async function handleResendEmailVerification(formData, container) {
+    console.log(formData);
+
+    const emailData = new FormData();
+    emailData.append("action", "resend_otp");
+    emailData.append("email_address", formData.get("personalEmail"));
+
+    $("#verify-email-text").text(formData.get("personalEmail"));
+
+    try {
+      // send post request to the server
+      const response = await postJSONFromURL(
+        "../PHP_process/emailVerif.php",
+        emailData
+      );
+
+      console.log(response);
+
+      if (response.success === true) {
+        console.log("ok");
+
+        container.addClass("hidden");
+        $("#loadingScreen").addClass("hidden");
+        // check if it is alumni or student
+        // show the email-code-container
+        $("#email-code-container").removeClass("hidden");
+
+        // $.ajax({
+        //   url: "../PHP_process/userData.php",
+        //   method: "POST",
+        //   data: data,
+        //   processData: false,
+        //   contentType: false,
+        //   success: (response) => {
+        //     if (response === "Success") {
+        //       $(".errorPassNotMatch").addClass("hidden");
+
+        //       $("#email-code-container").removeClass("hidden");
+        //       $("#successJobModal").removeClass("hidden");
+        //     }
+        //   },
+        // });
+      } else {
+        console.log("not ok. did not return success");
+        $("#loadingScreen").addClass("hidden");
+        container.removeClass("hidden");
+        // add error text
+        $("#email-error-text").text(response.error);
+        // add sweet alert with message
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: response.message,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      $("#loadingScreen").remove("hidden");
+      container.removeClass("hidden");
+      // add error text
+      $("#email-error-text").text("Something went wrong. Please try again.");
+    }
+  }
 
   async function handleEmailVerification(formData, container) {
     console.log(formData);

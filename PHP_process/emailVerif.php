@@ -124,6 +124,31 @@ if (isset($_POST['action'])) {
             //throw $th;
             echo json_encode(array("success" => false, "message" => "Email not sent! " . $th->getMessage(), 'error' => true));
         }
+    } else if ($action == 'resend_otp') {
+
+        $email = mysqli_real_escape_string($mysql_con, $_POST['email_address']);
+        // Query the email_verification table to see if the email exists and is not yet verified
+        $query = "SELECT * FROM email_verification WHERE email = ? AND verified = 0";
+        $stmt = $mysql_con->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        try {
+            $email = mysqli_real_escape_string($mysql_con, $_POST['email_address']);
+            // Query the email_verification table to see if the email exists and is not yet verified
+            $query = "SELECT * FROM email_verification WHERE email = ? AND verified = 0";
+            $stmt = $mysql_con->prepare($query);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            echo json_encode(array("success" => true, "message" => "Email sent successfully!", 'post' => $_POST, 'status' => true));
+        } catch (\Throwable $th) {
+            //throw $th;
+            echo json_encode(array("success" => false, "message" => "Email not sent! " . $th->getMessage(), 'error' => true));
+        }
     } else if ($action == 'verify_code') {
         // compare teh code with the one in the database
         try {

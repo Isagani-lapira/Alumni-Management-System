@@ -155,7 +155,7 @@ if (isset($_SESSION['personID'])) {
                             <h3 class="text-xl font-extrabold mb-5">Courses Offered</h3>
 
                             <!-- <h1>TODO: Add Courses</h1> -->
-                            <ul>
+                            <!-- <ul>
                                 <?php
                                 $query = "SELECT * FROM course WHERE colCode = '$colCode';";
                                 $result = mysqli_query($mysql_con, $query);
@@ -165,7 +165,7 @@ if (isset($_SESSION['personID'])) {
                                 ?>
 
 
-                            </ul>
+                            </ul> -->
 
                             <!-- button to manage courses -->
                             <div class="flex justify-start mt-5">
@@ -396,6 +396,9 @@ if (isset($_SESSION['personID'])) {
             <!-- make a form  -->
             <!-- make a table manage-courses-table tbody -->
             <div class="modal-body">
+                <!-- add course form with course name andcourse code  -->
+
+                <form action="" id="add-course-form"></form>
 
 
 
