@@ -761,7 +761,8 @@ function dateInText($date)
           </div>
 
           <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
-            <div class="flex gap-2 justify-evenly">
+            <button class="border border-gray-400 text-gray-400 hover:bg-accent hover:text-white p-2 m-2 rounded-md download-two-btn">Download as image</button>
+            <div class="flex gap-2 justify-evenly" id="chart-completion-alumni">
               <div class="h-2/5 w-1/2 p-5 flex flex-col">
                 <h1 class="text-lg font-extrabold">Completion Chart</h1>
                 <canvas class="w-full h-full" id="completionChart"></canvas>
@@ -817,6 +818,7 @@ function dateInText($date)
               <p class="text-sm italic text-gray-500">Note: Select a category first</p>
             </div>
 
+            <button class="border border-gray-400 text-gray-400 hover:bg-accent hover:text-white p-2 m-2 rounded-md download-chart-btn">Download as image</button>
             <div class="center-shadow rounded-lg p-3 m-2 h-full flex justify-center">
               <canvas id="chartPerQuestion"></canvas>
             </div>
@@ -2432,6 +2434,7 @@ function dateInText($date)
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>
   <script src="../js/alumnirecord.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/previewcontainer.js"></script>

@@ -330,4 +330,46 @@ $(document).ready(function () {
         window.location.href = spreadsheetUrl; // Redirect the user to the generated spreadsheet URL
     });
 
+
+    $('.download-chart-btn').on('click', function () {
+        let chartobj = questionChartObj;
+
+        // Create an HTML2Canvas configuration object with a white background
+        let html2canvasConfig = {
+            backgroundColor: 'white',
+        };
+
+        // Use HTML2Canvas to capture the chart as an image
+        html2canvas(chartobj.canvas, html2canvasConfig).then(function (canvas) {
+            // Convert the captured chart into an image data URL
+            let base64Img = canvas.toDataURL('image/png');
+
+            // Create a download link
+            let downloadLink = document.createElement('a');
+            downloadLink.href = base64Img;
+            downloadLink.download = 'questionChart.png'; // Specify the file name here
+
+            // Simulate a click event to initiate the download
+            downloadLink.click();
+        });
+    });
+
+
+
+    $('.download-two-btn').on('click', function () {
+        var divToCapture = document.getElementById('chart-completion-alumni');
+
+        // Use HTML2Canvas to capture the <div> as an image
+        html2canvas(divToCapture).then(function (canvas) {
+            // Convert the captured <div> into an image data URL
+            var imageDataURL = canvas.toDataURL('image/png');
+
+            // Create a download link
+            var downloadLink = document.createElement('a');
+            downloadLink.href = imageDataURL;
+            downloadLink.download = 'capturedDiv.png'; // Specify the file name here
+            downloadLink.click();
+        });
+    });
+
 })
