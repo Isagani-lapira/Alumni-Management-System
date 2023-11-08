@@ -12,6 +12,35 @@ $(document).ready(function () {
   const today = new Date().toISOString().split("T")[0];
   $('input[type="date"]').attr("max", today);
 
+  //login
+  $("#loginPanel").on("submit", function (e) {
+    e.preventDefault();
+    let formData = $("#loginForm")[0]; //get the form
+    let data = new FormData(formData); //the form we will send to the php file
+    //action will be using
+    let action = {
+      action: "read",
+      query: true,
+    };
+    data.append("action", JSON.stringify(action));
+
+    $.ajax({
+      type: "POST",
+      url: "../PHP_process/userData.php",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: (response) => {
+        if (response == "unsuccessful") $("#errorMsg").show();
+        else {
+          $("#errorMsg").hide();
+          window.location.href = "../student-alumni/homepage.php";
+        }
+      },
+      error: (error) => console.log(error),
+    });
+  });
+
   // $("#registrationForm").on("submit", function (e) {
   //   e.preventDefault();
 
@@ -686,17 +715,54 @@ $(document).ready(function () {
       const errorMsg = response.message;
 
       if (response.success === true) {
-        // hide the email-code-container
-        $("#email-code-container").addClass("hidden");
+        // user data
 
-        // show the loading screen
-        $("#loadingScreen").removeClass("hidden");
+        // // hide the email-code-container
+        // $("#email-code-container").addClass("hidden");
 
-        // hide the loading screen after 3 seconds
-        setTimeout(() => {
-          $("#loadingScreen").addClass("hidden");
-          $("#successJobModal").removeClass("hidden");
-        }, 3000);
+        // // show the loading screen
+        // $("#loadingScreen").removeClass("hidden");
+
+        // // hide the loading screen after 3 seconds
+        // setTimeout(() => {
+        //   $("#loadingScreen").addClass("hidden");
+        //   $("#successJobModal").removeClass("hidden");
+        // }, 3000);
+
+        // check if it is alumni or student in acceptButton
+        // get the data-selected for the register btn
+        const selected = $("#acceptButton").attr("data-selected");
+        console.log("selected", selected);
+        // get the form data if it is alummi
+        let formData = new FormData();
+        if (selected === "alumni") {
+          formData = new FormData($("#alumniForm")[0]);
+        } else if (selected === "student") {
+          formData = new FormData($("#studentForm")[0]);
+        }
+
+        const action = {
+          action: "create",
+          account: "User",
+        };
+        formData.append("action", JSON.stringify(action));
+
+        $.ajax({
+          url: "../PHP_process/userData.php",
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: (response) => {
+            if (response === "Success") {
+              $(".errorPassNotMatch").addClass("hidden");
+
+              $("#email-code-container").removeClass("hidden");
+              $("#successJobModal").removeClass("hidden");
+            }
+            console.log(response);
+          },
+        });
 
         // show the success modal
       } else {
@@ -747,8 +813,10 @@ $(document).ready(function () {
 
     // get the form data
     const formData = new FormData();
-    formData.append("email_address", email);
+    formData.append("personalEmail", email);
     formData.append("action", "send_otp");
+
+    handleEmailVerification(formData, $("#email-code-container"));
 
     // show the loading screen
     $("#loadingScreen").removeClass("hidden");
@@ -785,21 +853,25 @@ $(document).ready(function () {
 
         container.addClass("hidden");
         $("#loadingScreen").addClass("hidden");
-        $.ajax({
-          url: "../PHP_process/userData.php",
-          method: "POST",
-          data: data,
-          processData: false,
-          contentType: false,
-          success: (response) => {
-            if (response === "Success") {
-              $(".errorPassNotMatch").addClass("hidden");
+        // check if it is alumni or student
+        // show the email-code-container
+        $("#email-code-container").removeClass("hidden");
 
-              $("#email-code-container").removeClass("hidden");
-              $("#successJobModal").removeClass("hidden");
-            }
-          },
-        });
+        // $.ajax({
+        //   url: "../PHP_process/userData.php",
+        //   method: "POST",
+        //   data: data,
+        //   processData: false,
+        //   contentType: false,
+        //   success: (response) => {
+        //     if (response === "Success") {
+        //       $(".errorPassNotMatch").addClass("hidden");
+
+        //       $("#email-code-container").removeClass("hidden");
+        //       $("#successJobModal").removeClass("hidden");
+        //     }
+        //   },
+        // });
       } else {
         console.log("not ok. did not return success");
         $("#loadingScreen").addClass("hidden");

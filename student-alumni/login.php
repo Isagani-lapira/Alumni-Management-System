@@ -29,7 +29,7 @@
   <div class="w-full h-screen flex justify-center items-center">
     <div class="md:h-max sm:h-14 w-1/2 rounded-xle md:grid grid-cols-2 sm:block text-gray-600">
       <div class="bg-accent md:rounded-l-2xl text-white pt-10 h-full relative">
-        <h2 class="Lobster text-xl text-center">"We Still Connected"</h2>
+        <h2 class="Lobster text-xl text-center">"We're Still Connected"</h2>
         <img id="graduateLogo" class="relative" src="../assets/graduate_logo.png" alt=""> <!--make it relative-->
       </div>
 

@@ -134,13 +134,13 @@ function sendEmail($subject, $message, $recipient, $images, $files)
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'lapirajr.isagani.t.1933@gmail.com';
+    $mail->Username = 'bulsualumnioffice@gmail.com';
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
 
     //account that is currently using
-    $mail->setFrom('lapirajr.isagani.t.1933@gmail.com');
-    $mail->Password = 'fqhpqaaisqvctcfg';
+    $mail->setFrom('bulsualumnioffice@gmail.com', 'BulSU Connect');
+    $mail->Password = 'vloe qwyq tyxi tacv';
 
     $mail->addAddress($recipient);
     $mail->isHTML(true);

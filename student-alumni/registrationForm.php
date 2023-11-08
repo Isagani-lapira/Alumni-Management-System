@@ -98,7 +98,6 @@
                             <p>Didn't receive the code?
                                 <button id="resend-code-btn" class="daisy-link daisy-link-hover text-accent">Resend Code</button>
                             </p>
-                            <button id="back-registration-btn" class="text-left daisy-link hover:text-accent">Back to Registration</button>
                         </div>
 
                     </div>
@@ -681,7 +680,6 @@
         <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
     </div>
 
-    <script type="module" src="../../college/scripts/utils.js"></script>
     <script src="../student-alumni/js/login-register.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 

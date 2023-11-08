@@ -37,7 +37,7 @@ $(document).ready(function () {
   let passwordReqFulFill = true;
 
   const validHTMLContent = `<i class="fa-solid fa-check"></i> Valid`;
-  const invalidHTMLContent = `<i class="fa-solid fa-xmark"></i> Invalid: Value must not be null`;
+  const invalidHTMLContent = `<i class="fa-solid fa-xmark"></i> Invalid: This value must not be null`;
   // On Blur
   $(".logInput").on("blur", function (event) {
     const elem = $(this);

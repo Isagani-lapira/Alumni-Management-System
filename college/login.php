@@ -73,15 +73,15 @@ session_start();
                             username/password</p>
                         <div class="form-control">
                             <label class='block'>Username</label>
-                            <input name="username" class="add-focus input-text w-full logInput" placeholder="JaysonBatoonBulSU-CICT" type="text">
-                            <span class=" input-msg">Hello</span>
+                            <input name="username" class="add-focus input-text w-full logInput" placeholder="" type="text">
+                            <span class=" input-msg"></span>
                         </div>
                         <div class="form-control">
                             <label class="block">Password</label>
                             <div>
-                                <input name="password" class="logInput w-full add-focus input-text" placeholder="JaysonBatoonBulSU-CICT" type="password" id="password">
+                                <input name="password" class="logInput w-full add-focus input-text" placeholder="*******" type="password" id="password">
                                 <i class="far fa-eye -ml-8" id="togglePassword"></i>
-                                <span class=" input-msg">Hello</span>
+                                <span class=" input-msg"></span>
                             </div>
                             <a class="italic text-accent text-sm text-end py-2 hover:underline cursor-pointer" href="/password-recovery/">Forgot password?</a>
                         </div>

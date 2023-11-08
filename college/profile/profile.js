@@ -18,6 +18,99 @@ $(document).ready(function () {
 
     // $("#submitUpdateProfileBtn").click(async function (e) {});
 
+    // $add-course-form
+    $("#add-course-form").on("submit", function (e) {
+      e.preventDefault();
+      console.log("submit btn clicked");
+      const formData = new FormData(this);
+      formData.append("action", "add-course");
+      console.log(formData);
+      // confirm using sweet alert
+      Swal.fire({
+        icon: "info",
+        title: "Are you sure?",
+        text: "Do you want to add this course?",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // post the data
+          postJSONFromURL(URL_LINK, formData).then((response) => {
+            console.log(response);
+            if (response.status == true) {
+              Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: "Course added successfully",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // location.reload();
+                  const container = $("#add-course-container");
+
+                  // reset the form
+                  $("#add-course-form")[0].reset();
+
+                  container.css({
+                    opacity: "0.0",
+                  });
+                  $("#add-course").addClass("hidden");
+                  $("#view-courses").removeClass("hidden");
+
+                  // animate the container to show the new element
+                  container.delay(50).animate(
+                    {
+                      opacity: "1.0",
+                    },
+                    300
+                  );
+                }
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Something went wrong",
+              });
+            }
+          });
+        }
+      });
+    });
+
+    // for manage courses
+    $("#manage-courses-btn").on("click", function () {
+      console.log("manage courses btn clicked");
+      // get the colcode value
+      const colCode = $("#colCode").val();
+      // make a post request to get the courses
+      getJSONFromURL(URL_LINK + "?action=get-courses&colCode=" + colCode).then(
+        (response) => {
+          console.log(response);
+          if (response.status == true) {
+            // show the modal
+            // clear the table
+            $("#manage-courses-tbody").empty();
+            // add the courses to the table
+            [...response.data].forEach((course) => {
+              console.log("hello");
+              console.log($("#manage-courses-tbody").html());
+              $("#manage-courses-tbody").append(`
+              <tr>
+                <td>${course.courseID}</td>
+                <td>${course.courseCode}</td>
+                <td>${course.courseName}</td>
+                <td>
+                  <button class="btn btn-sm daisy-btn daisy-btn-sm daisy-btn-warning" data-course-id="${course.course_id}">Edit</button>
+                </td>
+              </tr>
+            `);
+            });
+          }
+        }
+      );
+    });
+
     // reset the file upload of logo and dean image
     $("#reset-logo").on("click", function () {
       $("#colLogoInput").val("");

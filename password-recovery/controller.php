@@ -79,7 +79,18 @@ if (isset($_POST['check-email'])) {
                 $mail->setFrom('wiltestrun458@gmail.com', 'Alumni Coordinator');
                 $mail->addAddress($email, $name);
                 $mail->Subject = 'Password Reset Code';
-                $mail->Body = "Your password reset code is $code. This is available for 1 hour only.";
+                $html = "<p>Your password reset code is:  </p>";
+                $html .= "<h1>$code</h1>";
+                $html .= "<p>The code is only available for an hour. </p>";
+                $html .= "<p>Thank you!</p>";
+                $html .= "<p>BulSU Connect</p>";
+
+
+                $mail->Body = $html;
+
+
+
+
                 $mail->AltBody = "Your password reset code is $code. The code is only available for an hour. .";
                 $mail->send();
                 $info = "Mail has been sent successfully! We've sent a password reset otp to your email - $email";

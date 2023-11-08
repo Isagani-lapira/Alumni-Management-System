@@ -204,6 +204,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 "Update",
                 "Updated Personal Information"
             );
+
+            // update the session information
+            $_SESSION['fname'] = $firstName;
+            $_SESSION['lname'] = $lastName;
+            // get the full name
+            $fullName = $firstName . " " . $lastName;
+
+            // session full name 
+            $_SESSION['fullName'] = $fullName;
+
+
+
             echo json_encode(
                 array(
                     "message" => "Post data",

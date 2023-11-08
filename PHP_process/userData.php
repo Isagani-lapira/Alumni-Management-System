@@ -1,5 +1,9 @@
 <?php
 
+// echo 'hello';
+// var_dump($_POST);
+// die();
+
 require_once 'connection.php';
 require_once 'userTable.php';
 require_once 'personDB.php';

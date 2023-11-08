@@ -166,6 +166,12 @@ if (isset($_SESSION['personID'])) {
 
 
                             </ul>
+
+                            <!-- button to manage courses -->
+                            <div class="flex justify-start mt-5">
+                                <label class="daisy-btn btn-primary" for="edit-courses-modal" id="manage-courses-btn">Manage Courses</lab>
+
+                            </div>
                         </div>
                     </div>
 
@@ -382,14 +388,72 @@ if (isset($_SESSION['personID'])) {
         </section>
 
     </div>
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="add-courses-modal" class="daisy-modal-toggle" />
+    <div class="daisy-modal">
+        <div class="daisy-modal-box w-8/12 max-w-5xl">
+            <h3 class="font-accent text-lg font-bold">Add Course</h3>
+            <!-- make a form  -->
+            <!-- make a table manage-courses-table tbody -->
+            <div class="modal-body">
 
 
+
+
+                <div class="daisy-modal-action">
+
+                    <!-- <div class="modal-action-btn">
+                        <button class="btn btn-primary" id="add-courses-form-btn">Update Courses</button>
+                    </div> -->
+                    <label for="add-courses-modal" class="daisy-btn">Close!</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="edit-courses-modal" class="daisy-modal-toggle" />
+    <div class="daisy-modal">
+        <div class="daisy-modal-box w-8/12 max-w-6xl">
+            <h3 class="font-accent text-lg font-bold">Edit Courses</h3>
+            <!-- make a form  -->
+            <!-- make a table manage-courses-table tbody -->
+            <div class="modal-body">
+                <table class="daisy-table manage-courses-table">
+                    <thead>
+                        <tr>
+                            <th>Course ID</th>
+                            <th>Course Name</th>
+                            <th>Course Code</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="manage-courses-tbody">
+
+                    </tbody>
+                </table>
+
+
+
+                <div class="daisy-modal-action">
+
+                    <!-- <div class="modal-action-btn">
+                        <button class="btn btn-primary" id="edit-courses-form-btn">Update Courses</button>
+                    </div> -->
+                    <label for="edit-courses-modal" class="daisy-btn">Close!</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- make a hidden input where i can get the session colcode -->
+    <input type="hidden" id="colCode" value="<?= $_SESSION['colCode'] ?>">
 </section>
 
 
 <script>
     $(document).ready(function() {
-        $.getScript("./profile/postScript.js");
+        // $.getScript("./profile/postScript.js");
     });
 </script>
 

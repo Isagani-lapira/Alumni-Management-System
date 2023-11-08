@@ -4,7 +4,7 @@
 
   <!-- Heading  -->
 
-  <section id="home" class="daisy-hero min-h-screen bg-fixed" style="background-image: url('../assets/heading.png');">
+  <section id="home" class="daisy-hero min-h-screen bg-fixed" style="background-image: url('https://eliamarg.slarenasitsolutions.com/Alumni-Management-System/assets/heading.png');">
     <div class="daisy-hero-overlay bg-opacity-60"></div>
     <div class="daisy-hero-content text-center text-neutral-content">
       <div class="max-w-lg">

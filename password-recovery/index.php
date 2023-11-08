@@ -18,8 +18,8 @@
 
 </head>
 
-<body>
-    <div class="daisy-navbar bg-base-100 p-4">
+<body class="min-h-screen relative">
+    <div class="daisy-navbar bg-base-100 p-4 absolute h-16 top-0 inset-0">
         <img class="w-32 h-16" src="../images/BulSU-Connect-Logo.png" alt="">
     </div>
     <div class="daisy-hero min-h-screen">
@@ -74,7 +74,7 @@
                             <div class="daisy-form-control">
                                 <a href="../student-alumni/login.php" class="daisy-btn ">Login Instead</a>
                             </div>
-                        </div>  
+                        </div>
                     </form>
                 </div>
             </div>

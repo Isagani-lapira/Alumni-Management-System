@@ -25,6 +25,7 @@
 
 <body>
     <div class="daisy-hero min-h-screen bg-base-200">
+
         <div class="daisy-hero-content flex-col lg:max-w-lg">
             <!-- <div class="text-center lg:text-left">
                 <h1 class="text-5xl font-bold">Forgot Password</h1>
