@@ -572,12 +572,13 @@ function dateInText($date)
           <div class="flex justify-end text-xs text-greyish_black">
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 
-            bg-accent text-white hover:bg-darkAccent hidden">Export as PDF
+            bg-accent text-white hover:bg-darkAccent print-alumni-record">
+              Print record
             </button>
 
           </div>
 
-          <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
+          <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
 
           <div class="flex justify-evenly text-sm">
 

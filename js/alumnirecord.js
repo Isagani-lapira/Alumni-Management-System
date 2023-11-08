@@ -33,6 +33,7 @@ $(document).ready(function () {
     alumniDataDefault.append("action", JSON.stringify(actionAlumni));
     alumniDataDefault.append('offset', offset)
 
+    let filteredData = []
     // retrieve alumni record
     function getAlumniRecord(alumniDataDefault) {
         $.ajax({
@@ -55,6 +56,7 @@ $(document).ready(function () {
 
                     let row = [studNo, fullname, colCode, batchYr, employmentStatus];
                     table.row.add(row);
+
                 }
 
                 table.draw();
@@ -65,6 +67,8 @@ $(document).ready(function () {
                     getAlumniRecord(alumniDataDefault);
                 }
 
+                const tableData = table.rows().data().toArray();
+                filteredData = tableData
             }
         });
     }
@@ -125,7 +129,17 @@ $(document).ready(function () {
             table.column(4).search(empStatusFilter, true, false)// employment status
             table.draw();
         }
+
+
+        // Get the filtered data
+        filteredData = table.rows({ search: 'applied' }).data().toArray();
     }
 
 
+    $('.print-alumni-record').on('click', function () {
+        let filteredDataString = JSON.stringify(filteredData);
+        let url = "../admin/alumnirecord.html?data=" + encodeURIComponent(filteredDataString);
+        let newTab = window.open(url, '_blank')
+        newTab.focus()
+    });
 })
