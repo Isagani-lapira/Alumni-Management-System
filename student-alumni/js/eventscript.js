@@ -129,7 +129,7 @@ $(document).ready(function () {
                         const eventName = response.eventName[i]
                         const eventID = response.eventID[i]
                         const eventDate = formatDate(response.eventDate[i])
-                        const about_event = response.about_event[i][i];
+                        const about_event = response.about_event[i];
                         const aboutImg = EVENT_IMG + eventID
                         const eventPlace = response.eventPlace[i];
                         const eventStartTime = response.eventPlace[i];
@@ -153,7 +153,7 @@ $(document).ready(function () {
                             .addClass('p-3 rounded-b-md')
 
                         const name = $('<h3>').addClass('text-greyish_black font-bold').text(eventName);
-                        const description = $('<p>').addClass('text-gray-400 text-xs text-justify').text(about_event);
+                        const description = $('<p>').addClass('text-gray-400 text-xs text-justify').text(about_event.substring(0,150));
 
 
                         header.append(img, date);

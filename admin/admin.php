@@ -1557,7 +1557,7 @@ function dateInText($date)
 
           </div>
         </div>
-        <button class="absolute -top-12 p-2 border border-white hover:border-accent hover:bg-accent rounded-md right-0 text-white stop-job-btn">
+        <button class="absolute -top-12 p-2 border border-white hover:border-accent hover:bg-accent rounded-md right-0 text-white stop-job-btn hidden">
           Cease accepting applicants.
         </button>
 
