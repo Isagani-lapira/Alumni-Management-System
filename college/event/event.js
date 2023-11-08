@@ -96,6 +96,10 @@ $(document).ready(async function () {
             $("#aboutImgPreview").attr("src", "");
             // hide the form
             toggleDisplay("#crud-event", "#event-record-list-section");
+            // add one to the total posts #totalPosts
+            const totalPosts = parseInt($("#totalPosts").text());
+            $("#totalPosts").text(totalPosts + 1);
+
             // refresh the list
             refreshList();
           } else {
