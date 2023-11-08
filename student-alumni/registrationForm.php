@@ -32,7 +32,7 @@
 
         <!-- selection -->
         <div class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg selectionStatus ">
-            <div class="bg-white border px-14 py-8  rounded w-4/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
+            <div class="bg-white border px-14 py-8  rounded w-8/12 lg:w-6/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
                 <h2 class="text-left text-lg md:text-xl font-bold  py-10 text-greyish_black tracking-wide">PLEASE SPECIFY YOUR STATUS:
                 </h2>
                 <!-- selection -->
@@ -59,7 +59,7 @@
         <!-- email card code container -->
         <!-- selection -->
         <div id="email-code-container" class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg hidden ">
-            <div class="bg-white border px-14 py-4 pt-12  rounded w-6/12 lg:w-1/3  h-1/3 max-h-[80%]  flex flex-col justify-between ">
+            <div class="bg-white border px-14 py-4 pt-12  rounded w-6/12 lg:w-8/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
                 <div></div>
                 <figure><img src="../assets/email/mail-sent.svg" alt="email picture" class="h-48 w-full object-contain  ">
                 </figure>
@@ -675,7 +675,7 @@
     </div>
 
     <!-- loading screen -->
-    <div id="loadingScreen" class="bg-gray-500 fixed inset-0 flex flex-col justify-center items-center p-3 z-50 ">
+    <div id="loadingScreen" class="bg-gray-500 fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden ">
         <!-- <span class="loader w-36 h-36"></span> -->
         <span class="daisy-loading daisy-loading-bars daisy-loading-lg"></span>
         <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>

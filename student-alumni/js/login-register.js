@@ -783,9 +783,23 @@ $(document).ready(function () {
       if (response.success === true) {
         console.log("ok");
 
-        $("#email-code-container").removeClass("hidden");
         container.addClass("hidden");
         $("#loadingScreen").addClass("hidden");
+        $.ajax({
+          url: "../PHP_process/userData.php",
+          method: "POST",
+          data: data,
+          processData: false,
+          contentType: false,
+          success: (response) => {
+            if (response === "Success") {
+              $(".errorPassNotMatch").addClass("hidden");
+
+              $("#email-code-container").removeClass("hidden");
+              $("#successJobModal").removeClass("hidden");
+            }
+          },
+        });
       } else {
         console.log("not ok. did not return success");
         $("#loadingScreen").addClass("hidden");
@@ -806,20 +820,6 @@ $(document).ready(function () {
       // add error text
       $("#email-error-text").text("Something went wrong. Please try again.");
     }
-
-    return;
-
-    $.ajax({
-      url: "../PHP_process/userData.php",
-      method: "POST",
-      data: data,
-      processData: false,
-      contentType: false,
-      success: (response) => {
-        if (response === "Success") $("#successJobModal").removeClass("hidden");
-      },
-    });
-    $(".errorPassNotMatch").addClass("hidden");
   }
 });
 
