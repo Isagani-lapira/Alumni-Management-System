@@ -258,7 +258,7 @@ $(document).ready(function () {
 
       // let message = $("#TxtAreaEmail").val();
       // get the message in the editor
-      message = CKEDITOR.instances["TxtAreaEmail"].getData();
+      let message = CKEDITOR.instances["TxtAreaEmail"].getData();
       //
 
       formSend.append("recipient", recipient);
@@ -298,14 +298,29 @@ $(document).ready(function () {
               table.clear().draw();
               emailOffset = 0;
               getEmailSent(actionDefault);
+              $("#emailForm")[0].reset(); // restart everything
+              $("#imgContEmail").addClass("hidden");
+              // empty the html for #imgContEmail
+              $("#imgContEmail").empty();
 
-              //success sending
-              $("#message").text("Email sent!");
-              $("#userNotExist").hide();
-              $("#modalEmail").addClass("hidden");
-              setTimeout(() => {
-                $("#promptMsg").addClass("hidden");
-              }, 4000);
+              $("#fileContEmail").hide();
+              $("#fileContEmail").empty();
+              // remove data in the editor
+              CKEDITOR.instances["TxtAreaEmail"].setData("");
+
+              // //success sending
+              // $("#message").text("Email sent!");
+              // $("#userNotExist").hide();
+              // $("#modalEmail").addClass("hidden");
+              // setTimeout(() => {
+              //   $("#promptMsg").addClass("hidden");
+              // }, 4000);
+              // add sweet alert here
+              Swal.fire({
+                title: "Email sent!",
+                icon: "success",
+                confirmButtonText: "OK",
+              });
             }
           },
           error: (error) => console.log(error),

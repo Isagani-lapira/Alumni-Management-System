@@ -45,7 +45,7 @@
         <thead class="bg-accent text-white">
             <tr>
                 <th class="text-start rounded-tl-md">SUBJECT</th>
-                <th class="text-start rounded-tl-md">RECIPIENTS</th>
+                <th class="text-start rounded-tl-md">RECIPIENT</th>
                 <th class="text-start">DATE</th>
                 <th class="text-start rounded-tr-md">VIEW</th>
             </tr>
