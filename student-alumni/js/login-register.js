@@ -1,63 +1,52 @@
-let usernameAvailable = true;
-let personalEmailAvailable = true;
-
 $(document).ready(function () {
+  let usernameAvailable = true;
+  let personalEmailAvailable = true;
+  async function postJSONFromURL(url, formData = null) {
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+    const result = await response.json();
+    return result;
+  }
   const today = new Date().toISOString().split("T")[0];
   $('input[type="date"]').attr("max", today);
 
-  //login
-  $("#loginPanel").on("submit", function (e) {
-    e.preventDefault();
-    let formData = $("#loginForm")[0]; //get the form
-    let data = new FormData(formData); //the form we will send to the php file
-    //action will be using
-    let action = {
-      action: "read",
-      query: true,
-    };
-    data.append("action", JSON.stringify(action));
+  // $("#registrationForm").on("submit", function (e) {
+  //   e.preventDefault();
 
-    $.ajax({
-      type: "POST",
-      url: "../PHP_process/userData.php",
-      data: data,
-      contentType: false,
-      processData: false,
-      success: (response) => {
-        if (response == "unsuccessful") $("#errorMsg").show();
-        else {
-          $("#errorMsg").hide();
-          window.location.href = "../student-alumni/homepage.php";
-        }
-      },
-      error: (error) => console.log(error),
-    });
-  });
+  //   let action = {
+  //     action: "create",
+  //     account: "User",
+  //   };
+  //   let formData = new FormData(this);
+  //   formData.append("action", JSON.stringify(action));
 
-  $("#registrationForm").on("submit", function (e) {
-    e.preventDefault();
-    let action = {
-      action: "create",
-      account: "User",
-    };
-    let formData = new FormData(this);
-    formData.append("action", JSON.stringify(action));
+  //   console.log(FormData);
 
-    //register the person
-    $.ajax({
-      type: "POST",
-      url: "../PHP_process/userData.php",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: (response) => {
-        console.log(response);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  });
+  //   // show the loading screen
+  //   $("#loadingScreen").removeClass("hidden");
+  //   // hide the registration form
+  //   $("#registrationForm").addClass("hidden");
+  //   // show the email-code-container
+  //   $("#email-code-container").removeClass("hidden");
+
+  //   return;
+  //   //register the person
+  //   // $.ajax({
+  //   //   type: "POST",
+  //   //   url: "../PHP_process/userData.php",
+  //   //   data: formData,
+  //   //   processData: false,
+  //   //   contentType: false,
+  //   //   success: (response) => {
+  //   //     console.log(response);
+  //   //   },
+  //   //   error: (error) => {
+  //   //     console.log(error);
+  //   //   },
+  //   // });
+  // });
 
   //check if the username already existing
   $("#usernameReg").on("change", function () {
@@ -142,10 +131,11 @@ $(document).ready(function () {
       },
     });
   }
-});
 
-// for registration
-$(document).ready(function () {
+  // for registration
+  // email-code-container
+  // verify-email-text
+
   const acceptButton = $("#acceptButton");
 
   const checkbox = $("#privacyPolicyCheckbox");
@@ -325,45 +315,6 @@ $(document).ready(function () {
   let isUsernameValid = false;
   let isPasswordStrong = false;
 
-  // submit the form and create the account
-  $("#alumniForm").on("submit", function (e) {
-    e.preventDefault();
-    if (checkInputField(".requiredAlumni2")) {
-      let accountPass = $("#accountPass").val().trim();
-      let confirmPass = $("#confirmPass").val().trim();
-
-      if (isUsernameValid) {
-        // check account password if match
-        if (accountPass === confirmPass) {
-          // register new account
-          let formData = $("#alumniForm")[0];
-          let action = {
-            action: "create",
-            account: "User",
-          };
-
-          let data = new FormData(formData);
-          data.append("action", JSON.stringify(action));
-          data.append("status", "Alumni");
-          data.append("bulsuEmail", "");
-
-          $.ajax({
-            url: "../PHP_process/userData.php",
-            method: "POST",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: (response) => {
-              if (response === "Success")
-                $("#successJobModal").removeClass("hidden");
-            },
-          });
-          $(".errorPassNotMatch").addClass("hidden");
-        } else $(".errorPassNotMatch").removeClass("hidden");
-      }
-    }
-  });
-
   // check alumni username is available
   $("#username").on("change", function () {
     let usernameVal = $(this).val();
@@ -534,51 +485,6 @@ $(document).ready(function () {
     $("#accountInfoStudent").addClass("hidden");
   });
 
-  // submit the form
-  $("#studentForm").on("submit", function (e) {
-    e.preventDefault();
-
-    // check first if all the input are complete
-    if (checkInputField(".requiredStudent2")) {
-      // check if the username is valid
-      if (isUsernameValid && isPasswordStrong) {
-        const studAccountPass = $("#studAccountPass").val();
-        const studConfirmPass = $("#studConfirmPass").val();
-
-        // check if password matches
-        if (studAccountPass == studConfirmPass) {
-          $(".errorPassNotMatch").addClass("hidden");
-
-          // register new account
-          let formData = $("#studentForm")[0];
-          let action = {
-            action: "create",
-            account: "User",
-          };
-
-          let data = new FormData(formData);
-          data.append("action", JSON.stringify(action));
-          data.append("status", "Student");
-
-          $.ajax({
-            url: "../PHP_process/userData.php",
-            method: "POST",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: (response) => {
-              if (response === "Success")
-                $("#successJobModal").removeClass("hidden");
-            },
-            error: (error) => {
-              console.log(error);
-            },
-          });
-        } else $(".errorPassNotMatch").removeClass("hidden");
-      }
-    }
-  });
-
   // check password if meets the requirement of strong password
   $("#accountPass").on("input", function () {
     let passwordVal = $(this).val();
@@ -661,6 +567,260 @@ $(document).ready(function () {
       isPasswordStrong = false;
     }
   });
+
+  $("#studentForm").on("submit", async function (e) {
+    e.preventDefault();
+
+    // check first if all the input are complete
+    if (checkInputField(".requiredStudent2")) {
+      // check if the username is valid
+      if (isUsernameValid && isPasswordStrong) {
+        const studAccountPass = $("#studAccountPass").val();
+        const studConfirmPass = $("#studConfirmPass").val();
+
+        // check if password matches
+        console.log("strong pass");
+        if (studAccountPass == studConfirmPass) {
+          $(".errorPassNotMatch").addClass("hidden");
+
+          // register new account
+          let formData = $("#studentForm")[0];
+          let action = {
+            action: "create",
+            account: "User",
+          };
+
+          let data = new FormData(formData);
+          data.append("action", JSON.stringify(action));
+          data.append("status", "Student");
+
+          console.log(data);
+
+          //  show loading screen
+          $("#loadingScreen").removeClass("hidden");
+          // check email
+
+          handleEmailVerification(data, $("#studentForm"));
+
+          // send the data to the server
+
+          // $.ajax({
+          //   url: "../PHP_process/userData.php",
+          //   method: "POST",
+          //   data: data,
+          //   processData: false,
+          //   contentType: false,
+          //   success: (response) => {
+          //     if (response === "Success")
+          //       $("#successJobModal").removeClass("hidden");
+          //   },
+          //   error: (error) => {
+          //     console.log(error);
+          //   },
+          // });
+        } else {
+          $(".errorPassNotMatch").removeClass("hidden");
+          console.log("weak pass pass");
+        }
+      }
+    } else {
+      console.log("not completed yet.");
+    }
+  });
+
+  $("#alumniForm").on("submit", function (e) {
+    e.preventDefault();
+
+    if (checkInputField(".requiredAlumni2")) {
+      let accountPass = $("#accountPass").val().trim();
+      let confirmPass = $("#confirmPass").val().trim();
+
+      if (isUsernameValid) {
+        // check account password if match
+        if (accountPass === confirmPass) {
+          // register new account
+          let formData = $("#alumniForm")[0];
+          let action = {
+            action: "create",
+            account: "User",
+          };
+
+          let data = new FormData(formData);
+          data.append("action", JSON.stringify(action));
+          data.append("status", "Alumni");
+          data.append("bulsuEmail", "");
+          $("#loadingScreen").removeClass("hidden");
+
+          handleEmailVerification(data, $("#alumniForm"));
+        } else $(".errorPassNotMatch").removeClass("hidden");
+      }
+    }
+  });
+
+  // handle verify code form
+  $("#verify-code-btn").on("click", async function () {
+    // #code value
+    const code = $("#code").val();
+
+    // get the email address
+    const email = $("#verify-email-text").text();
+
+    // get the data-selected for the register btn
+    const selected = $("#acceptButton").attr("data-selected");
+    console.log("selected", selected);
+
+    // get the form data
+    const formData = new FormData();
+    formData.append("verification_code", code);
+    formData.append("email_address", email);
+    formData.append("action", "verify_code");
+
+    try {
+      // check if the code is correct
+      const response = await postJSONFromURL(
+        "../PHP_process/emailVerif.php",
+        formData
+      );
+
+      console.log(response);
+      const errorMsg = response.message;
+
+      if (response.success === true) {
+        // hide the email-code-container
+        $("#email-code-container").addClass("hidden");
+
+        // show the loading screen
+        $("#loadingScreen").removeClass("hidden");
+
+        // hide the loading screen after 3 seconds
+        setTimeout(() => {
+          $("#loadingScreen").addClass("hidden");
+        }, 3000);
+
+        // show the success modal
+        $("#successJobModal").removeClass("hidden");
+      } else {
+        // send sweet alert
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMsg,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      const errorMsg = "Something went wrong. Please try again later.";
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: errorMsg,
+      });
+      return;
+    }
+  });
+
+  // back-registration-btn
+  $("#back-registration-btn").on("click", function () {
+    // get the data-selected for the register btn
+    const selected = $("#acceptButton").attr("data-selected");
+    console.log("selected", selected);
+
+    // check if it is alumni
+    if (selected === "alumni") {
+      // hide the selection status
+      $(".selectionStatus").removeClass("hidden");
+      // show the alumni form
+      $("#alumniForm").addClass("hidden");
+    } else if (selected === "student") {
+      // hide the selection status
+      $(".selectionStatus").removeClass("hidden");
+      // show the student form
+      $("#studentForm").addClass("hidden");
+    }
+  });
+
+  // handle resend code
+
+  $("#resend-code-btn").on("click", function () {
+    // get the email address
+    const email = $("#verify-email-text").text();
+
+    // get the form data
+    const formData = new FormData();
+    formData.append("email_address", email);
+    formData.append("action", "send_otp");
+
+    // show the loading screen
+    $("#loadingScreen").removeClass("hidden");
+
+    // hide the loading screen after 3 seconds
+    setTimeout(() => {
+      $("#loadingScreen").addClass("hidden");
+    }, 3000);
+    $("#email-code-container").removeClass("hidden");
+
+    // hide the email-code-container
+  });
+
+  async function handleEmailVerification(formData, container) {
+    console.log(formData);
+
+    const emailData = new FormData();
+    emailData.append("action", "send_otp");
+    emailData.append("email_address", formData.get("personalEmail"));
+
+    $("#verify-email-text").text(formData.get("personalEmail"));
+
+    try {
+      // send post request to the server
+      const response = await postJSONFromURL(
+        "../PHP_process/emailVerif.php",
+        emailData
+      );
+
+      console.log(response);
+
+      if (response.success === true) {
+        console.log("ok");
+
+        $("#email-code-container").removeClass("hidden");
+        container.addClass("hidden");
+        $("#loadingScreen").addClass("hidden");
+      } else {
+        console.log("not ok. did not return success");
+        $("#loadingScreen").addClass("hidden");
+        container.removeClass("hidden");
+        // add error text
+        $("#email-error-text").text(response.error);
+        // add sweet alert with message
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: response.message,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      $("#loadingScreen").remove("hidden");
+      container.removeClass("hidden");
+      // add error text
+      $("#email-error-text").text("Something went wrong. Please try again.");
+    }
+
+    return;
+
+    $.ajax({
+      url: "../PHP_process/userData.php",
+      method: "POST",
+      data: data,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response === "Success") $("#successJobModal").removeClass("hidden");
+      },
+    });
+    $(".errorPassNotMatch").addClass("hidden");
+  }
 });
 
 $(document).ready(function () {

@@ -15,6 +15,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+
+    <!-- Sweet Alert Notification Plugin -->
+    <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css " rel="stylesheet">
+
 </head>
 
 <body class="">
@@ -26,12 +31,12 @@
         </header>
 
         <!-- selection -->
-        <div class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg selectionStatus hidden">
-            <div class="bg-white border px-14 py-4  rounded w-6/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
+        <div class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg selectionStatus ">
+            <div class="bg-white border px-14 py-8  rounded w-4/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
                 <h2 class="text-left text-lg md:text-xl font-bold  py-10 text-greyish_black tracking-wide">PLEASE SPECIFY YOUR STATUS:
                 </h2>
                 <!-- selection -->
-                <div class="flex flex-col md:flex-row  justify-between [&>*]:flex-1 gap-6  py-4 h-44">
+                <div class="flex flex-col md:flex-row flex-wrap  justify-between [&>*]:flex-1 gap-6  py-4 h-60">
                     <label for="terms-modal" id="alumniStatus" class="p-5 bg-gray-300 center-shadow cursor-pointer text-greyish_black hover:bg-accent transition duration-300 delay-200 ease-in-out hover:text-white rounded-lg flex items-center justify-center">
                         <span class="font-bold text-sm md:text-xl">ALUMNI</span>
                     </label>
@@ -49,37 +54,11 @@
 
         <!-- email card for verification -->
         <!-- selection -->
-        <div id="verify-email-container" class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg hidden ">
-            <div class="bg-white border px-14 py-4  rounded w-6/12  h-1/3 max-h-[80%]  flex flex-col justify-between ">
-                <div></div>
-                <figure><img src="../assets/send-email.png" alt="hand pointing to email" class="h-48 w-full object-contain md:h-full ">
-                </figure>
-                <div class="daisy-card-body gap-4">
-                    <div class="space-y-2 ">
-                        <h2 class="daisy-card-title font-bold text-xl text-gray-900">Verify Your Email Address</h2>
-                        <p class="text-gray-400 max-w-prose">To complete your account, please confirm your email address first.</p>
-                    </div>
 
-
-                    <!-- input for email address -->
-                    <div class="flex flex-col gap-2">
-                        <input id="email" name="email" class="border form-input daisy-input rounded-md border-gray-400 " placeholder="ex: juanDelaCruz@gmail.com">
-                        <span class="emailExistingMsg italic text-red-400 text-sm hidden">This email is already used</span>
-                        <span class="emailInvalidMsg italic text-red-400 text-sm hidden">This email is invalid</span>
-                    </div>
-
-                    <div class="daisy-card-actions justify-end">
-                        <button class="daisy-btn daisy-btn-primary w-full">Send Verification Code</button>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
 
         <!-- email card code container -->
         <!-- selection -->
-        <div id="email-code-container" class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg ">
+        <div id="email-code-container" class="flex px-12 p-4 w-full text-center flex-1  flex-col justify-center items-center shadow-lg hidden ">
             <div class="bg-white border px-14 py-4 pt-12  rounded w-6/12 lg:w-1/3  h-1/3 max-h-[80%]  flex flex-col justify-between ">
                 <div></div>
                 <figure><img src="../assets/email/mail-sent.svg" alt="email picture" class="h-48 w-full object-contain  ">
@@ -87,7 +66,7 @@
                 <div class="daisy-card-body gap-4">
                     <div class="space-y-2 ">
                         <h2 class=" font-bold text-xl text-gray-900 text-center">Verify Your Email Address</h2>
-                        <p class="text-gray-500 max-w-prose">Please enter the 6 digit code sent to <span class="text-accent">demo@gmail.com</span>.</p>
+                        <p class="text-gray-500 max-w-prose">Please enter the 6 digit code sent to <span id="verify-email-text" class="text-accent">demo@gmail.com</span>.</p>
                     </div>
 
 
@@ -104,6 +83,7 @@
                                 <input type="text" class="digit" id="digit-6" maxlength="1">
                             </div> -->
                             <div id="code-validation"></div>
+                            <div id="time-remaining"></div>
 
                         </div>
 
@@ -111,13 +91,14 @@
                     </div>
 
                     <div class="daisy-card-actions justify-start gap-6">
-                        <button class="daisy-btn daisy-btn-primary w-full">Verify Code</button>
-                        <div>
+                        <button class="daisy-btn daisy-btn-primary w-full" id="verify-code-btn">Verify Code</button>
+                        <div class="flex flex-col gap-2">
                             <div id="resend-timer"></div>
 
                             <p>Didn't receive the code?
-                                <button id="resend-code" class="daisy-link daisy-link-hover text-accent">Resend Code</button>
+                                <button id="resend-code-btn" class="daisy-link daisy-link-hover text-accent">Resend Code</button>
                             </p>
+                            <button id="back-registration-btn" class="text-left daisy-link hover:text-accent">Back to Registration</button>
                         </div>
 
                     </div>
@@ -132,7 +113,7 @@
 
 
         <!-- fields for alumni -->
-        <form id="alumniForm" class="flex fieldFormReg hidden flex-col gap-2 mx-auto w-1/2 p-3" style="height: 90%;">
+        <form id="alumniForm" class="flex fieldFormReg hidden flex-col gap-2 mx-auto w-1/2 p-5 border bg-base-100" style="height: 90%;">
             <h3 class="font-black text-2xl text-greyish_black text-center py-3">ALUMNI ACCOUNT</h3>
             <!-- personal information  -->
             <div class="personalInfo">
@@ -693,8 +674,14 @@
         </div>
     </div>
 
+    <!-- loading screen -->
+    <div id="loadingScreen" class="bg-red-500 fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden">
+        <!-- <span class="loader w-36 h-36"></span> -->
+        <span class="daisy-loading daisy-loading-bars daisy-loading-lg"></span>
+        <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
+    </div>
 
-
+    <script type="module" src="../../college/scripts/utils.js"></script>
     <script src="../student-alumni/js/login-register.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
