@@ -96,8 +96,9 @@ $(document).ready(function () {
                     countData.push(dataCount);
                 });
 
+                console.log(response)
                 updateChart(labels, countData) //update chart using the data retrieved
-            }
+            },error: error=>{console.log(error)}
         })
     }
 

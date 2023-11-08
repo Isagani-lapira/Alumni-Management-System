@@ -448,7 +448,7 @@ function getAccDetails($con, $personID)
 
         <!-- View job post modal -->
         <div id="viewJob" class="modal fixed inset-0 h-full w-full flex items-start justify-center 
-          top-0 left-0 p-5 hidden overflow-y-auto">
+          top-0 left-0 p-10 hidden overflow-y-auto">
           <!-- modal body -->
           <div id="viewingJobModal" class="w-2/5 bg-white rounded-lg h-4/5 slide-bottom relative">
 

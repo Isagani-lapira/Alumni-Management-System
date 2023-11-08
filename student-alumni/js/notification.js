@@ -52,8 +52,17 @@ $(document).ready(function () {
                             isDeleted = true
                         }
                         else if (typeOfNotif == 'aoy') content = "You have been assigned as alumni of the year"
+                        const image = new Image();
+                        image.src = profile;
 
-                        displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID, details, isDeleted)
+                        image.onload = function () {
+                            // Image loaded successfully
+                            displayNotification(profile, added_by, content, date_notification, is_read, postID, notifID, details, isDeleted)
+                        };
+                        image.onerror = function () {
+                            displayNotification('', added_by, content, date_notification, is_read, postID, notifID, details, isDeleted)
+                        };
+                        
                     }
 
                     //increase the offset based on length so it can produce new sets of notification

@@ -128,6 +128,12 @@ $(document).ready(function () {
             table.column(2).search(collegeFilter) //college
             table.column(4).search(empStatusFilter, true, false)// employment status
             table.draw();
+        }else if (collegeFilter !== "" && batchFilter !== "" && empStatusFilter !== ""){
+            empStatusFilter = "^" + empStatusFilter + "$"
+            table.column(3).search(batchFilter) //batch
+            table.column(2).search(collegeFilter) //college
+            table.column(4).search(empStatusFilter, true, false)// employment status
+            table.draw();
         }
 
 

@@ -140,6 +140,13 @@ $(document).ready(function () {
 
                 $('#locationJobModal').text(location)
 
+                $('.stop-job-btn').on('click', function () {
+                    $('.stop-job-modal').removeClass('hidden')
+                    // stop job button
+                    $('.stop-job-confirm').on('click', function () {
+                        ceasedJob(careerID)
+                    })
+                })
             })
 
         footer.append(leftSide, proceedBtn)
@@ -152,12 +159,9 @@ $(document).ready(function () {
         if (status === 'ceased') {
             $('.stop-job-btn').addClass('hidden')
         } else $('.stop-job-btn').remove('hidden')
-        // stop job button
-        $('.stop-job-confirm').on('click', function () {
-            ceasedJob(careerID)
-        })
-    }
 
+        
+    }
 
     // retrieve details of applicant
     function displayApplicant(careerID) {
@@ -709,9 +713,6 @@ $(document).ready(function () {
         $('.stop-job-modal').addClass('hidden')
     })
 
-    $('.stop-job-btn').on('click', function () {
-        $('.stop-job-modal').removeClass('hidden')
-    })
 
 
     function ceasedJob(careerID) {

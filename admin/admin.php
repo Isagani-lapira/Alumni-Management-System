@@ -1003,16 +1003,10 @@ function dateInText($date)
 
               <!-- skills and education -->
               <div class="w-1/2 h-max flex hidden">
-                <!-- skills -->
-                <div class="w-1/2">
-                  <h2 class="text-greyish_black font-bold text-xl mb-5">Skills that I have:</h2>
-                  <div id="skillContainer" class="flex flex-col gap-2"></div>
-                </div>
-
                 <!-- education -->
-                <div class="w-1/2">
-                  <h2 class="text-greyish_black font-bold text-xl mb-5">Connect with me:</h2>
-                  <div id="socMedContainer" class="flex flex-col gap-2"></div>
+                <div class="w-full">
+                  <h2 class="text-greyish_black font-bold text-xl text-center mb-5">Connect with me:</h2>
+                  <div id="socMedContainer" class="flex flex-wrap justify-center gap-2 flex-1"></div>
                 </div>
 
               </div>
@@ -2201,13 +2195,6 @@ function dateInText($date)
                 <div id="tertiaryLvl" class="font-thin"></div>
               </section>
 
-
-              <!-- skills -->
-              <section>
-                <h1 class="font-bold text-base">SKILLS</h1>
-
-                <div id="skillWrapper" class="flex flex-col gap-2 z-50"></div>
-              </section>
             </aside>
 
             <aside class="w-4/6 text-greyish_black text-xs p-3">
@@ -2318,9 +2305,6 @@ function dateInText($date)
           <div class="flex flex-wrap justify-center gap-2 testimonyWrapper p-3"></div>
           <h2 class="text-greyish_black font-bold text-center text-lg">Achievements</h2>
           <div class="flex justify-center flex-wrap gap-2 achievementWrapper"></div>
-          <!-- skills -->
-          <h2 class="text-greyish_black font-bold text-center text-lg">Skills</h2>
-          <div class="flex flex-wrap gap-2 justify-center skillWrapper flex-1 mb-5"></div>
 
           <!-- social media -->
           <h2 class="text-greyish_black font-bold text-center text-lg">Social Media</h2>
