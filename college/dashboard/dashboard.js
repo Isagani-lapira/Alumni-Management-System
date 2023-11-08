@@ -1,9 +1,12 @@
 import { getJSONFromURL, postJSONFromURL } from "../scripts/utils.js";
 
 $(document).ready(() => {
+  let dataArray = [];
+
   // Add onchange whenever the dashboard is clicked
   $('a[href="#dashboard"]').on("click", function () {
     setTimeout(function () {
+      let dataArray = [];
       getInitialLogs();
       loadHandlers();
 
@@ -86,6 +89,7 @@ $(document).ready(() => {
     const formData = new FormData();
     formData.append("action", "filterDate");
     formData.append("date", "today");
+
     try {
       const response = await postJSONFromURL("dashboard/logData.php", formData);
 
@@ -100,6 +104,14 @@ $(document).ready(() => {
 
   function loadHandlers() {
     retrievedLast5YearResponse();
+
+    $("#printLogsBtn").on("click", function () {
+      const jsonString = JSON.stringify(dataArray);
+      window.open(
+        "dashboard/logtemplate.html?data=" + encodeURIComponent(jsonString),
+        "_blank"
+      );
+    });
 
     // retrieve dashboard response
     function retrievedLast5YearResponse() {
@@ -213,6 +225,8 @@ $(document).ready(() => {
     // change the DOM to display the logs
 
     console.log(datalist);
+    dataArray = datalist;
+
     // If there's no data
     if (!datalist || datalist.length == 0) {
       const element = `

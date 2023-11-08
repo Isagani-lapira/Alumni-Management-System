@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once '../php/connection.php';
-require_once '../php/checkLogin.php';
 
 // if (isset($_POST['action'])) {
 //     $action = $_POST['action'];
