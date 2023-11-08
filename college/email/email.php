@@ -73,7 +73,7 @@
                     <div class="flex gap-2 justify-start mb-2">
                         <p class="font-semibold text-sm">Recipient</p>
                         <input type="radio" id="groupEM" name="recipient" checked value="groupEmail">
-                        <label for="groupEM">Group</label>
+                        <label for="groupEM">Whole College</label>
 
                         <input type="radio" id="individEM" name="recipient" value="individualEmail">
                         <label for="individEM">Individual</label>

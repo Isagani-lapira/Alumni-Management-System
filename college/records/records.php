@@ -16,7 +16,7 @@
     <div class="flex flex-wrap gap-4">
 
         <div class="form-container">
-            <label class="block" for="select-user-filter">Filter By: </label>
+            <label class="block" for="select-user-filter">Filter Users By: </label>
             <select name="type" id="select-user-filter" class=" form-select rounded">
                 <option selected value="student">Student</option>
                 <option value="alumni">Alumni</option>
@@ -67,7 +67,7 @@
 
 
 
-        <div class="student-table-container hidden">
+        <div class="student-table-container ">
             <table class=" table-auto w-full mt-10  rounded-t-md center-shadow daisy-table daisy-table-zebra" id="student-record-table">
                 <thead class="">
                     <tr class="bg-accent text-white  rounded-tl-md">
@@ -94,6 +94,7 @@
                     <tr class="bg-accent text-white  rounded-tl-md">
                         <th class="rounded-tl-lg">STUDENT NUMBER</th>
                         <th>NAME</th>
+                        <th>COURSE</th>
                         <th>CONTACT NUMBER</th>
                         <th>BATCH YEAR</th>
                         <th>EMPLOYEMENT STATUS</th>

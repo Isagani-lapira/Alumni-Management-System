@@ -220,16 +220,16 @@ session_start();
                         <span id="preview-eventDate"></span>
                     </p>
                 </div>
-                <div class="input-container">
+                <!-- <div class="input-container">
                     <p class="block font-medium">Header Phrase:</p>
                     <span id="preview-headerPhrase" name="headerPhrase"></span>
-                </div>
+                </div> -->
 
-                <div class="input-container">
+                <!-- <div class="input-container">
                     <p class="font-medium  ">Contact Link</p>
 
                     <span id="preview-contactLink">
-                </div>
+                </div> -->
                 <div class="input-container">
                     <p class="font-medium block ">Venue: </p>
 

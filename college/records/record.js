@@ -196,7 +196,6 @@ $(document).ready(function () {
         { data: "studNo", width: "25%" },
         { data: "full_name" },
         { data: "courseCode" },
-
         { data: "contactNo" },
         { data: "currentYear" },
         // {
@@ -243,7 +242,7 @@ $(document).ready(function () {
       columns: [
         { data: "studNo", width: "25%" },
         { data: "full_name" },
-        // { data: "courseCode" },
+        { data: "courseCode" },
         { data: "contactNo" },
         { data: "batchYr" },
         { data: "employment_status" },
