@@ -635,7 +635,7 @@ function getTracerPercentage($con)
     if ($result) {
         $tracerID = $result->fetch_assoc()['tracer_deployID'];
         // get the total number of answer
-        $queryTotal = "SELECT COUNT(*) as 'total_answer' FROM `answer` WHERE `tracer_deployID` = ?";
+        $queryTotal = "SELECT COUNT(*) as 'total_answer' FROM `answer` WHERE `tracer_deployID` = ? AND status='done' ";
         $stmtTotal = mysqli_prepare($con, $queryTotal);
         $stmtTotal->bind_param('s', $tracerID);
         $stmtTotal->execute();

@@ -60,7 +60,7 @@ function retrieveLast5YearResponse($con)
     $query = "SELECT YEAR(t.timstamp) AS deployment_year, COUNT(a.tracer_deployID) AS answer_count
     FROM tracer_deployment t
     LEFT JOIN answer a ON t.tracer_deployID = a.tracer_deployID
-    WHERE t.timstamp >= DATE_SUB(NOW(), INTERVAL 5 YEAR)
+    WHERE t.timstamp >= DATE_SUB(NOW(), INTERVAL 5 YEAR) AND a.status = 'done'
     GROUP BY deployment_year
     ORDER BY deployment_year DESC";
     $stmt = mysqli_prepare($con, $query);
