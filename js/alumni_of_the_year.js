@@ -143,24 +143,6 @@ $(document).on('ready', function () {
                 }
             })
 
-        // retrieve all the skills for this alumni of the month
-        getSkills(aomID)
-            .then(response => {
-                if (response.response === 'Success') {
-                    $('#skillContainer').empty()
-                    const skills = response.skills
-                    skills.forEach(skill => {
-                        // mark up for skills
-                        const wrapper = $('<div>').addClass('items-center flex gap-2')
-                        const icon = $('<iconify-icon class="bg-blue-400 rounded-full p-1 text-white" icon="ant-design:check-outlined" width="10" height="10"></iconify-icon>');
-                        const skillElement = $('<span>').text(skill);
-
-                        wrapper.append(icon, skillElement);
-                        $('#skillContainer').append(wrapper)
-                    });
-                }
-            })
-
         getAOMSocMed(personID)
             .then(response => {
                 $('#socMedContainer').parent().parent().removeClass('hidden')
@@ -264,25 +246,6 @@ $(document).on('ready', function () {
 
     }
 
-    function getSkills(aomID) {
-        const action = "getSkills";
-        const formData = new FormData();
-        formData.append('action', action);
-        formData.append('aomID', aomID);
-
-        return new Promise((resolve) => {
-            $.ajax({
-                url: '../PHP_process/alumniofMonth.php',
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                dataType: 'json',
-                success: response => resolve(response)
-
-            })
-        })
-    }
 
     function getAOMSocMed(personID) {
         const action = "getAOMSocMed";
@@ -554,23 +517,6 @@ $(document).on('ready', function () {
                         achievementWrapper.append(achievementElement, descriptionElement, dateElement);
                         $('.achievementWrapper').append(achievementWrapper);
                     }
-                }
-            })
-
-        getSkills(aomID)
-            .then(response => {
-                if (response.response === 'Success') {
-                    $('.skillWrapper').empty(); //avoid duplicate of data
-                    const skills = response.skills
-                    skills.forEach(skill => {
-                        // mark up for skills
-                        const wrapper = $('<div>').addClass('items-center flex gap-2')
-                        const icon = $('<iconify-icon class="bg-blue-400 rounded-full p-1 text-white" icon="ant-design:check-outlined" width="10" height="10"></iconify-icon>');
-                        const skillElement = $('<span>').text(skill);
-
-                        wrapper.append(icon, skillElement);
-                        $('.skillWrapper').append(wrapper)
-                    });
                 }
             })
 

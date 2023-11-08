@@ -572,12 +572,13 @@ function dateInText($date)
           <div class="flex justify-end text-xs text-greyish_black">
             <!-- EXPORT PDF -->
             <button class="p-2 px-4 m-2 border border-accent rounded-md 
-            bg-accent text-white hover:bg-darkAccent hidden">Export as PDF
+            bg-accent text-white hover:bg-darkAccent print-alumni-record">
+              Print record
             </button>
 
           </div>
 
-          <hr class="h-px my-5 bg-grayish border-0 dark\:bg-gray-700" />
+          <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
 
           <div class="flex justify-evenly text-sm">
 
@@ -760,7 +761,8 @@ function dateInText($date)
           </div>
 
           <div id="formReport" class="border border-t-grayish h-full overflow-y-auto">
-            <div class="flex gap-2 justify-evenly">
+            <button class="border border-gray-400 text-gray-400 hover:bg-accent hover:text-white p-2 m-2 rounded-md download-two-btn">Download as image</button>
+            <div class="flex gap-2 justify-evenly" id="chart-completion-alumni">
               <div class="h-2/5 w-1/2 p-5 flex flex-col">
                 <h1 class="text-lg font-extrabold">Completion Chart</h1>
                 <canvas class="w-full h-full" id="completionChart"></canvas>
@@ -816,6 +818,7 @@ function dateInText($date)
               <p class="text-sm italic text-gray-500">Note: Select a category first</p>
             </div>
 
+            <button class="border border-gray-400 text-gray-400 hover:bg-accent hover:text-white p-2 m-2 rounded-md download-chart-btn">Download as image</button>
             <div class="center-shadow rounded-lg p-3 m-2 h-full flex justify-center">
               <canvas id="chartPerQuestion"></canvas>
             </div>
@@ -1000,16 +1003,10 @@ function dateInText($date)
 
               <!-- skills and education -->
               <div class="w-1/2 h-max flex hidden">
-                <!-- skills -->
-                <div class="w-1/2">
-                  <h2 class="text-greyish_black font-bold text-xl mb-5">Skills that I have:</h2>
-                  <div id="skillContainer" class="flex flex-col gap-2"></div>
-                </div>
-
                 <!-- education -->
-                <div class="w-1/2">
-                  <h2 class="text-greyish_black font-bold text-xl mb-5">Connect with me:</h2>
-                  <div id="socMedContainer" class="flex flex-col gap-2"></div>
+                <div class="w-full">
+                  <h2 class="text-greyish_black font-bold text-xl text-center mb-5">Connect with me:</h2>
+                  <div id="socMedContainer" class="flex flex-wrap justify-center gap-2 flex-1"></div>
                 </div>
 
               </div>
@@ -1560,7 +1557,26 @@ function dateInText($date)
 
           </div>
         </div>
+        <button class="absolute -top-12 p-2 border border-white hover:border-accent hover:bg-accent rounded-md right-0 text-white stop-job-btn">
+          Cease accepting applicants.
+        </button>
 
+      </div>
+    </div>
+
+    <!-- stop job post -->
+    <div class="modal fixed inset-0 h-full w-full flex items-start justify-center 
+          top-0 left-0 p-5 overflow-y-auto stop-job-modal hidden">
+      <div class="w-2/5 bg-white rounded-xl h-max p-5 relative text-gray-500">
+        <h2 class="text-xl pb-3 border-b border-gray-400 mb-2">Warning for this action</h2>
+        <p>This action will hide this job posting from the user. It will no longer accept applications.
+          Make sure that you have finished looking for candidates for this position.</p>
+
+        <p class="text-sm italic mt-5">Note: This post will not be deleted and its applicant and it cannot be undone once it set as ceased</p>
+        <div class="flex justify-end items-center gap-2">
+          <button class="text-gray-400 hover:text-gray-500 stop-job-cancel">Cancel</button>
+          <button class="bg-green-400 hover:bg-green-500 text-white px-3 py-2 rounded-md stop-job-confirm">Confirm</button>
+        </div>
       </div>
     </div>
 
@@ -2179,13 +2195,6 @@ function dateInText($date)
                 <div id="tertiaryLvl" class="font-thin"></div>
               </section>
 
-
-              <!-- skills -->
-              <section>
-                <h1 class="font-bold text-base">SKILLS</h1>
-
-                <div id="skillWrapper" class="flex flex-col gap-2 z-50"></div>
-              </section>
             </aside>
 
             <aside class="w-4/6 text-greyish_black text-xs p-3">
@@ -2296,9 +2305,6 @@ function dateInText($date)
           <div class="flex flex-wrap justify-center gap-2 testimonyWrapper p-3"></div>
           <h2 class="text-greyish_black font-bold text-center text-lg">Achievements</h2>
           <div class="flex justify-center flex-wrap gap-2 achievementWrapper"></div>
-          <!-- skills -->
-          <h2 class="text-greyish_black font-bold text-center text-lg">Skills</h2>
-          <div class="flex flex-wrap gap-2 justify-center skillWrapper flex-1 mb-5"></div>
 
           <!-- social media -->
           <h2 class="text-greyish_black font-bold text-center text-lg">Social Media</h2>
@@ -2412,6 +2418,7 @@ function dateInText($date)
   <script src="../js/log.js"></script>
   <script src="../js/tracer.js"></script>
   <script src="../js/alumnirecord.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
   <script src="../js/announcementscript.js"></script>
   <script src="../js/sendMail.js"></script>
   <script src="../js/previewcontainer.js"></script>

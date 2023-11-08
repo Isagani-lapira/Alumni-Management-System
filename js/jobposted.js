@@ -65,7 +65,7 @@ $(document).ready(function () {
         jobDescript, jobQuali, location, applicantcount) {
 
         //sets of color
-        const colorBG = 'accent'
+        const colorBG = (status == 'verified') ? 'accent' : 'gray-400'
 
         const wrapper = $('<div>')
             .addClass('rounded-md max-w-sm flex flex-col center-shadow')
@@ -140,6 +140,13 @@ $(document).ready(function () {
 
                 $('#locationJobModal').text(location)
 
+                $('.stop-job-btn').on('click', function () {
+                    $('.stop-job-modal').removeClass('hidden')
+                    // stop job button
+                    $('.stop-job-confirm').on('click', function () {
+                        ceasedJob(careerID)
+                    })
+                })
             })
 
         footer.append(leftSide, proceedBtn)
@@ -147,8 +154,14 @@ $(document).ready(function () {
         wrapper.append(headerPart, footer);
 
         $('#adminJobPostCont').append(wrapper)
-    }
 
+
+        if (status === 'ceased') {
+            $('.stop-job-btn').addClass('hidden')
+        } else $('.stop-job-btn').remove('hidden')
+
+        
+    }
 
     // retrieve details of applicant
     function displayApplicant(careerID) {
@@ -694,4 +707,43 @@ $(document).ready(function () {
     $('.modalListBtn').on('click', function () {
         $('#listOfApplicantModal').addClass('hidden')
     })
+
+
+    $('.stop-job-cancel').on('click', function () {
+        $('.stop-job-modal').addClass('hidden')
+    })
+
+
+
+    function ceasedJob(careerID) {
+        const action = { action: 'ceaseJob' };
+        const status = 'ceased';
+        const formData = new FormData();
+        formData.append('action', JSON.stringify(action));
+        formData.append('status', status);
+        formData.append('careerID', careerID);
+
+        $.ajax({
+            url: '../PHP_process/jobTable.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: response => {
+                if (response === 'Success') {
+                    $('.stop-job-modal').addClass('hidden')
+                    $('#viewJob').addClass('hidden')
+
+                    // refresh user job post
+                    restartTable(); //refresh the table
+                    offsetUserJob = 0; //retrieve from the beginning
+                    $('#adminJobPostCont').empty() //avoid duplication of data
+                    retrieveUserPost() //display job post
+
+
+                }
+            },
+            error: error => { console.log(error) }
+        })
+    }
 })

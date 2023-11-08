@@ -320,7 +320,13 @@ function countCollegeParticipation($con)
             $stmtCount->fetch();
 
             // Calculate the percentage of alumni count finished for the college
-            $percentageFinished = ($count / $totalAlumniCount) * 100;
+            $percentageFinished = 0;
+            try {
+                $percentageFinished = ($count / $totalAlumniCount) * 100;
+             }
+             catch (DivisionByZeroError $e) {
+                $percentageFinished = 0;
+             }
 
             $participant = array(
                 "colCode" => $colCode,

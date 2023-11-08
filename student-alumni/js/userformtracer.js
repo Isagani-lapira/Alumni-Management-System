@@ -716,6 +716,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: response => {
+                console.log(response)
                 if (response == 'Success') {
                     $('#finishedContainer').addClass('hidden')
                     $('#successModal').removeClass('hidden')

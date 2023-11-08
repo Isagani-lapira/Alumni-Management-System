@@ -194,6 +194,13 @@ $(document).ready(function () {
 
                 $('#locationJobModal').text(location)
 
+                $('.stop-job-btn').on('click', function () {
+                    $('.stop-job-modal').removeClass('hidden')
+                    // stop job button
+                    $('.stop-job-confirm').on('click', function () {
+                        ceasedJob(careerID)
+                    })
+                })
             })
 
         footer.append(leftSide, proceedBtn)
@@ -206,10 +213,7 @@ $(document).ready(function () {
         if (status === 'ceased') {
             $('.stop-job-btn').addClass('hidden')
         } else $('.stop-job-btn').remove('hidden')
-        // stop job button
-        $('.stop-job-confirm').on('click', function () {
-            ceasedJob(careerID)
-        })
+
     }
 
     //allows modal to be close when Click else where
@@ -245,6 +249,11 @@ $(document).ready(function () {
         formData.append('status', status);
         formData.append('careerID', careerID);
 
+        // refresh user job post
+        offsetUserJob = 0;
+        $('#jobRepo').children(':not(p)').remove()
+        $('#loadingDataJobRepo').removeClass('hidden')
+
         $.ajax({
             url: '../PHP_process/jobTable.php',
             method: 'POST',
@@ -255,13 +264,7 @@ $(document).ready(function () {
                 if (response === 'Success') {
                     $('.stop-job-modal').addClass('hidden')
                     $('#viewJob').addClass('hidden')
-
-                    // refresh user job post
-                    offsetUserJob = 0;
-                    $('#jobRepo').children(':not(p)').remove()
-                    $('#loadingDataJobRepo').removeClass('hidden')
                     retrieveUserPost()
-
                 }
             },
             error: error => { console.log(error) }

@@ -184,7 +184,7 @@ $(document).ready(function () {
 
       swiperContainer.on('click', function () {
         $('#viewingPost').removeClass("hidden");
-        viewingOfPost(postID, fullname, username, caption, images, likes, img)
+        viewingOfPost(postID, fullname, username, caption, images, likes)
       })
     } else {
       postWrapper.css('min-height', '100px')
@@ -238,7 +238,7 @@ $(document).ready(function () {
         $('#commentPost').removeClass('hidden') //open the comment modal
 
         //set up the details for comment to be display
-        $('#postProfile').attr('src', img)
+        $('#postProfile').attr('src', imgProfile)
         $('#postFullname').text(fullname)
         $('#postUsername').text(username)
         $('#replyToUsername').text(username)
