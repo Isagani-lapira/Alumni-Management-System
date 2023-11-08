@@ -89,7 +89,7 @@
   </section>
 
   <!-- Donation Section -->
-  <div id="donation" class="bg-grayish py-20 container mx-auto">
+  <section id="donation" class="bg-slate-900 py-20 container">
     <div class="flex flex-row justify-around">
       <div>
         <img class="w-[30rem]" src="./assets/donation.png" alt="" />
@@ -111,7 +111,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Calendar Section -->
   <section id="calendar" class="container mx-auto text-center space-y-8 py-8">
