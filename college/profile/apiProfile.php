@@ -36,6 +36,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 )
             );
         }
+        if ($_GET['action'] === 'get-course' && isset($_GET['courseID'])) {
+            $courseID = $_GET['courseID'];
+
+            // get all the courses
+            // get the course
+
+            $stmt = $mysql_con->prepare("SELECT * FROM course WHere courseID = ?;");
+            $stmt->bind_param("s", $courseID);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+            $courses = array();
+            while ($row = $result->fetch_assoc()) {
+                array_push($courses, $row);
+            }
+            echo json_encode(
+                array(
+                    "message" => "Get data",
+                    "status" => true,
+                    "response" => "success",
+                    "data" => $courses
+                )
+            );
+        }
     }
     exit();
 }
@@ -44,91 +68,140 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // echo "POST";
+    // var_dump($_POST);
+    // die();
 
-    if (isset($_POST['post-new-course'])) {
-        try {
+    if (isset($_POST['action'])) {
 
-            $courseCode = $_POST['courseCode'];
-            $courseName = $_POST['courseName'];
-            $colCode = $_SESSION['colCode'];
+        if ($_POST['action'] === "add-course") {
 
-            $stmt = $mysql_con->prepare("INSERT INTO course (courseCode, courseName, colCode) VALUES (?, ?, ?);");
-            $stmt->bind_param("sss", $courseCode, $courseName, $colCode);
-            $stmt->execute();
-            $stmt->close();
-            // return json response
-            setNewActivity(
-                $mysql_con,
-                $_SESSION['adminID'],
-                "added",
-                "Added New Course"
-            );
-            echo json_encode(
-                array(
-                    "message" => "Post data",
-                    "status" => true,
-                    "response" => "success"
+            try {
 
-                )
-            );
-        } catch (\Throwable $th) {
 
-            echo json_encode(
-                array(
-                    "message" => "Post data",
-                    "status" => false,
-                    "response" => "failed",
-                    "error" => $th->getMessage()
-                )
-            );
+                $courseCode = $_POST['courseCode'];
+                $courseName = $_POST['courseName'];
+                $colCode = $_SESSION['colCode'];
+                // make the course code capitalize
+                $courseCode = strtoupper($courseCode);
+
+                // check if the course code is already exist
+                $stmt = $mysql_con->prepare("SELECT * FROM course WHERE courseCode = ? AND colCode = ?;");
+                $stmt->bind_param("ss", $courseCode, $colCode);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
+                if ($result->num_rows > 0) {
+                    echo json_encode(
+                        array(
+                            "message" => "Post data",
+                            "status" => false,
+                            "response" => "failed",
+                            "error" => "Course Code already exist"
+                        )
+                    );
+                    exit();
+                }
+
+                $stmt = $mysql_con->prepare("INSERT INTO course (courseCode, courseName, colCode) VALUES (?, ?, ?);");
+                $stmt->bind_param("sss", $courseCode, $courseName, $colCode);
+                $stmt->execute();
+                $stmt->close();
+                // return json response
+                setNewActivity(
+                    $mysql_con,
+                    $_SESSION['adminID'],
+                    "added",
+                    "Added New Course"
+                );
+                echo json_encode(
+                    array(
+                        "message" => "Post data",
+                        "status" => true,
+                        "response" => "success"
+
+                    )
+                );
+            } catch (\Throwable $th) {
+
+                echo json_encode(
+                    array(
+                        "message" => "Post data",
+                        "status" => false,
+                        "response" => "failed",
+                        "error" => $th->getMessage()
+                    )
+                );
+            }
+        } else if (isset($_POST['action']) && $_POST['action'] === "edit-course") {
+
+
+
+            try {
+
+
+                // update a course
+                $courseCode = $_POST['courseCode'];
+                $courseCode = strtoupper($courseCode);
+
+                $courseName = $_POST['courseName'];
+                $colCode = $_SESSION['colCode'];
+                // course id
+                $courseID = $_POST['courseId'];
+
+                // check if the course code is already exist
+                $stmt = $mysql_con->prepare("SELECT * FROM course WHERE courseCode = ? AND colCode = ? AND courseID != ?;");
+                $stmt->bind_param("sss", $courseCode, $colCode, $courseID);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
+                if ($result->num_rows > 0) {
+                    echo json_encode(
+                        array(
+                            "message" => "Post data",
+                            "status" => false,
+                            "response" => "failed",
+                            "error" => "Course Code already exist"
+                        )
+                    );
+                    exit();
+                } else {
+
+                    $stmt = $mysql_con->prepare("UPDATE course SET courseCode = ?, courseName = ?, colCode = ? WHERE courseID = ?;");
+                    $stmt->bind_param("ssss", $courseCode, $courseName, $colCode, $courseID);
+                    $stmt->execute();
+                    $stmt->close();
+
+
+                    // return json response
+                    setNewActivity(
+                        $mysql_con,
+                        $_SESSION['adminID'],
+                        "updated",
+                        "Updated a course"
+                    );
+                    echo json_encode(
+                        array(
+                            "message" => "Post data",
+                            "status" => true,
+                            "response" => "success"
+
+                        )
+                    );
+                }
+            } catch (\Throwable $th) {
+
+                echo json_encode(
+                    array(
+                        "message" => "Post data",
+                        "status" => false,
+                        "response" => "failed",
+                        "error" => $th->getMessage()
+                    )
+                );
+            }
         }
-    } else if (isset($_POST['update-course'])) {
-        try {
-
-
-            // update a course
-            $courseCode = $_POST['courseCode'];
-            $courseName = $_POST['courseName'];
-            $colCode = $_SESSION['colCode'];
-            // course id
-            $courseID = $_POST['courseID'];
-
-            $stmt = $mysql_con->prepare("UPDATE course SET courseCode = ?, courseName = ?, colCode = ? WHERE courseID = ?;");
-            $stmt->bind_param("ssss", $courseCode, $courseName, $colCode, $courseID);
-            $stmt->execute();
-            $stmt->close();
-
-
-            // return json response
-            setNewActivity(
-                $mysql_con,
-                $_SESSION['adminID'],
-                "updated",
-                "Updated a course"
-            );
-            echo json_encode(
-                array(
-                    "message" => "Post data",
-                    "status" => true,
-                    "response" => "success"
-
-                )
-            );
-        } catch (\Throwable $th) {
-
-            echo json_encode(
-                array(
-                    "message" => "Post data",
-                    "status" => false,
-                    "response" => "failed",
-                    "error" => $th->getMessage()
-                )
-            );
-        }
-    }
-
-
-    if (isset($_POST['personal-info-form'])) {
+    } else if (isset($_POST['personal-info-form'])) {
 
 
         /**

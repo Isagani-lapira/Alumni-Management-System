@@ -167,13 +167,36 @@ if (isset($_SESSION['personID'])) {
 
                             </ul> -->
 
-                            <!-- button to manage courses -->
-                            <div class="flex justify-start mt-5">
-                                <label class="daisy-btn btn-primary" for="edit-courses-modal" id="manage-courses-btn">Manage Courses</lab>
+                            <!-- make a table manage-courses-table tbody -->
+                            <div class="modal-body">
+                                <table class="daisy-table manage-courses-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Course ID</th>
+                                            <th>Course Name</th>
+                                            <th>Course Code</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="manage-courses-tbody">
 
+                                    </tbody>
+                                </table>
+
+
+
+
+                                <!-- <div class="modal-action-btn">
+                        <button class="btn btn-primary" id="edit-courses-form-btn">Update Courses</button>
+                    </div> -->
+
+                                <!-- button to manage courses -->
+                                <div class="flex justify-start mt-5">
+                                    <label class="daisy-btn btn-primary" for="add-courses-modal" id="add-courses-btn">Add Course</lab>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                 </section>
 
@@ -391,63 +414,105 @@ if (isset($_SESSION['personID'])) {
     <!-- Put this part before </body> tag -->
     <input type="checkbox" id="add-courses-modal" class="daisy-modal-toggle" />
     <div class="daisy-modal">
-        <div class="daisy-modal-box w-8/12 max-w-5xl">
+        <div class="daisy-modal-box w-8/12 max-w-3xl">
             <h3 class="font-accent text-lg font-bold">Add Course</h3>
             <!-- make a form  -->
             <!-- make a table manage-courses-table tbody -->
             <div class="modal-body">
                 <!-- add course form with course name andcourse code  -->
 
-                <form action="" id="add-course-form"></form>
+                <form action="" id="add-course-form">
+
+                    <!-- form input -->
+                    <!--  -->
+                    <div class="daisy-form-control w-full ">
+                        <label class="daisy-label">
+                            <span class="daisy-label-text">Course Code</span>
+                        </label>
+                        <input minlength="3" name="courseCode" type="text" placeholder="ex. BSIT" required class="daisy-input daisy-input-bordered w-full max-w-xs" />
+                        <label class="daisy-label">
+                            <!-- <span class="daisy-label-text-alt">Bottom Left label</span> -->
+                        </label>
+                    </div>
+                    <div class="daisy-form-control w-full ">
+                        <label class="daisy-label">
+                            <span class="daisy-label-text">Course Name</span>
+                        </label>
+                        <input name="courseName" type="text" placeholder="ex. BS Information Technology" required class="daisy-input daisy-input-bordered w-full max-w-xs" />
+                        <label class="daisy-label">
+                            <!-- <span class="daisy-label-text-alt">Bottom Left label</span> -->
+                        </label>
+                    </div>
 
 
 
 
-                <div class="daisy-modal-action">
 
-                    <!-- <div class="modal-action-btn">
-                        <button class="btn btn-primary" id="add-courses-form-btn">Update Courses</button>
-                    </div> -->
-                    <label for="add-courses-modal" class="daisy-btn">Close!</label>
-                </div>
+                    <div class="daisy-modal-action">
+                        <div class="modal-action-btn">
+                            <button class="daisy-btn daisy-btn-primary" id="add-courses-form-btn">Add Course</button>
+                        </div>
+
+                        <label for="add-courses-modal" class="daisy-btn">Close!</label>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
-
     <!-- Put this part before </body> tag -->
-    <input type="checkbox" id="edit-courses-modal" class="daisy-modal-toggle" />
+    <input type="checkbox" id="edit-course-modal" class="daisy-modal-toggle" />
     <div class="daisy-modal">
-        <div class="daisy-modal-box w-8/12 max-w-6xl">
-            <h3 class="font-accent text-lg font-bold">Edit Courses</h3>
+        <div class="daisy-modal-box w-8/12 max-w-3xl">
+            <h3 class="font-accent text-lg font-bold">Edit Course</h3>
             <!-- make a form  -->
             <!-- make a table manage-courses-table tbody -->
             <div class="modal-body">
-                <table class="daisy-table manage-courses-table">
-                    <thead>
-                        <tr>
-                            <th>Course ID</th>
-                            <th>Course Name</th>
-                            <th>Course Code</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="manage-courses-tbody">
+                <!-- add course form with course name andcourse code  -->
 
-                    </tbody>
-                </table>
+                <form action="" id="edit-course-form">
+
+                    <!-- form input -->
+                    <!--  -->
+                    <div class="daisy-form-control w-full ">
+                        <label class="daisy-label">
+                            <span class="daisy-label-text">Course Code</span>
+                        </label>
+                        <input id="editCourseCode" disabled minlength="3" name="courseCode" type="text" placeholder="ex. BSIT" required class="daisy-input daisy-input-bordered w-full max-w-xs" />
+                        <input id="editCourseCode1" name="courseCode" type="hidden" placeholder="ex. BSIT" required class="daisy-input daisy-input-bordered w-full max-w-xs" />
+                        <label class="daisy-label">
+                            <!-- <span class="daisy-label-text-alt">Bottom Left label</span> -->
+                        </label>
+                    </div>
+                    <div class="daisy-form-control w-full ">
+                        <label class="daisy-label">
+                            <span class="daisy-label-text">Course Name</span>
+                        </label>
+                        <input id="editCourseName" name="courseName" type="text" placeholder="ex. BS Information Technology" required class="daisy-input daisy-input-bordered w-full max-w-xs" />
+                        <input id="editCourseId" name="courseId" type="hidden" />
+                        <label class="daisy-label">
+                            <!-- <span class="daisy-label-text-alt">Bottom Left label</span> -->
+                        </label>
+                    </div>
 
 
 
-                <div class="daisy-modal-action">
 
-                    <!-- <div class="modal-action-btn">
-                        <button class="btn btn-primary" id="edit-courses-form-btn">Update Courses</button>
-                    </div> -->
-                    <label for="edit-courses-modal" class="daisy-btn">Close!</label>
-                </div>
+
+                    <div class="daisy-modal-action">
+                        <div class="modal-action-btn">
+                            <button class="daisy-btn daisy-btn-primary" id="edit-course-form-btn">Edit Course</button>
+                        </div>
+
+                        <label for="edit-course-modal" class="daisy-btn">Close!</label>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
+
+
 
     <!-- make a hidden input where i can get the session colcode -->
     <input type="hidden" id="colCode" value="<?= $_SESSION['colCode'] ?>">

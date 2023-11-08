@@ -128,7 +128,7 @@ if (isset($_POST['action'])) {
 
         $email = mysqli_real_escape_string($mysql_con, $_POST['email_address']);
         // Query the email_verification table to see if the email exists and is not yet verified
-        $query = "SELECT * FROM email_verification WHERE email = ? AND verified = 0";
+        $query = "SELECT * FROM email_verification WHERE email = ?";
         $stmt = $mysql_con->prepare($query);
         $stmt->bind_param("s", $email);
         $stmt->execute();
