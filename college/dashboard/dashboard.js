@@ -120,7 +120,7 @@ $(document).ready(() => {
       formData.append("action", action);
 
       $.ajax({
-        url: "../../PHP_process/deploymentTracer.php",
+        url: "../PHP_process/deploymentTracer.php",
         method: "POST",
         data: formData,
         contentType: false,
