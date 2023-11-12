@@ -659,7 +659,8 @@ function dateInText($date)
           <h1 class="text-xl font-extrabold">STUDENT NO. RECORD</h1>
           <input type="file" id="excelFileUploader" class="hidden" accept=".xls, .xlsx">
           <!-- file upload -->
-          <div id="uploadExcelFile" class="w-4/5 border mx-auto border-gray-400 rounded-md h-44 mt-5 flex justify-center items-center cursor-pointer hover:font-bold">
+          <button class="w-4/5 text-end block mx-auto text-postButton hover:text-postHoverButton mt-5 see-format-btn">See sample format</button>
+          <div id="uploadExcelFile" class="w-4/5 border mx-auto border-gray-400 rounded-md h-44 flex justify-center items-center cursor-pointer hover:font-bold">
             <h2 class="text-lg text-greyish_black uploader-text">Click ( or tap) here to select a file</h2>
           </div>
           <!-- note -->
@@ -2450,6 +2451,15 @@ function dateInText($date)
         <p></p> <!--applicant name-->
         <p></p> <!--applied-->
         <pre class="w-full h-4/5 overflow-y-auto p-5 border border-gray-300 rounded-md"></pre>
+      </div>
+    </div>
+
+    <!-- excel format notice -->
+    <div class="post modal fixed inset-0 z-50 flex items-center justify-center sheet-format-modal p-3 hidden">
+      <div class="bg-white rounded-2xl w-2/5 p-5 flex flex-col gap-3 text-gray-700 h-max">
+        <h2 class="text-xl font-semibold border-b border-gray-300 py-2">File Format</h2>
+        <p>Please see the preview of the sample sheet file below to help you prepare your data for upload:</p>
+        <img class="w-full" src="../images/sample_excel.png" alt="sample excel format">
       </div>
     </div>
 

@@ -4,7 +4,6 @@ $(document).ready(function () {
 
     $('#studnoLi').on('click', function () {
         restartValue()
-        retrieveStudentRecord()
     })
 
     function restartValue() {
@@ -14,6 +13,9 @@ $(document).ready(function () {
         offset = 0;
         fileUploader.val();
         $('.uploader-text').text(UPLOADER_TEXT)
+
+
+        retrieveStudentRecord()// refresh the student record
     }
     $('#uploadExcelFile').on('click', function () {
         fileUploader.click(); // open the file input
@@ -48,6 +50,9 @@ $(document).ready(function () {
                         setTimeout(() => {
                             $('.success-msg-upload').addClass('hidden')
                         }, 5000)
+                    } else if (data.result === 'Format Invalid') {
+                        // display file format
+                        $('.sheet-format-modal').removeClass('hidden');
                     }
                 })
                 .catch(error => {
@@ -60,13 +65,26 @@ $(document).ready(function () {
 
     // set up table as Datatable
     const table = $('#studentRecordTB').DataTable({
-        "paging": true,
-        "ordering": false,
-        "info": false,
-        "lengthChange": false,
-        "searching": true,
-        "pageLength": 10
+        paging: true,
+        ordering: false,
+        info: false,
+        lengthChange: false,
+        searching: true,
+        pageLength: 10,
+
+        columnDefs: [
+            {
+                targets: 3, // Assuming 'status' is at index 3 in your column array
+                createdCell: function (td, cellData, rowData, row, col) {
+                    const lowercaseStatus = cellData.toLowerCase();
+                    if (lowercaseStatus === 'activated') {
+                        $(td).addClass('text-green-500 font-semibold');
+                    }
+                }
+            }
+        ]
     });
+
 
     $('#studentRecordTB').removeClass('dataTable').css('width', '').addClass('rounded-lg center-shadow')
 
@@ -116,4 +134,20 @@ $(document).ready(function () {
         const formattedDate = parsedDate.toLocaleDateString('en-US', option);
         return formattedDate;
     }
+
+    // close sheet modal
+    $('.sheet-format-modal').on('click', function (e) {
+        const target = e.target;
+        const modal = $(this).children().first();
+
+        // close if clicked outside the modal
+        if (!modal.is(target) && modal.has(target).length === 0) {
+            $('.sheet-format-modal').addClass('hidden')
+        }
+    })
+
+    // open the sheet modal
+    $('.see-format-btn').on('click', function () {
+        $('.sheet-format-modal').removeClass('hidden')
+    })
 })
