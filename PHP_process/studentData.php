@@ -26,12 +26,13 @@ if (isset($_POST['action'])) {
             $username = $_POST['usernameMigration'];
             $empStatus = $_POST['empStatData'];
             $batchYr = $_POST['batchYrData'];
+            $courseID = $_POST['courseID'];
 
             // process migrating data to alumni table
             $alumniTb = new Alumni();
             $student = new Student();
             $migration = new Migration($studNo);
-            $result = $alumniTb->insertAlumni($studNo, $personID, $colCode, $username, $batchYr, $empStatus, $mysql_con);
+            $result = $alumniTb->insertAlumni($studNo, $personID, $colCode, $username, $batchYr, $courseID, $empStatus, $mysql_con);
             if ($result) {
                 $result = $migration->deleteMigrationData($mysql_con);
 

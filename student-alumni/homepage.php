@@ -19,15 +19,15 @@ if (
   $username = $_SESSION['username'];
 
   //get the person ID of that user
-  $query = "SELECT 'student' AS user_type, student.personID, currentYear, studNo
+  $query = "SELECT 'student' AS user_type, student.personID, student.currentYear, student.studNo, student.courseID
   FROM student
   WHERE student.username = '$username'
   UNION
-  SELECT 'alumni' AS user_type, alumni.personID, NULL,NULL
+  SELECT 'alumni' AS user_type, alumni.personID, NULL, NULL, NULL
   FROM alumni
   WHERE alumni.username = '$username'
   UNION
-  SELECT 'not found' AS user_type, NULL, NULL,NULL
+  SELECT 'not found' AS user_type, NULL, NULL, NULL, NULL
   WHERE NOT EXISTS (
       SELECT 1 FROM student WHERE student.username = '$username'
   ) AND NOT EXISTS (
@@ -41,6 +41,7 @@ if (
     $user_type = $data['user_type'];
     $studentYr = $data['currentYear'];
     $studentNo = $data['studNo'];
+    $courseID = $data['courseID'];
 
     //get person details
     $personObj = new personDB();
@@ -1631,7 +1632,7 @@ function getAccDetails($con, $personID)
           <input name="personIDMigration" type="hidden" value="' . $personID . '">
           <input name="colCodeMigration" type="hidden" value="' . $colCode . '">
           <input name="usernameMigration" type="hidden" value="' . $username . '">
-          ';
+          <input name="courseID" type="hidden" value="' . $courseID . '">';
 
           ?>
 
