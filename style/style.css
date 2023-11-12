@@ -342,3 +342,11 @@ tbody tr:nth-child(odd) {
 .colDetailContainer {
   max-height: 95%;
 }
+
+#studNo-tab {
+  height: 100% !important;
+}
+
+.success-msg-upload {
+  width: 95%;
+}

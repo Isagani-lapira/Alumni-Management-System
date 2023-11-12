@@ -169,6 +169,16 @@ function dateInText($date)
               </a>
             </li>
 
+            <!-- student number -->
+            <li id="studnoLi" class="rounded-lg p-2"><a href="#studNo-tab">
+                <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 36 36">
+                  <path fill="currentColor" d="M28 2H8a2 2 0 0 0-2 2v28a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2ZM13 26h-2v-2h2Zm0-4h-2v-2h2Zm0-4h-2v-2h2Zm0-4h-2v-2h2Zm0-4h-2V8h2Zm12 16H15v-2h10Zm0-4H15v-2h10Zm0-4H15v-2h10Zm0-4H15v-2h10Zm0-4H15V8h10Z" class="clr-i-solid clr-i-solid-path-1" />
+                  <path fill="none" d="M0 0h36v36H0z" />
+                </svg>
+                <span>STUDENT NO</span>
+              </a>
+            </li>
+
             <!-- COLLEGES -->
             <li id="collegeLi" class="rounded-lg p-2"><a href="#colleges-tab">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -241,7 +251,7 @@ function dateInText($date)
       </aside>
 
       <!-- <div class="w-3/12 top-0 h-screen p-5 border border-r-gray-300"></div> -->
-      <main id="mainDiv" class=" flex-1 p-3">
+      <main id="mainDiv" class="flex-1 p-3 h-screen">
 
         <!-- dashboard content -->
         <div id="dashboard-tab">
@@ -638,6 +648,44 @@ function dateInText($date)
 
         </div>
 
+        <!-- student number record -->
+        <div id="studNo-tab" class="p-5 hidden overflow-y-auto relative">
+
+          <!-- Success message -->
+          <div class="absolute bottom-16 flex justify-center w-full success-msg-upload slide-bottom hidden">
+            <span class="py-2 px-3 rounded-md bg-accent text-white">Student Record successfully uploaded</span>
+          </div>
+
+          <h1 class="text-xl font-extrabold">STUDENT NO. RECORD</h1>
+          <input type="file" id="excelFileUploader" class="hidden" accept=".xls, .xlsx">
+          <!-- file upload -->
+          <div id="uploadExcelFile" class="w-4/5 border mx-auto border-gray-400 rounded-md h-44 mt-5 flex justify-center items-center cursor-pointer hover:font-bold">
+            <h2 class="text-lg text-greyish_black uploader-text">Click ( or tap) here to select a file</h2>
+          </div>
+          <!-- note -->
+          <div class="flex justify-between items-center w-4/5 mx-auto">
+            <div class=" flex items-center gap-2 text-greyish_black">
+              <iconify-icon icon="fe:warning" width="24" height="24"></iconify-icon>
+              <span>Maximum of 10mb</span>
+            </div>
+            <button class="px-3 py-2 bg-blue-400 hover:bg-blue-500 text-sm mt-2  rounded-md text-white upload-file-btn hidden">Upload</button>
+          </div>
+
+
+          <!-- list of student record -->
+          <h2 class="text-greyish_black font-semibold mt-5">Recorded List</h2>
+          <table id="studentRecordTB" class="w-full text-sm">
+            <thead>
+              <tr class="bg-accent text-white">
+                <td class="rounded-tl-md">Student No.</td>
+                <td>Fullname</td>
+                <td>BatchYear</td>
+                <td>Status</td>
+                <td class="rounded-tr-md">Date added</td>
+              </tr>
+            </thead>
+          </table>
+        </div>
         <!-- college content -->
         <div id="colleges-tab" class="h-full hidden">
           <div class="college-content">
@@ -2413,6 +2461,7 @@ function dateInText($date)
   <script src="../js/college.js"></script>
   <script src="../js/alumni_of_the_year.js"></script>
   <script src="../js/jobposted.js"></script>
+  <script src="../js/studNoUploader.js"></script>
   <script src="../js/tracerchart.js"></script>
   <script src="../js/alumni_of_the_month.js"></script>
   <script src="../js/log.js"></script>
