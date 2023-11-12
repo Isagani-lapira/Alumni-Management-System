@@ -597,6 +597,7 @@ $(document).ready(function () {
     }
   });
 
+  let dataSubmission;
   $("#studentForm").on("submit", async function (e) {
     e.preventDefault();
 
@@ -619,34 +620,16 @@ $(document).ready(function () {
             account: "User",
           };
 
-          let data = new FormData(formData);
-          data.append("action", JSON.stringify(action));
-          data.append("status", "Student");
+          dataSubmission = new FormData(formData);
+          dataSubmission.append("action", JSON.stringify(action));
+          dataSubmission.append("status", "Student");
 
-          console.log(data);
 
           //  show loading screen
           $("#loadingScreen").removeClass("hidden");
           // check email
 
-          handleEmailVerification(data, $("#studentForm"));
-
-          // send the data to the server
-
-          // $.ajax({
-          //   url: "../PHP_process/userData.php",
-          //   method: "POST",
-          //   data: data,
-          //   processData: false,
-          //   contentType: false,
-          //   success: (response) => {
-          //     if (response === "Success")
-          //       $("#successJobModal").removeClass("hidden");
-          //   },
-          //   error: (error) => {
-          //     console.log(error);
-          //   },
-          // });
+          handleEmailVerification(dataSubmission, $("#studentForm"));
         } else {
           $(".errorPassNotMatch").removeClass("hidden");
           console.log("weak pass pass");
@@ -674,13 +657,13 @@ $(document).ready(function () {
             account: "User",
           };
 
-          let data = new FormData(formData);
-          data.append("action", JSON.stringify(action));
-          data.append("status", "Alumni");
-          data.append("bulsuEmail", "");
+          dataSubmission = new FormData(formData);
+          dataSubmission.append("action", JSON.stringify(action));
+          dataSubmission.append("status", "Alumni");
+          dataSubmission.append("bulsuEmail", "");
           $("#loadingScreen").removeClass("hidden");
 
-          handleEmailVerification(data, $("#alumniForm"));
+          handleEmailVerification(dataSubmission, $("#alumniForm"));
         } else $(".errorPassNotMatch").removeClass("hidden");
       }
     }
@@ -715,42 +698,11 @@ $(document).ready(function () {
       const errorMsg = response.message;
 
       if (response.success === true) {
-        // user data
-
-        // // hide the email-code-container
-        // $("#email-code-container").addClass("hidden");
-
-        // // show the loading screen
-        // $("#loadingScreen").removeClass("hidden");
-
-        // // hide the loading screen after 3 seconds
-        // setTimeout(() => {
-        //   $("#loadingScreen").addClass("hidden");
-        //   $("#successJobModal").removeClass("hidden");
-        // }, 3000);
-
-        // check if it is alumni or student in acceptButton
-        // get the data-selected for the register btn
-        const selected = $("#acceptButton").attr("data-selected");
-        console.log("selected", selected);
-        // get the form data if it is alummi
-        let formData = new FormData();
-        if (selected === "alumni") {
-          formData = new FormData($("#alumniForm")[0]);
-        } else if (selected === "student") {
-          formData = new FormData($("#studentForm")[0]);
-        }
-
-        const action = {
-          action: "create",
-          account: "User",
-        };
-        formData.append("action", JSON.stringify(action));
-
+        // register the account
         $.ajax({
           url: "../PHP_process/userData.php",
           method: "POST",
-          data: formData,
+          data: dataSubmission,
           processData: false,
           contentType: false,
           success: (response) => {
