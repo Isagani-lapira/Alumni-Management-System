@@ -2463,6 +2463,20 @@ function dateInText($date)
       </div>
     </div>
 
+    <!-- duplicate data -->
+    <div class="post modal fixed inset-0 z-50 flex items-center justify-center list-duplicate-modal p-3 hidden">
+      <div class="bg-white rounded-2xl w-2/5 p-5 flex flex-col gap-3 text-gray-700 h-max relative duplicate-entry">
+        <h2 class="text-xl font-semibold border-b border-gray-300 py-2 text-center">Duplicate Data</h2>
+        <p class="text-center">Some of the information in the spreadsheet is already in the system. These details are omitted.</p>
+        <span>List of duplicated data:</span>
+        <!-- list of duplicated data -->
+        <div class="list-wrapper flex flex-col overflow-y-auto text-gray-500"></div>
+        <button class="close-list-duplicate-btn absolute top-2 right-3 text-gray-400">
+          <iconify-icon class="hover:font-bold" icon="fe:close" width="24" height="24"></iconify-icon>
+        </button>
+      </div>
+    </div>
+
   </div>
 
 

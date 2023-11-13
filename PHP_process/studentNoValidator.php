@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
+$duplicateData = array();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['file'])) {
         $uploadedFile = $_FILES['file']['tmp_name'];
@@ -38,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Return the highest row in a JSON response
         header('Content-Type: application/json');
-        echo json_encode(['success' => true, "result" => $result]);
+        echo json_encode(['success' => true, "result" => $result, "duplicatedRecord" => $duplicateData]);
     } else if (isset($_POST['offset'])) {
         $offset = $_POST['offset'];
         header('Content-Type: application/json');
@@ -58,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // adding data to the table student_record
 function insertStudentNo($studentNo, $fname, $lname, $batchYear, $con)
 {
+    global $duplicateData; // Access the global variable
     $STATUS = 'not activated'; //default
     $query = "INSERT INTO `student_record`(`studNo`, `fname`, 
     `lname`, `batchyear`,`status`) VALUES (? ,? ,? ,? ,? )";
@@ -66,11 +68,23 @@ function insertStudentNo($studentNo, $fname, $lname, $batchYear, $con)
 
     if ($stmt) {
         $stmt->bind_param('sssss', $studentNo, $fname, $lname, $batchYear, $STATUS);
-        $result = $stmt->execute();
-        $stmt->close();
 
-        if ($result) return true;
-        else return false;
+        try {
+            $result = $stmt->execute();
+            $stmt->close();
+
+            if ($result) return true;
+            else return false;
+        } catch (mysqli_sql_exception $e) {
+            if ($e->getCode() == 1062) {
+                // record the data with duplicate record
+                $duplicateInfo = array(
+                    "studentNo" => $studentNo,
+                    "fullname" => $fname . ' ' . $lname
+                );
+                $duplicateData[] = $duplicateInfo;
+            }
+        }
     }
 }
 

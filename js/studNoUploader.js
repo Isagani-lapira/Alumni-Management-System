@@ -53,6 +53,25 @@ $(document).ready(function () {
                     } else if (data.result === 'Format Invalid') {
                         // display file format
                         $('.sheet-format-modal').removeClass('hidden');
+                    } else if (data.result === 'Failed') {
+                        // get all the duplicated list
+                        const duplicatedData = data.duplicatedRecord
+                        let count = 1
+                        duplicatedData.forEach(element => {
+                            const studentNo = element.studentNo
+                            const fullname = element.fullname
+
+                            // display all the names of seen as duplicated
+                            const wrapper = $('<div>').addClass('flex gap-2')
+                            const countElement = $('<p>').text(count)
+                            const studentNoElement = $('<p>').text(studentNo)
+                            const fullnameElement = $('<p>').text(fullname)
+
+                            wrapper.append(countElement, studentNoElement, fullnameElement);
+                            $('.list-wrapper').append(wrapper) //root container
+                            count++
+                        });
+                        $('.list-duplicate-modal').removeClass('hidden')
                     }
                 })
                 .catch(error => {
@@ -149,5 +168,10 @@ $(document).ready(function () {
     // open the sheet modal
     $('.see-format-btn').on('click', function () {
         $('.sheet-format-modal').removeClass('hidden')
+    })
+
+    $('.close-list-duplicate-btn').on('click', function () {
+        $('.list-duplicate-modal').addClass('hidden')
+        $('.list-wrapper').empty();
     })
 })

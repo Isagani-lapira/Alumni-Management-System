@@ -350,3 +350,8 @@ tbody tr:nth-child(odd) {
 .success-msg-upload {
   width: 95%;
 }
+
+.duplicate-entry,
+.list-wrapper {
+  max-height: 50%;
+}
