@@ -133,6 +133,7 @@ function insertionPerson($accountType, $userType, $con)
                         $employmentStat = $_POST['empStatus'];
                         $insertAcc = $alumniUser->insertAlumni($studentNo, $personID, $college, $username, $batch, $courseID, $employmentStat, $con);
                     }
+                    updateAccountStatus($studentNo, $con);
                     break;
                 case 'ColAdmin':
                     echo 'colAdmin';
@@ -141,7 +142,6 @@ function insertionPerson($accountType, $userType, $con)
                     echo 'ayaw gumana';
                     break;
             }
-
 
             if ($insertAcc) echo 'Success';
             else echo 'Unsuccess';
@@ -162,4 +162,16 @@ function getAge($bday)
     $ageInterval = $birthdateObj - $currentDateObj;
 
     return $ageInterval;
+}
+
+function updateAccountStatus($studentNo, $con)
+{
+    $status = 'activated';
+    $query = "UPDATE `student_record` SET `status`= ? WHERE `studNo` = ?";
+    $stmt = mysqli_prepare($con, $query);
+
+    if ($stmt) {
+        $stmt->bind_param('ss', $status, $studentNo);
+        $stmt->execute();
+    }
 }

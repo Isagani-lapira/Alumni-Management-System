@@ -43,6 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $offset = $_POST['offset'];
         header('Content-Type: application/json');
         getStudentRecord($offset, $mysql_con);
+    } else if (isset($_POST['studentNo'])) {
+        $studentNo = $_POST['studentNo'];
+        header('Content-Type: application/json');
+        retrieveData($studentNo, $mysql_con);
     } else  http_response_code(404);
 } else {
     // Handle non-POST requests
@@ -135,4 +139,47 @@ function isExcelValid($sheet)
     ) $isValid = true;
 
     return $isValid;
+}
+
+
+// check student if existing and registered in the record
+function retrieveData($studentNo, $con)
+{
+    $status = 'activated';
+    $query = "SELECT `studNo`,`fname`,`lname`,`batchyear` 
+    FROM `student_record` WHERE `studNo` = ? AND `status` !=?";
+
+    $stmt = mysqli_prepare($con, $query);
+
+    $response = "Failed";
+    $fname = "";
+    $lname = "";
+    $studNo = "";
+    $batchYear = "";
+
+    if ($stmt) {
+        $stmt->bind_param('ss', $studentNo, $status);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = mysqli_num_rows($result);
+
+        if ($result && $row > 0) {
+            $response = "Success";
+            $data = $result->fetch_assoc();
+            $fname = $data['fname'];
+            $lname = $data['lname'];
+            $studNo = $data['studNo'];
+            $batchYear = $data['batchyear'];
+        }
+    }
+
+    $data = array(
+        "response" => $response,
+        "fname" => $fname,
+        "lname" => $lname,
+        "studentNo" => $studNo,
+        "batchYear" => $batchYear
+    );
+
+    echo json_encode($data);
 }

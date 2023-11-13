@@ -139,7 +139,7 @@
                     <div class="w-1/2 flex flex-col">
                         <label for="studNo">Student No.</label>
                         <input type="text" id="studNo" name="studNo" class="p-3 rounded-lg border border-gray-400 requiredAlumni" placeholder="ex: 2015103299">
-                        <span class="studExistingMsg italic text-red-400 text-sm hidden">This student number is already in used</span>
+                        <span class="studExistingMsg italic text-red-400 text-sm hidden">This student number is not yet registered in the system</span>
                     </div>
                 </div>
 
@@ -299,12 +299,12 @@
                 <div class="flex gap-2">
                     <div class="w-1/2 flex flex-col">
                         <label for="studFname">First name</label>
-                        <input type="text" id="studFname" name="fname" class="p-3 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: Juan">
+                        <input type="text" id="studFname" readonly title="Automatically added once student number is inserted" name="fname" class="p-3 bg-gray-300 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: Juan">
                     </div>
 
                     <div class="w-1/2 flex flex-col">
                         <label for="studlname">Last name</label>
-                        <input type="text" id="studlname" name="lname" class="p-3 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: Dela Cruz">
+                        <input type="text" id="studlname" readonly title="Automatically added once student number is inserted" name="lname" class="p-3 bg-gray-300 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: Dela Cruz">
                     </div>
                 </div>
 
@@ -318,7 +318,9 @@
                     <div class="w-1/2 flex flex-col">
                         <label for="studstudNo">Student No.</label>
                         <input type="text" id="studstudNo" name="studNo" class="p-3 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: 2020931822">
-                        <span class="studExistingMsg italic text-red-400 text-sm hidden">This student number is already in used</span>
+                        <span class="studExistingMsg flex gap-2 items-center mt-1 italic text-red-400 text-sm hidden">Error: already in used or not yet registered
+                            <iconify-icon title="Please contact the student coordinator for your query: bulsualumnioffice@gmail.com" icon="akar-icons:question-fill" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                        </span>
                     </div>
                 </div>
 
@@ -403,7 +405,7 @@
                     <!-- current year status -->
                     <div class="w-1/2 flex flex-col">
                         <label for="currentYr">Current Year</label>
-                        <select name="batch" id="currentYr" class="p-3 rounded-lg border border-gray-400">
+                        <select name="batch" id="currentYr" readonly class="p-3 rounded-lg border bg-gray-300 border-gray-400">
                             <option value="" selected>Current Year</option>
                             <option value=1>1st Year</option>
                             <option value=2>2nd Year</option>

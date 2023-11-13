@@ -472,39 +472,35 @@ $(document).ready(function () {
       // check if the email is existing or not
       const studPersonEmail = $("#studPersonalEmail").val();
       const column = "personal_email";
-      const studstudNo = $("#studstudNo").val();
       // check first the student number
-      checkStudentNo(studstudNo).then((value) => {
-        console.log(value);
-        if (value === "Available") {
-          $(".studExistingMsg").addClass("hidden");
 
-          // validate if the email is correct format
-          if (studPersonEmail.endsWith("@gmail.com")) {
-            $(".emailInvalidMsg").addClass("hidden");
-            checkEmailAddress(studPersonEmail, column).then((resolve) => {
-              if (resolve !== "Existing") {
-                if (isBulSUEmailValid) {
-                  // check if the bulsu email is not already existing
-                  let bulsuEmail = $("#studbulsuEmail").val();
-                  let columnBulsu = "bulsu_email";
-                  $(".emailExistingMsg").addClass("hidden");
+      $(".studExistingMsg").addClass("hidden");
 
-                  checkEmailAddress(bulsuEmail, columnBulsu).then((resolve) => {
-                    if (resolve !== "Existing") {
-                      //proceed to the next
-                      $(".emailExistingMsgBulsu").addClass("hidden");
-                      $("#bulsuEmailError").addClass("hidden");
-                      $(".personalInfo").addClass("hidden");
-                      $("#accountInfoStudent").removeClass("hidden");
-                    } else $(".emailExistingMsgBulsu").removeClass("hidden");
-                  });
-                } else $("#bulsuEmailError").removeClass("hidden");
-              } else $(".emailExistingMsg").removeClass("hidden");
-            });
-          } else $(".emailInvalidMsg").removeClass("hidden");
-        } else $(".studExistingMsg").removeClass("hidden");
-      });
+      // validate if the email is correct format
+      if (studPersonEmail.endsWith("@gmail.com")) {
+        $(".emailInvalidMsg").addClass("hidden");
+        checkEmailAddress(studPersonEmail, column).then((resolve) => {
+          if (resolve !== "Existing") {
+            if (isBulSUEmailValid) {
+              // check if the bulsu email is not already existing
+              let bulsuEmail = $("#studbulsuEmail").val();
+              let columnBulsu = "bulsu_email";
+              $(".emailExistingMsg").addClass("hidden");
+
+              checkEmailAddress(bulsuEmail, columnBulsu).then((resolve) => {
+                if (resolve !== "Existing") {
+                  //proceed to the next
+                  $(".emailExistingMsgBulsu").addClass("hidden");
+                  $("#bulsuEmailError").addClass("hidden");
+                  $(".personalInfo").addClass("hidden");
+                  $("#accountInfoStudent").removeClass("hidden");
+                } else $(".emailExistingMsgBulsu").removeClass("hidden");
+              });
+            } else $("#bulsuEmailError").removeClass("hidden");
+          } else $(".emailExistingMsg").removeClass("hidden");
+        });
+      } else $(".emailInvalidMsg").removeClass("hidden");
+
     }
   });
 
@@ -513,6 +509,34 @@ $(document).ready(function () {
     $(".personalInfo").removeClass("hidden");
     $("#accountInfoStudent").addClass("hidden");
   });
+
+
+  // check student number
+  $('#studstudNo').on('change', function () {
+    const studentNo = $(this).val();
+    const formData = new FormData();
+    formData.append('studentNo', studentNo);
+
+    fetch('../PHP_process/studentNoValidator.php', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.response === 'Success') {
+          // add data to the disabled field
+          const fname = data.fname;
+          const lname = data.lname;
+          const batchYear = data.batchYear;
+
+          $('#studFname').val(fname);
+          $('#studlname').val(lname);
+          $('#currentYr').val(batchYear);
+        }
+      })
+      .catch(error => { console.log(error) })
+  })
+
 
   // check password if meets the requirement of strong password
   $("#accountPass").on("input", function () {
