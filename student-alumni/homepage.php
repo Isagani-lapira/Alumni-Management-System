@@ -647,9 +647,9 @@ function getAccDetails($con, $personID)
           </div>
           <!-- front page -->
           <div id="frontpageTracer" class=" h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3">
-            <img src="../assets/tracer_header_img.png" class="w-1/3 h-56" alt="">
+            <img src="../assets/tracer_header_img.png" class="w-1/3 md:w-1/2 object-cover h-56" alt="">
             <div class="rounded-lg center-shadow p-3 border-t-4 border-accent w-1/2">
-              <h3 class="text-2xl text-greyish_black font-bold">Alumni Graduate Tracer 2023-2024</h3>
+              <h3 class="text-2xl text-greyish_black font-bold my-6">Alumni Graduate Tracer 2023-2024</h3>
               <span>Dear Graduates of Batch 2010-2023,</span>
 
               <p class="text-sm text-justify mt-3">Please complete this questionnaire as accurately and completely as possible. Kindly
@@ -661,7 +661,7 @@ function getAccDetails($con, $personID)
             </div>
 
             <div class="flex justify-end w-1/2">
-              <button id="proceedTracer" class="text-white px-3 py-2 rounded-md bg-accent hover:bg-darkAccent">Proceed</button>
+              <button id="proceedTracer" class="text-white px-3 py-2 rounded-md bg-accent hover:bg-darkAccent transition-colors">Proceed</button>
             </div>
 
           </div>
