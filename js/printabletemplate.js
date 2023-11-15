@@ -5,7 +5,9 @@ $(document).ready(function () {
     }
 
     $('header p').text(getCurrentDate())
-    const dataParams = getParameterByName('data')
+    const dataParams = getParameterByName('data') //list of history logs
+    const adminName = getParameterByName('adminName') //university admin name
+
     if (dataParams) {
         try {
             const jsonData = JSON.parse(decodeURIComponent(dataParams));
@@ -25,6 +27,7 @@ $(document).ready(function () {
                 $('tbody').append(tr)
             })
 
+            $('.adminName').text('Printed by: ' + adminName) //add name of the one who print
             //print automatically
             autoPrint()
         } catch (error) {

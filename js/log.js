@@ -260,7 +260,9 @@ $(document).ready(function () {
 
 
     $('#printLogsBtn').on('click', function () {
+        const adminName = $('#userFullname').text() //admin name
         const jsonString = JSON.stringify(dataArray)
-        window.open('logtemplate.html?data=' + encodeURIComponent(jsonString), '_blank')
+        //pass both logs and admin name
+        window.open('logtemplate.html?data=' + encodeURIComponent(jsonString) + '&adminName=' + adminName, '_blank')
     })
 });

@@ -144,7 +144,9 @@ $(document).ready(function () {
 
     $('.print-alumni-record').on('click', function () {
         let filteredDataString = JSON.stringify(filteredData);
-        let url = "../admin/alumnirecord.html?data=" + encodeURIComponent(filteredDataString);
+        const adminName = $('#userFullname').text() //admin name
+        //passed both admin name and list of alumni record
+        let url = "../admin/alumnirecord.html?data=" + encodeURIComponent(filteredDataString) + '&adminName=' + adminName;
         let newTab = window.open(url, '_blank')
         newTab.focus()
     });

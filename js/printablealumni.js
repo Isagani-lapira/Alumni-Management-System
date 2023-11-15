@@ -5,7 +5,8 @@ $(document).ready(function () {
         return urlParams.get(name);
     }
     $('header p').text(getCurrentDate())
-    const dataParams = getParameterByName('data')
+    const dataParams = getParameterByName('data') //list of alumni record
+    const adminName = getParameterByName('adminName') //get admin name
     if (dataParams) {
         try {
             const jsonData = JSON.parse(decodeURIComponent(dataParams));
@@ -23,7 +24,7 @@ $(document).ready(function () {
                 })
                 $('tbody').append(tr)
             })
-
+            $('.adminName').text('Printed by: ' + adminName) //add the one who print
             window.print(); //automatically print the record
         } catch (error) {
             console.log(error)
