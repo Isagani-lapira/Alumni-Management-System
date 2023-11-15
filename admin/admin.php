@@ -502,9 +502,8 @@ function dateInText($date)
           <h1 class="text-xl font-extrabold">OUTBOX</h1>
           <p class="text-grayish">Here you can check all the email that have been sent</p>
           <div class="mt-5 text-end">
-            <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">SEND
-              NEW
-              OUTBOX
+            <button id="btnEmail" class="bg-accent font-light block text-sm ml-auto text-white hover:bg-darkAccent px-3 py-3 rounded-lg">
+              Send new email
             </button>
           </div>
           <hr class="h-px my-3 bg-grayish border-0 dark\:bg-gray-700" />
@@ -2163,7 +2162,7 @@ function dateInText($date)
     <div class="deleteModalPost modal fixed inset-0 z-50 flex justify-center p-3 hidden">
       <div class="modal-container w-2/5 h-max bg-white rounded-lg text-greyish_black p-3 center-shadow slide-bottom">
         <h3 class="text-lg text-greyish_black text-center ">Are you sure you want to delete post this post?</h3>
-        <input id="reasonForDel" class="text-gray-400 py-2 w-full text-center" type="text" placeholder="State your reason for deleting">
+        <textarea id="reasonForDel" class="text-gray-400 w-full border border-gray-400 h-44 mt-2 rounded-md resize-none p-5" type="text" placeholder="State your reason for deleting"></textarea>
         <div class="flex items-center justify-end my-2 gap-2">
           <button class="text-gray-400 hover:text-gray-500 cancelDeletionAdmin">Cancel</button>
           <button id="deleteByAdminBtn" class="bg-accent py-1 px-4 text-white hover:bg-darkAccent rounded-lg">Delete</button>

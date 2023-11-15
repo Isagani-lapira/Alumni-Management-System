@@ -96,7 +96,7 @@ $(document).ready(function () {
 
             // questions
             const question = $('<p>')
-                .addClass('flex gap-2 text-lg')
+                .addClass('flex gap-2 text-lg font-bold')
                 .text(countQuestion + '.) ' + value.questionTxt)
 
 

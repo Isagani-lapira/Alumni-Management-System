@@ -311,7 +311,7 @@ $(document).ready(function () {
 
         // question name
         const question = $('<h3>')
-            .addClass('text-lg')
+            .addClass('text-lg font-bold')
             .text(questionTxt);
 
         if (containerRoot == tracerQuestionWrapper) question.removeClass('text-center')
