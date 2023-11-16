@@ -524,6 +524,7 @@ $(document).ready(function () {
       .then(response => response.json())
       .then(data => {
         if (data.response === 'Success') {
+          $('.studExistingMsg').addClass('hidden')
           // add data to the disabled field
           const fname = data.fname;
           const lname = data.lname;
@@ -532,6 +533,8 @@ $(document).ready(function () {
           $('#studFname').val(fname);
           $('#studlname').val(lname);
           $('#currentYr').val(batchYear);
+        } else {
+          $('.studExistingMsg').removeClass('hidden')
         }
       })
       .catch(error => { console.log(error) })

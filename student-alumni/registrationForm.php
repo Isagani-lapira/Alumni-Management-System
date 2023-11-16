@@ -295,6 +295,14 @@
             <h3 class="font-black text-2xl text-greyish_black text-center py-3">STUDENT ACCOUNT</h3>
             <!-- personal information  -->
             <div class="personalInfo">
+                <!-- student number -->
+                <div class="w-full flex flex-col">
+                    <label for="studstudNo">Student No.</label>
+                    <input type="text" id="studstudNo" name="studNo" class="p-3 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: 2020931822">
+                    <span class="studExistingMsg flex gap-2 items-center mt-1 italic text-red-400 text-sm hidden">Error: already in used or not yet registered
+                        <iconify-icon title="Please contact the student coordinator for your query: bulsualumnioffice@gmail.com" icon="akar-icons:question-fill" style="color: #afafaf;" width="20" height="20"></iconify-icon>
+                    </span>
+                </div>
                 <!-- name -->
                 <div class="flex gap-2">
                     <div class="w-1/2 flex flex-col">
@@ -310,18 +318,11 @@
 
                 <!-- contact and student no -->
                 <div class="flex gap-2">
-                    <div class="w-1/2 flex flex-col">
+                    <div class="w-full flex flex-col">
                         <label for="studcontactNo">Contact Number</label>
                         <input type="text" id="studcontactNo" name="contactNo" class="p-3 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: 09193846220">
                     </div>
 
-                    <div class="w-1/2 flex flex-col">
-                        <label for="studstudNo">Student No.</label>
-                        <input type="text" id="studstudNo" name="studNo" class="p-3 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: 2020931822">
-                        <span class="studExistingMsg flex gap-2 items-center mt-1 italic text-red-400 text-sm hidden">Error: already in used or not yet registered
-                            <iconify-icon title="Please contact the student coordinator for your query: bulsualumnioffice@gmail.com" icon="akar-icons:question-fill" style="color: #afafaf;" width="20" height="20"></iconify-icon>
-                        </span>
-                    </div>
                 </div>
 
                 <!-- birthday and gender -->
