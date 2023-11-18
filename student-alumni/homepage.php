@@ -202,27 +202,28 @@ function getAccDetails($con, $personID)
       <!--SUB NAVBAR-->
       <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-1 left-0 right-2 sm:top-24 sm:mt-1 sm:justify-center z-20">
 
-        <ul class="sub-navbar bg-accent text-white flex flex-wrap items-center justify-evenly h-max sm:w-2/6 md:w-5/12 p-4 text-sm" style="width: 50%;">
+        <ul class="sub-navbar bg-accent text-white flex items-center justify-evenly h-max   p-4 text-sm w-full  lg:w-5/12 ">
           <!--FEED TAB-->
           <li class="w-full sm:w-auto px-5">
             <a href="#tabs-1" class="flex items-center justify-center w-full" id="feedLink" onclick="toggleFeed()">
               <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z" />
               </svg>
-              <span class="text-white font-semibold text" id="feedText">Feed</span>
+              <span class="hidden sm:inline text-white font-semibold text" id="feedText">Feed</span>
             </a>
+
           </li>
 
           <!--LINE SEPARATOR-->
           <div class="h-10 w-0.5 bg-white md:5"></div>
 
           <!--EVENTS TAB-->
-          <li id="eventLI" class="w-full sm:w-auto px-5">
+          <li id="eventLI" class="w-full sm:w-auto px-5 flex justify-center">
             <a href="#tabs-2" id="eventsLink" class="inline-flex items-center">
               <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z" />
               </svg>
-              <span id="eventsText" class="text-white font-semibold text" id="eventText">Events</span>
+              <span id="eventsText" class="hidden sm:inline text-white font-semibold text" id="eventText">Events</span>
             </a>
           </li>
 
@@ -230,12 +231,12 @@ function getAccDetails($con, $personID)
           <div class="h-10 w-0.5 bg-white md:5"></div>
 
           <!--JOB HUNT TAB-->
-          <li class="w-full sm:w-auto px-5">
+          <li class="w-full sm:w-auto px-5 flex justify-center">
             <a href="#tabs-3" id="jobHuntLink" class="flex items-center">
               <svg class="inline icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4ZM4 15v4h16v-4H4Zm7-4v2h2v-2h-2ZM9 3v2h6V3H9Z" />
               </svg>
-              <span id="JobHuntText" class="text-white font-semibold text" id="jobHuntText">Job Hunt</span>
+              <span id="JobHuntText" class="hidden sm:inline text-white font-semibold text" id="jobHuntText">Job Hunt</span>
             </a>
           </li>
         </ul>
