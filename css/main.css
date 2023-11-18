@@ -3343,6 +3343,10 @@ div.input-container input[type="text"],
   top: 100%;
 }
 
+.top-36 {
+  top: 9rem;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -3570,6 +3574,10 @@ div.input-container input[type="text"],
           margin-inline-start: 1.5rem;
 }
 
+.mt-0 {
+  margin-top: 0px;
+}
+
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -3620,10 +3628,6 @@ div.input-container input[type="text"],
 
 .mt-auto {
   margin-top: auto;
-}
-
-.mt-0 {
-  margin-top: 0px;
 }
 
 .block {
@@ -4104,17 +4108,13 @@ div.input-container input[type="text"],
   width: 100vw;
 }
 
-.min-w-\[10px\] {
-  min-width: 10px;
+.min-w-\[20px\] {
+  min-width: 20px;
 }
 
 .min-w-fit {
   min-width: -moz-fit-content;
   min-width: fit-content;
-}
-
-.min-w-\[20px\] {
-  min-width: 20px;
 }
 
 .max-w-3xl {
@@ -6301,16 +6301,8 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
     margin-top: 0.25rem;
   }
 
-  .sm\:mt-4 {
-    margin-top: 1rem;
-  }
-
   .sm\:block {
     display: block;
-  }
-
-  .sm\:flex {
-    display: flex;
   }
 
   .sm\:h-14 {
@@ -6325,10 +6317,6 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
     width: auto;
   }
 
-  .sm\:w-1\/4 {
-    width: 25%;
-  }
-
   .sm\:flex-row {
     flex-direction: row;
   }
@@ -6340,10 +6328,6 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
   .sm\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
-  }
-
-  .sm\:pr-0 {
-    padding-right: 0px;
   }
 
   .sm\:text-2xl {
@@ -6360,10 +6344,6 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
 @media (min-width: 768px) {
   .md\:-mt-20 {
     margin-top: -5rem;
-  }
-
-  .md\:mt-0 {
-    margin-top: 0px;
   }
 
   .md\:grid {
@@ -6469,6 +6449,10 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
 }
 
 @media (min-width: 1024px) {
+  .lg\:top-24 {
+    top: 6rem;
+  }
+
   .lg\:mx-8 {
     margin-left: 2rem;
     margin-right: 2rem;
@@ -6525,6 +6509,10 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
 
   .lg\:w-\[200\%\] {
     width: 200%;
+  }
+
+  .lg\:w-1\/4 {
+    width: 25%;
   }
 
   .lg\:max-w-6xl {

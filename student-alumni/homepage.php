@@ -133,6 +133,11 @@ function getAccDetails($con, $personID)
 
           <!-- Icon Image -->
           <div class=" w-1/4 px-2 sm:px-8 flex items-center">
+
+            <button id="showLeftBtn" class=""><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg></button>
+
             <a href="homepage.php" class=" min-w-[20px] flex items-center h-auto w-20 lg:h-16 lg:w-32">
               <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class="object-contain" />
             </a>
@@ -242,7 +247,7 @@ function getAccDetails($con, $personID)
         <!-- Container for MAIN FEED -->
         <div id="mainFeedContainer" class="flex pt-48 z-10 w-full h-full scrollable-container">
           <!-- LEFT DIV -->
-          <div class="left-div fixed top-32 left-0 w-1/4 h-full px-8 z-50">
+          <div id="left-sidebar" class="left-div bg-white hidden lg:block w-1/2 fixed top-32 left-0 lg:w-1/4 h-full px-8 z-50">
 
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
@@ -372,7 +377,7 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- RIGHT DIV -->
-          <div class="right-div fixed top-32 right-2 w-1/4 h-full px-8">
+          <div class="right-div hidden lg:block fixed top-32 right-2 w-1/4 h-full px-8">
             <!-- Content for the right div -->
             <p class="font-medium border-b-2 border-grayish ml-auto block text-sm pb-2 mb-4 text-greyish_black">University News</p>
             <p id="loadingDataAnnouncement" class="text-gray-400 text-center">Loading data</p>
@@ -387,7 +392,7 @@ function getAccDetails($con, $personID)
 
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
           <!-- Notifications Tab -->
-          <div id="notification-tab" class="notification-tab hidden fixed top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
+          <div id="notification-tab" class=" notification-tab hidden fixed top-36 lg:top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
             <div class="notification-content bg-white border-2 px-4 pt-4 pb-20 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
               <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
 

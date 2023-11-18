@@ -1,40 +1,43 @@
-
 $(document).ready(function () {
-
   const PWD = window.location.href;
   const splitPath = PWD.split("student-alumni");
   const rootPath = splitPath[0];
   const CAREER_LOGO = rootPath + "media/search.php?media=career&careerID=";
   const EVENT_LOGO = rootPath + "media/search.php?media=event_img&eventID=";
 
-  const imgFormat = 'data:image/jpeg;base64,';
-  const colCode = $('#colCode').html();
-  $('#tabs').tabs();
+  const imgFormat = "data:image/jpeg;base64,";
+  const colCode = $("#colCode").html();
+
+  // For Responsive Design
+  $("#showLeftBtn").on("click", () => {
+    $("#left-sidebar").toggleClass("hidden");
+  });
+
+  $("#tabs").tabs();
   // Initialize the tabs - FEED BTN
   $("#tabs-feed-btns").tabs();
 
   $("#job-offer-tabs").tabs();
 
-
   // Drop down PROFILE AND LOGOUT
-  $('#dropdown-btn').click(function () {
-    $('#dropdown-content').toggle();
-    $(this).toggleClass('active');
+  $("#dropdown-btn").click(function () {
+    $("#dropdown-content").toggle();
+    $(this).toggleClass("active");
   });
 
   //MODAL
   // When either of the buttons is clicked, show the modal
-  $('#writeBtn, #postButton').click(function () {
-    $('#modal').removeClass('hidden');
+  $("#writeBtn, #postButton").click(function () {
+    $("#modal").removeClass("hidden");
   });
 
   // When the cancel button or the modal overlay is clicked, hide the modal
-  $('.cancel, #modal').click(function () {
-    $('#modal').addClass('hidden');
+  $(".cancel, #modal").click(function () {
+    $("#modal").addClass("hidden");
   });
 
   // Prevent closing the modal when clicking inside it
-  $('.modal-container').click(function (e) {
+  $(".modal-container").click(function (e) {
     e.stopPropagation();
   });
 
@@ -47,53 +50,50 @@ $(document).ready(function () {
     $("#tabs-yrbook").hide();
     $("#tabs-1").show();
     $("#tabs-college").show();
-
   });
 
   function getCurrentDate() {
     var today = new Date();
     var year = today.getFullYear();
-    var month = String(today.getMonth() + 1).padStart(2, '0');
-    var day = String(today.getDate()).padStart(2, '0');
-    return year + '-' + month + '-' + day;
+    var month = String(today.getMonth() + 1).padStart(2, "0");
+    var day = String(today.getDate()).padStart(2, "0");
+    return year + "-" + month + "-" + day;
   }
-
 
   let action = {
-    action: 'readWithCol',
+    action: "readWithCol",
     colCode: colCode,
-  }
+  };
 
   let offsetJob = 0;
   let offsetCardJob = 0;
-  let checkerFilter = ""
+  let checkerFilter = "";
   let isCardView = true;
-  $('#JobHuntText').on('click', function () {
-    checkerFilter = 'getWork';
-    getWork(action, offsetJob, !isCardView) //load a list of work
+  $("#JobHuntText").on("click", function () {
+    checkerFilter = "getWork";
+    getWork(action, offsetJob, !isCardView); //load a list of work
     getWork(action, offsetCardJob, isCardView);
-  })
+  });
 
-
-  $('#closeReportModal').on('click', function () {
-    $('#reportModal').addClass('hidden')
-  })
+  $("#closeReportModal").on("click", function () {
+    $("#reportModal").addClass("hidden");
+  });
 
   function getWork(action, offset, isCardView) {
     let formData = new FormData();
-    formData.append('action', JSON.stringify(action));
-    formData.append('offset', offset)
+    formData.append("action", JSON.stringify(action));
+    formData.append("offset", offset);
     $.ajax({
-      method: 'POST',
-      url: '../PHP_process/jobTable.php',
+      method: "POST",
+      url: "../PHP_process/jobTable.php",
       data: formData,
       processData: false,
       contentType: false,
       success: (response) => {
-        if (response != 'none') {
+        if (response != "none") {
           const parsedResponse = JSON.parse(response);
           //if there's a value
-          if (parsedResponse.result == 'Success') {
+          if (parsedResponse.result == "Success") {
             const length = parsedResponse.author.length; //total length of all data that has been retrieved
             for (let i = 0; i < length; i++) {
               //data to be use
@@ -109,83 +109,108 @@ $(document).ready(function () {
 
               //display job with design
               if (!isCardView)
-                listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location, isSaved)
+                listOfJobDisplay(
+                  jobTitle,
+                  company,
+                  author,
+                  skill,
+                  companyLogo,
+                  careerID,
+                  location,
+                  isSaved
+                );
               else
-                cardViewJobDisplay(careerID, jobTitle, jobDescript, companyLogo, skill);
+                cardViewJobDisplay(
+                  careerID,
+                  jobTitle,
+                  jobDescript,
+                  companyLogo,
+                  skill
+                );
             }
 
-            if (!isCardView)
-              offsetJob += length //set new offset for job
-            else
-              offsetCardJob += length
+            if (!isCardView) offsetJob += length; //set new offset for job
+            else offsetCardJob += length;
           }
-        }
-        else {
-          $('#noJobMsg').removeClass('hidden')
-            .appendTo('#listOfJob')
+        } else {
+          $("#noJobMsg").removeClass("hidden").appendTo("#listOfJob");
         }
       },
-      error: (error) => { console.log(error) }
-    })
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
-  function cardViewJobDisplay(careerID, jobTitle, description, companyLogo, skills) {
-    description = description.substring(0, 103) //slice the description to make small description
+  function cardViewJobDisplay(
+    careerID,
+    jobTitle,
+    description,
+    companyLogo,
+    skills
+  ) {
+    description = description.substring(0, 103); //slice the description to make small description
 
     //mark up for card job
-    const cardWrapper = $('<div>').addClass('max-w-sm p-3 bg-white border border-gray-200 rounded-lg bg-accent card-job flex flex-col h-full');
-
+    const cardWrapper = $("<div>").addClass(
+      "max-w-sm p-3 bg-white border border-gray-200 rounded-lg bg-accent card-job flex flex-col h-full"
+    );
 
     //company logo
-    const imgContainer = $('<div>')
-      .addClass('w-full h-40 bg-white flex justify-center')
-    const companyLogoElement = $('<img>')
-      .addClass('w-32 h-32 rounded-full')
-      .attr('src', companyLogo) //add image
+    const imgContainer = $("<div>").addClass(
+      "w-full h-40 bg-white flex justify-center"
+    );
+    const companyLogoElement = $("<img>")
+      .addClass("w-32 h-32 rounded-full")
+      .attr("src", companyLogo); //add image
 
     imgContainer.append(companyLogoElement);
 
-    const title = $('<h5>')
-      .addClass('text-lg font-bold tracking-tight text-gray-900')
-      .text(jobTitle)
+    const title = $("<h5>")
+      .addClass("text-lg font-bold tracking-tight text-gray-900")
+      .text(jobTitle);
 
-    const details = $('<p>')
-      .addClass('font-normal text-gray-700 dark:text-gray-400 text-sm')
-      .text(description)
+    const details = $("<p>")
+      .addClass("font-normal text-gray-700 dark:text-gray-400 text-sm")
+      .text(description);
 
     //skills
-    const skillsWrapper = $('<ul>')
-      .addClass('text-xs text-gray-500 flex flex-wrap gap-2')
+    const skillsWrapper = $("<ul>").addClass(
+      "text-xs text-gray-500 flex flex-wrap gap-2"
+    );
 
     skills.forEach(function (skill, index) {
-      const bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" width="10" height="10"></iconify-icon>'
-      list = $('<li>')
-        .html(bulletIcon + ' ' + skill)
-      skillsWrapper.append(list)
-    })
-    const arrowIcon = '<svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">' +
+      const bulletIcon =
+        '<iconify-icon icon="fluent-mdl2:radio-bullet" width="10" height="10"></iconify-icon>';
+      list = $("<li>").html(bulletIcon + " " + skill);
+      skillsWrapper.append(list);
+    });
+    const arrowIcon =
+      '<svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">' +
       '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />' +
-      '</svg>'
+      "</svg>";
 
-    const navigationBtn = $('<button>')
-      .addClass('inline-flex items-center px-3 py-4 mt-2 text-sm font-medium ' +
-        'text-center text-white bg-postButton rounded-lg bg-postButton hover:bg-postHoverButton')
-      .html('Read more' + arrowIcon)
-      .on('click', function () {
-        $('#jobDescWrapper').removeClass('hidden');
-        $('#jobCard').parent().addClass('hidden')
+    const navigationBtn = $("<button>")
+      .addClass(
+        "inline-flex items-center px-3 py-4 mt-2 text-sm font-medium " +
+          "text-center text-white bg-postButton rounded-lg bg-postButton hover:bg-postHoverButton"
+      )
+      .html("Read more" + arrowIcon)
+      .on("click", function () {
+        $("#jobDescWrapper").removeClass("hidden");
+        $("#jobCard").parent().addClass("hidden");
         viewOfCareer(careerID);
-      })
+      });
 
-    const detailsContainer = $('<div>')
-      .addClass('flex flex-col flex-1 justify-between h-full')
-      .append(title, details, skillsWrapper)
+    const detailsContainer = $("<div>")
+      .addClass("flex flex-col flex-1 justify-between h-full")
+      .append(title, details, skillsWrapper);
 
     cardWrapper.append(imgContainer, detailsContainer, navigationBtn);
-    $('#jobCard').append(cardWrapper); //display it on the root
+    $("#jobCard").append(cardWrapper); //display it on the root
   }
 
-  $('#jobCard').on('scroll', function () {
+  $("#jobCard").on("scroll", function () {
     const containerHeight = $(this).height();
     const contentHeight = $(this)[0].scrollHeight;
     const scrollOffset = $(this).scrollTop();
@@ -196,135 +221,165 @@ $(document).ready(function () {
       //get another set of post
       getWork(action, offsetCardJob, isCardView);
     }
-  })
-  function listOfJobDisplay(jobTitle, company, author, skills, companyLogo, careerID, location, isSaved) {
-
+  });
+  function listOfJobDisplay(
+    jobTitle,
+    company,
+    author,
+    skills,
+    companyLogo,
+    careerID,
+    location,
+    isSaved
+  ) {
     //creating elements
-    let containerJob = $('<div>').addClass('rounded-md px-2 py-3 text-sm center-shadow flex gap-2 text-gray-500 cursor-pointer')
-    let companyImg = $('<img>').addClass('h-12 w-12 rounded-full').attr('src', companyLogo)
-    let jobDescription = $('<div>').addClass('flex-grow flex flex-col text-dirtyWhite gap-1')
-    let jobTitleElement = $('<p>').text(jobTitle).addClass('text-bold font-semibold text-black')
-    let companyName = $('<p>').text(company).addClass('text-sm')
+    let containerJob = $("<div>").addClass(
+      "rounded-md px-2 py-3 text-sm center-shadow flex gap-2 text-gray-500 cursor-pointer"
+    );
+    let companyImg = $("<img>")
+      .addClass("h-12 w-12 rounded-full")
+      .attr("src", companyLogo);
+    let jobDescription = $("<div>").addClass(
+      "flex-grow flex flex-col text-dirtyWhite gap-1"
+    );
+    let jobTitleElement = $("<p>")
+      .text(jobTitle)
+      .addClass("text-bold font-semibold text-black");
+    let companyName = $("<p>").text(company).addClass("text-sm");
 
     // location
-    let locationIcon = '<iconify-icon icon="fluent:location-16-filled"></iconify-icon>';
-    let locationElement = $('<span>')
-      .addClass('flex gap-1 items-center text-xs')
-      .append(locationIcon, location)
+    let locationIcon =
+      '<iconify-icon icon="fluent:location-16-filled"></iconify-icon>';
+    let locationElement = $("<span>")
+      .addClass("flex gap-1 items-center text-xs")
+      .append(locationIcon, location);
 
-    let postedCont = $('<div>').addClass('flex text-xs justify-end text-lightDirtyWhite mt-2')
-    let postedText = $('<p>').text('Posted by:')
-    let postedByElement = $('<p>').text(author)
-    let skillContainer = $('<div>').addClass('text-xs flex gap-1 flex-wrap')
+    let postedCont = $("<div>").addClass(
+      "flex text-xs justify-end text-lightDirtyWhite mt-2"
+    );
+    let postedText = $("<p>").text("Posted by:");
+    let postedByElement = $("<p>").text(author);
+    let skillContainer = $("<div>").addClass("text-xs flex gap-1 flex-wrap");
 
     //bookmark
-    let outlineBookmark = '<iconify-icon id="bookmark" icon="iconamoon:bookmark-light" style="color: gray;" width="24" height="24"></iconify-icon>'
-    let solidBookmark = '<iconify-icon icon="iconamoon:bookmark-fill" style="color: #991b1b;" width="24" height="24"></iconify-icon>'
-    let bookmarkCont = $('<span>').html(outlineBookmark)
-      .on('click', function () {
+    let outlineBookmark =
+      '<iconify-icon id="bookmark" icon="iconamoon:bookmark-light" style="color: gray;" width="24" height="24"></iconify-icon>';
+    let solidBookmark =
+      '<iconify-icon icon="iconamoon:bookmark-fill" style="color: #991b1b;" width="24" height="24"></iconify-icon>';
+    let bookmarkCont = $("<span>")
+      .html(outlineBookmark)
+      .on("click", function () {
         //remove the saved career
         if (isSaved) {
-          $(this).html(outlineBookmark)
-          removeBookmark(careerID)
-        }
-        else {
+          $(this).html(outlineBookmark);
+          removeBookmark(careerID);
+        } else {
           //save the career
-          $(this).html(solidBookmark)
+          $(this).html(solidBookmark);
           saveCareer(careerID);
         }
-        isSaved = !isSaved
-      })
+        isSaved = !isSaved;
+      });
 
     if (isSaved) {
-      bookmarkCont.html(solidBookmark) //change the bookmark from outline to solid
+      bookmarkCont.html(solidBookmark); //change the bookmark from outline to solid
       isSaved = true;
     }
 
     //retrieve all the skill and display in on a div to be included on the container
-    skills.forEach(skill => {
-      let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
-      let skillElement = $('<span>').html(skill)
-      skillContainer.append(bulletIcon, skillElement)
-    })
+    skills.forEach((skill) => {
+      let bulletIcon =
+        '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+      let skillElement = $("<span>").html(skill);
+      skillContainer.append(bulletIcon, skillElement);
+    });
 
     //put the element to their corresponding container
     postedCont.append(postedText, postedByElement);
-    jobDescription.append(jobTitleElement, companyName, locationElement, skillContainer, postedCont)
-    containerJob.append(companyImg, jobDescription, bookmarkCont)
-    let list = $('<li>').append(containerJob);
-    $('#listOfJob').append(list) // add to the list
+    jobDescription.append(
+      jobTitleElement,
+      companyName,
+      locationElement,
+      skillContainer,
+      postedCont
+    );
+    containerJob.append(companyImg, jobDescription, bookmarkCont);
+    let list = $("<li>").append(containerJob);
+    $("#listOfJob").append(list); // add to the list
 
-
-    containerJob.on('click', function () {
-      $('#jobDescWrapper').removeClass('hidden');
-      $('#jobCard').parent().addClass('hidden')
+    containerJob.on("click", function () {
+      $("#jobDescWrapper").removeClass("hidden");
+      $("#jobCard").parent().addClass("hidden");
       //remove the the last one has been selected
-      $('.selectedJob').each((index, element) => {
-        $(element).removeClass('selectedJob')
-      })
-      containerJob.addClass('selectedJob');//set the container that has been clicked as selected container
+      $(".selectedJob").each((index, element) => {
+        $(element).removeClass("selectedJob");
+      });
+      containerJob.addClass("selectedJob"); //set the container that has been clicked as selected container
       //viewing of particular job
       viewOfCareer(careerID);
-    })
+    });
 
     // Automatically select the first job listing and trigger the click event
-    if ($('#listOfJob li').length === 1) {
-      containerJob.trigger('click');
-      $('#jobDescWrapper').addClass('hidden');
-      $('#jobCard').parent().removeClass('hidden')
+    if ($("#listOfJob li").length === 1) {
+      containerJob.trigger("click");
+      $("#jobDescWrapper").addClass("hidden");
+      $("#jobCard").parent().removeClass("hidden");
     }
   }
 
-
-  $('#backToCard').on('click', function () {
-    $('#jobDescWrapper').addClass('hidden');
-    $('#jobCard').parent().removeClass('hidden')
-  })
+  $("#backToCard").on("click", function () {
+    $("#jobDescWrapper").addClass("hidden");
+    $("#jobCard").parent().removeClass("hidden");
+  });
   //saving career to bookmark
   function saveCareer(careerID) {
     //data to be send
     let formData = new FormData();
-    formData.append('action', 'saveCareer');
-    formData.append('careerID', careerID);
+    formData.append("action", "saveCareer");
+    formData.append("careerID", careerID);
 
     //process insertion
     $.ajax({
-      method: 'POST',
-      url: '../PHP_process/bookmark.php',
+      method: "POST",
+      url: "../PHP_process/bookmark.php",
       data: formData,
       processData: false,
       contentType: false,
-      success: (response) => { console.log(response) },
-    })
+      success: (response) => {
+        console.log(response);
+      },
+    });
   }
 
   //remove career in bookmark
   function removeBookmark(careerID) {
     //data to be send
     let formData = new FormData();
-    formData.append('action', 'removeBookmark');
-    formData.append('careerID', careerID);
+    formData.append("action", "removeBookmark");
+    formData.append("careerID", careerID);
 
     //process removal
     $.ajax({
-      method: 'POST',
-      url: '../PHP_process/bookmark.php',
+      method: "POST",
+      url: "../PHP_process/bookmark.php",
       data: formData,
       processData: false,
       contentType: false,
-      success: (response) => { console.log(response) },
-    })
+      success: (response) => {
+        console.log(response);
+      },
+    });
   }
 
   //read all the bookmark
   function readBookMark() {
     let formData = new FormData();
-    formData.append('action', 'readBookmark');
-    formData.append('offset', offsetJob)
+    formData.append("action", "readBookmark");
+    formData.append("offset", offsetJob);
 
     $.ajax({
-      method: 'POST',
-      url: '../PHP_process/bookmark.php',
+      method: "POST",
+      url: "../PHP_process/bookmark.php",
       data: formData,
       processData: false,
       contentType: false,
@@ -345,36 +400,45 @@ $(document).ready(function () {
             const isSaved = parsedResponse.isSaved;
 
             //display job with design
-            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location, isSaved)
-          })
+            listOfJobDisplay(
+              jobTitle,
+              company,
+              author,
+              skill,
+              companyLogo,
+              careerID,
+              location,
+              isSaved
+            );
+          });
 
-          offsetJob += length
-        }
-        else {
-          $('#noJobMsg').removeClass('hidden')
-            .appendTo('#listOfJob')
+          offsetJob += length;
+        } else {
+          $("#noJobMsg").removeClass("hidden").appendTo("#listOfJob");
         }
       },
-      error: (error) => { console.log(error) }
-    })
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   function appliedWork() {
     let formData = new FormData();
     const action = {
-      action: 'retrievedApplied'
-    }
-    formData.append('action', JSON.stringify(action));
-    formData.append('offset', offsetJob)
+      action: "retrievedApplied",
+    };
+    formData.append("action", JSON.stringify(action));
+    formData.append("offset", offsetJob);
 
     $.ajax({
-      method: 'POST',
-      url: '../PHP_process/jobTable.php',
+      method: "POST",
+      url: "../PHP_process/jobTable.php",
       data: formData,
       processData: false,
       contentType: false,
       success: (response) => {
-        if (response != 'none') {
+        if (response != "none") {
           const parsedResponse = JSON.parse(response);
           const length = parsedResponse.careerID.length;
           if (length > 0) {
@@ -388,269 +452,282 @@ $(document).ready(function () {
               const location = parsedResponse.location[i];
 
               //display job with design
-              listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, location)
+              listOfJobDisplay(
+                jobTitle,
+                company,
+                author,
+                skill,
+                companyLogo,
+                careerID,
+                location
+              );
             }
-            offsetJob += length
+            offsetJob += length;
           }
-        }
-        else {
-          $('#noJobMsg').removeClass('hidden')
-            .appendTo('#listOfJob')
+        } else {
+          $("#noJobMsg").removeClass("hidden").appendTo("#listOfJob");
         }
       },
-      error: (error) => { console.log(error) }
-    })
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   function getCurrentDate() {
     var today = new Date();
     var year = today.getFullYear();
-    var month = String(today.getMonth() + 1).padStart(2, '0');
-    var day = String(today.getDate()).padStart(2, '0');
-    return year + '-' + month + '-' + day;
+    var month = String(today.getMonth() + 1).padStart(2, "0");
+    var day = String(today.getDate()).padStart(2, "0");
+    return year + "-" + month + "-" + day;
   }
 
   //display the badge if there's a notification haven't read yet
-  badgeNotification()
+  badgeNotification();
   function badgeNotification() {
     let action = {
-      action: 'readUnreadNotif'
-    }
-    let formatData = new FormData()
-    formatData.append('action', JSON.stringify(action));
+      action: "readUnreadNotif",
+    };
+    let formatData = new FormData();
+    formatData.append("action", JSON.stringify(action));
 
     $.ajax({
-      url: '../PHP_process/notificationData.php',
-      method: 'POST',
+      url: "../PHP_process/notificationData.php",
+      method: "POST",
       data: formatData,
       processData: false,
       contentType: false,
       success: (success) => {
         //display a notification badge
-        if (success != 'none') $('#notifBadge').removeClass('hidden').html(success);
-        else $('#notifBadge').addClass('hidden')
+        if (success != "none")
+          $("#notifBadge").removeClass("hidden").html(success);
+        else $("#notifBadge").addClass("hidden");
       },
-      error: (error) => { console.log(error) }
-    })
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   //change list to admin
-  $('#jobSelection').on('change', function () {
-    offsetJob = 0 //restart the offset
+  $("#jobSelection").on("change", function () {
+    offsetJob = 0; //restart the offset
     let jobVal = $(this).val();
 
-    $('#listOfJob').empty()
-    if (jobVal == 'Admin') {
+    $("#listOfJob").empty();
+    if (jobVal == "Admin") {
       let actionAdmin = {
-        action: 'readWithAuthor',
-        colCode: colCode
-      }
+        action: "readWithAuthor",
+        colCode: colCode,
+      };
       //change list into admin's list
-      getWork(actionAdmin, offsetJob, !isCardView) //list of work
-      checkerFilter = 'admin';
+      getWork(actionAdmin, offsetJob, !isCardView); //list of work
+      checkerFilter = "admin";
+    } else if (jobVal == "Saved") {
+      checkerFilter = "saved";
+      readBookMark(); //display that is being saved
+    } else if (jobVal == "all") {
+      checkerFilter = "getWork";
+      getWork(action, offsetJob, !isCardView); //back to all
+    } else if (jobVal == "Applied") {
+      checkerFilter = "applied";
+      appliedWork();
     }
-    else if (jobVal == 'Saved') {
-      checkerFilter = 'saved';
-      readBookMark() //display that is being saved
-    }
-    else if (jobVal == 'all') {
-      checkerFilter = 'getWork';
-      getWork(action, offsetJob, !isCardView) //back to all
-    }
-    else if (jobVal == 'Applied') {
-      checkerFilter = 'applied';
-      appliedWork()
-    }
-
-  })
+  });
 
   //retrieve new data of post
-  $('#listOfJob').on('scroll', function () {
-    if ($('#listOfJob').scrollTop() + $('#listOfJob').innerHeight() >= $('#listOfJob')[0].scrollHeight) {
+  $("#listOfJob").on("scroll", function () {
+    if (
+      $("#listOfJob").scrollTop() + $("#listOfJob").innerHeight() >=
+      $("#listOfJob")[0].scrollHeight
+    ) {
       //check the filter active
-      if (checkerFilter == 'saved') readBookMark()
-      else if (checkerFilter == 'applied') appliedWork()
-      else if (checkerFilter == 'getWork') getWork(action, offsetJob)  //list of work
-      else if (checkerFilter == 'admin') {
+      if (checkerFilter == "saved") readBookMark();
+      else if (checkerFilter == "applied") appliedWork();
+      else if (checkerFilter == "getWork")
+        getWork(action, offsetJob); //list of work
+      else if (checkerFilter == "admin") {
         let actionAdmin = {
-          action: 'readWithAuthor',
-          colCode: colCode
-        }
+          action: "readWithAuthor",
+          colCode: colCode,
+        };
         //change list into admin's list
-        getWork(actionAdmin, offsetJob)
-
+        getWork(actionAdmin, offsetJob);
       }
     }
-  })
+  });
 
-
-  function displaySelectedCareer(careerID, jobTitle, companyName, author, datePosted, companyLogo,
-    description, skills, qualification, location, isApplied) {
-
+  function displaySelectedCareer(
+    careerID,
+    jobTitle,
+    companyName,
+    author,
+    datePosted,
+    companyLogo,
+    description,
+    skills,
+    qualification,
+    location,
+    isApplied
+  ) {
     //remove the past display
-    $('#skillsContainer').empty();
+    $("#skillsContainer").empty();
     //displaying a particular job data
-    $('#viewJobLogo').attr('src', companyLogo)
-    $('#viewJobTitle').text(jobTitle)
-    $('#viewJobCompany').text(companyName)
-    $('#viewJobAuthor').text(author)
-    $('#viewJobDatePosted').text(datePosted)
-    $('#jobDescript').text(description)
-    $('#viewJobQuali').text(qualification)
-    $('#locationContainer').text(location)
+    $("#viewJobLogo").attr("src", companyLogo);
+    $("#viewJobTitle").text(jobTitle);
+    $("#viewJobCompany").text(companyName);
+    $("#viewJobAuthor").text(author);
+    $("#viewJobDatePosted").text(datePosted);
+    $("#jobDescript").text(description);
+    $("#viewJobQuali").text(qualification);
+    $("#locationContainer").text(location);
     //get all the skills that a particular career has
-    skills.forEach(skill => {
-      let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
-      skillVal = $('<p>').text(skill);
+    skills.forEach((skill) => {
+      let bulletIcon =
+        '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+      skillVal = $("<p>").text(skill);
 
       //add it on the container
-      $('#skillsContainer').append(bulletIcon, skillVal);
-    })
+      $("#skillsContainer").append(bulletIcon, skillVal);
+    });
 
     // button
-    $('#applicationBtn').empty()
-    applicationIcon = '<i id="iconApply" class="fas fa-check-circle pl-2 hidden"></i>';
+    $("#applicationBtn").empty();
+    applicationIcon =
+      '<i id="iconApply" class="fas fa-check-circle pl-2 hidden"></i>';
     applicationText = '<span id="appTxt">Apply Now</span>';
-    applicationBtn = $('<button>')
-      .addClass('bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded')
-      .append(applicationIcon, applicationText)
+    applicationBtn = $("<button>")
+      .addClass("bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded")
+      .append(applicationIcon, applicationText);
 
-    $('#applicationBtn').append(applicationBtn)
+    $("#applicationBtn").append(applicationBtn);
     //already applied
     if (isApplied) {
       //applied button
-      $('#iconApply').removeClass('hidden')
-      $('#appTxt').addClass('font-bold')
-        .text('Applied')
+      $("#iconApply").removeClass("hidden");
+      $("#appTxt").addClass("font-bold").text("Applied");
 
       //delete teh application
-      applicationBtn.on('click', function () {
-        deleteApplication(careerID) //delete the application
-      })
-    }
-    else { //not yet applied
-      $('#iconApply').addClass('hidden')
-      $('#appTxt').removeClass('font-bold')
+      applicationBtn.on("click", function () {
+        deleteApplication(careerID); //delete the application
+      });
+    } else {
+      //not yet applied
+      $("#iconApply").addClass("hidden");
+      $("#appTxt").removeClass("font-bold");
 
-      applicationBtn.on('click', function () {
-        applyJob(careerID);  //application
-      })
+      applicationBtn.on("click", function () {
+        applyJob(careerID); //application
+      });
     }
-
   }
 
-  $('#directToResume').on('click', function () {
+  $("#directToResume").on("click", function () {
     window.location.href = "../student-alumni/profile.php?resumeOpen=" + true;
-  })
-
+  });
 
   function deleteApplication(careerID) {
     const action = {
-      action: 'deleteApplication'
-    }
+      action: "deleteApplication",
+    };
 
     //data to be send
     const formatData = new FormData();
-    formatData.append('action', JSON.stringify(action))
-    formatData.append('careerID', careerID);
+    formatData.append("action", JSON.stringify(action));
+    formatData.append("careerID", careerID);
 
     //process deletion
     $.ajax({
-      url: '../PHP_process/jobTable.php',
-      method: 'POST',
+      url: "../PHP_process/jobTable.php",
+      method: "POST",
       data: formatData,
       processData: false,
       contentType: false,
-      success: response => {
-        if (response == 'Success') {
+      success: (response) => {
+        if (response == "Success") {
           //change the application button
-          $('#iconApply').addClass('hidden')
-          $('#appTxt').removeClass('font-bold')
-            .text('Apply Now')
+          $("#iconApply").addClass("hidden");
+          $("#appTxt").removeClass("font-bold").text("Apply Now");
         }
-      }
-    })
+      },
+    });
   }
   // message application
   function applyJob(careerID) {
-    $('.applicantMsg').removeClass('hidden')
-    $('.applyJobBtn').on('click', function () {
-      const message = $('#applicantMsg').val().trimEnd()
-      if (message !== '') {
-        $('.loadingProfile').parent().removeClass('hidden')
-        processApplication(careerID, message)
+    $(".applicantMsg").removeClass("hidden");
+    $(".applyJobBtn").on("click", function () {
+      const message = $("#applicantMsg").val().trimEnd();
+      if (message !== "") {
+        $(".loadingProfile").parent().removeClass("hidden");
+        processApplication(careerID, message);
       }
-    })
-
+    });
   }
 
   function processApplication(careerID, message) {
     const action = {
-      action: 'applyJob'
-    }
+      action: "applyJob",
+    };
 
     //data to be send
     const formatData = new FormData();
-    formatData.append('action', JSON.stringify(action));
-    formatData.append('careerID', careerID);
-    formatData.append('message', message);
+    formatData.append("action", JSON.stringify(action));
+    formatData.append("careerID", careerID);
+    formatData.append("message", message);
 
     //perform ajax operation
     $.ajax({
-      url: '../PHP_process/jobTable.php',
-      method: 'POST',
+      url: "../PHP_process/jobTable.php",
+      method: "POST",
       data: formatData,
       processData: false,
       contentType: false,
-      success: response => {
-        $('.loadingProfile').parent().addClass('hidden')
-        if (response == 'Success') {
-          $('#iconApply').removeClass('hidden') //applied icon indicator
-          $('#applicantMsg').val('')
-          $('#appTxt').addClass('font-bold')
-            .text('Applied')
+      success: (response) => {
+        $(".loadingProfile").parent().addClass("hidden");
+        if (response == "Success") {
+          $("#iconApply").removeClass("hidden"); //applied icon indicator
+          $("#applicantMsg").val("");
+          $("#appTxt").addClass("font-bold").text("Applied");
 
           // close and restart the values
-          $('.applicantMsg').addClass('hidden')
-          $('#successApplicationModal').removeClass('hidden')
-          $('#successApplicationModal button').on('click', function () {
-            $('#successApplicationModal').addClass('hidden')
-          })
-        }
-        else $('#errorResumeModal').removeClass('hidden')//not yet set up
-      }
-    })
+          $(".applicantMsg").addClass("hidden");
+          $("#successApplicationModal").removeClass("hidden");
+          $("#successApplicationModal button").on("click", function () {
+            $("#successApplicationModal").addClass("hidden");
+          });
+        } else $("#errorResumeModal").removeClass("hidden"); //not yet set up
+      },
+    });
   }
 
-  $('.msgCancelBtn').on('click', function () {
-    $('.applicantMsg').addClass('hidden')
-  })
+  $(".msgCancelBtn").on("click", function () {
+    $(".applicantMsg").addClass("hidden");
+  });
 
   // close no resume modal
-  $('.noresumeBtn').on('click', function () {
-    $('#errorResumeModal').addClass('hidden')
-  })
-
+  $(".noresumeBtn").on("click", function () {
+    $("#errorResumeModal").addClass("hidden");
+  });
 
   function viewOfCareer(careerID) {
     const actionCareer = {
-      action: 'readWithCareerID',
+      action: "readWithCareerID",
       careerID: careerID, //to be change
-    }
+    };
 
     let formData = new FormData();
-    formData.append('action', JSON.stringify(actionCareer));
+    formData.append("action", JSON.stringify(actionCareer));
 
     $.ajax({
-      url: '../PHP_process/jobTable.php',
-      method: 'POST',
+      url: "../PHP_process/jobTable.php",
+      method: "POST",
       data: formData,
       processData: false,
       contentType: false,
       success: (result) => {
         //if the process is successful
         const parsedResponse = JSON.parse(result);
-        if (parsedResponse.result == 'Success') {
+        if (parsedResponse.result == "Success") {
           const careerID = parsedResponse.careerID[0];
           const companyName = parsedResponse.companyName[0];
           const jobTitle = parsedResponse.jobTitle[0];
@@ -663,48 +740,62 @@ $(document).ready(function () {
           const location = parsedResponse.location[0];
           const isApplied = parsedResponse.isApplied[0];
 
-          displaySelectedCareer(careerID, jobTitle, companyName, author, datePosted,
-            companyLogo, description, skills, qualification, location, isApplied)
+          displaySelectedCareer(
+            careerID,
+            jobTitle,
+            companyName,
+            author,
+            datePosted,
+            companyLogo,
+            description,
+            skills,
+            qualification,
+            location,
+            isApplied
+          );
         }
       },
-      error: (error) => { console.log(error) }
-    })
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   //logout the user
-  $('#logout').on('click', function () {
+  $("#logout").on("click", function () {
     //perform php process for signing out
     $.ajax({
-      method: 'POST',
+      method: "POST",
       url: "../PHP_process/signout.php",
-      success: () => { window.location.href = "login.php" }, //go back to login page
-    })
-  })
-
+      success: () => {
+        window.location.href = "login.php";
+      }, //go back to login page
+    });
+  });
 
   //searching for job
-  $('#searchJob').on('input', function () {
+  $("#searchJob").on("input", function () {
     let search = $(this).val();
 
     //data to be send to the php
     let action = {
-      action: 'searching',
-      jobTitle: search
-    }
+      action: "searching",
+      jobTitle: search,
+    };
     let formData = new FormData();
-    formData.append('action', JSON.stringify(action))
+    formData.append("action", JSON.stringify(action));
 
     $.ajax({
-      url: '../PHP_process/jobTable.php',
-      method: 'POST',
+      url: "../PHP_process/jobTable.php",
+      method: "POST",
       data: formData,
       contentType: false,
       processData: false,
       success: (response) => {
-        $('#listOfJob').empty() //remove the past suggestion to show new suggestion
+        $("#listOfJob").empty(); //remove the past suggestion to show new suggestion
         const parsedResponse = JSON.parse(response);
         //if there's a value
-        if (parsedResponse.result == 'Success') {
+        if (parsedResponse.result == "Success") {
           const length = parsedResponse.author.length; //total length of all data that has been retrieved
           for (let i = 0; i < length; i++) {
             //data to be use
@@ -717,119 +808,127 @@ $(document).ready(function () {
             const isSaved = parsedResponse.isSaved[i];
 
             //display job with design
-            listOfJobDisplay(jobTitle, company, author, skill, companyLogo, careerID, isSaved)
+            listOfJobDisplay(
+              jobTitle,
+              company,
+              author,
+              skill,
+              companyLogo,
+              careerID,
+              isSaved
+            );
           }
-
-        }
-        else $('#noJobMsg').removeClass('hidden');
+        } else $("#noJobMsg").removeClass("hidden");
       },
-      error: (error) => { console.log(error) }
-    })
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  });
 
-  })
-
-  retreiveUpcomingEvent()
+  retreiveUpcomingEvent();
   //retrieve the upcoming event
   function retreiveUpcomingEvent() {
     let currentDate = getCurrentDate();
-    let action = 'readUpcomingEvent'
+    let action = "readUpcomingEvent";
     let formData = new FormData();
     //data to be send
-    formData.append('action', action)
-    formData.append('currentDate', currentDate)
+    formData.append("action", action);
+    formData.append("currentDate", currentDate);
 
     //process retrieval of upcoming event
     $.ajax({
-      method: 'POST',
-      url: '../PHP_process/event.php',
+      method: "POST",
+      url: "../PHP_process/event.php",
       data: formData,
       processData: false,
       contentType: false,
-      dataType: 'json',
-      success: response => {
-        if (response.result == 'Success') {
-          $('.noavailableEvent').addClass('hidden')
-          // retrieve data 
-          const length = response.eventName.length
+      dataType: "json",
+      success: (response) => {
+        if (response.result == "Success") {
+          $(".noavailableEvent").addClass("hidden");
+          // retrieve data
+          const length = response.eventName.length;
           for (let i = 0; i < length; i++) {
-            const eventID = response.eventID[i]
-            const eventName = response.eventName[i]
-            const eventDate = response.eventDate[i]
+            const eventID = response.eventID[i];
+            const eventName = response.eventName[i];
+            const eventDate = response.eventDate[i];
 
             //display the upcoming event
-            let eventWrapper = $('<div>').addClass('flex flex-wrap gap-2 items-center')
-            let bulletIcon = '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
-            let eventNameElement = $('<p>')
-              .addClass('font-bold italic text-greyish_black text-xs')
-              .text(eventName)
-            let eventDateElement = $('<p>')
-              .addClass('text-xs text-gray-500')
-              .text(eventDate)
+            let eventWrapper = $("<div>").addClass(
+              "flex flex-wrap gap-2 items-center"
+            );
+            let bulletIcon =
+              '<iconify-icon icon="fluent-mdl2:radio-bullet" style="color: #6c6c6c;"></iconify-icon>';
+            let eventNameElement = $("<p>")
+              .addClass("font-bold italic text-greyish_black text-xs")
+              .text(eventName);
+            let eventDateElement = $("<p>")
+              .addClass("text-xs text-gray-500")
+              .text(eventDate);
 
-            let viewDetails = $('<button>')
-              .addClass('text-blue-500 text-xs')
-              .text('View Details')
-              .on('click', function () {
+            let viewDetails = $("<button>")
+              .addClass("text-blue-500 text-xs")
+              .text("View Details")
+              .on("click", function () {
                 // open the modal
-                $('#eventModal').removeClass('hidden')
-                displayEventModal(eventID, eventName, eventDate)
-              })
+                $("#eventModal").removeClass("hidden");
+                displayEventModal(eventID, eventName, eventDate);
+              });
 
-            let eventDetailWrapper = $('<div>').append(eventNameElement, eventDateElement, viewDetails)
+            let eventDetailWrapper = $("<div>").append(
+              eventNameElement,
+              eventDateElement,
+              viewDetails
+            );
             eventWrapper.append(bulletIcon, eventDetailWrapper);
-            $('#upcomingEventroot').append(eventWrapper);
+            $("#upcomingEventroot").append(eventWrapper);
           }
-
-        } else $('.noavailableEvent').removeClass('hidden') // display message
-
-      }
-    })
+        } else $(".noavailableEvent").removeClass("hidden"); // display message
+      },
+    });
   }
 
   function displayEventModal(eventID, eventTitle, eventDateModal) {
-    $('#eventTitleModal').text(eventTitle)
-    $('#eventDateModal').text(eventDateModal)
+    $("#eventTitleModal").text(eventTitle);
+    $("#eventDateModal").text(eventDateModal);
     const headerImg = EVENT_LOGO + eventID;
-    $('#headerImg').attr('src', headerImg)
+    $("#headerImg").attr("src", headerImg);
 
-    let action = "retrieveSpecificEvent"
+    let action = "retrieveSpecificEvent";
     const formatData = new FormData();
-    formatData.append('action', action)
-    formatData.append('eventID', eventID);
+    formatData.append("action", action);
+    formatData.append("eventID", eventID);
 
     // get other details
     $.ajax({
-      method: 'POST',
+      method: "POST",
       url: "../PHP_process/event.php",
       data: formatData,
       processData: false,
       contentType: false,
-      dataType: 'json',
-      success: response => {
+      dataType: "json",
+      success: (response) => {
         //data that has been retrieved
-        const aboutEvent = response.about_event
-        const eventPlace = response.eventPlace
-        const eventStartTime = response.eventStartTime
+        const aboutEvent = response.about_event;
+        const eventPlace = response.eventPlace;
+        const eventStartTime = response.eventStartTime;
 
         //display the data
-        $('#eventDescript').text(aboutEvent)
-        $('#eventPlaceModal').text(eventPlace)
-        $('#eventTimeModal').text(eventStartTime)
-
-      }
-    })
+        $("#eventDescript").text(aboutEvent);
+        $("#eventPlaceModal").text(eventPlace);
+        $("#eventTimeModal").text(eventStartTime);
+      },
+    });
   }
 
-  $('#yearbook-btn').on('click', toggleYearbook)
+  $("#yearbook-btn").on("click", toggleYearbook);
   //Yearbook
   function toggleYearbook() {
     $("#mainFeedContainer").toggleClass("hidden");
     $("#yearbookContainer").toggleClass("hidden");
   }
-
 });
-
-
 
 function buttonColor() {
   var targetDiv = document.getElementById("target-div");
@@ -866,7 +965,6 @@ function toggleColorJob() {
     text.style.color = "";
     targetDiv.classList.remove("hover:bg-red-900");
   }
-
 }
 
 function toggleJobPost() {
@@ -874,38 +972,36 @@ function toggleJobPost() {
   $("#jobRepo").toggleClass("hidden");
 }
 
-// TOGGLE THE FEED AGAIN 
+// TOGGLE THE FEED AGAIN
 function toggleFeed() {
   $("#mainFeedContainer").removeClass("hidden");
   $("#yearbookContainer").addClass("hidden");
-
 }
 
-const jobOffers = document.querySelectorAll('.job-offer');
-jobOffers.forEach(offer => {
-  offer.addEventListener('click', () => {
+const jobOffers = document.querySelectorAll(".job-offer");
+jobOffers.forEach((offer) => {
+  offer.addEventListener("click", () => {
     // Remove the selected class from all job offers
-    jobOffers.forEach(offer => offer.classList.remove('selected'));
+    jobOffers.forEach((offer) => offer.classList.remove("selected"));
     // Add the selected class to the clicked job offer
-    offer.classList.add('selected');
+    offer.classList.add("selected");
   });
 });
 
-
 //BOOKMARK ICON ON JOB HUNT
 jobOffers.forEach((offer) => {
-  const bookmarkIcon = offer.querySelector('.bookmark-icon');
-  bookmarkIcon.addEventListener('click', function () {
-    bookmarkIcon.classList.toggle('fas');
+  const bookmarkIcon = offer.querySelector(".bookmark-icon");
+  bookmarkIcon.addEventListener("click", function () {
+    bookmarkIcon.classList.toggle("fas");
   });
 });
 
 //FEED DYAMIC ARRANGEMENT OF DIVS
 // Calculate and set the width of the center div dynamically
 function setCenterDivWidth() {
-  const leftDiv = document.querySelector('.left-div');
-  const rightDiv = document.querySelector('.right-div');
-  const centerDiv = document.getElementById('centerDiv');
+  const leftDiv = document.querySelector(".left-div");
+  const rightDiv = document.querySelector(".right-div");
+  const centerDiv = document.getElementById("centerDiv");
 
   const leftDivWidth = leftDiv.offsetWidth;
   const rightDivWidth = rightDiv.offsetWidth;
@@ -916,8 +1012,7 @@ function setCenterDivWidth() {
 
 // Call the function initially and on window resize
 setCenterDivWidth();
-window.addEventListener('resize', setCenterDivWidth);
-
+window.addEventListener("resize", setCenterDivWidth);
 
 //IMAGE PICKER
 
@@ -927,7 +1022,9 @@ function openFileExplorer() {
 
 function handleFileSelection(event) {
   const selectedFiles = event.target.files;
-  const selectedImagesContainer = document.getElementById("selectedImagesContainer");
+  const selectedImagesContainer = document.getElementById(
+    "selectedImagesContainer"
+  );
 
   for (let i = 0; i < selectedFiles.length; i++) {
     const selectedFile = selectedFiles[i];
@@ -937,14 +1034,16 @@ function handleFileSelection(event) {
 
       reader.onload = function (e) {
         const imageContainer = document.createElement("div");
-        imageContainer.className = "relative max-w-xs h-auto mr-2 mt-2 rounded-md";
+        imageContainer.className =
+          "relative max-w-xs h-auto mr-2 mt-2 rounded-md";
 
         const image = document.createElement("img");
         image.src = e.target.result;
 
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = "&times;";
-        deleteButton.className = "text-accent text-3xl p-1 focus:outline-none absolute top-0 right-0";
+        deleteButton.className =
+          "text-accent text-3xl p-1 focus:outline-none absolute top-0 right-0";
         deleteButton.onclick = function () {
           deleteImage(imageContainer);
         };
@@ -963,53 +1062,50 @@ function deleteImage(imageContainer) {
   imageContainer.parentNode.removeChild(imageContainer);
 }
 
-
 // Dropdown report for post
 
 // Toggle dropdown menu
 function toggleDropdown() {
-  const dropdownMenu = document.getElementById('dropdownMenu');
-  dropdownMenu.classList.toggle('hidden');
+  const dropdownMenu = document.getElementById("dropdownMenu");
+  dropdownMenu.classList.toggle("hidden");
 }
-
 
 //Function for Zoom Image (POST)
 function openImageModal(imageSrc) {
-  const modal = document.getElementById('imageModal');
-  const modalImage = document.getElementById('modalImage');
+  const modal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modalImage");
 
   modalImage.src = imageSrc;
-  modal.classList.remove('hidden');
+  modal.classList.remove("hidden");
 }
 
 function closeModalPost() {
-  const modal = document.getElementById('imageModal');
-  const modalImage = document.getElementById('modalImage');
+  const modal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modalImage");
 
-  modalImage.src = '';
-  modal.classList.add('hidden');
+  modalImage.src = "";
+  modal.classList.add("hidden");
 }
 
 //For Like and Comment (POST)
 function toggleIcon(iconId) {
   const icon = document.getElementById(iconId);
-  icon.classList.toggle('fa-solid');
-  icon.classList.toggle('fa-regular');
+  icon.classList.toggle("fa-solid");
+  icon.classList.toggle("fa-regular");
 }
 
 //For Like and Comment (IMAGEMODAL POST)
 function toggleIcon1(iconId) {
   const icon = document.getElementById(iconId);
-  icon.classList.toggle('fa-solid');
-  icon.classList.toggle('fa-regular');
+  icon.classList.toggle("fa-solid");
+  icon.classList.toggle("fa-regular");
 }
 
 //Dropdown for Image Modal (POST)
 function toggleDropdownPostModal(dropdownId) {
   const dropdown = document.getElementById(dropdownId);
-  dropdown.classList.toggle('hidden');
+  dropdown.classList.toggle("hidden");
 }
-
 
 //Comment Modal
 function openCommentModal() {
@@ -1020,13 +1116,12 @@ function openCommentModal() {
   //document.getElementById('modalPostImage').src = postImageSrc;
 
   // Open the comment modal
-  document.getElementById('commentModal').classList.remove('hidden');
+  document.getElementById("commentModal").classList.remove("hidden");
 }
 
 function closeCommentModal() {
-  document.getElementById('commentModal').classList.add('hidden');
+  document.getElementById("commentModal").classList.add("hidden");
 }
-
 
 //Truncate sentence from carousel RIGHT DIV
 document.addEventListener("DOMContentLoaded", function () {
@@ -1040,4 +1135,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-
