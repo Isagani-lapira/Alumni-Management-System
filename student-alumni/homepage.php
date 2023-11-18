@@ -393,7 +393,7 @@ function getAccDetails($con, $personID)
 
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
           <!-- Notifications Tab -->
-          <div id="notification-tab" class=" notification-tab hidden fixed top-36 lg:top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
+          <div id="notification-tab" class=" notification-tab hidden fixed top-40 lg:top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
             <div class="notification-content bg-white border-2 px-4 pt-4 pb-20 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
               <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
 
@@ -410,7 +410,7 @@ function getAccDetails($con, $personID)
 
           <div id="modal" class="modal hidden fixed inset-0 h-full w-full flex items-center justify-center
             text-grayish  top-0 left-0">
-            <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3">
+            <div class="modal-container w-10/12 mx-auto lg:mx-0 lg:w-1/3  h-max bg-white rounded-lg p-3">
               <div class="modal-header py-5 border-b border-gray-400">
                 <h1 class=" text-greyish_black text-2xl text-center font-bold">Create New Post</h1>
               </div>
@@ -553,69 +553,68 @@ function getAccDetails($con, $personID)
 
         <!-- viewing of post -->
         <div id="viewingPost" class="post modal fixed hidden inset-0 flex items-center justify-center p-3">
-          <div class="modal-container w-full h-full bg-white rounded-lg flex relative">
-            <span id="closePostModal" class="absolute top-0 right-0 text-center text-2xl cursor-pointer p-3 hover:scale-50 hover:font-bold">x</span>
-            <div id="containerSection" class="w-8/12 h-full ">
+          <div class="modal-container w-full h-full bg-white rounded-lg flex relative p-6 lg:p-0">
+            <button id="closePostModal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</button>
 
-              <div id="default-carousel" class="relative w-full h-full bg-black" data-carousel="slide">
-                <!-- Carousel wrapper -->
-                <div class="overflow-hidden rounded-lg h-full" id="carousel-wrapper"></div>
-                <!-- Slider indicators -->
-                <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2" id="carousel-indicators">
-                </div>
-                <!-- Slider controls -->
-                <button id="btnPrev" type="button" class="navigatorBtn absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20" data-carousel-prev>
-                  <span class="inline-flex items-center justify-center w-10 h-10 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                      <path fill="white" d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z" />
-                    </svg>
-                    <span class="sr-only">Previous</span>
-                  </span>
-                </button>
-                <button id="btnNext" type="button" class="navigatorBtn text-white absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20">
-                  <span class="inline-flex items-center justify-center w-10 h-10">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                      <path fill="none" stroke="currentColor" stroke-width="2" d="m7 2l10 10L7 22" />
-                    </svg>
-                    <span class="sr-only">Next</span>
-                  </span>
-
-                </button>
-              </div>
-
-            </div>
-
-            <!-- description -->
-            <div id="descriptionInfo" class="w-4/12 h-full p-2 border-l p-3 border-gray-400">
-              <div class="flex justify-start gap-2">
-                <img id="profilePic" class="rounded-full border-2 border-accent h-10 w-10" src="" alt="">
-                <div class="flex flex-col">
-                  <span id="postFullName" class=" text-greyish_black font-bold"></span>
-                  <span id="postUN" class=" text-gray-400 text-xs">username</span>
+            <!-- <span  class="absolute top-0 right-0 text-center text-2xl cursor-pointer p-3 hover:scale-50 hover:font-bold">x</span> -->
+            <!-- change the orientation dpending on the screen size -->
+            <div class="flex flex-col lg:flex-row w-full mt-4 lg:mt-0">
+              <div id="containerSection" class="w-full lg:w-8/12 h-full ">
+                <div id="default-carousel" class="relative w-full h-full bg-black" data-carousel="slide">
+                  <!-- Carousel wrapper -->
+                  <div class="overflow-hidden rounded-lg h-full" id="carousel-wrapper"></div>
+                  <!-- Slider indicators -->
+                  <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2" id="carousel-indicators">
+                  </div>
+                  <!-- Slider controls -->
+                  <button id="btnPrev" type="button" class="navigatorBtn absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20" data-carousel-prev>
+                    <span class="inline-flex items-center justify-center w-10 h-10 ">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                        <path fill="white" d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z" />
+                      </svg>
+                      <span class="sr-only">Previous</span>
+                    </span>
+                  </button>
+                  <button id="btnNext" type="button" class="navigatorBtn text-white absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20">
+                    <span class="inline-flex items-center justify-center w-10 h-10">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-width="2" d="m7 2l10 10L7 22" />
+                      </svg>
+                      <span class="sr-only">Next</span>
+                    </span>
+                  </button>
                 </div>
               </div>
-              <p id="postDescript" class=" text-greyish_black font-light text-sm h-1/2 overflow-y-auto p-2">Description</p>
-
-              <div class="relative">
-
-                <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2 px-3">
-                  <img src="../assets/icons/emptyheart.png" alt="">
-                  <span id="noOfLikes" class="cursor-pointer w-10 text-center"></span>
-                  <img src="../assets/icons/comment.png" alt="">
-                  <span id="noOfComment">0</span>
+              <!-- description -->
+              <div id="descriptionInfo" class="w-full lg:w-4/12 h-full  lg:border-l p-3 border-gray-400">
+                <div class="flex justify-start gap-2">
+                  <img id="profilePic" class="rounded-full border-2 border-accent h-10 w-10" src="" alt="">
+                  <div class="flex flex-col">
+                    <span id="postFullName" class=" text-greyish_black font-bold"></span>
+                    <span id="postUN" class=" text-gray-400 text-xs">username</span>
+                  </div>
                 </div>
-                <div id="namesOfUser" class="absolute -bottom-2 right-0 bg-black opacity-25 text-gray-300 w-1/3 text-xs p-2 rounded-md hidden"></div>
+                <p id="postDescript" class=" text-greyish_black font-light text-sm h-1/2 overflow-y-auto p-2">Description</p>
+                <div class="relative">
+                  <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2 px-3">
+                    <img src="../assets/icons/emptyheart.png" alt="">
+                    <span id="noOfLikes" class="cursor-pointer w-10 text-center"></span>
+                    <img src="../assets/icons/comment.png" alt="">
+                    <span id="noOfComment">0</span>
+                  </div>
+                  <div id="namesOfUser" class="absolute -bottom-2 right-0 bg-black opacity-25 text-gray-300 w-1/3 text-xs p-2 rounded-md hidden"></div>
+                </div>
+                <!-- comments -->
+                <div id="commentContainer" class=" h-3/4 p-2 overflow-auto"></div>
               </div>
 
-              <!-- comments -->
-              <div id="commentContainer" class=" h-3/4 p-2 overflow-auto"></div>
             </div>
           </div>
         </div>
 
         <!-- comment -->
         <div id="commentPost" class="post modal fixed inset-0 flex justify-center p-3 hidden">
-          <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 mt-14 flex flex-col gap-1">
+          <div class="modal-container w-full lg:w-1/3 h-max bg-white rounded-lg p-3 mt-14 flex flex-col gap-1">
             <!-- close button -->
             <span class="flex justify-end">
               <iconify-icon id="closeComment" class="rounded-full cursor-pointer p-2 hover:bg-gray-300" icon="ep:close" style="color: #686b6f;" width="20" height="20"></iconify-icon>
@@ -643,7 +642,7 @@ function getAccDetails($con, $personID)
                 echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
               }
               ?>
-              <textarea id="commentArea" class="w-full h-28 outline-none text-gray-400" placeholder="Comment your thought!"></textarea>
+              <textarea id="commentArea" class="w-full h-28 outline-none text-gray-400" placeholder="Comment your thoughts!"></textarea>
             </div>
 
             <button id="commentBtn" class="px-3 py-2 rounded-lg bg-red-950 text-white font-semibold block ml-auto text-sm" disabled>Comment</button>
@@ -703,7 +702,7 @@ function getAccDetails($con, $personID)
 
         <!-- report modal -->
         <div id="reportModal" class="post modal hidden fixed inset-0 z-50 flex items-center justify-center p-3">
-          <div class="modal-container w-2/5 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+          <div class="modal-container w-full lg:w-2/5 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
             <h1 class="text-xl  text-center font-bold py-3 border-b border-gray-400">Report</h1>
 
             <!-- description -->
@@ -802,9 +801,9 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
-        <!-- success prompt -->
+        <!-- success prompt Modal -->
         <div id="successModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-          <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+          <div class="modal-container w-full md:w-1/2 lg:w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
             <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <circle id="filled-circle" fill="#47CF73" cx="66.5" cy="66.5" r="54.5" />
@@ -820,7 +819,7 @@ function getAccDetails($con, $personID)
 
         <!-- announcement modal -->
         <div id="announcementModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-          <div id="announcementContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
+          <div id="announcementContainer" class="modal-container w-10/12 mx-auto lg:mx-0 lg:w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-3 px-12 text-greyish_black flex flex-col gap-2">
             <!-- header -->
             <div class="flex gap-2 items-center py-2">
               <img src="../images/BSU-logo.png" alt="Logo" class="w-10 h-10" />
@@ -844,8 +843,9 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <!-- Restore Modal -->
         <div id="restoreModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-          <div class="relative w-1/3 h-max p-3 bg-white rounded-md">
+          <div class="relative w-10/12 mx-auto lg:mx-0 lg:w-1/3 h-max p-3 bg-white rounded-md">
             <h1 class="text-xl text-greyish_black font-bold text-center py-2 border-b border-gray-400">Restore to Profile</h1>
             <p class="text-gray-500 text-sm">Items you restore to your profile can be seen by the audience that was selected
               before they were moved to archive.</p>
@@ -860,11 +860,12 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <!-- Profile Modal -->
         <div id="profileModal" class="fixed inset-0 flex justify-center z-50 bg-black bg-opacity-50 hidden">
-          <div id="profileModalUser" class="bg-white rounded shadow-lg w-2/5 max-h-screen h-max overflow-y-auto slide-bottom">
+          <div id="profileModalUser" class="bg-white rounded shadow-lg w-10/12 mx-auto md:w-8/12 lg:w-2/5 lg:mx-0 max-h-screen h-max overflow-y-auto slide-bottom">
             <!-- Cover Photo -->
             <div class="coverPhotoContainer">
-              <img id="profileModalCover" alt="Cover Photo" class=" w-4/5 h-full md:h-56 mb-4 object-cover block mx-auto object-center">
+              <img id="profileModalCover" alt="Cover Photo" class=" w-full h-full md:h-56 mb-4 object-cover block object-center">
             </div>
             <div class="px-4 md:px-6">
 
@@ -924,6 +925,7 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <!-- Additional Question Modal -->
         <div id="sectionModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
           <div class="sectionModalTracer bg-white rounded shadow-lg w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
             <h3 class="font-bold text-xl text-accent py-2 border-b border-gray-300 text-center">Additional Question</h3>
@@ -942,8 +944,9 @@ function getAccDetails($con, $personID)
           </div>
         </div>
 
+        <!-- Reported Post MOdal -->
         <div id="reportedPostModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
-          <div class="bg-white rounded shadow-lg w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
+          <div class="bg-white rounded shadow-lg w-full lg:w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
 
             <!-- head -->
             <div class="flex gap-2 items-center">
@@ -984,6 +987,7 @@ function getAccDetails($con, $personID)
         </div>
 
 
+        <!-- View Resume Modal  -->
         <div id="viewResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
           <div class="fixed h-max w-full bg-black bg-opacity-50  flex justify-between p-3 top-0 gap-2">
             <button id="closeViewResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
@@ -1388,7 +1392,7 @@ function getAccDetails($con, $personID)
 
 
         <div id="createJobModal" class="post modal fixed inset-0 z-50 flex justify-center p-3 hidden">
-          <div id="jobContainer" class="relative w-1/3 no-scrollbar py-3 px-4 bg-white rounded-md h-3/4 overflow-y-auto slide-bottom">
+          <div id="jobContainer" class="relative w-10/12 mx-auto lg:mx-0 lg:w-1/3 no-scrollbar py-3 px-4 bg-white rounded-md h-3/4 overflow-y-auto slide-bottom">
             <h5 class="text-center font-bold text-xl text-greyish_black py-2 border-b border-gray-300">Career Posting</h5>
 
             <form id="jobPostingForm" enctype="multipart/form-data">
@@ -1508,9 +1512,9 @@ function getAccDetails($con, $personID)
 
       </div>
 
-      <!-- event modal -->
+      <!-- event detail modal -->
       <div id="eventModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-        <div id="eventContainer" class="modal-container w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-7 px-12 
+        <div id="eventContainer" class="modal-container w-10/12 mx-auto lg:mx-0 lg:w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-7 px-12 
           text-greyish_black flex flex-col gap-2">
 
           <!-- Event images -->
@@ -1527,7 +1531,7 @@ function getAccDetails($con, $personID)
 
       <!-- status modal -->
       <div id="postStatusModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div class="postStatus bg-white rounded-md w-2/6 p-5 flex flex-col gap-3">
+        <div class="postStatus bg-white rounded-md mx-2 lg:mx-0 w-full lg:w-2/6 p-5 flex flex-col gap-3">
           <div class="flex justify-between">
             <div class="flex items-center">
               <img id="profileStatusImg" class="w-10 h-10 rounded-full" alt="" srcset="">
@@ -1598,7 +1602,7 @@ function getAccDetails($con, $personID)
       if (!$isNotifShown) {
         echo
         '<div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center migrationModal">
-          <div class="bg-white w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+          <div class="bg-white   w-10/12 mx-auto lg:mx-0 lg:w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
             <h2 class="text-2xl font-semibold">We noticed something about this account!</h2>
             <p>Your account appears to be prepared for account migration to alumni.
               Verify that you graduated from Bulacan State University before processing your immigration.</p>
@@ -1631,7 +1635,7 @@ function getAccDetails($con, $personID)
     ?>
     <!-- cancel migration -->
     <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center cancelMigrationModal hidden">
-      <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+      <div class="bg-white rounded-md w-10/12 mx-auto lg:mx-0 lg:w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
         <h2 class="text-xl font-semibold">Confirmation</h2>
         <p>In the edit profile area, you can see this if you chose to move your account.</p>
         <div class="flex justify-end gap-2">
@@ -1643,7 +1647,7 @@ function getAccDetails($con, $personID)
 
     <!-- additional information for migrating -->
     <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center additionalInfo hidden">
-      <div class="bg-white rounded-md w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+      <div class="bg-white rounded-md w-10/12 mx-auto lg:mx-0 lg:w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
         <h2 class="text-lg font-semibold border-b border-gray-400 py-2">Additional Information for Migrating</h2>
         <form id="migrationForm">
           <?php
@@ -1684,7 +1688,7 @@ function getAccDetails($con, $personID)
 
     <!-- success migration -->
     <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center successMigrationModal hidden">
-      <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+      <div class="bg-white rounded-md w-10/12 mx-auto lg:mx-0 lg:w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
         <!-- success animation -->
         <div class="success-checkmark">
           <div class="check-icon">
@@ -1701,7 +1705,7 @@ function getAccDetails($con, $personID)
 
     <!-- applicant message -->
     <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center applicantMsg hidden">
-      <div class="bg-white rounded-2xl w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
+      <div class="bg-white rounded-2xl w-10/12 mx-auto lg:mx-0 lg:w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
         <h3 class="text-xl font-semibold">Message for recruiter</h3>
         <p>Tell us about yourself here so that the recruiter may learn more about you. Don't forget to include your contact information so that they can easily contact you.</p>
         <textarea id="applicantMsg" class="h-4/5 outline-none border border-gray-400 rounded-lg resize-none p-5 no-scrollbar"></textarea>
@@ -1715,7 +1719,7 @@ function getAccDetails($con, $personID)
 
     <!-- success application   prompt -->
     <div id="successApplicationModal" class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center hidden">
-      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+      <div class="modal-container w-10/12 mx-auto lg:mx-0 lg:w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
         <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <circle id="filled-circle" fill="#47CF73" cx="66.5" cy="66.5" r="54.5" />
@@ -1732,7 +1736,7 @@ function getAccDetails($con, $personID)
 
     <!-- inbox -->
     <div class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center messageJob hidden">
-      <div class="bg-white rounded-2xl w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
+      <div class="bg-white rounded-2xl w-10/12 mx-auto lg:mx-0 lg:w-1/2 p-5 flex flex-col gap-3 text-gray-700 h-1/2">
         <div class="flex items-center gap-2">
           <iconify-icon icon="fluent-mdl2:back" class="cursor-pointer closeMsgJob" width="24" height="24"></iconify-icon>
           <h3 class="text-2xl flex items-center">Applicant Message</h3>
@@ -1746,7 +1750,7 @@ function getAccDetails($con, $personID)
 
     <!-- error prompt -->
     <div id="errorResumeModal" class="modal fixed inset-0 h-full w-full flex flex-col items-center justify-center p-3 hidden">
-      <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-1">
+      <div class="modal-container w-10/12 mx-auto lg:mx-0 lg:w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-1">
         <lord-icon class="block mx-auto" src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" delay="1000" colors="primary:#e83a30,secondary:#e83a30" style="width:150px;height:150px">
         </lord-icon>
         <h1 class=" text-3xl font-bold text-red-500 text-center">Oopss!</h1>
