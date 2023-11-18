@@ -128,12 +128,19 @@ function getAccDetails($con, $personID)
     <div id="tabs" class="h-screen overflow-y-scroll hide-scrollbar relative">
       <!-- Navbar -->
       <div class="Navbar fixed top-0 left-0 right-0 z-30">
-        <nav class="grid grid-cols-3 gap-4 p-6 bg-white text-black shadow-lg">
-          <a href="homepage.php" class="col-span-1 flex items-center">
-            <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class=" w-32 h-16" />
-          </a>
+        <!-- nav class -->
+        <nav class="flex flex-row justify-between items-center   py-6 bg-white text-black shadow-lg">
 
-          <div class="col-span-3 md:col-span-1 flex items-center justify-center mt-4 md:mt-0 relative">
+          <!-- Icon Image -->
+          <div class=" w-1/4 px-2 sm:px-8 flex items-center">
+            <a href="homepage.php" class=" min-w-[20px] flex items-center h-auto w-20 lg:h-16 lg:w-32">
+              <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class="object-contain" />
+            </a>
+          </div>
+          <!-- end Icon Image -->
+
+          <!-- Search Bar -->
+          <div class="flex-1 w-1/2 max-w-[50%] flex items-center justify-center mt-0   relative cursor-text">
             <div class="relative w-full">
               <input type="text" id="searchUser" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-black border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none" />
               <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
@@ -143,27 +150,31 @@ function getAccDetails($con, $personID)
             </div>
           </div>
 
-          <div class="col-span-2 md:col-span-1 flex items-center justify-end">
-            <!-- set profile image -->
-            <?php
-            if ($profilepicture == "") {
-              echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
-            } else {
-              $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-              echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="w-10 h-10 profile-icon" />';
-            }
+          <div class="w-1/4  px-2 sm:px-8 flex items-center justify-end ">
 
-            ?>
-            <p id="accFN" class="mr-4 text-sm font-medium text-greyish_black p-4">
-              <?php
-              echo $fullname;
-              ?>
-            </p>
+
+            <!-- End Search Bar -->
 
             <!-- Dropdown Button -->
-            <div class="relative">
-              <button id="dropdown-btn" class="bg-transparent border-none outline-none">
-                <i class="fas fa-chevron-down text-lg"></i>
+            <div class="relative  ">
+              <button id="dropdown-btn" class="flex flex-row items-center  gap-4 bg-transparent border-none outline-none">
+                <!-- set profile image -->
+                <div class="w-10 h-10 flex justify-center items-center">
+                  <?php
+                  if ($profilepicture == "") {
+                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="object-contain profile-icon" />';
+                  } else {
+                    $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class=" object-contain profile-icon" />';
+                  }
+                  ?>
+                </div>
+                <p id="accFN" class="hidden lg:block mr-4 text-sm font-medium text-greyish_black p-4">
+                  <?php
+                  echo $fullname;
+                  ?>
+                </p>
+                <i class="hidden lg:inline fas fa-chevron-down text-lg"></i>
               </button>
             </div>
 
@@ -177,7 +188,10 @@ function getAccDetails($con, $personID)
               </span>
             </div>
           </div>
+
+
         </nav>
+        <!-- end nav class -->
       </div>
 
       <!--SUB NAVBAR-->
