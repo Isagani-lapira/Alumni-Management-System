@@ -117,26 +117,26 @@
             <!-- personal information  -->
             <div class="personalInfo">
                 <!-- name -->
-                <div class="flex gap-2">
-                    <div class="w-1/2 flex flex-col">
+                <div class="flex flex-col lg:flex-row gap-2">
+                    <div class="w-full lg:w-1/2 flex flex-col">
                         <label for="fname">First name</label>
                         <input type="text" id="fname" name="fname" class="p-3 rounded-lg border border-gray-400 requiredAlumni" placeholder="ex: Juan">
                     </div>
 
-                    <div class="w-1/2 flex flex-col">
+                    <div class="w-full lg:w-1/2   flex flex-col">
                         <label for="lname">Last name</label>
                         <input type="text" id="lname" name="lname" class="p-3 rounded-lg border border-gray-400 requiredAlumni" placeholder="ex: Dela Cruz">
                     </div>
                 </div>
 
                 <!-- contact and student no -->
-                <div class="flex gap-2">
-                    <div class="w-1/2 flex flex-col">
+                <div class="flex flex-col lg:flex-row gap-2">
+                    <div class="w-full lg:w-1/2  flex flex-col">
                         <label for="contactNo">Contact Number</label>
                         <input type="text" id="contactNo" name="contactNo" class="p-3 rounded-lg border border-gray-400 requiredAlumni" placeholder="ex: 09938190220">
                     </div>
 
-                    <div class="w-1/2 flex flex-col">
+                    <div class="w-full lg:w-1/2  flex flex-col">
                         <label for="studNo">Student No.</label>
                         <input type="text" id="studNo" name="studNo" class="p-3 rounded-lg border border-gray-400 requiredAlumni" placeholder="ex: 2015103299">
                         <span class="studExistingMsg italic text-red-400 text-sm hidden">This student number is not yet registered in the system</span>
@@ -144,15 +144,15 @@
                 </div>
 
                 <!-- birthday and gender -->
-                <div class="flex gap-2">
-                    <div class="w-1/2 flex flex-col">
+                <div class="flex flex-col lg:flex-row gap-2">
+                    <div class="w-full lg:w-1/2  flex flex-col">
                         <label for="bday">Birthday</label>
                         <div class="p-1 rounded-lg border border-gray-400 gap-2">
                             <input type="date" id="bday" name="bday" class="bdayInput w-full requiredAlumni">
                         </div>
                     </div>
 
-                    <div class="w-1/2 flex flex-col">
+                    <div class="w-full lg:w-1/2 flex flex-col">
                         <label for="male">Gender</label>
                         <div class="p-3 rounded-lg border border-gray-400 flex justify-center gap-2">
                             <input type="radio" id="male" name="gender" value="male" checked>
@@ -201,8 +201,8 @@
             <!-- account information -->
             <div id="accountInfoAlumni" class="flex flex-col gap-2 hidden">
                 <!-- college and batch -->
-                <div class="flex gap-2">
-                    <div class="w-1/2 flex flex-col">
+                <div class="flex gap-2 flex-col lg:flex-row">
+                    <div class="w-full lg:w-1/2  flex flex-col">
                         <label for="college">Year</label>
                         <select name="college" id="college" class="p-3 rounded-lg border border-gray-400 requiredAlumni2">
                             <option value="" selected>Your college</option>
@@ -224,7 +224,7 @@
                         </select>
                     </div>
 
-                    <div class="w-1/2 flex flex-col">
+                    <div class="w-full lg:w-1/2  flex flex-col">
                         <label for="batch">Batch</label>
                         <select name="batch" id="batchAlumni" class="p-3 rounded-lg border border-gray-400 requiredAlumni2">
                             <option value="" selected>Year you graduated</option>
@@ -304,13 +304,13 @@
                     </span>
                 </div>
                 <!-- name -->
-                <div class="flex gap-2">
-                    <div class="w-1/2 flex flex-col">
+                <div class="flex flex-col lg:flex-row gap-2">
+                    <div class="w-full lg:w-1/2   flex flex-col">
                         <label for="studFname">First name</label>
                         <input type="text" id="studFname" readonly title="Automatically added once student number is inserted" name="fname" class="p-3 bg-gray-300 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: Juan">
                     </div>
 
-                    <div class="w-1/2 flex flex-col">
+                    <div class="w-full lg:w-1/2 flex flex-col">
                         <label for="studlname">Last name</label>
                         <input type="text" id="studlname" readonly title="Automatically added once student number is inserted" name="lname" class="p-3 bg-gray-300 rounded-lg border border-gray-400 requiredStudenField" placeholder="ex: Dela Cruz">
                     </div>
@@ -326,15 +326,15 @@
                 </div>
 
                 <!-- birthday and gender -->
-                <div class="flex gap-2">
-                    <div class="w-1/2 flex flex-col">
+                <div class="flex flex-col lg:flex-row  gap-2">
+                    <div class="w-full lg:w-1/2 flex flex-col">
                         <label for="studBday">Birthday</label>
                         <div class="p-1 rounded-lg border border-gray-400 gap-2">
                             <input type="date" id="studBday" name="bday" class="bdayInput w-full requiredStudenField">
                         </div>
                     </div>
 
-                    <div class="w-1/2 flex flex-col">
+                    <div class="w-full lg:w-1/2 flex flex-col">
                         <label for="male">Gender</label>
                         <div class="p-3 rounded-lg border border-gray-400 flex justify-center gap-2">
                             <input type="radio" id="studMale" name="gender" checked>
