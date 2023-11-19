@@ -1265,15 +1265,15 @@ function getAccDetails($con, $personID)
       <!-- TAB 3 -->
       <div id="tabs-3" class="h-full">
         <!-- Job Offer Tabs -->
-        <div id="job-offer-tabs" class="flex md:flex-row pt-44 z-10 h-full">
+        <div id="job-offer-tabs" class="flex flex-col md:flex-row pt-44 z-10 h-full">
 
           <!-- LEFT DIV -->
-          <div class="left-div w-1/3 md:w-5/12 relative p-3">
+          <div class="left-div mx-auto w-full   md:mx-0 md:w-5/12 relative p-3 flex flex-col items-center mb-4 ">
 
             <!-- Upper Part -->
-            <div class="flex flex-col md:flex-row items-center w-10/12">
+            <div class="flex flex-row flex-wrap items-center w-full lg:w-10/12 gap-2">
               <!-- Dropdown List -->
-              <select id="jobSelection" class="py-2 p-3 outline-none border-black center-shadow rounded-md shadow text-sm appearance-none cursor-pointer">
+              <select id="jobSelection" class="form-select  border-gray-400 center-shadow rounded-md shadow text-sm appearance-none cursor-pointer">
                 <option value="all">All</option>
                 <option value="Saved">Bookmark</option>
                 <option value="Applied">Applied</option>
@@ -1287,17 +1287,19 @@ function getAccDetails($con, $personID)
               </div>
             </div>
 
-            <div class="scrollable-container mt-8 rounded-md  w-10/12">
-              <ul id="listOfJob" class="tab-links overflow-y-auto px-2 pb-4 flex flex-col gap-2 w-full" style="max-height: 440px;">
+            <div class="scrollable-container mt-8 rounded-md  w-full max-w-sm  lg:max-w-lg lg:w-10/12">
+              <ul id="listOfJob" class="tab-links overflow-y-auto px-2 pb-4 flex flex-col gap-4 w-full" style="max-height: 440px;">
                 <p id="noJobMsg" class="hidden text-sm text-blue-400 text-center">No available job right now</p>
               </ul>
             </div>
 
+            <!-- Job Post Button -->
             <?php
+
 
             if ($user_type == "alumni") {
               echo '
-              <div class="absolute bottom-7 mt-3 flex justify-center items-center w-10/12">
+              <div class="absolute bottom-0 lg:p-3 mt-3 flex justify-center items-center w-full max-w-sm lg:max-w-lg lg:w-10/12">
                 <button id="createJobPost" class="bg-blue-400 rounded-md text-white w-full py-3 hover:bg-blue-500">
                   <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-2 -2 24 24">
                     <path fill="white" d="m5.72 14.456l1.761-.508l10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635l-.52 1.82zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.901.901 0 0 1-1.11-.623a.915.915 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635h3.592z" />
@@ -1307,11 +1309,14 @@ function getAccDetails($con, $personID)
               </div>';
             }
             ?>
+            <!-- end Job Post Btn -->
           </div>
 
           <!-- CENTER DIV -->
           <div class="center-div w-full jobDescript">
             <div class="content-div rounded-md text-sm h-full">
+
+
               <div id="jobDescWrapper" class="tab-content p-3 w-full mx-auto hidden h-full">
                 <!-- JOB DESC. -->
                 <div class="job-des h-full center-shadow overflow-y-auto p-5" id="job-description">
@@ -1380,8 +1385,11 @@ function getAccDetails($con, $personID)
                 </div>
 
               </div>
+
+
+              <!-- Job Grid Display -->
               <div class="h-full">
-                <div id="jobCard" class="w-full h-full grid grid-cols-3 overflow-y-auto gap-2 p-5"></div>
+                <div id="jobCard" class="w-full h-full flex flex-wrap align-top justify-center  overflow-y-auto gap-6 p-5"></div>
               </div>
 
             </div>
@@ -1392,7 +1400,7 @@ function getAccDetails($con, $personID)
 
 
         <div id="createJobModal" class="post modal fixed inset-0 z-50 flex justify-center p-3 hidden">
-          <div id="jobContainer" class="relative w-10/12 mx-auto lg:mx-0 lg:w-1/3 no-scrollbar py-3 px-4 bg-white rounded-md h-3/4 overflow-y-auto slide-bottom">
+          <div id="jobContainer" class="relative w-11/12 mx-auto lg:mx-0 lg:w-1/3 no-scrollbar py-3 px-4 bg-white rounded-md h-3/4 overflow-y-auto slide-bottom">
             <h5 class="text-center font-bold text-xl text-greyish_black py-2 border-b border-gray-300">Career Posting</h5>
 
             <form id="jobPostingForm" enctype="multipart/form-data">

@@ -153,7 +153,7 @@ $(document).ready(function () {
 
     //mark up for card job
     const cardWrapper = $("<div>").addClass(
-      "max-w-sm p-3 bg-white border border-gray-200 rounded-lg bg-accent card-job flex flex-col h-full"
+      "max-w-sm max-h-[25rem] p-3 bg-white border border-gray-200 rounded-lg bg-accent card-job flex flex-col h-full"
     );
 
     //company logo
