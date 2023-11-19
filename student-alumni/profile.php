@@ -195,17 +195,17 @@ function dateInText($date)
         <?php
         if ($coverPhoto == "") {
             // Use the default image as the background of the container
-            echo '<div class="h-full bg-black w-3/4 mx-auto rounded-md" style="background-image: url(../images/bgProfile.png); background-size: cover; background-position: center;"></div>';
+            echo '<div class="h-full bg-black w-full mx-auto rounded-md" style="background-image: url(../images/bgProfile.png); background-size: cover; background-position: center;"></div>';
         } else {
             // Use the uploaded image as the background of the container
             $srcFormat = 'data:image/jpeg;base64,' . $coverPhoto;
-            echo '<div class="h-full w-3/4 mx-auto bg-no-repeat rounded-md bg-black bg-opacity-50" style="background-image: url(' . $srcFormat . '); 
+            echo '<div class="h-full w-full mx-auto bg-no-repeat rounded-md bg-black bg-opacity-50" style="background-image: url(' . $srcFormat . '); 
             background-size: cover; background-position: center bottom;">
             </div>';
         }
         ?>
         <!-- Profile Photo (Intersecting with the Cover Photo) -->
-        <div class="profileWrapper absolute bottom-0 flex transform -translate-x-1/4 translate-y-1/2 rounded-full border-4 border-accentBlue overflow-hidden w-44 h-44">
+        <div class="left-1/2 lg:left-[23%]  absolute bottom-0 flex transform -translate-x-1/2 lg:-translate-x-1/4 translate-y-1/2 rounded-full border-4 border-accentBlue overflow-hidden w-44 h-44">
             <?php
             if ($profilepicture == "") {
                 echo '<img id="profilePhoto" src="../assets/icons/person.png" alt="Profile Icon" class="w-full h-full object-contain bg-white" />';
@@ -218,11 +218,10 @@ function dateInText($date)
     </div>
 
     <!-- Buttons -->
-    <div class="flex items-center justify-between w-3/4 mx-auto my-4">
-        <div class="w-1/4"></div>
-        <div class="w-3/4 flex items-center">
+    <div class="flex mt-24 lg:mt-auto lg:pl-[35%] items-center justify-between w-full mx-auto my-4">
+        <div class="w-full flex items-center flex-col lg:flex-row gap-6 justify-center  lg:justify-between py-4 pr-8">
             <!-- Profile Info -->
-            <div class=" w-1/2">
+            <div class=" ">
                 <!-- Student's name and user handle -->
                 <?php
                 echo '<p class="font-bold text-3xl text-blue-900">' . $fullname . '</p>';
@@ -230,7 +229,7 @@ function dateInText($date)
                 ?>
 
             </div>
-            <div class="flex justify-end gap-2 w-1/2">
+            <div class="flex justify-end  gap-2 ">
                 <button id="viewResumeBtn" class="bg-accent hover:bg-darkAccent text-white px-4 py-2 rounded-lg">View Resume</button>
                 <button id="modal-openBtn" class="bg-gray-100 hover:bg-gray-200 text-accent border border-accent px-4 py-2 rounded-lg">Edit Profile</button>
             </div>
