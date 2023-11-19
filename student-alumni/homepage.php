@@ -215,7 +215,7 @@ function getAccDetails($con, $personID)
           </li>
 
           <!--LINE SEPARATOR-->
-          <div class="h-10 w-0.5 bg-white md:5"></div>
+          <div class="hidden xl:block h-10 w-0.5 bg-white md:5"></div>
 
           <!--EVENTS TAB-->
           <li id="eventLI" class="w-full sm:w-auto px-5 flex justify-center">
@@ -228,7 +228,7 @@ function getAccDetails($con, $personID)
           </li>
 
           <!--LINE SEPARATOR-->
-          <div class="h-10 w-0.5 bg-white md:5"></div>
+          <div class="hidden xl:block h-10 w-0.5 bg-white md:5"></div>
 
           <!--JOB HUNT TAB-->
           <li class="w-full sm:w-auto px-5 flex justify-center">
@@ -1201,29 +1201,29 @@ function getAccDetails($con, $personID)
 
       <!-- TAB 2 -->
       <div id="tabs-2" class="h-full">
-        <div id="eventView" class="h-full">
-          <div class=" h-2/3 top-72">
+        <div id="eventView" class="h-full ">
+          <div class=" h-1/2 lg:h-2/3  md:top-72">
             <div class="relative w-full h-full flex items-center">
               <img class=" object-cover object-top darkened-image" src="../assets/bg_event.jpg" alt="">
-              <h1 class=" md:text-8xl sm:text-2xl text-white font-black w-full text-center absolute typewriter">Let's Connect <span class="text-accent"> BulSUAN!</span></h1>
+              <h1 class="text-2xl md:text-4xl lg:text-5xl xl:text-8xl  text-white font-black w-full text-center absolute typewriter">Let's Connect <span class="text-accent"> BulSUAN!</span></h1>
             </div>
           </div>
 
           <!-- body -->
           <div class="p-10">
-            <span class="text-gray-500">Get excited for the upcoming</span>
+            <span class="text-gray-500 text-lg">Get excited for the upcoming</span>
             <h3 id="eventName" class="font-bold text-gray-700 text-4xl"></h3>
 
             <div class="date flex flex-col items-end text-gray-700">
-              <span>Starts on</span>
+              <span class="text-lg">Starts on</span>
               <span id="eventStartDate" class="font-bold"></span>
             </div>
 
             <!-- description -->
-            <p id="eventDescriptData" class="text-gray-700 my-4 text-lg w-4/5"></p>
+            <p id="eventDescriptData" class="max-w-prose text-justify lg:text-left leading-relaxed mx-auto xl:mx-0 text-gray-700 my-4 text-lg w-4/5"></p>
 
             <!-- view more details -->
-            <div class="viewDetailCont flex justify-end">
+            <div class="viewDetailCont flex justify-end my-4">
               <button id="viewInDetailsEvent" class="bg-accent px-4 py-2 rounded-md text-white font-semibold">See Event Details</button>
             </div>
 
@@ -1232,14 +1232,14 @@ function getAccDetails($con, $personID)
             <div class="m-4 rounded-md border border-gray-300 p-5 text-gray-600">
               <h3 class="font-bold text-2xl mb-5">College Future Events</h3>
               <!-- top 3 incoming college event -->
-              <div id="upcomingColEvent" class="flex justify-evenly flex-wrap"></div>
+              <div id="upcomingColEvent" class="flex justify-evenly flex-wrap gap-4"></div>
             </div>
 
             <!-- alumni event -->
             <div class="m-4 rounded-md border border-gray-300 p-5 text-gray-600">
               <h3 class="font-bold text-2xl mb-5">Alumni Future Events</h3>
               <!-- top 3 upcoming event for alumni -->
-              <div id="upcomingAlumniEvent" class="flex justify-evenly flex-wrap"></div>
+              <div id="upcomingAlumniEvent" class="flex justify-evenly flex-wrap gap-4"></div>
             </div>
           </div>
 
@@ -1514,7 +1514,7 @@ function getAccDetails($con, $personID)
 
       <!-- event detail modal -->
       <div id="eventModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-        <div id="eventContainer" class="modal-container w-10/12 mx-auto lg:mx-0 lg:w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-7 px-12 
+        <div id="eventContainer" class="modal-container w-11/12 mx-auto lg:mx-0 lg:w-2/5 h-5/6 overflow-y-auto bg-white rounded-md py-7 px-12 
           text-greyish_black flex flex-col gap-2">
 
           <!-- Event images -->
