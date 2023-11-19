@@ -559,6 +559,7 @@ function getAccDetails($con, $personID)
             <!-- <span  class="absolute top-0 right-0 text-center text-2xl cursor-pointer p-3 hover:scale-50 hover:font-bold">x</span> -->
             <!-- change the orientation dpending on the screen size -->
             <div class="flex flex-col lg:flex-row w-full mt-4 lg:mt-0">
+              <!-- Container Section -->
               <div id="containerSection" class="w-full lg:w-8/12 h-full ">
                 <div id="default-carousel" class="relative w-full h-full bg-black" data-carousel="slide">
                   <!-- Carousel wrapper -->

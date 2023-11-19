@@ -221,7 +221,7 @@ function dateInText($date)
     <div class="flex mt-24 lg:mt-auto lg:pl-[35%] items-center justify-between w-full mx-auto my-4">
         <div class="w-full flex items-center flex-col lg:flex-row gap-6 justify-center  lg:justify-between py-4 pr-8">
             <!-- Profile Info -->
-            <div class=" ">
+            <div class="pl-4 lg:pl-0 ">
                 <!-- Student's name and user handle -->
                 <?php
                 echo '<p class="font-bold text-3xl text-blue-900">' . $fullname . '</p>';
@@ -239,11 +239,11 @@ function dateInText($date)
 
 
     <!-- Content -->
-    <div class="content flex mt-8">
+    <div class="content flex flex-wrap  lg:flex-nowrap items-baseline  lg:flex-row mt-8">
         <!-- About Section -->
-        <div class="px-6 max-w-md text-sm w-3/12">
+        <div class="px-6 -order-1 w-1/2 basis-1/2 lg:order-1 lg:basis-1/4 max-w-md text-sm lg:w-3/12">
             <div class="text-left">
-                <h2 class="text-lg text-accent font-bold border-b border-gray-300 py-1">About</h2>
+                <h2 class="text-lg text-accent font-bold border-b border-gray-300 py-1">About Me</h2>
                 <div class="mt-4">
                     <div class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class=" text-gray-700">
@@ -292,17 +292,18 @@ function dateInText($date)
         </div>
 
         <!-- Center div for user's posts -->
-        <div class="px-6 w-1/2 h-full">
+        <div class="px-6 mt-4 basis-1/2 lg:mt-0 order-2 lg:order-2 flex-1  w-full lg:w-1/2 h-full">
             <button id="userPost" class="text-white bg-accent px-3 rounded-lg py-1 font-bold">Posts</button>
             <button id="archievedBtn" class="text-gray-400 hover:bg-gray-300 px-3 rounded-lg py-1 ">Archived</button>
             <hr class=" mt-2 border-gray-300">
-            <div id="feedContainer" class="post w-5/6 mx-auto post-width p-3 h-full no-scrollbar">
+            <div id="feedContainer" class="post w-full  lg:w-5/6 mx-auto post-width p-3 h-full no-scrollbar">
                 <p id="loadingData" class="text-gray-400 text-center">Loading data...</p>
                 <p id="noProfPostMsg" class="text-blue-400 text-center hidden">No available post</p>
             </div>
         </div>
 
-        <div class="px-6 w-3/12 h-full flex flex-col gap-2">
+        <!-- Social Media -->
+        <div class="px-6  w-1/2 -order-1 lg:order-3 lg:w-3/12 lg:basis-1/4  flex flex-col gap-2">
             <h2 class="text-lg text-accent font-bold">Social Media</h2>
             <hr class="mt-2 border-gray-300">
 
@@ -344,7 +345,7 @@ function dateInText($date)
     <!-- MODALS -->
 
     <div id="profileModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div id="profileModalUser" class="bg-white rounded shadow-lg w-2/5 max-h-screen h-max overflow-y-auto slide-bottom">
+        <div id="profileModalUser" class="bg-white rounded shadow-lg w-11/12 mx-auto lg:mx-0  lg:w-2/5 max-h-screen h-max overflow-y-auto slide-bottom">
             <!-- Cover Photo -->
             <div class="coverPhotoContainer">
                 <img id="profileModalCover" alt="Cover Photo" class=" w-4/5 h-full md:h-56 mb-4 object-cover block mx-auto object-center">
@@ -409,7 +410,7 @@ function dateInText($date)
 
     <!-- EDIT PROFILE -->
     <div id="profileModalEdit" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div class="formUpdate bg-white rounded-md w-2/5 h-4/5 p-5 flex flex-col gap-3 overflow-y-auto">
+        <div class="formUpdate bg-white rounded-md w-11/12 mx-auto lg:mx-0  lg:w-2/5  h-4/5 p-5 flex flex-col gap-3 overflow-y-auto">
             <!-- profile picture -->
             <div class="flex justify-between text-greyish_black items-center">
                 <p class="text-lg font-bold">Profile Picture</p>
@@ -658,71 +659,71 @@ function dateInText($date)
 
     <!-- viewing of post -->
     <div id="viewingPost" class="post modal fixed hidden inset-0 z-50 flex items-center justify-center p-3">
-        <div class="modal-container w-full h-full bg-white rounded-lg flex relative">
-            <span id="closePostModal" class="absolute top-0 right-0 text-center text-2xl cursor-pointer p-3 hover:scale-50 hover:font-bold">x</span>
-            <div id="containerSection" class="w-8/12 h-full ">
+        <div class="modal-container w-full h-full bg-white rounded-lg flex relative p-6 lg:p-0">
+            <button id="closePostModal" class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost absolute right-2 top-2">✕</button>
+            <!-- change the orientation dpending on the screen size -->
 
-                <div id="default-carousel" class="relative w-full h-full bg-black" data-carousel="slide">
-                    <!-- Carousel wrapper -->
-                    <div class="overflow-hidden rounded-lg h-full" id="carousel-wrapper"></div>
-                    <!-- Slider indicators -->
-                    <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2" id="carousel-indicators">
+
+            <div class="flex flex-col lg:flex-row w-full mt-4 lg:mt-0">
+                <div id="containerSection" class="w-full lg:w-8/12 h-full ">
+                    <div id="default-carousel" class="relative w-full h-full bg-black" data-carousel="slide">
+                        <!-- Carousel wrapper -->
+                        <div class="overflow-hidden rounded-lg h-full" id="carousel-wrapper"></div>
+                        <!-- Slider indicators -->
+                        <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2" id="carousel-indicators">
+                        </div>
+                        <!-- Slider controls -->
+                        <button id="btnPrev" type="button" class="navigatorBtn absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20" data-carousel-prev>
+                            <span class="inline-flex items-center justify-center w-10 h-10 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path fill="white" d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z" />
+                                </svg>
+                                <span class="sr-only">Previous</span>
+                            </span>
+                        </button>
+                        <button id="btnNext" type="button" class="navigatorBtn text-white absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20">
+                            <span class="inline-flex items-center justify-center w-10 h-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="currentColor" stroke-width="2" d="m7 2l10 10L7 22" />
+                                </svg>
+                                <span class="sr-only">Next</span>
+                            </span>
+                        </button>
                     </div>
-                    <!-- Slider controls -->
-                    <button id="btnPrev" type="button" class="navigatorBtn absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20" data-carousel-prev>
-                        <span class="inline-flex items-center justify-center w-10 h-10 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                                <path fill="white" d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z" />
-                            </svg>
-                            <span class="sr-only">Previous</span>
-                        </span>
-                    </button>
-                    <button id="btnNext" type="button" class="navigatorBtn text-white absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-gray-500 hover:bg-opacity-20">
-                        <span class="inline-flex items-center justify-center w-10 h-10">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="none" stroke="currentColor" stroke-width="2" d="m7 2l10 10L7 22" />
-                            </svg>
-                            <span class="sr-only">Next</span>
-                        </span>
-
-                    </button>
                 </div>
-
+                <!-- description -->
+                <div id="descriptionInfo" class="w-full lg:w-4/12 h-full  lg:border-l p-3 border-gray-400">
+                    <div class="flex justify-start gap-2">
+                        <?php
+                        if ($profilepicture == "") {
+                            echo '<img id="profilePic" src="../assets/icons/person.png" alt="Profile Icon" class="rounded-full border-2 border-accent h-10 w-10" />';
+                        } else {
+                            $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                            echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="rounded-full border-2 border-accent h-10 w-10" />';
+                        }
+                        ?>
+                        <div class="flex flex-col">
+                            <span id="postFullName" class=" text-greyish_black font-bold"></span>
+                            <span id="postUN" class=" text-gray-400 text-xs">username</span>
+                        </div>
+                    </div>
+                    <p id="postDescript" class=" text-greyish_black font-light text-sm">Description</p>
+                    <div class="relative">
+                        <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2 px-3">
+                            <img src="../assets/icons/emptyheart.png" alt="">
+                            <span id="noOfLikes" class="cursor-pointer w-10 text-center"></span>
+                            <img src="../assets/icons/comment.png" alt="">
+                            <span id="noOfComment">0</span>
+                        </div>
+                        <div id="namesOfUser" class="absolute -bottom-2 right-0 bg-black opacity-25 text-gray-300 w-1/3 text-xs p-2 rounded-md hidden"></div>
+                    </div>
+                    <!-- comments -->
+                    <div id="commentContainer" class=" h-3/4 p-2 overflow-auto">
+                    </div>
+                </div>
             </div>
 
-            <!-- description -->
-            <div id="descriptionInfo" class="w-4/12 h-full p-2 border-l p-3 border-gray-400">
-                <div class="flex justify-start gap-2">
-                    <?php
-                    if ($profilepicture == "") {
-                        echo '<img id="profilePic" src="../assets/icons/person.png" alt="Profile Icon" class="rounded-full border-2 border-accent h-10 w-10" />';
-                    } else {
-                        $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-                        echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="rounded-full border-2 border-accent h-10 w-10" />';
-                    }
-                    ?>
-                    <div class="flex flex-col">
-                        <span id="postFullName" class=" text-greyish_black font-bold"></span>
-                        <span id="postUN" class=" text-gray-400 text-xs">username</span>
-                    </div>
-                </div>
-                <p id="postDescript" class=" text-greyish_black font-light text-sm">Description</p>
 
-                <div class="relative">
-                    <div class="flex justify-end gap-2 border-t border-gray-400 mt-5 items-center text-gray-400 text-sm py-2 px-3">
-                        <img src="../assets/icons/emptyheart.png" alt="">
-                        <span id="noOfLikes" class="cursor-pointer w-10 text-center"></span>
-                        <img src="../assets/icons/comment.png" alt="">
-                        <span id="noOfComment">0</span>
-                    </div>
-                    <div id="namesOfUser" class="absolute -bottom-2 right-0 bg-black opacity-25 text-gray-300 w-1/3 text-xs p-2 rounded-md hidden"></div>
-                </div>
-
-                <!-- comments -->
-                <div id="commentContainer" class=" h-3/4 p-2 overflow-auto">
-
-                </div>
-            </div>
         </div>
     </div>
 
@@ -751,7 +752,7 @@ function dateInText($date)
     </div>
 
     <div id="restoreModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-        <div class="relative w-1/3 h-max p-3 bg-white rounded-md">
+        <div class="relative w-11/12 mx-auto lg:mx-0  lg:w-1/3 h-max p-3 bg-white rounded-md">
             <h1 class="text-xl text-greyish_black font-bold text-center py-2 border-b border-gray-400">Restore to Profile</h1>
             <p class="text-gray-500 text-sm">Items you restore to your profile can be seen by the audience that was selected
                 before they were moved to archive.</p>
@@ -767,7 +768,7 @@ function dateInText($date)
     </div>
 
     <div id="editResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div id="resumeWrapper" class="relative w-1/2 h-max p-3 bg-white rounded-md">
+        <div id="resumeWrapper" class="relative w-11/12 mx-auto lg:mx-0  lg:w-1/2 h-max p-3 bg-white rounded-md">
             <form id="formResume">
                 <h1 class="text-lg text-greyish_black font-black text-center py-2 border-b border-gray-400">
                     Edit Resume
@@ -1241,6 +1242,7 @@ function dateInText($date)
         </div>
     </div>
 
+    <!-- View resume Modal (no responsive) -->
     <div id="viewResumeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
         <div class="fixed h-max w-full bg-black bg-opacity-50  flex justify-between p-3 top-0 gap-2">
             <button id="closeViewResume" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-300 hover:bg-opacity-50">
@@ -1344,7 +1346,7 @@ function dateInText($date)
 
     <!-- status modal -->
     <div id="postStatusModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div class="postStatus bg-white rounded-md w-2/6 p-5 flex flex-col gap-3">
+        <div class="postStatus bg-white rounded-md w-11/12 mx-auto lg:mx-0  lg:w-2/6 p-5 flex flex-col gap-3">
             <div class="flex justify-between">
                 <div class="flex items-center">
                     <img id="profileStatusImg" class="w-10 h-10 rounded-full" alt="" srcset="">
@@ -1378,7 +1380,7 @@ function dateInText($date)
 
     <!-- success prompt -->
     <div id="successModal" class="post modal fixed inset-0 z-50 flex items-center justify-center p-3 hidden">
-        <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
+        <div class="modal-container w-11/12 mx-auto lg:mx-0  lg:w-1/3 h-max bg-white rounded-lg p-3 text-greyish_black flex flex-col gap-2">
             <svg class="block mx-auto" width="115px" height="115px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="check-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <circle id="filled-circle" fill="#47CF73" cx="66.5" cy="66.5" r="54.5" />
@@ -1394,7 +1396,7 @@ function dateInText($date)
 
     <!-- comment -->
     <div id="commentPost" class="post modal fixed inset-0 flex justify-center p-3 z-50 hidden">
-        <div class="modal-container w-1/3 h-max bg-white rounded-lg p-3 flex flex-col gap-1 slide-bottom">
+        <div class="modal-container w-11/12 mx-auto lg:mx-0  lg:w-1/3 h-max bg-white rounded-lg p-3 flex flex-col gap-1 slide-bottom">
             <!-- close button -->
             <span class="flex justify-end">
                 <iconify-icon id="closeComment" class="rounded-full cursor-pointer p-2 hover:bg-gray-300" icon="ep:close" style="color: #686b6f;" width="20" height="20"></iconify-icon>
@@ -1442,7 +1444,7 @@ function dateInText($date)
                     <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this comment?</h3>
                     <button id="deleteCommentBtn" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Yes, I'm sure
                     </button>
@@ -1454,7 +1456,7 @@ function dateInText($date)
 
     <!-- password edit -->
     <div class="bg-black bg-opacity-50 fixed inset-0 flex flex-col items-center p-3 z-50 passwordModal hidden">
-        <div class=" w-2/5 rounded-md h-max bg-white p-5 overflow-y-auto slide-bottom">
+        <div class="w-11/12 mx-auto lg:mx-0  lg:w-2/5 rounded-md h-max bg-white p-5 overflow-y-auto slide-bottom">
             <h2 class="font-bold text-xl">Edit Password</h2>
 
             <!-- current password -->
@@ -1487,7 +1489,7 @@ function dateInText($date)
 
     <!-- migration modal -->
     <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center migrationModal hidden">
-        <div class="bg-white w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+        <div class="bg-white w-11/12 mx-auto lg:mx-0  lg:w-2/5  p-5 flex flex-col gap-3 text-greyish_black">
             <h2 class="text-2xl font-semibold">We noticed something about this account!</h2>
             <p>Your account appears to be prepared for account migration to alumni.
                 Verify that you graduated from Bulacan State University before processing your immigration.</p>
@@ -1514,7 +1516,7 @@ function dateInText($date)
 
     <!-- cancel migration -->
     <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center cancelMigrationModal hidden">
-        <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+        <div class="bg-white rounded-md  w-11/12 mx-auto lg:mx-0  lg:w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
             <h2 class="text-xl font-semibold">Confirmation</h2>
             <p>In the edit profile area, you can see this if you chose to move your account.</p>
             <div class="flex justify-end gap-2">
@@ -1526,7 +1528,7 @@ function dateInText($date)
 
     <!-- additional information for migrating -->
     <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center additionalInfo hidden">
-        <div class="bg-white rounded-md w-2/5 p-5 flex flex-col gap-3 text-greyish_black">
+        <div class="bg-white rounded-md w-11/12 mx-auto lg:mx-0  lg:w-2/5  p-5 flex flex-col gap-3 text-greyish_black">
             <h2 class="text-lg font-semibold border-b border-gray-400 py-2">Additional Information for Migrating</h2>
             <form id="migrationForm">
                 <?php
@@ -1567,7 +1569,7 @@ function dateInText($date)
 
     <!-- success migration -->
     <div class="modal fixed inset-0 h-full w-full flex flex-col items-center z-50 justify-center successMigrationModal hidden">
-        <div class="bg-white rounded-md w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
+        <div class="bg-white rounded-md w-11/12 mx-auto lg:mx-0  lg:w-2/6 p-5 flex flex-col gap-3 text-greyish_black">
             <!-- success animation -->
             <div class="success-checkmark">
                 <div class="check-icon">
