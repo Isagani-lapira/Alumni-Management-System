@@ -200,9 +200,9 @@ function getAccDetails($con, $personID)
       </div>
 
       <!--SUB NAVBAR-->
-      <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-1 left-0 right-2 sm:top-24 sm:mt-1 sm:justify-center z-20">
+      <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-0 left-0 right-2 sm:top-24 md:mt-1 sm:justify-center z-20">
 
-        <ul class="sub-navbar bg-accent text-white flex items-center justify-evenly h-max   p-4 text-sm w-full  lg:w-5/12 ">
+        <ul class="sub-navbar bg-accent text-white flex items-center justify-evenly h-max lg:mt-6 xl:mt-1   p-4 text-sm w-full  lg:w-5/12 ">
           <!--FEED TAB-->
           <li class="w-full sm:w-auto px-5">
             <a href="#tabs-1" class="flex items-center justify-center w-full" id="feedLink" onclick="toggleFeed()">
@@ -330,7 +330,7 @@ function getAccDetails($con, $personID)
               <div id="mainFeed" class="mainFeed h-full">
                 <!-- Content for the main feed -->
                 <!-- POST -->
-                <div id="feedContainer" class="post w-5/6 mx-auto post-width p-3 h-full no-scrollbar">
+                <div id="feedContainer" class="post w-full md:w-5/6 mx-auto post-width p-3 h-full no-scrollbar">
                   <!-- Make Post && Profile -->
                   <div id="makePostProfile" class="post p-3 input-post-width mx-auto rounded-md center-shadow w-full my-2">
                     <div class="flex items-center">
@@ -1204,19 +1204,19 @@ function getAccDetails($con, $personID)
         <div id="eventView" class="h-full ">
           <div class=" h-1/2 lg:h-2/3  md:top-72">
             <div class="relative w-full h-full flex items-center">
-              <img class=" object-cover object-top darkened-image" src="../assets/bg_event.jpg" alt="">
+              <img class="w-full h-full object-cover object-top darkened-image" src="../assets/bg_event.jpg" alt="">
               <h1 class="text-2xl md:text-4xl lg:text-5xl xl:text-8xl  text-white font-black w-full text-center absolute typewriter">Let's Connect <span class="text-accent"> BulSUAN!</span></h1>
             </div>
           </div>
 
           <!-- body -->
-          <div class="p-10">
+          <div class="p-4 md:p-10">
             <span class="text-gray-500 text-lg">Get excited for the upcoming</span>
             <h3 id="eventName" class="font-bold text-gray-700 text-4xl"></h3>
 
-            <div class="date flex flex-col items-end text-gray-700">
-              <span class="text-lg">Starts on</span>
-              <span id="eventStartDate" class="font-bold"></span>
+            <div class="date flex flex-row flex-wrap gap-2 items-center md:flex-col  md:justify-end text-gray-700">
+              <span class="text-lg text-gray-400">Starts on</span>
+              <span id="eventStartDate" class="text-lg font-bold"></span>
             </div>
 
             <!-- description -->
