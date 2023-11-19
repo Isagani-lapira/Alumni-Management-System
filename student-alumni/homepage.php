@@ -414,7 +414,7 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- RIGHT DIV -->
-          <div id="right-sidebar" class="right-div hidden lg:block fixed top-40 right-2 w-full lg:w-1/4 h-full px-8 bg-white">
+          <div id="right-sidebar" class="right-div hidden lg:block fixed top-40 right-2 w-full lg:w-1/4 h-full px-8 bg-white z-20">
             <!-- Content for the right div -->
             <p class="font-medium border-b-2 border-grayish ml-auto block text-sm pb-2 mb-4 text-greyish_black">University News</p>
             <p id="loadingDataAnnouncement" class="text-gray-400 text-center">Loading data</p>
