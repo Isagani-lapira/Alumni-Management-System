@@ -1251,7 +1251,7 @@ function getAccDetails($con, $personID)
             <span class="text-gray-500 text-lg">Get excited for the upcoming</span>
             <h3 id="eventName" class="font-bold text-gray-700 text-4xl"></h3>
 
-            <div class="date flex flex-row flex-wrap gap-2 items-center md:flex-col  md:justify-end text-gray-700">
+            <div class="date flex flex-row flex-wrap gap-2 items-center md:flex-col lg:items-end  md:justify-end text-gray-700">
               <span class="text-lg text-gray-400">Starts on</span>
               <span id="eventStartDate" class="text-lg font-bold"></span>
             </div>
