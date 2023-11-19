@@ -164,13 +164,13 @@ function getAccDetails($con, $personID)
             <div class="relative  ">
               <button id="dropdown-btn" class="flex flex-row items-center  gap-4 bg-transparent border-none outline-none">
                 <!-- set profile image -->
-                <div class="w-10 h-10 flex justify-center items-center">
+                <div class="min-w-[2.5rem] min-h-[2.5rem] w-10 h-10 flex justify-center items-center">
                   <?php
                   if ($profilepicture == "") {
-                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="rounded-full object-contain profile-icon" />';
+                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="min-w-[2.5rem] rounded-full  profile-icon" />';
                   } else {
                     $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="rounded-full object-contain profile-icon" />';
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class=" min-w-[2.5rem] rounded-full  profile-icon" />';
                   }
                   ?>
                 </div>
