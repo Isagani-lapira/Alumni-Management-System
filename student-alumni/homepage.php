@@ -154,11 +154,11 @@ function getAccDetails($con, $personID)
               <p id="retrieveDataMsg" class="text-sm italic text-gray-400">Retrieving data</p>
             </div>
           </div>
+          <!-- End Search Bar -->
 
           <div class="w-1/4  px-2 sm:px-8 flex items-center justify-end ">
 
 
-            <!-- End Search Bar -->
 
             <!-- Dropdown Button -->
             <div class="relative  ">
@@ -167,10 +167,10 @@ function getAccDetails($con, $personID)
                 <div class="w-10 h-10 flex justify-center items-center">
                   <?php
                   if ($profilepicture == "") {
-                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="object-contain profile-icon" />';
+                    echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="rounded-full object-contain profile-icon" />';
                   } else {
                     $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class=" object-contain profile-icon" />';
+                    echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="rounded-full object-contain profile-icon" />';
                   }
                   ?>
                 </div>

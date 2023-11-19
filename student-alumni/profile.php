@@ -112,13 +112,14 @@ function dateInText($date)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="../css/main.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="../style/profile.css" />
     <link rel="stylesheet" href="../style/style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="../css/main.css" rel="stylesheet" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="icon" href="../assets/bulsu_connect_img/bulsu_connect_icon.png" type="image/x-icon">
     <style>
@@ -155,39 +156,68 @@ function dateInText($date)
     ?>
     <span id="promptMsgComment" class="hidden rounded-md slide-bottom fixed bottom-28 px-4 py-2 z-50 bg-accent text-white font-bold">Comment successfully added</span>
     <!-- Navbar -->
-    <nav class=" z-50 w-full fixed top-0 grid grid-cols-3 gap-4 p-3 bg-white text-black shadow-lg">
+    <nav class=" flex flex-row justify-between items-center   py-6 bg-white text-black shadow-lg">
         <!-- Logo -->
-        <a href="homepage.php" class="col-span-1 flex items-center">
-            <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class=" w-32 h-16" />
-        </a>
 
+        <!-- Icon Image -->
+        <div class=" w-1/4 px-2   sm:px-8 flex items-center">
+            <a href="homepage.php" class=" min-w-[20px] flex items-center h-auto w-20 lg:h-16 lg:w-32">
+                <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class="object-contain" />
+            </a>
+        </div>
         <!-- Search Bar -->
-        <div class="col-span-1 flex items-center justify-center relative">
+        <div class="flex-1 w-1/2 max-w-[50%] flex items-center justify-center mt-0   relative cursor-text">
             <div class="relative w-full">
-                <input type="text" id="searchUser" placeholder="Search" class="pl-10 pr-4 py-3 w-full border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none transparent-search-bar" />
+                <input type="text" id="searchUser" placeholder="Search" class="pl-10 pr-4 py-3 w-full text-black border-accent center-shadow p-3 rounded-md shadow text-sm border outline-none" />
                 <i class="absolute left-3 top-1/2 transform -translate-y-1/2 fas fa-search text-accent text-base"></i>
             </div>
-            <div id="searchProfile" class="absolute top-16 bg-white rounded-b-lg p-3 z-50 w-full hidden"></div>
+            <div id="searchProfile" class="absolute top-16 bg-white rounded-b-lg p-3 z-50 w-full hidden">
+                <p id="retrieveDataMsg" class="text-sm italic text-gray-400">Retrieving data</p>
+            </div>
         </div>
 
-        <!-- Menu Items -->
-        <ul class="col-span-1 flex items-center justify-end space-x-8 px-4">
-            <li>
-                <a href="#" class="text-blue-600 hover:text-blue-800 items-center flex gap-2">
-                    <?php
-                    if ($profilepicture == "") {
-                        echo '<img id="profilePhoto" src="../assets/icons/person.png" alt="Profile Icon" class="w-12 h-12 rounded-full object-contain bg-white" />';
-                    } else {
-                        $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
-                        echo '<img id="profilePhoto" src="' . $srcFormat . '" alt="Profile Icon" class="w-12 h-12 rounded-full object-cover bg-white" />';
-                    }
-                    ?>
-                    <?php
-                    echo '<p class="mt-1 font-bold text-greyish_black">' . $fullname . '</p>';
-                    ?>
+
+
+        <div class="w-1/4  px-2 sm:px-8 flex items-center justify-end ">
+
+
+
+            <!-- Dropdown Button -->
+            <div class="relative  ">
+                <button id="dropdown-btn" class="flex flex-row items-center  gap-4 bg-transparent border-none outline-none">
+                    <!-- set profile image -->
+                    <div class="w-10 h-10 flex justify-center items-center">
+                        <?php
+                        if ($profilepicture == "") {
+                            echo '<img src="../assets/icons/person.png" alt="Profile Icon" class="rounded-full object-contain profile-icon" />';
+                        } else {
+                            $srcFormat = 'data:image/jpeg;base64,' . $profilepicture;
+                            echo '<img src="' . $srcFormat . '" alt="Profile Icon" class="rounded-full object-contain profile-icon" />';
+                        }
+                        ?>
+                    </div>
+                    <p id="accFN" class="hidden lg:block mr-4 text-sm font-medium text-greyish_black p-4">
+                        <?php
+                        echo $fullname;
+                        ?>
+                    </p>
+                    <i class=" fas fa-chevron-down text-lg hidden lg:inline"></i>
+                </button>
+            </div>
+            <!-- Dropdown Content -->
+            <div id="dropdown-content" class="z-10 absolute bg-white rounded-md shadow-lg mt-40 justify-evenly right-8 hidden w-72 p-2">
+                <a href="profile.php" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg">
+                    <i class="fas fa-light fa-user text-md pr-2"></i>See Profile
                 </a>
-            </li>
-        </ul>
+                <span id="logout" class="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg cursor-pointer">
+                    <i class="fas fa-sign-out-alt text-md pr-2"></i>Logout
+                </span>
+            </div>
+        </div>
+
+
+
+
     </nav>
 
     <!-- Cover Photo -->
