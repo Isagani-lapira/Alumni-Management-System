@@ -27,17 +27,17 @@
 
 <body>
   <div class="w-full h-screen flex justify-center items-center">
-    <div class="md:h-max sm:h-14 w-1/2 rounded-xle md:grid grid-cols-2 sm:block text-gray-600">
-      <div class="bg-accent md:rounded-l-2xl text-white pt-10 h-full relative">
+    <div class="md:h-max sm:h-14 w-1/2 rounded-xl lg:grid grid-cols-2 sm:block text-gray-600">
+      <div class="bg-accent hidden lg:block md:rounded-l-2xl text-white pt-10 h-full relative">
         <h2 class="Lobster text-xl text-center">"We're Still Connected"</h2>
         <img id="graduateLogo" class="relative" src="../assets/graduate_logo.png" alt=""> <!--make it relative-->
       </div>
 
       <!-- login -->
-      <div id="loginPanel" class=" p-3 rounded-r-2xl relative bg-white">
+      <div id="loginPanel" class=" p-3 rounded-2xl lg:rounded-none lg:rounded-r-2xl relative bg-white">
         <h1 class="text-4xl font-bold text-greyish_black text-center w-2/3 block mx-auto">Welcome Back BulSuan!
         </h1>
-        <div>
+        <div class="py-8">
           <form id="loginForm" class="mt-2 p-3 flex flex-col gap-1">
             <p id="errorMsg" class="text-sm text-accent hidden">
               <span class="font-bold">login Failed:</span> Incorrect username/password
@@ -54,7 +54,7 @@
               Sign in
             </button>
           </form>
-          <p id="registerBtn" class="text-center absolute bottom-1 w-full cursor-pointer md:text-base sm:text-xs">Don't
+          <p id="registerBtn" class=" text-center absolute bottom-1 w-full cursor-pointer md:text-base sm:text-xs">Don't
             have an account? <span class="text-accent font-semibold"><a href="../student-alumni/registrationForm.php">Register here</a></span></p>
         </div>
       </div>

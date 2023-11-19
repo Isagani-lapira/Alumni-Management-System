@@ -6537,6 +6537,10 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
     margin-top: 0.25rem;
   }
 
+  .md\:block {
+    display: block;
+  }
+
   .md\:grid {
     display: grid;
   }
@@ -6719,6 +6723,10 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
     display: flex;
   }
 
+  .lg\:grid {
+    display: grid;
+  }
+
   .lg\:hidden {
     display: none;
   }
@@ -6857,6 +6865,15 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
 
   .lg\:justify-between {
     justify-content: space-between;
+  }
+
+  .lg\:rounded-none {
+    border-radius: 0px;
+  }
+
+  .lg\:rounded-r-2xl {
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
   }
 
   .lg\:border-l {
