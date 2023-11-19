@@ -134,9 +134,9 @@ function getAccDetails($con, $personID)
           <!-- Icon Image -->
           <div class=" w-1/4 px-2 sm:px-8 flex items-center">
 
-            <button id="showLeftBtn" class=""><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+            <!-- <button id="showLeftBtn" class=""><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg></button>
+              </svg></button> -->
 
             <a href="homepage.php" class=" min-w-[20px] flex items-center h-auto w-20 lg:h-16 lg:w-32">
               <img src="../assets/bulsu_connect_img/bulsu_connect_logo.png" alt="Logo" class="object-contain" />
@@ -200,7 +200,7 @@ function getAccDetails($con, $personID)
       </div>
 
       <!--SUB NAVBAR-->
-      <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-0 left-0 right-2 sm:top-24 md:mt-1 sm:justify-center z-20">
+      <div class="sub-navbar-wrapper fixed flex justify-center h-24 top-24 mt-0 left-0 right-2 sm:top-24 md:mt-1 sm:justify-center z-[1]">
 
         <ul class="sub-navbar bg-accent text-white flex items-center justify-evenly h-max lg:mt-6 xl:mt-1   p-4 text-sm w-full  lg:w-5/12 ">
           <!--FEED TAB-->
@@ -244,11 +244,13 @@ function getAccDetails($con, $personID)
       </div>
 
       <!-- TAB 1 -->
-      <div id="tabs-1">
+      <div id="tabs-1" class="relative">
+
         <!-- Container for MAIN FEED -->
-        <div id="mainFeedContainer" class="flex pt-48 z-10 w-full h-full scrollable-container">
+        <div id="mainFeedContainer" class="flex pt-48  w-full h-full scrollable-container relative">
+
           <!-- LEFT DIV -->
-          <div id="left-sidebar" class="left-div bg-white hidden lg:block w-1/2 fixed top-32 left-0 lg:w-1/4 h-full px-8 z-50">
+          <div id="left-sidebar" class="left-div bg-white hidden lg:block w-full lg:w-1/4  fixed top-40  left-0  h-full px-8 z-30">
 
             <!-- Notifications -->
             <div id="target-div" class="original-color flex items-center hover:bg-gray-100 rounded-md h-10 p-2">
@@ -321,13 +323,47 @@ function getAccDetails($con, $personID)
             </div>
           </div>
 
+
+
           <!-- CENTER DIV -->
           <div class="flex-1 flex justify-center items-center h-screen relative">
+            <!-- Add floating icon for university news -->
+            <div class="daisy-dropdown daisy-dropdown-top lg:hidden  
+              fixed bottom-5 left-5 z-50 ">
+              <label tabindex="0" class="daisy-btn daisy-btn-circle   ">
+                <!-- hamburger icon -->
+                <svg class="daisy-swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                  <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+                </svg>
+
+              </label>
+              <ul tabindex="0" class="daisy-dropdown-content z-[1] daisy-menu p-2 shadow  rounded-box bg-transparent space-y-4 ">
+                <li>
+
+                  <div id="showUnivNews" data-tip="University News" class="daisy-tooltip daisy-tooltip-right lg:hidden floating-news w-12 h-12 bg-accent text-white rounded-full flex justify-center items-center hover:bg-red-900 transition-colors hover:scale-95">
+                    <button class="">
+                      <i class="fa-solid fa-newspaper"></i>
+                    </button>
+                  </div>
+
+                </li>
+                <li>
+                  <div id="showLeftBtn" data-tip="Sidebar" class="daisy-tooltip daisy-tooltip-right lg:hidden floating-news w-12 h-12 bg-accent text-white rounded-full flex justify-center items-center hover:bg-red-900 transition-colors hover:scale-95">
+                    <button id="" class="">
+                      <i class="fa-solid fa-list"></i>
+                    </button>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+
+
             <div id="centerDiv" class="border-l border-r border-grayish px-4 mt-2 h-full">
 
               <!-- Content for the center div -->
               <!-- Main Feed -->
-              <div id="mainFeed" class="mainFeed h-full">
+              <div id="mainFeed" class="mainFeed h-full ">
                 <!-- Content for the main feed -->
                 <!-- POST -->
                 <div id="feedContainer" class="post w-full md:w-5/6 mx-auto post-width p-3 h-full no-scrollbar">
@@ -378,7 +414,7 @@ function getAccDetails($con, $personID)
           </div>
 
           <!-- RIGHT DIV -->
-          <div class="right-div hidden lg:block fixed top-32 right-2 w-1/4 h-full px-8">
+          <div id="right-sidebar" class="right-div hidden lg:block fixed top-40 right-2 w-full lg:w-1/4 h-full px-8 bg-white">
             <!-- Content for the right div -->
             <p class="font-medium border-b-2 border-grayish ml-auto block text-sm pb-2 mb-4 text-greyish_black">University News</p>
             <p id="loadingDataAnnouncement" class="text-gray-400 text-center">Loading data</p>
@@ -393,8 +429,8 @@ function getAccDetails($con, $personID)
 
           <!-- MODALS && OTHER OBJECTS THAT HAVE Z-50 -->
           <!-- Notifications Tab -->
-          <div id="notification-tab" class=" notification-tab hidden fixed top-40 lg:top-24 mt-1 right-1 h-full bg-black bg-opacity-50 w-3/4 z-50">
-            <div class="notification-content bg-white border-2 px-4 pt-4 pb-20 h-full md:w-2/6 lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
+          <div id="notification-tab" class=" notification-tab hidden fixed top-48 w-full lg:top-24 mt-1 right-1 h-full bg-black bg-opacity-50 lg:w-3/4 z-50">
+            <div class="notification-content w-full bg-white border-2 px-4 pt-4 pb-20 h-full lg:w-3/6 xl:w-2/5 2xl:w-2/5 overflow-y-auto hide-scrollbar">
               <h1 class="text-greyish_black text-lg font-bold mb-4">Notifications</h1>
 
               <div class="flex space-x-4 mb-4">
@@ -667,8 +703,8 @@ function getAccDetails($con, $personID)
           </div>
           <!-- front page -->
           <div id="frontpageTracer" class=" h-full w-full overflow-y-auto flex flex-col gap-3 items-center p-3">
-            <img src="../assets/tracer_header_img.png" class="w-1/3 h-56" alt="">
-            <div class="rounded-lg center-shadow p-3 border-t-4 border-accent w-1/2">
+            <img src="../assets/tracer_header_img.png" class="w-11/12 mx-auto lg:w-1/2 h-56 object-cover" alt="">
+            <div class="rounded-lg center-shadow p-3 border-t-4 border-accent w-11/12 mx-auto lg:w-1/2">
               <h3 class="text-2xl text-greyish_black font-bold">Alumni Graduate Tracer 2023-2024</h3>
               <span>Dear Graduates of Batch 2010-2023,</span>
 
@@ -928,7 +964,7 @@ function getAccDetails($con, $personID)
 
         <!-- Additional Question Modal -->
         <div id="sectionModal" class="fixed inset-0 flex pt-10 justify-center z-50 bg-black bg-opacity-50 hidden">
-          <div class="sectionModalTracer bg-white rounded shadow-lg w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
+          <div class="sectionModalTracer bg-white rounded shadow-lg w-11/12 mx-auto lg:w-2/5 h-max overflow-y-auto slide-bottom p-5 relative">
             <h3 class="font-bold text-xl text-accent py-2 border-b border-gray-300 text-center">Additional Question</h3>
 
             <!-- close button -->

@@ -11,6 +11,12 @@ $(document).ready(function () {
   // For Responsive Design
   $("#showLeftBtn").on("click", () => {
     $("#left-sidebar").toggleClass("hidden");
+    $("#right-sidebar").addClass("hidden");
+  });
+
+  $("#showUnivNews").on("click", () => {
+    $("#right-sidebar").toggleClass("hidden");
+    $("#left-sidebar").addClass("hidden");
   });
 
   $("#tabs").tabs();
@@ -976,6 +982,11 @@ function toggleJobPost() {
 function toggleFeed() {
   $("#mainFeedContainer").removeClass("hidden");
   $("#yearbookContainer").addClass("hidden");
+
+  $("#left-sidebar").addClass("hidden");
+  $("#right-sidebar").addClass("hidden");
+  $("#notification-tab").addClass("hidden");
+  $("#notification-tab").removeAttr("style");
 }
 
 const jobOffers = document.querySelectorAll(".job-offer");
