@@ -18,8 +18,7 @@
                  <h4 class="font-bold">Social Media</h4>
              </div>
              <ul class="mt-2 space-y-2">
-                 <li>CICT BulSu</li>
-                 <li>CICT BulSu</li>
+                 <li>CICT BulSU</li>
                  <li>Thought CICT</li>
              </ul>
          </div>

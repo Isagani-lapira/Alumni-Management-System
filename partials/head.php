@@ -31,12 +31,12 @@
                 </label>
                 <ul tabindex="0" class="daisy-menu daisy-menu-sm daisy-dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#events">Events</a></li>
+                    <!-- <li><a href="#events">Events</a></li> -->
                     <li><a href="#community">Community</a></li>
                     <li><a href="#donation">Donation</a></li>
-                    <li><a href="#calendar">Calendar</a></li>
+                    <!-- <li><a href="#calendar">Calendar</a></li> -->
 
-                    <li><a href="alumni.php">Alumni of the Year</a></li>
+                    <!-- <li><a href="alumni.php">Alumni of the Year</a></li> -->
                 </ul>
             </div>
 
@@ -48,12 +48,12 @@
         <div class="daisy-navbar-center hidden lg:flex">
             <ul class="daisy-menu daisy-menu-horizontal px-1 [&>*:hover]:font-semibold [&>*:hover]:font-accent">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#events">Events</a></li>
+                <!-- <li><a href="#events">Events</a></li> -->
                 <li><a href="#community">Community</a></li>
                 <li><a href="#donation">Donation</a></li>
-                <li><a href="#calendar">Calendar</a></li>
+                <!-- <li><a href="#calendar">Calendar</a></li> -->
 
-                <li><a href="alumni.php">Alumni of the Year</a></li>
+                <!-- <li><a href="alumni.php">Alumni of the Year</a></li> -->
                 </details>
                 </li>
             </ul>

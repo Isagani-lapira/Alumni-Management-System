@@ -4348,6 +4348,18 @@ div.input-container input[type="text"],
   max-width: 20rem;
 }
 
+.max-w-\[50ch\] {
+  max-width: 50ch;
+}
+
+.max-w-\[30ch\] {
+  max-width: 30ch;
+}
+
+.max-w-\[35ch\] {
+  max-width: 35ch;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -4526,6 +4538,10 @@ div.input-container input[type="text"],
   place-content: center;
 }
 
+.place-items-center {
+  place-items: center;
+}
+
 .items-start {
   align-items: flex-start;
 }
@@ -4596,6 +4612,10 @@ div.input-container input[type="text"],
 
 .gap-6 {
   gap: 1.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .space-x-12 > :not([hidden]) ~ :not([hidden]) {
@@ -6537,10 +6557,6 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
     margin-top: 0.25rem;
   }
 
-  .md\:block {
-    display: block;
-  }
-
   .md\:grid {
     display: grid;
   }
@@ -6867,6 +6883,10 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
     justify-content: space-between;
   }
 
+  .lg\:gap-16 {
+    gap: 4rem;
+  }
+
   .lg\:rounded-none {
     border-radius: 0px;
   }
@@ -6898,6 +6918,10 @@ div.dtsp-panesContainer div.dtsp-searchPanes {
 
   .lg\:text-left {
     text-align: left;
+  }
+
+  .lg\:text-right {
+    text-align: right;
   }
 
   .lg\:text-5xl {

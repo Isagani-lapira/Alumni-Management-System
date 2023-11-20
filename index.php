@@ -17,9 +17,8 @@
 
 
   <!-- Program and Events -->
-  <section id="events" class="container mx-auto py-8 min-h-screen">
+  <!-- <section id="events" class=" mx-auto py-8 min-h-screen">
     <h2 class="text-3xl font-neutral-800 font-bold">Programs and Events</h2>
-    <!-- TODO configure for mobile design -->
     <div class="px-4 flex flex-col md:flex-row gap-4 p-8 justify-around">
       <div class="card w-64 mb-6 space-y-4">
         <div class="">
@@ -35,7 +34,6 @@
           Let's now gather for the homecoming event for the alumni
         </p>
       </div>
-      <!-- card 2 -->
       <div class="card w-64 mb-6 space-y-4">
         <div class="">
           <img class="object-cover" src="./assets/event-images/02.png" alt="" />
@@ -50,7 +48,6 @@
           Let's now gather for the homecoming event for the alumni
         </p>
       </div>
-      <!-- card 3 -->
 
       <div class="card w-64 mb-6 space-y-4">
         <div class="">
@@ -67,30 +64,32 @@
         </p>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- Community Section -->
-  <section id="community" class="container mx-auto mb-12">
-    <div class="flex flex-row justify-center">
+  <section id="community" class=" mx-auto min-h-screen mb-12 py-20 flex place-items-center place-content-center">
+    <div class="flex flex-row justify-center flex-wrap gap-8 lg:gap-16">
       <img class="w-[30rem]" src="./assets/community.png" alt="" />
-      <div class="space-x-20 space-y-8 text-right">
-        <h2 class="font-bold text-3xl">BulSuan Community</h2>
-        <p class="max-w-prose text-justify">
+      <div class="flex flex-col gap-8 text-center">
+        <h2 class="font-bold text-3xl text-center lg:text-right">BulSuan Community</h2>
+        <p class="max-w-[35ch] text-justify">
           No storm will make the Bulacan State University (BulSU) community
           falter, especially in this time where our brothers and sisters need
           help and care as different organizations of BulSU work hand-in-hand
           to extend their love to those in need.
         </p>
-        <button class="btn-primary bg-accent px-8 py-3 rounded-lg text-white font-bold">
-          View Community
-        </button>
+        <div class="flex lg:justify-end justify-center">
+          <a href="/student-alumni/login.php" class="btn-primary bg-accent px-8 py-3 rounded-lg text-white font-bold ">
+            View Community
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Donation Section -->
-  <section id="donation" class="bg-slate-900 py-20 container">
-    <div class="flex flex-row justify-around">
+  <section id="donation" class="bg-slate-900 py-20 ">
+    <div class="flex flex-row justify-around flex-wrap">
       <div>
         <img class="w-[30rem]" src="./assets/donation.png" alt="" />
       </div>
@@ -113,7 +112,7 @@
     </div>
   </section>
 
-  <!-- Calendar Section -->
+  <!-- Calendar Section
   <section id="calendar" class="container mx-auto text-center space-y-8 py-8">
     <div class="text my-12">
       <h2 class="text-3xl font-light text-slate-500 text-center">
@@ -150,7 +149,7 @@
     <button class="btn-secondary bg-secondary px-8 py-3 rounded-lg text-white font-bold">
       View Calendar
     </button>
-  </section>
+  </section> -->
 
   <?php
   require("./partials/footer.php")
