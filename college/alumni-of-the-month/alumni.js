@@ -17,6 +17,7 @@ $(document).ready(function () {
   const API_URL_SEARCH = "php/searchAlumni.php?search=true";
   const API_POST_URL = "./alumni-of-the-month/addAlumni.php";
   const AVATAR_PLACEHOLDER = "../assets/default_profile.png";
+  const AVATAR_PIC_URL = "/media/search.php?media=profile_pic&personID=";
 
   let offset = 0;
   const handleSearchList = _.debounce(searchAlumniListener, 500);
@@ -779,7 +780,9 @@ $(document).ready(function () {
 
         // $("#detail-student-id").text(data.studNo);
         $("#detail-personal-email").text(data.personal_email);
-        let profileImage = AVATAR_PLACEHOLDER;
+        let profileImage = AVATAR_PIC_URL + data.personID;
+        console.log(profileImage);
+
         if (data.profileImage) {
           profileImage = data.profileImage;
         }
@@ -853,7 +856,9 @@ $(document).ready(function () {
   }
 
   function populateAlumniCard(data) {
-    let profileImage = AVATAR_PLACEHOLDER;
+    // let profileImage = AVATAR_PLACEHOLDER;
+    let profileImage = AVATAR_PIC_URL + data.personID;
+    console.log(profileImage);
     if (data.profilepicture) {
       profileImage = "data:image/jpeg;base64," + data.profilepicture;
     }
