@@ -32,53 +32,68 @@ $(document).ready(function () {
         const fileUploader = document.getElementById('excelFileUploader');
         const file = fileUploader.files[0];
 
-        $('#loadingScreen').removeClass('hidden') //open loading screen
-        if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
-            // send file to php
-            fetch('../PHP_process/studentNoValidator.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    restartValue()
-                    // open successful uploading
-                    if (data.result === 'Success') {
-                        $('.success-msg-upload').removeClass('hidden')
-                        setTimeout(() => {
-                            $('.success-msg-upload').addClass('hidden')
-                        }, 5000)
-                    } else if (data.result === 'Format Invalid') {
-                        // display file format
-                        $('.sheet-format-modal').removeClass('hidden');
-                    } else if (data.result === 'Failed') {
-                        // get all the duplicated list
-                        const duplicatedData = data.duplicatedRecord
-                        let count = 1
-                        duplicatedData.forEach(element => {
-                            const studentNo = element.studentNo
-                            const fullname = element.fullname
+        Swal.fire({
+            title: 'Submit!',
+            text: 'Do you want to continue uploading this file?',
+            icon: 'question',
+            confirmButtonText: 'Confirm',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // $('#loadingScreen').removeClass('hidden') //open loading screen
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    // send file to php
+                    fetch('../PHP_process/studentNoValidator.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            restartValue()
+                            // open successful uploading
+                            if (data.result === 'Success') {
+                                $('.success-msg-upload').removeClass('hidden')
+                                setTimeout(() => {
+                                    $('.success-msg-upload').addClass('hidden')
+                                }, 5000)
+                            } else if (data.result === 'Format Invalid') {
+                                // display file format
+                                $('.sheet-format-modal').removeClass('hidden');
+                            } else if (data.result === 'Failed') {
+                                // get all the duplicated list
+                                const duplicatedData = data.duplicatedRecord
+                                let count = 1
+                                duplicatedData.forEach(element => {
+                                    const studentNo = element.studentNo
+                                    const fullname = element.fullname
 
-                            // display all the names of seen as duplicated
-                            const wrapper = $('<div>').addClass('flex gap-2')
-                            const countElement = $('<p>').text(count)
-                            const studentNoElement = $('<p>').text(studentNo)
-                            const fullnameElement = $('<p>').text(fullname)
+                                    // display all the names of seen as duplicated
+                                    const wrapper = $('<div>').addClass('flex gap-2')
+                                    const countElement = $('<p>').text(count)
+                                    const studentNoElement = $('<p>').text(studentNo)
+                                    const fullnameElement = $('<p>').text(fullname)
 
-                            wrapper.append(countElement, studentNoElement, fullnameElement);
-                            $('.list-wrapper').append(wrapper) //root container
-                            count++
-                        });
-                        $('.list-duplicate-modal').removeClass('hidden')
-                    }
-                })
-                .catch(error => {
-                    restartValue()
-                    console.error(error);
-                })
-        }
+                                    wrapper.append(countElement, studentNoElement, fullnameElement);
+                                    $('.list-wrapper').append(wrapper) //root container
+                                    count++
+                                });
+                                $('.list-duplicate-modal').removeClass('hidden')
+                            }
+                        })
+                        .catch(error => {
+                            restartValue()
+                        })
+                }
+            }
+            else {
+                Swal.fire('Cancelled', 'Your upload was not confirmed', 'error')
+                restartValue()
+            }
+        })
+
     })
 
 
