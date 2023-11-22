@@ -526,10 +526,12 @@ $(document).ready(function () {
         if (data.response === 'Success') {
           $('.studExistingMsg').addClass('hidden')
           // add data to the disabled field
-          const fname = data.fname;
-          const lname = data.lname;
+          let fname = data.fname;
+          let lname = data.lname;
           const batchYear = data.batchYear;
 
+          fname = toPascalCase(fname)
+          lname = toPascalCase(lname)
           $('#studFname').val(fname);
           $('#studlname').val(lname);
           $('#currentYr').val(batchYear);
@@ -540,7 +542,28 @@ $(document).ready(function () {
       .catch(error => { console.log(error) })
   })
 
+  // make name first letter capital
+  function toPascalCase(value) {
+    const names = value.split(' ')
+    const pascalWord = names.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    const newWord = pascalWord.join(' ')
 
+    return newWord
+  }
+
+  $('#fname').on('change', function () {
+    let currentVal = $(this).val()
+    let newName = toPascalCase(currentVal) //set to pascal
+    $(this).val(newName)
+  })
+
+
+  $('#lname').on('change', function () {
+    let currentVal = $(this).val()
+    let newName = toPascalCase(currentVal) //set to pascal
+    $(this).val(newName)
+  })
+  
   // check password if meets the requirement of strong password
   $("#accountPass").on("input", function () {
     let passwordVal = $(this).val();
