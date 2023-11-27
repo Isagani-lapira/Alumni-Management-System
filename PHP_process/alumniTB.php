@@ -59,7 +59,7 @@ class Alumni
 
                 $resultPerson = mysqli_query($con, $queryPerson);
                 while ($personData = mysqli_fetch_assoc($resultPerson)) {
-                    $fullname[] = $personData['fname'] . $personData['lname'];
+                    $fullname[] = $personData['fname'] . " " . $personData['lname'];
                 }
             }
         } else $response = "Unsuccess";

@@ -210,7 +210,7 @@ if (
                                 <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10Z"></path>
                             </svg> -->
                             <i class="fa-solid fa-chart-line fa-xl"></i>
-                            <span class="group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">DASHBOARD</span></a></li>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">DASHBOARD</span></a></li>
                     <li><a data-link="make-post" href="#make-post" class=" flex justify-left flex-nowrap rounded-lg p-2">
                             <i class="fa-solid fa-bullhorn  fa-xl"></i>
                             <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">MAKE POST</span>
@@ -234,6 +234,11 @@ if (
                     <li><a data-link="records" href="#records" class=" flex justify-left flex-nowrap rounded-lg p-2">
                             <i class="fa-solid fa-folder-open fa-xl "></i>
                             <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">RECORDS</span>
+
+                        </a></li>
+                    <li><a data-link="student-no" href="#student-no" class=" flex justify-left flex-nowrap rounded-lg p-2">
+                            <i class="fa-solid fa-list fa-xl "></i>
+                            <span class="ml-2 group-[.is-collapsed]:hidden  transition-all delay-150 duration-150  ">STUDENT NO</span>
 
                         </a></li>
                     <li><a data-link="event" href="#event" class=" flex justify-left flex-nowrap rounded p-2 ">
@@ -312,6 +317,7 @@ if (
 
             </div>
 
+
         </main>
     </div>
     <!-- Modals -->
@@ -333,6 +339,10 @@ if (
     <div id="loadingScreen" class="post modal fixed inset-0 flex flex-col justify-center items-center p-3 z-50 hidden ">
         <span class="loader w-36 h-36"></span>
         <span class="text-lg font-bold text-white my-2 italic">"We promise it's worth the wait!"</span>
+    </div>
+    <!-- Success message student number -->
+    <div class="absolute bottom-16 flex justify-center w-full success-msg-upload slide-bottom hidden">
+        <span class="py-2 px-3 rounded-md bg-accent text-white">Student Record successfully uploaded</span>
     </div>
 </body>
 
